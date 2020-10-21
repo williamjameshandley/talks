@@ -75,7 +75,7 @@
     \begin{description}
         \item[Parameter estimation] Given a model, which range of parameters best describe the data?
             \[
-                P(\theta|D,M) = \frac{P(\theta|D,M) P(\theta|M)}{P(D|M)}, \qquad
+                P(\theta|D,M) = \frac{P(D|\theta,M) P(\theta|M)}{P(D|M)}, \qquad
                 \text{Posterior} = \frac{\text{Likelihood} \times \text{Prior}}{\text{Evidence}}
             \]
         \item[Model comparison] Which models do the data prefer?
@@ -135,7 +135,7 @@
       
     \item[$S_{n+1}$:] Delete the lowest likelihood sample in $S_{n}$, and replace it with a new uniform sample with higher likelihood
   \end{description}
- \item Requires one to be able to uniformly within a region, subject to a {\em hard likelihood constraint}.
+ \item Requires one to be able to sample uniformly within a region, subject to a {\em hard likelihood constraint}.
   \end{itemize}
     }{
         \includegraphics<1|handout:0>[width=\textwidth,page=1]{himmelblau}
