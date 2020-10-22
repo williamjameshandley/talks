@@ -18,6 +18,13 @@
 - [[PDF](https://github.com/williamjameshandley/talks/raw/oxford_2020/will_handley_oxford_2020.pdf)] 
 - [[source](https://github.com/williamjameshandley/talks/tree/oxford_2020)] 
 - _Jan 2020_  
+
+### Quantised primordial power spectra
+- [30th Texas Symposium on Relativistic Astrophysics](https://texas2019.org/), Portsmouth UK
+- [[PDF](https://github.com/williamjameshandley/talks/raw/texas_2019/will_handley_texas_2019.pdf)] 
+- [[source](https://github.com/williamjameshandley/talks/tree/texas_2019)] 
+- _Dec 2019_  
+
 ### Nested Sampling: an efficient and robust Bayesian inference tool for Machine Learning and Data Science
 - University of Cambridge CTD Seminar, UK 
 - [[PDF](https://github.com/williamjameshandley/talks/raw/cambridge_cdt_2019/will_handley_cambridge_cdt_2019.pdf)] 
