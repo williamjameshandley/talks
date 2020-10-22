@@ -1,4 +1,4 @@
-# Nested Nested Sampling An efficient and robust Bayesian inference tool for physics and machine learning
+# Nested Sampling: An efficient and robust Bayesian inference tool for physics and machine learning
 hour-long colloquium given on 14th February 2020 at the University of Adelaide, Australia
 
 ## Abstract
