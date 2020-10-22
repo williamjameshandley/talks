@@ -1,0 +1,50 @@
+% Useful packages
+\usepackage{graphicx}
+\usepackage{pgffor}
+
+% Turn off navigation bar
+\beamertemplatenavigationsymbolsempty{}
+
+% Reduce margin size
+\setbeamersize{text margin left=20pt,text margin right=20pt}
+
+% itemize settings
+\setlength{\leftmargini}{1pt}
+\setbeamertemplate{itemize items}[triangle]
+
+% https://www.cam.ac.uk/brand-resources/guidelines/typography-and-colour/colour-palette
+% https://www.cam.ac.uk/brand-resources/guidelines/typography-and-colour/pantone-pms-and-cmyk-references
+\definecolor{cambred}{cmyk}{.10,1,.78,0}
+\definecolor{cambblue}{cmyk}{.89,.52,0,0}
+\definecolor{camborange}{cmyk}{.04,.68,.99,0}
+\definecolor{cambgreen}{cmyk}{.71,.11,1,0.01}
+\definecolor{cambpurple}{cmyk}{.51,.98,.04,0}
+\definecolor{cambcyan}{cmyk}{.95,0,.29,0}
+
+\setbeamercolor*{structure}{bg=cambblue!15,fg=cambblue}
+\setbeamerfont{frametitle}{series=\bfseries}
+
+
+
+% footline
+\setbeamerfont{footline}{size*={10pt}{10pt}}
+\setbeamertemplate{footline}{%
+    \begin{beamercolorbox}[leftskip=0.2cm,rightskip=0.2cm]{structure}
+        Will Handley $<$wh260@cam.ac.uk$>$
+        \hfill
+        \insertframenumber{} / \inserttotalframenumber{}
+    \end{beamercolorbox}
+}
+
+\AtBeginSection[]{
+    \begin{frame}
+        \vfill
+        \centering
+        \begin{beamercolorbox}[sep=8pt,center,shadow=true,rounded=true]{title}
+            \usebeamerfont{title}\insertsectionhead\par%
+        \end{beamercolorbox}
+        \vfill
+    \end{frame}
+}
+
+
