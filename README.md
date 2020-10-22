@@ -1,6 +1,6 @@
 # Nested sampling: An efficient and robust Bayesian inference tool for 21cm cosmology
 
-Talk given on 21st October 2020 at the [3rd global 21cm workshop](https://sites.google.com/view/third21cmglobalworkshop/) 
+15 minute talk given on 21st October 2020 at the [3rd global 21cm workshop](https://sites.google.com/view/third21cmglobalworkshop/) 
 
 ## Abstract
 
