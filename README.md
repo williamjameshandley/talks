@@ -5,7 +5,7 @@
     - [3rd global 21cm workshop](https://sites.google.com/view/third21cmglobalworkshop/) 
     - [PDF](https://github.com/williamjameshandley/talks/raw/21cm_2020_workshop_cambridge/will_handley_21cm_2020_workshop_cambridge.pdf)  
     - [source](https://github.com/williamjameshandley/talks/tree/21cm_2020_workshop_cambridge)
-    - [video](https://www.youtube.com/watch?v=kr8HFuwJtgE&list=PLLaJFV9PU1_mF9-lLZlJGyFYyMfb27_Zo&index=1
+    - [video](https://www.youtube.com/watch?v=kr8HFuwJtgE&list=PLLaJFV9PU1_mF9-lLZlJGyFYyMfb27_Zo&index=1)
     - _October 2020_ 
 1. Nested Sampling: An efficient and robust Bayesian inference tool for physics and machine learning
     - University of Adelaide Colloquium, Australia 
