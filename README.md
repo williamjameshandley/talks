@@ -23,10 +23,18 @@
     - [source](https://github.com/williamjameshandley/talks/tree/texas_2019) 
     - _Dec 2019_  
 1. Nested Sampling: an efficient and robust Bayesian inference tool for Machine Learning and Data Science
-    - University of Cambridge CTD Seminar, UK 
+    - University of Cambridge CDT Seminar, UK 
     - [PDF](https://github.com/williamjameshandley/talks/raw/cambridge_cdt_2019/will_handley_cambridge_cdt_2019.pdf)
     - [source](https://github.com/williamjameshandley/talks/tree/cambridge_cdt_2019) 
     - _Nov 2019_  
+1. Curvature tension: Evidence for a closed universe (?)
+    - University of Portsmouth seminar, UK
+    - [PDF](https://github.com/williamjameshandley/talks/raw/curvature_portsmouth_2019/will_handley_portsmouth_2019.pdf)
+    - [source](https://github.com/williamjameshandley/talks/tree/curvature_portsmouth_2019) 
+    - _Aug 2019_  
+
+
+
 
 ## Outreach talks
 Currently in the process of putting up source and figures of past talks.
