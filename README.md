@@ -29,10 +29,14 @@
     - _Nov 2019_  
 1. Curvature tension: Evidence for a closed universe (?)
     - University of Portsmouth seminar, UK
-    - [PDF](https://github.com/williamjameshandley/talks/raw/curvature_portsmouth_2019/will_handley_portsmouth_2019.pdf)
-    - [source](https://github.com/williamjameshandley/talks/tree/curvature_portsmouth_2019) 
+    - [PDF](https://github.com/williamjameshandley/talks/raw/portsmouth_2019/will_handley_portsmouth_2019.pdf)
+    - [source](https://github.com/williamjameshandley/talks/tree/portsmouth_2019) 
     - _Aug 2019_  
-
+1. Quantifying cosmological tensions
+    - University College London seminar, UK
+    - [PDF](https://github.com/williamjameshandley/talks/raw/ucl_2019/will_handley_ucl_2019.pdf)
+    - [source](https://github.com/williamjameshandley/talks/tree/ucl_2019) 
+    - _Jul 2019_  
 
 
 
