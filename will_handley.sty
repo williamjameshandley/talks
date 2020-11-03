@@ -1,0 +1,106 @@
+% Slide layout
+% ------------
+% Turn off navigation bar
+\beamertemplatenavigationsymbolsempty{}
+
+% Reduce margin size
+\setbeamersize{text margin left=20pt,text margin right=20pt}
+
+% itemize settings
+\setlength{\leftmargini}{1pt}
+\setbeamertemplate{itemize items}[triangle]
+
+% footline
+\setbeamerfont{footline}{size*={10pt}{10pt}}
+\setbeamertemplate{footline}{%
+    \begin{beamercolorbox}[leftskip=0.2cm,rightskip=0.2cm]{structure}
+        \href{mailto:wh260@cam.ac.uk}{Will Handley $<$wh260@cam.ac.uk$>$}
+        \hfill
+        \insertframenumber{} / \inserttotalframenumber{}
+    \end{beamercolorbox}
+}
+
+% Colors
+% -------
+% https://www.cam.ac.uk/brand-resources/guidelines/typography-and-colour/colour-palette
+% https://www.cam.ac.uk/brand-resources/guidelines/typography-and-colour/pantone-pms-and-cmyk-references
+\definecolor{cambred}{cmyk}{.10,1,.78,0}
+\definecolor{cambblue}{cmyk}{.89,.52,0,0}
+\definecolor{camborange}{cmyk}{.04,.68,.99,0}
+\definecolor{cambgreen}{cmyk}{.71,.11,1,0.01}
+\definecolor{cambpurple}{cmyk}{.51,.98,.04,0}
+\definecolor{cambcyan}{cmyk}{.95,0,.29,0}
+
+\setbeamercolor*{structure}{bg=cambblue!15,fg=cambblue}
+\setbeamerfont{frametitle}{series=\bfseries}
+
+% Beamer title page details
+% -------------------------
+\author[Handley]{%
+    Will Handley\\
+    \small{\href{mailto:wh260@cam.ac.uk}{$<$wh260@cam.ac.uk$>$}}
+}
+\institute[University of Cambridge]{%
+	Royal Society University Research Fellow\\
+    Astrophysics Group, Cavendish Laboratory, University of Cambridge\\
+    Kavli Institute for Cosmology, Cambridge\\
+    Gonville \& Caius College\\
+	\url{willhandley.co.uk}
+}
+\titlegraphic{%
+    \includegraphics[height=0.08\textwidth]{logos/royalsociety}\hspace{10pt}
+    \includegraphics[height=0.08\textwidth]{logos/cavendish}\hspace{10pt}
+    \raisebox{0.015\textwidth}{
+        \includegraphics[height=0.05\textwidth]{logos/University_of_Cambridge}\hspace{10pt}
+    }
+    \includegraphics[height=0.08\textwidth]{logos/kicc}\hspace{10pt}
+    \includegraphics[height=0.08\textwidth]{logos/caius}
+}
+
+
+% Useful commands
+% ---------------
+% arxiv link
+\newcommand{\arxiv}[1]{\href{https://arxiv.org/abs/#1}{[#1]}}
+
+% columns shortcut
+\usepackage{calculator}
+\newcommand{\cols}[3][0.5]{%
+    \SUBTRACT{1.}{#1}{\wdthb}
+    \begin{columns}
+        \begin{column}{#1\textwidth}
+            #2
+        \end{column}
+        \begin{column}{\wdthb\textwidth}
+            #3
+        \end{column}
+    \end{columns}
+}
+
+% figure (rhs) environment
+\newcommand{\figname}{}
+\newenvironment{figright}[2][0.5]{%
+    \renewcommand{\figname}{#2}
+    \SUBTRACT{1.}{#1}{\wdthb}
+    \begin{columns}
+        \begin{column}{#1\textwidth}
+        }{%
+        \end{column}
+        \begin{column}{\wdthb\textwidth}
+            \includegraphics[width=\textwidth]{\figname}
+        \end{column}
+    \end{columns}
+}
+
+% figure (lhs) environment
+\newenvironment{figleft}[2][0.5]{%
+    \SUBTRACT{1.}{#1}{\wdthb}
+    \begin{columns}
+        \begin{column}{#1\textwidth}
+            \includegraphics[width=\textwidth]{#2}
+        \end{column}
+        \begin{column}{\wdthb\textwidth}
+        }{%
+        \end{column}
+    \end{columns}
+}

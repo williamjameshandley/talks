@@ -1,0 +1,62 @@
+\usepackage{calculator}
+
+\newcommand{\cols}[3][0.5]{%
+    \SUBTRACT{1.}{#1}{\wdthb}
+    \begin{columns}
+        \begin{column}{#1\textwidth}
+            #2
+        \end{column}
+        \begin{column}{\wdthb\textwidth}
+            #3
+        \end{column}
+    \end{columns}
+}
+
+\newcommand{\figname}{}
+\newenvironment{figright}[2][0.5]{%
+    \renewcommand{\figname}{#2}
+    \SUBTRACT{1.}{#1}{\wdthb}
+    \begin{columns}
+        \begin{column}{#1\textwidth}
+        }{%
+        \end{column}
+        \begin{column}{\wdthb\textwidth}
+            \includegraphics[width=\textwidth]{\figname}
+        \end{column}
+    \end{columns}
+}
+\newenvironment{figleft}[2][0.5]{%
+    \SUBTRACT{1.}{#1}{\wdthb}
+    \begin{columns}
+        \begin{column}{#1\textwidth}
+            \includegraphics[width=\textwidth]{#2}
+        \end{column}
+        \begin{column}{\wdthb\textwidth}
+        }{%
+        \end{column}
+    \end{columns}
+}
+
+
+\newcounter{numimages}
+
+\newenvironment{multifig}[1]{%
+    \begin{frame}
+        \pdfximage{#1}%
+        \setcounter{numimages}{\the\pdflastximagepages}
+        \addtocounter{numimages}{-1}
+
+        \begin{tikzpicture}[remember picture, overlay]
+            \foreach \pagenum in {1,...,\thenumimages} {%
+                \node<handout:0|beamer:\pagenum>[anchor=center] at (current page.center) {
+                \includegraphics[width=\textwidth,page=\pagenum]{#1}}; 
+            }
+            \addtocounter{numimages}{1}
+            \node<handout:1|beamer:\thenumimages>[anchor=center] at (current page.center) {
+            \includegraphics[width=\textwidth,page=\thenumimages]{#1}}; 
+        \end{tikzpicture}
+    }{%
+    \end{frame}
+}
+
+\newcommand{\arxiv}[1]{\href{https://arxiv.org/abs/#1}{arXiv:#1}}
