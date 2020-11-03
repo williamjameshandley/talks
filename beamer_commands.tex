@@ -1,0 +1,51 @@
+\usepackage{calculator}
+
+\newcommand{\cols}[3][0.5]{%
+    \SUBTRACT{1.}{#1}{\wdthb}
+    \begin{columns}
+        \begin{column}{#1\textwidth}
+            #2
+        \end{column}
+        \begin{column}{\wdthb\textwidth}
+            #3
+        \end{column}
+    \end{columns}
+}
+
+\newcommand{\figname}{}
+\newenvironment{figright}[2][0.5]{%
+    \renewcommand{\figname}{#2}
+    \SUBTRACT{1.}{#1}{\wdthb}
+    \begin{columns}
+        \begin{column}{#1\textwidth}
+        }{%
+        \end{column}
+        \begin{column}{\wdthb\textwidth}
+            \includegraphics[width=\textwidth]{\figname}
+        \end{column}
+    \end{columns}
+}
+
+% \makeatletter
+% \newcommand{\shoppinglist}[1]{%
+%     Shopping list: #1\checknextarg}
+% \newcommand{\checknextarg}{\@ifnextchar\bgroup{\gobblenextarg}{ and that's all!}}
+% \newcommand{\gobblenextarg}[1]{ and also #1\@ifnextchar\bgroup{\gobblenextarg}{ and that's all!}}
+
+
+
+
+\makeatletter
+\newenvironment{figleft}[2][0.5]{%
+    \SUBTRACT{1.}{#1}{\wdthb}
+    \begin{columns}
+        \begin{column}{#1\textwidth}
+            \includegraphics[width=\textwidth]{#2}
+        \end{column}
+        \begin{column}{\wdthb\textwidth}
+        }{%
+        \end{column}
+    \end{columns}
+}
+\makeatother
+
