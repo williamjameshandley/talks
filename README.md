@@ -47,6 +47,11 @@
     - [PDF](https://github.com/williamjameshandley/talks/raw/flatiron_2019/will_handley_flatiron_2019.pdf)
     - [source](https://github.com/williamjameshandley/talks/tree/flatiron_2019) 
     - _Mar 2019_  
+1. Inflation, curvature and kinetic dominance 
+    - [Future work with Planck data](https://www.cosmos.esa.int/web/fwpd) meeting in ESAC spain 
+    - [PDF](https://github.com/williamjameshandley/talks/raw/esac_2018/will_handley_esac_2018.pdf)
+    - [source](https://github.com/williamjameshandley/talks/tree/esac_2018) 
+    - _Dec 2018_  
 
 
 
