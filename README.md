@@ -37,6 +37,11 @@
     - [PDF](https://github.com/williamjameshandley/talks/raw/ucl_2019/will_handley_ucl_2019.pdf)
     - [source](https://github.com/williamjameshandley/talks/tree/ucl_2019) 
     - _Jul 2019_  
+1. Likelihood free inference
+    - [GAMBIT X](https://indico.cern.ch/event/796828/) 
+    - [PDF](https://github.com/williamjameshandley/talks/raw/gambit_x_2019/will_handley_gambit__2019.pdf)
+    - [source](https://github.com/williamjameshandley/talks/tree/gambit__2019) 
+    - _Jun 2019_  
 
 
 
