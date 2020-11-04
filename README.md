@@ -38,10 +38,15 @@
     - [source](https://github.com/williamjameshandley/talks/tree/ucl_2019) 
     - _Jul 2019_  
 1. Likelihood free inference
-    - [GAMBIT X](https://indico.cern.ch/event/796828/) 
-    - [PDF](https://github.com/williamjameshandley/talks/raw/gambit_x_2019/will_handley_gambit__2019.pdf)
-    - [source](https://github.com/williamjameshandley/talks/tree/gambit__2019) 
+    - [GAMBIT X](https://indico.cern.ch/event/796828/) in Aschaffenburg, Germany
+    - [PDF](https://github.com/williamjameshandley/talks/raw/gambit_x_2019/will_handley_gambit_x_2019.pdf)
+    - [source](https://github.com/williamjameshandley/talks/tree/gambit_x_2019) 
     - _Jun 2019_  
+1. Compromise-free Bayesian sparse reconstruction
+    - [Likelihood-Free Inference Workshop](https://lfitaskforce.github.io/FlatironMeeting/) at the Flatiron institute, New York 
+    - [PDF](https://github.com/williamjameshandley/talks/raw/flatiron_2019/will_handley_flatiron_2019.pdf)
+    - [source](https://github.com/williamjameshandley/talks/tree/flatiron_2019) 
+    - _Mar 2019_  
 
 
 
