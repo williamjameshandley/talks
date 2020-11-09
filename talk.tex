@@ -1,0 +1,252 @@
+\documentclass[%
+    handout
+]{beamer}
+\usepackage{graphicx} % For including single page pdfs
+\usepackage{bm}       % bold math
+\usepackage{pgffor}   % for loop
+\usepackage{tikz}
+\usepackage{multimedia}
+\usepackage{layouts}
+\usepackage{hyperref}
+\usepackage{cambridge_lecture}
+
+\include{include/beamer_commands}
+
+\newcommand{\lik}{\mathcal{L}}
+\newcommand{\posterior}{\mathcal{P}}
+\newcommand{\prior}{\pi}
+\newcommand{\ev}{\mathcal{Z}}
+
+\newcommand{\prob}{\mathrm{P}}
+
+
+\title{Nested Sampling}
+\subtitle{An efficient and robust Bayesian inference tool\\ for cosmology and particle physics }
+\author[Handley] % (optional, for multiple authors)
+{Will Handley\\ \small{wh260@cam.ac.uk}}
+\institute[University of Cambridge] % (optional)
+{%
+Astrophysics Group \\
+Cavendish Laboratory \\
+University of Cambridge
+}
+\date{Nov 6, 2018}
+
+
+\begin{document}
+
+\begin{frame}
+    \titlepage{}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Outline}
+    \tableofcontents
+\end{frame}
+
+\section{What is nested sampling}
+\begin{frame}
+    \frametitle{What do I mean by sampling?}
+\begin{figright}[0.6]{./figures/MCMCTraversal.png}
+    \begin{itemize}
+        \item Sampling is the process of generating $D$-dimensional points $\theta=(\theta_1,\ldots,\theta_D)$ drawn from probability distribution $P(\theta)$.
+        \item $P(\theta)$ is a-priori unknown, and may be expensive to evaluate.
+        \item The name of the game is use as few calls to $P$ as possible.
+        \item Points need not be independent, and indeed normally only need $\sim\mathcal{O}(12)$ for most inference purposes.
+    \end{itemize}
+\end{figright}
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{Challenges in sampling techniques}
+\begin{figright}[0.4]{./figures/Himmelblau_contour.png}
+    \begin{itemize}
+        \item Multimodality
+        \item Burn-in
+        \item Convergence diagnosis
+        \item Correlation/Degeneracy 
+        \item Parallelisation
+        \item Phase-transitions
+        \item High dimensions
+    \end{itemize}
+\end{figright}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Nested Sampling} 
+  \begin{itemize}
+      \item Completely new approach to sampling:
+  \end{itemize}
+
+  Maintain a set $S$ of $n$ samples, which are sequentially updated:
+
+  \begin{description}
+    \item[$S_0$:] Generate $n$ samples uniformly over the space.
+    \item[$S_{n+1}$:] Delete the lowest probability sample in $S_{n}$, and replace it with a new sample with higher probability
+  \end{description}
+
+  \begin{itemize}
+      \item This generates a \emph{run} of discarded points.
+      \item $n\sim\mathcal{O}(10s-1000s)$
+      \item Requires one to be able to uniformly within a region, subject to a {\em hard probability constraint}.
+      \item John Skilling's original paper: \href{https://projecteuclid.org/euclid.ba/1340370944}{euclid.ba/1340370944}
+  \end{itemize}
+\end{frame}
+
+\begin{multifig}{figures/nested_sampling.pdf}
+\end{multifig}
+
+\begin{frame}
+  \frametitle{How is Nested Sampling used?} 
+  \begin{itemize}
+      \item Nested sampling generates a \emph{run} of discarded points
+      \item These points can be weighted in post-processing to give:
+          \begin{itemize}
+              \item Posterior samples
+              \item Bayesian Evidence (marginal likelihoods)
+              \item Kullback Liebler divergence
+              \item Partition function
+          \end{itemize}
+      \item This is possible because the nested sampling scheme is a probabilistic integrator, allowing one to estimate the \emph{density of states}.
+  \end{itemize}
+\end{frame}
+
+
+\begin{multifig}{figures/lesbesgue.pdf}
+    \frametitle{Probabilistic integration}
+\end{multifig}
+
+\begin{frame}
+    \frametitle{Estimating the density of states} 
+
+    \begin{itemize}
+        \item If number of live points $n=100$, each uniformly sampled point sits in a shell $\approx 1\%$ of volume of outer most contour
+        \item At each iteration, contour shrinks in volume by  $\approx 1/n$.
+            \begin{equation}
+                \ev \approx \sum_i \Delta\lik_i X_{i},\qquad
+                X_{i+1} \approx \frac{n}{n+1}X_i, \qquad X_{0} = 1
+                \nonumber
+            \end{equation}
+        \item Nested sampling zooms in to the peak of the posterior {\em exponentially}.
+        \item In fact, we perform precise inference on the volumes:
+            \begin{equation}
+                P(X_{i+1}|X_{i}) = n{[X_{i+1}/X_{i}]}^{n-1}
+                \nonumber
+            \end{equation}
+        \item Posterior weights are $\mathcal{P}_i = \mathcal{L}_i\times (X_i-X_{i-1})$
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Key advantages of nested sampling} 
+    \begin{itemize}
+        \item The density of states (prior volume estimation) is the missing piece in inference, normally avoided/cancelled in traditional methods.
+        \item Allows numerical computation of Bayesian Evidence \& KL divergence.
+        \item At each iteration, the set of live points enables self-tuning:
+            \begin{itemize}
+                \item Clustering (handling multi-modality)
+                \item Correlation estimation (constructing proposal distributions)
+            \end{itemize}
+        \item The sampling process is athermal, and invariant under monotonic tranformations of the sampled distribution $L(\theta)\to f(L(\theta))$:
+            \begin{equation}
+                E(\theta) = -\log L(\theta) \qquad P(\theta) = \frac{1}{Z(\beta)}e^{-\beta E(\theta)}
+            \end{equation}
+        \item By appropriate re-weighting, we can post-process the posterior samples to be at any temperature.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{How do we perform nested sampling?} 
+    \begin{itemize}
+        \item Requires one to be able to uniformly within a region, subject to a {\em hard probability constraint}.
+        \item Two main codes that implement traditional NS\@:
+            \begin{description}
+                \item[MultiNest] \href{https://arxiv.org/abs/0809.3437}{arXiv:0809.3437} 
+                \item[PolyChord] \href{https://arxiv.org/abs/1506.00171}{arXiv:1506.00171} 
+            \end{description}
+        \item Alternative frameworks:
+            \begin{description}
+                \item[Diffusive NS] \href{https://arxiv.org/abs/0912.2380}{arXiv:0912.2380} 
+                \item[SE NS]\href{https://arxiv.org/abs/1402.6306}{arXiv:1402.6306} 
+                \item[Dynamic NS] \href{https://arxiv.org/abs/1704.03459}{arXiv:1704.03459} 
+            \end{description}
+    \end{itemize}
+
+\end{frame}
+
+
+\section{MultiNest}
+\begin{multifig}{figures/multinest.pdf}
+    \frametitle{MultiNest}
+\end{multifig}
+\begin{frame}
+    \frametitle{MultiNest} 
+    \begin{itemize}
+        \item \href{https://arxiv.org/abs/0809.3437}{arXiv:0809.3437} 
+        \item Uses a set of overlapping ellipsoids to approximate the shape of the contours
+        \item Rejection samples from this representation.
+        \item Maximally efficient in low dimensions\ldots
+        \item \ldots exponentially bad in high dimensions.
+        \item Transition is distribution-dependent (as low as $5$ or as high as $60$).
+        \item John Skilling originally anticipated/advocated using MCMC-style chain-based approach.
+    \end{itemize}
+\end{frame}
+
+\section{PolyChord}
+\begin{multifig}{figures/polychord.pdf}
+    \frametitle{PolyChord}
+\end{multifig}
+
+\begin{frame}
+    \frametitle{PolyChord} 
+    \begin{itemize}
+        \item \href{https://arxiv.org/abs/1506.00171}{arXiv:1506.00171}
+        \item Uses slice sampling to generate new points: \href{https://projecteuclid.org/euclid.aos/1056562461}{euclid.aos/1056562461} 
+        \item Each step requires $\sim\mathcal{O}(3-5)$ evaluations, need $N\sim\mathcal{O}(D)$ steps per chain to decorrelate from start point.
+        \item Worse than MultiNest in low dimensions, exponentially more efficient in high dimensions.
+        \item Chain-based $\Rightarrow$ allows exploitation of fast-slow hierarchy.
+        \item Under active maintenance/development
+    \end{itemize}
+\end{frame}
+
+\section{Advances in Nested Sampling}
+\begin{frame}
+    \frametitle{Further advances in nested sampling}
+    \begin{itemize}
+        \item Dynamic nested sampling
+            \begin{itemize}
+                \item \href{https://arxiv.org/abs/1704.03459}{arXiv:1704.03459} 
+                \item Allows one to refine a run and generate more points, e.g.\ in the posterior bulk, or prior tails.
+            \end{itemize}
+        \item Consistency checking
+            \begin{itemize}
+                \item \href{https://arxiv.org/abs/1804.06406}{arXiv:1804.06406} 
+                \item Unweaving runs allows for cross-checking and testing for imperfect contour sampling.
+            \end{itemize}
+        \item Diffusive nested sampling
+            \begin{itemize}
+                \item \href{https://arxiv.org/abs/0912.2380}{arXiv:0912.2380} 
+                \item Fuzzy contours represent an alternative approach to nested sampling
+            \end{itemize}
+        \item PolyChord 2.0
+            \begin{itemize}
+                \item \href{https://arxiv.org/abs/0912.2380}{arXiv:0912.2380} 
+                \item Under active develoment, promises $\sim\mathcal{O}(D)$ speed-up
+            \end{itemize}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Takeaway points}
+    \begin{itemize}
+        \item Nested sampling is far more than a posterior sampler.
+        \item To do nested sampling in high dimensions, you cannot use MultiNest.
+        \item Fast-slow hierarchies have proven extremely useful in speeding up Planck, AMI and DES analyses.
+        \item PolyChord is available on GitHub: \href{https://github.com/PolyChord/PolyChordLite}{github.com/PolyChord/PolyChordLite}
+        \item PolyChord interfaces are available for CosmoMC, cosmosis, MontePython and GAMBIT\@.
+    \end{itemize}
+\end{frame}
+
+\end{document}
