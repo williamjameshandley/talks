@@ -52,7 +52,13 @@
     - [PDF](https://github.com/williamjameshandley/talks/raw/esac_2018/will_handley_esac_2018.pdf)
     - [source](https://github.com/williamjameshandley/talks/tree/esac_2018) 
     - _Dec 2018_  
+1. Nested Sampling: an efficient and robust Bayesian inference tool for cosmology and particle physics 
+    - [DarkMachines](https://darkmachines.org/) community online
+    - [[PDF](https://github.com/williamjameshandley/talks/raw/darkmachines_ns_2018/will_handley_darkmachines_ns_2018.pdf)] 
+    - [source](https://github.com/williamjameshandley/talks/tree/darkmachines_ns_2018) 
+    - _Nov 2018_  
 
+More historical talks to be added soon
 
 
 ## Outreach talks
