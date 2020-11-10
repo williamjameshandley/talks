@@ -52,9 +52,16 @@
     - [PDF](https://github.com/williamjameshandley/talks/raw/esac_2018/will_handley_esac_2018.pdf)
     - [source](https://github.com/williamjameshandley/talks/tree/esac_2018) 
     - _Dec 2018_  
+1. BAMBI: Resurrection -- Blind Accelerated Multimodal Bayesian Inference 
+    - [DarkMachines](https://darkmachines.org/) community online 
+    - [following up to nested sampling talk below](https://github.com/williamjameshandley/talks/tree/darkmachines_ns_2018)
+    - [source](https://github.com/williamjameshandley/talks/tree/darkmachines_bambi_2018) 
+    - [python module](https://github.com/DarkMachines/pyBAMBI)
+    - [PDF](https://github.com/williamjameshandley/talks/raw/darkmachines_ns_2018/will_handley_darkmachines_bambi_2018.pdf)]
+    - _Nov 2018_  
 1. Nested Sampling: an efficient and robust Bayesian inference tool for cosmology and particle physics 
     - [DarkMachines](https://darkmachines.org/) community online
-    - [[PDF](https://github.com/williamjameshandley/talks/raw/darkmachines_ns_2018/will_handley_darkmachines_ns_2018.pdf)] 
+    - [PDF](https://github.com/williamjameshandley/talks/raw/darkmachines_ns_2018/will_handley_darkmachines_ns_2018.pdf)] 
     - [source](https://github.com/williamjameshandley/talks/tree/darkmachines_ns_2018) 
     - _Nov 2018_  
 
