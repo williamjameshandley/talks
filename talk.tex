@@ -1,0 +1,173 @@
+\documentclass[%
+    handout
+]{beamer}
+\usepackage{graphicx} % For including single page pdfs
+\usepackage{bm}       % bold math
+\usepackage{pgffor}   % for loop
+\usepackage{tikz}
+\usepackage{multimedia}
+\usepackage{layouts}
+\usepackage{hyperref}
+\usepackage{cambridge_lecture}
+
+\include{include/beamer_commands}
+
+\newcommand{\lik}{\mathcal{L}}
+\newcommand{\posterior}{\mathcal{P}}
+\newcommand{\prior}{\pi}
+\newcommand{\ev}{\mathcal{Z}}
+
+\newcommand{\prob}{\mathrm{P}}
+
+
+\title{BAMBI\@: Resurrection}
+\subtitle{Blind Accelerated Multimodal Bayesian Inference}
+\author[Handley] % (optional, for multiple authors)
+{Will Handley\\ \small{wh260@cam.ac.uk}}
+\institute[University of Cambridge] % (optional)
+{%
+Astrophysics Group \\
+Cavendish Laboratory \\
+University of Cambridge
+}
+\date{Nov 13, 2018}
+
+
+\begin{document}
+
+\begin{frame}
+    \titlepage{}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Outline}
+    \tableofcontents
+\end{frame}
+
+\section{Background}
+
+\begin{frame}
+    \frametitle{Background}
+    \begin{itemize}
+        \item Key papers in historical order:
+            \begin{description}
+                \item[MultiNest] \href{https://arxiv.org/abs/0809.3437}{arXiv:0809.3437} 
+                \item[BAMBI]     \href{https://arxiv.org/abs/1110.2997}{arXiv:1110.2997} 
+                \item[SkyNet]    \href{https://arxiv.org/abs/1309.0790}{arXiv:1309.0790}
+                \item[PolyChord] \href{https://arxiv.org/abs/1506.00171}{arXiv:1506.00171} 
+            \end{description}
+        \item First widely-successful nested sampling algorithm MultiNest.
+        \item BAMBI aims to speed up MultiNest using neural networks.
+        \item Neural network approach is developed into stand-alone code SkyNet.
+        \item MultiNest is updated from version 1 to version 3.
+        \item Higher-dimensional nested sampling available in PolyChord.
+    \end{itemize}
+\end{frame}
+
+
+\section{Nested Sampling summary}
+
+\begin{frame}
+  \frametitle{Nested Sampling} 
+  \begin{itemize}
+      \item Completely new approach to sampling:
+  \end{itemize}
+
+  Maintain a set $S$ of $n$ samples, which are sequentially updated:
+
+  \begin{description}
+    \item[$S_0$:] Generate $n$ samples uniformly over the space.
+    \item[$S_{n+1}$:] Delete the lowest probability sample in $S_{n}$, and replace it with a new sample with higher probability
+  \end{description}
+
+  \begin{itemize}
+      \item This generates a \emph{run} of discarded points.
+      \item $n\sim\mathcal{O}(10s-1000s)$
+      \item Requires one to be able to uniformly within a region, subject to a {\em hard probability constraint}.
+      \item John Skilling's original paper: \href{https://projecteuclid.org/euclid.ba/1340370944}{euclid.ba/1340370944}
+  \end{itemize}
+\end{frame}
+
+\begin{multifig}{figures/nested_sampling.pdf}
+\end{multifig}
+
+\begin{frame}
+  \frametitle{How is Nested Sampling used?} 
+  \begin{itemize}
+      \item Nested sampling generates a \emph{run} of discarded points
+      \item These points can be weighted in post-processing to give:
+          \begin{itemize}
+              \item Posterior samples
+              \item Bayesian Evidence (marginal likelihoods)
+              \item Kullback Liebler divergence
+              \item Partition function
+          \end{itemize}
+      \item This is possible because the nested sampling scheme is a probabilistic integrator, allowing one to estimate the \emph{density of states}.
+  \end{itemize}
+\end{frame}
+
+\section{BAMBI}
+\begin{frame}
+  \frametitle{Neural networks to speed up likelihood calls} 
+  \begin{dfigright}[0.65]{./figures/NS1.pdf}{./figures/Artificial_neural_network.png}
+    \begin{itemize}
+        \item Likelihood calls can often be slow (seconds to minutes in cosmology and particle physics).
+        \item Use trained neural network as fast proxy for the likelihood
+    \end{itemize}
+\end{dfigright}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{BAMBI} 
+  \begin{dfigright}[0.65]{./figures/NS1.pdf}{./figures/Artificial_neural_network.png}
+    \begin{enumerate}
+        \item Every \texttt{updInt/2} iterations, use the last \texttt{updInt} discarded points to train a neural network\label{it:loop1}
+        \item Split points $80:20$ training:validation
+        \item If accurate network is obtained, replace log-likelihood with NN\@.
+        \item Periodically check whether NN remains accurate, and re-train if necesssary
+    \end{enumerate}
+    \begin{itemize}
+        \item Do not use NN in place of likelihood if outside range of training data.
+        \item Re-train if most new samples outside 95\% central percentile of training data likelihoods.
+    \end{itemize}
+\end{dfigright}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{BAMBI\@: good ideas} 
+  \begin{dfigright}[0.65]{./figures/NS1.pdf}{./figures/Artificial_neural_network.png}
+    \begin{itemize}
+        \item At end of procedure, one is left with a set of overlapping NNs.
+        \item Each NN capable of predicting the log-likelihood across a certain range.
+        \item NNs can be used for further analyses
+        \item set of NNs are particularly well-suited to describing posterior peak
+    \end{itemize}
+\end{dfigright}
+\end{frame}
+
+\section{BAMBI\@: Resurrection}
+\begin{frame}
+  \frametitle{Problems with current BAMBI code} 
+    \begin{itemize}
+        \item Out-of-date: 
+        \item Hard-coded into old MultiNest (v1). 
+        \item NN training technology has advanced since 2013.
+        \item MultiNest will not be suitable for high-dimensional problems, even with fast NN-proxy likelihoods.
+    \end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{PyBAMBI} 
+    \begin{itemize}
+        \item Use latest advances in neural networks.
+        \item Use latest versions of PyMultiNest and PyPolyChord.
+        \item Use dumper functions to keep everything in python.
+        \item Use \href{https://keras.io/}{Keras, TensorFlow and Theano} for NN framework.
+    \end{itemize}
+\end{frame}
+
+\end{document}
