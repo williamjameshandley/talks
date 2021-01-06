@@ -1,0 +1,18 @@
+
+\begin{tikzpicture}
+    % width of axes
+    % length of crosses
+    \def\croslen{0.1\textwidth}
+
+    % Draw axes
+    \draw [<->,thick] (0,0.5\textwidth) node (yaxis) [below right] {$\log\mathcal{P}_\mathcal{R}$}
+    |- (\textwidth,0) node (xaxis) [above] {$\log k$};
+
+    \coordinate (mn) at (0.1\textwidth,0.3\textwidth);
+    \coordinate (mx) at (0.9\textwidth,0.25\textwidth);
+    \draw (mn) -- (mx);
+    \draw<1> (mx) node[below left] {$A_s {\left(\frac{k}{k_*}\right)}^{n_s-1}$};
+
+
+\end{tikzpicture}
+

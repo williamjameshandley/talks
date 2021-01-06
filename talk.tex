@@ -1,0 +1,192 @@
+\documentclass[%
+    %handout
+]{beamer}
+\usepackage{graphicx} % For including single page pdfs
+\usepackage{bm}       % bold math
+\usepackage{pgffor}   % for loop
+\usepackage{tikz}
+\usepackage{multimedia}
+\usepackage{layouts}
+\usepackage{hyperref}
+\usepackage{cambridge_lecture}
+\usepackage{mathtools}
+\newtheorem*{theorem*}{Theorem}
+
+
+\title{Planck, inflation and the future of inflationary constraints}
+\subtitle{Consistency of Cosmological Datasets: Evidence for new Physics?}
+\author[Handley] % (optional, for multiple authors)
+{Will Handley\\ \small{wh260@cam.ac.uk}}
+\institute[University of Cambridge] % (optional)
+{%
+    Astrophysics Group \\
+    Cavendish Laboratory \\
+    University of Cambridge
+}
+\date{1\textsuperscript{st} June 2018}
+
+\include{beamer_commands}
+
+\begin{document}
+
+\begin{frame}
+    \titlepage{}
+\end{frame}
+
+\begin{frame}
+    \frametitle{The pipeline from inflation to the CMB}
+    \begin{columns}
+        \begin{column}{0.5\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{./figures/p2001dcd6g16001.jpg}
+            \begin{minipage}{0.7\textwidth}
+                \include{asns_compact}
+            \end{minipage}
+            \includegraphics[width=0.7\textwidth]{./figures/700px-A15_TT.png}
+        \end{column}
+        \hfill
+        \begin{column}{0.5\textwidth}
+            \begin{itemize}
+                \item Inflationary model
+                \item Primordial power spectrum $\mathcal{P}_\mathcal{R}$
+                \item $(A_s,n_s,r)$
+                \item Boltzmann solver \& line-of-site projection
+                \item $(\Omega_b h^2,\Omega_c h^2,\theta_\ast,\tau)$
+                \item CMB power spectrum $C_\ell$
+            \end{itemize}
+        \end{column}
+    \end{columns}
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{Constraining inflation (Planck 2015)}
+    \framesubtitle{Linking theorists and observers}
+    \includegraphics[width=\textwidth]{./figures/V18TTvsTTTEEEvs2013_120mmR.pdf}
+\end{frame}
+
+
+\begin{frame}
+    \frametitle{COBE}
+    \centering
+    \includegraphics[width=0.7\textwidth]{./figures/COBE.pdf}
+\end{frame}
+\begin{frame}
+    \frametitle{COBE, MAXIMA, BOOMERANG, VSA, DASI, CBI}
+    \centering
+    \includegraphics[width=0.7\textwidth]{./figures/pre_WMAP.pdf}
+\end{frame}
+\begin{frame}
+    \frametitle{WMAP}
+    \centering
+    \includegraphics[width=0.7\textwidth]{./figures/WMAP.pdf}
+\end{frame}
+\begin{frame}
+    \frametitle{Planck 2013}
+    \centering
+    \includegraphics[width=0.7\textwidth]{./figures/planck_2013.pdf}
+\end{frame}
+
+\begin{frame}
+    \frametitle{The Future}
+    \centering
+    \begin{figleft}[0.6]{./figures/combined.pdf}
+        \begin{itemize}
+            \item Lyth bound:  $r>0.01 \Rightarrow \Delta\phi > M_\mathrm{p}$
+            \item LiteBird: $r\sim \mathcal{O}(10^{-3})$, $r\sim \mathcal{O}(N^{-2})$ $50<N<60$
+            \item Compare specific inflationary models.
+        \end{itemize}
+    \end{figleft}
+\end{frame}
+
+
+\begin{frame}
+    \frametitle{The importance of $\tau$}
+    \centering
+    \includegraphics[width=0.7\textwidth]{./figures/tau_triangle_both.pdf}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Primordial power spectrum reconstruction}
+    \centering
+    \begin{minipage}{0.7\textwidth}
+        \include{asns}
+    \end{minipage}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Primordial power spectrum reconstruction}
+    \centering
+    \begin{minipage}{0.7\textwidth}
+        \include{reconstruction}
+    \end{minipage}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Primordial power spectrum reconstruction with CORE}
+    \centering
+    \includegraphics[width=0.49\textwidth]{./figures/posterior_monodromy_2.jpg}
+    \includegraphics[width=0.49\textwidth]{./figures/posterior_cs_2.pdf}
+\end{frame}
+
+\begin{frame}
+    \frametitle{The future of inflation observation}
+    \centering
+    \begin{figleft}[0.6]{./figures/pps.png}
+        \begin{itemize}
+            \item $r\stackrel{?}{\ne}0$ --- LiteBird
+            \item better $\tau\Rightarrow$ feature finding --- CORE (CMB Bharat?) --- PICO?
+            \item Spectral distortions --- PRISTINE?
+            \item Alternative models to relieve tensions?
+        \end{itemize}
+    \end{figleft}
+\end{frame}
+
+
+\begin{frame}
+    \frametitle{Alternative models: Kinetic dominance}
+    \framesubtitle{``Just enough inflation''}
+    \begin{figleft}[0.6]{./figures/wh293_100_v1.pdf}
+        \begin{itemize}
+            \item Only $\sim\mathcal{O}(60)$ efolds of total inflation 
+            \item Preceded by generic phase of $\dot{\phi}^2\gg V(\phi)$
+            \item Natural mechanism for generating low-$\ell$ supression
+            \item Possibility of fitting $\ell\sim30$ feature
+            \item Spatial curvature provides stronger justification.
+        \end{itemize}
+    \end{figleft}
+\end{frame}
+
+\begin{frame}
+    \frametitle{The DES Bayes factor}
+    \begin{figleft}[0.5]{./figures/Lahav_DES_DESI__Cambridge_29May2018.pdf}
+        \begin{itemize}
+            \item Contains everything it should, in a dimensionally consistent way:
+                \begin{equation}
+                    R = \frac{P(D_{pl},D_{des}|M)}{P(D_{pl}|M)P(D_{des}|M)}  \nonumber
+                \end{equation}
+            \item $R\sim 10$ default prior, $R\sim 0.1$ for narrower prior.
+        \end{itemize}
+        \begin{equation}
+            R = \frac{P(D_{pl}|D_{des},M)}{P(D_{pl}|M)} = \frac{P(D_{pl}|M_{OL})}{P(D_{pl}|M_{GPE})} \nonumber
+        \end{equation}
+    \end{figleft}
+    \begin{itemize}
+        \item Represents Bayesian confidence in ability to combine the data
+        \item The fact that there are physically reasonable priors which make $R<1$ means that as a Bayesian I am very suspicious of this combination.
+        \item Conditioned on $\Lambda$CDM, these data are inconsistent.
+    \end{itemize}
+\end{frame}
+
+%\begin{frame}
+%    \frametitle{<++>}
+%    \framesubtitle{<++>}
+%
+%	\begin{figright}{<++>}
+%	\end{figright}
+% 
+%\end{frame}
+
+
+
+\end{document}
