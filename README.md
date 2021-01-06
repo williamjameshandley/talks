@@ -65,6 +65,12 @@
     - [source](https://github.com/williamjameshandley/talks/tree/darkmachines_ns_2018) 
     - _Nov 2018_  
 
+1. Planck, inflation and the future of inflationary constraints 
+     - [Consistency of cosmological datasets conference](https://www.kicc.cam.ac.uk/events/copy_of_past-events/consistency-of-cosmological-datasets-evidence-for-new-physics-1/consistency-of-cosmological-datasets-evidence-for-new-physics) -
+    - [source](https://github.com/williamjameshandley/talks/tree/consistency_2018) 
+    - [PDF](https://github.com/williamjameshandley/talks/raw/consistency_2018/will_handley_consistency_2018.pdf) 
+    - May 2018
+
 More historical talks to be added soon
 
 
