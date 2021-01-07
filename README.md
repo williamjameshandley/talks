@@ -64,7 +64,12 @@
     - [PDF](https://github.com/williamjameshandley/talks/raw/darkmachines_ns_2018/will_handley_darkmachines_ns_2018.pdf)] 
     - [source](https://github.com/williamjameshandley/talks/tree/darkmachines_ns_2018) 
     - _Nov 2018_  
-
+1. Bayesian inference: The state of the art in cosmology and astrophysics
+    - Cambridge at the Third Asterics-Obelics workshop 
+    - [PDF](https://github.com/williamjameshandley/talks/raw/asterics_2018/will_handley_asterics_2018.pdf)
+    - [[PDF](https://github.com/williamjameshandley/talks/raw/asterics_2018/will_handley_asterics_2018.pdf)] 
+    - [source](https://github.com/williamjameshandley/talks/tree/asterics_2018) 
+    - Oct 2018
 1. Planck, inflation and the future of inflationary constraints 
      - [Consistency of cosmological datasets conference](https://www.kicc.cam.ac.uk/events/copy_of_past-events/consistency-of-cosmological-datasets-evidence-for-new-physics-1/consistency-of-cosmological-datasets-evidence-for-new-physics) -
     - [source](https://github.com/williamjameshandley/talks/tree/consistency_2018) 
