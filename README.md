@@ -80,6 +80,11 @@
     - [source](https://github.com/williamjameshandley/talks/tree/maxent_2018) 
     - [PDF](https://github.com/williamjameshandley/talks/raw/maxent_2018/will_handley_maxent_2018.pdf) 
     - May 2018
+16. Nested Sampling: an efficient and robust Bayesian inference tool for astrophysics and cosmology 
+    - Imperial college seminar, London
+    - [source](https://github.com/williamjameshandley/talks/tree/icic_2018) 
+    - [PDF](https://github.com/williamjameshandley/talks/raw/icic_2018/will_handley_icic_2018.pdf) 
+    - May 2018
 
 
 
