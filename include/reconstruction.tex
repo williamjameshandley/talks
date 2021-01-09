@@ -1,0 +1,48 @@
+
+\newcommand{\movablecross}[1]{%
+    \draw[->](#1) -- ++(0:\croslen);
+    \draw[->](#1) -- ++(90:\croslen);
+    \draw[->](#1) -- ++(180:\croslen);
+    \draw[->](#1) -- ++(270:\croslen);
+    \fill[red!70!black] (#1) circle (2pt);
+}
+
+\newcommand{\movablevert}[1]{%
+    \draw[->](#1) -- ++(90:\croslen);
+    \draw[->](#1) -- ++(270:\croslen);
+    \fill[red!70!black] (#1) circle (2pt);
+}
+
+\begin{tikzpicture}
+    % width of axes
+    % length of crosses
+    \def\croslen{0.1\textwidth}
+
+
+    % Draw axes
+    \draw [<->,thick] (0,0.67\textwidth) node (yaxis) [above] {$y$}
+    |- (\textwidth,0) node (xaxis) [below] {$x$};
+
+    % Draw the line joining start and end
+    \coordinate (mn) at (0.1\textwidth,0.3\textwidth);
+    \coordinate (start) at (0.2\textwidth,0.6\textwidth);
+    \coordinate (mid) at (0.5\textwidth,0.2\textwidth);
+    \coordinate (end) at (0.6\textwidth,0.5\textwidth);
+    \coordinate (mx) at (0.9\textwidth,0.4\textwidth);
+    \draw (mn) node[below right]    {$(x_1,y_1)$};
+    \draw (start) node[above right]     {$(x_2,y_2)$};
+    \draw (mid) node[below right] {$(x_3,y_3)$};
+    \draw (end) node[above right] {$(x_4,y_4)$};
+    \draw (mx) node[below left]  {$(x_N,y_N)$};
+    \movablevert{mn};
+    \movablevert{mx};
+    \movablecross{start};
+    \movablecross{mid};
+    \movablecross{end};
+
+    \draw (mn) -- (start) -- (mid) -- (end) -- (mx);
+
+
+
+\end{tikzpicture}
+

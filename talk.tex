@@ -1,0 +1,228 @@
+\documentclass[%
+    %handout
+]{beamer}
+\usepackage{graphicx} % For including single page pdfs
+\usepackage{bm}       % bold math
+\usepackage{pgffor}   % for loop
+\usepackage{tikz}
+\usepackage{multimedia}
+\usepackage{layouts}
+\usepackage{hyperref}
+\usepackage{cambridge_lecture}
+\usepackage{mathtools}
+\newtheorem*{theorem*}{Theorem}
+
+
+\title{Derived parameters with specified distributions}
+\subtitle{Maximum entropy prior choices}
+\author[Handley] % (optional, for multiple authors)
+{Will Handley\\ \small{wh260@cam.ac.uk}}
+\institute[University of Cambridge] % (optional)
+{%
+Astrophysics Group \\
+Cavendish Laboratory \\
+University of Cambridge
+}
+\date{16\textsuperscript{th} May 2018}
+
+\include{include/beamer_commands}
+
+\begin{document}
+
+\begin{frame}
+    \titlepage{}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Bayesian inference}
+    \begin{columns}
+        \begin{column}{0.6\textwidth}
+            \begin{itemize}
+                \item Model parameters $x$ describing data $D$:
+                    \begin{align}
+                        P(x|D) &= \frac{P(D|x) P(x)}{P(D)}
+                        \nonumber\\
+                        \text{Posterior} &= 
+                        \frac{\text{Likelihood}\times \text{Prior}}{\text{Evidence}}
+                        \nonumber
+                    \end{align}
+                \item Need Prior distribution $P(x)$
+                \item Chosen to reflect initial knowledge, without data
+                \item Harder to do with modern inference techniques:
+                    \begin{itemize}
+                        \item Non-parametric (model-independent) reconstructions
+                        \item Hierarchical models
+                    \end{itemize}
+            \end{itemize}
+        \end{column}
+        \begin{column}{0.4\textwidth}
+            \include{include/reconstruction}
+            \includegraphics[width=0.95\textwidth]{figures/hierarchical.pdf}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Prior construction}
+    \framesubtitle{The principle of maximum entropy}
+    \begin{itemize}
+        \item We may wish to construct a prior ``assuming the least information''
+        \item One way to quantify this is using the Shannon entropy:
+            \begin{equation}
+                H(\Omega) 
+                = \sum_{E\in \Omega} P(E) \log \frac{1}{P(E)}
+                \nonumber
+            \end{equation}
+        \item Shannon information 
+            \begin{equation}
+                \mathcal{I}(E) = \log \frac{1}{P(E)},
+                \qquad
+                H = \left\langle\log \mathcal{I}(E)\right\rangle_{E\in \Omega}
+                \nonumber
+            \end{equation}
+        \item We construct priors by minimising $H$, subject to knowledge constraints
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Maximum entropy prior examples}
+    \begin{itemize}
+        \item Known mean $\mu$ and variance $\sigma$ $\Rightarrow$ Gaussian:
+            \begin{equation}
+                P(x) = \tfrac{1}{\sqrt{2\pi}\sigma}\exp\left[-\tfrac{{(x-\mu)}^2}{2\sigma^2}\right]
+                \nonumber
+            \end{equation}
+        \item Known mean $x_0$ and positive $x>0$ $\Rightarrow$ Exponential:
+            \begin{equation}
+                P(x) = \tfrac{1}{x_0}\exp\left[-x/x_0\right]
+                \nonumber
+            \end{equation}
+        \item Positive $x>0$ $\Rightarrow$ Logarithmic (improper):
+            \begin{equation}
+                P(x) \propto 1/x
+                \nonumber
+            \end{equation}
+        \item Nothing  $\Rightarrow$ Uniform (improper):
+            \begin{equation}
+                P(x) \propto 1
+                \nonumber
+            \end{equation}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{The importance of plotting priors}
+    \framesubtitle{VSA cosmological parameters (astro-ph:0212497)}
+
+    \begin{columns}
+        \begin{column}{0.5\textwidth}
+        \begin{itemize}
+            \item<1-> Consider constraint on Hubble parameter $h$ $(H_0 = 100h\frac{\mathrm{kms}^{-1}}{\mathrm{Mpc}})$
+            \item<3-> $h$-constraint {\em gets worse\/} with data
+            \item<3-> Lesson: It is essential to plot priors and posteriors together.
+            \item<3-> Particularly relevent for new data with weak constraints (e.g. EoR)
+        \end{itemize}
+        \end{column}
+        \begin{column}{0.5\textwidth}
+            \includegraphics<1>[width=\textwidth]{figures/vsa_prior}
+            \includegraphics<2->[width=\textwidth]{figures/vsa_posterior}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Non-parametric reconstructions}
+    \framesubtitle{Example: cosmic reionisation history from CMB (Millea \& Bouchet 1804.08476)}
+    \includegraphics[width=\textwidth]{figures/reio_hists_prior}
+    \begin{itemize}
+        \item Aim to reconstruct reionisation history $x_\mathrm{e}(z)$ from Planck data 
+        \item Model-independent/non-parametric
+        \item Optical depth $\tau = \int \frac{n_\mathrm{H}(z){(1+z)}^2}{H(z)}x_\mathrm{e}(z) dz $
+        \item Reconstruction introduces non-trivial prior on derived parameter $\tau$
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Tau prior and posterior}
+    \framesubtitle{Example: cosmic reionisation history from CMB (Millea \& Bouchet 1804.08476)}
+    \centerline{%
+        \includegraphics[width=0.45\textwidth]{figures/implicit_tau_priors}
+        \includegraphics[width=0.45\textwidth]{figures/data_simlow}
+    }
+\end{frame}
+
+\begin{frame}
+    \frametitle{Reionisation posterior}
+    \framesubtitle{Example: cosmic reionisation history from CMB (Millea \& Bouchet 1804.08476)}
+    \centerline{%
+        \includegraphics[width=0.8\textwidth]{figures/reio_hists_simlow}
+    }
+\end{frame}
+
+\begin{frame}
+    \frametitle{Derived parameter priors}
+    \framesubtitle{Simplified example}
+    \begin{columns}
+        \begin{column}{0.5\textwidth}
+        \begin{itemize}
+            \item Uniform distribution $q(a,b)$
+            \item $\Rightarrow$ triangular distribution on $a+b$.
+            \item Remove this effect by dividing out this distribution:
+                \begin{equation}
+                    p(a,b) = \frac{q(a,b)}{q(a+b)}
+                    \nonumber
+                \end{equation}
+            %\item<2-> $p(a,b)$ is adjusted to counterbalance tails of $q(a+b)$.
+        \end{itemize}
+        \end{column}
+        \begin{column}{0.5\textwidth}
+            \includegraphics<1>[width=\textwidth]{figures/q}
+            \includegraphics<2->[width=\textwidth]{figures/p}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+\begin{frame}
+\frametitle{General result: This is maximum entropy}
+\framesubtitle{Handley \& Millea 1804.08143}
+\begin{theorem*}
+    If one has a distribution on parameters $x$ with probability density function $q(x)$ along with a derived parameter $f$ defined by a function $f=f(x)$, then the maximum entropy distribution $p(x)$ relative to $q(x)$ satisfying the constraint that $f$ is distributed with probability density function to $r(f)$ is:
+\begin{equation}
+    p(x)  = \frac{q(x)r(f(x))}{P(f(x)|q)},\label{eqn:final_answer}
+    \nonumber
+\end{equation}
+where $P(f|q)$ is the probability density for the distribution induced by $q$ on $f=f(x)$.
+\end{theorem*}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Derived parameter priors}
+    \framesubtitle{Neutrino example}
+	\begin{figright}{figures/neutrino_masses}
+        \begin{itemize}
+            \item Initial spherical log-gaussian $q$
+            \item $\Rightarrow$ non-trivial shifted distribution on mass sum $m_1+m_2+m_3$
+            \item Apply maxent prior forcing this distribution back to center
+            \item Creates heavy tail previously ruled out by $q$.
+        \end{itemize}
+	\end{figright}
+\end{frame}
+
+%\begin{frame}
+%    \frametitle{<++>}
+%    \framesubtitle{<++>}
+%\end{frame}
+
+%\begin{frame}
+%    \frametitle{<++>}
+%    \framesubtitle{<++>}
+%
+%	\begin{figright}{<++>}
+%	\end{figright}
+% 
+%\end{frame}
+
+
+\include{include/further_reading}
+
+\end{document}
