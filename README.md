@@ -85,8 +85,11 @@
     - [source](https://github.com/williamjameshandley/talks/tree/icic_2018) 
     - [PDF](https://github.com/williamjameshandley/talks/raw/icic_2018/will_handley_icic_2018.pdf) 
     - May 2018
-
-
+17. PolyChord 2.0: Advances in Nested Sampling with astrophysical applications
+    - Seminar at Center for Computational Astrophysics (CCA) Flatiron Institute, New York City, US
+    - [source](https://github.com/williamjameshandley/talks/tree/flatiron_2017) 
+    - [PDF](https://github.com/williamjameshandley/talks/raw/flatiron_2017/will_handley_flatiron_2017.pdf) 
+    - Feb 2017
 
 More historical talks to be added soon
 
