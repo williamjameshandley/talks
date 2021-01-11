@@ -1,0 +1,1043 @@
+\documentclass[%
+    %handout
+]{beamer}
+\usepackage{graphicx} % For including single page pdfs
+\usepackage{bm}       % bold math
+\usepackage{pgffor}   % for loop
+\usepackage{tikz}
+\usepackage{multimedia}
+\usepackage{layouts}
+\usepackage{hyperref}
+
+
+
+\newcommand{\lik}{\mathcal{L}}
+\newcommand{\posterior}{\mathcal{P}}
+\newcommand{\prior}{\pi}
+\newcommand{\ev}{\mathcal{Z}}
+
+\newcommand{\prob}{\mathrm{P}}
+
+\newcommand{\PR}{\mathcal{P}_\mathcal{R}}
+\newcommand{\Pknotj}[1]{\mathcal{P}_{#1}}
+\newcommand{\Nknots}{N_\mathrm{knots}}
+\newcommand{\nlive}{n_\mathrm{live}}
+
+\newcommand{\movablecross}[1]{%
+  \draw[->](#1) -- ++(0:\croslen);
+  \draw[->](#1) -- ++(90:\croslen);
+  \draw[->](#1) -- ++(180:\croslen);
+  \draw[->](#1) -- ++(270:\croslen);
+  \fill[red!70!black] (#1) circle (2pt);
+}
+
+\newcommand{\movablevert}[1]{%
+  \draw[->](#1) -- ++(90:\croslen);
+  \draw[->](#1) -- ++(270:\croslen);
+  \fill[red!70!black] (#1) circle (2pt);
+}
+
+
+
+
+
+\setbeamertemplate{navigation symbols}{} % Turn off that bottom bar
+
+
+\title{PolyChord 2.0}
+\subtitle{Advances in nested sampling with astrophysical applications}
+\author[Handley] % (optional, for multiple authors)
+{Will Handley\\ \small{wh260@cam.ac.uk}}
+\institute[University of Cambridge] % (optional)
+{%
+Astrophysics Group \\
+Cavendish Laboratory \\
+University of Cambridge
+}
+\date{\today}
+
+
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+
+\section{Parameter estimation \& model comparison}
+%\begin{frame}
+%  \frametitle{Notation} 
+%
+%  \begin{itemize}
+%      \pause
+%    \item Data: $D$
+%      \pause
+%    \item Model: $M$
+%      \pause
+%    \item Parameters: $\Theta$
+%      \pause
+%    \item Likelihood: $\prob(D|\Theta,M)=\lik(\Theta)$
+%      \pause
+%    \item Posterior: $\prob(\Theta|D,M)=\posterior(\Theta)$
+%      \pause
+%    \item Prior: $\prob(\Theta|M)=\prior(\Theta)$
+%      \pause
+%    \item Evidence: $\prob(D|M)=\ev$
+%  \end{itemize}
+%
+%
+%\end{frame}
+
+\begin{frame}
+  \frametitle{What is nested sampling?}
+  \begin{itemize}
+    \pause\item Nested sampling is an alternative way of sampling posteriors. 
+    \pause\item Uses ensemble sampling to compress prior to posterior.
+    \pause\item In doing so, it circumvents many issues (dimensionality, topology, geometry) that beset standard approaches.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Outline}
+    \begin{enumerate}
+        \pause\item Background theory
+        \pause\item Review existing sampling approaches
+        \pause\item Nested Sampling \& Historical implementations.
+        \pause\item PolyChord
+        \pause\item Applications
+    \end{enumerate}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Bayes' theorem}
+  \framesubtitle{Parameter estimation}
+
+  What does data $D$ tell us about the params $\Theta$ of our model $M$?
+  \pause
+  \[\prob(\Theta|D,M) = \frac{\prob(D|\Theta,M) \prob(\Theta|M) }{ \prob(D|M) }\] 
+  \pause
+  \[\text{Posterior } = \frac{\text{Likelihood} \times \text{Prior} } {\text{Evidence} }\] 
+  \pause
+  \[ \posterior(\Theta)= \frac{\lik(\Theta) \prior(\Theta)} {\ev}\] 
+
+\end{frame}
+\begin{frame}
+    \frametitle{Parameter estimation}
+    \framesubtitle{A concrete example.}
+
+    \[\lik(\Theta) = P(D|\Theta,M)\]
+    \begin{align}
+        \onslide<2->{D =& \{C_\ell\only<6->{^\mathrm{(Planck)}}\}} 
+        \onslide<15->{+\{\mathrm{LSS}\}} 
+        \onslide<16->{+\{\text{``Big Data''}\}}
+        \nonumber\\
+        \onslide<3->{M =& \Lambda\mathrm{CDM}} 
+        \onslide<9->{+ \mathrm{extensions} }
+        \nonumber\\
+        \onslide<4->{\Theta =& \Theta_{\Lambda \mathrm{CDM}}} \onslide<7->{+ \Theta_\mathrm{Planck}} \onslide<10->{+ \Theta_\mathrm{extensions}}\nonumber\\
+        \onslide<5->{\Theta_{\Lambda \mathrm{CDM}} =& ( \Omega_b h^2, \Omega_c h^2, 100\theta_{MC}, \tau, {\rm{ln}}(10^{10} A_s), n_s) \nonumber\\}
+        \onslide<8->{\Theta_\mathrm{Planck} =& (y_{\rm cal}, A^{CIB}_{217}, \xi^{tSZ-CIB}, A^{tSZ}_{143}, A^{PS}_{100}, A^{PS}_{143}, A^{PS}_{143\times 217}, A^{PS}_{217},\nonumber\\
+        &A^{kSZ}, A^{{\rm dust}TT}_{100}, A^{{\rm dust}TT}_{143}, A^{{\rm dust}TT}_{143\times 217}, A^{{\rm dust}TT}_{217}, c_{100}, c_{217}) \nonumber\\}
+        \onslide<11->{\Theta_\mathrm{extensions} =& (
+                n_{\rm run}
+                \only<12->{,n_{\rm run,run}}
+                \only<13->{,w}
+                \only<14->{,\Sigma m_\nu, m_{\nu,{\rm{sterile}}}^{\rm{eff}}}
+        ) \nonumber}
+    \end{align}
+
+    \begin{itemize}
+        \item<17->{Likelihoods can be quite complicated!}
+        \item<18->{We  need advanced sampling approaches.}
+    \end{itemize}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Bayes' theorem}
+  \framesubtitle{Parameter estimation}
+
+  What does data $D$ tell us about the params $\Theta$ of our model $M$?
+  \[\prob(\Theta|D,M) = \frac{\prob(D|\Theta,M) \prob(\Theta|M) }{ \prob(D|M) }\] 
+  \[\text{Posterior } = \frac{\text{Likelihood} \times \text{Prior} } {\text{Evidence} }\] 
+  \[ \posterior(\Theta)= \frac{\lik(\Theta) \prior(\Theta)} {\ev}\] 
+  \begin{description}
+          \pause\item[Prior:] Usually uniform, but can be source of controversy.
+      \pause\item[Evidence:] Just a normalising constant\pause?
+  \end{description}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Bayes' theorem}
+  \framesubtitle{Model comparison}
+  \pause
+  What does data tell us about our model $M_i$?
+  \pause
+    \[\prob(M_i|D) = \frac{\prob(D|M_i) \prob(M_i) }{ \prob(D) }\] 
+
+  \pause
+    \[\prob(M_i|D) = \frac{\ev_i \: \mu_i}{\sum_k \ev_k \: \mu_k}\] 
+
+  \pause
+  e.g.\ Should we include running? \pause Neutrinos? \pause Dark energy?
+
+  \pause
+  \textbf{Model averaging:}
+  \begin{itemize}
+        \item Multiple models with posterior on the same parameter: ${\prob(y|M_i,D)}$
+  \end{itemize}
+  \[\prob(y|D) = \sum_i \prob(y|M_i,D) \prob(M_i|D)\]
+
+
+\end{frame}
+
+%\begin{frame}
+%  \frametitle{Parameter estimation \& model comparison} 
+%  \framesubtitle{The challenge}
+%
+%  \pause
+%  Both of these are challenging things to compute.
+%  \begin{itemize}
+%      \pause
+%    \item Markov-Chain Monte-Carlo (MCMC) can solve the first of these (kind of)
+%      \pause
+%    \item Nested sampling (NS) promises to solve both simultaneously.
+%  \end{itemize}
+% 
+%\end{frame}
+%
+\begin{frame}
+  \frametitle{Parameter estimation} 
+  \framesubtitle{Why do sampling?} 
+
+	\begin{columns}
+	\begin{column}{0.5\textwidth}
+		\begin{itemize}
+          \item<4-> In high dimensions, posterior $\posterior$ occupies a vanishingly small region of the prior $\prior$.
+          \item<5-> Describing an $N$-dimensional posterior fully is impossible.
+          \item<6-> {\em Sampling\/} the posterior is an excellent compression scheme.
+		\end{itemize}
+	\end{column}
+	\begin{column}{0.5\textwidth}
+        \only<2>{\includegraphics[width=\textwidth]{./figures/ligo_m1_m2.pdf}}
+        \only<3->{\includegraphics[width=\textwidth]{./figures/ligo_dist_thetajn.pdf}}	
+	\end{column}
+	\end{columns}
+ 
+\end{frame}
+
+
+\section{Metropolis Hastings}
+
+\begin{frame}
+    \frametitle{Current sampling approaches}
+    \begin{enumerate}
+        \pause\item Metropolis Hastings.
+        \pause\item Hamiltonian Monte-Carlo (HMC).
+        \pause\item Ensemble sampling (e.g.\ emcee).
+    \end{enumerate}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Metropolis Hastings} 
+  \begin{itemize}
+      \pause
+    \item Turn the $N$-dimensional problem into a one-dimensional one.
+      \pause
+    \item Explore the space via a biased random walk.
+      \begin{enumerate}
+          \pause
+        \item Pick random direction
+          \pause
+        \item Choose step length
+          \pause
+        \item If uphill, make step\ldots
+          \pause
+        \item \ldots otherwise sometimes make step. 
+      \end{enumerate}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Metropolis Hastings} 
+  \includegraphics[width=\textwidth]{movies/MCMC_0.pdf}
+\end{frame}
+\begin{frame}
+  \frametitle{Metropolis Hastings} 
+  \movie[width=\textwidth,height=0.52\textwidth]{}{movies/MCMC.mp4}
+\end{frame}
+\begin{frame}
+  \frametitle{Metropolis Hastings} 
+  \includegraphics[width=\textwidth]{movies/MCMC_1.pdf}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Metropolis Hastings} 
+  \framesubtitle{Struggles with\ldots}
+  \begin{enumerate}
+      \pause\item Burn in
+      \pause\item Multimodality
+      \pause\item Correlated Peaks
+      \pause\item Phase transitions
+  \end{enumerate}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Hamiltonian Monte-Carlo} 
+  \begin{itemize}
+      \pause\item Key idea: Treat $\log L(\Theta)$ as a potential energy
+      \pause\item Guide walker under ``force'': \[F(\Theta) =\nabla \log L(\Theta)\]
+      \pause\item Walker is naturally ``guided'' uphill
+      \pause\item Conserved quantities mean efficient acceptance ratios.
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Hamiltonian Monte-Carlo} 
+  \framesubtitle{Problems}
+  \pause
+  \begin{itemize}
+      \item ``Uphill'' is not covariant.
+  \end{itemize}
+  \pause
+  \includegraphics[width=\textwidth]{figures/gradients.pdf}
+  \pause
+  \begin{itemize}
+      \item Requires gradients (autograd -- python)
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Ensemble sampling} 
+  \begin{itemize}
+      \pause\item Instead of one walker, evolve a set of $n$ walkers.
+      \pause\item Can use information present in ensemble to guide proposals.
+      \pause\item emcee: affine invariant proposals.
+      \pause\item emcee is not the only (or even best) affine invariant approach.
+  \end{itemize}
+\end{frame}
+
+%\begin{frame}
+%  \frametitle{When MCMC fails} 
+%  \framesubtitle{Burn in} 
+%  \movie[width=\textwidth,height=0.52\textwidth]{%
+%  \includegraphics[width=\textwidth]{movies/MCMC_burn_in_0.pdf}}{movies/MCMC_burn_in.mp4}
+%\end{frame}
+%\begin{frame}
+%  \frametitle{When MCMC fails} 
+%  \framesubtitle{Burn in} 
+%  \includegraphics[width=\textwidth]{movies/MCMC_burn_in_1.pdf}
+%\end{frame}
+%
+%\begin{frame}
+%  \frametitle{When MCMC fails} 
+%  \framesubtitle{Tuning the proposal distribution} 
+%  \movie[width=\textwidth,height=0.52\textwidth]{%
+%  \includegraphics[width=\textwidth]{movies/MCMC_proposal_0.pdf}}{movies/MCMC_proposal.mp4}
+%\end{frame}
+%\begin{frame}
+%  \frametitle{When MCMC fails} 
+%  \framesubtitle{Tuning the proposal distribution} 
+%  \includegraphics[width=\textwidth]{movies/MCMC_proposal_1.pdf}
+%\end{frame}
+%
+%\begin{frame}
+%  \frametitle{When MCMC fails} 
+%  \framesubtitle{Multimodality} 
+%  \movie[width=\textwidth,height=0.52\textwidth]{%
+%  \includegraphics[width=\textwidth]{movies/MCMC_multimodal_0.pdf}}{movies/MCMC_multimodal.mp4}
+%\end{frame}
+%\begin{frame}
+%  \frametitle{When MCMC fails} 
+%  \framesubtitle{Multimodality} 
+%  \includegraphics[width=\textwidth]{movies/MCMC_multimodal_1.pdf}
+%\end{frame}
+%
+%\begin{frame}
+%  \frametitle{When MCMC fails} 
+%  \framesubtitle{Phase transitions} 
+%
+%  \includegraphics[width=\textwidth]{figures/phase_transition}
+% 
+%\end{frame}
+
+\begin{frame}
+  \frametitle{The real reason these all fail} 
+
+  \begin{itemize}
+    \item<2-> MCMC does not give you evidences!
+  \end{itemize}
+
+  \begin{align}
+    \onslide<3->{%
+    \ev 
+    &= \prob(D|M) 
+    \nonumber\\
+  }
+    \onslide<4->{%
+    &= \int\prob(D|\Theta,M)\prob(\Theta|M) d\Theta 
+    \nonumber\\
+  }
+    \onslide<5->{%
+    &= \left\langle \lik \right\rangle_\prior
+    \nonumber
+  }
+  \end{align}
+  
+  \begin{itemize}
+    \item<6-> MCMC fundamentally explores the posterior, and cannot average over the prior.
+    \item<7-> Simulated annealing gives one possibility for computing evidences.
+    \begin{itemize}
+        \item<8-> Inspired by thermodynamics.
+        \item<8-> Suffers from similar issues to MCMC.
+        \item<8-> Unclear how to choose correct annealing schedule
+    \end{itemize}
+  \end{itemize}
+ 
+\end{frame}
+
+\section{Nested Sampling}
+\begin{frame}
+  \frametitle{Nested Sampling} 
+  \framesubtitle{John Skilling's alternative to traditional MCMC!} 
+
+  \pause
+  New procedure: 
+
+  \pause
+  Maintain a set $S$ of $n$ samples, which are sequentially updated:
+
+  \begin{description}
+      \pause
+    \item[$S_0$:] Generate $n$ samples uniformly over the space (from the prior $\prior$). 
+      \pause
+    \item[$S_{n+1}$:] Delete the lowest likelihood sample in $S_{n}$, and replace it with a new uniform sample with higher likelihood
+  \end{description}
+
+  \pause
+  Requires one to be able to uniformly within a region, subject to a {\em hard likelihood constraint}.
+
+\end{frame}
+
+
+
+\begin{frame}
+  \frametitle{Nested Sampling}
+  \framesubtitle{Graphical aid}
+\foreach \pagenum in {1,...,38} {%
+  \includegraphics<\pagenum>[width=\textwidth,page=\pagenum]{figures/nested_sampling}
+}
+\end{frame}
+
+
+%\begin{frame}
+%  \frametitle{Nested sampling}
+%  \includegraphics[width=\textwidth]{movies/NS_0.pdf}
+%\end{frame}
+%\begin{frame}
+%  \frametitle{Nested sampling}
+%  \movie[width=\textwidth,height=0.52\textwidth]{}{movies/NS.mp4}
+%\end{frame}
+%\begin{frame}
+%  \frametitle{Nested sampling}
+%  \includegraphics[width=\textwidth]{movies/NS_1.pdf}
+%\end{frame}
+
+
+
+\begin{frame}
+  \frametitle{Nested Sampling}
+  \framesubtitle{Calculating evidences}
+  \foreach \pagenum in {1,...,16} {%
+      \includegraphics<\pagenum>[width=\textwidth,page=\pagenum]{figures/lesbesgue}
+  }
+\end{frame}
+
+
+
+\begin{frame}
+  \frametitle{Nested Sampling} 
+  \framesubtitle{Exponential volume contraction} 
+  
+  \begin{itemize}
+      \pause
+    \item At each iteration, the likelihood contour will shrink in volume by  $\approx 1/n$.
+      \pause
+    \item Nested sampling zooms in to the peak of the posterior {\em exponentially}.
+      \pause
+    \item 
+      \begin{equation}
+          \ev \approx \sum_i \Delta\lik_i X_{i}
+      \end{equation}
+      \pause
+    \item 
+      \begin{equation}
+        X_{i+1} \approx \frac{n}{n+1}X_i, \qquad X_{0} = 1
+      \end{equation}
+  \end{itemize}
+  
+\end{frame}
+
+%\begin{frame}
+%  \frametitle{Estimating evidences} 
+%  \framesubtitle{Evidence error} 
+%
+%\foreach \pagenum in {1,...,9} {%
+%  \includegraphics<\pagenum>[width=\textwidth,page=\pagenum]{figures/areas}
+%}
+% 
+%\end{frame}
+%
+%\begin{frame}
+%  \frametitle{Estimating evidences} 
+%  \framesubtitle{Evidence error} 
+%
+%
+%  \begin{itemize}
+%    \item<2-> approximate compression:
+%  \end{itemize}
+%  \[ 
+%    \onslide<2->{\Delta \log X \sim -\frac{1}{n}} 
+%    \onslide<3->{\pm \frac{1}{n}} 
+%  \]
+%  \[ 
+%    \onslide<4->{\log X_i \sim -\frac{i}{n}}
+%    \onslide<5->{\pm \frac{\sqrt{i}}{n}} 
+%  \]
+%  \onslide<6->{%
+%  \begin{itemize}
+%    \item<6-> \# of steps to get to $H$:
+%  \end{itemize}
+%  \[ i_H \sim n H \]
+%  }
+%  \onslide<7->{%
+%  \begin{itemize}
+%    \item estimate of volume at $H$:
+%  \end{itemize}
+%  \[ \log X_H \approx -H \pm \sqrt{\frac{H}{n}} \]
+%}
+%
+%  \onslide<8->{%
+%  \begin{itemize}
+%    \item estimate of evidence error:
+%  \end{itemize}
+%  \[ \log\ev \approx \sum w_i \lik_i  \pm \sqrt{\frac{H}{n}} \]
+%}
+%
+%\end{frame}
+
+
+\begin{frame}
+  \frametitle{Nested sampling} 
+  \framesubtitle{Parameter estimation} 
+
+  \begin{itemize}
+      \pause
+    \item NS can also be used to sample the posterior
+      \pause
+    \item The set of dead points are posterior samples with an appropriate weighting factor
+  \end{itemize}
+ 
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Sampling from a hard likelihood constraint} 
+
+  \pause
+  \begin{quote}
+    ``It is not the purpose of this introductory paper to develop the technology of navigation within such a volume. We merely note that exploring a hard-edged likelihood-constrained domain should prove to be neither more nor less demanding than exploring a likelihood-weighted space.''
+    
+   {\hfill --- John Skilling}
+  \end{quote}
+
+  \begin{itemize}
+      \pause
+    \item Most of the work in NS to date has been in attempting to implement a hard-edged sampler in the NS meta-algorithm.
+  \end{itemize}
+ 
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Sampling within an iso-likelihood contour}
+  \framesubtitle{Previous attempts}
+
+
+  \begin{description}
+    \pause\item[Rejection Sampling] MultiNest; F.\ Feroz \& M.\ Hobson (2009).
+      \begin{itemize}
+        \pause\item Suffers in high dimensions
+      \end{itemize}
+      \pause\item[Hamiltonian] M.J. Betancourt (2010) 
+      \pause\item[Galilean] F.\ Feroz \& J.\ Skilling (2013) 
+      \begin{itemize}
+        \pause\item Requires gradients and tuning
+      \end{itemize}
+      \pause\item[Diffusive Nested Sampling] B.\ Brewer et al.\ (2009,2016).
+      \begin{itemize}
+        \pause\item Very promising
+        \pause\item Still needs tuning.
+      \end{itemize}
+    %\pause\item[Slice Sampling] R.\ Neal (2000), Aitken \& Akman (2013).
+  \end{description}
+
+\end{frame}
+
+\section{PolyChord}
+\begin{frame}
+  \frametitle{``Hit and run'' slice sampling}
+\foreach \pagenum in {1,...,32} {%
+  \includegraphics<\pagenum>[width=\textwidth,page=\pagenum]{figures/contour_step}
+}
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Issues with Slice Sampling}
+  \framesubtitle{Correlated distributions}
+
+  \begin{itemize}
+    \pause\item Need $N$ reasonably large $\sim\mathcal{O}(n_\mathrm{dims})$ so that $x_N$ is de-correlated from $x_1$.
+    \pause\item Does not deal well with correlated distributions.
+    \pause\item Need to ``tune'' $w$ parameter.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+,   \frametitle{PolyChord 1.0's solution}
+  \framesubtitle{Correlated distributions}
+
+  \includegraphics[width=\textwidth]{figures/contour_transform}
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{PolyChord 1.0's solutions}
+  \framesubtitle{Correlated distributions}
+
+  \begin{itemize}
+    \pause\item We make an affine transformation to remove degeneracies, and ``whiten'' the space.
+    \pause\item Samples remain uniformly sampled
+    \pause\item We use the covariance matrix of the live points and all inter-chain points 
+    \pause\item Cholesky decomposition is the required skew transformation
+    \pause\item $w=1$ in this transformed space
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Issues with Slice Sampling}
+  \framesubtitle{Multimodality}
+
+  \begin{enumerate}
+    \pause\item Although it satisfies detailed balance practically this isn't good enough.
+    \pause\item Affine transformation is useless.
+  \end{enumerate}
+\end{frame}
+
+\begin{frame}
+    \frametitle{PolyChord 1.0's solutions}
+  \framesubtitle{Multimodality}
+
+  \begin{enumerate}
+    \pause\item Identifies separate modes via clustering algorithm on live points.
+    \pause\item Evolves these modes ``semi-independently''
+  \end{enumerate}
+\end{frame}
+
+\begin{frame}
+    \frametitle{PolyChord 1.0's Additions}
+
+  \begin{itemize}
+    \pause\item Parallelised up to number of live points with openMPI.
+    \pause\item Implemented in CosmoMC, as ``CosmoChord'', with fast-slow parameters.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{PolyChord vs.\ MultiNest}
+  \framesubtitle{Gaussian likelihood}
+  \includegraphics[width=\textwidth]{figures/polychord_vs_multinest.pdf}
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{PolyChord 1.0}
+
+  \begin{itemize}
+    \pause\item Well tested.
+    \pause\item arXiv:1502.01856
+    \pause\item arXiv:1506.00171
+    \pause\item \url{ccpforge.cse.rl.ac.uk/gf/project/polychord/}
+  \end{itemize}
+\end{frame}
+
+\section{PolyChord 2.0}
+
+\begin{frame}
+  \frametitle{PolyChord}
+  \framesubtitle{Scaling with dimensionality}
+  \begin{itemize}
+    \pause\item Perfect nested sampling has $N_\lik \sim \mathcal{O}(D^2)$
+    \pause\item PolyChord 1.0 has $N_\lik \sim \mathcal{O}(D^3)$
+      \begin{itemize}
+        \pause\item Need $\sim \mathcal{O}(D)$ to de-correlate at each step
+        \pause\item Forced to throw $\sim \mathcal{O}(D)$ inter-chain points away.
+      \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{PolyChord 2.0}
+  \framesubtitle{Inter-chain evaluations}
+  \begin{itemize}
+    \pause\item Traditional nested sampling requires the ability to easily generate a single sample at each iteration.
+    \pause\item MCMC-like approaches generate many (correlated) samples
+    \pause\item At each iteration:
+      \begin{itemize}
+        \pause\item Throw away $n_\mathrm{chain}$ samples.
+        \pause\item Generate $n_\mathrm{chain}$ new (correlated) samples to replace them.
+      \end{itemize}
+    \pause\item If $n_\mathrm{chain}\sim\mathcal{O}(D)$ (as required), then overall $\sim\mathcal{O}(D^3)\to\sim\mathcal{O}(D^2)$.
+    \pause\item Need to be able to quantify degree of correlation for correct inference.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Aside: Merging nested sampling runs}
+
+  \begin{itemize}
+    \pause\item In his original paper, John Skilling noted that nested sampling runs can be merged.
+    \pause\item Take two complete nested sampling runs generated by $\nlive^{(1)}$ and $\nlive^{(2)}$ live points.
+    \pause\item Combining the two runs in likelihood order gives a new run generated by $\nlive^{(1)}+\nlive^{(2)}$ live points. 
+  \end{itemize}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Aside: Unweaving nested sampling runs}
+
+  \begin{itemize}
+    \pause\item The reverse is also true.
+    \pause\item Given a nested sampling run with $\nlive$ points, there is a unique way of separating it into $\nlive$ single-point runs (threads).
+  \end{itemize}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{PolyChord 2.0}
+  \framesubtitle{Handling correlations}
+
+  \begin{itemize}
+    \pause\item Unweave the run into $\nlive$ threads.
+    \pause\item Each thread is a ``true'' nested sampling run, although threads are correlated.
+    \pause\item Can use traditional techniques on threads to quantify correlation 
+      \begin{itemize}
+        \pause\item Batch means
+        \item Jacknifing
+        \item Bootstrapping
+      \end{itemize}
+    \pause\item With this in hand, can produce correct inferences from correlated runs.
+  \end{itemize}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{PolyChord 2.0 vs.\ MultiNest}
+  \framesubtitle{Gaussian likelihood}
+  \includegraphics[width=\textwidth]{figures/polychord_vs_multinest_1.pdf}
+\end{frame}
+
+\section{Examples}
+
+\begin{frame}
+  \frametitle{Object detection}
+  \framesubtitle{Toy problem}
+
+  \centerline{%
+  \includegraphics<1>[width=\textwidth]{figures/object_detection_image}
+  \includegraphics<2>[width=\textwidth]{figures/object_detection_image_no_noise}
+}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{PolyChord in action}
+  \framesubtitle{Primordial power spectrum $\PR(k)$ reconstruction}
+
+
+  \resizebox{\textwidth} {!} {%
+    \begin{tikzpicture}
+    % width of axes
+      \def\xwidth{7}
+      \def\ywidth{4}
+    % min coordinate
+      \def\xmn{0.5}
+      \def\ymn{2}
+    % start coordinate
+      \def\xstart{2}
+      \def\ystart{3}
+    % middle coordinate
+      \def\xmid{3}
+      \def\ymid{1}
+    % end coordinate
+      \def\xend{5.5}
+      \def\yend{3}
+    % max coordinate
+      \def\xmx{6.5}
+      \def\ymx{1.5}
+
+    % length of crosses
+      \def\croslen{0.4}
+
+
+    % Draw axes
+      \draw [<->,thick] (0,\ywidth) node (yaxis) [above] {$\log\PR(k)$}
+      |- (\xwidth,0) node (xaxis) [right] {$\log k$};
+    % Draw limits
+      %\draw [-,dashed] (\xmn,0) node[below] {$\log_{10}k_1$} -- (\xmn,\ywidth) ;
+      %\draw [-,dashed] (\xmx,0) node[below] {$\log_{10}k_N$} -- (\xmx,\ywidth) ;
+
+      \draw<1> (\xmn,\ymn) -- (\xmx,\ymx);
+      \draw<1> (\xstart,\ystart) node[below right] {$A_s {\left(\frac{k}{k_*}\right)}^{n_s-1}$};
+
+    % Draw the line joining start and end
+
+      \coordinate (mn) at (\xmn,\ymn);
+      \coordinate (start) at (\xstart,\ystart);
+      \coordinate (mid) at (\xmid,\ymid);
+      \coordinate (end) at (\xend,\yend);
+      \coordinate (mx) at (\xmx,\ymx);
+      \draw<2> (mn) -- (mx);
+      \draw<2-> (mn) node[below right]    {$(k_1,\Pknotj{1})$};
+      \draw<2> (mx) node[below left]     {$(k_{2},\Pknotj{{2}})$};
+      \onslide<2->{\movablevert{mn}};
+      \onslide<2->{\movablevert{mx}};
+
+      \draw<3> (mn) -- (start) -- (mx);
+      \onslide<3->{\movablecross{start}};
+      \draw<3-> (start) node[above right] {$(k_2,\Pknotj{2})$};
+      \draw<3> (mx) node[below left]     {$(k_{3},\Pknotj{{3}})$};
+ 
+      \draw<4> (mn) -- (start) -- (mid) -- (mx);
+      \onslide<4->{\movablecross{mid}};
+      \draw<4-> (mid) node[below right] {$(k_3,\Pknotj{3})$};
+      \draw<4> (mx) node[below left]     {$(k_{4},\Pknotj{{4}})$};
+
+      \draw<5-> (mn) -- (start) -- (mid) -- (end) -- (mx);
+      \onslide<5->{\movablecross{end}};
+      \draw<5-> (end) node[above right] {$(k_4,\Pknotj{4})$};
+      \draw<5-> (mx) node[below left]     {$(k_{\Nknots},\Pknotj{{\Nknots}})$};
+
+
+      %\draw<2-> (\xmn,\ymn) coordinate (mn) -- (\xstart,\ystart) coordinate (start) -- (\xmid,\ymid) coordinate (mid) --  (\xend,\yend) coordinate(end) -- (\xmx,\ymx) coordinate(mx);
+
+    % Draw the point labels
+      %\draw<2-> (mn) node[below right]    {$(k_1,\Pknotj{1})$};
+      %\draw<2-> (start) node[above right] {$(k_2,\Pknotj{2})$};
+      %\draw<2-> (mid) node[below right]   {$(k_3,\Pknotj{3})$};
+      %\draw<2-> (end) node[above right]   {$(k_4,\Pknotj{4})$};
+      %\draw<2-> (mx) node[below left]     {$(k_{\Nknots},\Pknotj{{\Nknots}})$};
+
+    % Draw a dashed line indicating the coordinate names
+      %\draw[dashed] (yaxis |- start) node[left] {$y_{1}$}
+      %-| (xaxis -| start) node[below] {$x_1$};
+      %\draw[dashed] (yaxis |- mid) node[left] {$y_{2}$}
+      %-| (xaxis -| mid) node[below] {$x_2$};
+      %\draw[dashed] (yaxis |- end) node[left] {$y_{N}$}
+      %-| (xaxis -| end) node[below] {$x_N$};
+      %\draw  (xaxis -| start) node[below] {$\log_{10}k_2$};
+      %\draw  (xaxis -| mid) node[below] {$\log_{10}k_3$};
+      %\draw  (xaxis -| end) node[below] {$\log_{10}k_4$};
+
+      % Draw the crosses
+      %\onslide<2->{\movablevert{mn}
+      %\movablecross{start}
+      %\movablecross{mid}
+      %\movablecross{end}
+      %\movablevert{mx}
+    %};
+
+    % put some ellipses in between the start and end point
+
+    \end{tikzpicture}
+
+  }
+
+\end{frame}
+
+
+%\begin{frame}
+%  \frametitle{Planck data}
+%  \framesubtitle{Primordial power spectrum $\PR(k)$ reconstruction}
+%  \begin{itemize}
+%    \item<2-> Temperature data TT+lowP
+%    \item<3-> Foreground $(14)$ \& cosmological $(4 +2*\Nknots-2)$  parameters
+%    \item<4-> Marginalised plots of $\PR(k)$
+%    \item<5->
+%      \[ \prob(\PR|k,\Nknots) = \int \delta(\PR-f(k;\theta))\posterior(\theta)d\theta \]
+%  \end{itemize}
+%\end{frame}
+
+
+
+\begin{frame}
+  \frametitle<1>{0 internal knots}
+  \frametitle<2>{1 internal knots}
+  \frametitle<3>{2 internal knots}
+  \frametitle<4>{3 internal knots}
+  \frametitle<5>{4 internal knots}
+  \frametitle<6>{5 internal knots}
+  \frametitle<7>{6 internal knots}
+  \frametitle<8>{7 internal knots}
+  \frametitle<9>{8 internal knots}
+  \frametitle<10>{Bayes Factors}
+  \frametitle<11>{Marginalised plot}
+  \framesubtitle{Primordial power spectrum $\PR(k)$ reconstruction}
+
+
+  \begin{center}
+    \includegraphics<1>[width=0.9\textwidth]{figures/0TT_fgivenx}
+    \includegraphics<2>[width=0.9\textwidth]{figures/1TT_fgivenx}
+    \includegraphics<3>[width=0.9\textwidth]{figures/2TT_fgivenx}
+    \includegraphics<4>[width=0.9\textwidth]{figures/3TT_fgivenx}
+    \includegraphics<5>[width=0.9\textwidth]{figures/4TT_fgivenx}
+    \includegraphics<6>[width=0.9\textwidth]{figures/5TT_fgivenx}
+    \includegraphics<7>[width=0.9\textwidth]{figures/6TT_fgivenx}
+    \includegraphics<8>[width=0.9\textwidth]{figures/7TT_fgivenx}
+    \includegraphics<9>[width=0.9\textwidth]{figures/8TT_fgivenx}
+    \includegraphics<10>[width=0.9\textwidth]{figures/Bayes_TT.pdf}
+    \includegraphics<11>[width=0.9\textwidth]{figures/combined_fgivenx.pdf}
+
+  \end{center}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Dark energy equation of state reconstruction}
+    \begin{itemize}
+        \pause\item Same thing, but for Dark energy equation of state $w(z)$ (quintessence).
+        \pause\item Data used is Planck 2015, BOSS DR 11, JLA supernovae and BOSS Ly$\alpha$ data
+    \end{itemize}
+\end{frame}
+\begin{frame}
+    \frametitle<1>{Flat, variable $w$}
+    \frametitle<2>{Tilted}
+    \frametitle<3>{1 internal node}
+    \frametitle<4>{2 internal nodes}
+    \frametitle<5>{3 internal nodes}
+    \frametitle<6>{Marginalised plot - just extension models}
+    \frametitle<7>{Marginalised plot - including LCDM}
+    \framesubtitle{Dark energy equation of state reconstruction}
+
+    \begin{center}
+        \includegraphics<1>[width=0.9\textwidth]{figures/wCDM_1000Nlive_wgiivenz.pdf}
+        \includegraphics<2>[width=0.9\textwidth]{figures/tCDM_100Nlive_wgiivenz.pdf}
+        \includegraphics<3>[width=0.9\textwidth]{figures/1CDM_1000Nlive_wgiivenz.pdf}
+        \includegraphics<4>[width=0.9\textwidth]{figures/2CDM_1000Nlive_wgiivenz.pdf}
+        \includegraphics<5>[width=0.9\textwidth]{figures/3CDM_1000Nlive_wgiivenz.pdf}
+        \includegraphics<6>[width=0.9\textwidth]{figures/extensionModels_1000Nlive_wgivenz.pdf}
+        \includegraphics<7>[width=0.9\textwidth]{figures/allModels_1000Nlive_wgivenz.pdf}
+    \end{center}
+\end{frame}
+
+
+
+\begin{frame}
+  \frametitle{PolyChord 2.0}
+  \begin{itemize}
+    \pause\item Using intermediate points so $\sim\mathcal{O}(D^3)\to\sim\mathcal{O}(D^2)$.
+    \pause\item Unweaving runs to quantify correlations.
+    \pause\item Affine invariant sampling.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Future work}
+  \begin{enumerate}
+    \pause\item Parallelisation
+    \pause\item Affine invariant mode detection.
+  \end{enumerate}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Affine invariance}
+  \begin{itemize}
+    \pause\item The optimal exploration technique is be affine invariant.
+    \pause\item Treat distribution $\prob(\mathbf{x})$ and $\prob(R \mathbf{x})$ the same.
+    \pause\item No need to worry about correlations.
+    \pause\item Good example: Now highly successful emcee (MCMC hammer).
+      \begin{itemize}
+        \item Important: emcee is not unique (or necessarily best)
+      \end{itemize}
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Skillings affine invariant ideas}
+  \framesubtitle{Leapfrog}
+\foreach \pagenum in {1,...,6} {%
+  \includegraphics<\pagenum>[width=\textwidth,page=\pagenum]{figures/leapfrog}
+}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Skillings affine invariant ideas}
+  \framesubtitle{Parallel walk}
+\foreach \pagenum in {1,...,6} {%
+  \includegraphics<\pagenum>[width=\textwidth,page=\pagenum]{figures/parallel_walk}
+}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Affine invariance}
+  \framesubtitle{Subspace collapse}
+  \begin{itemize}
+    \pause\item The main problem that besets these techniques is ``subspace collapse''.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Subspace collapse}
+  \framesubtitle{Leapfrog}
+  \includegraphics[width=\textwidth,page=5]{figures/leapfrog}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Subspace collapse}
+  \framesubtitle{Parallel walk}
+  \includegraphics[width=\textwidth,page=7]{figures/parallel_walk}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Subspace collapse}
+  \framesubtitle{Solution}
+  \begin{itemize}
+    \pause\item Need to use $\sim\mathcal{O}(D)$ points to avoid this.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Skillings affine invariant ideas}
+  \framesubtitle{Guided walk}
+\foreach \pagenum in {1,...,8} {%
+  \includegraphics<\pagenum>[width=\textwidth,page=\pagenum]{figures/guided_walk}
+}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Affine invariant}
+  \framesubtitle{Other variations}
+  \begin{itemize}
+    \pause\item Generalise guided walk to $D$ dimensions (slice through the mean of $D$ other points).
+    \pause\item Slice through a ``random'' linear combination of $D$ points.
+    \pause\item Slice through a ``random'' linear combination of all points
+    \pause\item There are lots of variations: This is an underused area of the field.
+  \end{itemize}
+\end{frame}
+
+\end{document}
