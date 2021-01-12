@@ -92,9 +92,14 @@
     - Feb 2017
 18. PolyChord 2.0 and the future of nested sampling
     - September 2016 
-    - Seminar University College London, UK 
+    - Seminar at University College London, UK 
     - [source](https://github.com/williamjameshandley/talks/tree/ucl_2016) 
     - [PDF](https://github.com/williamjameshandley/talks/raw/ucl_2016/will_handley_ucl_2016.pdf) 
+19. PolyChord 2.0 and the future of nested sampling
+    - May 2016 
+    - Seminar at Sussex University, UK 
+    - [source](https://github.com/williamjameshandley/talks/tree/sussex_2016) 
+    - [PDF](https://github.com/williamjameshandley/talks/raw/sussex_2016/will_handley_sussex_2016.pdf) 
 
 More historical talks to be added soon
 
