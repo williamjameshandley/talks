@@ -90,6 +90,11 @@
     - [source](https://github.com/williamjameshandley/talks/tree/flatiron_2017) 
     - [PDF](https://github.com/williamjameshandley/talks/raw/flatiron_2017/will_handley_flatiron_2017.pdf) 
     - Feb 2017
+18. PolyChord 2.0 and the future of nested sampling
+    - September 2016 
+    - Seminar University College London, UK 
+    - [source](https://github.com/williamjameshandley/talks/tree/ucl_2016) 
+    - [PDF](https://github.com/williamjameshandley/talks/raw/ucl_2016/will_handley_ucl_2016.pdf) 
 
 More historical talks to be added soon
 
