@@ -100,6 +100,11 @@
     - Seminar at Sussex University, UK 
     - [source](https://github.com/williamjameshandley/talks/tree/sussex_2016) 
     - [PDF](https://github.com/williamjameshandley/talks/raw/sussex_2016/will_handley_sussex_2016.pdf) 
+19. PolyChord and the future of nested sampling
+    - Mar 2016 
+    - Invited talk at the [Workshop on Sampling in High Dimensions](https://www.maths.ed.ac.uk/~jgair2/samplingworkshop) in Edinburgh, UK 
+    - [source](https://github.com/williamjameshandley/talks/tree/edinburgh_2016) 
+    - [PDF](https://github.com/williamjameshandley/talks/raw/edinburgh_2016/will_handley_edinburgh_2016.pdf) 
 
 More historical talks to be added soon
 
