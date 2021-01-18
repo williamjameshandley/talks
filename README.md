@@ -105,6 +105,11 @@
     - Invited talk at the [Workshop on Sampling in High Dimensions](https://www.maths.ed.ac.uk/~jgair2/samplingworkshop) in Edinburgh, UK 
     - [source](https://github.com/williamjameshandley/talks/tree/edinburgh_2016) 
     - [PDF](https://github.com/williamjameshandley/talks/raw/edinburgh_2016/will_handley_edinburgh_2016.pdf) 
+20. PolyChord: next generation nested sampling
+    - Dec 2015 
+    - Seminar at [MPA](https://www.mpa-garching.mpg.de/) Max Planck Institute, Garching, Germany.
+    - [source](https://github.com/williamjameshandley/talks/tree/garching_2015) 
+    - [PDF](https://github.com/williamjameshandley/talks/raw/garching_2015/will_handley_garching_2015.pdf) 
 
 More historical talks to be added soon
 
