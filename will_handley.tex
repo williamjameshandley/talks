@@ -1,5 +1,7 @@
 \documentclass[aspectratio=169]{beamer}
 \usepackage{will_handley}
+\usepackage{layouts}
+\newcommand{\mean}[2][]{\left\langle#2\right\rangle_{#1}}
 
 % Commands
 % --------
@@ -11,9 +13,48 @@
 
 % Talk details
 % ------------
-\title{<+Title+>}
-\subtitle{<+subtitle+>}
-\date{<+Date+>}
+\title{Bayesian methods for quantifying global parameter tensions between cosmological datasets}
+%\subtitle{<+subtitle+>}
+\date{February 2021}
+
+% Abstract
+% --------
+% The discrepancy between inferences and measurements of the Hubble constant
+% arising from early and late-time datasets is hard to miss. In other contexts
+% however, parameter tensions are more challenging to visualise and quantify.
+% Topical examples include:
+% 
+% (a) tensions between cosmic microwave background and weak lensing data, since
+% the tension arises in a non-trivial combination of parameters including
+% $\sigma_8$ and $\Omega_m$
+% 
+% (b) tensions arising from or resolved by extensions to $\Lambda$CDM such as
+% variable dark energy and/or spatial curvature which have non-linear
+% degeneracies.
+% 
+% In these cases the parameter tensions may be hidden or over-emphasised when
+% examining marginalised plots derived from a much higher-dimensional parameter
+% space (such as those produced by getdist or corner). More advanced 'global'
+% metrics are required to determine whether or not two experiments are in
+% tension, or whether a proposed solution actually resolves the discrepancy.
+% 
+% This talk will highlight the recent statistical and computational advances in
+% the theory of quantifying parameter tensions using a Bayesian and
+% information-theoretic approach, with a focus on the Suspiciousness statistic.
+% 
+% These techniques will be demonstrated with applications to modern datasets
+% such as Planck, ACT, SPT, DES, KiDS and SH0ES, and the current computational
+% state-of-the-art toolkits will be indicated. The headline result is a
+% technique and interpretation for computing the Suspiciousness statistic from
+% MCMC chains alone, without the requirement of an explicit Bayesian evidence
+% computation.
+% 
+% https://arxiv.org/abs/2007.08496
+% https://arxiv.org/abs/1908.09139
+% https://arxiv.org/abs/1903.06682
+% https://arxiv.org/abs/1902.04029
+
+
 
 \begin{document}
 
@@ -22,8 +63,101 @@
 \end{frame}
 
 \begin{frame}
-    \frametitle{<+Frame title+>}
+    \frametitle{Cosmological parameter tensions}
+    \begin{figright}[0.51]{figures/H0}
+        \begin{itemize}
+            \item Measurements $H_0$ differ between early and late time observations \arxiv{1907.10625} 
+            \item ``Tension'' means a disagreement between different datasets on the inferred value of model parameters.
+            \item The presence of tension indicates an error in the model or at least one of the datasets.
+            \item It is statistically incorrect to combine datasets when they are in tension.
+        \end{itemize}
+    \end{figright}
+\end{frame}
+
+\begin{frame}
+    \frametitle{The importance of global measures}
+    \begin{columns}
+        \begin{column}{0.5\textwidth}
+        textwidth in in: \printinunitsof{in}\prntlen{\textwidth}
+
+        textheight in in: \printinunitsof{in}\prntlen{\textheight}
+        \arxiv{2007.08496}
+        \end{column}
+        \begin{column}{0.5\textwidth}
+            \includegraphics<1>{figures/DES_planck_1}
+            \includegraphics<2>{figures/DES_planck_2}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+\begin{frame}
+    \frametitle{The perils of marginalisation}
+    \begin{columns}
+        \begin{column}{0.5\textwidth}
+            \begin{align*}
+                t=&-\Omega_b h^2 + 0.022 \Omega_c h^2 + 34\theta_{MC} -0.092 \tau\\ &+ 0.05 {\rm{ln}}(10^{10} A_s) + 0.067 n_s
+            \end{align*}
+        \end{column}
+        \begin{column}{0.5\textwidth}
+            \includegraphics<1>[width=\textwidth]{figures/act_planck}
+            \includegraphics<2>{figures/act_planck_t}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Bayesian language}
+    \begin{itemize}
+        \item Datasets $A$ and $B$ (e.g. \textit{Planck} and S$H_0$ES, or \textit{Planck} and DES)
+        \item Model $M$ (e.g. $\Lambda$CDM)
+        \item Parameter(s) $\theta$ (e.g. $H_0$ or $(\Omega_m,S_8)$) 
+        \item Likelihoods $P(A|\theta)$, $P(B|\theta)$ 
+        \item Given a prior $P(\theta)$
+        \item Evaluate representations (samples) from posteriors $P(\theta|B)$, $P(\theta|A)$.
+
+    \end{itemize}
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{Evidence, KL divergence and model dimensionality}
+    \arxiv{1903.06682}
+
+    \[ \log\mathcal{Z} = \langle\log L\rangle_\mathcal{P} - \mathcal{D}  \]
+
+    \[d = 2\times\mathrm{var}(\log L)_\mathcal{P} \] 
+\end{frame}
+
+\begin{frame}
+    \frametitle{Suspiciousness}
     <+Content+>
+    \arxiv{1902.04029}
+
+    Gaussian case reduces to the standard Malhanobis distance
+\end{frame}
+
+
+\begin{frame}
+    \frametitle{Curvature tension $\Omega_K$}
+    \begin{columns}
+        \begin{column}{0.5\textwidth}
+        Handley~\arxiv{1908.09139}
+        Di Valentino et al~\arxiv{1911.02087}
+        Efsthathiou \& Gratton~\arxiv{2002.06892}
+        \end{column}
+        \begin{column}{0.5\textwidth}
+            \includegraphics<1>{figures/curvature_1}
+            \includegraphics<2>{figures/curvature_2}
+            \includegraphics<3>{figures/curvature_3}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Summary}
+    \begin{enumerate}
+        \item 
+    \end{enumerate}
 \end{frame}
 
 \end{document}
