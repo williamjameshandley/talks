@@ -35,8 +35,11 @@ MCMC chains alone, without the requirement of an explicit Bayesian evidence
 computation.
 
 https://arxiv.org/abs/2007.08496
+
 https://arxiv.org/abs/1908.09139
+
 https://arxiv.org/abs/1903.06682
+
 https://arxiv.org/abs/1902.04029
  
 [[PDF](https://github.com/williamjameshandley/talks/raw/21cm_2020_workshop_cambridge/will_handley_tehran_2021.pdf)] 
