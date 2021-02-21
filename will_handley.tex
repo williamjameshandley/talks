@@ -75,13 +75,16 @@
 \end{frame}
 
 \begin{frame}
-    \frametitle{The importance of global measures}
+    \frametitle{The importance of global measures of tension}
     \begin{columns}
         \begin{column}{0.5\textwidth}
-        textwidth in in: \printinunitsof{in}\prntlen{\textwidth}
-
-        textheight in in: \printinunitsof{in}\prntlen{\textheight}
-        \arxiv{2007.08496}
+            \begin{itemize}
+                \item In other situations the discrepancy doesn't exist in a single interpretable parameter
+                \item For example: DES+\textit{Planck} \arxiv{1902.04029} 
+                \item Are these two datasets in tension?
+                \item Can we confidently combine them?
+                \item There are a lot more parameters -- are we sure that we've chosen wisely?
+            \end{itemize}
         \end{column}
         \begin{column}{0.5\textwidth}
             \includegraphics<1>{figures/DES_planck_1}
@@ -91,12 +94,17 @@
 \end{frame}
 
 \begin{frame}
-    \frametitle{The perils of marginalisation}
+    \frametitle{The perils of manual marginal inspection}
     \begin{columns}
         \begin{column}{0.5\textwidth}
-            \begin{align*}
-                t=&-\Omega_b h^2 + 0.022 \Omega_c h^2 + 34\theta_{MC} -0.092 \tau\\ &+ 0.05 {\rm{ln}}(10^{10} A_s) + 0.067 n_s
-            \end{align*}
+            \begin{itemize}
+                \item If you have enough parameters, then you might expect that tensions would naturally arise in some combinations by chance.
+                \item For example, if you take ACT and \textit{Planck}, and construct a linear combination of parameters in maximum tension:
+                    \begin{align*}
+                        t=&-\Omega_b h^2 + 0.022 \Omega_c h^2 + 34\theta_{MC} -0.092 \tau\\ &+ 0.05 {\rm{ln}}(10^{10} A_s) + 0.067 n_s
+                    \end{align*}
+                \item In general you would expect such a parameter to be in $\sim \sqrt{d}-\sigma$ tension \arxiv{2007.08496}
+            \end{itemize}
         \end{column}
         \begin{column}{0.5\textwidth}
             \includegraphics<1>[width=\textwidth]{figures/act_planck}
@@ -107,43 +115,60 @@
 
 \begin{frame}
     \frametitle{Bayesian language}
+    \textbf{Notation}
     \begin{itemize}
-        \item Datasets $A$ and $B$ (e.g. \textit{Planck} and S$H_0$ES, or \textit{Planck} and DES)
+        \item Datasets $A$ and $B$ (e.g. \textit{Planck} and DES)
         \item Model $M$ (e.g. $\Lambda$CDM)
-        \item Parameter(s) $\theta$ (e.g. $H_0$ or $(\Omega_m,S_8)$) 
-        \item Likelihoods $P(A|\theta)$, $P(B|\theta)$ 
-        \item Given a prior $P(\theta)$
-        \item Evaluate representations (samples) from posteriors $P(\theta|B)$, $P(\theta|A)$.
-
+        \item Parameter(s) $\theta$ (e.g. $(\Omega_m,\sigma_8)$) 
+        \item Likelihoods $\mathcal{L}$: $P(A|\theta)$, $P(B|\theta)$ 
+        \item Prior $\pi$: $P(\theta)$
+    \end{itemize}
+    \textbf{Inference}
+    \begin{itemize}
+        \item Evaluate representations (samples) from posteriors $\mathcal{P}$: $P(\theta|B)$, $P(\theta|A)$.
+        \item Bayesian evidences $\mathcal{Z}=\mean[\pi]{\mathcal{L}}$: $P(A)$, $P(B)$ using nested sampling
+        \item Kullback--Leibler divergence $\mathcal{D}=\mean[\mathcal{P}]{\log\mathcal{P}/\pi}$
+        \item Bayesian model dimensionality $d = 2\times\mathrm{var}(\log\mathcal{L})$  \arxiv{1903.06682}
+        \item Tattoo-worthy equation:
+        \[ \log\mathcal{Z} = \langle\log L\rangle_\mathcal{P} - \mathcal{D}  \]
     \end{itemize}
 
 \end{frame}
-
 \begin{frame}
-    \frametitle{Evidence, KL divergence and model dimensionality}
-    \arxiv{1903.06682}
+    \frametitle{Suspiciousness \arxiv{1902.04029}}
 
-    \[ \log\mathcal{Z} = \langle\log L\rangle_\mathcal{P} - \mathcal{D}  \]
-
-    \[d = 2\times\mathrm{var}(\log L)_\mathcal{P} \] 
+    \begin{itemize}
+        \item The natural Bayesian measure of tension is the Bayes ratio
+            \[ \mathcal{R} = \frac{\mathcal{Z}_{AB}}{\mathcal{Z}_A\mathcal{Z}_B} = \frac{P(A,B)}{P(A)P(B)} = \frac{P(A|B)}{P(A)} \]
+        \item $\mathcal{R}$ is prior dependent, and can artificially reduce tension by drawing arbitrarily wide priors.
+        \item Can remove this prior dependency by dividing out the $KL$ dependent occam factor to give a ``Suspiciousness'', computable from three MCMC chains:
+            \[
+                \log S = \mean[\mathcal{P}_{AB}]{\log L_{AB}} - \mean[\mathcal{P}_{A}]{\log L_{A}}- \mean[\mathcal{P}_{B}]{\log L_{B}}
+            \]
+        \item Can be intepreted as the maximum tension allowed by reasonable priors.
+        \item In the Gaussian case it is related to the usual Malhanobis distance 
+            \[\log S = \frac{d}{2} - \frac{1}{2}(\mu_A-\mu_B)^T(\Sigma_A+\Sigma_B)^{-1}(\mu_A-\mu_B) \]
+            which can be used to calibrate it into a tension probability and ``$\sigma$'' quantification.
+    \end{itemize}
 \end{frame}
-
-\begin{frame}
-    \frametitle{Suspiciousness}
-    <+Content+>
-    \arxiv{1902.04029}
-
-    Gaussian case reduces to the standard Malhanobis distance
-\end{frame}
-
 
 \begin{frame}
     \frametitle{Curvature tension $\Omega_K$}
     \begin{columns}
         \begin{column}{0.5\textwidth}
-        Handley~\arxiv{1908.09139}
-        Di Valentino et al~\arxiv{1911.02087}
-        Efsthathiou \& Gratton~\arxiv{2002.06892}
+            \begin{itemize}
+                \item $\Lambda$CDM assumes the universe is flat
+                \item If you allow $\Omega_K\ne0$, \textit{Planck} (\texttt{plikTTTEEE}) has a moderate preference for closed universes (50:1)
+                \item \textit{Planck}+CMB lensing +BAO strongly prefer a flat universe
+                \item But, \textit{Planck} vs lensing is 2.5$\sigma$ in tension, and Planck vs BAO is 3$\sigma$.
+                \item This is reduced if $\texttt{plik}\to\texttt{camspec}$
+                    \begin{itemize}
+                        \item Di Valentino et al~\arxiv{1911.02087}
+                        \item Handley~\arxiv{1908.09139}
+                        \item Efsthathiou \& Gratton~\arxiv{2002.06892}
+                    \end{itemize}
+                \item BAO and lensing summary statistics and compression strategy assume $\Lambda$CDM.
+            \end{itemize}
         \end{column}
         \begin{column}{0.5\textwidth}
             \includegraphics<1>{figures/curvature_1}
@@ -155,9 +180,22 @@
 
 \begin{frame}
     \frametitle{Summary}
+    \centerline{
+        \begin{tabular}{llrl}
+            Data & Model & Tension & Reference\\
+            \hline
+            DES vs Planck& $\Lambda$CDM & 2.1$\sigma$ & \arxiv{2007.08496}\\
+            ACT vs Planck+SPT& $\Lambda$CDM & 2.8$\sigma$ & \arxiv{2007.08496}\\
+            CMB lensing vs Planck& $K\Lambda$CDM & 2.5$\sigma$ & \arxiv{1908.09139}\\
+            BAO vs Planck& $K\Lambda$CDM & 3$\sigma$ & \arxiv{1908.09139}\\
+        \end{tabular}
+    }
     \begin{enumerate}
         \item 
     \end{enumerate}
+
+	Slides, figures and plotting code available at:
+	\url{https://github.com/williamjameshandley/talks/tree/tehran\_2021}
 \end{frame}
 
 \end{document}
