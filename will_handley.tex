@@ -127,20 +127,24 @@
     \textbf{Inference}
     \begin{description}[leftmargin=!,labelwidth=200pt]
         \item [Prior:] $\pi$: $P(\theta)$
-        \item [Posteriors:] Evaluate posterior samples $\mathcal{P}$: $P(\theta|B)$, $P(\theta|A)$.
-        \item [Bayesian evidences:] $\mathcal{Z}=\mean[\pi]{\mathcal{L}}$: $P(A)$, $P(B)$ \hfill\arxiv{1506.00171}
+        \item [Posteriors:]  $\mathcal{P}$: $P(\theta|B)$, $P(\theta|A)$, (evaluate samples).
+        \item [Bayesian evidences:] $\mathcal{Z}=\mean[\pi]{\mathcal{L}}$, $P(A)$, $P(B)$ \hfill\arxiv{1506.00171}
+        \item [Bayes theorem:] $\mathcal{L}\times\pi = \mathcal{P}\times\mathcal{Z}$
+    \end{description}
+    \textbf{Anatomy}
+    \begin{description}[leftmargin=!,labelwidth=200pt]
         \item [Kullback--Leibler divergence:] $\mathcal{D}=\mean[\mathcal{P}]{\log\mathcal{P}/\pi}\qquad\sim \log \mathrm{Vol}(\pi)/\mathrm{Vol}(\mathcal{P})$
             \hfill\arxiv{1902.04029}
         \item [Model dimensionality:] $d = 2\times\mathrm{var}(\log\mathcal{L})$      \hfill \arxiv{1903.06682}
-        \item [Tattoo-worthy equation:]
-        $ \log\mathcal{Z} = \langle\log L\rangle_\mathcal{P} - \mathcal{D}  $
+        \item [Occam's razor equation:]
+        $ \log\mathcal{Z} = \langle\log \mathcal{L}\rangle_\mathcal{P} - \mathcal{D}  $
         \hfill\arxiv{2102.11511}
         \\\hfill (Released today by Hergt et al)
     \end{description}
 
 \end{frame}
 \begin{frame}
-    \frametitle{Suspiciousness \arxiv{1902.04029} \arxiv{2007.08496}}
+    \frametitle{Suspiciousness statistic \arxiv{1902.04029} \arxiv{2007.08496}}
 
     \begin{itemize}
         \item The natural Bayesian measure of tension is the Bayes ratio
@@ -148,7 +152,7 @@
                 \mathcal{R} = \frac{\mathcal{Z}_{AB}}{\mathcal{Z}_A\mathcal{Z}_B} = \frac{P(A,B)}{P(A)P(B)} = \frac{P(A|B)}{P(A)}= \frac{P(B|A)}{P(B)}
             \end{equation}
         \item $\mathcal{R}$ is prior dependent, one can artificially reduce tension by drawing arbitrarily wide priors.
-        \item Can remove this prior dependency by dividing out the $KL$ dependent Occam factor to give a ``Suspiciousness'', computable from three MCMC chains:
+        \item Can remove this prior dependency by dividing out the KL-dependent Occam factor to give a ``Suspiciousness'', computable from three MCMC chains:
             \begin{equation}
                 \log S = \mean[\mathcal{P}_{AB}]{\log L_{AB}} - \mean[\mathcal{P}_{A}]{\log L_{A}}- \mean[\mathcal{P}_{B}]{\log L_{B}}
             \end{equation}
