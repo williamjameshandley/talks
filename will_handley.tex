@@ -2,6 +2,8 @@
 \usepackage{will_handley}
 \usepackage{layouts}
 \newcommand{\mean}[2][]{\left\langle#2\right\rangle_{#1}}
+%\usepackage{calc}  
+
 
 % Commands
 % --------
@@ -68,7 +70,7 @@
         \begin{itemize}
             \item Measurements $H_0$ differ between early and late time observations \arxiv{1907.10625} 
             \item ``Tension'' means a disagreement between different datasets on the inferred value of model parameters.
-            \item The presence of tension indicates an error in the model or at least one of the datasets.
+            \item The presence of tension indicates an error in the model and/or at least one of the datasets.
             \item It is statistically incorrect to combine datasets when they are in tension.
         \end{itemize}
     \end{figright}
@@ -116,38 +118,45 @@
 \begin{frame}
     \frametitle{Bayesian language}
     \textbf{Notation}
-    \begin{itemize}
-        \item Datasets $A$ and $B$ (e.g. \textit{Planck} and DES)
-        \item Model $M$ (e.g. $\Lambda$CDM)
-        \item Parameter(s) $\theta$ (e.g. $(\Omega_m,\sigma_8)$) 
-        \item Likelihoods $\mathcal{L}$: $P(A|\theta)$, $P(B|\theta)$ 
-        \item Prior $\pi$: $P(\theta)$
-    \end{itemize}
+    \begin{description}[leftmargin=!,labelwidth=200pt]
+        \item [Datasets:] $A$ and $B$ (e.g. \textit{Planck} and DES)
+        \item [Model:] $M$ (e.g. $\Lambda$CDM)
+        \item [Parameters:] $\theta$ (e.g. $(\Omega_m,\sigma_8)$) 
+        \item [Likelihoods:] $\mathcal{L}$: $P(A|\theta)$, $P(B|\theta)$ 
+    \end{description}
     \textbf{Inference}
-    \begin{itemize}
-        \item Evaluate representations (samples) from posteriors $\mathcal{P}$: $P(\theta|B)$, $P(\theta|A)$.
-        \item Bayesian evidences $\mathcal{Z}=\mean[\pi]{\mathcal{L}}$: $P(A)$, $P(B)$ using nested sampling
-        \item Kullback--Leibler divergence $\mathcal{D}=\mean[\mathcal{P}]{\log\mathcal{P}/\pi}$
-        \item Bayesian model dimensionality $d = 2\times\mathrm{var}(\log\mathcal{L})$  \arxiv{1903.06682}
-        \item Tattoo-worthy equation:
-        \[ \log\mathcal{Z} = \langle\log L\rangle_\mathcal{P} - \mathcal{D}  \]
-    \end{itemize}
+    \begin{description}[leftmargin=!,labelwidth=200pt]
+        \item [Prior:] $\pi$: $P(\theta)$
+        \item [Posteriors:] Evaluate posterior samples $\mathcal{P}$: $P(\theta|B)$, $P(\theta|A)$.
+        \item [Bayesian evidences:] $\mathcal{Z}=\mean[\pi]{\mathcal{L}}$: $P(A)$, $P(B)$ \hfill\arxiv{1506.00171}
+        \item [Kullback--Leibler divergence:] $\mathcal{D}=\mean[\mathcal{P}]{\log\mathcal{P}/\pi}\qquad\sim \log \mathrm{Vol}(\pi)/\mathrm{Vol}(\mathcal{P})$
+            \hfill\arxiv{1902.04029}
+        \item [Model dimensionality:] $d = 2\times\mathrm{var}(\log\mathcal{L})$      \hfill \arxiv{1903.06682}
+        \item [Tattoo-worthy equation:]
+        $ \log\mathcal{Z} = \langle\log L\rangle_\mathcal{P} - \mathcal{D}  $
+        \hfill\arxiv{2102.11511}
+        \\\hfill (Released today by Hergt et al)
+    \end{description}
 
 \end{frame}
 \begin{frame}
-    \frametitle{Suspiciousness \arxiv{1902.04029}}
+    \frametitle{Suspiciousness \arxiv{1902.04029} \arxiv{2007.08496}}
 
     \begin{itemize}
         \item The natural Bayesian measure of tension is the Bayes ratio
-            \[ \mathcal{R} = \frac{\mathcal{Z}_{AB}}{\mathcal{Z}_A\mathcal{Z}_B} = \frac{P(A,B)}{P(A)P(B)} = \frac{P(A|B)}{P(A)} \]
-        \item $\mathcal{R}$ is prior dependent, and can artificially reduce tension by drawing arbitrarily wide priors.
-        \item Can remove this prior dependency by dividing out the $KL$ dependent occam factor to give a ``Suspiciousness'', computable from three MCMC chains:
-            \[
+            \begin{equation}
+                \mathcal{R} = \frac{\mathcal{Z}_{AB}}{\mathcal{Z}_A\mathcal{Z}_B} = \frac{P(A,B)}{P(A)P(B)} = \frac{P(A|B)}{P(A)}= \frac{P(B|A)}{P(B)}
+            \end{equation}
+        \item $\mathcal{R}$ is prior dependent, one can artificially reduce tension by drawing arbitrarily wide priors.
+        \item Can remove this prior dependency by dividing out the $KL$ dependent Occam factor to give a ``Suspiciousness'', computable from three MCMC chains:
+            \begin{equation}
                 \log S = \mean[\mathcal{P}_{AB}]{\log L_{AB}} - \mean[\mathcal{P}_{A}]{\log L_{A}}- \mean[\mathcal{P}_{B}]{\log L_{B}}
-            \]
-        \item Can be intepreted as the maximum tension allowed by reasonable priors.
-        \item In the Gaussian case it is related to the usual Malhanobis distance 
-            \[\log S = \frac{d}{2} - \frac{1}{2}(\mu_A-\mu_B)^T(\Sigma_A+\Sigma_B)^{-1}(\mu_A-\mu_B) \]
+            \end{equation}
+        \item Can be intepreted as the maximum Bayes ratio $\mathcal{R}$ allowed by reasonable priors.
+        \item In the Gaussian case it is related to the usual Malhanobis distance
+            \begin{equation}
+                \log S = \frac{d}{2} - \frac{1}{2}(\mu_A-\mu_B)^T(\Sigma_A+\Sigma_B)^{-1}(\mu_A-\mu_B) 
+            \end{equation}
             which can be used to calibrate it into a tension probability and ``$\sigma$'' quantification.
     \end{itemize}
 \end{frame}
@@ -184,15 +193,12 @@
         \begin{tabular}{llrl}
             Data & Model & Tension & Reference\\
             \hline
-            DES vs Planck& $\Lambda$CDM & 2.1$\sigma$ & \arxiv{2007.08496}\\
+            DES vs Planck& $\Lambda$CDM & 2.1$\sigma$ & \arxiv{1902.04029}\\
             ACT vs Planck+SPT& $\Lambda$CDM & 2.8$\sigma$ & \arxiv{2007.08496}\\
             CMB lensing vs Planck& $K\Lambda$CDM & 2.5$\sigma$ & \arxiv{1908.09139}\\
             BAO vs Planck& $K\Lambda$CDM & 3$\sigma$ & \arxiv{1908.09139}\\
         \end{tabular}
     }
-    \begin{enumerate}
-        \item 
-    \end{enumerate}
 
 	Slides, figures and plotting code available at:
 	\url{https://github.com/williamjameshandley/talks/tree/tehran\_2021}
