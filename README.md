@@ -1,12 +1,17 @@
 # Will Handley's academic talks
 
 ## Academic talks
+1. Bayesian methods for quantifying global parameter tensions between cosmological datasets
+    - [Tehran meeting on cosmology at the crossroads](http://physics.sbu.ac.ir/conferences/tmcc2021/) 
+    - [PDF](https://github.com/williamjameshandley/talks/raw/tehran_2021/will_handley_tehran_2021.pdf)  
+    - [source](https://github.com/williamjameshandley/talks/tree/tehran_2021)
+    - _Feb 2021_ 
 1. Nested sampling: An efficient and robust Bayesian inference tool for 21cm cosmology 
     - [3rd global 21cm workshop](https://sites.google.com/view/third21cmglobalworkshop/) 
     - [PDF](https://github.com/williamjameshandley/talks/raw/21cm_2020_workshop_cambridge/will_handley_21cm_2020_workshop_cambridge.pdf)  
     - [source](https://github.com/williamjameshandley/talks/tree/21cm_2020_workshop_cambridge)
     - [video](https://www.youtube.com/watch?v=kr8HFuwJtgE&list=PLLaJFV9PU1_mF9-lLZlJGyFYyMfb27_Zo&index=1)
-    - _October 2020_ 
+    - _Oct 2020_ 
 2. Nested Sampling: An efficient and robust Bayesian inference tool for physics and machine learning
     - University of Adelaide Colloquium, Australia 
     - [PDF](https://github.com/williamjameshandley/talks/raw/adelaide_2020/will_handley_adelaide_2020.pdf)
