@@ -115,9 +115,9 @@
             \item Sampling is traditionally accomplished using random-walk MCMC tools like Gibbs sampling, Metropolis-Hastings, emcee or Hamiltonian Monte Carlo.
         \end{itemize}
     }{
-        \includegraphics<1>[width=\textwidth]{params.pdf}
-        \includegraphics<2|handout:0>[width=\textwidth]{reach.pdf}
-        \includegraphics<3|handout:0>[width=\textwidth]{params_full.pdf}
+        \includegraphics<1>[width=\textwidth]{figures/params.pdf}
+        \includegraphics<2|handout:0>[width=\textwidth]{figures/reach.pdf}
+        \includegraphics<3|handout:0>[width=\textwidth]{figures/params_full.pdf}
     }
     
 \end{frame}
@@ -138,15 +138,15 @@
  \item Requires one to be able to sample uniformly within a region, subject to a {\em hard likelihood constraint}.
   \end{itemize}
     }{
-        \includegraphics<1|handout:0>[width=\textwidth,page=1]{himmelblau}
-        \includegraphics<2|handout:0>[width=\textwidth,page=2]{himmelblau}
-        \includegraphics<3|handout:0>[width=\textwidth,page=3]{himmelblau}
-        \includegraphics<4          >[width=\textwidth,page=4]{himmelblau}
-        \includegraphics<5|handout:0>[width=\textwidth,page=5]{himmelblau}
-        \includegraphics<6|handout:0>[width=\textwidth,page=6]{himmelblau}
-        \includegraphics<7|handout:0>[width=\textwidth,page=7]{himmelblau}
-        \includegraphics<8|handout:0>[width=\textwidth,page=8]{himmelblau}
-        \includegraphics<9|handout:0>[width=\textwidth,page=14]{himmelblau}
+        \includegraphics<1|handout:0>[width=\textwidth,page=1]{figures/himmelblau}
+        \includegraphics<2|handout:0>[width=\textwidth,page=2]{figures/himmelblau}
+        \includegraphics<3|handout:0>[width=\textwidth,page=3]{figures/himmelblau}
+        \includegraphics<4          >[width=\textwidth,page=4]{figures/himmelblau}
+        \includegraphics<5|handout:0>[width=\textwidth,page=5]{figures/himmelblau}
+        \includegraphics<6|handout:0>[width=\textwidth,page=6]{figures/himmelblau}
+        \includegraphics<7|handout:0>[width=\textwidth,page=7]{figures/himmelblau}
+        \includegraphics<8|handout:0>[width=\textwidth,page=8]{figures/himmelblau}
+        \includegraphics<9|handout:0>[width=\textwidth,page=14]{figures/himmelblau}
     }
 \end{frame}
 
@@ -162,8 +162,8 @@
   \end{itemize}
 
     }{
-        \includegraphics<1|handout:0>[width=\textwidth,page=14]{himmelblau}
-        \includegraphics<2          >[width=\textwidth,page=15]{himmelblau}
+        \includegraphics<1|handout:0>[width=\textwidth,page=14]{figures/himmelblau}
+        \includegraphics<2          >[width=\textwidth,page=15]{figures/himmelblau}
     }
 
 \end{frame}
@@ -172,25 +172,25 @@
     \frametitle{Implementations of Nested Sampling}
     %\begin{columns}
     %    \begin{column}{0.33}
-    %        \includegraphics[width=\textwidth]{multinest}
+    %        \includegraphics[width=\textwidth]{figures/multinest}
     %    \end{column} 
     %\end{columns}
     \cols[0.5]{%
         \texttt{MultiNest}
-        \includegraphics[width=0.8\textwidth]{multinest}
+        \includegraphics[width=0.8\textwidth]{figures/multinest}
             \vfill
         \texttt{DNest}
-        \includegraphics[width=\textwidth]{dnest}
+        \includegraphics[width=\textwidth]{figures/dnest}
     }{%
         \texttt{PolyChord}
-        \includegraphics[width=\textwidth]{polychord}
+        \includegraphics[width=\textwidth]{figures/polychord}
         \vfill
         \texttt{NeuralNest}
             \cols[0.5]{
-                \includegraphics[width=\textwidth]{rosenbrock_flow.png}
-                \includegraphics[width=\textwidth]{himmelblau_flow.png}
+                \includegraphics[width=\textwidth]{figures/rosenbrock_flow.png}
+                \includegraphics[width=\textwidth]{figures/himmelblau_flow.png}
             }{
-                \includegraphics[width=\textwidth]{chains.png}
+                \includegraphics[width=\textwidth]{figures/chains.png}
             }
             \vfill
     }
