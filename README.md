@@ -95,6 +95,11 @@
     - [source](https://github.com/williamjameshandley/talks/tree/cosmotools_2018) 
     - [PDF](https://github.com/williamjameshandley/talks/raw/cosmotools_2018/will_handley_cosmotools_2018.pdf) 
     - April 2018
+17. Modern Bayesian Inference
+    - Seminar at Aachen RWTH
+    - [source](https://github.com/williamjameshandley/talks/tree/aachen_2017) 
+    - [PDF](https://github.com/williamjameshandley/talks/raw/aachen_2017/will_handley_aachen_2017.pdf) 
+    - April 2017
 17. PolyChord 2.0: Advances in Nested Sampling with astrophysical applications
     - Seminar at Center for Computational Astrophysics (CCA) Flatiron Institute, New York City, US
     - [source](https://github.com/williamjameshandley/talks/tree/flatiron_2017) 
