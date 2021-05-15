@@ -90,6 +90,11 @@
     - [source](https://github.com/williamjameshandley/talks/tree/icic_2018) 
     - [PDF](https://github.com/williamjameshandley/talks/raw/icic_2018/will_handley_icic_2018.pdf) 
     - May 2018
+16. Introduction to Statistics
+    - [CosmoTools18 workshop](https://indico.cern.ch/event/688110/timetable/?print=1&view=standard) in Aachen, Germany. 
+    - [source](https://github.com/williamjameshandley/talks/tree/cosmotools_2018) 
+    - [PDF](https://github.com/williamjameshandley/talks/raw/cosmotools_2018/will_handley_cosmotools_2018.pdf) 
+    - April 2018
 17. PolyChord 2.0: Advances in Nested Sampling with astrophysical applications
     - Seminar at Center for Computational Astrophysics (CCA) Flatiron Institute, New York City, US
     - [source](https://github.com/williamjameshandley/talks/tree/flatiron_2017) 
