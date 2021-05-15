@@ -1,0 +1,565 @@
+<?xml version="1.0"?>
+<!DOCTYPE ipe SYSTEM "ipe.dtd">
+<ipe version="70005" creator="Ipe 7.1.4">
+<info created="D:20150131192046" modified="D:20160308083715"/>
+<ipestyle name="basic">
+<symbol name="arrow/arc(spx)">
+<path stroke="sym-stroke" fill="sym-stroke" pen="sym-pen">
+0 0 m
+-1 0.333 l
+-1 -0.333 l
+h
+</path>
+</symbol>
+<symbol name="arrow/farc(spx)">
+<path stroke="sym-stroke" fill="white" pen="sym-pen">
+0 0 m
+-1 0.333 l
+-1 -0.333 l
+h
+</path>
+</symbol>
+<symbol name="mark/circle(sx)" transformations="translations">
+<path fill="sym-stroke">
+0.6 0 0 0.6 0 0 e
+0.4 0 0 0.4 0 0 e
+</path>
+</symbol>
+<symbol name="mark/disk(sx)" transformations="translations">
+<path fill="sym-stroke">
+0.6 0 0 0.6 0 0 e
+</path>
+</symbol>
+<symbol name="mark/fdisk(sfx)" transformations="translations">
+<group>
+<path fill="sym-fill">
+0.5 0 0 0.5 0 0 e
+</path>
+<path fill="sym-stroke" fillrule="eofill">
+0.6 0 0 0.6 0 0 e
+0.4 0 0 0.4 0 0 e
+</path>
+</group>
+</symbol>
+<symbol name="mark/box(sx)" transformations="translations">
+<path fill="sym-stroke" fillrule="eofill">
+-0.6 -0.6 m
+0.6 -0.6 l
+0.6 0.6 l
+-0.6 0.6 l
+h
+-0.4 -0.4 m
+0.4 -0.4 l
+0.4 0.4 l
+-0.4 0.4 l
+h
+</path>
+</symbol>
+<symbol name="mark/square(sx)" transformations="translations">
+<path fill="sym-stroke">
+-0.6 -0.6 m
+0.6 -0.6 l
+0.6 0.6 l
+-0.6 0.6 l
+h
+</path>
+</symbol>
+<symbol name="mark/fsquare(sfx)" transformations="translations">
+<group>
+<path fill="sym-fill">
+-0.5 -0.5 m
+0.5 -0.5 l
+0.5 0.5 l
+-0.5 0.5 l
+h
+</path>
+<path fill="sym-stroke" fillrule="eofill">
+-0.6 -0.6 m
+0.6 -0.6 l
+0.6 0.6 l
+-0.6 0.6 l
+h
+-0.4 -0.4 m
+0.4 -0.4 l
+0.4 0.4 l
+-0.4 0.4 l
+h
+</path>
+</group>
+</symbol>
+<symbol name="mark/cross(sx)" transformations="translations">
+<group>
+<path fill="sym-stroke">
+-0.43 -0.57 m
+0.57 0.43 l
+0.43 0.57 l
+-0.57 -0.43 l
+h
+</path>
+<path fill="sym-stroke">
+-0.43 0.57 m
+0.57 -0.43 l
+0.43 -0.57 l
+-0.57 0.43 l
+h
+</path>
+</group>
+</symbol>
+<symbol name="arrow/fnormal(spx)">
+<path stroke="sym-stroke" fill="white" pen="sym-pen">
+0 0 m
+-1 0.333 l
+-1 -0.333 l
+h
+</path>
+</symbol>
+<symbol name="arrow/pointed(spx)">
+<path stroke="sym-stroke" fill="sym-stroke" pen="sym-pen">
+0 0 m
+-1 0.333 l
+-0.8 0 l
+-1 -0.333 l
+h
+</path>
+</symbol>
+<symbol name="arrow/fpointed(spx)">
+<path stroke="sym-stroke" fill="white" pen="sym-pen">
+0 0 m
+-1 0.333 l
+-0.8 0 l
+-1 -0.333 l
+h
+</path>
+</symbol>
+<symbol name="arrow/linear(spx)">
+<path stroke="sym-stroke" pen="sym-pen">
+-1 0.333 m
+0 0 l
+-1 -0.333 l
+</path>
+</symbol>
+<symbol name="arrow/fdouble(spx)">
+<path stroke="sym-stroke" fill="white" pen="sym-pen">
+0 0 m
+-1 0.333 l
+-1 -0.333 l
+h
+-1 0 m
+-2 0.333 l
+-2 -0.333 l
+h
+</path>
+</symbol>
+<symbol name="arrow/double(spx)">
+<path stroke="sym-stroke" fill="sym-stroke" pen="sym-pen">
+0 0 m
+-1 0.333 l
+-1 -0.333 l
+h
+-1 0 m
+-2 0.333 l
+-2 -0.333 l
+h
+</path>
+</symbol>
+<pen name="heavier" value="0.8"/>
+<pen name="fat" value="1.2"/>
+<pen name="ultrafat" value="2"/>
+<symbolsize name="large" value="5"/>
+<symbolsize name="small" value="2"/>
+<symbolsize name="tiny" value="1.1"/>
+<arrowsize name="large" value="10"/>
+<arrowsize name="small" value="5"/>
+<arrowsize name="tiny" value="3"/>
+<color name="red" value="1 0 0"/>
+<color name="green" value="0 1 0"/>
+<color name="blue" value="0 0 1"/>
+<color name="yellow" value="1 1 0"/>
+<color name="orange" value="1 0.647 0"/>
+<color name="gold" value="1 0.843 0"/>
+<color name="purple" value="0.627 0.125 0.941"/>
+<color name="gray" value="0.745"/>
+<color name="brown" value="0.647 0.165 0.165"/>
+<color name="navy" value="0 0 0.502"/>
+<color name="pink" value="1 0.753 0.796"/>
+<color name="seagreen" value="0.18 0.545 0.341"/>
+<color name="turquoise" value="0.251 0.878 0.816"/>
+<color name="violet" value="0.933 0.51 0.933"/>
+<color name="darkblue" value="0 0 0.545"/>
+<color name="darkcyan" value="0 0.545 0.545"/>
+<color name="darkgray" value="0.663"/>
+<color name="darkgreen" value="0 0.392 0"/>
+<color name="darkmagenta" value="0.545 0 0.545"/>
+<color name="darkorange" value="1 0.549 0"/>
+<color name="darkred" value="0.545 0 0"/>
+<color name="lightblue" value="0.678 0.847 0.902"/>
+<color name="lightcyan" value="0.878 1 1"/>
+<color name="lightgray" value="0.827"/>
+<color name="lightgreen" value="0.565 0.933 0.565"/>
+<color name="lightyellow" value="1 1 0.878"/>
+<dashstyle name="dashed" value="[4] 0"/>
+<dashstyle name="dotted" value="[1 3] 0"/>
+<dashstyle name="dash dotted" value="[4 2 1 2] 0"/>
+<dashstyle name="dash dot dotted" value="[4 2 1 2 1 2] 0"/>
+<textsize name="large" value="\large"/>
+<textsize name="small" value="\small"/>
+<textsize name="tiny" value="\tiny"/>
+<textsize name="Large" value="\Large"/>
+<textsize name="LARGE" value="\LARGE"/>
+<textsize name="huge" value="\huge"/>
+<textsize name="Huge" value="\Huge"/>
+<textsize name="footnote" value="\footnotesize"/>
+<textstyle name="center" begin="\begin{center}" end="\end{center}"/>
+<textstyle name="itemize" begin="\begin{itemize}" end="\end{itemize}"/>
+<textstyle name="item" begin="\begin{itemize}\item{}" end="\end{itemize}"/>
+<gridsize name="4 pts" value="4"/>
+<gridsize name="8 pts (~3 mm)" value="8"/>
+<gridsize name="16 pts (~6 mm)" value="16"/>
+<gridsize name="32 pts (~12 mm)" value="32"/>
+<gridsize name="10 pts (~3.5 mm)" value="10"/>
+<gridsize name="20 pts (~7 mm)" value="20"/>
+<gridsize name="14 pts (~5 mm)" value="14"/>
+<gridsize name="28 pts (~10 mm)" value="28"/>
+<gridsize name="56 pts (~20 mm)" value="56"/>
+<anglesize name="90 deg" value="90"/>
+<anglesize name="60 deg" value="60"/>
+<anglesize name="45 deg" value="45"/>
+<anglesize name="30 deg" value="30"/>
+<anglesize name="22.5 deg" value="22.5"/>
+<tiling name="falling" angle="-60" step="4" width="1"/>
+<tiling name="rising" angle="30" step="4" width="1"/>
+</ipestyle>
+<ipestyle name="beamer">
+<color name="gray000" value="0"/>
+<color name="gray001" value="0.012"/>
+<color name="gray002" value="0.02"/>
+<color name="gray003" value="0.031"/>
+<color name="gray004" value="0.039"/>
+<color name="gray005" value="0.051"/>
+<color name="gray006" value="0.059"/>
+<color name="gray007" value="0.071"/>
+<color name="gray008" value="0.078"/>
+<color name="gray009" value="0.09"/>
+<color name="gray010" value="0.102"/>
+<color name="gray011" value="0.11"/>
+<color name="gray012" value="0.122"/>
+<color name="gray013" value="0.129"/>
+<color name="gray014" value="0.141"/>
+<color name="gray015" value="0.149"/>
+<color name="gray016" value="0.161"/>
+<color name="gray017" value="0.169"/>
+<color name="gray018" value="0.18"/>
+<color name="gray019" value="0.188"/>
+<color name="gray020" value="0.2"/>
+<color name="gray021" value="0.212"/>
+<color name="gray022" value="0.22"/>
+<color name="gray023" value="0.231"/>
+<color name="gray024" value="0.239"/>
+<color name="gray025" value="0.251"/>
+<color name="gray026" value="0.259"/>
+<color name="gray027" value="0.271"/>
+<color name="gray028" value="0.278"/>
+<color name="gray029" value="0.29"/>
+<color name="gray030" value="0.302"/>
+<color name="gray031" value="0.31"/>
+<color name="gray032" value="0.322"/>
+<color name="gray033" value="0.329"/>
+<color name="gray034" value="0.341"/>
+<color name="gray035" value="0.349"/>
+<color name="gray036" value="0.361"/>
+<color name="gray037" value="0.369"/>
+<color name="gray038" value="0.38"/>
+<color name="gray039" value="0.388"/>
+<color name="gray040" value="0.4"/>
+<color name="gray041" value="0.412"/>
+<color name="gray042" value="0.42"/>
+<color name="gray043" value="0.431"/>
+<color name="gray044" value="0.439"/>
+<color name="gray045" value="0.451"/>
+<color name="gray046" value="0.459"/>
+<color name="gray047" value="0.471"/>
+<color name="gray048" value="0.478"/>
+<color name="gray049" value="0.49"/>
+<color name="gray050" value="0.498"/>
+<color name="gray051" value="0.51"/>
+<color name="gray052" value="0.522"/>
+<color name="gray053" value="0.529"/>
+<color name="gray054" value="0.541"/>
+<color name="gray055" value="0.549"/>
+<color name="gray056" value="0.561"/>
+<color name="gray057" value="0.569"/>
+<color name="gray058" value="0.58"/>
+<color name="gray059" value="0.588"/>
+<color name="gray060" value="0.6"/>
+<color name="gray061" value="0.612"/>
+<color name="gray062" value="0.62"/>
+<color name="gray063" value="0.631"/>
+<color name="gray064" value="0.639"/>
+<color name="gray065" value="0.651"/>
+<color name="gray066" value="0.659"/>
+<color name="gray067" value="0.671"/>
+<color name="gray068" value="0.678"/>
+<color name="gray069" value="0.69"/>
+<color name="gray070" value="0.702"/>
+<color name="gray071" value="0.71"/>
+<color name="gray072" value="0.722"/>
+<color name="gray073" value="0.729"/>
+<color name="gray074" value="0.741"/>
+<color name="gray075" value="0.749"/>
+<color name="gray076" value="0.761"/>
+<color name="gray077" value="0.769"/>
+<color name="gray078" value="0.78"/>
+<color name="gray079" value="0.788"/>
+<color name="gray080" value="0.8"/>
+<color name="gray081" value="0.812"/>
+<color name="gray082" value="0.82"/>
+<color name="gray083" value="0.831"/>
+<color name="gray084" value="0.839"/>
+<color name="gray085" value="0.851"/>
+<color name="gray086" value="0.859"/>
+<color name="gray087" value="0.871"/>
+<color name="gray088" value="0.878"/>
+<color name="gray089" value="0.89"/>
+<color name="gray090" value="0.898"/>
+<color name="gray091" value="0.91"/>
+<color name="gray092" value="0.922"/>
+<color name="gray093" value="0.929"/>
+<color name="gray094" value="0.941"/>
+<color name="gray095" value="0.949"/>
+<color name="gray096" value="0.961"/>
+<color name="gray097" value="0.969"/>
+<color name="gray098" value="0.98"/>
+<color name="gray099" value="0.988"/>
+<color name="gray100" value="1"/>
+<preamble>
+\makeatletter
+\renewcommand{\rmdefault}{cmss}
+\def\mathfamilydefault{\sfdefault}
+\SetSymbolFont{operators}{normal}{OT1}{cmss}{m}{n}
+\SetSymbolFont{operators}{bold}{OT1}{cmss}{bx}{n}
+\DeclareSymbolFont{numbers}{\encodingdefault}{\mathfamilydefault}{m}{n}
+\DeclareSymbolFont{pureletters}{\encodingdefault}{\mathfamilydefault}{m}{it}
+\SetMathAlphabet{\mathrm}{normal}{\encodingdefault}{\rmdefault}{m}{n}
+\DeclareMathAlphabet{\mathbf}{\encodingdefault}{\mathfamilydefault}{bx}{n}
+\DeclareMathAlphabet{\mathsf}{\encodingdefault}{\sfdefault}{m}{n}
+\DeclareMathAlphabet{\mathit}{\encodingdefault}{\mathfamilydefault}{m}{it}
+\DeclareMathAlphabet{\mathtt}{\encodingdefault}{\ttdefault}{m}{n}
+\SetSymbolFont{numbers}{bold}{\encodingdefault}{\mathfamilydefault}{bx}{n}
+\SetSymbolFont{pureletters}{bold}{\encodingdefault}{\mathfamilydefault}{bx}{it}
+\SetMathAlphabet{\mathrm}{bold}{\encodingdefault}{\rmdefault}{bx}{n}
+\SetMathAlphabet{\mathbf}{bold}{\encodingdefault}{\mathfamilydefault}{bx}{n}
+\SetMathAlphabet{\mathsf}{bold}{\encodingdefault}{\sfdefault}{bx}{n}
+\SetMathAlphabet{\mathit}{bold}{\encodingdefault}{\mathfamilydefault}{bx}{it}
+\SetMathAlphabet{\mathtt}{bold}{\encodingdefault}{\ttdefault}{bx}{n}
+
+\def\operator@font{\mathgroup\symnumbers}
+
+\DeclareMathSymbol{0}\mathalpha{numbers}{&quot;30}
+\DeclareMathSymbol{1}\mathalpha{numbers}{&quot;31}
+\DeclareMathSymbol{2}\mathalpha{numbers}{&quot;32}
+\DeclareMathSymbol{3}\mathalpha{numbers}{&quot;33}
+\DeclareMathSymbol{4}\mathalpha{numbers}{&quot;34}
+\DeclareMathSymbol{5}\mathalpha{numbers}{&quot;35}
+\DeclareMathSymbol{6}\mathalpha{numbers}{&quot;36}
+\DeclareMathSymbol{7}\mathalpha{numbers}{&quot;37}
+\DeclareMathSymbol{8}\mathalpha{numbers}{&quot;38}
+\DeclareMathSymbol{9}\mathalpha{numbers}{&quot;39}
+
+\DeclareMathSymbol{A}\mathalpha{pureletters}{&quot;41}
+\DeclareMathSymbol{B}\mathalpha{pureletters}{&quot;42}
+\DeclareMathSymbol{C}\mathalpha{pureletters}{&quot;43}
+\DeclareMathSymbol{D}\mathalpha{pureletters}{&quot;44}
+\DeclareMathSymbol{E}\mathalpha{pureletters}{&quot;45}
+\DeclareMathSymbol{F}\mathalpha{pureletters}{&quot;46}
+\DeclareMathSymbol{G}\mathalpha{pureletters}{&quot;47}
+\DeclareMathSymbol{H}\mathalpha{pureletters}{&quot;48}
+\DeclareMathSymbol{I}\mathalpha{pureletters}{&quot;49}
+\DeclareMathSymbol{J}\mathalpha{pureletters}{&quot;4A}
+\DeclareMathSymbol{K}\mathalpha{pureletters}{&quot;4B}
+\DeclareMathSymbol{L}\mathalpha{pureletters}{&quot;4C}
+\DeclareMathSymbol{M}\mathalpha{pureletters}{&quot;4D}
+\DeclareMathSymbol{N}\mathalpha{pureletters}{&quot;4E}
+\DeclareMathSymbol{O}\mathalpha{pureletters}{&quot;4F}
+\DeclareMathSymbol{P}\mathalpha{pureletters}{&quot;50}
+\DeclareMathSymbol{Q}\mathalpha{pureletters}{&quot;51}
+\DeclareMathSymbol{R}\mathalpha{pureletters}{&quot;52}
+\DeclareMathSymbol{S}\mathalpha{pureletters}{&quot;53}
+\DeclareMathSymbol{T}\mathalpha{pureletters}{&quot;54}
+\DeclareMathSymbol{U}\mathalpha{pureletters}{&quot;55}
+\DeclareMathSymbol{V}\mathalpha{pureletters}{&quot;56}
+\DeclareMathSymbol{W}\mathalpha{pureletters}{&quot;57}
+\DeclareMathSymbol{X}\mathalpha{pureletters}{&quot;58}
+\DeclareMathSymbol{Y}\mathalpha{pureletters}{&quot;59}
+\DeclareMathSymbol{Z}\mathalpha{pureletters}{&quot;5A}
+
+\DeclareMathSymbol{a}\mathalpha{pureletters}{&quot;61}
+\DeclareMathSymbol{b}\mathalpha{pureletters}{&quot;62}
+\DeclareMathSymbol{c}\mathalpha{pureletters}{&quot;63}
+\DeclareMathSymbol{d}\mathalpha{pureletters}{&quot;64}
+\DeclareMathSymbol{e}\mathalpha{pureletters}{&quot;65}
+\DeclareMathSymbol{f}\mathalpha{pureletters}{&quot;66}
+\DeclareMathSymbol{g}\mathalpha{pureletters}{&quot;67}
+\DeclareMathSymbol{h}\mathalpha{pureletters}{&quot;68}
+\DeclareMathSymbol{i}\mathalpha{pureletters}{&quot;69}
+\DeclareMathSymbol{j}\mathalpha{pureletters}{&quot;6A}
+\DeclareMathSymbol{k}\mathalpha{pureletters}{&quot;6B}
+\DeclareMathSymbol{l}\mathalpha{pureletters}{&quot;6C}
+\DeclareMathSymbol{m}\mathalpha{pureletters}{&quot;6D}
+\DeclareMathSymbol{n}\mathalpha{pureletters}{&quot;6E}
+\DeclareMathSymbol{o}\mathalpha{pureletters}{&quot;6F}
+\DeclareMathSymbol{p}\mathalpha{pureletters}{&quot;70}
+\DeclareMathSymbol{q}\mathalpha{pureletters}{&quot;71}
+\DeclareMathSymbol{r}\mathalpha{pureletters}{&quot;72}
+\DeclareMathSymbol{s}\mathalpha{pureletters}{&quot;73}
+\DeclareMathSymbol{t}\mathalpha{pureletters}{&quot;74}
+\DeclareMathSymbol{u}\mathalpha{pureletters}{&quot;75}
+\DeclareMathSymbol{v}\mathalpha{pureletters}{&quot;76}
+\DeclareMathSymbol{w}\mathalpha{pureletters}{&quot;77}
+\DeclareMathSymbol{x}\mathalpha{pureletters}{&quot;78}
+\DeclareMathSymbol{y}\mathalpha{pureletters}{&quot;79}
+\DeclareMathSymbol{z}\mathalpha{pureletters}{&quot;7A}
+
+\DeclareOldFontCommand{\rm}{\normalfont\rmfamily}{\mathrm}
+\DeclareOldFontCommand{\sf}{\normalfont\sffamily}{\mathsf}
+\DeclareOldFontCommand{\tt}{\normalfont\ttfamily}{\mathtt}
+\DeclareOldFontCommand{\bf}{\normalfont\bfseries}{\mathbf}
+\DeclareOldFontCommand{\it}{\normalfont\itshape}{\mathit}
+\DeclareOldFontCommand{\sl}{\normalfont\slshape}{\@nomath\sl}
+\DeclareOldFontCommand{\sc}{\normalfont\scshape}{\@nomath\sc}
+\DeclareRobustCommand*\cal{\@fontswitch\relax\mathcal}
+\DeclareRobustCommand*\mit{\@fontswitch\relax\mathnormal}
+\makeatother
+</preamble>
+<layout paper="364.2 273.1" origin="0 0" frame="500 300" crop="no"/>
+</ipestyle>
+<page>
+<layer name="alpha"/>
+<layer name="beta"/>
+<layer name="gamma"/>
+<layer name="delta"/>
+<layer name="epsilon"/>
+<layer name="zeta"/>
+<view layers="alpha" active="gamma"/>
+<view layers="alpha delta" active="delta"/>
+<view layers="alpha beta delta" active="beta"/>
+<view layers="alpha beta gamma delta" active="gamma"/>
+<view layers="alpha beta gamma delta zeta" active="zeta"/>
+<path layer="alpha" matrix="2.01694 0 0 1 -78.6838 0" fill="gray050">
+71.6655 32 m
+71.6655 240 l
+65.3243 240 l
+65.3243 32 l
+h
+</path>
+<path matrix="1.31044 0 0 1 -27.2761 0" fill="gray060">
+87.8632 32 m
+87.8632 240 l
+79.4281 240 l
+79.4281 32 l
+h
+</path>
+<path matrix="2.99312 0 0 1 -142.452 0" fill="gray045">
+65.3243 32 m
+65.3243 240 l
+61.1538 240 l
+61.1538 32 l
+h
+</path>
+<path fill="gray040">
+40.5884 240 m
+40.5884 32 l
+32 32 l
+32 240 l
+h
+</path>
+<path matrix="1.41041 0 0 1 -35.2169 0" fill="gray055">
+79.4281 32 m
+79.4281 240 l
+71.6655 240 l
+71.6655 32 l
+h
+</path>
+<path fill="gray065">
+98.9343 32 m
+98.9343 240 l
+87.8632 240 l
+87.8632 32 l
+h
+</path>
+<path fill="gray070">
+114.75 32 m
+114.75 240 l
+98.9343 240 l
+98.9343 32 l
+h
+</path>
+<path fill="gray075">
+136.365 32 m
+136.365 240 l
+114.75 240 l
+114.75 32 l
+h
+</path>
+<path fill="gray080">
+169.579 32 m
+169.579 240 l
+136.365 240 l
+136.365 32 l
+h
+</path>
+<path fill="gray085">
+210.173 32 m
+210.173 240 l
+169.579 240 l
+169.579 32 l
+h
+</path>
+<path fill="gray090">
+256.566 32 m
+256.566 240 l
+210.173 240 l
+210.173 32 l
+h
+</path>
+<path fill="gray095">
+256.566 32 m
+256.566 240 l
+319.829 240 l
+319.829 32 l
+h
+</path>
+<path stroke="white" fill="gray100">
+320 32 m
+304 80
+128 80
+80 240
+32 240 s
+320 240 l
+h
+</path>
+<path stroke="black" arrow="normal/large" rarrow="normal/large">
+32 272 m
+32 32 l
+352 32 l
+</path>
+<path stroke="black" fill="gray040" cap="1">
+32 220.005 m
+32 220.005 l
+</path>
+<text matrix="1 0 0 1 -5.48284 -26.0435" transformations="translations" pos="11.4001 262.134" stroke="black" type="label" width="17.096" height="16.938" depth="0" valign="baseline" size="Huge">$\mathcal{L}$</text>
+<text matrix="1 0 0 1 314.517 -250.043" transformations="translations" pos="11.4001 262.134" stroke="black" type="label" width="18.815" height="17.213" depth="0" valign="baseline" size="Huge">$X$</text>
+<text layer="gamma" transformations="translations" pos="128 208" stroke="black" type="label" width="179.885" height="14.645" depth="13.82" valign="baseline" size="Large">$\displaystyle{\int \mathcal{L}(X)dX \approx \sum_i \mathcal{L}_i ( X_{i-1}-X_i )}$</text>
+<text layer="beta" matrix="1 0 0 1 -44.7715 11.0144" transformations="translations" pos="256 16" stroke="black" type="label" width="12.467" height="8.305" depth="1.79" halign="center" valign="top" size="large">$X_2$</text>
+<text matrix="1 0 0 1 1.44132 11.5897" transformations="translations" pos="256 16" stroke="black" type="label" width="12.467" height="8.305" depth="1.79" halign="center" valign="top" size="large">$X_1$</text>
+<text matrix="1 0 0 1 -85.9981 10.6309" transformations="translations" pos="256 16" stroke="black" type="label" width="12.467" height="8.305" depth="1.79" halign="center" valign="top" size="large">$X_3$</text>
+<text matrix="1 0 0 1 -119.584 10.4203" transformations="translations" pos="256 16" stroke="black" type="label" width="12.467" height="8.305" depth="1.79" halign="center" valign="top" size="large">$X_4$</text>
+<text matrix="1 0 0 1 -139.806 9.99901" transformations="translations" pos="256 16" stroke="black" type="label" width="12.467" height="8.305" depth="1.79" halign="center" valign="top" size="large">$X_5$</text>
+<text layer="delta" transformations="translations" pos="256.566 85.699" stroke="black" type="label" width="12.978" height="8.173" depth="1.79" valign="baseline" size="large">$\mathcal{L}_1$</text>
+<text matrix="1 0 0 1 -50.9748 7.58309" transformations="translations" pos="256.566 85.699" stroke="black" type="label" width="12.978" height="8.173" depth="1.79" valign="baseline" size="large">$\mathcal{L}_2$</text>
+<text matrix="1 0 0 1 -92.6815 15.5874" transformations="translations" pos="256.566 85.699" stroke="black" type="label" width="12.978" height="8.173" depth="1.79" valign="baseline" size="large">$\mathcal{L}_3$</text>
+<text matrix="1 0 0 1 -121.75 37.4941" transformations="translations" pos="256.566 85.699" stroke="black" type="label" width="12.978" height="8.173" depth="1.79" valign="baseline" size="large">$\mathcal{L}_4$</text>
+<text matrix="1 0 0 1 -143.657 64.4561" transformations="translations" pos="256.566 85.699" stroke="black" type="label" width="12.978" height="8.173" depth="1.79" valign="baseline" size="large">$\mathcal{L}_5$</text>
+<text layer="epsilon" transformations="translations" pos="128 208" stroke="black" type="label" width="125.833" height="14.645" depth="13.82" valign="baseline" size="Large">$\displaystyle{\int \mathcal{L}(X)dX \approx \sum_i \mathcal{L}_i w_i}$</text>
+<text layer="zeta" matrix="1 0 0 1 48 -48" transformations="translations" pos="128 208" stroke="black" type="label" width="141.607" height="16.068" depth="10.95" valign="baseline" size="Large">$\displaystyle{X_{i+1} \approx \frac{n}{n+1} X_{i} }$, $\displaystyle{X_0 = 1}$</text>
+</page>
+</ipe>

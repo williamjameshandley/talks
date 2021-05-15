@@ -1,0 +1,430 @@
+<?xml version="1.0"?>
+<!DOCTYPE ipe SYSTEM "ipe.dtd">
+<ipe version="70005" creator="Ipe 7.1.4">
+<info created="D:20150116172646" modified="D:20150116202548"/>
+<ipestyle name="basic">
+<symbol name="arrow/arc(spx)">
+<path stroke="sym-stroke" fill="sym-stroke" pen="sym-pen">
+0 0 m
+-1 0.333 l
+-1 -0.333 l
+h
+</path>
+</symbol>
+<symbol name="arrow/farc(spx)">
+<path stroke="sym-stroke" fill="white" pen="sym-pen">
+0 0 m
+-1 0.333 l
+-1 -0.333 l
+h
+</path>
+</symbol>
+<symbol name="mark/circle(sx)" transformations="translations">
+<path fill="sym-stroke">
+0.6 0 0 0.6 0 0 e
+0.4 0 0 0.4 0 0 e
+</path>
+</symbol>
+<symbol name="mark/disk(sx)" transformations="translations">
+<path fill="sym-stroke">
+0.6 0 0 0.6 0 0 e
+</path>
+</symbol>
+<symbol name="mark/fdisk(sfx)" transformations="translations">
+<group>
+<path fill="sym-fill">
+0.5 0 0 0.5 0 0 e
+</path>
+<path fill="sym-stroke" fillrule="eofill">
+0.6 0 0 0.6 0 0 e
+0.4 0 0 0.4 0 0 e
+</path>
+</group>
+</symbol>
+<symbol name="mark/box(sx)" transformations="translations">
+<path fill="sym-stroke" fillrule="eofill">
+-0.6 -0.6 m
+0.6 -0.6 l
+0.6 0.6 l
+-0.6 0.6 l
+h
+-0.4 -0.4 m
+0.4 -0.4 l
+0.4 0.4 l
+-0.4 0.4 l
+h
+</path>
+</symbol>
+<symbol name="mark/square(sx)" transformations="translations">
+<path fill="sym-stroke">
+-0.6 -0.6 m
+0.6 -0.6 l
+0.6 0.6 l
+-0.6 0.6 l
+h
+</path>
+</symbol>
+<symbol name="mark/fsquare(sfx)" transformations="translations">
+<group>
+<path fill="sym-fill">
+-0.5 -0.5 m
+0.5 -0.5 l
+0.5 0.5 l
+-0.5 0.5 l
+h
+</path>
+<path fill="sym-stroke" fillrule="eofill">
+-0.6 -0.6 m
+0.6 -0.6 l
+0.6 0.6 l
+-0.6 0.6 l
+h
+-0.4 -0.4 m
+0.4 -0.4 l
+0.4 0.4 l
+-0.4 0.4 l
+h
+</path>
+</group>
+</symbol>
+<symbol name="mark/cross(sx)" transformations="translations">
+<group>
+<path fill="sym-stroke">
+-0.43 -0.57 m
+0.57 0.43 l
+0.43 0.57 l
+-0.57 -0.43 l
+h
+</path>
+<path fill="sym-stroke">
+-0.43 0.57 m
+0.57 -0.43 l
+0.43 -0.57 l
+-0.57 0.43 l
+h
+</path>
+</group>
+</symbol>
+<symbol name="arrow/fnormal(spx)">
+<path stroke="sym-stroke" fill="white" pen="sym-pen">
+0 0 m
+-1 0.333 l
+-1 -0.333 l
+h
+</path>
+</symbol>
+<symbol name="arrow/pointed(spx)">
+<path stroke="sym-stroke" fill="sym-stroke" pen="sym-pen">
+0 0 m
+-1 0.333 l
+-0.8 0 l
+-1 -0.333 l
+h
+</path>
+</symbol>
+<symbol name="arrow/fpointed(spx)">
+<path stroke="sym-stroke" fill="white" pen="sym-pen">
+0 0 m
+-1 0.333 l
+-0.8 0 l
+-1 -0.333 l
+h
+</path>
+</symbol>
+<symbol name="arrow/linear(spx)">
+<path stroke="sym-stroke" pen="sym-pen">
+-1 0.333 m
+0 0 l
+-1 -0.333 l
+</path>
+</symbol>
+<symbol name="arrow/fdouble(spx)">
+<path stroke="sym-stroke" fill="white" pen="sym-pen">
+0 0 m
+-1 0.333 l
+-1 -0.333 l
+h
+-1 0 m
+-2 0.333 l
+-2 -0.333 l
+h
+</path>
+</symbol>
+<symbol name="arrow/double(spx)">
+<path stroke="sym-stroke" fill="sym-stroke" pen="sym-pen">
+0 0 m
+-1 0.333 l
+-1 -0.333 l
+h
+-1 0 m
+-2 0.333 l
+-2 -0.333 l
+h
+</path>
+</symbol>
+<pen name="heavier" value="0.8"/>
+<pen name="fat" value="1.2"/>
+<pen name="ultrafat" value="2"/>
+<symbolsize name="large" value="5"/>
+<symbolsize name="small" value="2"/>
+<symbolsize name="tiny" value="1.1"/>
+<arrowsize name="large" value="10"/>
+<arrowsize name="small" value="5"/>
+<arrowsize name="tiny" value="3"/>
+<color name="red" value="1 0 0"/>
+<color name="green" value="0 1 0"/>
+<color name="blue" value="0 0 1"/>
+<color name="yellow" value="1 1 0"/>
+<color name="orange" value="1 0.647 0"/>
+<color name="gold" value="1 0.843 0"/>
+<color name="purple" value="0.627 0.125 0.941"/>
+<color name="gray" value="0.745"/>
+<color name="brown" value="0.647 0.165 0.165"/>
+<color name="navy" value="0 0 0.502"/>
+<color name="pink" value="1 0.753 0.796"/>
+<color name="seagreen" value="0.18 0.545 0.341"/>
+<color name="turquoise" value="0.251 0.878 0.816"/>
+<color name="violet" value="0.933 0.51 0.933"/>
+<color name="darkblue" value="0 0 0.545"/>
+<color name="darkcyan" value="0 0.545 0.545"/>
+<color name="darkgray" value="0.663"/>
+<color name="darkgreen" value="0 0.392 0"/>
+<color name="darkmagenta" value="0.545 0 0.545"/>
+<color name="darkorange" value="1 0.549 0"/>
+<color name="darkred" value="0.545 0 0"/>
+<color name="lightblue" value="0.678 0.847 0.902"/>
+<color name="lightcyan" value="0.878 1 1"/>
+<color name="lightgray" value="0.827"/>
+<color name="lightgreen" value="0.565 0.933 0.565"/>
+<color name="lightyellow" value="1 1 0.878"/>
+<dashstyle name="dashed" value="[4] 0"/>
+<dashstyle name="dotted" value="[1 3] 0"/>
+<dashstyle name="dash dotted" value="[4 2 1 2] 0"/>
+<dashstyle name="dash dot dotted" value="[4 2 1 2 1 2] 0"/>
+<textsize name="large" value="\large"/>
+<textsize name="Large" value="\Large"/>
+<textsize name="LARGE" value="\LARGE"/>
+<textsize name="huge" value="\huge"/>
+<textsize name="Huge" value="\Huge"/>
+<textsize name="small" value="\small"/>
+<textsize name="footnote" value="\footnotesize"/>
+<textsize name="tiny" value="\tiny"/>
+<textstyle name="center" begin="\begin{center}" end="\end{center}"/>
+<textstyle name="itemize" begin="\begin{itemize}" end="\end{itemize}"/>
+<textstyle name="item" begin="\begin{itemize}\item{}" end="\end{itemize}"/>
+<gridsize name="4 pts" value="4"/>
+<gridsize name="8 pts (~3 mm)" value="8"/>
+<gridsize name="16 pts (~6 mm)" value="16"/>
+<gridsize name="32 pts (~12 mm)" value="32"/>
+<gridsize name="10 pts (~3.5 mm)" value="10"/>
+<gridsize name="20 pts (~7 mm)" value="20"/>
+<gridsize name="14 pts (~5 mm)" value="14"/>
+<gridsize name="28 pts (~10 mm)" value="28"/>
+<gridsize name="56 pts (~20 mm)" value="56"/>
+<anglesize name="90 deg" value="90"/>
+<anglesize name="60 deg" value="60"/>
+<anglesize name="45 deg" value="45"/>
+<anglesize name="30 deg" value="30"/>
+<anglesize name="22.5 deg" value="22.5"/>
+<tiling name="falling" angle="-60" step="4" width="1"/>
+<tiling name="rising" angle="30" step="4" width="1"/>
+</ipestyle>
+<ipestyle name="beamer">
+<preamble>
+\makeatletter
+\renewcommand{\rmdefault}{cmss}
+\def\mathfamilydefault{\sfdefault}
+\SetSymbolFont{operators}{normal}{OT1}{cmss}{m}{n}
+\SetSymbolFont{operators}{bold}{OT1}{cmss}{bx}{n}
+\DeclareSymbolFont{numbers}{\encodingdefault}{\mathfamilydefault}{m}{n}
+\DeclareSymbolFont{pureletters}{\encodingdefault}{\mathfamilydefault}{m}{it}
+\SetMathAlphabet{\mathrm}{normal}{\encodingdefault}{\rmdefault}{m}{n}
+\DeclareMathAlphabet{\mathbf}{\encodingdefault}{\mathfamilydefault}{bx}{n}
+\DeclareMathAlphabet{\mathsf}{\encodingdefault}{\sfdefault}{m}{n}
+\DeclareMathAlphabet{\mathit}{\encodingdefault}{\mathfamilydefault}{m}{it}
+\DeclareMathAlphabet{\mathtt}{\encodingdefault}{\ttdefault}{m}{n}
+\SetSymbolFont{numbers}{bold}{\encodingdefault}{\mathfamilydefault}{bx}{n}
+\SetSymbolFont{pureletters}{bold}{\encodingdefault}{\mathfamilydefault}{bx}{it}
+\SetMathAlphabet{\mathrm}{bold}{\encodingdefault}{\rmdefault}{bx}{n}
+\SetMathAlphabet{\mathbf}{bold}{\encodingdefault}{\mathfamilydefault}{bx}{n}
+\SetMathAlphabet{\mathsf}{bold}{\encodingdefault}{\sfdefault}{bx}{n}
+\SetMathAlphabet{\mathit}{bold}{\encodingdefault}{\mathfamilydefault}{bx}{it}
+\SetMathAlphabet{\mathtt}{bold}{\encodingdefault}{\ttdefault}{bx}{n}
+
+\def\operator@font{\mathgroup\symnumbers}
+
+\DeclareMathSymbol{0}\mathalpha{numbers}{&quot;30}
+\DeclareMathSymbol{1}\mathalpha{numbers}{&quot;31}
+\DeclareMathSymbol{2}\mathalpha{numbers}{&quot;32}
+\DeclareMathSymbol{3}\mathalpha{numbers}{&quot;33}
+\DeclareMathSymbol{4}\mathalpha{numbers}{&quot;34}
+\DeclareMathSymbol{5}\mathalpha{numbers}{&quot;35}
+\DeclareMathSymbol{6}\mathalpha{numbers}{&quot;36}
+\DeclareMathSymbol{7}\mathalpha{numbers}{&quot;37}
+\DeclareMathSymbol{8}\mathalpha{numbers}{&quot;38}
+\DeclareMathSymbol{9}\mathalpha{numbers}{&quot;39}
+
+\DeclareMathSymbol{A}\mathalpha{pureletters}{&quot;41}
+\DeclareMathSymbol{B}\mathalpha{pureletters}{&quot;42}
+\DeclareMathSymbol{C}\mathalpha{pureletters}{&quot;43}
+\DeclareMathSymbol{D}\mathalpha{pureletters}{&quot;44}
+\DeclareMathSymbol{E}\mathalpha{pureletters}{&quot;45}
+\DeclareMathSymbol{F}\mathalpha{pureletters}{&quot;46}
+\DeclareMathSymbol{G}\mathalpha{pureletters}{&quot;47}
+\DeclareMathSymbol{H}\mathalpha{pureletters}{&quot;48}
+\DeclareMathSymbol{I}\mathalpha{pureletters}{&quot;49}
+\DeclareMathSymbol{J}\mathalpha{pureletters}{&quot;4A}
+\DeclareMathSymbol{K}\mathalpha{pureletters}{&quot;4B}
+\DeclareMathSymbol{L}\mathalpha{pureletters}{&quot;4C}
+\DeclareMathSymbol{M}\mathalpha{pureletters}{&quot;4D}
+\DeclareMathSymbol{N}\mathalpha{pureletters}{&quot;4E}
+\DeclareMathSymbol{O}\mathalpha{pureletters}{&quot;4F}
+\DeclareMathSymbol{P}\mathalpha{pureletters}{&quot;50}
+\DeclareMathSymbol{Q}\mathalpha{pureletters}{&quot;51}
+\DeclareMathSymbol{R}\mathalpha{pureletters}{&quot;52}
+\DeclareMathSymbol{S}\mathalpha{pureletters}{&quot;53}
+\DeclareMathSymbol{T}\mathalpha{pureletters}{&quot;54}
+\DeclareMathSymbol{U}\mathalpha{pureletters}{&quot;55}
+\DeclareMathSymbol{V}\mathalpha{pureletters}{&quot;56}
+\DeclareMathSymbol{W}\mathalpha{pureletters}{&quot;57}
+\DeclareMathSymbol{X}\mathalpha{pureletters}{&quot;58}
+\DeclareMathSymbol{Y}\mathalpha{pureletters}{&quot;59}
+\DeclareMathSymbol{Z}\mathalpha{pureletters}{&quot;5A}
+
+\DeclareMathSymbol{a}\mathalpha{pureletters}{&quot;61}
+\DeclareMathSymbol{b}\mathalpha{pureletters}{&quot;62}
+\DeclareMathSymbol{c}\mathalpha{pureletters}{&quot;63}
+\DeclareMathSymbol{d}\mathalpha{pureletters}{&quot;64}
+\DeclareMathSymbol{e}\mathalpha{pureletters}{&quot;65}
+\DeclareMathSymbol{f}\mathalpha{pureletters}{&quot;66}
+\DeclareMathSymbol{g}\mathalpha{pureletters}{&quot;67}
+\DeclareMathSymbol{h}\mathalpha{pureletters}{&quot;68}
+\DeclareMathSymbol{i}\mathalpha{pureletters}{&quot;69}
+\DeclareMathSymbol{j}\mathalpha{pureletters}{&quot;6A}
+\DeclareMathSymbol{k}\mathalpha{pureletters}{&quot;6B}
+\DeclareMathSymbol{l}\mathalpha{pureletters}{&quot;6C}
+\DeclareMathSymbol{m}\mathalpha{pureletters}{&quot;6D}
+\DeclareMathSymbol{n}\mathalpha{pureletters}{&quot;6E}
+\DeclareMathSymbol{o}\mathalpha{pureletters}{&quot;6F}
+\DeclareMathSymbol{p}\mathalpha{pureletters}{&quot;70}
+\DeclareMathSymbol{q}\mathalpha{pureletters}{&quot;71}
+\DeclareMathSymbol{r}\mathalpha{pureletters}{&quot;72}
+\DeclareMathSymbol{s}\mathalpha{pureletters}{&quot;73}
+\DeclareMathSymbol{t}\mathalpha{pureletters}{&quot;74}
+\DeclareMathSymbol{u}\mathalpha{pureletters}{&quot;75}
+\DeclareMathSymbol{v}\mathalpha{pureletters}{&quot;76}
+\DeclareMathSymbol{w}\mathalpha{pureletters}{&quot;77}
+\DeclareMathSymbol{x}\mathalpha{pureletters}{&quot;78}
+\DeclareMathSymbol{y}\mathalpha{pureletters}{&quot;79}
+\DeclareMathSymbol{z}\mathalpha{pureletters}{&quot;7A}
+
+\DeclareOldFontCommand{\rm}{\normalfont\rmfamily}{\mathrm}
+\DeclareOldFontCommand{\sf}{\normalfont\sffamily}{\mathsf}
+\DeclareOldFontCommand{\tt}{\normalfont\ttfamily}{\mathtt}
+\DeclareOldFontCommand{\bf}{\normalfont\bfseries}{\mathbf}
+\DeclareOldFontCommand{\it}{\normalfont\itshape}{\mathit}
+\DeclareOldFontCommand{\sl}{\normalfont\slshape}{\@nomath\sl}
+\DeclareOldFontCommand{\sc}{\normalfont\scshape}{\@nomath\sc}
+\DeclareRobustCommand*\cal{\@fontswitch\relax\mathcal}
+\DeclareRobustCommand*\mit{\@fontswitch\relax\mathnormal}
+\makeatother
+</preamble>
+<layout paper="364.2 273.1" origin="0 0" frame="500 300" crop="no"/>
+</ipestyle>
+<page>
+<layer name="alpha"/>
+<view layers="alpha" active="alpha"/>
+<path layer="alpha" matrix="1.18919 0 0 1.00391 -68.1081 -14.8563" stroke="black">
+272 80
+252 80
+232 84
+216 104
+216 116
+228 128
+240 136
+240 148
+236 156
+220 168
+212 172
+204 184
+204 200
+204 208
+208 220
+240 272
+248 256
+260 244
+260 216
+256 200
+260 188
+268 188
+280 196
+280 212
+280 240
+288 252
+304 252
+320 240
+332 216
+344 204
+356 176
+356 148
+360 116
+348 84
+332 76
+304 72
+296 84 u
+</path>
+<path stroke="black" arrow="pointed/large">
+48 216 m
+86.7589 0 0 -86.7589 108 153.333 168 216 a
+</path>
+<text matrix="1 0 0 1 16 0" transformations="translations" pos="8 132" stroke="black" type="minipage" width="56" height="17.899" depth="12.93" valign="top">Contour from correlated distribution</text>
+<text transformations="translations" pos="48 256" stroke="black" type="label" width="120.479" height="6.926" depth="1.93" valign="baseline">Affine transformation ${\bf y} = L {\bf x}$</text>
+<text transformations="translations" pos="152 188" stroke="black" type="label" width="0" height="0" depth="0" valign="baseline"></text>
+<use name="mark/disk(sx)" pos="320 96" size="large" stroke="black"/>
+<text transformations="translations" pos="324 108" stroke="black" type="label" width="7.173" height="6.575" depth="2.79" valign="baseline" size="Large">$${\bf y}$$</text>
+<path matrix="-0.940272 1.24713 -0.696853 0.778404 469.556 -343.913" stroke="black">
+272 80
+252 80
+232 84
+216 104
+216 116
+228 128
+240 136
+240 148
+236 156
+220 168
+212 172
+204 184
+204 200
+204 208
+208 220
+240 272
+248 256
+260 244
+260 216
+256 200
+260 188
+268 188
+280 196
+280 212
+280 240
+288 252
+304 252
+320 240
+332 216
+344 204
+356 176
+356 148
+360 116
+348 84
+332 76
+304 72
+296 84 u
+</path>
+<use matrix="-0.790683 1.04872 -0.694139 0.775372 405.392 -260.967" name="mark/disk(sx)" pos="320 96" size="large" stroke="black"/>
+<text matrix="-0.790683 1.04872 -0.694139 0.775372 421.392 -268.967" transformations="translations" pos="324 108" stroke="black" type="label" width="7.173" height="6.575" depth="0" valign="baseline" size="Large">$${\bf x}$$</text>
+<text transformations="translations" pos="232 164" stroke="black" type="minipage" width="56" height="19.139" depth="14.18" valign="top">Contour with dimensions 
+
+$\sim\mathcal{O}(1)$</text>
+</page>
+</ipe>

@@ -1,0 +1,593 @@
+<?xml version="1.0"?>
+<!DOCTYPE ipe SYSTEM "ipe.dtd">
+<ipe version="70005" creator="Ipe 7.1.4">
+<info created="D:20150116142108" modified="D:20150116171528"/>
+<ipestyle name="basic">
+<symbol name="arrow/arc(spx)">
+<path stroke="sym-stroke" fill="sym-stroke" pen="sym-pen">
+0 0 m
+-1 0.333 l
+-1 -0.333 l
+h
+</path>
+</symbol>
+<symbol name="arrow/farc(spx)">
+<path stroke="sym-stroke" fill="white" pen="sym-pen">
+0 0 m
+-1 0.333 l
+-1 -0.333 l
+h
+</path>
+</symbol>
+<symbol name="mark/circle(sx)" transformations="translations">
+<path fill="sym-stroke">
+0.6 0 0 0.6 0 0 e
+0.4 0 0 0.4 0 0 e
+</path>
+</symbol>
+<symbol name="mark/disk(sx)" transformations="translations">
+<path fill="sym-stroke">
+0.6 0 0 0.6 0 0 e
+</path>
+</symbol>
+<symbol name="mark/fdisk(sfx)" transformations="translations">
+<group>
+<path fill="sym-fill">
+0.5 0 0 0.5 0 0 e
+</path>
+<path fill="sym-stroke" fillrule="eofill">
+0.6 0 0 0.6 0 0 e
+0.4 0 0 0.4 0 0 e
+</path>
+</group>
+</symbol>
+<symbol name="mark/box(sx)" transformations="translations">
+<path fill="sym-stroke" fillrule="eofill">
+-0.6 -0.6 m
+0.6 -0.6 l
+0.6 0.6 l
+-0.6 0.6 l
+h
+-0.4 -0.4 m
+0.4 -0.4 l
+0.4 0.4 l
+-0.4 0.4 l
+h
+</path>
+</symbol>
+<symbol name="mark/square(sx)" transformations="translations">
+<path fill="sym-stroke">
+-0.6 -0.6 m
+0.6 -0.6 l
+0.6 0.6 l
+-0.6 0.6 l
+h
+</path>
+</symbol>
+<symbol name="mark/fsquare(sfx)" transformations="translations">
+<group>
+<path fill="sym-fill">
+-0.5 -0.5 m
+0.5 -0.5 l
+0.5 0.5 l
+-0.5 0.5 l
+h
+</path>
+<path fill="sym-stroke" fillrule="eofill">
+-0.6 -0.6 m
+0.6 -0.6 l
+0.6 0.6 l
+-0.6 0.6 l
+h
+-0.4 -0.4 m
+0.4 -0.4 l
+0.4 0.4 l
+-0.4 0.4 l
+h
+</path>
+</group>
+</symbol>
+<symbol name="mark/cross(sx)" transformations="translations">
+<group>
+<path fill="sym-stroke">
+-0.43 -0.57 m
+0.57 0.43 l
+0.43 0.57 l
+-0.57 -0.43 l
+h
+</path>
+<path fill="sym-stroke">
+-0.43 0.57 m
+0.57 -0.43 l
+0.43 -0.57 l
+-0.57 0.43 l
+h
+</path>
+</group>
+</symbol>
+<symbol name="arrow/fnormal(spx)">
+<path stroke="sym-stroke" fill="white" pen="sym-pen">
+0 0 m
+-1 0.333 l
+-1 -0.333 l
+h
+</path>
+</symbol>
+<symbol name="arrow/pointed(spx)">
+<path stroke="sym-stroke" fill="sym-stroke" pen="sym-pen">
+0 0 m
+-1 0.333 l
+-0.8 0 l
+-1 -0.333 l
+h
+</path>
+</symbol>
+<symbol name="arrow/fpointed(spx)">
+<path stroke="sym-stroke" fill="white" pen="sym-pen">
+0 0 m
+-1 0.333 l
+-0.8 0 l
+-1 -0.333 l
+h
+</path>
+</symbol>
+<symbol name="arrow/linear(spx)">
+<path stroke="sym-stroke" pen="sym-pen">
+-1 0.333 m
+0 0 l
+-1 -0.333 l
+</path>
+</symbol>
+<symbol name="arrow/fdouble(spx)">
+<path stroke="sym-stroke" fill="white" pen="sym-pen">
+0 0 m
+-1 0.333 l
+-1 -0.333 l
+h
+-1 0 m
+-2 0.333 l
+-2 -0.333 l
+h
+</path>
+</symbol>
+<symbol name="arrow/double(spx)">
+<path stroke="sym-stroke" fill="sym-stroke" pen="sym-pen">
+0 0 m
+-1 0.333 l
+-1 -0.333 l
+h
+-1 0 m
+-2 0.333 l
+-2 -0.333 l
+h
+</path>
+</symbol>
+<pen name="heavier" value="0.8"/>
+<pen name="fat" value="1.2"/>
+<pen name="ultrafat" value="2"/>
+<symbolsize name="large" value="5"/>
+<symbolsize name="small" value="2"/>
+<symbolsize name="tiny" value="1.1"/>
+<arrowsize name="large" value="10"/>
+<arrowsize name="small" value="5"/>
+<arrowsize name="tiny" value="3"/>
+<color name="red" value="1 0 0"/>
+<color name="green" value="0 1 0"/>
+<color name="blue" value="0 0 1"/>
+<color name="yellow" value="1 1 0"/>
+<color name="orange" value="1 0.647 0"/>
+<color name="gold" value="1 0.843 0"/>
+<color name="purple" value="0.627 0.125 0.941"/>
+<color name="gray" value="0.745"/>
+<color name="brown" value="0.647 0.165 0.165"/>
+<color name="navy" value="0 0 0.502"/>
+<color name="pink" value="1 0.753 0.796"/>
+<color name="seagreen" value="0.18 0.545 0.341"/>
+<color name="turquoise" value="0.251 0.878 0.816"/>
+<color name="violet" value="0.933 0.51 0.933"/>
+<color name="darkblue" value="0 0 0.545"/>
+<color name="darkcyan" value="0 0.545 0.545"/>
+<color name="darkgray" value="0.663"/>
+<color name="darkgreen" value="0 0.392 0"/>
+<color name="darkmagenta" value="0.545 0 0.545"/>
+<color name="darkorange" value="1 0.549 0"/>
+<color name="darkred" value="0.545 0 0"/>
+<color name="lightblue" value="0.678 0.847 0.902"/>
+<color name="lightcyan" value="0.878 1 1"/>
+<color name="lightgray" value="0.827"/>
+<color name="lightgreen" value="0.565 0.933 0.565"/>
+<color name="lightyellow" value="1 1 0.878"/>
+<dashstyle name="dashed" value="[4] 0"/>
+<dashstyle name="dotted" value="[1 3] 0"/>
+<dashstyle name="dash dotted" value="[4 2 1 2] 0"/>
+<dashstyle name="dash dot dotted" value="[4 2 1 2 1 2] 0"/>
+<textsize name="large" value="\large"/>
+<textsize name="small" value="\small"/>
+<textsize name="tiny" value="\tiny"/>
+<textsize name="Large" value="\Large"/>
+<textsize name="LARGE" value="\LARGE"/>
+<textsize name="huge" value="\huge"/>
+<textsize name="Huge" value="\Huge"/>
+<textsize name="footnote" value="\footnotesize"/>
+<textstyle name="center" begin="\begin{center}" end="\end{center}"/>
+<textstyle name="itemize" begin="\begin{itemize}" end="\end{itemize}"/>
+<textstyle name="item" begin="\begin{itemize}\item{}" end="\end{itemize}"/>
+<gridsize name="4 pts" value="4"/>
+<gridsize name="8 pts (~3 mm)" value="8"/>
+<gridsize name="16 pts (~6 mm)" value="16"/>
+<gridsize name="32 pts (~12 mm)" value="32"/>
+<gridsize name="10 pts (~3.5 mm)" value="10"/>
+<gridsize name="20 pts (~7 mm)" value="20"/>
+<gridsize name="14 pts (~5 mm)" value="14"/>
+<gridsize name="28 pts (~10 mm)" value="28"/>
+<gridsize name="56 pts (~20 mm)" value="56"/>
+<anglesize name="90 deg" value="90"/>
+<anglesize name="60 deg" value="60"/>
+<anglesize name="45 deg" value="45"/>
+<anglesize name="30 deg" value="30"/>
+<anglesize name="22.5 deg" value="22.5"/>
+<tiling name="falling" angle="-60" step="4" width="1"/>
+<tiling name="rising" angle="30" step="4" width="1"/>
+</ipestyle>
+<ipestyle name="beamer">
+<preamble>
+\makeatletter
+\renewcommand{\rmdefault}{cmss}
+\def\mathfamilydefault{\sfdefault}
+\SetSymbolFont{operators}{normal}{OT1}{cmss}{m}{n}
+\SetSymbolFont{operators}{bold}{OT1}{cmss}{bx}{n}
+\DeclareSymbolFont{numbers}{\encodingdefault}{\mathfamilydefault}{m}{n}
+\DeclareSymbolFont{pureletters}{\encodingdefault}{\mathfamilydefault}{m}{it}
+\SetMathAlphabet{\mathrm}{normal}{\encodingdefault}{\rmdefault}{m}{n}
+\DeclareMathAlphabet{\mathbf}{\encodingdefault}{\mathfamilydefault}{bx}{n}
+\DeclareMathAlphabet{\mathsf}{\encodingdefault}{\sfdefault}{m}{n}
+\DeclareMathAlphabet{\mathit}{\encodingdefault}{\mathfamilydefault}{m}{it}
+\DeclareMathAlphabet{\mathtt}{\encodingdefault}{\ttdefault}{m}{n}
+\SetSymbolFont{numbers}{bold}{\encodingdefault}{\mathfamilydefault}{bx}{n}
+\SetSymbolFont{pureletters}{bold}{\encodingdefault}{\mathfamilydefault}{bx}{it}
+\SetMathAlphabet{\mathrm}{bold}{\encodingdefault}{\rmdefault}{bx}{n}
+\SetMathAlphabet{\mathbf}{bold}{\encodingdefault}{\mathfamilydefault}{bx}{n}
+\SetMathAlphabet{\mathsf}{bold}{\encodingdefault}{\sfdefault}{bx}{n}
+\SetMathAlphabet{\mathit}{bold}{\encodingdefault}{\mathfamilydefault}{bx}{it}
+\SetMathAlphabet{\mathtt}{bold}{\encodingdefault}{\ttdefault}{bx}{n}
+
+\def\operator@font{\mathgroup\symnumbers}
+
+\DeclareMathSymbol{0}\mathalpha{numbers}{&quot;30}
+\DeclareMathSymbol{1}\mathalpha{numbers}{&quot;31}
+\DeclareMathSymbol{2}\mathalpha{numbers}{&quot;32}
+\DeclareMathSymbol{3}\mathalpha{numbers}{&quot;33}
+\DeclareMathSymbol{4}\mathalpha{numbers}{&quot;34}
+\DeclareMathSymbol{5}\mathalpha{numbers}{&quot;35}
+\DeclareMathSymbol{6}\mathalpha{numbers}{&quot;36}
+\DeclareMathSymbol{7}\mathalpha{numbers}{&quot;37}
+\DeclareMathSymbol{8}\mathalpha{numbers}{&quot;38}
+\DeclareMathSymbol{9}\mathalpha{numbers}{&quot;39}
+
+\DeclareMathSymbol{A}\mathalpha{pureletters}{&quot;41}
+\DeclareMathSymbol{B}\mathalpha{pureletters}{&quot;42}
+\DeclareMathSymbol{C}\mathalpha{pureletters}{&quot;43}
+\DeclareMathSymbol{D}\mathalpha{pureletters}{&quot;44}
+\DeclareMathSymbol{E}\mathalpha{pureletters}{&quot;45}
+\DeclareMathSymbol{F}\mathalpha{pureletters}{&quot;46}
+\DeclareMathSymbol{G}\mathalpha{pureletters}{&quot;47}
+\DeclareMathSymbol{H}\mathalpha{pureletters}{&quot;48}
+\DeclareMathSymbol{I}\mathalpha{pureletters}{&quot;49}
+\DeclareMathSymbol{J}\mathalpha{pureletters}{&quot;4A}
+\DeclareMathSymbol{K}\mathalpha{pureletters}{&quot;4B}
+\DeclareMathSymbol{L}\mathalpha{pureletters}{&quot;4C}
+\DeclareMathSymbol{M}\mathalpha{pureletters}{&quot;4D}
+\DeclareMathSymbol{N}\mathalpha{pureletters}{&quot;4E}
+\DeclareMathSymbol{O}\mathalpha{pureletters}{&quot;4F}
+\DeclareMathSymbol{P}\mathalpha{pureletters}{&quot;50}
+\DeclareMathSymbol{Q}\mathalpha{pureletters}{&quot;51}
+\DeclareMathSymbol{R}\mathalpha{pureletters}{&quot;52}
+\DeclareMathSymbol{S}\mathalpha{pureletters}{&quot;53}
+\DeclareMathSymbol{T}\mathalpha{pureletters}{&quot;54}
+\DeclareMathSymbol{U}\mathalpha{pureletters}{&quot;55}
+\DeclareMathSymbol{V}\mathalpha{pureletters}{&quot;56}
+\DeclareMathSymbol{W}\mathalpha{pureletters}{&quot;57}
+\DeclareMathSymbol{X}\mathalpha{pureletters}{&quot;58}
+\DeclareMathSymbol{Y}\mathalpha{pureletters}{&quot;59}
+\DeclareMathSymbol{Z}\mathalpha{pureletters}{&quot;5A}
+
+\DeclareMathSymbol{a}\mathalpha{pureletters}{&quot;61}
+\DeclareMathSymbol{b}\mathalpha{pureletters}{&quot;62}
+\DeclareMathSymbol{c}\mathalpha{pureletters}{&quot;63}
+\DeclareMathSymbol{d}\mathalpha{pureletters}{&quot;64}
+\DeclareMathSymbol{e}\mathalpha{pureletters}{&quot;65}
+\DeclareMathSymbol{f}\mathalpha{pureletters}{&quot;66}
+\DeclareMathSymbol{g}\mathalpha{pureletters}{&quot;67}
+\DeclareMathSymbol{h}\mathalpha{pureletters}{&quot;68}
+\DeclareMathSymbol{i}\mathalpha{pureletters}{&quot;69}
+\DeclareMathSymbol{j}\mathalpha{pureletters}{&quot;6A}
+\DeclareMathSymbol{k}\mathalpha{pureletters}{&quot;6B}
+\DeclareMathSymbol{l}\mathalpha{pureletters}{&quot;6C}
+\DeclareMathSymbol{m}\mathalpha{pureletters}{&quot;6D}
+\DeclareMathSymbol{n}\mathalpha{pureletters}{&quot;6E}
+\DeclareMathSymbol{o}\mathalpha{pureletters}{&quot;6F}
+\DeclareMathSymbol{p}\mathalpha{pureletters}{&quot;70}
+\DeclareMathSymbol{q}\mathalpha{pureletters}{&quot;71}
+\DeclareMathSymbol{r}\mathalpha{pureletters}{&quot;72}
+\DeclareMathSymbol{s}\mathalpha{pureletters}{&quot;73}
+\DeclareMathSymbol{t}\mathalpha{pureletters}{&quot;74}
+\DeclareMathSymbol{u}\mathalpha{pureletters}{&quot;75}
+\DeclareMathSymbol{v}\mathalpha{pureletters}{&quot;76}
+\DeclareMathSymbol{w}\mathalpha{pureletters}{&quot;77}
+\DeclareMathSymbol{x}\mathalpha{pureletters}{&quot;78}
+\DeclareMathSymbol{y}\mathalpha{pureletters}{&quot;79}
+\DeclareMathSymbol{z}\mathalpha{pureletters}{&quot;7A}
+
+\DeclareOldFontCommand{\rm}{\normalfont\rmfamily}{\mathrm}
+\DeclareOldFontCommand{\sf}{\normalfont\sffamily}{\mathsf}
+\DeclareOldFontCommand{\tt}{\normalfont\ttfamily}{\mathtt}
+\DeclareOldFontCommand{\bf}{\normalfont\bfseries}{\mathbf}
+\DeclareOldFontCommand{\it}{\normalfont\itshape}{\mathit}
+\DeclareOldFontCommand{\sl}{\normalfont\slshape}{\@nomath\sl}
+\DeclareOldFontCommand{\sc}{\normalfont\scshape}{\@nomath\sc}
+\DeclareRobustCommand*\cal{\@fontswitch\relax\mathcal}
+\DeclareRobustCommand*\mit{\@fontswitch\relax\mathnormal}
+\makeatother
+</preamble>
+<layout paper="364.2 273.1" origin="0 0" frame="500 300" crop="no"/>
+</ipestyle>
+<page>
+<layer name="base"/>
+<layer name="text_dir_1"/>
+<layer name="draw_dir_1"/>
+<layer name="text_bound_1"/>
+<layer name="draw_bound_1"/>
+<layer name="text_extend_1"/>
+<layer name="draw_bound_1.1"/>
+<layer name="draw_bound_1.2"/>
+<layer name="draw_bound_1.3"/>
+<layer name="draw_bound_1.4"/>
+<layer name="text_sample_1"/>
+<layer name="draw_sample_1"/>
+<layer name="text_contract_1"/>
+<layer name="draw_contract_1"/>
+<layer name="text_success_1"/>
+<layer name="draw_success_1"/>
+<layer name="text_repeat"/>
+<layer name="draw_restart_2"/>
+<layer name="draw_bound_2"/>
+<layer name="draw_sample_2"/>
+<layer name="draw_restart_3"/>
+<layer name="draw_bound_3"/>
+<layer name="draw_sample_3"/>
+<layer name="draw_restart_4"/>
+<layer name="draw_bound_4"/>
+<layer name="draw_miss_4"/>
+<layer name="draw_contract_4"/>
+<layer name="draw_sample_4"/>
+<layer name="draw_restart_5"/>
+<layer name="draw_bound_5"/>
+<layer name="draw_sample_5"/>
+<layer name="draw_restart_6"/>
+<view layers="base" active="base"/>
+<view layers="base text_dir_1" active="text_dir_1"/>
+<view layers="base text_dir_1 draw_dir_1" active="base"/>
+<view layers="base draw_dir_1 text_bound_1" active="draw_dir_1"/>
+<view layers="base text_bound_1 draw_bound_1" active="draw_bound_1"/>
+<view layers="base draw_bound_1 text_extend_1" active="text_extend_1"/>
+<view layers="base draw_bound_1 text_extend_1 draw_bound_1.1" active="draw_bound_1.1"/>
+<view layers="base draw_bound_1 text_extend_1 draw_bound_1.2" active="draw_bound_1.2"/>
+<view layers="base draw_bound_1 text_extend_1 draw_bound_1.3" active="draw_bound_1.3"/>
+<view layers="base text_extend_1 draw_bound_1.4" active="draw_bound_1.4"/>
+<view layers="base draw_bound_1.4 text_sample_1" active="text_sample_1"/>
+<view layers="base draw_bound_1.4 text_sample_1 draw_sample_1" active="draw_sample_1"/>
+<view layers="base draw_bound_1.4 draw_sample_1 text_contract_1" active="text_contract_1"/>
+<view layers="base text_contract_1 draw_contract_1" active="draw_contract_1"/>
+<view layers="base draw_contract_1 text_success_1" active="text_success_1"/>
+<view layers="base draw_contract_1 text_success_1 draw_success_1" active="text_sample_1"/>
+<view layers="base draw_contract_1 draw_success_1 text_repeat" active="text_repeat"/>
+<view layers="base draw_success_1 draw_restart_2" active="draw_restart_2"/>
+<view layers="base draw_success_1 draw_restart_2 draw_bound_2" active="draw_bound_2"/>
+<view layers="base draw_success_1 draw_restart_2 draw_bound_2 draw_sample_2" active="draw_sample_2"/>
+<view layers="base draw_sample_2 draw_restart_3" active="draw_restart_3"/>
+<view layers="base draw_sample_2 draw_restart_3 draw_bound_3" active="draw_bound_3"/>
+<view layers="base draw_sample_2 draw_restart_3 draw_bound_3 draw_sample_3" active="draw_sample_3"/>
+<view layers="base draw_sample_3 draw_restart_4" active="draw_restart_4"/>
+<view layers="base draw_sample_3 draw_restart_4 draw_bound_4" active="draw_bound_4"/>
+<view layers="base draw_sample_3 draw_restart_4 draw_bound_4 draw_miss_4" active="draw_miss_4"/>
+<view layers="base draw_sample_3 draw_restart_4 draw_contract_4" active="draw_bound_4"/>
+<view layers="base draw_sample_3 draw_restart_4 draw_contract_4 draw_sample_4" active="draw_sample_4"/>
+<view layers="base draw_sample_4 draw_restart_5" active="draw_restart_5"/>
+<view layers="base draw_sample_4 draw_restart_5 draw_bound_5" active="draw_bound_5"/>
+<view layers="base draw_sample_4 draw_restart_5 draw_bound_5 draw_sample_5" active="draw_sample_5"/>
+<view layers="base draw_sample_5 draw_restart_6" active="draw_restart_5"/>
+<path layer="base" matrix="1 0 0 1 40 0" stroke="black">
+128 88
+60 56
+40 148
+84 196
+80 244
+148 256
+196 208
+236 220
+256 180
+264 140
+220 116
+240 80
+240 44
+200 16
+140 20 u
+</path>
+<text matrix="1 0 0 1 36 0" transformations="translations" pos="64 228" stroke="black" type="label" width="15.374" height="9.805" depth="2.15" valign="baseline" size="Large">$\mathcal{L}_0$</text>
+<use matrix="1 0 0 1 56 0" name="mark/disk(sx)" pos="176 80" size="large" stroke="black"/>
+<text matrix="1 0 0 1 40 -8" transformations="translations" pos="180 76" stroke="black" type="label" width="12.653" height="6.577" depth="2.15" valign="baseline" size="Large">${\bf x}_0$</text>
+<text layer="text_dir_1" matrix="1 0 0 1 28 16" transformations="translations" pos="100 160" stroke="black" type="minipage" width="144" height="12.197" depth="7.23" valign="top">1) From an initial starting point ${\bf x}_0$, choose a random direction</text>
+<path layer="draw_dir_1" matrix="1 0 0 1 56 0" stroke="black" pen="ultrafat" arrow="normal/normal">
+176 80 m
+144 96 l
+</path>
+<text layer="text_bound_1" matrix="1 0 0 1 28 16" transformations="translations" pos="100 160" stroke="black" type="minipage" width="128" height="12.197" depth="7.23" valign="top">2) Place random initial bound of width $w$</text>
+<group layer="draw_bound_1" matrix="1.07331 -0.536656 0.447214 0.894427 10.7686 65.3959">
+<path stroke="black">
+112 112 m
+192 112 l
+</path>
+<path stroke="black">
+192 104 m
+192 120 l
+</path>
+<path stroke="black">
+112 104 m
+112 120 l
+</path>
+</group>
+<text layer="text_extend_1" matrix="1 0 0 1 28 14.797" transformations="translations" pos="100 160" stroke="black" type="minipage" width="120" height="13.164" depth="8.2" valign="top">3) Extend bounds by 
+
+``stepping out&apos;&apos; procedure</text>
+<path layer="draw_bound_1.3" matrix="0.876174 -0.438087 0.447214 0.894427 -69.619 34.0355" stroke="black" dash="dotted">
+0 176 m
+392 176 l
+</path>
+<path matrix="0.876174 -0.438087 0.447214 0.894427 -69.619 34.0355" stroke="black">
+392 184 m
+392 168 l
+</path>
+<path matrix="0.876174 -0.438087 0.447214 0.894427 -69.619 34.0355" stroke="black">
+0 184 m
+0 168 l
+</path>
+<path layer="draw_bound_1.2" matrix="2.68328 -1.34164 0.447214 0.894427 -133.771 119.777" stroke="black" dash="dotted">
+64 128 m
+160 128 l
+</path>
+<path matrix="2.68328 -1.34164 0.447214 0.894427 -133.771 119.777" stroke="black">
+160 120 m
+160 136 l
+</path>
+<path matrix="2.68328 -1.34164 0.447214 0.894427 -133.771 119.777" stroke="black">
+64 120 m
+64 136 l
+</path>
+<path layer="draw_bound_1.1" matrix="1.78885 -0.894427 0.447214 0.894427 -47.9588 76.8711" stroke="black" dash="dotted">
+192 128 m
+96 128 l
+</path>
+<path matrix="1.78885 -0.894427 0.447214 0.894427 -47.9588 76.8711" stroke="black">
+96 120 m
+96 136 l
+</path>
+<path matrix="1.78885 -0.894427 0.447214 0.894427 -47.9588 76.8711" stroke="black">
+192 120 m
+192 136 l
+</path>
+<path layer="draw_bound_1.4" matrix="0.876174 -0.438087 0.447214 0.894427 -69.619 34.0355" stroke="black">
+0 176 m
+392 176 l
+</path>
+<path matrix="0.876174 -0.438087 0.447214 0.894427 -69.619 34.0355" stroke="black">
+392 184 m
+392 168 l
+</path>
+<path matrix="0.876174 -0.438087 0.447214 0.894427 -69.619 34.0355" stroke="black">
+0 184 m
+0 168 l
+</path>
+<text layer="text_sample_1" transformations="translations" pos="128 176" stroke="black" type="minipage" width="160" height="7.473" depth="2.49" valign="top">4) Sample uniformly along this chord</text>
+<use layer="draw_sample_1" matrix="1 0 0 1 -13.4494 6.66174" name="mark/disk(sx)" pos="80 156" size="large" stroke="black"/>
+<text matrix="1 0 0 1 -125.39 71.3473" transformations="translations" pos="180 76" stroke="black" type="label" width="12.653" height="6.577" depth="2.15" valign="baseline" size="Large">${\bf x}_1$</text>
+<text layer="text_contract_1" transformations="translations" pos="128 176" stroke="black" type="minipage" width="128" height="12.549" depth="7.57" valign="top">If ${\bf x}_1$ is drawn outside of $\mathcal{L}_0$, then contract bounds,</text>
+<group layer="draw_contract_1" matrix="0.851835 -0.425918 0.447214 0.894427 -32.9139 -2.20573">
+<path stroke="black">
+352 192 m
+16 192 l
+</path>
+<path stroke="black">
+16 184 m
+16 200 l
+</path>
+<path stroke="black">
+352 184 m
+352 200 l
+</path>
+</group>
+<text layer="text_success_1" transformations="translations" pos="128 176" stroke="black" type="minipage" width="144" height="6.926" depth="1.93" valign="top">Draw again until ${\bf x}_1$ is within $\mathcal{L}_0$.</text>
+<use layer="draw_success_1" name="mark/disk(sx)" pos="144 124" size="large" stroke="black"/>
+<text matrix="1 0 0 1 -24 52" transformations="translations" pos="180 76" stroke="black" type="label" width="12.653" height="6.577" depth="2.15" valign="baseline" size="Large">${\bf x}_1$</text>
+<text layer="text_repeat" transformations="translations" pos="128 176" stroke="black" type="minipage" width="112" height="13.164" depth="8.2" valign="top">5) Repeat this procedure, starting with ${\bf x}_1$</text>
+<group layer="draw_bound_2" matrix="0.6 0.8 -0.8 0.6 152 -132">
+<path stroke="black">
+48 160 m
+352 160 l
+</path>
+<path stroke="black">
+48 168 m
+48 152 l
+</path>
+<path stroke="black">
+352 168 m
+352 152 l
+</path>
+</group>
+<use layer="draw_sample_2" name="mark/disk(sx)" pos="180 172" size="large" stroke="black"/>
+<text matrix="1 0 0 1 0 84" transformations="translations" pos="180 76" stroke="black" type="label" width="12.653" height="6.577" depth="2.15" valign="baseline" size="Large">${\bf x}_2$</text>
+<group layer="draw_bound_3" matrix="0.992278 -0.124035 0.124035 0.992278 -20.4401 -12.5637">
+<path stroke="black">
+32 208 m
+320 208 l
+</path>
+<path stroke="black">
+320 216 m
+320 200 l
+</path>
+<path stroke="black">
+32 216 m
+32 200 l
+</path>
+</group>
+<use layer="draw_sample_3" name="mark/disk(sx)" pos="272 160" size="large" stroke="black"/>
+<text matrix="1 0 0 1 76 92" transformations="translations" pos="180 76" stroke="black" type="label" width="12.653" height="6.577" depth="2.15" valign="baseline" size="Large">${\bf x}_3$</text>
+<group layer="draw_bound_4" matrix="0.707107 0.707107 -0.707107 0.707107 243.314 -162.843">
+<path stroke="black">
+352 208 m
+32 208 l
+</path>
+<path stroke="black">
+32 216 m
+32 200 l
+</path>
+<path stroke="black">
+352 216 m
+352 200 l
+</path>
+</group>
+<use layer="draw_miss_4" name="mark/disk(sx)" pos="300 188" size="large" stroke="black"/>
+<group layer="draw_contract_4" matrix="0.94275 0.942863 -0.707149 0.707064 254.641 -219.403">
+<path stroke="black">
+48 256 m
+240 256 l
+</path>
+<path stroke="black">
+240 264 m
+240 248 l
+</path>
+<path stroke="black">
+48 264 m
+48 248 l
+</path>
+</group>
+<use layer="draw_sample_4" name="mark/disk(sx)" pos="188 76" size="large" stroke="black"/>
+<text matrix="1 0 0 1 -12 -4" transformations="translations" pos="180 76" stroke="black" type="label" width="12.653" height="6.577" depth="2.15" valign="baseline" size="Large">${\bf x}_4$</text>
+<text layer="draw_miss_4" matrix="1 0 0 1 128 104" transformations="translations" pos="180 76" stroke="black" type="label" width="12.653" height="6.577" depth="2.15" valign="baseline" size="Large">${\bf x}_4$</text>
+<group layer="draw_bound_5" matrix="0.323417 -1.29351 0.970136 0.242563 -122.927 264.169">
+<path stroke="black">
+48 256 m
+240 256 l
+</path>
+<path stroke="black">
+240 264 m
+240 248 l
+</path>
+<path stroke="black">
+48 264 m
+48 248 l
+</path>
+</group>
+<use layer="draw_sample_5" name="mark/disk(sx)" pos="156 204" size="large" stroke="black"/>
+<text matrix="1 0 0 1 -16 128" transformations="translations" pos="180 76" stroke="black" type="label" width="15.535" height="6.577" depth="2.15" valign="baseline" size="Large">${\bf x}_N$</text>
+</page>
+</ipe>
