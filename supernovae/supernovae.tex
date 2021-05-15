@@ -1,0 +1,183 @@
+\documentclass{article}
+\title{IFT Summer school:\\
+Statistics exercises}
+\author{Will Handley}
+\date{Monday, March 13, 2017}
+
+\usepackage{amsmath}
+\usepackage{hyperref}
+%\usepackage[top=2in,bottom=2in]{geometry}
+\usepackage{listings}
+\lstset{%
+    literate={~} {$\sim$}{1},language=Python,frame=single,columns=fixed
+}
+\usepackage{enumitem}
+
+
+
+\begin{document}
+\maketitle
+
+
+\section*{Background Theory}
+
+The normalised Friedmann equation of the universe can be written as:
+\begin{equation}
+    {\left( \frac{H}{H_0} \right)}^2 = \Omega_{r,0}\: a^{-4} + \Omega_{m,0}\: a^{-3} + \Omega_{k,0}\: a^{-2} + \Omega_{\Lambda,0}, \qquad a = \frac{1}{1+z}
+    \label{eqn:friedmann}
+\end{equation}
+where:
+\begin{itemize}
+    \item $a$ is the time-dependent scale-factor of the universe, normalised to 1 today.
+    \item $z$ is the observed redshift of an object located at a previous epoch.
+    \item $H=\frac{d}{dt}\log a$ is the Hubble parameter, with present value $H_0$.
+    \item $\Omega_i = {8\pi G \rho_i}/{3 H^2}$ is the density parameter for component $i$, with present value $\Omega_{i,0}$.
+\end{itemize}
+From these definitions, you should note that $\Omega_{i,0} \sim 1$, and that by setting $a=1$ (today), $1 = \Omega_{r,0} + \Omega_{m,0} + \Omega_{k,0} + \Omega_{\Lambda,0}$.
+
+With this, along with a little geometry, we may compute several cosmological distance measures:
+\begin{align}
+    d_L &= \frac{d_M}{1+z} 
+    &\text{(Luminosity dist.)}\label{eqn:lum_dis}\\
+    d_M &= \left\{
+        \begin{array}{lr}
+            \frac{d_H}{\sqrt{\Omega_{k,0}}}\sinh{}\frac{d_C\sqrt{\Omega_{k,0}}}{d_H}&\Omega_{k,0}>0\\
+        d_C&\Omega_{k,0}=0\\
+        \frac{d_H}{\sqrt{|\Omega_{k,0}|}}\sin{}\frac{d_C\sqrt{|\Omega_{k,0}|}}{d_H}&\Omega_{k,0}<0\\
+        \end{array}
+        \right.
+        &\text{(Transverse comoving dist.)}\label{eqn:tra_dis}\\
+        d_C &= d_H \int_{0}^{z} \frac{dz}{\sqrt{\Omega_{r,0}a^{-4} + \Omega_{m,0}a^{-3} + \Omega_{\Lambda,0}}}
+    &\text{(Comoving dist.)}\label{eqn:com_dis}\\
+    d_H &= \frac{c}{H_0}
+    &\text{(Hubble dist.)}\label{eqn:hub_dis}
+\end{align}
+
+For specific kinds of supernovae/astronomical objects, we can directly measure the magnitude $\mu=m-M$, which is related to their luminosity distance $d_L$:
+\begin{align}
+    \mu &= 5( \log_{10} d_L - 1) \qquad\text{(obviously\ldots)}
+    \label{eqn:mag}
+\end{align}
+We measure the magnitudes $\mu$ and redshifts $z$ of $N$ supernovae, and combine them into two data vectors $y = (\mu_1,\ldots,\mu_N)$, $x=(z_1,\ldots,z_N)$. These magnitudes also come with an associated error, or more precisely a covariance matrix $\Sigma$.\footnote{These statements are grossly misleading. Much of the research/controversy in this field goes into correctly modelling the errors in the Hubble distance ladder}.
+Given a specific cosmology defined by the parameters $\theta = (H_0, \Omega_{r,0},\Omega_{m,0},\Omega_{r,0},\Omega_{\Lambda,0},\Omega_{k,0})$, we can compute the luminosity distance~\eqref{eqn:lum_dis} as a function of redshift, and thus the theoretical magnitude of the object $\hat{\mu}(z;\theta)$ for any given $z$, and thus the theoretical data vector $\hat{y}(\theta) = (\hat{\mu}(z_1;\theta),\ldots,\hat{\mu}(z_N;\theta))$. The likelihood of observing this data is then:
+\begin{equation}
+    \mathcal{L}(\theta) = P(y,x|\theta) = \frac{1}{\sqrt{\det 2\pi \Sigma}} \exp{\left( -\frac{1}{2}[y-\hat{y}(\theta)]^T \Sigma^{-1}[y-\hat{y}(\theta)] \right)}
+    \label{eqn:gaussian_likelihood}
+\end{equation}
+This object forms the centre of our inference. The data are taken from:
+
+\noindent\url{http://supernova.lbl.gov/Union/}
+
+\noindent{}which you should visit to see some example figures.
+
+
+
+
+
+
+\section{Set up}
+Copy the work directory into your local user area, and source the relevant files:
+\begin{lstlisting}
+ssh -X <username>@hydra.ift.uam-csic.es
+cp -r /home/prof4/PolyChord ~/PolyChord
+cd ~/PolyChord
+source modules
+\end{lstlisting}
+\subsection*{Alternative: Local install for unix-like systems (MAC, linux)}
+\begin{lstlisting}
+wget https://www.mrao.cam.ac.uk/~wh260/PolyChord.tar.gz
+tar -xvf PolyChord.tar.gz
+cd ~/PolyChord
+make veryclean
+make PyPolyChord
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$PWD/lib
+export LD_PRELOAD=/usr/lib/openmpi/libmpi.so
+\end{lstlisting}
+(NB: You will need to substitute the location of your openmpi library into \lstinline{LD_PRELOAD})
+
+You will also need the python modules (both pip-installable):
+\begin{itemize}
+    \item getdist \url{https://pypi.python.org/pypi/GetDist/}
+    \item MPI4py  \url{https://pypi.python.org/pypi/GetDist/}
+\end{itemize}
+as well as a gfortran compiler + mpi. Alternatively, you can run \lstinline{make veryclean; make PyPolyChord MPI=}, if you don't want the faff of setting up MPI.
+
+\section{Plotting the data (5-10 mins)}
+\begin{enumerate}
+    \item Run the script which produces a plot of the supernovae:
+        \begin{lstlisting}
+python plot_sn.py
+gedit_bg plot_sn.py &
+        \end{lstlisting}
+        (\lstinline{gedit_bg} is an alias that was loaded when you sourced ``modules'', which just pipes the \lstinline{stderr} to \lstinline{/dev/null}. \lstinline{gedit} is a simple gui text editor. Feel free to substitute your own preferred text editor.\footnote{In my opinion, any text editor is fine, so long as its \lstinline{vim} or \lstinline{emacs}.})
+    \item Modify the script so that instead of plotting magnitudes, you plot luminosity distances $d_L$ against redshift $z$ (Hint: consider equation~\eqref{eqn:mag}, and make sure you calculate the errors correctly).
+    \item Question: Why can't we turn this plot into something more theoretically intuitive, such as scale-factor against cosmic time?
+\end{enumerate}
+
+\section{Metropolis Hastings (20-30 mins)}
+I have written up the Gaussian likelihood for you (if you are interested, it's all in \lstinline{SNE/supernova_data.py}). For now, we will assume that the universe is flat ($\Omega_{k,0} = 0$), with only matter and dark energy
+\begin{enumerate}[resume]
+    \item Write a two-dimensional Metropolis-Hastings algorithm to explore the likelihood for flat universe with only dark energy and matter in it. You should choose your parameters to be $H_0$ and $\Omega_{m,0}$, with the value of dark energy therefore being $\Omega_{\Lambda,0} = 1-\Omega_{m,0}$. You should start by modifying the file \lstinline{MH.py} (If you haven't managed to debug your code after 20 minutes or so, you can copy the solution in \lstinline{answers/MH_1.py})
+    \item Question: Comment on the properties of the chain produced
+    \item How do the properties of the chain change if you choose a more sensible starting point? or a different step size? Even if you tune these correctly, do you notice anything funny about the properties of your chains?
+    \item Plot your chains using getdist:
+        \begin{lstlisting}{language=Python}
+O_L_array = 1. - np.array(O_m_array)
+samples = np.array([H0_array, O_m_array, O_L_array]).T
+weights = np.array(count_array)
+names = ['H0','O_m',r'O_L*']
+labels = ['H_0',r'\Omega_m',r'\Omega_\Lambda']
+samples = getdist.MCSamples(samples=samples, 
+                            weights=weights, 
+                            names=names, 
+                            labels=labels)
+g = getdist.plots.getSubplotPlotter()
+g.triangle_plot(samples,filled=True)
+plt.show()
+        \end{lstlisting}
+
+    \item Is there anything different if you use the likelihood that doesn't take into account systematic errors? (change \lstinline{loglikelihood_sys} for \lstinline{loglikelihood_nosys})
+\end{enumerate}
+
+\section{PolyChord (20 mins)}
+\begin{enumerate}[resume]
+    \item Start by using polychord to plot what you just worked on:
+        \begin{lstlisting}
+mpirun -np 1 python run_PyPolyChord.py
+        \end{lstlisting}
+        You can change \lstinline{-np 1} to a higher number to increase the number of MPI cores which PolyChord runs on. What is the fundamental difference between the likelihood which includes systematic errors, and the one that does not? Have a look at the script to see how PolyChord is set up. Most of the code is purely interfacing our code with PolyChord's input, but some of the settings can be important.
+    \item Now for the punch-line. Run:
+        \begin{lstlisting}
+mpirun -np 1 python run_all.py
+        \end{lstlisting}
+        This will run three models:
+        \begin{enumerate}
+            \item matter + dark energy (flat)
+            \item matter + dark energy + curvature
+            \item matter + curvature (no dark energy).
+        \end{enumerate}
+        After it's done, what can you say about both the evidences of each model, and the comparison of the posteriors with \& without curvature?
+    \item Modify the above script by adding in/removing components of the universe (radiation etc).
+
+    \item Plot the predictive posterior distribution using:
+        \begin{lstlisting}
+python compute_contours.py
+python plot.py
+        \end{lstlisting}
+        This plots the predictive posterior distribution for the flat matter dark energy universe. Modify \lstinline{compute_contours.py} to do it for the curved matter dark energy universe.
+\end{enumerate}
+
+\section{Bonus Questions/extended investigations}
+To be attempted in any order
+
+\begin{enumerate}[resume]
+    \item Modify code to allow for a dark energy with a variable equation of state parameter $w$ (i.e.\ change $\Omega_{\Lambda,0}\to\Omega_{\Lambda,0}\: a^{-3(1+w)}$).
+    \item Modify your MH algorithm to include convergence diagnostics, such as split-Rhat. A good reference can be found in the stan manual:\\
+        \url{https://github.com/stan-dev/stan/releases/download/v2.14.0/stan-reference-2.14.0.pdf}\\ 
+        (28.3. Initialization and Convergence Monitoring)
+
+    \item How is run-time and evidence accuracy affected by the PolyChord setting \lstinline{nlive}?
+    \item How sensitive are your conclusions to the prior widths (qualitatively and quantitatively)?
+\end{enumerate}
+
+\end{document}
