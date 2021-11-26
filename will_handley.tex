@@ -70,7 +70,7 @@
         \vspace{-5pt}
         \[
         \hspace{-15pt}
-        \mathcal{D} = \int \log \mathcal{P}(\theta) \log\frac{\mathcal{P}(\theta)}{\pi(\theta)} d\theta \sim \log \frac{V_\pi}{V_\mathcal{P}}, \quad \frac{V_\pi}{V_\mathcal{P}} \sim {\left(\frac{\ell_\mathcal{\pi}}{\ell_\mathcal{P}}\right)}^d \]
+        \mathcal{D} = \int \mathcal{P}(\theta) \log\frac{\mathcal{P}(\theta)}{\pi(\theta)} d\theta \sim \log \frac{V_\pi}{V_\mathcal{P}}, \quad \frac{V_\pi}{V_\mathcal{P}} \sim {\left(\frac{\ell_\mathcal{\pi}}{\ell_\mathcal{P}}\right)}^d \]
         \vspace{-10pt}
         \begin{itemize}
             \item Note that this is \alert{not} a distance
@@ -277,8 +277,9 @@
               \item Critically, this is because nested sampling probabilistically estimates the volume of the parameter space
                   \[X_i \approx {\left(\frac{n}{n+1}\right)} X_{i-1} \quad\Rightarrow\quad
                   X_i \approx {\left(\frac{n}{n+1}\right)}^i \approx e^{-i/n} \]
-              \item Whilst these are only statistical estimates, we know the error bar
-              \item Nested sampling is therefore a partition function calculator
+              \item only statistical estimates, but we know the error bar
+              \item Nested sampling thus estimates the density of states
+              \item it is therefore a partition function calculator
           \end{itemize}
       \item The evolving ensemble of live points allows algorithms to perform self-tuning and mode clustering
   \end{itemize}
