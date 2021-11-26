@@ -272,7 +272,14 @@
   \begin{itemize}
       \item At the end, one is left with a set of discarded points
       \item These may be weighted to form posterior samples
-      \item They can also be used to calculate the evidence
+      \item They can also be used to calculate the normalising constant
+          \begin{itemize}
+              \item Critically, this is because nested sampling probabilistically estimates the volume of the parameter space
+                  \[X_i \approx {\left(\frac{n}{n+1}\right)} X_{i-1} \quad\Rightarrow\quad
+                  X_i \approx {\left(\frac{n}{n+1}\right)}^i \approx e^{-i/n} \]
+              \item Whilst these are only statistical estimates, we know the error bar
+              \item Nested sampling is therefore a partition function calculator
+          \end{itemize}
       \item The evolving ensemble of live points allows algorithms to perform self-tuning and mode clustering
   \end{itemize}
 
