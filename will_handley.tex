@@ -62,27 +62,39 @@
     \begin{itemize}
         \item In general, the region of significantly non-zero $\mathcal{P}$ (the typical set) is very ``small''
         \item This problem gets exponentially worse the higher the dimensionality $d$ becomes
+
         \item Quantify this with the Kullback-Liebler divergence between distributions $\mathcal{P}(\theta)$ and $\pi(\theta)$
-            \[ \mathcal{D} = \int \log \mathcal{P}(\theta) \log\frac{\mathcal{P}(\theta)}{\pi(\theta)} d\theta \quad\sim\quad \log \frac{V_\pi}{V_\mathcal{P}} \]
-        \item Note that this is \alert{not} (and should not be considered) a distance
-        \item One can verify $\sim$ as being $=$ for top hat distributions over regions $R_\mathcal{P}$  and $R_\mathcal{\pi}$ with volumes $V_\mathcal{P}$ and $V_\mathcal{\pi}$ respectively:
-            \[
-                \mathcal{P}(\theta) = \left\{
-                \begin{array}{cl}
-                    1/V_\mathcal{P} & \theta \in R_\mathcal{P}\\
-                    0 & \text{otherwise}\\
-                \end{array}
-            \right.
-            \qquad
-            \pi(\theta) = \left\{
-                \begin{array}{cl}
-                    1/V_\pi & \theta \in R_\pi\\
-                    0 & \text{otherwise}\\
-                \end{array}
-            \right.
-            \]
-        \item The integral merely smooths this over the distribution $\mathcal{P}$
     \end{itemize}
+    \begin{columns}[onlytextwidth]
+        \column{0.6\textwidth}
+        \vspace{-5pt}
+        \[
+        \hspace{-15pt}
+        \mathcal{D} = \int \log \mathcal{P}(\theta) \log\frac{\mathcal{P}(\theta)}{\pi(\theta)} d\theta \sim \log \frac{V_\pi}{V_\mathcal{P}}, \quad \frac{V_\pi}{V_\mathcal{P}} \sim {\left(\frac{\ell_\mathcal{\pi}}{\ell_\mathcal{P}}\right)}^d \]
+        \vspace{-10pt}
+        \begin{itemize}
+            \item Note that this is \alert{not} a distance
+            \item One can verify $\sim$ as being $=$ for top hat distributions over regions $R_\mathcal{P}$  and $R_\mathcal{\pi}$ with volumes $V_\mathcal{P}$ and $V_\mathcal{\pi}$ respectively:
+                \[\hspace{-20pt}
+                    \mathcal{P}(\theta) = \left\{
+                        \begin{array}{cl}
+                            1/V_\mathcal{P} & \theta \in R_\mathcal{P}\\
+                            0 & \text{otherwise}\\
+                        \end{array}
+                    \right.
+                    \quad
+                    \pi(\theta) = \left\{
+                        \begin{array}{cl}
+                            1/V_\pi & \theta \in R_\pi\\
+                            0 & \text{otherwise}\\
+                        \end{array}
+                    \right.
+                \]
+            \item The integral smooths this over the distribution $\mathcal{P}$
+        \end{itemize}
+        \column{0.4\textwidth}
+        \includegraphics{figures/volumes.pdf}
+    \end{columns}
 \end{frame}
 
 \begin{frame}
@@ -90,8 +102,14 @@
     \begin{itemize}
         \item The worst way to explore/integrate a probability distribution/generate samples is to randomly sample the space using $\pi(\theta)$~\arxiv{2012.09874}
         \item Gridding is also equivalently bad
-        \item Whilst this works in low dimensions, if each parameter is confined within some fraction $0<f<1$ of the space, then the volume fraction $\sim\mathcal{O}(f^d)$, or equivalently $\mathcal{D}\propto d$ 
-        \item If you find that naive tail sampling is performant, then your function is likely very unusual.
+        \item Whilst this works in low dimensions, if each parameter is confined within some fraction $f\sim\ell_\mathcal{P}/\ell_\pi$ of the space, then the volume fraction $\sim\mathcal{O}(f^d)$, or equivalently $\mathcal{D}\sim d\log f$ 
+        \item Random sampling has an efficiency of $\boxed{\approx e^{-\mathcal{D}} \sim e^{-d\log f} = f^{-d}}$
+        \item If you find that naive tail sampling is performant for e.g. importance sampling and unweighting, then your function likely has an unusual $\mathcal{D}$ scaling with $d$. 
+        \item Turning this around, you can use the inefficiency of random sampling to estimate $\mathcal{D}$
+        \item Paper being released soon:
+
+            \hfill \emph{``Exploring phase space with Nested Sampling''} Handley, \textbf{Jan{\ss}en}, Schumann \& \textbf{Yallup}\\
+            Also \textbf{Carragher} et al~\arxiv{2101.00428}
     \end{itemize}
 \end{frame}
 
@@ -331,7 +349,7 @@
 
 
 \begin{frame}
-    \frametitle{Key tools}
+    \frametitle{Key tools for Nested Sampling}
     \begin{description}
         \item[\texttt{anesthetic}] Nested sampling post processing \arxiv{1905.04768}\\
         \item[\texttt{insertion}] cross-checks using order statistics \arxiv{2006.03371}
@@ -348,16 +366,22 @@
 \end{frame}
 
 
-\begin{frame}
-    \frametitle{Likelihood free inference}
-    <+Content+>
-\end{frame}
+%\begin{frame}
+%    \frametitle{Likelihood free inference}
+%    <+Content+>
+%\end{frame}
 
 \begin{frame}
-    \frametitle{What was that awesome website?} 
-    Full credit to Chi-feng for this incredible online demonstration tool
+    \frametitle{FAQs}
+    
+    \begin{itemize}
+    \item What was that awesome website? \\
+    \hfill Full credit to Chi-feng for this incredible online demonstration tool\\
+    \hfill \href{https://chi-feng.github.io/mcmc-demo/}{chi-feng.github.io/mcmc-demo/}
 
-    \href{https://chi-feng.github.io/mcmc-demo/}{chi-feng.github.io/mcmc-demo/}
+    \item How do you make your plots look hand-drawn? \\
+        \hfill \texttt{import matplotlib.pyplot as plt; plt.xkcd()}
+    \end{itemize}
 \end{frame}
 
 
