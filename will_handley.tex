@@ -358,13 +358,39 @@
 \end{frame}
 
 \begin{frame}
-    \frametitle{Tension quantification}
+    \frametitle{The importance of global measures of tension}
+    \begin{columns}
+        \begin{column}{0.5\textwidth}
+            \begin{itemize}
+                \item Hubble tension~\arxiv{1907.10625}
+                    \begin{itemize}
+                        \item \textit{Planck}: $H_0=67.4\pm0.5$
+                        \item S$H_0$ES: $H_0=74.0\pm1.4$
+                    \end{itemize}
+                \item In other situations the discrepancy doesn't exist in a single interpretable parameter
+                \item For example: DES+\textit{Planck} \arxiv{1902.04029} 
+                \item Are these two datasets in tension?
+                \item There are a lot more parameters -- are we sure that tensions aren't hiding? Are we sure we've chosen the best ones to reveal the tension?
+                \item Should use ``Suspiciousness'' statistic $\mathcal{S}$, or Bayes ratio $\mathcal{R}$ to determine global tension.
+            \end{itemize}
+        \end{column}
+        \begin{column}{0.5\textwidth}
+            \includegraphics<1>{figures/DES_planck_1}
+            \includegraphics<2>{figures/DES_planck_2}
+        \end{column}
+    \end{columns}
 \end{frame}
+
 
 \begin{frame}
     \frametitle{Future extensions for REACH}
     \begin{itemize}
         \item Tension quantification for cross validation
+            \begin{itemize}
+                \item Between experiments
+                \item Between REACH antennae
+                \item Between different subsets of the REACH timestream
+            \end{itemize}
         \item Model marginalisation rather than comparison
         \item FlexKnot reconstructions
         \item Likelihood selection
