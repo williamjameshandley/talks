@@ -17,10 +17,6 @@ x = np.linspace(-6,6,100)
 y = x.copy()
 x, y = np.meshgrid(x, y)
 ax.contourf(x, y, pi(x,y), levels=[-200,1e3], colors='C1')
-
-x = np.linspace(-6,6,100)
-y = x.copy()
-x, y = np.meshgrid(x, y)
 ax.contourf(x, y, P(x,y), levels=[-5,1e3], colors='C0')
 
 ax.text(-4,-3, r'$\pi = \frac{1}{V_\pi}$')
@@ -32,3 +28,18 @@ ax.set_yticks([])
 fig.set_size_inches(lecture_style.width*0.5, lecture_style.width*0.5)
 fig.tight_layout()
 fig.savefig('volumes.pdf')
+
+np.random.seed(1)
+fig, ax = plt.subplots()
+ax.contourf(x, y, pi(x,y), levels=[-200,1e3], colors='C1')
+x, y = np.random.uniform(-6,6, (2,400))
+i = P(x,y) > -5
+ax.plot(x[i], y[i], '.', color='C0')
+ax.text(5,5, r'$\theta$')
+
+ax.set_xticks([])
+ax.set_yticks([])
+fig.set_size_inches(lecture_style.width*0.5, lecture_style.width*0.5)
+fig.tight_layout()
+fig.savefig('samples.pdf')
+

@@ -2,7 +2,7 @@
 \usepackage{will_handley}
 
 \usepackage{tikz}
-\newcommand{\av}[2][1]{\left\langle #2\right\rangle_{#1}}
+\newcommand{\av}[2][]{\left\langle #2\right\rangle_{#1}}
 \newcommand{\PR}{\mathcal{P}_\mathcal{R}}
 \newcommand{\Pknotj}[1]{\mathcal{P}_{#1}}
 \newcommand{\Nknots}{N_\text{knots}}
@@ -33,7 +33,7 @@
 % Talk details
 % ------------
 \title{Statistical methods in cosmology}
-\subtitle{<+subtitle+>}
+%\subtitle{<+subtitle+>}
 \date{12\textsuperscript{th} April 2022}
 
 \begin{document}
@@ -71,13 +71,44 @@
     \end{itemize}
 \end{frame}
 
-\begin{frame}
-    \frametitle{Foregrounds and parametric models}
-    <+Content+>
-\end{frame}
+%\begin{frame}
+%    \frametitle{Foregrounds and parametric models}
+%    \begin{columns}[t]
+%        \column{0.5\textwidth}
+%        \begin{block}{CMB}
+%            \begin{itemize}
+%                \item 
+%            \end{itemize}
+%        \end{block}
+%        \column{0.5\textwidth}
+%        \begin{block}{21-cm global}
+%            \begin{itemize}
+%                \item 
+%            \end{itemize}
+%        \end{block}
+%    \end{columns}
+%\end{frame}
 
 \begin{frame}
     \frametitle{What is a model?}
+    \begin{itemize}
+        \item Model comparison in its purest form answers question such as:
+            \begin{itemize}
+                \item ``Is the universe $\Lambda$CDM?''
+                \item ``Are neutrinos in a normal or inverted hierarchy?''
+                \item ``Is there a detectable global signal in this data?''
+            \end{itemize}
+        \item However model $\mathcal{M}$ is likelihood $\C[2]{\mathcal{L}=P(D|\theta,M)}$ and priors $\C[1]{\pi=P(\theta|M)}$, $\C[5]{\Pi=P(M)}$
+        \item Can use the evidence \C[3]{$\mathcal{Z}$} to decide on which out of a set of likelihoods best describe data (e.g. Gaussian, Cauchy, Poisson, radiometric).
+        \item Can also use it for antenna selection~\arxiv{2106.10193}~\arxiv{2109.10098}.
+        \item In principle can use it to decide between theoretically motivated priors (care needed)
+        \item It can also be used for non-parametric reconstruction:
+            \begin{itemize}
+                \item ``How many polynomial terms best describe the data?''
+                \item ``How complicated a sky model do I need?''
+                \item ``Which is the best sky model?''
+            \end{itemize}
+    \end{itemize}
 \end{frame}
 
 \begin{frame}
@@ -99,12 +130,15 @@
 
   \begin{columns}
       \column{0.5\textwidth}
-        \begin{itemize}
-            \item Traditionally parameterise the primordial power spectrum with $(A_s,n_s)$
-                \[\mathcal{P}_\mathcal{R}(k) = A_s \left( \frac{k}{k_*} \right)^{n_s-1}\]
-            \item Non-parametric technique introduces a more flexible phenomenological parameterisation
-            \item Let the Bayesian evidence decide when you've introduced too many parameters
-        \end{itemize}
+      \uncover<1->{
+          \begin{itemize}
+              \item Traditionally parameterise the primordial power spectrum with $(A_s,n_s)$
+                  \[\mathcal{P}_\mathcal{R}(k) = A_s \left( \frac{k}{k_*} \right)^{n_s-1}\]
+              \item To add more degrees of freedom, can add ``running'' parameters $n_\mathrm{run}$ (higher order polynomial in index)
+              \item Alternative non-parametric technique introduces a more flexible phenomenological parameterisation: ``FlexKnots''
+              \item Let the Bayesian evidence decide when you've introduced too many parameters
+          \end{itemize}
+      }
       \column{0.5\textwidth}
 
       \only<1-5>{
@@ -245,7 +279,7 @@
     \begin{columns}[t]
         \column{0.5\textwidth}
     \begin{itemize}
-        \item RHS true for all $\theta$. Take maximum value $\theta_\mathrm{max}$:
+        \item RHS true for all $\theta$. Take max likelihood value $\theta_*$:
             \[
                 \log \mathcal{Z} = -\chi_\mathrm{min}^2 - \text{Mackay penalty}
             \]
@@ -275,7 +309,7 @@
                 \[\mathcal{D}_\mathrm{KL} = \av[\mathcal{P}]{\log\frac{\mathcal{P}}{\pi}} = \int \mathcal{P}(\theta) \log \frac{\mathcal{P}(\theta)}{\pi(\theta)}d\theta.\]
             \item Whilst not a distance, $\mathcal{D}=0$ when $\mathcal{P}=\pi$.
             \item Occurs in the context of machine learning as an objective function for training functions.
-            \item In Bayesian stats it can be understood as a log-ratio of ``volumes'':
+            \item In Bayesian inference it can be understood as a log-ratio of ``volumes'':
                 \[ \mathcal{D}_\mathrm{KL} \approx \log \frac{V_\pi}{V_\mathrm{P}}.\]
                 (this is exact for top-hat distributions).
         \end{itemize}
@@ -286,13 +320,26 @@
 
 \begin{frame}
     \frametitle{Why do sampling?}
-    <+Content+>
+    \begin{columns}
+        \column{0.5\textwidth}
+        \begin{itemize}
+            \item The cornerstone of numerical Bayesian inference is working with \C[3]{samples}.
+            \item Generate a set of representative parameters drawn in proportion to the posterior $\theta\sim\mathcal{P}$.
+            \item The magic of marginalisation $\Rightarrow$ perform usual analysis on each sample in turn.
+            \item The golden rule is \C[1]{stay in samples} until the last moment before computing summary statistics/triangle plots because \[\boxed{f(\:\av{X}\:)\ne \av{\:f(X)\:}}\]
+            \item Generally need $\sim\mathcal{O}(12)$ independent samples to compute a value and error bar.
+        \end{itemize}
+        \column{0.5\textwidth}
+        \includegraphics{figures/samples.pdf}
+    \end{columns}
 \end{frame}
 
 \begin{frame}
-    \frametitle{
-    \href{https://chi-feng.github.io/mcmc-demo/}{chi-feng.github.io/mcmc-demo/}
-}
+    \frametitle{How to generate samples}
+    \begin{itemize}
+        \item MCMC!
+        \item \href{https://chi-feng.github.io/mcmc-demo/}{chi-feng.github.io/mcmc-demo/}
+    \end{itemize}
 \end{frame}
 
 \begin{frame}
@@ -300,136 +347,154 @@
     Relative to traditional numerical posterior samples (Metropolis Hastings, HMC, emcee), nested sampling:
     \begin{description}
         \item[$+$] Can calculate evidence (and therefore perform model comparison).
+        \item[$+$] Can calculate KL divergence.
         \item[$+$] Can handle multi-modal distributions.
         \item[$+$] Requires little tuning for an a-priori unseen problem.
         \item[$+$] Highly parallelisable ($n_\mathrm{cores} \sim n_\mathrm{live} \gg 4$).
+        \item[$+$] Does not require gradients
         \item[$-$] Slower than a well-tuned posterior sampler.
         \item[$-$] Run time is dependent on prior choice, and priors must be proper \\(some people view this as a feature rather than a bug).
     \end{description}
 \end{frame}
 
-
 \begin{frame}
-    \frametitle{Nested sampling}
-    \cols[0.6]{
-  \begin{itemize}
-    \item Nested sampling is a completely different way of sampling. 
-    \item Uses ensemble sampling to compress prior to posterior.
-      \item Maintain a set $S$ of $n$ samples, which are sequentially updated:
-  \begin{description}
-      
-    \item[$S_0$:] Generate $n$ samples uniformly over the space (from the prior $\pi$). 
-      
-    \item[$S_{n+1}$:] Delete the lowest likelihood sample in $S_{n}$, and replace it with a new uniform sample with higher likelihood
-  \end{description}
- \item Requires one to be able to sample uniformly within a region, subject to a {\em hard likelihood constraint}.
-  \end{itemize}
-    }{
-        \includegraphics<1|handout:0>[width=\textwidth,page=1]{figures/himmelblau}
-        \includegraphics<2|handout:0>[width=\textwidth,page=2]{figures/himmelblau}
-        \includegraphics<3|handout:0>[width=\textwidth,page=3]{figures/himmelblau}
-        \includegraphics<4          >[width=\textwidth,page=4]{figures/himmelblau}
-        \includegraphics<5|handout:0>[width=\textwidth,page=5]{figures/himmelblau}
-        \includegraphics<6|handout:0>[width=\textwidth,page=6]{figures/himmelblau}
-        \includegraphics<7|handout:0>[width=\textwidth,page=7]{figures/himmelblau}
-        \includegraphics<8|handout:0>[width=\textwidth,page=8]{figures/himmelblau}
-        \includegraphics<9|handout:0>[width=\textwidth,page=14]{figures/himmelblau}
-    }
-\end{frame}
-
-
-\begin{frame}
-    \frametitle{Nested sampling}
-    \cols[0.6]{
-  \begin{itemize}
-      \item At the end, one is left with a set of discarded points
-      \item These may be weighted to form posterior samples
-      \item They can also be used to calculate the normalising constant
-          \begin{itemize}
-              \item Critically, this is because nested sampling probabilistically estimates the volume of the parameter space
-                  \[X_i \approx {\left(\frac{n}{n+1}\right)} X_{i-1} \quad\Rightarrow\quad
-                  X_i \approx {\left(\frac{n}{n+1}\right)}^i \approx e^{-i/n} \]
-              \item only statistical estimates, but we know the error bar
-              \item Nested sampling thus estimates the density of states
-              \item it is therefore a partition function calculator
-          \end{itemize}
-      \item The evolving ensemble of live points allows algorithms to perform self-tuning and mode clustering
-  \end{itemize}
-
-    }{
-        \includegraphics<1|handout:0>[width=\textwidth,page=14]{figures/himmelblau}
-        \includegraphics<2          >[width=\textwidth,page=15]{figures/himmelblau}
-    }
-
+    \frametitle{Tension quantification}
 \end{frame}
 
 \begin{frame}
-    \frametitle{Implementations of Nested Sampling}
-    %\begin{columns}
-    %    \begin{column}{0.33}
-    %        \includegraphics[width=\textwidth]{figures/multinest}
-    %    \end{column} 
-    %\end{columns}
-    \cols[0.5]{%
-        \texttt{MultiNest}
-        \includegraphics[width=0.8\textwidth]{figures/multinest}
-            \vfill
-        \texttt{DNest}
-        \includegraphics[width=\textwidth]{figures/dnest}
-    }{%
-        \texttt{PolyChord}
-        \includegraphics[width=\textwidth]{figures/polychord}
-        \vfill
-        \texttt{NeuralNest}
-            \cols[0.5]{
-                \includegraphics[width=\textwidth]{figures/rosenbrock_flow.png}
-                \includegraphics[width=\textwidth]{figures/himmelblau_flow.png}
-            }{
-                \includegraphics[width=\textwidth]{figures/chains.png}
-            }
-            \vfill
-    }
-\end{frame}
-
-\begin{frame}
-    \frametitle{Nested Sampling: a user's guide}
-    \begin{enumerate}
-        \item Nested sampling is a likelihood scanner, rather than posterior explorer.
-            \begin{itemize}
-                \item This means typically most of its time is spent on burn-in rather than posterior sampling
-                \item Changing the stopping criterion from $10^{-3}$ to $0.5$ does little to speed up the run, but can make results very unreliable
-            \end{itemize}
-        \item The number of live points $n_\mathrm{live}$ is a resolution parameter.
-            \begin{itemize}
-                \item Run time is linear in $n_\mathrm{live}$, posterior and evidence accuracy goes as $\frac{1}{\sqrt{n_\mathrm{live}}}$.
-                \item Set low for exploratory runs $\sim\mathcal{O}(10)$ and increased to $\sim\mathcal{O}(1000)$ for production standard.
-            \end{itemize}
-        \item Most algorithms come with additional reliability parameter(s).
-            \begin{itemize}
-                \item e.g. \texttt{MultiNest}: $\text{eff}$, \texttt{PolyChord}: $n_\mathrm{repeats}$
-                \item These are parameters which have no gain if set too conservatively, but increase the reliability
-                \item Check that results do not degrade if you reduce them from defaults, otherwise increase.
-            \end{itemize}
-    \end{enumerate}
+    \frametitle{Future extensions for REACH}
+    \begin{itemize}
+        \item Tension quantification for cross validation
+        \item Model marginalisation rather than comparison
+        \item FlexKnot reconstructions
+        \item Likelihood selection
+        \item Occam factors on evidence plots.
+        \item Integration of calibration and cosmology pipelines
+    \end{itemize}
 \end{frame}
 
 
-\begin{frame}
-    \frametitle{Key tools for Nested Sampling}
-    \begin{description}
-        \item[\texttt{anesthetic}] Nested sampling post processing \arxiv{1905.04768}\\
-        \item[\texttt{insertion}] cross-checks using order statistics \arxiv{2006.03371}
-            \hspace{5pt}\url{github.com/williamjameshandley/anesthetic}
-        \item[\texttt{nestcheck}] cross-checks using unthreaded runs \arxiv{1804.06406}\\
-            \hspace{5pt}\url{github.com/ejhigson/nestcheck}
-        \item[\texttt{MultiNest}] Ellipsoidal rejection sampling \arxiv{0809.3437}\\
-            \hspace{5pt}\url{github.com/farhanferoz/MultiNest}
-        \item[\texttt{PolyChord}] Python/C++/Fortran state of the art \arxiv{1506.00171}\\
-            \hspace{5pt}\url{github.com/PolyChord/PolyChordLite} 
-        \item[\texttt{dynesty}] Python re-implementation of several codes \arxiv{1904.02180}\\
-            \hspace{5pt}\url{github.com/joshspeagle/dynesty}
-    \end{description}
-\end{frame}
+%\begin{frame}
+%    \frametitle{Nested sampling}
+%    \cols[0.6]{
+%  \begin{itemize}
+%    \item Nested sampling is a completely different way of sampling. 
+%    \item Uses ensemble sampling to compress prior to posterior.
+%      \item Maintain a set $S$ of $n$ samples, which are sequentially updated:
+%  \begin{description}
+%      
+%    \item[$S_0$:] Generate $n$ samples uniformly over the space (from the prior $\pi$). 
+%      
+%    \item[$S_{n+1}$:] Delete the lowest likelihood sample in $S_{n}$, and replace it with a new uniform sample with higher likelihood
+%  \end{description}
+% \item Requires one to be able to sample uniformly within a region, subject to a {\em hard likelihood constraint}.
+%  \end{itemize}
+%    }{
+%        \includegraphics<1|handout:0>[width=\textwidth,page=1]{figures/himmelblau}
+%        \includegraphics<2|handout:0>[width=\textwidth,page=2]{figures/himmelblau}
+%        \includegraphics<3|handout:0>[width=\textwidth,page=3]{figures/himmelblau}
+%        \includegraphics<4          >[width=\textwidth,page=4]{figures/himmelblau}
+%        \includegraphics<5|handout:0>[width=\textwidth,page=5]{figures/himmelblau}
+%        \includegraphics<6|handout:0>[width=\textwidth,page=6]{figures/himmelblau}
+%        \includegraphics<7|handout:0>[width=\textwidth,page=7]{figures/himmelblau}
+%        \includegraphics<8|handout:0>[width=\textwidth,page=8]{figures/himmelblau}
+%        \includegraphics<9|handout:0>[width=\textwidth,page=14]{figures/himmelblau}
+%    }
+%\end{frame}
+%
+%
+%\begin{frame}
+%    \frametitle{Nested sampling}
+%    \cols[0.6]{
+%  \begin{itemize}
+%      \item At the end, one is left with a set of discarded points
+%      \item These may be weighted to form posterior samples
+%      \item They can also be used to calculate the normalising constant
+%          \begin{itemize}
+%              \item Critically, this is because nested sampling probabilistically estimates the volume of the parameter space
+%                  \[X_i \approx {\left(\frac{n}{n+1}\right)} X_{i-1} \quad\Rightarrow\quad
+%                  X_i \approx {\left(\frac{n}{n+1}\right)}^i \approx e^{-i/n} \]
+%              \item only statistical estimates, but we know the error bar
+%              \item Nested sampling thus estimates the density of states
+%              \item it is therefore a partition function calculator
+%          \end{itemize}
+%      \item The evolving ensemble of live points allows algorithms to perform self-tuning and mode clustering
+%  \end{itemize}
+%
+%    }{
+%        \includegraphics<1|handout:0>[width=\textwidth,page=14]{figures/himmelblau}
+%        \includegraphics<2          >[width=\textwidth,page=15]{figures/himmelblau}
+%    }
+%
+%\end{frame}
+%
+%\begin{frame}
+%    \frametitle{Implementations of Nested Sampling}
+%    %\begin{columns}
+%    %    \begin{column}{0.33}
+%    %        \includegraphics[width=\textwidth]{figures/multinest}
+%    %    \end{column} 
+%    %\end{columns}
+%    \cols[0.5]{%
+%        \texttt{MultiNest}
+%        \includegraphics[width=0.8\textwidth]{figures/multinest}
+%            \vfill
+%        \texttt{DNest}
+%        \includegraphics[width=\textwidth]{figures/dnest}
+%    }{%
+%        \texttt{PolyChord}
+%        \includegraphics[width=\textwidth]{figures/polychord}
+%        \vfill
+%        \texttt{NeuralNest}
+%            \cols[0.5]{
+%                \includegraphics[width=\textwidth]{figures/rosenbrock_flow.png}
+%                \includegraphics[width=\textwidth]{figures/himmelblau_flow.png}
+%            }{
+%                \includegraphics[width=\textwidth]{figures/chains.png}
+%            }
+%            \vfill
+%    }
+%\end{frame}
+%
+%\begin{frame}
+%    \frametitle{Nested Sampling: a user's guide}
+%    \begin{enumerate}
+%        \item Nested sampling is a likelihood scanner, rather than posterior explorer.
+%            \begin{itemize}
+%                \item This means typically most of its time is spent on burn-in rather than posterior sampling
+%                \item Changing the stopping criterion from $10^{-3}$ to $0.5$ does little to speed up the run, but can make results very unreliable
+%            \end{itemize}
+%        \item The number of live points $n_\mathrm{live}$ is a resolution parameter.
+%            \begin{itemize}
+%                \item Run time is linear in $n_\mathrm{live}$, posterior and evidence accuracy goes as $\frac{1}{\sqrt{n_\mathrm{live}}}$.
+%                \item Set low for exploratory runs $\sim\mathcal{O}(10)$ and increased to $\sim\mathcal{O}(1000)$ for production standard.
+%            \end{itemize}
+%        \item Most algorithms come with additional reliability parameter(s).
+%            \begin{itemize}
+%                \item e.g. \texttt{MultiNest}: $\text{eff}$, \texttt{PolyChord}: $n_\mathrm{repeats}$
+%                \item These are parameters which have no gain if set too conservatively, but increase the reliability
+%                \item Check that results do not degrade if you reduce them from defaults, otherwise increase.
+%            \end{itemize}
+%    \end{enumerate}
+%\end{frame}
+%
+%
+%\begin{frame}
+%    \frametitle{Key tools for Nested Sampling}
+%    \begin{description}
+%        \item[\texttt{anesthetic}] Nested sampling post processing \arxiv{1905.04768}\\
+%        \item[\texttt{insertion}] cross-checks using order statistics \arxiv{2006.03371}
+%            \hspace{5pt}\url{github.com/williamjameshandley/anesthetic}
+%        \item[\texttt{nestcheck}] cross-checks using unthreaded runs \arxiv{1804.06406}\\
+%            \hspace{5pt}\url{github.com/ejhigson/nestcheck}
+%        \item[\texttt{MultiNest}] Ellipsoidal rejection sampling \arxiv{0809.3437}\\
+%            \hspace{5pt}\url{github.com/farhanferoz/MultiNest}
+%        \item[\texttt{PolyChord}] Python/C++/Fortran state of the art \arxiv{1506.00171}\\
+%            \hspace{5pt}\url{github.com/PolyChord/PolyChordLite} 
+%        \item[\texttt{dynesty}] Python re-implementation of several codes \arxiv{1904.02180}\\
+%            \hspace{5pt}\url{github.com/joshspeagle/dynesty}
+%    \end{description}
+%\end{frame}
 
 
 %\begin{frame}
