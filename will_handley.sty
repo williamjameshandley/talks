@@ -11,12 +11,16 @@
 \setbeamertemplate{itemize items}[triangle]
 
 % footline
+\def\insertpresentationendframe{\inserttotalframenumber}
+\makeatletter
+\g@addto@macro{\appendix}{\immediate\write\@auxout{\string\@writefile{nav}{\noexpand\headcommand{\noexpand\def\noexpand\insertpresentationendframe{\the\c@framenumber}}}}}
+\makeatother
 \setbeamerfont{footline}{size*={10pt}{10pt}}
 \setbeamertemplate{footline}{%
     \begin{beamercolorbox}[leftskip=0.2cm,rightskip=0.2cm]{structure}
         \href{mailto:wh260@cam.ac.uk}{Will Handley $<$wh260@cam.ac.uk$>$}
         \hfill
-        \insertframenumber{} / \inserttotalframenumber{}
+        \insertframenumber{} / \insertpresentationendframe{}
     \end{beamercolorbox}
 }
 
