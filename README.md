@@ -1,7 +1,12 @@
 # Will Handley's academic talks
 
 ## Academic talks
-1. Statistical methods in cosmology
+1. Nested Sampling and Likelihood Free Inference
+    - [Likelihood-free in Paris](https://indico.in2p3.fr/event/25496/) 
+    - [PDF](https://github.com/williamjameshandley/talks/raw/paris_lfi_2022/will_handley_paris_lfi_2022.pdf)  
+    - [source](https://github.com/williamjameshandley/talks/tree/paris_lfi_2022)
+    - _Apr 2022_  
+2. Statistical methods in cosmology
     - [REACH all hands](https://www.kicc.cam.ac.uk/events/kavli-science-themed-meetings/observational-and-theoretical-21-cm-cosmology) 
     - [PDF](https://github.com/williamjameshandley/talks/raw/reach_2022/will_handley_reach_2022.pdf)  
     - [source](https://github.com/williamjameshandley/talks/tree/reach_2022)
@@ -140,6 +145,7 @@
     - Seminar at [MPA](https://www.mpa-garching.mpg.de/) Max Planck Institute, Garching, Germany.
     - [source](https://github.com/williamjameshandley/talks/tree/garching_2015) 
     - [PDF](https://github.com/williamjameshandley/talks/raw/garching_2015/will_handley_garching_2015.pdf) 
+    
 
 More historical talks to be added soon
 
