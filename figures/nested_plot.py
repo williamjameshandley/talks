@@ -15,6 +15,7 @@ x, y = np.meshgrid(x, y)
 z = f(x,y)
 
 
+pdf = PdfPages('himmelblau.pdf')
 with PdfPages('himmelblau.pdf') as pdf:
     fig, ax = plt.subplots(figsize=(7,7))
     ax.set_xlim(-6,6)
@@ -35,7 +36,6 @@ with PdfPages('himmelblau.pdf') as pdf:
         live_lines, = ax.plot(*live_points.loc[:,:'theta1'].values.T, 'C0.')
         ax.contour(x, y, z, levels=[logL], colors='k', linestyles='solid', linewidths=0.3)
         pdf.savefig()
-        #dead_lines.remove()
         live_lines.remove()
 
     dead_lines, = ax.plot(*dead_points.loc[:,:'theta1'].values.T, 'k.', ms=2)
@@ -47,5 +47,26 @@ with PdfPages('himmelblau.pdf') as pdf:
 
     dead_lines.remove()
     posterior_lines.remove()
-    data.plot(ax,'theta0','theta1', color='C0', ncompress=10000)
-    pdf.savefig()
+
+
+    sig = 2
+    x, y, w = [0.], [0.], [1]
+    logP = f(x[-1], y[-1])/sig**2
+    np.random.seed(5)
+    for i in [0,5,10,20,23,30]:
+        while len(w) < i:
+            x_, y_ = [x[-1], y[-1]] + sig*np.random.randn(2)
+            logP_ = f(x_,y_)/sig**2
+            if logP_ - logP > np.log(np.random.rand()):
+                x.append(x_)
+                y.append(y_)
+                w.append(1)
+                logP = logP_
+            else:
+                w[-1] += 1
+
+        lines, = ax.plot(x, y, 'C3o-')
+        pdf.savefig()
+        lines.remove()
+
+

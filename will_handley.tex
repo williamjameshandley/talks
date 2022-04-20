@@ -33,12 +33,6 @@
 \end{frame}
 
 \begin{frame}
-    \frametitle{<+Frame title+>}
-    <+Content+>
-\end{frame}
-
-
-\begin{frame}
     \frametitle{What is Nested Sampling?}
     \begin{itemize}
         \item Nested sampling is a multi-purpose numerical mathematical tool.
@@ -75,27 +69,39 @@
 
 \begin{frame}
     \frametitle{MCMC sampling}
-    Unnormalised posteriors
-
-    Cannot compute the normalising constant
+    \begin{columns}
+        \column{0.6\textwidth}
+        \begin{itemize}
+            \item Unnormalised posteriors
+            \item Cannot compute the normalising constant
+        \end{itemize}
+        \column{0.4\textwidth}
+        \includegraphics<1>[width=\textwidth,page=16]{figures/himmelblau}
+        \includegraphics<2>[width=\textwidth,page=17]{figures/himmelblau}
+        \includegraphics<3>[width=\textwidth,page=18]{figures/himmelblau}
+        \includegraphics<4>[width=\textwidth,page=19]{figures/himmelblau}
+        \includegraphics<5>[width=\textwidth,page=20]{figures/himmelblau}
+        \includegraphics<6>[width=\textwidth,page=21]{figures/himmelblau}
+    \end{columns}
 \end{frame}
 
 \begin{frame}
     \frametitle{Nested sampling}
-    \cols[0.6]{
-  \begin{itemize}
-    \item Nested sampling is a completely different way of sampling. 
-    \item Uses ensemble sampling to compress prior to posterior.
-      \item Maintain a set $S$ of $n$ samples, which are sequentially updated:
-  \begin{description}
-      
-    \item[$S_0$:] Generate $n$ samples uniformly over the space (from the prior $\pi$). 
-      
-    \item[$S_{n+1}$:] Delete the lowest likelihood sample in $S_{n}$, and replace it with a new uniform sample with higher likelihood
-  \end{description}
- \item Requires one to be able to sample uniformly within a region, subject to a {\em hard likelihood constraint}.
-  \end{itemize}
-    }{
+    \begin{columns}
+        \column{0.6\textwidth}
+        \begin{itemize}
+            \item Nested sampling is a completely different way of sampling. 
+            \item Uses ensemble sampling to compress prior to posterior.
+            \item Maintain a set $S$ of $n$ samples, which are sequentially updated:
+                \begin{description}
+
+                    \item[$S_0$:] Generate $n$ samples uniformly over the space (from the prior $\pi$). 
+
+                    \item[$S_{n+1}$:] Delete the lowest likelihood sample in $S_{n}$, and replace it with a new uniform sample with higher likelihood
+                \end{description}
+            \item Requires one to be able to sample uniformly within a region, subject to a {\em hard likelihood constraint}.
+        \end{itemize}
+        \column{0.4\textwidth}
         \includegraphics<1|handout:0>[width=\textwidth,page=1]{figures/himmelblau}
         \includegraphics<2|handout:0>[width=\textwidth,page=2]{figures/himmelblau}
         \includegraphics<3|handout:0>[width=\textwidth,page=3]{figures/himmelblau}
@@ -105,31 +111,32 @@
         \includegraphics<7|handout:0>[width=\textwidth,page=7]{figures/himmelblau}
         \includegraphics<8|handout:0>[width=\textwidth,page=8]{figures/himmelblau}
         \includegraphics<9|handout:0>[width=\textwidth,page=14]{figures/himmelblau}
-    }
+    \end{columns}
 \end{frame}
 
 \begin{frame}
     \frametitle{Nested sampling}
-    \cols[0.6]{
-  \begin{itemize}
-      \item At the end, one is left with a set of discarded points
-      \item These may be weighted to form weighted posterior samples using $w_i = \mathcal{L}_i \Delta X_i$
-      \item They can also be used to calculate the normalising constant $\mathcal{Z} = \sum \mathcal{L}_i \Delta X_i$.
-          \begin{itemize}
-              \item Nested sampling probabilistically estimates the volume of the parameter space
-                  \[X_i \approx {\left(\frac{n}{n+1}\right)} X_{i-1} \quad\Rightarrow\quad
-                  X_i \approx {\left(\frac{n}{n+1}\right)}^i \approx e^{-i/n} \]
-              \item only statistical estimates, but we know the error bar
-              \item Nested sampling thus estimates the density of states
-              \item it is therefore a partition function calculator
-          \end{itemize}
-      \item The evolving ensemble of live points allows algorithms to perform self-tuning and mode clustering.
-  \end{itemize}
+    \begin{columns}
+        \column{0.6\textwidth}
+        \begin{itemize}
+            \item At the end, one is left with a set of discarded points
+            \item These may be weighted to form weighted posterior samples using $w_i = \mathcal{L}_i \Delta X_i$
+            \item They can also be used to calculate the normalising constant $\mathcal{Z} = \sum \mathcal{L}_i \Delta X_i$.
+                \begin{itemize}
+                    \item Nested sampling probabilistically estimates the volume of the parameter space
+                        \[X_i \approx {\left(\frac{n}{n+1}\right)} X_{i-1} \quad\Rightarrow\quad
+                        X_i \approx {\left(\frac{n}{n+1}\right)}^i \approx e^{-i/n} \]
+                    \item only statistical estimates, but we know the error bar
+                    \item Nested sampling thus estimates the density of states
+                    \item it is therefore a partition function calculator
+                \end{itemize}
+            \item The evolving ensemble of live points allows algorithms to perform self-tuning and mode clustering.
+        \end{itemize}
 
-    }{
+        \column{0.4\textwidth}
         \includegraphics<1|handout:0>[width=\textwidth,page=14]{figures/himmelblau}
         \includegraphics<2          >[width=\textwidth,page=15]{figures/himmelblau}
-    }
+    \end{columns}
 
 \end{frame}
 
@@ -140,29 +147,165 @@
     %        \includegraphics[width=\textwidth]{figures/multinest}
     %    \end{column} 
     %\end{columns}
-    \cols[0.5]{%
+    \begin{columns}
+        \column{0.5\textwidth}
         \texttt{MultiNest}
         \includegraphics[width=0.8\textwidth]{figures/multinest}
-            \vfill
+        \vfill
         \texttt{DNest}
         \includegraphics[width=\textwidth]{figures/dnest}
-    }{%
+        \column{0.5\textwidth}
         \texttt{PolyChord}
         \includegraphics[width=\textwidth]{figures/polychord}
         \vfill
         \texttt{NeuralNest}
-            \cols[0.5]{
-                \includegraphics[width=\textwidth]{figures/rosenbrock_flow.png}
-                \includegraphics[width=\textwidth]{figures/himmelblau_flow.png}
-            }{
-                \includegraphics[width=\textwidth]{figures/chains.png}
-            }
-            \vfill
-    }
+        \begin{columns}
+            \column{0.5\textwidth}
+            \includegraphics[width=\textwidth]{figures/rosenbrock_flow.png}
+            \includegraphics[width=\textwidth]{figures/himmelblau_flow.png}
+            \column{0.5\textwidth}
+            \includegraphics[width=\textwidth]{figures/chains.png}
+        \end{columns}
+        \vfill
+    \end{columns}
+\end{frame}
+
+
+\begin{frame}
+    \frametitle{How does Nested Sampling compare to other approaches?}
+    \begin{itemize}
+        \item In all cases:
+            \begin{itemize}
+                \item[$+$] NS can handle multimodal functions
+                \item[$+$] NS computes evidences, partition functions and integrals
+                \item[$+$] NS is self-tuning/black-box
+            \end{itemize}
+    \end{itemize}
+    \vspace{-10pt}
+    \begin{columns}[t]
+        \column{0.33\textwidth}
+        \begin{block}{Optimisation}
+        \begin{itemize}
+            \item Gradient descent
+                \begin{itemize}
+                    \item[$+$] NS does not require gradients
+                \end{itemize}
+            \item Genetic algorithms
+                \begin{itemize}
+                    \item[$+$] NS discarded points have statistical meaning
+                \end{itemize}
+        \end{itemize}
+        \end{block}
+        \column{0.33\textwidth}
+        \begin{block}{Sampling}
+        \begin{itemize}
+            \item Metropolis-Hastings?
+                \begin{itemize}
+                    \item[$-$] Very little beats a well-tuned \& customised MH
+                    \item[$+$] NS is self tuning
+                \end{itemize}
+        \item Hamiltonian Monte Carlo?
+        \begin{itemize}
+            \item[$-$] In millions of dimensions, HMC is king
+            \item[$+$] NS does not require gradients
+        \end{itemize}
+        \end{itemize}
+            \end{block}
+        \column{0.33\textwidth}
+        \begin{block}{Integration}
+            \begin{itemize}
+                \item Thermodynamic integration
+                    \begin{itemize}
+                        \item[$+$] protective against phase trasitions
+                        \item[$+$] No annealing schedule tuning 
+                    \end{itemize}
+                \item Sequential Monte Carlo
+                    \begin{itemize}
+                        \item[$-$] Some people (SMC experts) classify NS as a kind of SMC
+                        \item[$+$] NS is athermal
+                    \end{itemize}
+            \end{itemize}
+    \end{block}
+    \end{columns}
+\end{frame}
+
+
+
+\begin{frame}
+    \frametitle{Nested Sampling with Likelihood Free Inference}
+    \begin{columns}
+        \column{0.5\textwidth}
+        \includegraphics[width=\textwidth]{figures/three_ways_II.pdf}
+
+        \hfill Alsing \textit{et al.}~\arxiv{1903.00007}
+    \begin{itemize}
+        \item In density estimation likelihood free inference, the output is to learn one/all of:
+            \begin{description}
+                \item[Likelihood] $P(D|\theta)$
+                \item[Posterior] $P(\theta|D)$ 
+                \item[Joint] $P(D,\theta)$
+            \end{description}
+    \end{itemize}
+        \column{0.5\textwidth}
+    \begin{itemize}
+        \item In the first instance, nested sampling can be used to scan these learnt functions
+            \begin{itemize}
+                \item Sanity checking the solution
+                \item Computing evidences/Kullback Liebler divergences from likelihoods
+            \end{itemize}
+        \item Its self-tuning capacity and ability to handle multi-modal distributions can be very useful for diagnosing incompletely learnt functions
+        \item Emulated likelihoods (e.g. normalising flows) are generally fast, so can deploy more likelihood hungry techniques like NS.
+        \item As Pablo Lemos \& David Yallup will discuss, in principle can use it to train emulators by marginalisation rather than maximisation.
+    \end{itemize}
+    \end{columns}
 \end{frame}
 
 \begin{frame}
+    \frametitle{Nested Sampling for Approximate Bayesian Computation}
+    \begin{columns}
+        \column{0.5\textwidth}
+        \begin{itemize}
+            \item ABC $\leftrightarrow$ SBI
+            \item Assume one has a generative model capable of turning parameters into mock data $D(\theta)$
+            \item Given infinite computing power, ABC works by selecting $\{\theta : D(\theta)=D_\mathrm{observed}\}$
+            \item These are samples from the posterior, without using a likelihood.
+            \item In practice $D=D_\mathrm{obs}$ is replaced by $D\approx D_\mathrm{obs}$, i.e. $|D-D_\mathrm{obs}|<\varepsilon$, or more generally $\rho(D,D_\mathrm{obs})<\varepsilon$, where $\rho$ is some suitably chosen objective function
+            \item Evidence for choosing discrepancy function
+        \end{itemize}
+        \column{0.5\textwidth}
+        \begin{itemize}
+            \item Main challenges are 
+                \begin{enumerate}
+                    \item Choice of $\rho$/summary stats
+                    \item Choice of $\varepsilon$ schedule
+                    \item Rejection sampling
+                \end{enumerate}
+            \item In principle, can just change the usual hard likelihood constraints $\{\theta\sim\pi : \mathcal{L}(\theta)>\mathcal{L}_*\}$ for $\{\theta~\sim\pi : \rho(D,D_\mathrm{obs})<\varepsilon\}$
+            \item Ongoing work with Andrew Fowlie \& Sebastian Hoof
+            \item Brewer \& Foreman-Mackey~\arxiv{1606.03757}
+        \end{itemize}
+    \end{columns}
 \end{frame}
+
+\begin{frame}
+    \frametitle{Nested sampling for truncated methods}
+
+    \begin{columns}
+        \column{0.55\textwidth}
+        \column{0.45\textwidth}
+        \includegraphics[width=\textwidth]{figures/tmnre}
+
+        \hfill Cole \textit{et al.}~\arxiv{2111.08030}
+    \end{columns}
+    
+\end{frame}
+
+
+\begin{frame}
+    \frametitle{<+Title+>}
+    <+Content+>
+\end{frame}
+
 
 \appendix
 
