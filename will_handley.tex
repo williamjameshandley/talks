@@ -72,8 +72,14 @@
     \begin{columns}
         \column{0.6\textwidth}
         \begin{itemize}
-            \item Unnormalised posteriors
-            \item Cannot compute the normalising constant
+            \item Markov chain based methods generate samples from posterior distribution by a stepping procedure
+            \item This can get stuck in local peaks
+            \item Cannot compute normalisation $\mathcal{Z}$ of Bayes theorem:
+                \[ P(\theta|D,M) = \frac{P(D|\theta,M)P(\theta|M)}{P(D|M)}\]
+                \[ \mathcal{P} = \frac{\mathcal{L}\times \pi}{\mathcal{Z}} \qquad \text{posterior} = \frac{\text{likelihood}\times \text{prior}}{\text{evidence}} \]
+            \item We generally want $\mathcal{Z}=P(D|M)$ for the second stage of inference: model comparison
+                \[ P(M|D) = \frac{P(D|M)P(M)}{P(D)} \qquad \text{Science}(M) = \frac{\mathcal{Z}_M \Pi_M}{\sum_m \mathcal{Z}_m \Pi_m} \]
+            
         \end{itemize}
         \column{0.4\textwidth}
 
@@ -82,7 +88,7 @@
         \includegraphics<3>[width=\textwidth,page=18]{figures/himmelblau}%
         \includegraphics<4>[width=\textwidth,page=19]{figures/himmelblau}%
         \includegraphics<5>[width=\textwidth,page=20]{figures/himmelblau}%
-        \includegraphics<6>[width=\textwidth,page=21]{figures/himmelblau}
+        \includegraphics<6>[width=\textwidth,page=21]{figures/himmelblau}%
 
     \end{columns}
 \end{frame}
@@ -92,16 +98,17 @@
     \begin{columns}
         \column{0.6\textwidth}
         \begin{itemize}
-            \item Nested sampling is a completely different way of sampling. 
-            \item Uses ensemble sampling to compress prior to posterior.
-            \item Maintain a set $S$ of $n$ samples, which are sequentially updated:
+            \item Nested sampling: completely different way to sample
+            \item Ensemble sampling to compress prior to posterior.
+            \item Sequentially update a set $S$ of $n$ samples:
                 \begin{description}
 
                     \item[$S_0$:] Generate $n$ samples uniformly over the space (from the prior $\pi$). 
 
                     \item[$S_{n+1}$:] Delete the lowest likelihood sample in $S_{n}$, and replace it with a new uniform sample with higher likelihood
                 \end{description}
-            \item Requires one to be able to sample uniformly within a region, subject to a {\em hard likelihood constraint}.
+            \item Requires one to be able to sample uniformly within a region, subject to a {\em hard likelihood constraint}:
+            \[\{\theta\sim \pi : \mathcal{L}(\theta)>\mathcal{L}_* \}\]
         \end{itemize}
         \column{0.4\textwidth}
 
@@ -113,10 +120,80 @@
         \includegraphics<6|handout:0>[width=\textwidth,page=6]{figures/himmelblau}%
         \includegraphics<7|handout:0>[width=\textwidth,page=7]{figures/himmelblau}%
         \includegraphics<8|handout:0>[width=\textwidth,page=8]{figures/himmelblau}%
-        \includegraphics<9|handout:0>[width=\textwidth,page=14]{figures/himmelblau}
 
     \end{columns}
 \end{frame}
+
+\begin{frame}
+\frametitle{Mathematics of Nested Sampling}
+\framesubtitle{A probabalistic Lebesgque integrator}
+  \begin{columns}
+      \column{0.5\textwidth}
+  \begin{itemize}
+    \item At each iteration, the likelihood contour will shrink in volume by  $\approx 1/n$.
+    \item Nested sampling zooms in to the peak of the function $\mathcal{L}$ {\em exponentially}.
+        \vspace{-5pt}
+        \[
+            \mathcal{Z} \approx \sum_i \Delta\mathcal{L}_i X_{i}, \quad
+            X_{i+1} \approx \frac{n}{n+1}X_i, \quad X_{0} = 1 
+        \]
+        \vspace{-15pt}
+    \item Although this is only approximate, we can quantify the error 
+        \vspace{-10pt}
+        \[
+            P(X_{i+1}|X_i) = \frac{1}{n X_i}{\left( \frac{X_{i+1}}{X_i} \right)}^{n-1}[0<X_i<X_{i+1}]
+        \]
+        \vspace{-15pt}
+          \item Integral can be expressed in one of two ways
+        \vspace{-10pt}
+              \[
+                  \mathcal{Z} \approx \sum_i \Delta\mathcal{L}_i X_{i} = \sum_i \mathcal{L}_i \Delta X_{i} 
+      \]
+
+  \end{itemize}
+      \column{0.5\textwidth}
+  \includegraphics<1|handout:0>[width=\textwidth,page=1]{figures/lesbesgue}
+  \includegraphics<2|handout:0>[width=\textwidth,page=2]{figures/lesbesgue}
+  \includegraphics<3|handout:0>[width=\textwidth,page=3]{figures/lesbesgue}
+  \includegraphics<4|handout:0>[width=\textwidth,page=4]{figures/lesbesgue}
+  \includegraphics<5|handout:0>[width=\textwidth,page=5]{figures/lesbesgue}
+  \includegraphics<6|handout:0>[width=\textwidth,page=6]{figures/lesbesgue}
+  \includegraphics<7|handout:0>[width=\textwidth,page=7]{figures/lesbesgue}
+  \includegraphics<8|handout:0>[width=\textwidth,page=8]{figures/lesbesgue}
+  \includegraphics<9|handout:0>[width=\textwidth,page=9]{figures/lesbesgue}
+  \includegraphics<10|handout:0>[width=\textwidth,page=10]{figures/lesbesgue}
+  \includegraphics<11|handout:0>[width=\textwidth,page=11]{figures/lesbesgue}
+  \includegraphics<12|handout:0>[width=\textwidth,page=12]{figures/lesbesgue}
+  \includegraphics<13|handout:0>[width=\textwidth,page=13]{figures/lesbesgue}
+  \includegraphics<14|handout:0>[width=\textwidth,page=14]{figures/lesbesgue}
+  \includegraphics<15|handout:0>[width=\textwidth,page=15]{figures/lesbesgue}
+  \includegraphics<16          >[width=\textwidth,page=16]{figures/lesbesgue}
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Mathematics of Nested Sampling}
+    \cols[0.6]{
+  \begin{itemize}
+      \item At the end, one is left with a set of discarded points
+      \item These may be weighted to form weighted posterior samples using $w_i = \mathcal{L}_i \Delta X_i$
+      \item They can also be used to calculate the normalising constant
+              \item Critically, this is because nested sampling probabilistically estimates the volume of the parameter space
+                  \[X_i \approx {\left(\frac{n}{n+1}\right)} X_{i-1} \quad\Rightarrow\quad
+                  X_i \approx {\left(\frac{n}{n+1}\right)}^i \approx e^{-i/n} \]
+              \item only statistical estimates, but we know the error bar
+              \item Nested sampling thus estimates the density of states $\Delta X_i$
+              \item It is therefore a partition function calculator
+  \end{itemize}
+
+    }{
+        \includegraphics<1|handout:0>[width=\textwidth,page=14]{figures/himmelblau}
+        \includegraphics<2          >[width=\textwidth,page=15]{figures/himmelblau}
+    }
+
+\end{frame}
+
+
 
 \begin{frame}
     \frametitle{Nested sampling}
@@ -125,7 +202,7 @@
         \begin{itemize}
             \item At the end, one is left with a set of discarded points
             \item These may be weighted to form weighted posterior samples using $w_i = \mathcal{L}_i \Delta X_i$
-            \item They can also be used to calculate the normalising constant $\mathcal{Z} = \sum \mathcal{L}_i \Delta X_i$.
+            \item They can also be used to calculate the normalisation $\mathcal{Z} = \sum \mathcal{L}_i \Delta X_i$.
                 \begin{itemize}
                     \item Nested sampling probabilistically estimates the volume of the parameter space
                         \[X_i \approx {\left(\frac{n}{n+1}\right)} X_{i-1} \quad\Rightarrow\quad
@@ -179,6 +256,8 @@
 
 \begin{frame}
     \frametitle{How does Nested Sampling compare to other approaches?}
+    \begin{columns}
+        \column{0.7\textwidth}
     \begin{itemize}
         \item In all cases:
             \begin{itemize}
@@ -187,7 +266,9 @@
                 \item[$+$] NS is self-tuning/black-box
             \end{itemize}
     \end{itemize}
-    \vspace{-10pt}
+        \column{0.3\textwidth}
+        Modern Nested Sampling algorithms can do this in $\sim\mathcal{O}(100s)$ dimensions
+    \end{columns}
     \begin{columns}[t]
         \column{0.33\textwidth}
         \begin{block}{Optimisation}
@@ -207,7 +288,7 @@
         \begin{itemize}
             \item Metropolis-Hastings?
                 \begin{itemize}
-                    \item[$-$] Very little beats a well-tuned \& customised MH
+                    \item[$-$] Very little beats a well-tuned, customised MH
                     \item[$+$] NS is self tuning
                 \end{itemize}
         \item Hamiltonian Monte Carlo?
@@ -251,10 +332,11 @@
                 \item[Posterior] $P(\theta|D)$ 
                 \item[Joint] $P(D,\theta)$
             \end{description}
+        \item In the first instance, nested sampling can be used to scan these learnt functions
     \end{itemize}
         \column{0.5\textwidth}
     \begin{itemize}
-        \item In the first instance, nested sampling can be used to scan these learnt functions
+        \item Data are compressed, so joint space $(D,\theta)$ is navigable by off-the-shelf codes. 
             \begin{itemize}
                 \item Sanity checking the solution
                 \item Computing evidences/Kullback Liebler divergences from likelihoods
@@ -267,28 +349,33 @@
 \end{frame}
 
 \begin{frame}
-    \frametitle{Nested Sampling for Approximate Bayesian Computation}
+    \frametitle{Nested Sampling for Approximate Bayesian Computation/SBI}
     \begin{columns}
         \column{0.5\textwidth}
         \begin{itemize}
-            \item ABC $\leftrightarrow$ SBI
             \item Assume one has a generative model capable of turning parameters into mock data $D(\theta)$
             \item Given infinite computing power, ABC works by selecting $\{\theta : D(\theta)=D_\mathrm{observed}\}$
             \item These are samples from the posterior, without using a likelihood.
-            \item In practice $D=D_\mathrm{obs}$ is replaced by $D\approx D_\mathrm{obs}$, i.e. $|D-D_\mathrm{obs}|<\varepsilon$, or more generally $\rho(D,D_\mathrm{obs})<\varepsilon$, where $\rho$ is some suitably chosen objective function
-            \item Evidence for choosing discrepancy function
-        \end{itemize}
-        \column{0.5\textwidth}
-        \begin{itemize}
+            \item In practice $D=D_\mathrm{obs}$ becomes $D\approx D_\mathrm{obs}$
+            \item i.e. $|D-D_\mathrm{obs}|<\varepsilon$, or more generally $\boxed{\rho(D,D_\mathrm{obs})<\varepsilon}$, where $\rho$ is some suitably chosen objective function
             \item Main challenges are 
                 \begin{enumerate}
                     \item Choice of $\rho$/summary stats
                     \item Choice of $\varepsilon$ schedule
                     \item Rejection sampling
                 \end{enumerate}
-            \item In principle, can just change the usual hard likelihood constraints $\{\theta\sim\pi : \mathcal{L}(\theta)>\mathcal{L}_*\}$ for $\{\theta~\sim\pi : \rho(D,D_\mathrm{obs})<\varepsilon\}$
+        \end{itemize}
+        \column{0.5\textwidth}
+        \begin{itemize}
+            \item Nested sampling fits this well: In principle, can just change the usual hard likelihood constraints $\{\theta\sim\pi : \mathcal{L}(\theta)>\mathcal{L}_*\}$ to
+                \[\{\theta~\sim\pi : \rho(D(\theta),D_\mathrm{obs})<\varepsilon\}\]
+            (Brewer \& Foreman-Mackey~\arxiv{1606.03757})
             \item Ongoing work with Andrew Fowlie \& Sebastian Hoof
-            \item Brewer \& Foreman-Mackey~\arxiv{1606.03757}
+                \begin{itemize}
+                    \item How to deal with nondeterminism 
+                    \item How to interpret $\rho$ as a ``likelihood''
+                    \item How to interpret the evidence $\mathcal{Z}$
+                \end{itemize}
         \end{itemize}
     \end{columns}
 \end{frame}
@@ -298,6 +385,20 @@
 
     \begin{columns}
         \column{0.55\textwidth}
+        \begin{itemize}
+            \item Will hear more on this tomorrow from Christoph
+            \item Many Likelihood implicit approaches at the moment have some element of sampling direct from the prior
+            \item Inefficient if number of parameters $>\mathcal{O}(\text{a few})$
+            \item Can get round this by truncating to region:
+                \[ \Gamma\{ \theta\in \mathrm{supp} p(\theta) \:|\: p(\theta|x_0)>\bar\varepsilon\} \]
+            \item At the moment regions defined by nested boxes
+            \item This seems ripe for replacement by NS
+                \begin{itemize}
+                    \item Has anybody tried this?
+                    \item If not, why not?
+                    \item Why not why not? \hfill(call me)
+                \end{itemize}
+        \end{itemize}
         \column{0.45\textwidth}
         \includegraphics[width=\textwidth]{figures/tmnre}
 
@@ -307,31 +408,10 @@
 \end{frame}
 
 
-\begin{frame}
-    \frametitle{<+Title+>}
-    <+Content+>
-\end{frame}
-
-
-\appendix
-
-
-\begin{frame}
-    \frametitle{Key tools for Nested Sampling}
-    \begin{description}
-        \item[\texttt{anesthetic}] Nested sampling post processing \arxiv{1905.04768}\\
-        \item[\texttt{insertion}] cross-checks using order statistics \arxiv{2006.03371}
-            \hspace{5pt}\url{github.com/williamjameshandley/anesthetic}
-        \item[\texttt{nestcheck}] cross-checks using unthreaded runs \arxiv{1804.06406}\\
-            \hspace{5pt}\url{github.com/ejhigson/nestcheck}
-        \item[\texttt{MultiNest}] Ellipsoidal rejection sampling \arxiv{0809.3437}\\
-            \hspace{5pt}\url{github.com/farhanferoz/MultiNest}
-        \item[\texttt{PolyChord}] Python/C++/Fortran state of the art \arxiv{1506.00171}\\
-            \hspace{5pt}\url{github.com/PolyChord/PolyChordLite} 
-        \item[\texttt{dynesty}] Python re-implementation of several codes \arxiv{1904.02180}\\
-            \hspace{5pt}\url{github.com/joshspeagle/dynesty}
-    \end{description}
-\end{frame}
+%\begin{frame}
+%    \frametitle{<+Title+>}
+%    <+Content+>
+%\end{frame}
 
 
 \begin{frame}
@@ -354,6 +434,29 @@
                 \item Check that results do not degrade if you reduce them from defaults, otherwise increase.
             \end{itemize}
     \end{enumerate}
+\end{frame}
+
+
+\appendix
+
+
+\begin{frame}
+    \frametitle{Key tools for Nested Sampling}
+    \begin{description}[\& \texttt{UltraNest}]
+        \item[\texttt{anesthetic}] Nested sampling post processing \arxiv{1905.04768}\\
+        \item[\texttt{insertion}] cross-checks using order statistics \arxiv{2006.03371}
+            \hspace{5pt}\url{github.com/williamjameshandley/anesthetic}
+        \item[\texttt{nestcheck}] cross-checks using unthreaded runs \arxiv{1804.06406}\\
+            \hspace{5pt}\url{github.com/ejhigson/nestcheck}
+        \item[\texttt{MultiNest}] Ellipsoidal rejection sampling \arxiv{0809.3437}\\
+            \hspace{5pt}\url{github.com/farhanferoz/MultiNest}
+        \item[\texttt{PolyChord}] Python/C++/Fortran state of the art \arxiv{1506.00171}\\
+            \hspace{5pt}\url{github.com/PolyChord/PolyChordLite} 
+        \item[\texttt{dynesty}] Python re-implementation of several codes \arxiv{1904.02180}\\
+            \hspace{5pt}\url{github.com/joshspeagle/dynesty}
+        \item[\& \texttt{UltraNest}] \hspace{5pt}\url{github.com/JohannesBuchner/UltraNest}
+            \arxiv{2101.09604}
+    \end{description}
 \end{frame}
 
 
