@@ -1,5 +1,6 @@
 \documentclass[aspectratio=169]{beamer}
 \usepackage{will_handley}
+\newcommand{\av}[2][]{\left\langle #2\right\rangle_{#1}}
 
 % Commands
 % --------
@@ -75,10 +76,10 @@
             \item Markov chain based methods generate samples from posterior distribution by a stepping procedure
             \item This can get stuck in local peaks
             \item Cannot compute normalisation $\mathcal{Z}$ of Bayes theorem:
-                \[ P(\theta|D,M) = \frac{P(D|\theta,M)P(\theta|M)}{P(D|M)}\]
-                \[ \mathcal{P} = \frac{\mathcal{L}\times \pi}{\mathcal{Z}} \qquad \text{posterior} = \frac{\text{likelihood}\times \text{prior}}{\text{evidence}} \]
-            \item We generally want $\mathcal{Z}=P(D|M)$ for the second stage of inference: model comparison
-                \[ P(M|D) = \frac{P(D|M)P(M)}{P(D)} \qquad \text{Science}(M) = \frac{\mathcal{Z}_M \Pi_M}{\sum_m \mathcal{Z}_m \Pi_m} \]
+                \[ \C[0]{P(\theta|D,M)} = \frac{\C[2]{P(D|\theta,M)}\C[1]{P(\theta|M)}}{\C[3]{P(D|M)}}\]
+                \[ \C[0]{\mathcal{P}} = \frac{\C[2]{\mathcal{L}}\times \C[1]{\pi}}{\C[3]{\mathcal{Z}}} \qquad \C[0]{\text{posterior}} = \frac{\C[2]{\text{likelihood}}\times \C[1]{\text{prior}}}{\C[2]{\text{evidence}}} \]
+            \item We generally want the evidence $\C[3]{\mathcal{Z}=P(D|M)}$ for the second stage of inference: model comparison
+                \[ P(M|D) = \frac{\C[3]{P(D|M)}P(M)}{P(D)} \qquad \text{Science}(M) = \frac{\C[3]{\mathcal{Z}_M} \Pi_M}{\sum_m \C[3]{\mathcal{Z}}_m \Pi_m} \]
             
         \end{itemize}
         \column{0.4\textwidth}
@@ -109,7 +110,7 @@
                 \end{description}
             \item Requires one to be able to sample uniformly within a region, subject to a {\em hard likelihood constraint}:
                 \[\{\theta\sim \pi : \mathcal{L}(\theta)>\mathcal{L}_* \}\]
-            \item This procedure optimises (multimodally), and can calculate the normalisation \& posterior weights.
+            \item This procedure optimises (multimodally), and can calculate the \C[3]{evidence} \& \C[0]{posterior} weights.
         \end{itemize}
         \column{0.4\textwidth}
 
@@ -373,7 +374,7 @@
                 \begin{itemize}
                     \item Has anybody tried this?
                     \item If not, why not?
-                    \item Why not why not? \hfill(call me)
+                    \item Why not why not? \hfill(let's talk)
                 \end{itemize}
         \end{itemize}
         \column{0.45\textwidth}
@@ -416,6 +417,66 @@
 
 \appendix
 
+
+
+\begin{frame}
+    \frametitle{Occam's Razor~\arxiv{2102.11511}}
+    \begin{itemize}
+        \item Bayesian inference quantifies Occam's Razor:
+            \begin{itemize}
+                \item \textit{``Entities are not to be multiplied without necessity''} \hfill --- William of Occam
+                \item \textit{``Everything should be kept as simple as possible, but not simpler''} \hfill --- ``Albert Einstein''
+            \end{itemize}
+        %\item Consider the Evidence $\C[3]{\mathcal{Z}\equiv P(D|M)}$: 
+        %    \begin{description}[Parameter estimation]
+        %        \item [Parameter estimation] normalisation constant
+        %        \item [Model comparison] critical update factor for \C[5]{model prior} to \C[4]{model posterior}
+        %    \end{description}
+        \item Properties of the evidence: rearrange Bayes' theorem for parameter estimation
+            \[\C[0]{\mathcal{P}(\theta)} = \frac{\C[2]{\mathcal{L}(\theta)} \C[1]{\pi(\theta)}}{\C[3]{\mathcal{Z}}} \qquad\Rightarrow\qquad \C[3]{\log \mathcal{Z}} = \C[2]{\log\mathcal{L}(\theta)} - \log \frac{\C[0]{\mathcal{P}(\theta)}}{\C[1]{\pi(\theta)}} \]  
+        \item Evidence is composed of a ``goodness of fit'' term  and ``Occam Penalty''
+    \end{itemize}
+    \begin{columns}[t]
+        \column{0.5\textwidth}
+    \begin{itemize}
+        \item RHS true for all $\theta$. Take max likelihood value $\theta_*$:
+            \[
+                \log \mathcal{Z} = -\chi_\mathrm{min}^2 - \text{Mackay penalty}
+            \]
+    \end{itemize}
+        \column{0.5\textwidth}
+    \begin{itemize}
+        \item Be more Bayesian and take posterior average to get the ``Occam's razor equation''
+            \[
+                \boxed{
+                    \log \mathcal{Z} = \av[\mathcal{P}]{\log\mathcal{L}} - \mathcal{D}_\mathrm{KL}
+            }
+            \]
+    \end{itemize}
+    \end{columns}
+    \vfill
+    \begin{itemize}
+        \item Natural regularisation which penalises models with too many parameters.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Kullback Liebler divergence}
+    \begin{columns}
+        \column{0.5\textwidth}
+        \begin{itemize}
+            \item The KL divergence between \C[1]{prior $\pi$} and \C[0]{posterior $\mathcal{P}$} is is defined as:
+                \[\mathcal{D}_\mathrm{KL} = \av[\mathcal{P}]{\log\frac{\mathcal{P}}{\pi}} = \int \mathcal{P}(\theta) \log \frac{\mathcal{P}(\theta)}{\pi(\theta)}d\theta.\]
+            \item Whilst not a distance, $\mathcal{D}=0$ when $\mathcal{P}=\pi$.
+            \item Occurs in the context of machine learning as an objective function for training functions.
+            \item In Bayesian inference it can be understood as a log-ratio of ``volumes'':
+                \[ \mathcal{D}_\mathrm{KL} \approx \log \frac{V_\pi}{V_\mathrm{P}}.\]
+                (this is exact for top-hat distributions).
+        \end{itemize}
+        \column{0.5\textwidth}
+        \includegraphics{figures/volumes.pdf}
+    \end{columns}
+\end{frame}
 
 \begin{frame}
     \frametitle{Key tools for Nested Sampling}
