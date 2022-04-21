@@ -173,37 +173,13 @@
 \end{frame}
 
 \begin{frame}
-    \frametitle{Mathematics of Nested Sampling}
-    \cols[0.6]{
-  \begin{itemize}
-      \item At the end, one is left with a set of discarded points
-      \item These may be weighted to form weighted posterior samples using $w_i = \mathcal{L}_i \Delta X_i$
-      \item They can also be used to calculate the normalising constant
-              \item Critically, this is because nested sampling probabilistically estimates the volume of the parameter space
-                  \[X_i \approx {\left(\frac{n}{n+1}\right)} X_{i-1} \quad\Rightarrow\quad
-                  X_i \approx {\left(\frac{n}{n+1}\right)}^i \approx e^{-i/n} \]
-              \item only statistical estimates, but we know the error bar
-              \item Nested sampling thus estimates the density of states $\Delta X_i$
-              \item It is therefore a partition function calculator
-  \end{itemize}
-
-    }{
-        \includegraphics<1|handout:0>[width=\textwidth,page=14]{figures/himmelblau}
-        \includegraphics<2          >[width=\textwidth,page=15]{figures/himmelblau}
-    }
-
-\end{frame}
-
-
-
-\begin{frame}
-    \frametitle{Nested sampling}
+    \frametitle{Dead points: posteriors \& evidences}
     \begin{columns}
         \column{0.6\textwidth}
         \begin{itemize}
             \item At the end, one is left with a set of discarded points
             \item These may be weighted to form weighted posterior samples using $w_i = \mathcal{L}_i \Delta X_i$
-            \item They can also be used to calculate the normalisation $\mathcal{Z} = \sum \mathcal{L}_i \Delta X_i$.
+            \item They can also be used to calculate the normalisation $\mathcal{Z} = \sum \mathcal{L}_i \Delta X_i$, or more generally $\sum_i f(\mathcal{L}_i) \Delta X_i$.
                 \begin{itemize}
                     \item Nested sampling probabilistically estimates the volume of the parameter space
                         \[X_i \approx {\left(\frac{n}{n+1}\right)} X_{i-1} \quad\Rightarrow\quad
