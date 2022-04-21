@@ -108,7 +108,8 @@
                     \item[$S_{n+1}$:] Delete the lowest likelihood sample in $S_{n}$, and replace it with a new uniform sample with higher likelihood
                 \end{description}
             \item Requires one to be able to sample uniformly within a region, subject to a {\em hard likelihood constraint}:
-            \[\{\theta\sim \pi : \mathcal{L}(\theta)>\mathcal{L}_* \}\]
+                \[\{\theta\sim \pi : \mathcal{L}(\theta)>\mathcal{L}_* \}\]
+            \item This procedure optimises (multimodally), and can calculate the normalisation \& posterior weights.
         \end{itemize}
         \column{0.4\textwidth}
 
@@ -126,7 +127,7 @@
 
 \begin{frame}
 \frametitle{Mathematics of Nested Sampling}
-\framesubtitle{A probabalistic Lebesgque integrator}
+\framesubtitle{A probabilistic Lebesgque integrator}
   \begin{columns}
       \column{0.5\textwidth}
   \begin{itemize}
@@ -141,7 +142,7 @@
     \item Although this is only approximate, we can quantify the error 
         \vspace{-10pt}
         \[
-            P(X_{i+1}|X_i) = \frac{1}{n X_i}{\left( \frac{X_{i+1}}{X_i} \right)}^{n-1}[0<X_i<X_{i+1}]
+            P(X_i|X_{i-1}) = \frac{X_{i}^{n-1}}{nX_{i-1}^n}\times[0<X_i<X_{i-1}]
         \]
         \vspace{-15pt}
           \item Integral can be expressed in one of two ways
@@ -152,22 +153,22 @@
 
   \end{itemize}
       \column{0.5\textwidth}
-  \includegraphics<1|handout:0>[width=\textwidth,page=1]{figures/lesbesgue}
-  \includegraphics<2|handout:0>[width=\textwidth,page=2]{figures/lesbesgue}
-  \includegraphics<3|handout:0>[width=\textwidth,page=3]{figures/lesbesgue}
-  \includegraphics<4|handout:0>[width=\textwidth,page=4]{figures/lesbesgue}
-  \includegraphics<5|handout:0>[width=\textwidth,page=5]{figures/lesbesgue}
-  \includegraphics<6|handout:0>[width=\textwidth,page=6]{figures/lesbesgue}
-  \includegraphics<7|handout:0>[width=\textwidth,page=7]{figures/lesbesgue}
-  \includegraphics<8|handout:0>[width=\textwidth,page=8]{figures/lesbesgue}
-  \includegraphics<9|handout:0>[width=\textwidth,page=9]{figures/lesbesgue}
-  \includegraphics<10|handout:0>[width=\textwidth,page=10]{figures/lesbesgue}
-  \includegraphics<11|handout:0>[width=\textwidth,page=11]{figures/lesbesgue}
-  \includegraphics<12|handout:0>[width=\textwidth,page=12]{figures/lesbesgue}
-  \includegraphics<13|handout:0>[width=\textwidth,page=13]{figures/lesbesgue}
-  \includegraphics<14|handout:0>[width=\textwidth,page=14]{figures/lesbesgue}
-  \includegraphics<15|handout:0>[width=\textwidth,page=15]{figures/lesbesgue}
-  \includegraphics<16          >[width=\textwidth,page=16]{figures/lesbesgue}
+  \includegraphics<1|handout:0>[width=\textwidth,page=1]{figures/lesbesgue}%
+  \includegraphics<2|handout:0>[width=\textwidth,page=2]{figures/lesbesgue}%
+  \includegraphics<3|handout:0>[width=\textwidth,page=3]{figures/lesbesgue}%
+  \includegraphics<4|handout:0>[width=\textwidth,page=4]{figures/lesbesgue}%
+  \includegraphics<5|handout:0>[width=\textwidth,page=5]{figures/lesbesgue}%
+  \includegraphics<6|handout:0>[width=\textwidth,page=6]{figures/lesbesgue}%
+  \includegraphics<7|handout:0>[width=\textwidth,page=7]{figures/lesbesgue}%
+  \includegraphics<8|handout:0>[width=\textwidth,page=8]{figures/lesbesgue}%
+  \includegraphics<9|handout:0>[width=\textwidth,page=9]{figures/lesbesgue}%
+  \includegraphics<10|handout:0>[width=\textwidth,page=10]{figures/lesbesgue}%
+  \includegraphics<11|handout:0>[width=\textwidth,page=11]{figures/lesbesgue}%
+  \includegraphics<12|handout:0>[width=\textwidth,page=12]{figures/lesbesgue}%
+  \includegraphics<13|handout:0>[width=\textwidth,page=13]{figures/lesbesgue}%
+  \includegraphics<14|handout:0>[width=\textwidth,page=14]{figures/lesbesgue}%
+  \includegraphics<15|handout:0>[width=\textwidth,page=15]{figures/lesbesgue}%
+  \includegraphics<16          >[width=\textwidth,page=16]{figures/lesbesgue}%
   \end{columns}
 \end{frame}
 
