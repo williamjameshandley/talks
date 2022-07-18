@@ -258,6 +258,7 @@
         \texttt{DNest}~\arxiv{1606.03757}
         \includegraphics[width=\textwidth]{figures/dnest}
         \texttt{ProxNest}~\arxiv{2106.03646}
+        \includegraphics[width=\textwidth]{figures/proxnest_diagram}
         \vfill
     \end{columns}
 \end{frame}
@@ -423,7 +424,7 @@
     P(X_j|X_{j-1}, n_\mathrm{live}) = \frac{n_j}{X_{j-1}}\left( \frac{X_j}{X_{j-1}} \right)^{n_j-1} [0<X_j<X_{j-1}].
     \]
 \item marginalised out dependency on everything other than $X_{j-1}$ \&  compressed into a vector encoding the number of live points at each iteration $n_i$. 
-\item  \textbf{Critical question: is ``Skilling compression'' $(\mathcal{L},\mathcal{L}_*)\to n$ lossless or lossy for the purposes of volume estimation?}
+\item  \textbf{Frontier}: is ``Skilling compression'' $(\mathcal{L},\mathcal{L}_*)\to n$ lossless or lossy for the purposes of volume estimation?
 \item The results presented in~\arxiv{2006.03371} are suggestive that it is losing some useful information, as insertion indexes do provide further information in the context of a cross check (and are in fact a lossless compression of the birth and death contours). 
 \item One possibility is that the Skilling compression is lossless in the context of perfect nested sampling, but if a run is biased then you may be able to use insertion indexes to partially correct a biased run. 
 \end{itemize}
@@ -447,10 +448,34 @@
 
 \begin{frame}
     \frametitle{Transdimensional nested sampling}
+    \begin{columns}
+        \column{0.5\textwidth}
+        \begin{itemize}
+            \item In some applications it is useful to consider parameter spaces where the number of active parameters vary
+                \begin{itemize}
+                    \item Object detection~\arxiv{0809.3437}
+                    \item Free-form reconstruction using \texttt{FlexKnots}~\arxiv{1908.00906}
+                \end{itemize}
+            \item At the moment, reasonable performance can be achieved by letting $N$ be a parameter (up to $N_\mathrm{max}$) and then ignoring unused parameters~\arxiv{1506.09024}.
+            \item Not ideal, is it encodes an upper bound
+            \item Brendon Brewer~\arxiv{1411.3921} built some examples of RJMCMC diffusive nested sampling, but very problem specific.
+        \end{itemize}
+        \column{0.5\textwidth}
+        \includegraphics<1          >[width=\textwidth]{figures/recons1}
+        \includegraphics<2|handout:0>[width=\textwidth]{figures/recons2}
+    \end{columns}
 \end{frame}
 
+
 \begin{frame}
-    \frametitle{Multi-objective nested sampling}
+    \frametitle{Frontier: Multi-objective nested sampling}
+    \begin{itemize}
+        \item Nested sampling is useful as a pure optimiser, particularly for industrial applications where they lack likelihoods but have objective functions.
+        \item It still provides a unique statistical interpretation for an arbitrary function $f(\theta)$ by providing a ``parameter compression'' $X_i\approx e^{i/n_\mathrm{live}} \leftrightarrow e^{\sum_j^i{1}/{n_j}}$ for each value of $f_i$
+        \item Also useful for providing a collection of solutions fairly distributed in parameter space once the desired optimum has been met
+        \item This collection of solutions is useful for rudimentary uncertainty quantification, but also for multi-objective optimisation
+        \item \textbf{Frontier}: Is there a more in-built multi-objective optimiser. Can nested sampling optimise two objective functions simultaneously up to a given compression?
+    \end{itemize}
 \end{frame}
 
 \begin{frame}
