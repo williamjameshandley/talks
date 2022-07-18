@@ -400,12 +400,14 @@
     \begin{columns}
         \column{0.5\textwidth}
     \begin{itemize}
-        \item At each iteration of nested sampling we draw a live point 
-        \item This is very interesting, as it shows in principle there is more information in the live points than just the $n$
-        \item Needs extending to variable nlive case
+        \item At each iteration of nested sampling we generate a new live point and insert it into the list of live points sorted by loglikelihood
+        \item IF we have done things correctly, this should obey \emph{order statistics}
+        \item if it doesn't, our nested sampler is not drawing live points corectly;
+        \item We demonstrate this with KS $p$-values~\arxiv{2006.03371}, to test reliability parameters
+        \item should be extended to be more Bayesian
+        \item Needs extending to dynamic $n_\mathrm{live}$ case
         \item This can be used at run-time to tune reliability parameters 
     \end{itemize}
-    \arxiv{2006.03371}
         \column{0.5\textwidth}
         \includegraphics[width=\textwidth]{figures/indices}
     \end{columns}
@@ -429,10 +431,6 @@
 
 \begin{frame}
     \frametitle{computing $p$-values}
-\end{frame}
-
-\begin{frame}
-    \frametitle{Posterior repartitioning}
 \end{frame}
 
 \begin{frame}
