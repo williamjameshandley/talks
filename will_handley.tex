@@ -431,11 +431,16 @@
 \end{frame}
 
 \begin{frame}
-    \frametitle{computing $p$-values}
-\end{frame}
-
-\begin{frame}
     \frametitle{Reversible nested sampling}
+    \begin{itemize}
+        \item One of the issues preventing nested sampling scaling to millions of dimensions is the need to compress from prior to posterior in all parameters 
+            \begin{itemize}
+                \item c.f. Skilling's argument that the Entropy/KL divergence is much greater than the width of the typical set/posterior bulk: $\mathcal{D}\sim d \gg \sqrt{d}$
+            \end{itemize}
+        \item One could in principle reverse the direction of travel, and move outward from a peak.
+        \item If one could guarantee that all peak looks gaussian close enough in (c.f. Laplace approximation), then one can estimate the final volume $X_N$, and reverse the usual argument.
+        \item This could in principle be used to dramatically reduce the poisson error if one could estimate the volume in the final set of live points geometrically.
+    \end{itemize}
 \end{frame}
 
 \begin{frame}
@@ -459,6 +464,7 @@
             \item At the moment, reasonable performance can be achieved by letting $N$ be a parameter (up to $N_\mathrm{max}$) and then ignoring unused parameters~\arxiv{1506.09024}.
             \item Not ideal, is it encodes an upper bound
             \item Brendon Brewer~\arxiv{1411.3921} built some examples of RJMCMC diffusive nested sampling, but very problem specific.
+            \item \textbf{Frontier:} Is there an ensemble-based methodology for enabling transdimensional nested sampling?
         \end{itemize}
         \column{0.5\textwidth}
         \includegraphics<1          >[width=\textwidth]{figures/recons1}
@@ -479,47 +485,39 @@
 \end{frame}
 
 \begin{frame}
-    \frametitle{Relation to Sequential Monte Carlo}
-\end{frame}
-
-\begin{frame}
-    \frametitle{Nested Sampling with Likelihood Free Inference}
-\end{frame}
-
-\begin{frame}
     \frametitle{Likelihood values}
 \end{frame}
 
 
-%\begin{frame}
-%    \frametitle{Nested Sampling with Likelihood Free Inference}
-%    \begin{columns}
-%        \column{0.5\textwidth}
-%        \includegraphics[width=\textwidth]{figures/three_ways_II.pdf}
-%
-%        \hfill Alsing \textit{et al.}~\arxiv{1903.00007}
-%    \begin{itemize}
-%        \item In density estimation likelihood free inference, the output is to learn one/all of:
-%            \begin{description}
-%                \item[Likelihood] $P(D|\theta)$
-%                \item[Posterior] $P(\theta|D)$ 
-%                \item[Joint] $P(D,\theta)$
-%            \end{description}
-%        \item In the first instance, nested sampling can be used to scan these learnt functions
-%    \end{itemize}
-%        \column{0.5\textwidth}
-%    \begin{itemize}
-%        \item Data are compressed, so joint space $(D,\theta)$ is navigable by off-the-shelf codes. 
-%            \begin{itemize}
-%                \item Sanity checking the solution
-%                \item Computing evidences/Kullback Liebler divergences from likelihoods
-%            \end{itemize}
-%        \item Its self-tuning capacity and ability to handle multi-modal distributions can be very useful for diagnosing incompletely learnt functions
-%        \item Emulated likelihoods (e.g. normalising flows) are generally fast, so can deploy more likelihood hungry techniques like NS.
-%        \item As Pablo Lemos \& David Yallup will discuss, in principle can use it to train emulators by marginalisation rather than maximisation.
-%    \end{itemize}
-%    \end{columns}
-%\end{frame}
+\begin{frame}
+    \frametitle{Nested Sampling with Likelihood Free Inference}
+    \begin{columns}
+        \column{0.5\textwidth}
+        \includegraphics[width=\textwidth]{figures/three_ways_II.pdf}
+
+        \hfill Alsing \textit{et al.}~\arxiv{1903.00007}
+    \begin{itemize}
+        \item In density estimation likelihood free inference, the output is to learn one/all of:
+            \begin{description}
+                \item[Likelihood] $P(D|\theta)$
+                \item[Posterior] $P(\theta|D)$ 
+                \item[Joint] $P(D,\theta)$
+            \end{description}
+        \item In the first instance, nested sampling can be used to scan these learnt functions
+    \end{itemize}
+        \column{0.5\textwidth}
+    \begin{itemize}
+        \item Data are compressed, so joint space $(D,\theta)$ is navigable by off-the-shelf codes. 
+            \begin{itemize}
+                \item Sanity checking the solution
+                \item Computing evidences/Kullback Liebler divergences from likelihoods
+            \end{itemize}
+        \item Its self-tuning capacity and ability to handle multi-modal distributions can be very useful for diagnosing incompletely learnt functions
+        \item Emulated likelihoods (e.g. normalising flows) are generally fast, so can deploy more likelihood hungry techniques like NS.
+        \item In principle can use it to train emulators by marginalisation rather than maximisation.
+    \end{itemize}
+    \end{columns}
+\end{frame}
 %
 %\begin{frame}
 %    \frametitle{Nested Sampling for Approximate Bayesian Computation/SBI}
@@ -588,6 +586,24 @@
 
 
 \begin{frame}
+    \frametitle{Conclusions}
+    \begin{itemize}
+        \item Nested sampling is a truly unique tool
+    \end{itemize}
+    \begin{block}{Watch out for:}
+        \begin{description}
+            \item[Johannes Buchner (next)] Analysing chain based samplers
+            \item[Aleksandr Petrosyan (before coffee)] Accelerating nested sampling
+            \item[Livia Partay (after coffee)] Nested sampling in materials scienc
+            \item[Harry Bevins (Friday before lunch)] Nested sampling and normalising flows
+        \end{description}
+    \end{block}
+\end{frame}
+
+\appendix
+
+
+\begin{frame}
     \frametitle{How does Nested Sampling compare to other approaches?}
     \begin{columns}
         \column{0.7\textwidth}
@@ -649,7 +665,6 @@
     \end{columns}
 \end{frame}
 
-
 \begin{frame}
     \frametitle{Nested Sampling: a user's guide}
     \begin{enumerate}
@@ -672,23 +687,10 @@
     \end{enumerate}
 \end{frame}
 
+
 \begin{frame}
-    \frametitle{Conclusions}
-    \begin{itemize}
-        \item Nested sampling is a truly unique tool
-    \end{itemize}
-    \begin{block}{Watch out for:}
-        \begin{description}
-            \item[Johannes Buchner (next)] Analysing chain based samplers
-            \item[Aleksandr Petrosyan (before coffee)] Accelerating nested sampling
-            \item[Livia Partay (after coffee)] Nested sampling in materials scienc
-            \item[Harry Bevins (Friday before lunch)] Nested sampling and normalising flows
-        \end{description}
-    \end{block}
+    \frametitle{computing $p$-values}
 \end{frame}
-
-\appendix
-
 
 
 \begin{frame}
