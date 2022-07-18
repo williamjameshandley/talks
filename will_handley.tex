@@ -509,6 +509,18 @@
 
 \begin{frame}
     \frametitle{Likelihood values}
+    \begin{columns}
+        \column{0.5\textwidth}
+    \begin{itemize}
+        \item One of the virtues of nested sampling is that it only uses the ordering of likelihood values
+        \item \textbf{Frontier:} if one made a smoothness assumption, e.g. $\frac{d\log \mathcal{L}}{d\log X}\approx \mathrm{constant}$, is is possible to do better?
+        \item This could dramatically reduce the poisson error, runtime and efficiency of NS
+    \end{itemize}
+    \includegraphics[width=\textwidth]{figures/values1}
+        \column{0.5\textwidth}
+    \includegraphics[width=\textwidth]{figures/values}
+    \includegraphics[width=\textwidth]{figures/values2}
+    \end{columns}
 \end{frame}
 
 
