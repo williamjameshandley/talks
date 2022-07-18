@@ -298,7 +298,7 @@
         \column{0.3\textwidth}
         \begin{itemize}
             \item Small change to meta-algorithm: 
-            \item Allow the number of live points to vary at run time
+            \item Allow the number of live points to vary at run time \arxiv{1704.03459}
         \end{itemize}
         \column{0.7\textwidth}
         \includegraphics[width=\textwidth]{figures/dynesty}
@@ -364,7 +364,7 @@
                 \item Decompose an $n$-live point run into $n$ single live point runs.
             \end{itemize}
         \item Single live point runs form the indivisible unit of nested sampling
-        \item This post processing suite is encapsulated in the continuously integrated python packages of \texttt{anesthetic}~\arxiv{1905.04768} and \texttt{nestcheck}~\arxiv{1704.03459}~\arxiv{1804.06406}
+        \item This post processing suite is encapsulated in the continuously integrated python packages of \texttt{anesthetic}~\arxiv{1905.04768} and \texttt{nestcheck}~\arxiv{1804.06406}
     \end{itemize}
 
 \end{frame}
@@ -373,9 +373,15 @@
     \frametitle{Parameter cross-checks}
     \begin{columns}
         \column{0.55\textwidth}
-    \begin{itemize}
-        \item 
-    \end{itemize}
+        \begin{itemize}
+            \item ``Indivisible unit'' of nested sampling identified as the \emph{single live point run} (or \emph{thread})
+            \item When a nested sampling run is unwoven, it can be recombined into smaller runs.
+            \item Cross-checks such as bootstrap resampling can be applied to determine if these are consistent.
+            \item This can be used to quantify the residual uncertainty in parameter estimation weights $w_i\approx L_i \Delta X_i$~\arxiv{1704.03459}.
+                \begin{itemize}
+                    \item In addition to Poisson uncertainty on $X_i$, there is also uncertainty associated with picking $\theta_i$ as representative of the entire $L_i$ contour~\arxiv{0801.3887}.
+                \end{itemize}
+        \end{itemize}
         \column{0.45\textwidth}
         \includegraphics[width=\textwidth]{figures/nestcheck}
     \end{columns}
@@ -383,6 +389,10 @@
 
 \begin{frame}
     \frametitle{Insertion indices}
+    \begin{itemize}
+        \item This is very interesting, as it shows in principle there is more information in the live points than just the $n$
+    \end{itemize}<++>
+    \arxiv{2006.03371}
 \end{frame}
 
 
