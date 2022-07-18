@@ -268,8 +268,7 @@
     \frametitle{Types of nested sampler}
     \begin{itemize}
         \item Broadly, most nested samplers can be split into how they create new live points
-        \item i.e. how they sample from the hard likelihood constraint
-            \[\{\theta\sim \pi : \mathcal{L}(\theta)>\mathcal{L}_* \}\]
+        \item i.e. how they sample from the hard likelihood constraint $\{\theta\sim \pi : \mathcal{L}(\theta)>\mathcal{L}_* \}$
     \end{itemize}
     \vspace{-10pt}
     \begin{columns}[t]
@@ -290,6 +289,15 @@
             \end{itemize}
         \end{block}
     \end{columns}
+    \vspace{15pt}
+    \begin{itemize}
+        \item Nested samplers usually come with 
+            \begin{itemize}
+                \item \emph{resolution} parameter $n_\mathrm{live}$ (which improve results as $\sim\mathcal{O}(n_\mathrm{live}^{-1/2}$)
+                    \item set of \emph{reliability} parameters~\arxiv{2101.04525}, which don't improve results if set arbitrarily high, but introduce systematic errors if set too low.
+                \item e.g. \texttt{Multinest} efficiency \texttt{eff} or \texttt{PolyChord} chain length \texttt{num\_repeats}
+            \end{itemize}
+    \end{itemize}
 \end{frame}
 
 \begin{frame}
@@ -389,17 +397,34 @@
 
 \begin{frame}
     \frametitle{Insertion indices and order statistics}
+    \begin{columns}
+        \column{0.5\textwidth}
     \begin{itemize}
+        \item At each iteration of nested sampling we draw a live point 
         \item This is very interesting, as it shows in principle there is more information in the live points than just the $n$
-    \end{itemize}<++>
+        \item Needs extending to variable nlive case
+        \item This can be used at run-time to tune reliability parameters 
+    \end{itemize}
     \arxiv{2006.03371}
+        \column{0.5\textwidth}
+        \includegraphics[width=\textwidth]{figures/indices}
+    \end{columns}
 \end{frame}
 
-
 \begin{frame}
-    \begin{itemize}
-        \item Multi temperature sampling
-    \end{itemize}
+    \frametitle{Frontier: Insertion indices}
+
+\begin{itemize}
+    \item For the purposes of estimating volume in a statistical way, we discard the likelihood information, focussing on the ordering of the contours. 
+    \item Traditional nested sampling uses the fact that
+\[
+    P(X_j|X_{j-1}, n_\mathrm{live}) = \frac{n_j}{X_{j-1}}\left( \frac{X_j}{X_{j-1}} \right)^{n_j-1} [0<X_j<X_{j-1}].
+    \]
+\item marginalised out dependency on everything other than $X_{j-1}$ \&  compressed into a vector encoding the number of live points at each iteration $n_i$. 
+\item  \textbf{Critical question: is ``Skilling compression'' $(\mathcal{L},\mathcal{L}_*)\to n$ lossless or lossy for the purposes of volume estimation?}
+\item The results presented in~\arxiv{2006.03371} are suggestive that it is losing some useful information, as insertion indexes do provide further information in the context of a cross check (and are in fact a lossless compression of the birth and death contours). 
+\item One possibility is that the Skilling compression is lossless in the context of perfect nested sampling, but if a run is biased then you may be able to use insertion indexes to partially correct a biased run. 
+\end{itemize}
 \end{frame}
 
 \begin{frame}
@@ -440,21 +465,6 @@
 
 \begin{frame}
     \frametitle{Likelihood values}
-\end{frame}
-
-\begin{frame}
-    \frametitle{Conclusions}
-    \begin{itemize}
-        \item Nested sampling is a truly unique tool
-    \end{itemize}
-    \begin{block}{Watch out for:}
-        \begin{itemize}
-            \item[Johannes Buchner (next)] Analysing chain based samplers
-            \item[Aleksandr Petrosyan (before coffee)] Accelerating nested sampling
-            \item[Livia Partay (after coffee)] Nested sampling in materials scienc
-            \item[Harry Bevins (Friday before lunch)] Nested sampling and normalising flows
-        \end{itemize}
-    \end{block}
 \end{frame}
 
 
@@ -555,28 +565,6 @@
 
 
 \begin{frame}
-    \frametitle{Nested Sampling: a user's guide}
-    \begin{enumerate}
-        \item Nested sampling is a likelihood scanner, rather than posterior explorer.
-            \begin{itemize}
-                \item This means typically most of its time is spent on burn-in rather than posterior sampling
-                \item Changing the stopping criterion from $10^{-3}$ to $0.5$ does little to speed up the run, but can make results very unreliable
-            \end{itemize}
-        \item The number of live points $n_\mathrm{live}$ is a resolution parameter.
-            \begin{itemize}
-                \item Run time is linear in $n_\mathrm{live}$, posterior and evidence accuracy goes as $\frac{1}{\sqrt{n_\mathrm{live}}}$.
-                \item Set low for exploratory runs $\sim\mathcal{O}(10)$ and increased to $\sim\mathcal{O}(1000)$ for production standard.
-            \end{itemize}
-        \item Most algorithms come with additional reliability parameter(s).
-            \begin{itemize}
-                \item e.g. \texttt{MultiNest}: $\text{eff}$, \texttt{PolyChord}: $n_\mathrm{repeats}$
-                \item These are parameters which have no gain if set too conservatively, but increase the reliability
-                \item Check that results do not degrade if you reduce them from defaults, otherwise increase.
-            \end{itemize}
-    \end{enumerate}
-\end{frame}
-
-\begin{frame}
     \frametitle{How does Nested Sampling compare to other approaches?}
     \begin{columns}
         \column{0.7\textwidth}
@@ -638,6 +626,43 @@
     \end{columns}
 \end{frame}
 
+
+\begin{frame}
+    \frametitle{Nested Sampling: a user's guide}
+    \begin{enumerate}
+        \item Nested sampling is a likelihood scanner, rather than posterior explorer.
+            \begin{itemize}
+                \item This means typically most of its time is spent on burn-in rather than posterior sampling
+                \item Changing the stopping criterion from $10^{-3}$ to $0.5$ does little to speed up the run, but can make results very unreliable
+            \end{itemize}
+        \item The number of live points $n_\mathrm{live}$ is a resolution parameter.
+            \begin{itemize}
+                \item Run time is linear in $n_\mathrm{live}$, posterior and evidence accuracy goes as $\frac{1}{\sqrt{n_\mathrm{live}}}$.
+                \item Set low for exploratory runs $\sim\mathcal{O}(10)$ and increased to $\sim\mathcal{O}(1000)$ for production standard.
+            \end{itemize}
+        \item Most algorithms come with additional reliability parameter(s).
+            \begin{itemize}
+                \item e.g. \texttt{MultiNest}: $\text{eff}$, \texttt{PolyChord}: $n_\mathrm{repeats}$
+                \item These are parameters which have no gain if set too conservatively, but increase the reliability
+                \item Check that results do not degrade if you reduce them from defaults, otherwise increase.
+            \end{itemize}
+    \end{enumerate}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Conclusions}
+    \begin{itemize}
+        \item Nested sampling is a truly unique tool
+    \end{itemize}
+    \begin{block}{Watch out for:}
+        \begin{description}
+            \item[Johannes Buchner (next)] Analysing chain based samplers
+            \item[Aleksandr Petrosyan (before coffee)] Accelerating nested sampling
+            \item[Livia Partay (after coffee)] Nested sampling in materials scienc
+            \item[Harry Bevins (Friday before lunch)] Nested sampling and normalising flows
+        \end{description}
+    \end{block}
+\end{frame}
 
 \appendix
 
