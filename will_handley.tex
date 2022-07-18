@@ -445,10 +445,34 @@
 
 \begin{frame}
     \frametitle{AEONS: Approximating the end of nested sampling}
+    \includegraphics[width=\textwidth]{figures/run_prodecure}
+    \vspace{-20pt}
+    \begin{itemize}
+        \item A seasoned user knows when nested sampling is approaching the end of an HPC run
+        \item One knows that as $\Delta\log \mathcal{Z}$ approaches unity, and there are only ``a few'' nested sampling iterations remaining before posterior is crossed
+        \item \textbf{Frontier:} Can we quantify this using Gaussian approximations to make a rough progress bar (with uncertainty quantification) -- summer student working on this.
+    \end{itemize}
 \end{frame}
 
 \begin{frame}
     \frametitle{Importance nested sampling}
+    \begin{columns}
+    \column{0.5\textwidth}
+    \begin{itemize}
+        \item Importance sampling is the procedure:
+            \begin{itemize}
+                \item given a set of (weighted) samples $\{(w_i,\theta_i)\}$ drawn from posterior distribution $\mathcal{P}(\theta)$
+                \item If the likelihood $\mathcal{L}_0(\theta)=P(D_0|\theta)$ is updated with some additional data $D_1$, such that $\mathcal{L}_0 \to \mathcal{L}_0\times \mathcal{L}_1$~\arxiv{1902.04029}
+                \item Can we re-weight $w_i$ without re-running a Markov Chain?
+            \end{itemize}
+        \item well-established for MCMC $w_i \to w_i \times L_1(\theta_i)$
+        \item For nested sampling, evidences are transformable $\mathcal{Z}_0\to \mathcal{Z}_0\times\langle L_1\rangle_{\mathcal{P}_0}$
+        \item Can we do better?
+        \item \textbf{Frontier:} Is there a way to re-weight/thin a nested sampling run to recover the equivalent nested sampling run with a new likelihood?
+    \end{itemize}
+    \column{0.5\textwidth}
+    \includegraphics[width=\textwidth]{figures/importance}
+    \end{columns}
 \end{frame}
 
 \begin{frame}
@@ -462,9 +486,8 @@
                     \item Free-form reconstruction using \texttt{FlexKnots}~\arxiv{1908.00906}
                 \end{itemize}
             \item At the moment, reasonable performance can be achieved by letting $N$ be a parameter (up to $N_\mathrm{max}$) and then ignoring unused parameters~\arxiv{1506.09024}.
-            \item Not ideal, is it encodes an upper bound
             \item Brendon Brewer~\arxiv{1411.3921} built some examples of RJMCMC diffusive nested sampling, but very problem specific.
-            \item \textbf{Frontier:} Is there an ensemble-based methodology for enabling transdimensional nested sampling?
+            \item \textbf{Frontier:} Is there an ensemble-based methodology for transdimensional NS?
         \end{itemize}
         \column{0.5\textwidth}
         \includegraphics<1          >[width=\textwidth]{figures/recons1}
@@ -518,71 +541,61 @@
     \end{itemize}
     \end{columns}
 \end{frame}
-%
-%\begin{frame}
-%    \frametitle{Nested Sampling for Approximate Bayesian Computation/SBI}
-%    \begin{columns}
-%        \column{0.5\textwidth}
-%        \begin{itemize}
-%            \item Assume one has a generative model capable of turning parameters into mock data $D(\theta)$
-%            \item Given infinite computing power, ABC works by selecting $\{\theta : D(\theta)=D_\mathrm{observed}\}$
-%            \item These are samples from the posterior, without using a likelihood.
-%            \item In practice $D=D_\mathrm{obs}$ becomes $D\approx D_\mathrm{obs}$
-%            \item i.e. $|D-D_\mathrm{obs}|<\varepsilon$, or more generally $\boxed{\rho(D,D_\mathrm{obs})<\varepsilon}$, where $\rho$ is some suitably chosen objective function
-%            \item Main challenges are 
-%                \begin{enumerate}
-%                    \item Choice of $\rho$/summary stats
-%                    \item Choice of $\varepsilon$ schedule
-%                    \item Rejection sampling
-%                \end{enumerate}
-%        \end{itemize}
-%        \column{0.5\textwidth}
-%        \begin{itemize}
-%            \item Nested sampling fits this well: In principle, can just change the usual hard likelihood constraints $\{\theta\sim\pi : \mathcal{L}(\theta)>\mathcal{L}_*\}$ to
-%                \[\{\theta~\sim\pi : \rho(D(\theta),D_\mathrm{obs})<\varepsilon\}\]
-%            (Brewer \& Foreman-Mackey~\arxiv{1606.03757})
-%            \item Ongoing work with Andrew Fowlie \& Sebastian Hoof
-%                \begin{itemize}
-%                    \item How to deal with nondeterminism 
-%                    \item How to interpret $\rho$ as a ``likelihood''
-%                    \item How to interpret the evidence $\mathcal{Z}$
-%                \end{itemize}
-%        \end{itemize}
-%    \end{columns}
-%\end{frame}
-%
-%\begin{frame}
-%    \frametitle{Nested sampling for truncated methods}
-%
-%    \begin{columns}
-%        \column{0.55\textwidth}
-%        \begin{itemize}
-%            \item Will hear more on this tomorrow from Christoph
-%            \item Many Likelihood implicit approaches at the moment have some element of sampling direct from the prior
-%            \item Inefficient if number of parameters $>\mathcal{O}(\text{a few})$
-%            \item Can get round this by truncating to region:
-%                \[ \Gamma\{ \theta\in \mathrm{supp} p(\theta) \:|\: p(\theta|x_0)>\bar\varepsilon\} \]
-%            \item At the moment regions defined by nested boxes
-%            \item This seems ripe for replacement by NS
-%                \begin{itemize}
-%                    \item Has anybody tried this?
-%                    \item If not, why not?
-%                    \item Why not why not? \hfill(let's talk)
-%                \end{itemize}
-%        \end{itemize}
-%        \column{0.45\textwidth}
-%        \includegraphics[width=\textwidth]{figures/tmnre}
-%
-%        \hfill Cole \textit{et al.}~\arxiv{2111.08030}
-%    \end{columns}
-%    
-%\end{frame}
 
+\begin{frame}
+    \frametitle{Nested Sampling for Approximate Bayesian Computation/SBI}
+    \begin{columns}
+        \column{0.5\textwidth}
+        \begin{itemize}
+            \item Assume one has a generative model capable of turning parameters into mock data $D(\theta)$
+            \item Given infinite computing power, ABC works by selecting $\{\theta : D(\theta)=D_\mathrm{observed}\}$
+            \item These are samples from the posterior, without using a likelihood.
+            \item In practice $D=D_\mathrm{obs}$ becomes $D\approx D_\mathrm{obs}$
+            \item i.e. $|D-D_\mathrm{obs}|<\varepsilon$, or more generally $\boxed{\rho(D,D_\mathrm{obs})<\varepsilon}$, where $\rho$ is some suitably chosen objective function
+            \item Main challenges are 
+                \begin{enumerate}
+                    \item Choice of $\rho$/summary stats
+                    \item Choice of $\varepsilon$ schedule
+                    \item Rejection sampling
+                \end{enumerate}
+        \end{itemize}
+        \column{0.5\textwidth}
+        \begin{itemize}
+            \item Nested sampling fits this well: In principle, can just change the usual hard likelihood constraints $\{\theta\sim\pi : \mathcal{L}(\theta)>\mathcal{L}_*\}$ to
+                \[\{\theta~\sim\pi : \rho(D(\theta),D_\mathrm{obs})<\varepsilon\}\]
+            (Brewer \& Foreman-Mackey~\arxiv{1606.03757})
+            \item Ongoing work with Andrew Fowlie \& Sebastian Hoof
+                \begin{itemize}
+                    \item How to deal with nondeterminism 
+                    \item How to interpret $\rho$ as a ``likelihood''
+                    \item How to interpret the evidence $\mathcal{Z}$
+                \end{itemize}
+        \end{itemize}
+    \end{columns}
+\end{frame}
 
-%\begin{frame}
-%    \frametitle{<+Title+>}
-%    <+Content+>
-%\end{frame}
+\begin{frame}
+    \frametitle{Nested sampling for truncated methods}
+
+    \begin{columns}
+        \column{0.55\textwidth}
+        \begin{itemize}
+            \item Will hear more on this tomorrow from Christoph
+            \item Many Likelihood implicit approaches at the moment have some element of sampling direct from the prior
+            \item Inefficient if number of parameters $>\mathcal{O}(\text{a few})$
+            \item Can get round this by truncating to region:
+                \[ \Gamma\{ \theta\in \mathrm{supp} p(\theta) \:|\: p(\theta|x_0)>\bar\varepsilon\} \]
+            \item At the moment regions defined by nested boxes
+            \item \textbf{Frontier:} This seems ripe for replacement by NS -- PhD student currently working on this (Kilian Scheutwinkel)
+        \end{itemize}
+        \column{0.45\textwidth}
+        \includegraphics[width=\textwidth]{figures/tmnre}
+
+        \hfill Cole \textit{et al.}~\arxiv{2111.08030}
+    \end{columns}
+    
+\end{frame}
+
 
 
 \begin{frame}
@@ -688,88 +701,6 @@
 \end{frame}
 
 
-\begin{frame}
-    \frametitle{computing $p$-values}
-\end{frame}
-
-
-\begin{frame}
-    \frametitle{Occam's Razor~\arxiv{2102.11511}}
-    \begin{itemize}
-        \item Bayesian inference quantifies Occam's Razor:
-            \begin{itemize}
-                \item \textit{``Entities are not to be multiplied without necessity''} \hfill --- William of Occam
-                \item \textit{``Everything should be kept as simple as possible, but not simpler''} \hfill --- ``Albert Einstein''
-            \end{itemize}
-        %\item Consider the Evidence $\C[3]{\mathcal{Z}\equiv P(D|M)}$: 
-        %    \begin{description}[Parameter estimation]
-        %        \item [Parameter estimation] normalisation constant
-        %        \item [Model comparison] critical update factor for \C[5]{model prior} to \C[4]{model posterior}
-        %    \end{description}
-        \item Properties of the evidence: rearrange Bayes' theorem for parameter estimation
-            \[\C[0]{\mathcal{P}(\theta)} = \frac{\C[2]{\mathcal{L}(\theta)} \C[1]{\pi(\theta)}}{\C[3]{\mathcal{Z}}} \qquad\Rightarrow\qquad \C[3]{\log \mathcal{Z}} = \C[2]{\log\mathcal{L}(\theta)} - \log \frac{\C[0]{\mathcal{P}(\theta)}}{\C[1]{\pi(\theta)}} \]  
-        \item Evidence is composed of a ``goodness of fit'' term  and ``Occam Penalty''
-    \end{itemize}
-    \begin{columns}[t]
-        \column{0.5\textwidth}
-        \begin{itemize}
-            \item RHS true for all $\theta$. Take max likelihood value $\theta_*$:
-                \[
-                    \log \mathcal{Z} = -\chi_\mathrm{min}^2 - \text{Mackay penalty}
-                \]
-        \end{itemize}
-        \column{0.5\textwidth}
-        \begin{itemize}
-            \item Be more Bayesian and take posterior average to get the ``Occam's razor equation''
-                \[
-                    \boxed{
-                        \log \mathcal{Z} = \av[\mathcal{P}]{\log\mathcal{L}} - \mathcal{D}_\mathrm{KL}
-                    }
-                \]
-        \end{itemize}
-    \end{columns}
-    \vfill
-    \begin{itemize}
-        \item Natural regularisation which penalises models with too many parameters.
-    \end{itemize}
-\end{frame}
-
-\begin{frame}
-    \frametitle{Kullback Liebler divergence}
-    \begin{columns}
-        \column{0.5\textwidth}
-        \begin{itemize}
-            \item The KL divergence between \C[1]{prior $\pi$} and \C[0]{posterior $\mathcal{P}$} is is defined as:
-                \[\mathcal{D}_\mathrm{KL} = \av[\mathcal{P}]{\log\frac{\mathcal{P}}{\pi}} = \int \mathcal{P}(\theta) \log \frac{\mathcal{P}(\theta)}{\pi(\theta)}d\theta.\]
-            \item Whilst not a distance, $\mathcal{D}=0$ when $\mathcal{P}=\pi$.
-            \item Occurs in the context of machine learning as an objective function for training functions.
-            \item In Bayesian inference it can be understood as a log-ratio of ``volumes'':
-                \[ \mathcal{D}_\mathrm{KL} \approx \log \frac{V_\pi}{V_\mathrm{P}}.\]
-                (this is exact for top-hat distributions).
-        \end{itemize}
-        \column{0.5\textwidth}
-        \includegraphics{figures/volumes.pdf}
-    \end{columns}
-\end{frame}
-
-\begin{frame}
-    \frametitle{Key tools for Nested Sampling}
-    \begin{description}[\& \texttt{UltraNest}]
-        \item[\texttt{anesthetic}] Nested sampling post processing \arxiv{1905.04768}\\
-        \item[\texttt{insertion}] cross-checks using order statistics \arxiv{2006.03371}
-            \hspace{5pt}\url{github.com/williamjameshandley/anesthetic}
-        \item[\texttt{nestcheck}] cross-checks using unthreaded runs \arxiv{1804.06406}\\
-            \hspace{5pt}\url{github.com/ejhigson/nestcheck}
-        \item[\texttt{MultiNest}] Ellipsoidal rejection sampling \arxiv{0809.3437}\\
-            \hspace{5pt}\url{github.com/farhanferoz/MultiNest}
-        \item[\texttt{PolyChord}] Python/C++/Fortran state of the art \arxiv{1506.00171}\\
-            \hspace{5pt}\url{github.com/PolyChord/PolyChordLite} 
-        \item[\texttt{dynesty}] Python re-implementation of several codes \arxiv{1904.02180}\\
-            \hspace{5pt}\url{github.com/joshspeagle/dynesty}
-        \item[\& \texttt{UltraNest}] \hspace{5pt}\url{github.com/JohannesBuchner/UltraNest}
-            \arxiv{2101.09604}
-    \end{description}
-\end{frame}
 
 
 \end{document}
