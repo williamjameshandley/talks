@@ -424,11 +424,13 @@
 
 \begin{frame}
     \frametitle{Model comparison and parameter estimation~\arxiv{1908.09139}}
+
     \begin{columns}
+
         \begin{column}{0.5\textwidth}
-            \vspace{-10pt}
+
             \begin{itemize}
-                \item If you allow $\Omega_K\ne0$, \textit{Planck} (\texttt{plikTTTEEE}) has a moderate preference for closed universes (50:1 betting odds on), $\Omega_K=-4.5\pm1.5\%$.
+                \item If you allow $\Omega_K\ne0$, \textit{Planck} (\texttt{plikTTTEEE}) has a moderate preference for closed universes (50:1 betting odds on), $\Omega_K=-4.5\pm1.5\%$
                 \item \textit{Planck}+lens+BAO strongly prefer $\Omega_K=0$.
                 \item But, \textit{Planck} vs lensing is 2.5$\sigma$ in tension, and Planck vs BAO is 3$\sigma$.
                 \item Reduced if $\texttt{plik}\to\texttt{camspec}$~\arxiv{2002.06892} 
@@ -436,13 +438,16 @@
                 \item Doing this properly with BAO retains preference for closed universe (though closer to flat $\Omega_K =-0.4\pm0.2\%$)~\arxiv{2205.05892}.
                 \item Present-day curvature has profound consequences for inflation~\arxiv{2205.07374}.
             \end{itemize}
-        \end{column}
-        \begin{column}{0.5\textwidth}
-            \includegraphics<1|handout:0>[width=\textwidth]{figures/curvature_1}
-            \includegraphics<2|handout:0>[width=\textwidth]{figures/curvature_2}
-            \includegraphics<3          >[width=\textwidth]{figures/curvature_3}
 
         \end{column}
+
+        \begin{column}{0.5\textwidth}
+            \includegraphics<1|handout:0>[width=\textwidth]{figures/curvature_1}%
+            \includegraphics<2|handout:0>[width=\textwidth]{figures/curvature_2}%
+            \includegraphics<3          >[width=\textwidth]{figures/curvature_3}%
+
+        \end{column}
+
     \end{columns}
 
 \end{frame}
@@ -745,6 +750,28 @@
 %    
 %\end{frame}
 
+\begin{frame}
+    \frametitle{Conclusions}
+    \begin{columns}
+        \column{0.65\textwidth}
+    \begin{itemize}
+        \item Nested sampling is a multi-purpose numerical tool for:
+            \begin{itemize}
+                \item Numerical integration $\int f(x) dV$,
+                \item Exploring/scanning/optimising \textit{a priori} unknown functions,
+                \item Performing Bayesian inference and model comparison.
+            \end{itemize}
+        \item It is applied widely across cosmology and particle physics.
+        \item It can be applied to both Bayesian and Frequentist inference.
+    \end{itemize}
+        \column{0.35\textwidth}
+    \includegraphics[height=0.6\textwidth]{figures/pps_both}%
+    \includegraphics[height=0.6\textwidth]{figures/REACH_2}%
+    \end{columns}
+    \includegraphics[height=0.2\textwidth]{figures/integration}%
+    \includegraphics[height=0.2\textwidth]{figures/curvature_3}%
+    \includegraphics[height=0.2\textwidth]{figures/ALP_3}%
+\end{frame}
 
 
 \appendix
@@ -849,15 +876,15 @@
         %        \item [Model comparison] critical update factor for \C[5]{model prior} to \C[4]{model posterior}
         %    \end{description}
         \item Properties of the evidence: rearrange Bayes' theorem for parameter estimation
-            \[\C[0]{\mathcal{P}(\theta)} = \frac{\C[2]{\mathcal{L}(\theta)} \C[1]{\pi(\theta)}}{\C[3]{\mathcal{Z}}} \qquad\Rightarrow\qquad \C[3]{\log \mathcal{Z}} = \C[2]{\log\mathcal{L}(\theta)} - \log \frac{\C[0]{\mathcal{P}(\theta)}}{\C[1]{\pi(\theta)}} \]  
-        \item Evidence is composed of a ``goodness of fit'' term  and ``Occam Penalty''
+            \[\C[0]{\mathcal{P}(\theta)} = \frac{\C[2]{\mathcal{L}(\theta)} \C[1]{\pi(\theta)}}{\C[3]{\mathcal{Z}}} \qquad\Rightarrow\qquad \C[3]{\log \mathcal{Z}} = \C[2]{\log\mathcal{L}(\theta)} - \log \frac{\C[0]{\mathcal{P}(\theta)}}{\C[1]{\pi(\theta)}}.\]  
+        \item Evidence is composed of a ``goodness of fit'' term  and ``Occam Penalty''.
     \end{itemize}
     \begin{columns}[t]
         \column{0.5\textwidth}
     \begin{itemize}
         \item RHS true for all $\theta$. Take max likelihood value $\theta_*$:
             \[
-                \log \mathcal{Z} = -\chi_\text{min}^2 - \text{Mackay penalty}
+                \log \mathcal{Z} = -\chi_\text{min}^2 - \text{Mackay penalty.}
             \]
     \end{itemize}
         \column{0.5\textwidth}
@@ -865,7 +892,7 @@
         \item Be more Bayesian and take posterior average to get the ``Occam's razor equation''
             \[
                 \boxed{
-                    \log \mathcal{Z} = \av[\mathcal{P}]{\log\mathcal{L}} - \mathcal{D}_\text{KL}
+                    \log \mathcal{Z} = \av[\mathcal{P}]{\log\mathcal{L}} - \mathcal{D}_\text{KL}.
             }
             \]
     \end{itemize}
