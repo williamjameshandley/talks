@@ -344,6 +344,10 @@
 \end{frame}
 
 
+\begin{frame}
+    \frametitle{Model comparison and parameter estimation}
+\end{frame}
+
 
 \newcommand{\movablecross}[1]{%
   \draw[->](#1) -- ++(0:\croslen);
@@ -515,9 +519,11 @@
             \item Imaging the universal dark ages using CMB backlight
             \item $21\text{cm}$ hyperfine line emission from neutral hydrogen
             \item Global experiments measure monopole across frequency
-            \item Gives a specific absorption trough
-            \item $T_\text{sky}(\Omega,\nu) = T_\text{global}(\nu) + T_\text{foreground}(\Omega,\nu) + \text{Noise}$
-            \item Measuring the first stars in the universe turning on with christmas trees in the desert.
+            \item Gives a specific absorption trough, which if detected allows constraints on the physics of the dark ages decade(s) before SKA.
+            \item Challenge: science hidden in foregrounds $\sim 10^4\times$signal
+        \includegraphics[height=0.32\textwidth]{figures/EDGES_antenna}
+        \includegraphics[height=0.32\textwidth]{figures/SARAS}
+        \includegraphics[height=0.32\textwidth]{figures/REACH_2.jpg}
         \end{itemize}
 
         \column{0.38\textwidth}
@@ -534,33 +540,70 @@
     \begin{columns}
         \column{0.6\textwidth}
         \begin{itemize}
-            \item EDGES~[\href{https://www.nature.com/articles/nature25792}{Nat}] claimed a very controversial detection
-            \item SARAS3~[\href{https://www.nature.com/articles/s41550-022-01610-5}{NatAstro}]
-            \item REACH~[\href{https://www.nature.com/articles/s41550-022-01709-9}{NatAstro} aims to add to this question
-            \item A collaboration truly powered by nested sampling.
+            \item EDGES~[\href{https://www.nature.com/articles/nature25792}{Nat}] claimed a controversial 2019 detection
+            \item SARAS3~[\href{https://www.nature.com/articles/s41550-022-01610-5}{NatAstro}]  would have detected this by 2021
+            \item REACH~[\href{https://www.nature.com/articles/s41550-022-01709-9}{NatAstro}] aims to settle the debate
+                \begin{itemize}
+                    \item Broader band
+                    \item Honesty about systematic modelling
+                    \item State of the art inference
+                \end{itemize}
             \item Create parameterised models of sky, beam and signal, breaking degeneracy with a time-dependent likelihood to measure all three simultaneously.
+            \item Use model comparison based reconstruction to determine complexity of parameterisation
+            \item Use model comparison to select likelihoods
+            \item A collaboration powered by nested sampling.
         \end{itemize}
 
         \column{0.4\textwidth}
         \includegraphics[width=\textwidth]{figures/EDGES}
-        \includegraphics[height=0.33\textwidth]{figures/EDGES_antenna}
-        \includegraphics[height=0.33\textwidth]{figures/SARAS}
+        \includegraphics[width=0.8\textwidth]{figures/REACH_1}
 
     \end{columns}
 
 \end{frame}
 
-
 \begin{frame}
-    \frametitle{Model comparison and parameter estimation}
-\end{frame}
-
-\begin{frame}
-    \frametitle{Non-parametric reconstruction}
+    \frametitle{Quantification of fine tuning~\arxiv{2101.00428}~\arxiv{2205.13549}}
+    \vspace{-10pt}
+    \begin{columns}
+        \column{0.5\textwidth}
+        \begin{itemize}
+            \item Example: Cosmological constraints on decaying axion-like particles~\arxiv{2205.13549}
+            \item Subset of parameters $\xi,m_a,\tau,g_{a\gamma}$: ALP fraction, mass, lifetime and photon coupling.
+                {(\small Also vary cosmology, $\tau_n$ and nuisance params)}
+            \item Data: CMB, BBN, FIRAS, SMM, BAO
+            \item Standard profile likelihood fit shows ruled out regions and best-fit point
+            \item<2-> Nested sampling scan:
+                \begin{itemize}
+                    \item Quantifies amount of parameter space ruled out with Kullback-Liebler divergence $\mathcal{D}_\mathrm{KL}$
+                    \item Identifies best fit region as statistically irrelevant from information theory/Bayesian.
+                    \item No evidence for decaying ALPs. Fit the data equally well: but more constrained parameters.
+                \end{itemize}
+        \end{itemize}
+        \column{0.5\textwidth}
+        \includegraphics<1>[width=\textwidth]{figures/ALP_1.pdf}
+        \includegraphics<2>[width=\textwidth]{figures/ALP_2.pdf}
+        \includegraphics<3>[width=\textwidth]{figures/ALP_3.pdf}
+    \end{columns}
+    
 \end{frame}
 
 \begin{frame}
     \frametitle{Statistics: fast estimation of small $p$-values~\arxiv{2106.02056}}
+    \begin{columns}
+        \column{0.52\textwidth}
+        \begin{itemize}
+            \item Nested sampling for frequentist computation!?
+            \item $p$-value: $P(\lambda>\lambda^*|H_0)$ -- probability that test statistic $\lambda$ is at least as great as observed $\lambda^*$.
+            \item Computation of a tail probability from sampling distribution of $\lambda$ under $H_0$
+            \item For gold-standard $5\sigma$, this is very expensive to simulate directly ($\sim10^9$ by definition).
+            \item Need insight/approximation to make efficient
+            \item Nested sampling is tailor-made for this, just make switch: $X\leftrightarrow p$, $\mathcal{L}\leftrightarrow\lambda$, $\theta \leftrightarrow x$
+            \item The only real conceptual shift is switching the integrator from parameter- to data-space
+        \end{itemize}
+        \column{0.48\textwidth}
+        \includegraphics[width=\textwidth]{figures/pvalue.pdf}
+    \end{columns}
     
 \end{frame}
 
@@ -571,76 +614,67 @@
     \end{itemize}<++>
 \end{frame}
 
-\begin{frame}
-    \frametitle{Quantification of fine tuning~\arxiv{2101.00428}~\arxiv{2205.13549}}
-    \begin{itemize}
-        \item Convergent Bayesian Global Fits of 4D Composite Higgs Models~\arxiv{2101.00428}
-        \item Thermal WIMPs and the Scale of New Physics: Global Fits of Dirac Dark Matter Effective Field Theories~\arxiv{2205.13549}
-    \end{itemize}
-    
-\end{frame}
-
-\begin{frame}
-    \frametitle{Nested Sampling with Likelihood Free Inference}
-    \begin{columns}
-        \column{0.5\textwidth}
-        \includegraphics[width=\textwidth]{figures/three_ways_II.pdf}
-
-        \hfill Alsing \textit{et al.}~\arxiv{1903.00007}
-    \begin{itemize}
-        \item In density estimation likelihood free inference, the output is to learn one/all of:
-            \begin{description}
-                \item[Likelihood] $P(D|\theta)$,
-                \item[Posterior] $P(\theta|D)$,
-                \item[Joint] $P(D,\theta)$.
-            \end{description}
-        \item In the first instance, nested sampling can be used to scan these learnt functions.
-    \end{itemize}
-        \column{0.5\textwidth}
-    \begin{itemize}
-        \item Data are compressed, so joint space $(D,\theta)$ is navigable by off-the-shelf codes. 
-            \begin{itemize}
-                \item Sanity checking the solution,
-                \item Computing evidences/Kullback Liebler divergences from likelihoods.
-            \end{itemize}
-        \item Its self-tuning capacity and ability to handle multi-modal distributions can be very useful for diagnosing incompletely learnt functions.
-        \item Emulated likelihoods (e.g. normalising flows) are generally fast, so can deploy more likelihood hungry techniques like NS.
-        \item In principle can use it to train emulators by marginalisation rather than maximisation.
-    \end{itemize}
-    \end{columns}
-\end{frame}
-
-\begin{frame}
-    \frametitle{Nested Sampling for Approximate Bayesian Computation/SBI}
-    \begin{columns}
-        \column{0.5\textwidth}
-        \begin{itemize}
-            \item Assume one has a generative model capable of turning parameters into mock data $D(\theta)$.
-            \item Given infinite computing power, ABC works by selecting $\{\theta : D(\theta)=D_\text{observed}\}$.
-            \item These are samples from the posterior, without using a likelihood.
-            \item In practice $D=D_\text{obs}$ becomes $D\approx D_\text{obs}$.
-            \item i.e. $|D-D_\text{obs}|<\varepsilon$, or more generally $\boxed{\rho(D,D_\text{obs})<\varepsilon}$, where $\rho$ is some suitably chosen objective function.
-            \item Main challenges are 
-                \begin{enumerate}
-                    \item Choice of $\rho$/summary stats,
-                    \item Choice of $\varepsilon$ schedule,
-                    \item Rejection sampling.
-                \end{enumerate}
-        \end{itemize}
-        \column{0.5\textwidth}
-        \begin{itemize}
-            \item Nested sampling fits this well: In principle, can just change the usual hard likelihood constraints $\{\theta\sim\pi : \mathcal{L}(\theta)>\mathcal{L}_*\}$ to
-                \[\{\theta~\sim\pi : \rho(D(\theta),D_\text{obs})<\varepsilon\}\]
-            (Brewer \& Foreman-Mackey~\arxiv{1606.03757})
-            \item Ongoing work with Andrew Fowlie \& Sebastian Hoof
-                \begin{itemize}
-                    \item How to deal with nondeterminism,
-                    \item How to interpret $\rho$ as a ``likelihood'',
-                    \item How to interpret the evidence $\mathcal{Z}$.
-                \end{itemize}
-        \end{itemize}
-    \end{columns}
-\end{frame}
+%\begin{frame}
+%    \frametitle{Nested Sampling with Likelihood Free Inference}
+%    \begin{columns}
+%        \column{0.5\textwidth}
+%        \includegraphics[width=\textwidth]{figures/three_ways_II.pdf}
+%
+%        \hfill Alsing \textit{et al.}~\arxiv{1903.00007}
+%    \begin{itemize}
+%        \item In density estimation likelihood free inference, the output is to learn one/all of:
+%            \begin{description}
+%                \item[Likelihood] $P(D|\theta)$,
+%                \item[Posterior] $P(\theta|D)$,
+%                \item[Joint] $P(D,\theta)$.
+%            \end{description}
+%        \item In the first instance, nested sampling can be used to scan these learnt functions.
+%    \end{itemize}
+%        \column{0.5\textwidth}
+%    \begin{itemize}
+%        \item Data are compressed, so joint space $(D,\theta)$ is navigable by off-the-shelf codes. 
+%            \begin{itemize}
+%                \item Sanity checking the solution,
+%                \item Computing evidences/Kullback Liebler divergences from likelihoods.
+%            \end{itemize}
+%        \item Its self-tuning capacity and ability to handle multi-modal distributions can be very useful for diagnosing incompletely learnt functions.
+%        \item Emulated likelihoods (e.g. normalising flows) are generally fast, so can deploy more likelihood hungry techniques like NS.
+%        \item In principle can use it to train emulators by marginalisation rather than maximisation.
+%    \end{itemize}
+%    \end{columns}
+%\end{frame}
+%
+%\begin{frame}
+%    \frametitle{Nested Sampling for Approximate Bayesian Computation/SBI}
+%    \begin{columns}
+%        \column{0.5\textwidth}
+%        \begin{itemize}
+%            \item Assume one has a generative model capable of turning parameters into mock data $D(\theta)$.
+%            \item Given infinite computing power, ABC works by selecting $\{\theta : D(\theta)=D_\text{observed}\}$.
+%            \item These are samples from the posterior, without using a likelihood.
+%            \item In practice $D=D_\text{obs}$ becomes $D\approx D_\text{obs}$.
+%            \item i.e. $|D-D_\text{obs}|<\varepsilon$, or more generally $\boxed{\rho(D,D_\text{obs})<\varepsilon}$, where $\rho$ is some suitably chosen objective function.
+%            \item Main challenges are 
+%                \begin{enumerate}
+%                    \item Choice of $\rho$/summary stats,
+%                    \item Choice of $\varepsilon$ schedule,
+%                    \item Rejection sampling.
+%                \end{enumerate}
+%        \end{itemize}
+%        \column{0.5\textwidth}
+%        \begin{itemize}
+%            \item Nested sampling fits this well: In principle, can just change the usual hard likelihood constraints $\{\theta\sim\pi : \mathcal{L}(\theta)>\mathcal{L}_*\}$ to
+%                \[\{\theta~\sim\pi : \rho(D(\theta),D_\text{obs})<\varepsilon\}\]
+%            (Brewer \& Foreman-Mackey~\arxiv{1606.03757})
+%            \item Ongoing work with Andrew Fowlie \& Sebastian Hoof
+%                \begin{itemize}
+%                    \item How to deal with nondeterminism,
+%                    \item How to interpret $\rho$ as a ``likelihood'',
+%                    \item How to interpret the evidence $\mathcal{Z}$.
+%                \end{itemize}
+%        \end{itemize}
+%    \end{columns}
+%\end{frame}
 
 %\begin{frame}
 %    \frametitle{Nested sampling for truncated methods}
