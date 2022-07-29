@@ -1,5 +1,6 @@
 \documentclass[aspectratio=169]{beamer}
 \usepackage{will_handley}
+\usepackage{tikz}
 \newcommand{\av}[2][]{\left\langle #2\right\rangle_{#1}}
 
 % Commands
@@ -12,8 +13,8 @@
 
 % Talk details
 % ------------
-\title{Frontiers of Nested Sampling}
-\date{20\textsuperscript{th} July 2022}
+\title{Nested Sampling: A multi-purpose numerical tool for particle physics and cosmology}
+\date{29\textsuperscript{th} July 2022}
 %Nested Sampling is an established numerical technique for optimising,
 %sampling, integrating and scanning *a priori* unknown probability
 %distributions. Whilst typically used in the context of traditional
@@ -62,7 +63,7 @@
 \begin{frame}
     \frametitle{What is Nested Sampling?}
     \begin{itemize}
-        \item Nested sampling is a multi-purpose numerical mathematical tool.
+        \item Nested sampling is a multi-purpose numerical tool.
         \item Given a (scalar) function $f$ with a vector of parameters $\theta$, it can be used for:
     \end{itemize}
     \vspace{-10pt}
@@ -70,7 +71,7 @@
         \column{0.33\textwidth}
         \begin{block}{Optimisation}
             \vspace{-5pt}
-            \[\theta_\mathrm{max} = \max_\theta{f(\theta)}\]
+            \[\theta_\text{max} = \max_\theta{f(\theta)}\]
         \end{block}
         \column{0.33\textwidth}
         \begin{block}{Sampling}
@@ -125,11 +126,11 @@
     \begin{columns}
         \column{0.6\textwidth}
         \begin{itemize}
-            \item Nested sampling: completely different way to sample.
-            \item Ensemble sampling to compress prior to posterior.
+            \item Nested sampling: completely different way to scan.
+            \item Ensemble sampling compresses entire space$\to$peak(s).
             \item Sequentially update a set $S$ of $n$ samples:
                 \begin{itemize}
-                    \item[$S_0$:]  Generate $n$ samples uniformly over the space (from the prior $\pi$). 
+                    \item[$S_0$:]  Generate $n$ samples uniformly over the space (from a measure $\pi$). 
 
                     \item[$S_{i+1}$:] Delete the lowest likelihood sample in $S_{i}$, and replace it with a new uniform sample with higher likelihood.
                 \end{itemize}
@@ -205,7 +206,7 @@
         \begin{itemize}
             \item At the end, one is left with a set of discarded points.
             \item These may be weighted to form weighted posterior samples using $w_i = \mathcal{L}_i \Delta X_i$.
-            \item They can also be used to calculate the normalisation $\mathcal{Z} = \sum \mathcal{L}_i \Delta X_i$, or more generally $\sum_i f(\mathcal{L}_i) \Delta X_i$.
+            \item They can also be used to calculate the integral $\mathcal{Z} = \sum \mathcal{L}_i \Delta X_i$, or more generally $\sum_i f(\mathcal{L}_i) \Delta X_i$.
                 \begin{itemize}
                     \item Nested sampling probabilistically estimates the volume of the parameter space
                         \[X_i \approx {\left(\frac{n}{n+1}\right)} X_{i-1} \quad\Rightarrow\quad
@@ -312,236 +313,272 @@
     \begin{itemize}
         \item Nested samplers usually come with:
             \begin{itemize}
-                \item \emph{resolution} parameter $n_\mathrm{live}$ (which improve results as $\sim\mathcal{O}(n_\mathrm{live}^{-1/2})$.
+                \item \emph{resolution} parameter $n_\text{live}$ (which improve results as $\sim\mathcal{O}(n_\text{live}^{-1/2})$.
                     \item set of \emph{reliability} parameters~\arxiv{2101.04525}, which don't improve results if set arbitrarily high, but introduce systematic errors if set too low.
-                    \item e.g. \texttt{Multinest} efficiency \texttt{eff} or \texttt{PolyChord} chain length $n_\mathrm{repeats}$.
+                    \item e.g. \texttt{Multinest} efficiency \texttt{eff} or \texttt{PolyChord} chain length $n_\text{repeats}$.
             \end{itemize}
     \end{itemize}
 \end{frame}
 
-\begin{frame}
-    \frametitle{Dynamic nested sampling}
-    \begin{columns}
-        \column{0.3\textwidth}
-        \begin{itemize}
-            \item Small change to meta-algorithm: 
-            \item Allow the number of live points to vary at run time \arxiv{1704.03459}.
-        \end{itemize}
-        \column{0.7\textwidth}
-        \includegraphics[width=\textwidth]{figures/dynesty}
-    \end{columns}
-    \begin{columns}
-        \column{0.5\textwidth}
-        \begin{itemize}
-            \item Separate creation and deletion:
-                \begin{itemize}
-                    \item[$S_0$:] Generate $n$ samples uniformly over the space (from the prior $\pi$). 
-
-                    \item[$S_{i+1}$:] 
-                        \begin{itemize}
-                            \item Delete the lowest likelihood sample in $S_{i}$ with criterion $D_i$,
-                            \item Create  a new uniform sample with higher likelihood with criterion $C_i$.
-                        \end{itemize}
-                \end{itemize}
-            \item Extremely straightforward to implement \\ (just let number of live points $n_i$ vary with $i$).
-        \end{itemize}
-        \column{0.5\textwidth}
-        \begin{itemize}
-            \item Need to specify creation and deletion criteria.
-            \item This can prove useful, e.g.
-                \begin{itemize}
-                    \item Killing off all remaining live points is equivalent to usual correction term,
-                    \item Oversampling the prior by \texttt{nprior}.
-                \end{itemize}
-            \item However, DNS is exactly the right level of complexity to get the uninitiated excited, and does not result in dramatic speedups.
-        \end{itemize}
-    \end{columns}
-\end{frame}
 
 \begin{frame}
-    \frametitle{Nested sampling post-processing: Weaving and unweaving runs}
-    \begin{columns}
-        \column{0.7\textwidth}
-        \begin{itemize}
-            \item There is now a substantial literature on what you can do with a nested sampling run.
-            \item John Skilling originally noted that two nested sampling runs can be ``merged'':
-                \begin{itemize}
-                    \item Take two nested sampling runs on likelihood $\mathcal{L}$ with $n$ live points and $m$ live points each,
-                    \item Concatenate the dead points, and re-sort on likelihood,
-                    \item The resulting set of points are dead points from an $n+m$-live point run.
-                \end{itemize}
-            \item To generalise to dynamic nested sampling one needs to record more information.
-        \end{itemize}
-        \column{0.3\textwidth}
-        \includegraphics[width=0.8\textheight,angle=270]{figures/combine}
-        \hfill
-        \includegraphics[width=0.8\textheight,angle=270]{figures/combine_0}
-    \end{columns}
-\end{frame}
-
-\begin{frame}
-    \frametitle{Birth $\mathcal{L}_*$ and death $\mathcal{L}$ contours}
+    \frametitle{What is a model?}
     \begin{itemize}
-        \item A nested sampling run is usually recorded in a database containing parameter values $\theta$, (log)likelihood $\mathcal{L}$, and optionally some expensive derived parameters $\phi$.
-        \item The full nested sampling run can be losselessly reconstructed with an extra column.
-        \item Namely the set of \textbf{birth contours}, i.e. the $\mathcal{L}_*$ at which each point was born at.
-        \item With the lossless compression of columns $\mathcal{L}$ and $\mathcal{L}_*$, one can:
+        \item Model comparison in its purest form answers question such as:
             \begin{itemize}
-                \item Compute the dynamic number of live points,
-                \item Reconstruct the nested sampling run history,
-                \item Decompose an $n$-live point run into $n$ single live point runs.
+                \item ``Is the universe $\Lambda$CDM?''
+                \item ``Are neutrinos in a normal or inverted hierarchy?''
+                \item ``Is there a detectable global signal in this data?''
             \end{itemize}
-        \item Single live point runs form the indivisible unit of nested sampling.
-        \item This post processing suite is encapsulated in the continuously integrated python packages of \texttt{anesthetic}~\arxiv{1905.04768} and \texttt{nestcheck}~\arxiv{1804.06406}.
-    \end{itemize}
-
-\end{frame}
-
-\begin{frame}
-    \frametitle{Parameter cross-checks}
-    \begin{columns}
-        \column{0.55\textwidth}
-        \begin{itemize}
-            \item ``Indivisible unit'' of nested sampling identified as the \emph{single live point run} (or \emph{thread}).
-            \item When a nested sampling run is unwoven into its constituent threads, it can be recombined into smaller runs.
-            \item Cross-checks such as bootstrap resampling can be applied to determine if these are consistent.
-            \item This can be used to quantify the residual uncertainty in parameter estimation weights $w_i\approx L_i \Delta X_i$~\arxiv{1704.03459}.
-                \begin{itemize}
-                    \item in addition to Poisson uncertainty on $X_i$, there is also uncertainty associated with picking $\theta_i$ as representative of the entire $L_i$ contour~\arxiv{0801.3887}.
-                \end{itemize}
-        \end{itemize}
-        \column{0.45\textwidth}
-        \includegraphics[width=\textwidth]{figures/nestcheck}
-    \end{columns}
-\end{frame}
-
-\begin{frame}
-    \frametitle{Insertion indices and order statistics}
-    \begin{columns}
-        \column{0.5\textwidth}
-    \begin{itemize}
-        \item At each iteration of nested sampling we generate a new live point and insert it into the list of live points sorted by loglikelihood.
-        \item IF we have done things correctly, this should obey \emph{order statistics}.
-        \item if it doesn't, our nested sampler is not drawing live points corectly;
-        \item We demonstrate this with KS $p$-values~\arxiv{2006.03371}, to test reliability parameters.
-        \item Should be extended to be more Bayesian.
-        \item Needs extending to dynamic $n_\mathrm{live}$ case.
-        \item This can be used at run-time to tune reliability parameters.
-    \end{itemize}
-        \column{0.5\textwidth}
-        \includegraphics[width=\textwidth]{figures/indices}
-    \end{columns}
-\end{frame}
-
-\begin{frame}
-    \frametitle{Frontier: Insertion indices}
-
-\begin{itemize}
-    \item For the purposes of estimating volume in a statistical way, we discard the likelihood information, focussing on the ordering of the contours. 
-    \item Traditional nested sampling uses the fact that
-\[
-    P(X_j|X_{j-1}, n_\mathrm{live}) = \frac{n_j}{X_{j-1}}\left( \frac{X_j}{X_{j-1}} \right)^{n_j-1} [0<X_j<X_{j-1}].
-    \]
-\item marginalised out dependency on everything other than $X_{j-1}$ \&  compressed into a vector encoding the number of live points at each iteration $n_i$. 
-\item  \textbf{Frontier}: is ``Skilling compression'' $(\mathcal{L},\mathcal{L}_*)\to n$ lossless or lossy for the purposes of volume estimation?
-\item The results presented in~\arxiv{2006.03371} are suggestive that it is losing some useful information, as insertion indexes do provide further information in the context of a cross check (and are in fact a lossless compression of the birth and death contours). 
-\item One possibility is that the Skilling compression is lossless in the context of perfect nested sampling, but if a run is biased then you may be able to use insertion indexes to partially correct a biased run. 
-\end{itemize}
-\end{frame}
-
-\begin{frame}
-    \frametitle{Reversible nested sampling}
-    \begin{itemize}
-        \item One of the issues preventing nested sampling scaling to millions of dimensions is the need to compress from prior to posterior in all parameters.
+        \item However model $\mathcal{M}$ is likelihood $\C[2]{\mathcal{L}=P(D|\theta,M)}$ and priors $\C[1]{\pi=P(\theta|M)}$, $\C[5]{\Pi=P(M)}$
+        \item Can use the evidence \C[3]{$\mathcal{Z}$} to decide on which out of a set of likelihoods best describe data (e.g. Gaussian, Cauchy, Poisson, radiometric).
+        \item Can also use it for antenna selection~\arxiv{2106.10193}~\arxiv{2109.10098}.
+        \item In principle can use it to decide between theoretically motivated priors (care needed)
+        \item It can also be used for non-parametric reconstruction:
             \begin{itemize}
-                \item c.f. Skilling's argument that the Entropy/KL divergence is much greater than the width of the typical set/posterior bulk: $\mathcal{D}\sim d \gg \sqrt{d}$.
+                \item ``How many polynomial terms best describe the data?''
+                \item ``How complicated a sky model do I need?''
+                \item ``Which is the best sky model?''
             \end{itemize}
-        \item One could in principle reverse the direction of travel, and move outward from a peak.
-        \item If one could guarantee that all peak looks gaussian close enough in (c.f. Laplace approximation), then one can estimate the final volume $X_N$, and reverse the usual argument.
-        \item This could in principle be used to dramatically reduce the poisson error if one could estimate the volume in the final set of live points geometrically.
     \end{itemize}
 \end{frame}
 
+
+
+\newcommand{\movablecross}[1]{%
+  \draw[->](#1) -- ++(0:\croslen);
+  \draw[->](#1) -- ++(90:\croslen);
+  \draw[->](#1) -- ++(180:\croslen);
+  \draw[->](#1) -- ++(270:\croslen);
+  \fill[red!70!black] (#1) circle (2pt);
+}
+
+\newcommand{\movablevert}[1]{%
+  \draw[->](#1) -- ++(90:\croslen);
+  \draw[->](#1) -- ++(270:\croslen);
+  \fill[red!70!black] (#1) circle (2pt);
+}
+
+
 \begin{frame}
-    \frametitle{AEONS: Approximating the end of nested sampling}
-    \includegraphics[width=\textwidth]{figures/run_prodecure}
-    \vspace{-20pt}
-    \begin{itemize}
-        \item A seasoned user knows when nested sampling is approaching the end of an HPC run.
-        \item As $\Delta\log \mathcal{Z}$ approaches unity, and there are only ``a few'' nested sampling iterations remaining before posterior is crossed.
-        \item \textbf{Frontier:} Can we quantify this using Gaussian approximations to make a rough progress bar (with uncertainty quantification) -- summer student working on this.
-    \end{itemize}
+    \frametitle<1-5>{Primordial power spectrum $\mathcal{P}_\mathcal{R}(k)$ reconstruction~\arxiv{1908.00906}}
+  \frametitle<6>{0 internal knots}
+  \frametitle<7>{1 internal knot}
+  \frametitle<8>{2 internal knots}
+  \frametitle<9>{3 internal knots}
+  \frametitle<10>{4 internal knots}
+  \frametitle<11>{5 internal knots}
+  \frametitle<12>{6 internal knots}
+  \frametitle<13>{7 internal knots}
+  \frametitle<14>{Bayes Factors}
+  \frametitle<15>{Marginalised plot}
+  \frametitle<16>{Kullback-Liebler divergences}
+  %\framesubtitle{Primordial power spectrum $\mathcal{P}_\mathcal{R}(k)$ reconstruction}
+
+
+  \begin{columns}
+      \column{0.5\textwidth}
+      \uncover<1->{
+          \begin{itemize}
+              \item Traditionally parameterise the primordial power spectrum with $(A_s,n_s)$
+                  \[\mathcal{P}_\mathcal{R}(k) = A_s \left( \frac{k}{k_*} \right)^{n_s-1}\]
+              \item To add more degrees of freedom, can add ``running'' parameters $n_\text{run}$ (higher order polynomial in index)
+              \item Alternative non-parametric technique introduces a more flexible phenomenological parameterisation: ``FlexKnots''
+              \item Let the Bayesian evidence decide when you've introduced too many parameters
+          \end{itemize}
+      }
+      \column{0.5\textwidth}
+
+      \only<1-5>{
+  \resizebox{\textwidth} {!} {%
+    \begin{tikzpicture}
+    % width of axes
+      \def\xwidth{7}
+      \def\ywidth{7}
+    % min coordinate
+      \def\xmn{0.5}
+      \def\ymn{4}
+    % start coordinate
+      \def\xstart{2}
+      \def\ystart{5}
+    % middle coordinate
+      \def\xmid{3}
+      \def\ymid{3}
+    % end coordinate
+      \def\xend{5.5}
+      \def\yend{5}
+    % max coordinate
+      \def\xmx{6.5}
+      \def\ymx{3.5}
+
+    % length of crosses
+      \def\croslen{0.4}
+
+
+    % Draw axes
+      \draw<1-5> [<->,thick] (0,\ywidth) node (yaxis) [above] {$\log\mathcal{P}_\mathcal{R}(k)$}
+      |- (\xwidth,0) node (xaxis) [right] {$\log k$};
+    % Draw limits
+      %\draw [-,dashed] (\xmn,0) node[below] {$\log_{10}k_1$} -- (\xmn,\ywidth) ;
+      %\draw [-,dashed] (\xmx,0) node[below] {$\log_{10}k_N$} -- (\xmx,\ywidth) ;
+
+      \draw<1> (\xmn,\ymn) -- (\xmx,\ymx);
+      \draw<1> (\xstart,\ystart) node[below right] {$A_s {\left(\frac{k}{k_*}\right)}^{n_s-1}$};
+
+    % Draw the line joining start and end
+
+      \coordinate (mn) at (\xmn,\ymn);
+      \coordinate (start) at (\xstart,\ystart);
+      \coordinate (mid) at (\xmid,\ymid);
+      \coordinate (end) at (\xend,\yend);
+      \coordinate (mx) at (\xmx,\ymx);
+      \draw<2> (mn) -- (mx);
+      \draw<2-5> (mn) node[below right]    {$(k_1,\mathcal{P}_{1})$};
+      \draw<2> (mx) node[below left]     {$(k_{2},\mathcal{P}_{{2}})$};
+      \onslide<2-5>{\movablevert{mn}};
+      \onslide<2-5>{\movablevert{mx}};
+
+      \draw<3> (mn) -- (start) -- (mx);
+      \onslide<3-5>{\movablecross{start}};
+      \draw<3-5> (start) node[above right] {$(k_2,\mathcal{P}_{2})$};
+      \draw<3> (mx) node[below left]     {$(k_{3},\mathcal{P}_{{3}})$};
+ 
+      \draw<4> (mn) -- (start) -- (mid) -- (mx);
+      \onslide<4-5>{\movablecross{mid}};
+      \draw<4-5> (mid) node[below right] {$(k_3,\mathcal{P}_{3})$};
+      \draw<4> (mx) node[below left]     {$(k_{4},\mathcal{P}_{{4}})$};
+
+      \draw<5> (mn) -- (start) -- (mid) -- (end) -- (mx);
+      \onslide<5>{\movablecross{end}};
+      \draw<5> (end) node[above right] {$(k_4,\mathcal{P}_{4})$};
+      \draw<5> (mx) node[below left]     {$(k_{N_\text{knots}},\mathcal{P}_{N_\text{knots}})$};
+
+
+      %\draw<2-> (\xmn,\ymn) coordinate (mn) -- (\xstart,\ystart) coordinate (start) -- (\xmid,\ymid) coordinate (mid) --  (\xend,\yend) coordinate(end) -- (\xmx,\ymx) coordinate(mx);
+
+    % Draw the point labels
+      %\draw<2-> (mn) node[below right]    {$(k_1,\mathcal{P}_{1})$};
+      %\draw<2-> (start) node[above right] {$(k_2,\mathcal{P}_{2})$};
+      %\draw<2-> (mid) node[below right]   {$(k_3,\mathcal{P}_{3})$};
+      %\draw<2-> (end) node[above right]   {$(k_4,\mathcal{P}_{4})$};
+      %\draw<2-> (mx) node[below left]     {$(k_{N_\text{knots}},\mathcal{P}_{N_\text{knots}})$};
+
+    % Draw a dashed line indicating the coordinate names
+      %\draw[dashed] (yaxis |- start) node[left] {$y_{1}$}
+      %-| (xaxis -| start) node[below] {$x_1$};
+      %\draw[dashed] (yaxis |- mid) node[left] {$y_{2}$}
+      %-| (xaxis -| mid) node[below] {$x_2$};
+      %\draw[dashed] (yaxis |- end) node[left] {$y_{N}$}
+      %-| (xaxis -| end) node[below] {$x_N$};
+      %\draw  (xaxis -| start) node[below] {$\log_{10}k_2$};
+      %\draw  (xaxis -| mid) node[below] {$\log_{10}k_3$};
+      %\draw  (xaxis -| end) node[below] {$\log_{10}k_4$};
+
+      % Draw the crosses
+      %\onslide<2->{\movablevert{mn}
+      %\movablecross{start}
+      %\movablecross{mid}
+      %\movablecross{end}
+      %\movablevert{mx}
+    %};
+
+    % put some ellipses in between the start and end point
+
+    \end{tikzpicture}
+
+  }
+  }
+
+
+
+
+    \includegraphics<6>[width=\textwidth]{figures/pps_both_1}
+    \includegraphics<7>[width=\textwidth]{figures/pps_both_2}
+    \includegraphics<8>[width=\textwidth]{figures/pps_both_3}
+    \includegraphics<9>[width=\textwidth]{figures/pps_both_4}
+    \includegraphics<10>[width=\textwidth]{figures/pps_both_5}
+    \includegraphics<11>[width=\textwidth]{figures/pps_both_6}
+    \includegraphics<12>[width=\textwidth]{figures/pps_both_7}
+    \includegraphics<13>[width=\textwidth]{figures/pps_both_8}
+    \includegraphics<14>[width=\textwidth]{figures/pps_evidence}
+    \includegraphics<15>[width=\textwidth]{figures/pps_both}
+    \includegraphics<16>[width=\textwidth]{figures/DKL.pdf}
+
+  \end{columns}
 \end{frame}
 
 \begin{frame}
-    \frametitle{Importance nested sampling}
+    \frametitle{REACH: Global 21cm cosmology [\href{https://www.nature.com/articles/s41550-022-01709-9}{NatAstro}]}
     \begin{columns}
-    \column{0.5\textwidth}
-    \begin{itemize}
-        \item Importance sampling is the procedure:
-            \begin{itemize}
-                \item given a set of (weighted) samples $\{(w_i,\theta_i)\}$ drawn from posterior distribution $\mathcal{P}(\theta)$,
-                \item If the likelihood $\mathcal{L}_0(\theta)=P(D_0|\theta)$ is updated with some additional data $D_1$, such that $\mathcal{L}_0 \to \mathcal{L}_0\times \mathcal{L}_1$~\arxiv{1902.04029},
-                \item Can we re-weight $w_i$ without re-running a Markov Chain?
-            \end{itemize}
-        \item well-established for MCMC $w_i \to w_i \times L_1(\theta_i)$.
-        \item For nested sampling, evidences are transformable $\mathcal{Z}_0\to \mathcal{Z}_0\times\langle L_1\rangle_{\mathcal{P}_0}$.
-        \item Can we do better?
-        \item \textbf{Frontier:} Is there a way to re-weight/thin a nested sampling run to recover the equivalent nested sampling run with a new likelihood?
-    \end{itemize}
-    \column{0.5\textwidth}
-    \includegraphics[width=\textwidth]{figures/importance}
-    \end{columns}
-\end{frame}
-
-\begin{frame}
-    \frametitle{Transdimensional nested sampling}
-    \begin{columns}
-        \column{0.5\textwidth}
+        \column{0.62\textwidth}
         \begin{itemize}
-            \item In some applications it is useful to consider parameter spaces where the number of active parameters vary, e.g.
-                \begin{itemize}
-                    \item Object detection~\arxiv{0809.3437},
-                    \item Free-form reconstruction using \texttt{FlexKnots}~\arxiv{1908.00906}.
-                \end{itemize}
-            \item At the moment, reasonable performance can be achieved by letting $N$ be a parameter (up to $N_\mathrm{max}$) and then ignoring unused parameters~\arxiv{1506.09024}.
-            \item Brendon Brewer~\arxiv{1411.3921} built some examples of RJMCMC diffusive nested sampling, but very problem specific.
-            \item \textbf{Frontier:} Is there an ensemble-based methodology for transdimensional NS?
+            \item Imaging the universal dark ages using CMB backlight
+            \item $21\text{cm}$ hyperfine line emission from neutral hydrogen
+            \item Global experiments measure monopole across frequency
+            \item Gives a specific absorption trough
+            \item $T_\text{sky}(\Omega,\nu) = T_\text{global}(\nu) + T_\text{foreground}(\Omega,\nu) + \text{Noise}$
+            \item Measuring the first stars in the universe turning on with christmas trees in the desert.
         \end{itemize}
-        \column{0.5\textwidth}
-        \includegraphics<1          >[width=\textwidth]{figures/recons1}
-        \includegraphics<2|handout:0>[width=\textwidth]{figures/recons2}
+
+        \column{0.38\textwidth}
+        \includegraphics[width=\textwidth]{figures/21cm_1.png}
+        \includegraphics[width=\textwidth]{figures/21cm.png}
+
+
     \end{columns}
-\end{frame}
 
-
-\begin{frame}
-    \frametitle{Frontier: Multi-objective nested sampling}
-    \begin{itemize}
-        \item Nested sampling is useful as a pure optimiser, particularly for industrial applications where they lack likelihoods but have objective functions.
-        \item It still provides a unique statistical interpretation for an arbitrary function $f(\theta)$ by providing a ``parameter compression'' $X_i\approx e^{i/n_\mathrm{live}} \leftrightarrow e^{\sum_j^i{1}/{n_j}}$ for each value of $f_i$.
-        \item Also useful for providing a collection of solutions fairly distributed in parameter space once the desired optimum has been met.
-        \item This collection of solutions is useful for rudimentary uncertainty quantification, but also for multi-objective optimisation.
-        \item \textbf{Frontier}: Is there a more in-built multi-objective optimiser. Can nested sampling optimise two objective functions simultaneously up to a given compression?
-    \end{itemize}
 \end{frame}
 
 \begin{frame}
-    \frametitle{Likelihood values}
+    \frametitle{REACH: Global 21cm cosmology [\href{https://www.nature.com/articles/s41550-022-01709-9}{NatAstro}]}
     \begin{columns}
-        \column{0.5\textwidth}
-    \begin{itemize}
-        \item One of the virtues of nested sampling is that it only uses the ordering of likelihood values.
-        \item \textbf{Frontier:} if one made a smoothness assumption, e.g. $\frac{d\log \mathcal{L}}{d\log X}\approx \mathrm{constant}$, is is possible to do better?
-        \item This could dramatically reduce the poisson error, runtime and efficiency of NS.
-    \end{itemize}
-    \includegraphics[width=\textwidth]{figures/values1}
-        \column{0.5\textwidth}
-    \includegraphics[width=\textwidth]{figures/values}
-    \includegraphics[width=\textwidth]{figures/values2}
+        \column{0.6\textwidth}
+        \begin{itemize}
+            \item EDGES~[\href{https://www.nature.com/articles/nature25792}{Nat}] claimed a very controversial detection
+            \item SARAS3~[\href{https://www.nature.com/articles/s41550-022-01610-5}{NatAstro}]
+            \item REACH~[\href{https://www.nature.com/articles/s41550-022-01709-9}{NatAstro} aims to add to this question
+            \item A collaboration truly powered by nested sampling.
+            \item Create parameterised models of sky, beam and signal, breaking degeneracy with a time-dependent likelihood to measure all three simultaneously.
+        \end{itemize}
+
+        \column{0.4\textwidth}
+        \includegraphics[width=\textwidth]{figures/EDGES}
+        \includegraphics[height=0.33\textwidth]{figures/EDGES_antenna}
+        \includegraphics[height=0.33\textwidth]{figures/SARAS}
+
     \end{columns}
+
 \end{frame}
 
+
+\begin{frame}
+    \frametitle{Model comparison and parameter estimation}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Non-parametric reconstruction}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Statistics: fast estimation of small $p$-values~\arxiv{2106.02056}}
+    
+\end{frame}
+
+\begin{frame}
+    \frametitle{Exploration of phase space~\arxiv{2106.02056}}
+    \begin{itemize}
+        \item Computing cross sections
+    \end{itemize}<++>
+\end{frame}
+
+\begin{frame}
+    \frametitle{Quantification of fine tuning~\arxiv{2101.00428}~\arxiv{2205.13549}}
+    \begin{itemize}
+        \item Convergent Bayesian Global Fits of 4D Composite Higgs Models~\arxiv{2101.00428}
+        \item Thermal WIMPs and the Scale of New Physics: Global Fits of Dirac Dark Matter Effective Field Theories~\arxiv{2205.13549}
+    \end{itemize}
+    
+\end{frame}
 
 \begin{frame}
     \frametitle{Nested Sampling with Likelihood Free Inference}
@@ -579,10 +616,10 @@
         \column{0.5\textwidth}
         \begin{itemize}
             \item Assume one has a generative model capable of turning parameters into mock data $D(\theta)$.
-            \item Given infinite computing power, ABC works by selecting $\{\theta : D(\theta)=D_\mathrm{observed}\}$.
+            \item Given infinite computing power, ABC works by selecting $\{\theta : D(\theta)=D_\text{observed}\}$.
             \item These are samples from the posterior, without using a likelihood.
-            \item In practice $D=D_\mathrm{obs}$ becomes $D\approx D_\mathrm{obs}$.
-            \item i.e. $|D-D_\mathrm{obs}|<\varepsilon$, or more generally $\boxed{\rho(D,D_\mathrm{obs})<\varepsilon}$, where $\rho$ is some suitably chosen objective function.
+            \item In practice $D=D_\text{obs}$ becomes $D\approx D_\text{obs}$.
+            \item i.e. $|D-D_\text{obs}|<\varepsilon$, or more generally $\boxed{\rho(D,D_\text{obs})<\varepsilon}$, where $\rho$ is some suitably chosen objective function.
             \item Main challenges are 
                 \begin{enumerate}
                     \item Choice of $\rho$/summary stats,
@@ -593,7 +630,7 @@
         \column{0.5\textwidth}
         \begin{itemize}
             \item Nested sampling fits this well: In principle, can just change the usual hard likelihood constraints $\{\theta\sim\pi : \mathcal{L}(\theta)>\mathcal{L}_*\}$ to
-                \[\{\theta~\sim\pi : \rho(D(\theta),D_\mathrm{obs})<\varepsilon\}\]
+                \[\{\theta~\sim\pi : \rho(D(\theta),D_\text{obs})<\varepsilon\}\]
             (Brewer \& Foreman-Mackey~\arxiv{1606.03757})
             \item Ongoing work with Andrew Fowlie \& Sebastian Hoof
                 \begin{itemize}
@@ -615,7 +652,7 @@
 %            \item Many Likelihood implicit approaches at the moment have some element of sampling direct from the prior
 %            \item Inefficient if number of parameters $>\mathcal{O}(\text{a few})$
 %            \item Can get round this by truncating to region:
-%                \[ \Gamma\{ \theta\in \mathrm{supp} p(\theta) \:|\: p(\theta|x_0)>\bar\varepsilon\} \]
+%                \[ \Gamma\{ \theta\in \text{supp} p(\theta) \:|\: p(\theta|x_0)>\bar\varepsilon\} \]
 %            \item At the moment regions defined by nested boxes
 %            \item \textbf{Frontier:} This seems ripe for replacement by NS -- PhD student currently working on this (Kilian Scheutwinkel)
 %        \end{itemize}
@@ -627,58 +664,6 @@
 %    
 %\end{frame}
 
-
-
-\begin{frame}
-    \frametitle{Conclusions}
-    \vspace{-8pt}
-    \begin{itemize}
-        \item Nested sampling is a truly unique tool -- the only general-purpose probabalistic integrator
-    \end{itemize}
-    \vspace{-18pt}
-    \begin{columns}[t]
-        \small
-        \hspace{10pt}
-        \column{0.33\textwidth}
-        \begin{itemize}
-            \itemsep0em
-            \item Rejection and chain-based nested sampling,
-            \item Dynamic nested sampling,
-            \item Unweaving runs,
-            \item Birth and death contours,
-            \item Importance nested sampling,
-        \end{itemize}
-        \column{0.33\textwidth}
-        \begin{itemize}
-            \itemsep0em
-            \item Cross checks,
-            \item Insertion indices and order statistics,
-            \item Reversible nested sampling,
-            \item AEONS,
-        \end{itemize}
-        \column{0.33\textwidth}
-        \begin{itemize}
-            \itemsep0em
-            \item Transdimensional nested sampling,
-            \item Multiobjective nested sampling,
-            \item Using likelihood values,
-            \item Likelihood free inference.
-        \end{itemize}
-    \end{columns}
-    \begin{block}{Watch out for:}
-        \vspace{-5pt}
-        \begin{description}
-            \item[Johannes Buchner (next)] Analysing chain based samplers.
-            \item[Nancy Paul] \texttt{nested\_fit} and charged ion spectroscopy.
-            \item[Aleksandr Petrosyan (before coffee)] Accelerating nested sampling.
-            \item[Livia Partay (after coffee)] Nested sampling in materials science.
-            \item[Lune Maillard (after Livia)] Nested sampling and free energy surfaces.
-            \item[Harry Bevins (Friday before lunch)] Nested sampling and normalising flows.
-        \end{description}
-    \end{block}
-\end{frame}
-
-\appendix
 
 
 \begin{frame}
@@ -751,14 +736,14 @@
                 \item This means typically most of its time is spent on burn-in rather than posterior sampling.
                 \item Changing the stopping criterion from $10^{-3}$ to $0.5$ does little to speed up the run, but can make results very unreliable.
             \end{itemize}
-        \item The number of live points $n_\mathrm{live}$ is a resolution parameter.
+        \item The number of live points $n_\text{live}$ is a resolution parameter.
             \begin{itemize}
-                \item Run time is linear in $n_\mathrm{live}$, posterior and evidence accuracy goes as $\frac{1}{\sqrt{n_\mathrm{live}}}$.
+                \item Run time is linear in $n_\text{live}$, posterior and evidence accuracy goes as $\frac{1}{\sqrt{n_\text{live}}}$.
                 \item Set low for exploratory runs $\sim\mathcal{O}(10)$ and increased to $\sim\mathcal{O}(1000)$ for production standard.
             \end{itemize}
         \item Most algorithms come with additional reliability parameter(s).
             \begin{itemize}
-                \item e.g. \texttt{MultiNest}: $\texttt{eff}$, \texttt{PolyChord}: $n_\mathrm{repeats}$.
+                \item e.g. \texttt{MultiNest}: $\texttt{eff}$, \texttt{PolyChord}: $n_\text{repeats}$.
                 \item These are parameters which have no gain if set too conservatively, but increase the reliability.
                 \item Check that results do not degrade if you reduce them from defaults, otherwise increase.
             \end{itemize}
@@ -767,5 +752,64 @@
 
 
 
+
+\begin{frame}
+    \frametitle{Occam's Razor~\arxiv{2102.11511}}
+    \begin{itemize}
+        \item Bayesian inference quantifies Occam's Razor:
+            \begin{itemize}
+                \item \textit{``Entities are not to be multiplied without necessity''} \hfill --- William of Occam
+                \item \textit{``Everything should be kept as simple as possible, but not simpler''} \hfill --- ``Albert Einstein''
+            \end{itemize}
+        %\item Consider the Evidence $\C[3]{\mathcal{Z}\equiv P(D|M)}$: 
+        %    \begin{description}[Parameter estimation]
+        %        \item [Parameter estimation] normalisation constant
+        %        \item [Model comparison] critical update factor for \C[5]{model prior} to \C[4]{model posterior}
+        %    \end{description}
+        \item Properties of the evidence: rearrange Bayes' theorem for parameter estimation
+            \[\C[0]{\mathcal{P}(\theta)} = \frac{\C[2]{\mathcal{L}(\theta)} \C[1]{\pi(\theta)}}{\C[3]{\mathcal{Z}}} \qquad\Rightarrow\qquad \C[3]{\log \mathcal{Z}} = \C[2]{\log\mathcal{L}(\theta)} - \log \frac{\C[0]{\mathcal{P}(\theta)}}{\C[1]{\pi(\theta)}} \]  
+        \item Evidence is composed of a ``goodness of fit'' term  and ``Occam Penalty''
+    \end{itemize}
+    \begin{columns}[t]
+        \column{0.5\textwidth}
+    \begin{itemize}
+        \item RHS true for all $\theta$. Take max likelihood value $\theta_*$:
+            \[
+                \log \mathcal{Z} = -\chi_\text{min}^2 - \text{Mackay penalty}
+            \]
+    \end{itemize}
+        \column{0.5\textwidth}
+    \begin{itemize}
+        \item Be more Bayesian and take posterior average to get the ``Occam's razor equation''
+            \[
+                \boxed{
+                    \log \mathcal{Z} = \av[\mathcal{P}]{\log\mathcal{L}} - \mathcal{D}_\text{KL}
+            }
+            \]
+    \end{itemize}
+    \end{columns}
+    \vfill
+    \begin{itemize}
+        \item Natural regularisation which penalises models with too many parameters.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Kullback Liebler divergence}
+    \begin{columns}
+        \column{0.5\textwidth}
+        \begin{itemize}
+            \item The KL divergence between \C[1]{prior $\pi$} and \C[0]{posterior $\mathcal{P}$} is is defined as:
+                \[\mathcal{D}_\text{KL} = \av[\mathcal{P}]{\log\frac{\mathcal{P}}{\pi}} = \int \mathcal{P}(\theta) \log \frac{\mathcal{P}(\theta)}{\pi(\theta)}d\theta.\]
+            \item Whilst not a distance, $\mathcal{D}=0$ when $\mathcal{P}=\pi$.
+            \item Occurs in the context of machine learning as an objective function for training functions.
+            \item In Bayesian inference it can be understood as a log-ratio of ``volumes'':
+                \[ \mathcal{D}_\text{KL} \approx \log \frac{V_\pi}{V_\text{P}}.\]
+                (this is exact for top-hat distributions).
+        \end{itemize}
+        \column{0.5\textwidth}
+        \includegraphics{figures/volumes.pdf}
+    \end{columns}
+\end{frame}
 
 \end{document}
