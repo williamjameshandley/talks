@@ -1,6 +1,11 @@
 # Will Handley's academic talks
 
 ## Academic talks
+1. Nested Sampling: An efficient and robust Bayesian inference tool for particle physics and cosmology
+    - [TRIUMF](https://www.triumf.ca/) 
+    - [PDF](https://github.com/williamjameshandley/talks/raw/triumf_2022/will_handley_triumf_2022.pdf)  
+    - [source](https://github.com/williamjameshandley/talks/tree/triumf_2022)
+    - _Apr 2022_  
 1. Frontiers of nested sampling
     - [MaxEnt](https://maxent22.see.asso.fr/) 
     - [PDF](https://github.com/williamjameshandley/talks/raw/paris_maxent_2022/will_handley_paris_maxent_2022.pdf)  
