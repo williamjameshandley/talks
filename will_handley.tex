@@ -155,11 +155,17 @@
 \begin{frame}
     \frametitle{Integration in high dimensions}
     \begin{columns}
-        \column{0.5\textwidth}
+        \column{0.55\textwidth}
         \begin{itemize}
-            \item
+            \item Numerical integration $\int f(x) dV$ in high dimensions is hard.
+            \item \texttt{scipy.integrate(...)} is unusable in more than four dimensions
+            \item This is due to the curse of dimensionality: need to sum $N^d$ units to compute $\approx \sum_i f(x_i) \Delta V_i$
+            \item Estimating volumes with geometry becomes exponentially hard as $d$ increases.
+            \item \textit{Aside: \textbf{Riemannian integration} (blue) is taught as standard. An orthogonal approach (red -- usually theoretical) is \textbf{Lesbesgue integration}}
         \end{itemize}
-        \column{0.5\textwidth}
+        \column{0.45\textwidth}
+        \includegraphics[width=\textwidth]{figures/integration}
+        \includegraphics[width=\textwidth]{figures/2560px-Riemannvslebesgue.svg.png}
     \end{columns}
 \end{frame}
 
@@ -169,7 +175,7 @@
     \begin{columns}
         \column{0.5\textwidth}
         \begin{itemize}
-            \item At each iteration, the likelihood contour will shrink in volume by  $\approx 1/n$.
+            \item At each iteration, the likelihood contour will shrink in volume $X$ by  $\approx 1/n$.
             \item Nested sampling zooms in to the peak of the function $\mathcal{L}$ {\em exponentially}.
                 \vspace{-5pt}
                 \[
