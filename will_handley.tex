@@ -35,7 +35,7 @@
 \end{frame}
 
 \begin{frame}
-    \frametitle{Highlight: state-of-the-art Nature review}
+    \frametitle{Highlight: state-of-the-art Nature review [\href{https://www.nature.com/articles/s43586-022-00121-x}{NatRev}]}
     \begin{columns}
         \column{0.5\textwidth}
         \begin{itemize}
@@ -44,10 +44,9 @@
             \item Showcases the current set of tools, and applications from chemistry to cosmology.
             \item In this talk
                 \begin{itemize}
-                    \item Reminder on theory of nested sampling,
-                    \item Updates to the meta algorithm since 2004,
-                    \item Updates to the set of tools surrounding nested sampling,
-                    \item Future research projects.
+                    \item User guide to nested sampling
+                    \item Particle physics applications
+                    \item Cosmology applications
                 \end{itemize}
         \end{itemize}
         \column{0.3\textwidth}
@@ -111,12 +110,12 @@
         \end{itemize}
         \column{0.4\textwidth}
 
-        \includegraphics<1>[width=\textwidth,page=16]{figures/himmelblau}%
-        \includegraphics<2>[width=\textwidth,page=17]{figures/himmelblau}%
-        \includegraphics<3>[width=\textwidth,page=18]{figures/himmelblau}%
-        \includegraphics<4>[width=\textwidth,page=19]{figures/himmelblau}%
-        \includegraphics<5>[width=\textwidth,page=20]{figures/himmelblau}%
-        \includegraphics<6>[width=\textwidth,page=21]{figures/himmelblau}%
+        \includegraphics<1|handout:0>[width=\textwidth,page=16]{figures/himmelblau}%
+        \includegraphics<2|handout:0>[width=\textwidth,page=17]{figures/himmelblau}%
+        \includegraphics<3|handout:0>[width=\textwidth,page=18]{figures/himmelblau}%
+        \includegraphics<4|handout:0>[width=\textwidth,page=19]{figures/himmelblau}%
+        \includegraphics<5          >[width=\textwidth,page=20]{figures/himmelblau}%
+        \includegraphics<6|handout:0>[width=\textwidth,page=21]{figures/himmelblau}%
 
     \end{columns}
 \end{frame}
@@ -158,10 +157,10 @@
         \column{0.55\textwidth}
         \begin{itemize}
             \item Numerical integration $\int f(x) dV$ in high dimensions is hard.
-            \item \texttt{scipy.integrate(...)} is unusable in more than four dimensions
-            \item This is due to the curse of dimensionality: need to sum $N^d$ units to compute $\approx \sum_i f(x_i) \Delta V_i$
-            \item Estimating volumes with geometry becomes exponentially hard as $d$ increases.
-            \item \textit{Aside: \textbf{Riemannian integration} (blue) is taught as standard. An orthogonal approach (red -- usually theoretical) is \textbf{Lesbesgue integration}}
+            \item \texttt{scipy.integrate(...)} is unusable in more than four dimensions.
+            \item This is due to the curse of dimensionality: need to sum $\sim N^d$ units to compute $\approx \sum_i f(x_i) \Delta V_i$.
+            \item Additionally, estimating volumes with geometry becomes exponentially hard as $d$ increases.
+            \item \textit{Aside: \textbf{Riemannian integration} (blue) is taught as standard. An orthogonal approach (red) [usually theoretical] is \textbf{Lesbesgue integration}.}
         \end{itemize}
         \column{0.45\textwidth}
         \includegraphics[width=\textwidth]{figures/integration}
@@ -170,8 +169,7 @@
 \end{frame}
 
 \begin{frame}
-    \frametitle{Mathematics of Nested Sampling}
-    \framesubtitle{A probabilistic Lebesgque integrator}
+    \frametitle{(Lesbesgue) Integrating with nested sampling}
     \begin{columns}
         \column{0.5\textwidth}
         \begin{itemize}
@@ -342,7 +340,7 @@
     \begin{columns}
         \column{0.5\textwidth}
         \begin{itemize}
-            \item Nested sampling for cross section computation/event generation
+            \item Nested sampling for cross section computation/event generation.
             \item Numerically compute collisional cross section 
                 \vspace{-5pt}\[\sigma = \int_\Omega d\Phi |\mathcal{M}|^2,\]
                 $\Omega$ phase space of kinematic configurations $\Phi$, each with matrix element $\mathcal{M}(\Phi)$.
@@ -356,17 +354,17 @@
 \end{frame}
 
 \begin{frame}
-    \frametitle{Statistics: fast estimation of small $p$-values~\arxiv{2106.02056}}
+    \frametitle{Statistics: fast estimation of small $p$-values~\arxiv{2106.02056}(PRL)}
     \begin{columns}
         \column{0.52\textwidth}
         \begin{itemize}
             \item Nested sampling for frequentist computation!?
             \item $p$-value: $P(\lambda>\lambda^*|H_0)$ -- probability that test statistic $\lambda$ is at least as great as observed $\lambda^*$.
-            \item Computation of a tail probability from sampling distribution of $\lambda$ under $H_0$
+            \item Computation of a tail probability from sampling distribution of $\lambda$ under $H_0$.
             \item For gold-standard $5\sigma$, this is very expensive to simulate directly ($\sim10^9$ by definition).
-            \item Need insight/approximation to make efficient
-            \item Nested sampling is tailor-made for this, just make switch: $X\leftrightarrow p$, $\mathcal{L}\leftrightarrow\lambda$, $\theta \leftrightarrow x$
-            \item The only real conceptual shift is switching the integrator from parameter- to data-space
+            \item Need insight/approximation to make efficient.
+            \item Nested sampling is tailor-made for this, just make switch: $X\leftrightarrow p$, $\mathcal{L}\leftrightarrow\lambda$, $\theta \leftrightarrow x$.
+            \item The only real conceptual shift is switching the integrator from parameter- to data-space.
         \end{itemize}
         \column{0.48\textwidth}
         \includegraphics[width=\textwidth]{figures/pvalue.pdf}
@@ -380,22 +378,22 @@
     \begin{columns}
         \column{0.5\textwidth}
         \begin{itemize}
-            \item Example: Cosmological constraints on decaying axion-like particles~\arxiv{2205.13549}
+            \item Example: Cosmological constraints on decaying axion-like particles~\arxiv{2205.13549}.
             \item Subset of parameters $\xi,m_a,\tau,g_{a\gamma}$: ALP fraction, mass, lifetime and photon coupling.
                 {(\small Also vary cosmology, $\tau_n$ and nuisance params)}
-            \item Data: CMB, BBN, FIRAS, SMM, BAO
-            \item Standard profile likelihood fit shows ruled out regions and best-fit point
+            \item Data: CMB, BBN, FIRAS, SMM, BAO.
+            \item Standard profile likelihood fit shows ruled out regions and best-fit point.
             \item<2-> Nested sampling scan:
                 \begin{itemize}
-                    \item Quantifies amount of parameter space ruled out with Kullback-Liebler divergence $\mathcal{D}_\mathrm{KL}$
+                    \item Quantifies amount of parameter space ruled out with Kullback-Liebler divergence $\mathcal{D}_\mathrm{KL}$.
                     \item Identifies best fit region as statistically irrelevant from information theory/Bayesian.
-                    \item No evidence for decaying ALPs. Fit the data equally well: but more constrained parameters.
+                    \item No evidence for decaying ALPs. Fit the data equally well: but more constrained parameters create Occam penalty.
                 \end{itemize}
         \end{itemize}
         \column{0.5\textwidth}
-        \includegraphics<1>[width=\textwidth]{figures/ALP_1.pdf}
-        \includegraphics<2>[width=\textwidth]{figures/ALP_2.pdf}
-        \includegraphics<3>[width=\textwidth]{figures/ALP_3.pdf}
+        \includegraphics<1|handout:0>[width=\textwidth]{figures/ALP_1.pdf}
+        \includegraphics<2          >[width=\textwidth]{figures/ALP_2.pdf}
+        \includegraphics<3|handout:0>[width=\textwidth]{figures/ALP_3.pdf}
     \end{columns}
     
 \end{frame}
@@ -410,10 +408,10 @@
                 \item ``Are neutrinos in a normal or inverted hierarchy?''
                 \item ``Is there a detectable global signal in this data?''
             \end{itemize}
-        \item However model $\mathcal{M}$ is likelihood $\C[2]{\mathcal{L}=P(D|\theta,M)}$ and priors $\C[1]{\pi=P(\theta|M)}$, $\C[5]{\Pi=P(M)}$
+        \item However model $\mathcal{M}$ is likelihood $\C[2]{\mathcal{L}=P(D|\theta,M)}$ and priors $\C[1]{\pi=P(\theta|M)}$, $\C[5]{\Pi=P(M)}$.
         \item Can use the evidence \C[3]{$\mathcal{Z}$} to decide on which out of a set of likelihoods best describe data (e.g. Gaussian, Cauchy, Poisson, radiometric).
         \item Can also use it for antenna selection~\arxiv{2106.10193}~\arxiv{2109.10098}.
-        \item In principle can use it to decide between theoretically motivated priors (care needed)
+        \item In principle can use it to decide between theoretically motivated priors (care needed).
         \item It can also be used for non-parametric reconstruction:
             \begin{itemize}
                 \item ``How many polynomial terms best describe the data?''
@@ -425,7 +423,28 @@
 
 
 \begin{frame}
-    \frametitle{Model comparison and parameter estimation}
+    \frametitle{Model comparison and parameter estimation~\arxiv{1908.09139}}
+    \begin{columns}
+        \begin{column}{0.5\textwidth}
+            \vspace{-10pt}
+            \begin{itemize}
+                \item If you allow $\Omega_K\ne0$, \textit{Planck} (\texttt{plikTTTEEE}) has a moderate preference for closed universes (50:1 betting odds on), $\Omega_K=-4.5\pm1.5\%$.
+                \item \textit{Planck}+lens+BAO strongly prefer $\Omega_K=0$.
+                \item But, \textit{Planck} vs lensing is 2.5$\sigma$ in tension, and Planck vs BAO is 3$\sigma$.
+                \item Reduced if $\texttt{plik}\to\texttt{camspec}$~\arxiv{2002.06892} 
+                \item BAO and lensing summary assume $\Lambda$CDM.
+                \item Doing this properly with BAO retains preference for closed universe (though closer to flat $\Omega_K =-0.4\pm0.2\%$)~\arxiv{2205.05892}
+                \item Present-day curvature has profound consequences for inflation~\arxiv{2205.07374}
+            \end{itemize}
+        \end{column}
+        \begin{column}{0.5\textwidth}
+            \includegraphics<1|handout:0>[width=\textwidth]{figures/curvature_1}
+            \includegraphics<2|handout:0>[width=\textwidth]{figures/curvature_2}
+            \includegraphics<3          >[width=\textwidth]{figures/curvature_3}
+
+        \end{column}
+    \end{columns}
+
 \end{frame}
 
 
@@ -446,17 +465,17 @@
 
 \begin{frame}
     \frametitle<1-5>{Primordial power spectrum $\mathcal{P}_\mathcal{R}(k)$ reconstruction~\arxiv{1908.00906}}
-  \frametitle<6>{0 internal knots}
-  \frametitle<7>{1 internal knot}
-  \frametitle<8>{2 internal knots}
-  \frametitle<9>{3 internal knots}
-  \frametitle<10>{4 internal knots}
-  \frametitle<11>{5 internal knots}
-  \frametitle<12>{6 internal knots}
-  \frametitle<13>{7 internal knots}
-  \frametitle<14>{Bayes Factors}
-  \frametitle<15>{Marginalised plot}
-  \frametitle<16>{Kullback-Liebler divergences}
+  \frametitle<6|handout:0>{0 internal knots}
+  \frametitle<7|handout:0>{1 internal knot}
+  \frametitle<8|handout:0>{2 internal knots}
+  \frametitle<9|handout:0>{3 internal knots}
+  \frametitle<10|handout:0>{4 internal knots}
+  \frametitle<11|handout:0>{5 internal knots}
+  \frametitle<12|handout:0>{6 internal knots}
+  \frametitle<13|handout:0>{7 internal knots}
+  \frametitle<14|handout:0>{Bayes Factors}
+  \frametitle<15|handout:0>{Marginalised plot}
+  \frametitle<16|handout:0>{Kullback-Liebler divergences}
   %\framesubtitle{Primordial power spectrum $\mathcal{P}_\mathcal{R}(k)$ reconstruction}
 
 
@@ -473,7 +492,7 @@
       }
       \column{0.5\textwidth}
 
-      \only<1-5>{
+      \only<1-5|handout:0>{
   \resizebox{\textwidth} {!} {%
     \begin{tikzpicture}
     % width of axes
@@ -500,14 +519,14 @@
 
 
     % Draw axes
-      \draw<1-5> [<->,thick] (0,\ywidth) node (yaxis) [above] {$\log\mathcal{P}_\mathcal{R}(k)$}
+      \draw<1-5|handout:0> [<->,thick] (0,\ywidth) node (yaxis) [above] {$\log\mathcal{P}_\mathcal{R}(k)$}
       |- (\xwidth,0) node (xaxis) [right] {$\log k$};
     % Draw limits
       %\draw [-,dashed] (\xmn,0) node[below] {$\log_{10}k_1$} -- (\xmn,\ywidth) ;
       %\draw [-,dashed] (\xmx,0) node[below] {$\log_{10}k_N$} -- (\xmx,\ywidth) ;
 
-      \draw<1> (\xmn,\ymn) -- (\xmx,\ymx);
-      \draw<1> (\xstart,\ystart) node[below right] {$A_s {\left(\frac{k}{k_*}\right)}^{n_s-1}$};
+      \draw<1|handout:0> (\xmn,\ymn) -- (\xmx,\ymx);
+      \draw<1|handout:0> (\xstart,\ystart) node[below right] {$A_s {\left(\frac{k}{k_*}\right)}^{n_s-1}$};
 
     % Draw the line joining start and end
 
@@ -516,36 +535,36 @@
       \coordinate (mid) at (\xmid,\ymid);
       \coordinate (end) at (\xend,\yend);
       \coordinate (mx) at (\xmx,\ymx);
-      \draw<2> (mn) -- (mx);
-      \draw<2-5> (mn) node[below right]    {$(k_1,\mathcal{P}_{1})$};
-      \draw<2> (mx) node[below left]     {$(k_{2},\mathcal{P}_{{2}})$};
-      \onslide<2-5>{\movablevert{mn}};
-      \onslide<2-5>{\movablevert{mx}};
+      \draw<2|handout:0> (mn) -- (mx);
+      \draw<2-5|handout:0> (mn) node[below right]    {$(k_1,\mathcal{P}_{1})$};
+      \draw<2|handout:0> (mx) node[below left]     {$(k_{2},\mathcal{P}_{{2}})$};
+      \onslide<2-5|handout:0>{\movablevert{mn}};
+      \onslide<2-5|handout:0>{\movablevert{mx}};
 
-      \draw<3> (mn) -- (start) -- (mx);
-      \onslide<3-5>{\movablecross{start}};
-      \draw<3-5> (start) node[above right] {$(k_2,\mathcal{P}_{2})$};
-      \draw<3> (mx) node[below left]     {$(k_{3},\mathcal{P}_{{3}})$};
+      \draw<3|handout:0> (mn) -- (start) -- (mx);
+      \onslide<3-5|handout:0>{\movablecross{start}};
+      \draw<3-5|handout:0> (start) node[above right] {$(k_2,\mathcal{P}_{2})$};
+      \draw<3|handout:0> (mx) node[below left]     {$(k_{3},\mathcal{P}_{{3}})$};
  
-      \draw<4> (mn) -- (start) -- (mid) -- (mx);
-      \onslide<4-5>{\movablecross{mid}};
-      \draw<4-5> (mid) node[below right] {$(k_3,\mathcal{P}_{3})$};
-      \draw<4> (mx) node[below left]     {$(k_{4},\mathcal{P}_{{4}})$};
+      \draw<4|handout:0> (mn) -- (start) -- (mid) -- (mx);
+      \onslide<4-5|handout:0>{\movablecross{mid}};
+      \draw<4-5|handout:0> (mid) node[below right] {$(k_3,\mathcal{P}_{3})$};
+      \draw<4|handout:0> (mx) node[below left]     {$(k_{4},\mathcal{P}_{{4}})$};
 
-      \draw<5> (mn) -- (start) -- (mid) -- (end) -- (mx);
-      \onslide<5>{\movablecross{end}};
-      \draw<5> (end) node[above right] {$(k_4,\mathcal{P}_{4})$};
-      \draw<5> (mx) node[below left]     {$(k_{N_\text{knots}},\mathcal{P}_{N_\text{knots}})$};
+      \draw<5|handout:0> (mn) -- (start) -- (mid) -- (end) -- (mx);
+      \onslide<5|handout:0>{\movablecross{end}};
+      \draw<5|handout:0> (end) node[above right] {$(k_4,\mathcal{P}_{4})$};
+      \draw<5|handout:0> (mx) node[below left]     {$(k_{N_\text{knots}},\mathcal{P}_{N_\text{knots}})$};
 
 
-      %\draw<2-> (\xmn,\ymn) coordinate (mn) -- (\xstart,\ystart) coordinate (start) -- (\xmid,\ymid) coordinate (mid) --  (\xend,\yend) coordinate(end) -- (\xmx,\ymx) coordinate(mx);
+      %\draw<2-|handout:0> (\xmn,\ymn) coordinate (mn) -- (\xstart,\ystart) coordinate (start) -- (\xmid,\ymid) coordinate (mid) --  (\xend,\yend) coordinate(end) -- (\xmx,\ymx) coordinate(mx);
 
     % Draw the point labels
-      %\draw<2-> (mn) node[below right]    {$(k_1,\mathcal{P}_{1})$};
-      %\draw<2-> (start) node[above right] {$(k_2,\mathcal{P}_{2})$};
-      %\draw<2-> (mid) node[below right]   {$(k_3,\mathcal{P}_{3})$};
-      %\draw<2-> (end) node[above right]   {$(k_4,\mathcal{P}_{4})$};
-      %\draw<2-> (mx) node[below left]     {$(k_{N_\text{knots}},\mathcal{P}_{N_\text{knots}})$};
+      %\draw<2-|handout:0> (mn) node[below right]    {$(k_1,\mathcal{P}_{1})$};
+      %\draw<2-|handout:0> (start) node[above right] {$(k_2,\mathcal{P}_{2})$};
+      %\draw<2-|handout:0> (mid) node[below right]   {$(k_3,\mathcal{P}_{3})$};
+      %\draw<2-|handout:0> (end) node[above right]   {$(k_4,\mathcal{P}_{4})$};
+      %\draw<2-|handout:0> (mx) node[below left]     {$(k_{N_\text{knots}},\mathcal{P}_{N_\text{knots}})$};
 
     % Draw a dashed line indicating the coordinate names
       %\draw[dashed] (yaxis |- start) node[left] {$y_{1}$}
@@ -559,7 +578,7 @@
       %\draw  (xaxis -| end) node[below] {$\log_{10}k_4$};
 
       % Draw the crosses
-      %\onslide<2->{\movablevert{mn}
+      %\onslide<2-|handout:0>{\movablevert{mn}
       %\movablecross{start}
       %\movablecross{mid}
       %\movablecross{end}
@@ -576,17 +595,17 @@
 
 
 
-    \includegraphics<6>[width=\textwidth]{figures/pps_both_1}
-    \includegraphics<7>[width=\textwidth]{figures/pps_both_2}
-    \includegraphics<8>[width=\textwidth]{figures/pps_both_3}
-    \includegraphics<9>[width=\textwidth]{figures/pps_both_4}
-    \includegraphics<10>[width=\textwidth]{figures/pps_both_5}
-    \includegraphics<11>[width=\textwidth]{figures/pps_both_6}
-    \includegraphics<12>[width=\textwidth]{figures/pps_both_7}
-    \includegraphics<13>[width=\textwidth]{figures/pps_both_8}
-    \includegraphics<14>[width=\textwidth]{figures/pps_evidence}
-    \includegraphics<15>[width=\textwidth]{figures/pps_both}
-    \includegraphics<16>[width=\textwidth]{figures/DKL.pdf}
+    \includegraphics<6|handout:0>[width=\textwidth]{figures/pps_both_1}
+    \includegraphics<7|handout:0>[width=\textwidth]{figures/pps_both_2}
+    \includegraphics<8|handout:0>[width=\textwidth]{figures/pps_both_3}
+    \includegraphics<9|handout:0>[width=\textwidth]{figures/pps_both_4}
+    \includegraphics<10|handout:0>[width=\textwidth]{figures/pps_both_5}
+    \includegraphics<11|handout:0>[width=\textwidth]{figures/pps_both_6}
+    \includegraphics<12|handout:0>[width=\textwidth]{figures/pps_both_7}
+    \includegraphics<13|handout:0>[width=\textwidth]{figures/pps_both_8}
+    \includegraphics<14|handout:0>[width=\textwidth]{figures/pps_evidence}
+    \includegraphics<15          >[width=\textwidth]{figures/pps_both}
+    \includegraphics<16|handout:0>[width=\textwidth]{figures/DKL.pdf}
 
   \end{columns}
 \end{frame}
@@ -596,11 +615,11 @@
     \begin{columns}
         \column{0.62\textwidth}
         \begin{itemize}
-            \item Imaging the universal dark ages using CMB backlight
-            \item $21\text{cm}$ hyperfine line emission from neutral hydrogen
-            \item Global experiments measure monopole across frequency
+            \item Imaging the universal dark ages using CMB backlight.
+            \item $21\text{cm}$ hyperfine line emission from neutral hydrogen.
+            \item Global experiments measure monopole across frequency.
             \item Gives a specific absorption trough, which if detected allows constraints on the physics of the dark ages decade(s) before SKA.
-            \item Challenge: science hidden in foregrounds $\sim 10^4\times$signal
+            \item Challenge: science hidden in foregrounds $\sim 10^4\times$signal.
         \includegraphics[height=0.32\textwidth]{figures/EDGES_antenna}
         \includegraphics[height=0.32\textwidth]{figures/SARAS}
         \includegraphics[height=0.32\textwidth]{figures/REACH_2.jpg}
@@ -620,17 +639,17 @@
     \begin{columns}
         \column{0.6\textwidth}
         \begin{itemize}
-            \item EDGES~[\href{https://www.nature.com/articles/nature25792}{Nat}] claimed a controversial 2019 detection
-            \item SARAS3~[\href{https://www.nature.com/articles/s41550-022-01610-5}{NatAstro}]  would have detected this by 2021
-            \item REACH~[\href{https://www.nature.com/articles/s41550-022-01709-9}{NatAstro}] aims to settle the debate
+            \item EDGES~[\href{https://www.nature.com/articles/nature25792}{Nat}] claimed a controversial 2019 detection.
+            \item SARAS3~[\href{https://www.nature.com/articles/s41550-022-01610-5}{NatAstro}]  would have detected this by 2021.
+            \item REACH~[\href{https://www.nature.com/articles/s41550-022-01709-9}{NatAstro}] aims to settle the debate.
                 \begin{itemize}
-                    \item Broader band
-                    \item Honesty about systematic modelling
-                    \item State of the art inference
+                    \item Broader band,
+                    \item Honesty about systematic modelling,
+                    \item State of the art inference.
                 \end{itemize}
             \item Create parameterised models of sky, beam and signal, breaking degeneracy with a time-dependent likelihood to measure all three simultaneously.
-            \item Use model comparison based reconstruction to determine complexity of parameterisation
-            \item Use model comparison to select likelihoods
+            \item Use model comparison based reconstruction to determine complexity of parameterisation.
+            \item Use model comparison to select likelihoods.
             \item A collaboration powered by nested sampling.
         \end{itemize}
 
@@ -728,6 +747,7 @@
 
 
 
+\appendix
 \begin{frame}
     \frametitle{How does Nested Sampling compare to other approaches?}
     \begin{columns}
