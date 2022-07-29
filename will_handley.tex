@@ -13,7 +13,7 @@
 
 % Talk details
 % ------------
-\title{Nested Sampling: A multi-purpose numerical tool for particle physics and cosmology}
+\title{Nested Sampling: a multi-purpose numerical tool \\for particle physics and cosmology}
 \date{29\textsuperscript{th} July 2022}
 %Nested Sampling is an established numerical technique for optimising,
 %sampling, integrating and scanning *a priori* unknown probability
@@ -100,7 +100,7 @@
     \begin{columns}
         \column{0.6\textwidth}
         \begin{itemize}
-            \item Markov chain based methods generate samples from posterior distribution by a stepping procedure.
+            \item Markov chain based methods generate samples from distribution by a stepping procedure.
             \item This can get stuck in local peaks.
             \item Cannot compute normalisation $\mathcal{Z}$ of Bayes theorem:
                 \[ \C[0]{P(\theta|D,M)} = \frac{\C[2]{P(D|\theta,M)}\C[1]{P(\theta|M)}}{\C[3]{P(D|M)}},\]
@@ -134,9 +134,9 @@
 
                     \item[$S_{i+1}$:] Delete the lowest likelihood sample in $S_{i}$, and replace it with a new uniform sample with higher likelihood.
                 \end{itemize}
-            \item Requires one to be able to sample uniformly within a region, subject to a {\em hard likelihood constraint}:
+            \item Requires one to be able to sample uniformly within a region, subject to a {\em hard constraint}:
                 \[\{\theta\sim \pi : \mathcal{L}(\theta)>\mathcal{L}_*. \}\]
-            \item This procedure optimises (multimodally), and can calculate the \C[3]{evidence} \& \C[0]{posterior} weights.
+            \item This procedure optimises (multimodally), and can calculate the \C[3]{evidence}/integral of function \& \C[0]{posterior}/sample weights.
         \end{itemize}
         \column{0.4\textwidth}
 
@@ -149,6 +149,17 @@
         \includegraphics<7|handout:0>[width=\textwidth,page=7]{figures/himmelblau}%
         \includegraphics<8|handout:0>[width=\textwidth,page=8]{figures/himmelblau}%
 
+    \end{columns}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Integration in high dimensions}
+    \begin{columns}
+        \column{0.5\textwidth}
+        \begin{itemize}
+            \item
+        \end{itemize}
+        \column{0.5\textwidth}
     \end{columns}
 \end{frame}
 
@@ -318,6 +329,69 @@
                     \item e.g. \texttt{Multinest} efficiency \texttt{eff} or \texttt{PolyChord} chain length $n_\text{repeats}$.
             \end{itemize}
     \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Exploration of phase space~\arxiv{2106.02056}}
+    \begin{columns}
+        \column{0.5\textwidth}
+        \begin{itemize}
+            \item Nested sampling for cross section computation/event generation
+            \item Numerically compute collisional cross section 
+                \vspace{-5pt}\[\sigma = \int_\Omega d\Phi |\mathcal{M}|^2,\]
+                $\Omega$ phase space of kinematic configurations $\Phi$, each with matrix element $\mathcal{M}(\Phi)$.
+            \item Current state of the art e.g. HAAG (improvement on RAMBO) requires knowledge of $\mathcal{M}(\Phi)$.
+            \item Nested sampling can explore the phase space and compute integral blind with comparable efficiency.
+        \end{itemize}
+        \column{0.5\textwidth}
+        \includegraphics[width=\textwidth]{figures/phase_space_1.pdf}
+        \includegraphics[width=\textwidth]{figures/phase_space.pdf}
+    \end{columns}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Statistics: fast estimation of small $p$-values~\arxiv{2106.02056}}
+    \begin{columns}
+        \column{0.52\textwidth}
+        \begin{itemize}
+            \item Nested sampling for frequentist computation!?
+            \item $p$-value: $P(\lambda>\lambda^*|H_0)$ -- probability that test statistic $\lambda$ is at least as great as observed $\lambda^*$.
+            \item Computation of a tail probability from sampling distribution of $\lambda$ under $H_0$
+            \item For gold-standard $5\sigma$, this is very expensive to simulate directly ($\sim10^9$ by definition).
+            \item Need insight/approximation to make efficient
+            \item Nested sampling is tailor-made for this, just make switch: $X\leftrightarrow p$, $\mathcal{L}\leftrightarrow\lambda$, $\theta \leftrightarrow x$
+            \item The only real conceptual shift is switching the integrator from parameter- to data-space
+        \end{itemize}
+        \column{0.48\textwidth}
+        \includegraphics[width=\textwidth]{figures/pvalue.pdf}
+    \end{columns}
+    
+\end{frame}
+
+\begin{frame}
+    \frametitle{Quantification of fine tuning~\arxiv{2101.00428}~\arxiv{2205.13549}}
+    \vspace{-10pt}
+    \begin{columns}
+        \column{0.5\textwidth}
+        \begin{itemize}
+            \item Example: Cosmological constraints on decaying axion-like particles~\arxiv{2205.13549}
+            \item Subset of parameters $\xi,m_a,\tau,g_{a\gamma}$: ALP fraction, mass, lifetime and photon coupling.
+                {(\small Also vary cosmology, $\tau_n$ and nuisance params)}
+            \item Data: CMB, BBN, FIRAS, SMM, BAO
+            \item Standard profile likelihood fit shows ruled out regions and best-fit point
+            \item<2-> Nested sampling scan:
+                \begin{itemize}
+                    \item Quantifies amount of parameter space ruled out with Kullback-Liebler divergence $\mathcal{D}_\mathrm{KL}$
+                    \item Identifies best fit region as statistically irrelevant from information theory/Bayesian.
+                    \item No evidence for decaying ALPs. Fit the data equally well: but more constrained parameters.
+                \end{itemize}
+        \end{itemize}
+        \column{0.5\textwidth}
+        \includegraphics<1>[width=\textwidth]{figures/ALP_1.pdf}
+        \includegraphics<2>[width=\textwidth]{figures/ALP_2.pdf}
+        \includegraphics<3>[width=\textwidth]{figures/ALP_3.pdf}
+    \end{columns}
+    
 \end{frame}
 
 
@@ -560,58 +634,6 @@
 
     \end{columns}
 
-\end{frame}
-
-\begin{frame}
-    \frametitle{Quantification of fine tuning~\arxiv{2101.00428}~\arxiv{2205.13549}}
-    \vspace{-10pt}
-    \begin{columns}
-        \column{0.5\textwidth}
-        \begin{itemize}
-            \item Example: Cosmological constraints on decaying axion-like particles~\arxiv{2205.13549}
-            \item Subset of parameters $\xi,m_a,\tau,g_{a\gamma}$: ALP fraction, mass, lifetime and photon coupling.
-                {(\small Also vary cosmology, $\tau_n$ and nuisance params)}
-            \item Data: CMB, BBN, FIRAS, SMM, BAO
-            \item Standard profile likelihood fit shows ruled out regions and best-fit point
-            \item<2-> Nested sampling scan:
-                \begin{itemize}
-                    \item Quantifies amount of parameter space ruled out with Kullback-Liebler divergence $\mathcal{D}_\mathrm{KL}$
-                    \item Identifies best fit region as statistically irrelevant from information theory/Bayesian.
-                    \item No evidence for decaying ALPs. Fit the data equally well: but more constrained parameters.
-                \end{itemize}
-        \end{itemize}
-        \column{0.5\textwidth}
-        \includegraphics<1>[width=\textwidth]{figures/ALP_1.pdf}
-        \includegraphics<2>[width=\textwidth]{figures/ALP_2.pdf}
-        \includegraphics<3>[width=\textwidth]{figures/ALP_3.pdf}
-    \end{columns}
-    
-\end{frame}
-
-\begin{frame}
-    \frametitle{Statistics: fast estimation of small $p$-values~\arxiv{2106.02056}}
-    \begin{columns}
-        \column{0.52\textwidth}
-        \begin{itemize}
-            \item Nested sampling for frequentist computation!?
-            \item $p$-value: $P(\lambda>\lambda^*|H_0)$ -- probability that test statistic $\lambda$ is at least as great as observed $\lambda^*$.
-            \item Computation of a tail probability from sampling distribution of $\lambda$ under $H_0$
-            \item For gold-standard $5\sigma$, this is very expensive to simulate directly ($\sim10^9$ by definition).
-            \item Need insight/approximation to make efficient
-            \item Nested sampling is tailor-made for this, just make switch: $X\leftrightarrow p$, $\mathcal{L}\leftrightarrow\lambda$, $\theta \leftrightarrow x$
-            \item The only real conceptual shift is switching the integrator from parameter- to data-space
-        \end{itemize}
-        \column{0.48\textwidth}
-        \includegraphics[width=\textwidth]{figures/pvalue.pdf}
-    \end{columns}
-    
-\end{frame}
-
-\begin{frame}
-    \frametitle{Exploration of phase space~\arxiv{2106.02056}}
-    \begin{itemize}
-        \item Computing cross sections
-    \end{itemize}<++>
 \end{frame}
 
 %\begin{frame}
