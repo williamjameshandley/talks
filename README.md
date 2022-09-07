@@ -1,6 +1,11 @@
 # Will Handley's academic talks
 
 ## Academic talks
+1. Next generation cosmological analysis with nested sampling
+    - [Corfu2022](http://physics.ntua.gr/corfu2022/co.html) 
+    - [PDF](https://github.com/williamjameshandley/talks/raw/corfu_2022/will_handley_corfu_2022.pdf)  
+    - [source](https://github.com/williamjameshandley/talks/tree/corfu_2022)
+    - _Sep 2022_  
 1. Nested Sampling: An efficient and robust Bayesian inference tool for particle physics and cosmology
     - [TRIUMF](https://www.triumf.ca/) 
     - [PDF](https://github.com/williamjameshandley/talks/raw/triumf_2022/will_handley_triumf_2022.pdf)  
