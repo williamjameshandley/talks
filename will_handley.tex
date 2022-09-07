@@ -232,6 +232,17 @@
 
 \begin{frame}
     \frametitle{The grid}
+    \begin{itemize}
+        \item Models: $[\Lambda\text{CDM}, \Omega_K, \nu, r, w, w(a)]$
+        \item Data: [\texttt{plik}, \texttt{camspec}, \texttt{DESY1}, \texttt{bicep+keck}, \texttt{BAO(DR16)}, \texttt{pantheon} ]
+        \item Pairwise combinations of datasets
+        \item Breakdown of Planck \& BAO data
+        \item These exhaust what is currently available by default in $\texttt{cobaya}$
+        \item Wide priors to allow for importance readjustment as desired
+        \item roughly halfway through computational allocation. 
+        \item Feedback desirable as to what extensions to the gred would be of community interest.
+        \item Further checking needed before first release by end of this year.
+    \end{itemize}
 \end{frame}
 
 \begin{frame}
@@ -241,8 +252,10 @@
         \item Python tool for seamlessly downloading and cacheing chains
         \item Data stored on \texttt{zenodo} 
         \item hdf5 storage for fast \& reliable download
-        \item \texttt{anesthetic} compatible for processing of chains
+        \item Library of trained bijectors to be used as priors/emulators~\arxiv{2102.12478}/nuisance marginalised likelihoods~\arxiv{2207.11457}
+        \item \texttt{anesthetic} compatible for processing of chains~\arxiv{1905.04768}
         \item $\alpha$-testers wanted! (email \href{mailto:wh260@cam.ac.uk}{wh260@cam.ac.uk}) 
+        \item End goal -- community library which everyone contributes to so expensive runs reusable.
     \end{itemize}
 \end{frame}
 
@@ -321,11 +334,11 @@
         \item[Option 2] Try to find a principled way of removing this prior dependency
     \end{description}
     \begin{itemize}
-        \item Decompose ratio using Occam's Razor equation $\log \mathcal{Z} = \av[\mathcal{P}]{\log\mathcal{L}}$
+        \item Decompose ratio using Occam's Razor equation $\log \mathcal{Z} = \av[\mathcal{P}]{\log\mathcal{L}} - \mathcal{D}$
         \[ 
             \begin{aligned}
                 \log R &= \log\mathcal{Z}_{AB} - \log\mathcal{Z}_{A} - \log\mathcal{Z}_{A} \\
-                &= \av[\mathcal{P}_{AB}]{\log\mathcal{L}_{AB}} - \av[\mathcal{P}_{A}]{\log\mathcal{L}_{A}}- \av[\mathcal{P}_{B}]{\log\mathcal{L}_{B}} - \mathcal{D}_{AB} + \mathcal{D}_{A} + \mathcal{D}_{A} \\
+                &= \av[\mathcal{P}_{AB}]{\log\mathcal{L}_{AB}} - \av[\mathcal{P}_{A}]{\log\mathcal{L}_{A}}- \av[\mathcal{P}_{B}]{\log\mathcal{L}_{B}} - \mathcal{D}_{AB} + \mathcal{D}_{A} + \mathcal{D}_{B} \\
                 &= \log \mathcal{S} + \log \mathcal{I}
             \end{aligned}
     \]
@@ -342,18 +355,9 @@
             \[
                 \log \mathcal{S} = \frac{d}{2}  -\frac{1}{2} (\mu_A-\mu_B){(\Sigma_{A}+\Sigma_{B})}^{-1}(\mu_A-\mu_B).
             \]
-        \item The Malhanobis  term is suggestive, so we can use this to calibrate a ``sigma'' level of tension using a $\chi^2$ distribution for $\chi^2_d=d-2\log \mathcal{S}$.
+        \item The Malhanobis  term is suggestive, so we can use this to calibrate a ``sigma'' level of tension using a $\chi^2$ distribution for $\chi^2_d=d-2\log \mathcal{S}$, or a tension probability.
         \item $S$ is composed of evidences $\mathcal{Z}$ and KL divergences $\mathcal{D}$, which are Gaussian-independent concepts, so the only thing to determine is $d$, the ``number of shared parameters''.
         \item Can do this with Gaussian dimensionality $\frac{d}{2}=\text{var}_\mathcal{P}(\log \mathcal{L})$~\arxiv{1903.06682}
-    \end{itemize}
-
-\end{frame}
-
-
-\begin{frame}
-    \frametitle{Planck, DES and BAO}
-    \begin{itemize}
-        \item Can calibrate $X^2_d$ as on the same scale as $\chi^2_d$ to give a $p$-value-like quantity, termed ``Tension probability'' $p$
             \begin{align}
                 \text{Planck vs BAO}:&      &p&=  42 \pm     4 \% \nonumber\\
                 \text{Planck vs DESY1}:&      &p&=   3.2 \pm     1.0 \% \nonumber\\
@@ -361,7 +365,9 @@
             \end{align}
         \item Under this metric, S$H_0$ES is unambiguously inconsistent, although not quite as brutal as $>4\sigma$. BAO is consistent, and DESY1 is inconsistent, but only just. This is pleasingly similar to ones intuition.
     \end{itemize}
+
 \end{frame}
+
 
 \begin{frame}
     \frametitle{Model comparison and parameter estimation~\arxiv{1908.09139}}
@@ -395,6 +401,21 @@
 
 \begin{frame}
     \frametitle{Conclusions}
+    \begin{itemize}
+        \item DiRAC RAC allocation for building a legacy grid of
+            \begin{itemize}
+                \item MCMC \& Nested sampling chains
+                \item gridded over (pairwise) up-to-date datasets
+                \item gridded over extensions to $\Lambda$CDM
+                \item Bijectors \& emulators for fast re-use
+                \item Importance sampling toolkit via \texttt{anesthetic} for (re)processing
+            \end{itemize}
+        \item Looking for:
+            \begin{itemize}
+                \item $\alpha$-testers for \texttt{unimpeded}
+                \item Suggestions for more datasets (and their incorporation into \texttt{cobaya})
+            \end{itemize}
+    \end{itemize}
 \end{frame}
 
 \end{document}
