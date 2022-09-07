@@ -5,12 +5,12 @@
     - [TRIUMF](https://www.triumf.ca/) 
     - [PDF](https://github.com/williamjameshandley/talks/raw/triumf_2022/will_handley_triumf_2022.pdf)  
     - [source](https://github.com/williamjameshandley/talks/tree/triumf_2022)
-    - _Apr 2022_  
+    - _Jul 2022_  
 1. Frontiers of nested sampling
     - [MaxEnt](https://maxent22.see.asso.fr/) 
     - [PDF](https://github.com/williamjameshandley/talks/raw/paris_maxent_2022/will_handley_paris_maxent_2022.pdf)  
     - [source](https://github.com/williamjameshandley/talks/tree/paris_maxent_2022)
-    - _Apr 2022_  
+    - _Jul 2022_  
 1. Nested Sampling and Likelihood Free Inference
     - [Likelihood-free in Paris](https://indico.in2p3.fr/event/25496/) 
     - [PDF](https://github.com/williamjameshandley/talks/raw/paris_lfi_2022/will_handley_paris_lfi_2022.pdf)  
