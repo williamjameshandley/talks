@@ -231,7 +231,7 @@
 \end{frame}
 
 \begin{frame}
-    \frametitle{The grid}
+    \frametitle{The grid (so far)}
     \begin{itemize}
         \item Models: $[\Lambda\text{CDM}, \Omega_K, \nu, r, w, w(a)]$
         \item Data: [\texttt{plik}, \texttt{camspec}, \texttt{DESY1}, \texttt{bicep+keck}, \texttt{BAO(DR16)}, \texttt{pantheon} ]
@@ -247,11 +247,11 @@
 
 \begin{frame}
     \frametitle{\texttt{unimpeded}}
-    \framesubtitle{Universal Model comparison and Parameter Estimation Datasets}
+    \framesubtitle{Universal Model comparison and Parameter Estimation Distributed over Every Dataset}
     \begin{itemize}
         \item Python tool for seamlessly downloading and cacheing chains
         \item Data stored on \texttt{zenodo} 
-        \item hdf5 storage for fast \& reliable download
+        \item hdf5 storage for fast \& reliable download \& storage
         \item Library of trained bijectors to be used as priors/emulators~\arxiv{2102.12478}/nuisance marginalised likelihoods~\arxiv{2207.11457}
         \item \texttt{anesthetic} compatible for processing of chains~\arxiv{1905.04768}
         \item $\alpha$-testers wanted! (email \href{mailto:wh260@cam.ac.uk}{wh260@cam.ac.uk}) 
@@ -308,7 +308,7 @@
         \column{0.5\textwidth}
         \begin{itemize}
             \item $R>1$ implies we have more confidence in $A$ having received $B$.
-            \item Like evidences, it is prior-dependent
+            \item Like evidences, it is prior-dependent \\ from $\mathcal{D}$ in $\log \mathcal{Z} = \av[\mathcal{P}]{\log\mathcal{L}}-\mathcal{D}$
             \item Increasing prior widths $\Rightarrow$ decreasing evidence. 
             \item Increasing prior widths $\Rightarrow$ increasing confidence.
         \end{itemize}
@@ -319,7 +319,8 @@
 
 \begin{frame}
     \frametitle{The DES evidence ratio $R$: Prior dependency}
-    {\includegraphics[trim=0.6in 0.3in 0in 0in]{./plots/prior_dependency.pdf}}
+    \centerline{\includegraphics[trim=0.6in 0.3in 0in 0in]{./plots/prior_dependency.pdf}}
+    \vspace{10pt}
     \begin{itemize}
         \item What does it mean if increasing prior widths $\Rightarrow$ increasing confidence? 
         \item Wide priors mean {\em a-priori\/} the parameters could land anywhere.
@@ -370,7 +371,7 @@
 
 
 \begin{frame}
-    \frametitle{Model comparison and parameter estimation~\arxiv{1908.09139}}
+    \frametitle{Curvature tension?~\arxiv{1908.09139}}
 
     \begin{columns}
 
@@ -409,6 +410,7 @@
                 \item gridded over extensions to $\Lambda$CDM
                 \item Bijectors \& emulators for fast re-use
                 \item Importance sampling toolkit via \texttt{anesthetic} for (re)processing
+                \item Long-term goal: community repository of chains to share model comparison compute resource
             \end{itemize}
         \item Looking for:
             \begin{itemize}
