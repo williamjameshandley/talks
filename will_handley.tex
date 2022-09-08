@@ -1,5 +1,9 @@
 \documentclass[aspectratio=169]{beamer}
 \usepackage{will_handley}
+\usepackage{pythonhighlight}
+
+\usepackage{listings}
+ 
 
 % Commands
 % --------
@@ -72,11 +76,11 @@
             Do different datasets make consistent predictions from the same model? 
 
             \textit{e.g. CMB vs Type IA supernovae data}
-            \[ \mathcal{R} = \frac{\mathcal{Z}_{AB}}{\mathcal{Z}_A\mathcal{Z}_\mathcal{B}}, \] 
+            \[ \mathcal{R} = \frac{\C[3]{\mathcal{Z}}_{AB}}{\C[3]{\mathcal{Z}}_A\C[3]{\mathcal{Z}}_\mathcal{B}}, \] 
             \[
-                \begin{aligned} \log\mathcal{S} = \av[\mathcal{P}_{AB}]{\log\mathcal{L}_{AB}}&\\
-                    -\av[\mathcal{P}_{A}]{\log\mathcal{L}_{B}}&\\
-                    -\av[\mathcal{P}_{B}]{\log\mathcal{L}_{B}}&
+                \begin{aligned} \log\mathcal{S} = \av[{\C[0]{\mathcal{P}}_{AB}}]{\C[2]{\log\mathcal{L}}_{AB}}&\\
+                    -\av[{\C[0]{\mathcal{P}}_{A}}]{\C[2]{\log\mathcal{L}}_{A}}&\\
+                    -\av[{\C[0]{\mathcal{P}}_{B}}]{\C[2]{\log\mathcal{L}}_{B}}&
                 \end{aligned}
             \]
         \end{block}
@@ -130,11 +134,11 @@
         \column{0.5\textwidth}
         \begin{itemize}
             \item The KL divergence between \C[1]{prior $\pi$} and \C[0]{posterior $\mathcal{P}$} is is defined as:
-                \[\mathcal{D}_\mathrm{KL} = \av[\mathcal{P}]{\log\frac{\mathcal{P}}{\pi}} = \int \mathcal{P}(\theta) \log \frac{\mathcal{P}(\theta)}{\pi(\theta)}d\theta.\]
-            \item Whilst not a distance, $\mathcal{D}=0$ when $\mathcal{P}=\pi$.
+                \[\mathcal{D}_\mathrm{KL} = \av[{\C[0]{\mathcal{P}}}]{\log\frac{\C[0]{\mathcal{P}}}{\C[2]{\pi}}} = \int \C[0]{\mathcal{P}(\theta)} \log \frac{\C[0]{\mathcal{P}(\theta)}}{\C[1]{\pi(\theta)}}d\theta.\]
+            \item Whilst not a distance, $\mathcal{D}=0$ when $\C[0]{\mathcal{P}}=\C[1]{\pi}$.
             \item Occurs in the context of machine learning as an objective function for training functions.
             \item In Bayesian inference it can be understood as a log-ratio of ``volumes'':
-                \[ \mathcal{D}_\mathrm{KL} \approx \log \frac{V_\pi}{V_\mathrm{P}}.\]
+                \[ \mathcal{D}_\mathrm{KL} \approx \log \frac{\C[1]{V_\pi}}{\C[0]{V_\mathcal{P}}}.\]
                 (this is exact for top-hat distributions).
         \end{itemize}
         \column{0.5\textwidth}
@@ -147,8 +151,8 @@
     \begin{columns}
         \column{0.5\textwidth}
         \begin{itemize}
-            \item The cornerstone of numerical Bayesian inference is working with \C[3]{samples}.
-            \item Generate a set of representative parameters drawn in proportion to the posterior $\theta\sim\mathcal{P}$.
+            \item The cornerstone of numerical Bayesian inference is working with \textbf{samples}.
+            \item Generate a set of representative parameters drawn in proportion to the posterior $\theta\C[1]{\sim\mathcal{P}}$.
             \item The magic of marginalisation $\Rightarrow$ perform usual analysis on each sample in turn.
             \item The golden rule is \C[1]{stay in samples} until the last moment before computing summary statistics/triangle plots because \[\boxed{f(\:\av{X}\:)\ne \av{\:f(X)\:}}\]
             \item Generally need $\sim\mathcal{O}(12)$ independent samples to compute a value and error bar.
@@ -232,22 +236,25 @@
 
 \begin{frame}
     \frametitle{The grid (so far)}
-    \begin{itemize}
-        \item Models: $[\Lambda\text{CDM}, \Omega_K, \nu, r, w, w(a)]$
-        \item Data: [\texttt{plik}, \texttt{camspec}, \texttt{DESY1}, \texttt{bicep+keck}, \texttt{BAO(DR16)}, \texttt{pantheon} ]
-        \item Pairwise combinations of datasets
-        \item Breakdown of Planck \& BAO data
-        \item These exhaust what is currently available by default in $\texttt{cobaya}$
-        \item Wide priors to allow for importance readjustment as desired
-        \item roughly halfway through computational allocation. 
-        \item Feedback desirable as to what extensions to the gred would be of community interest.
-        \item Further checking needed before first release by end of this year.
-    \end{itemize}
+        \begin{itemize}
+            \item Models: $[\Lambda\text{CDM}, \Omega_K, \nu, r, w, w(a)]$
+            \item Data: [\texttt{plik}, \texttt{camspec}, \texttt{DESY1}, \texttt{bicep+keck}, \texttt{BAO(DR16)}, \texttt{pantheon} ]
+            \item Pairwise combinations of datasets
+            \item Breakdown of Planck \& BAO data
+            \item Samplers: [Metropolis Hastings MCMC, Nested Sampling]
+            \item These exhaust what is currently available by default in $\texttt{cobaya}$
+            \item Wide priors to allow for importance readjustment as desired
+            \item roughly halfway through computational allocation. 
+            \item Feedback desirable as to what extensions to the grid would be of community interest (email \href{mailto:wh260@cam.ac.uk}{wh260@cam.ac.uk}).
+            \item Further checking needed before first release by end of this year.
+        \end{itemize}
 \end{frame}
 
-\begin{frame}
+\begin{frame}[fragile]
     \frametitle{\texttt{unimpeded}}
     \framesubtitle{Universal Model comparison and Parameter Estimation Distributed over Every Dataset}
+    \begin{columns}
+        \column{0.5\textwidth}
     \begin{itemize}
         \item Python tool for seamlessly downloading and cacheing chains
         \item Data stored on \texttt{zenodo} 
@@ -257,6 +264,24 @@
         \item $\alpha$-testers wanted! (email \href{mailto:wh260@cam.ac.uk}{wh260@cam.ac.uk}) 
         \item End goal -- community library which everyone contributes to so expensive runs reusable.
     \end{itemize}
+        \column{0.5\textwidth}
+
+
+\lstset{language=Python}
+\lstset{frame=lines}
+\lstset{basicstyle=\footnotesize}
+\begin{lstlisting}
+from unimpeded import Unimpeded
+store = Unimpeded(cache='data.hdf5')
+samps = store('planck')
+samps.H0.plot.kde_1d()
+samps = store('planck', model='klcdm')
+samps.H0.plot.kde_1d()
+\end{lstlisting}
+\includegraphics[width=\textwidth]{figures/unimpeded.pdf}
+
+        
+    \end{columns}
 \end{frame}
 
 \begin{frame}
