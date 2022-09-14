@@ -2,6 +2,11 @@
 
 ## Academic talks
 1. Next generation cosmological analysis with nested sampling
+    - [KICC](https://www.kicc.cam.ac.uk/) 
+    - [PDF](https://github.com/williamjameshandley/talks/raw/KICC_2022/will_handley_KICC_2022.pdf)  
+    - [source](https://github.com/williamjameshandley/talks/tree/KICC_2022)
+    - _Sep 2022_  
+1. Next generation cosmological analysis with nested sampling
     - [Corfu2022](http://physics.ntua.gr/corfu2022/co.html) 
     - [PDF](https://github.com/williamjameshandley/talks/raw/corfu_2022/will_handley_corfu_2022.pdf)  
     - [source](https://github.com/williamjameshandley/talks/tree/corfu_2022)
