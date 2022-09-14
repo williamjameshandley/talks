@@ -1,6 +1,10 @@
 \documentclass[aspectratio=169]{beamer}
 \usepackage{will_handley}
 \usepackage{pythonhighlight}
+\usepackage{tikz}
+\usetikzlibrary[positioning]
+\usetikzlibrary{calc}
+\usetikzlibrary{fit}
 
 \usepackage{listings}
  
@@ -38,12 +42,13 @@
             \item Pairwise combinations
             \item Suite of tools for processing these 
                 \begin{itemize}
-                    \item \texttt{anesthetic} $2.0$
                     \item \texttt{unimpeded} $1.0$
+                    \item \texttt{margarine} $1.0$
+                    \item \texttt{anesthetic} $2.0$
                     \item \texttt{zenodo} archive
                 \end{itemize}
             \item MCMC chains also available.
-            \item Work in progress, but beta testers requested (email \href{mailto:wh260@cam.ac.uk}{wh260@cam.ac.uk})
+            \item Work in progress, but $\beta$-testers requested (email \href{mailto:wh260@cam.ac.uk}{wh260@cam.ac.uk})
         \end{itemize}
         \column{0.5\textwidth}
         \includegraphics[width=\textwidth]{logos/dirac}
@@ -245,7 +250,7 @@
             \item These exhaust what is currently available by default in $\texttt{cobaya}$
             \item Wide priors to allow for importance readjustment as desired
             \item roughly halfway through computational allocation. 
-            \item Feedback desirable as to what extensions to the grid would be of community interest (email \href{mailto:wh260@cam.ac.uk}{wh260@cam.ac.uk}).
+            \item Feedback desirable as to what extensions to the grid would be of community interest (email \href{mailto:wh260@cam.ac.uk}{wh260@cam.ac.uk}) (\texttt{Pantheon+}, S$H_0$ES, \texttt{NPIPE}, \texttt{DESY3},\ldots).
             \item Further checking needed before first release by end of this year.
         \end{itemize}
 \end{frame}
@@ -256,13 +261,12 @@
     \begin{columns}
         \column{0.5\textwidth}
     \begin{itemize}
-        \item Python tool for seamlessly downloading and cacheing chains
+        \item Python tool for seamlessly downloading, uploading and cacheing of chains
         \item Data stored on \texttt{zenodo} 
-        \item hdf5 storage for fast \& reliable download \& storage
-        \item Library of trained bijectors to be used as priors/emulators~\arxiv{2102.12478}/nuisance marginalised likelihoods~\arxiv{2207.11457}
+        \item hdf5 storage for fast \& reliable storage
         \item \texttt{anesthetic} compatible for processing of chains~\arxiv{1905.04768}
         \item $\alpha$-testers wanted! (email \href{mailto:wh260@cam.ac.uk}{wh260@cam.ac.uk}) 
-        \item End goal -- community library which everyone contributes to so expensive runs reusable.
+        \item End goal -- community library which everyone contributes to so expensive inference products are reusable and reused.
     \end{itemize}
         \column{0.5\textwidth}
 
@@ -283,6 +287,173 @@ samps.H0.plot.kde_1d()
         
     \end{columns}
 \end{frame}
+
+%\begin{frame}
+%\begin{tikzpicture}[rednode/.style={rectangle, draw=red!60, fill=red!5, very thick, minimum size=5mm},
+%bluenode/.style={rectangle, draw=blue!60, fill=blue!5, very thick, minimum size=5mm},
+%remember picture, overlay]
+%
+%\node<1->[bluenode](likelihoodA) at (1,2) {$ \mathcal{L}_A(\theta,\alpha_A)$};
+%\node<1->[bluenode, right = 0 of likelihoodA.east](likelihoodB) {$ \mathcal{L}_B(\theta,\alpha_B)$};
+%\node<2->[bluenode, below = of likelihoodB.west](likelihoodAB) {$ \mathcal{L}_A(\theta,\alpha_A) \mathcal{L}_B(\theta,\alpha_B)$};
+%
+%
+%\draw<2->[->] (likelihoodA.south) -- (likelihoodA.south |- likelihoodAB.north);
+%\draw<2->[->] (likelihoodB.south) -- (likelihoodB.south |- likelihoodAB.north);
+%
+%\node<3->[bluenode, right = 0 of likelihoodAB.east](prior) {$ \pi_{AB}(\theta,\alpha_A, \alpha_B)$};
+%
+%\node<4->[rednode, align=center, below = of likelihoodAB.east](nestedsampling)  {Nested Sampling with $\theta$, $\alpha_A$ and $\alpha_B$};
+%
+%\draw<4->[->] (likelihoodAB.south) -- (likelihoodAB.south |- nestedsampling.north);
+%\draw<4->[->] (prior.south) -- (prior.south |- nestedsampling.north);
+%
+%
+%\node<5->[bluenode, below = of nestedsampling.south](jointPosterior2) {$ \{\theta,\alpha_A,\alpha_B\}_{\mathcal{P}_{AB}}$};
+%\draw<5->[->] (nestedsampling.south) -- (jointPosterior2.north);
+%
+%\node<6->[bluenode, below = of jointPosterior2.south](jointPosterior1) {$ \{\theta\}_{\mathcal{P}_{AB}}$};
+%
+%\draw<6->[->] (jointPosterior2.south) -- (jointPosterior1.north);
+%
+%\node<7->[bluenode,  right = of jointPosterior1.east](jointEvidence2) {$ \mathcal{Z}_{AB}$};
+%\draw<7->[->] (nestedsampling.south-|jointEvidence2.north) -- (jointEvidence2.north);
+%
+%
+%
+%\end{tikzpicture}
+%\end{frame}
+
+%\begin{frame}
+%\begin{tikzpicture}[squarednodeA/.style={rectangle, draw=red!60, fill=red!5, very thick, minimum size=5mm},
+%squarednodeB/.style={rectangle, draw=blue!60, fill=blue!5, very thick, minimum size=5mm},
+%squarednodeC/.style={rectangle, draw=green!60, fill=green!5, very thick, minimum size=5mm}]
+%
+%\node[squarednodeB](likelihood1) at (6, 1.5){$ \mathcal{L}_A(\theta,\alpha_A)$};
+%\node[squarednodeB](prior1) at (8, 1.5){$ \pi_A(\theta,\alpha_A)$};
+%
+%\node[squarednodeC, text width=3cm, align=center](NestedMarg1) at (7, 0){Nested Sampling + \texttt{margarine}};
+%
+%\draw[->](likelihood1.south) -- (6, 0.5);
+%\draw[->](prior1.south) -- (8, 0.5);
+%
+%\node[squarednodeB](marglike1) at (6, -1.5){$ \mathcal{L}_A(\theta)$};
+%\node[squarednodeB](margprior1) at (9, -1.5){$ \pi(\theta)$};
+%
+%\draw[->](6, -0.5) -- (6, -1.2);
+%\draw[->](8, -0.5) -- (9, -1.2);
+%
+%\node[squarednodeB](likelihood2) at (10, 1.5){$ \mathcal{L}_B(\theta,\alpha_B)$};
+%\node[squarednodeB](prior2) at (12, 1.5){$ \pi_B(\theta,\alpha_B)$};
+%
+%\draw[->](likelihood2.south) -- (10, 0.5);
+%\draw[->](prior2.south) -- (12, 0.5);
+%
+%\node[squarednodeC, text width=3cm, align=center](NestedMarg1) at (11, 0){Nested Sampling + \texttt{margarine}};
+%
+%\node[squarednodeB](marglike2) at (12, -1.5){$ \mathcal{L}_B(\theta)$};
+%\draw[->](12, -0.5) -- (12, -1.2);
+%\draw[->](10, -0.5) -- (9, -1.2);
+%
+%\node[squarednodeB](combinedlike) at (7, -3){$ \mathcal{L}_A(\theta) \mathcal{L}_B(\theta)$};
+%
+%\draw[->](marglike1.south) -- (combinedlike.north);
+%\draw[->](marglike2.south) -- (combinedlike.north);
+%
+%\node[squarednodeA, text width=3cm, align=center](inference2) at (9, -4.5) {Nested Sampling with $\theta$};
+%
+%\draw[->](combinedlike.south) -- (8, -4);
+%\draw[->](margprior1.south) -- (10, -4);
+%
+%\node[squarednodeB](jointEvidence) at (8, -6){$ \mathcal{Z}_{AB}$};
+%\node[squarednodeB](jointPosterior) at (10, -6){$ \{\theta\}_{\mathcal{P}_{AB}}$};
+%
+%\draw[->](8, -5) -- (jointEvidence.north);
+%\draw[->](10, -5) -- (jointPosterior.north);
+%\end{tikzpicture}
+%\end{frame}
+
+\begin{frame}
+    \frametitle{\texttt{margarine}: machine learning-enhanced Bayesian inference}
+    %\begin{tikzpicture}[remember picture,overlay]
+    %    \node (student) [xshift=-0.11\textwidth,yshift=-0.18\textwidth] at (current page.north east) {\includegraphics[width=0.2\textwidth]{figures/harry_bevins.jpg}};
+    %    \node[below=0 of student.south,align=center]{Harry Bevins\\\arxiv{2207.11457}};
+    %\end{tikzpicture}
+
+    \begin{columns}
+        \column{0.6\textwidth}
+        \begin{columns}
+            \column{0.3\textwidth}
+            \includegraphics[width=\textwidth]{figures/harry_bevins.jpg}
+            Harry Bevins \\ \arxiv{2205.12841} \\ \arxiv{2207.11457}
+            \column{0.7\textwidth}
+            \begin{itemize}
+                \item Can use machine learning to dramatically speed up inference
+                \item Emulate the marginal posterior and prior with  masked autoregressive flows (\texttt{margarine})
+                \item Use nested sampling evidences to compute nuisance marginalised likelihood $\mathcal{L}(\theta) = \mathcal{P}(\theta) \mathcal{Z}/\pi(\theta)$
+            \end{itemize}
+        \end{columns}
+        \vspace{5pt}
+
+        \begin{itemize}
+            \item Library of trained bijectors to be used as priors/emulators/nuisance marginalised likelihoods
+            \item e.g. easy to apply a \textit{Planck} prior/likelihood to your existing MCMC chains without using the whole cosmology machinery.
+        \end{itemize}
+
+        \column{0.4\textwidth}
+        \begin{tikzpicture}[
+                rednode/.style={rectangle, draw=red!60, fill=red!5, very thick, minimum size=5mm},
+                bluenode/.style={rectangle, draw=blue!60, fill=blue!5, very thick, minimum size=5mm},
+                greennode/.style={rectangle, draw=green!60, very thick, minimum size=5mm},
+                node distance=0.5cm,
+                remember picture, overlay
+            ]
+            \node<1->[bluenode, xshift=0.5\textwidth, yshift=-0.25\textwidth](likelihood) at (current page.north)  {$ \mathcal{L}(\theta,\alpha)$};
+            \node<3->[bluenode, right = of likelihood.east](prior) {$ \pi(\theta,\alpha)$};
+
+            \coordinate<3-> (likelihoodprior) at ($(likelihood.south)!0.5!(prior.south)$);
+
+            \node<4->[rednode, below = of likelihoodprior](nestedsampling) {Nested Sampling};
+            \draw<4->[->](likelihood.south) -- (likelihood|-nestedsampling.north);
+            \draw<4->[->](prior.south) -- (prior|-nestedsampling.north);
+
+            \node<5->[bluenode, below = of nestedsampling](posterior) {$ \{\theta,\alpha\}_\mathcal{P}$};
+            \draw<5->[->](nestedsampling.south-|posterior) -- (posterior.north);
+            \node<6->[bluenode, left = of posterior.west](evidence) {$ \mathcal{Z}$};
+            \draw<6->[->](nestedsampling.south-|likelihood) -- (evidence.north);
+            \node<7->[bluenode, right = of posterior.east](priorSamples) {$ \{\theta,\alpha\}_\pi$};
+            \draw<7->[->](nestedsampling.south-|prior) -- (priorSamples.north);
+
+            \coordinate<7-> (posteriorprior) at ($(posterior.south)!0.5!(priorSamples.south)$);
+
+            \node<8->[rednode, below = of posteriorprior](margarine)  {\texttt{margarine}};
+
+            \draw<8->[->](posterior.south) -- (margarine.north-|posterior.east);
+            \draw<8->[->](priorSamples.south) -- (margarine.north-|priorSamples.west);
+
+            \node<9->[bluenode, below = of posterior|-margarine.south](marginalPosterior) {$ \mathcal{P}_\text{emu}(\theta)$};
+
+
+            \draw<9->[->](margarine.south-|marginalPosterior.east) -- (marginalPosterior.north);
+
+
+            \node<10->[bluenode, below = of marginalPosterior.south-|margarine.south-|priorSamples](marginalPrior) {$ \pi_\text{emu}(\theta)$};
+            \draw<10->[->](margarine.south-|priorSamples.west) -- (marginalPrior.north);
+
+
+            \node<11->[bluenode, below = of marginalPosterior](marginalLikelihood) {$ \mathcal{L}_\text{emu}(\theta)$};
+
+
+            \draw<11->[->](evidence.south) -- (marginalLikelihood.west);
+            \draw<11->[->](marginalPosterior.south) -- (marginalLikelihood.north);
+            \draw<11->[->](marginalPrior.west) -- (marginalLikelihood.east);
+
+            \node<12->[greennode,behind path,fit=(nestedsampling) (marginalPosterior) (priorSamples) (evidence),] {};
+
+        \end{tikzpicture}
+    \end{columns}
+\end{frame}
+
 
 \begin{frame}
     \frametitle{Conclusions}
