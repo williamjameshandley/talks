@@ -2,7 +2,7 @@
 
 ## Academic talks
 1. Next generation cosmological analysis with nested sampling
-    - [KICC](https://www.kicc.cam.ac.uk/) 
+    - [KICC symposium](https://www.kicc.cam.ac.uk/events/kavli-science-themed-meetings/2022-mini-symposium)
     - [PDF](https://github.com/williamjameshandley/talks/raw/KICC_2022/will_handley_KICC_2022.pdf)  
     - [source](https://github.com/williamjameshandley/talks/tree/KICC_2022)
     - _Sep 2022_  
