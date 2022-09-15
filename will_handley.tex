@@ -36,10 +36,13 @@
         \begin{itemize}
             \item DiRAC 2020 RAC allocation of 30MCPUh
             \item Main goal: Planck Legacy Archive equivalent
-            \item Parameter estimation $\to$ Model comparison
-            \item MCMC $\to$ Nested sampling
-            \item Planck $\to$ $\{\text{Planck}, \text{DESY1}, \text{BAO}, \ldots \}$
-            \item Pairwise combinations
+                \vspace{-10pt}
+                \begin{itemize}
+                    \item Parameter estimation $\to$ Model comparison
+                    \item MCMC $\to$ Nested sampling
+                    \item Planck $\to$ $\{\text{Planck}, \text{DESY1}, \text{BAO}, \ldots \}$
+                    \item Pairwise combinations
+                \end{itemize}
             \item Suite of tools for processing these 
                 \begin{itemize}
                     \item \texttt{unimpeded} $1.0$
@@ -48,7 +51,7 @@
                     \item \texttt{zenodo} archive
                 \end{itemize}
             \item MCMC chains also available.
-            \item Work in progress, but $\beta$-testers requested (email \href{mailto:wh260@cam.ac.uk}{wh260@cam.ac.uk})
+            \item Work in progress, but $\alpha$-testers requested (email \href{mailto:wh260@cam.ac.uk}{wh260@cam.ac.uk})
         \end{itemize}
         \column{0.5\textwidth}
         \includegraphics[width=\textwidth]{logos/dirac}
@@ -138,8 +141,8 @@
     \begin{columns}
         \column{0.5\textwidth}
         \begin{itemize}
-            \item The KL divergence between \C[1]{prior $\pi$} and \C[0]{posterior $\mathcal{P}$} is is defined as:
-                \[\mathcal{D}_\mathrm{KL} = \av[{\C[0]{\mathcal{P}}}]{\log\frac{\C[0]{\mathcal{P}}}{\C[2]{\pi}}} = \int \C[0]{\mathcal{P}(\theta)} \log \frac{\C[0]{\mathcal{P}(\theta)}}{\C[1]{\pi(\theta)}}d\theta.\]
+            \item The KL divergence between \C[1]{prior $\pi$} and \C[0]{posterior $\mathcal{P}$} is defined as:
+                \[\mathcal{D}_\mathrm{KL} = \av[{\C[0]{\mathcal{P}}}]{\log\frac{\C[0]{\mathcal{P}}}{\C[1]{\pi}}} = \int \C[0]{\mathcal{P}(\theta)} \log \frac{\C[0]{\mathcal{P}(\theta)}}{\C[1]{\pi(\theta)}}d\theta.\]
             \item Whilst not a distance, $\mathcal{D}=0$ when $\C[0]{\mathcal{P}}=\C[1]{\pi}$.
             \item Occurs in the context of machine learning as an objective function for training functions.
             \item In Bayesian inference it can be understood as a log-ratio of ``volumes'':
@@ -157,9 +160,9 @@
         \column{0.5\textwidth}
         \begin{itemize}
             \item The cornerstone of numerical Bayesian inference is working with \textbf{samples}.
-            \item Generate a set of representative parameters drawn in proportion to the posterior $\theta\C[1]{\sim\mathcal{P}}$.
+            \item Generate a set of representative parameters drawn in proportion to the posterior $\theta\sim\C[0]{\mathcal{P}}$.
             \item The magic of marginalisation $\Rightarrow$ perform usual analysis on each sample in turn.
-            \item The golden rule is \C[1]{stay in samples} until the last moment before computing summary statistics/triangle plots because \[\boxed{f(\:\av{X}\:)\ne \av{\:f(X)\:}}\]
+            \item The golden rule is \C[3]{stay in samples} until the last moment before computing summary statistics/triangle plots because \[\boxed{f(\:\av{X}\:)\ne \av{\:f(X)\:}}\]
             \item Generally need $\sim\mathcal{O}(12)$ independent samples to compute a value and error bar.
         \end{itemize}
         \column{0.5\textwidth}
@@ -173,7 +176,7 @@
         \column{0.5\textwidth}
         \begin{itemize}
             \item \textit{Planck} collaboration science products
-            \item distributed cosmology inference results as MCMC chains
+            \item Distributed cosmology inference results as MCMC chains
             \item Across a grid of:
                 \begin{itemize}
                     \item subsets/combinations of \textit{Planck} data
@@ -388,7 +391,7 @@ samps.H0.plot.kde_1d()
             Harry Bevins \\ \arxiv{2205.12841} \\ \arxiv{2207.11457}
             \column{0.7\textwidth}
             \begin{itemize}
-                \item Can use machine learning to dramatically speed up inference
+                \item Can use machine learning + grid to dramatically speed up inference
                 \item Emulate the marginal posterior and prior with  masked autoregressive flows (\texttt{margarine})
                 \item Use nested sampling evidences to compute nuisance marginalised likelihood $\mathcal{L}(\theta) = \mathcal{P}(\theta) \mathcal{Z}/\pi(\theta)$
             \end{itemize}
@@ -396,8 +399,8 @@ samps.H0.plot.kde_1d()
         \vspace{5pt}
 
         \begin{itemize}
-            \item Library of trained bijectors to be used as priors/emulators/nuisance marginalised likelihoods
-            \item e.g. easy to apply a \textit{Planck} prior/likelihood to your existing MCMC chains without using the whole cosmology machinery.
+            \item Library of pre-trained bijectors to be used as priors/emulators/nuisance marginalised likelihoods
+            \item e.g. easy to apply a \textit{Planck}/DES/HERA/JWST prior or likelihood to your existing MCMC chains without needing to install the whole cosmology machinery.
         \end{itemize}
 
         \column{0.4\textwidth}
@@ -408,7 +411,7 @@ samps.H0.plot.kde_1d()
                 node distance=0.5cm,
                 remember picture, overlay
             ]
-            \node<1->[bluenode, xshift=0.5\textwidth, yshift=-0.25\textwidth](likelihood) at (current page.north)  {$ \mathcal{L}(\theta,\alpha)$};
+            \node<2->[bluenode, xshift=0.5\textwidth, yshift=-0.25\textwidth](likelihood) at (current page.north)  {$ \mathcal{L}(\theta,\alpha)$};
             \node<3->[bluenode, right = of likelihood.east](prior) {$ \pi(\theta,\alpha)$};
 
             \coordinate<3-> (likelihoodprior) at ($(likelihood.south)!0.5!(prior.south)$);
