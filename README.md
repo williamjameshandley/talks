@@ -1,6 +1,11 @@
 # Will Handley's academic talks
 
 ## Academic talks
+1. Theory, observation & cosmological inference 
+    - KICC xmas get-together
+    - [PDF](https://github.com/williamjameshandley/talks/raw/KICC_2022/will_handley_KICC_xmas_2022.pdf)  
+    - [source](https://github.com/williamjameshandley/talks/tree/KICC_xmas_2022)
+    - _Dec 2022_  
 1. Next generation cosmological analysis with nested sampling
     - [KICC symposium](https://www.kicc.cam.ac.uk/events/kavli-science-themed-meetings/2022-mini-symposium)
     - [PDF](https://github.com/williamjameshandley/talks/raw/KICC_2022/will_handley_KICC_2022.pdf)  
