@@ -1,0 +1,55 @@
+\usepackage{will_handley}
+\usepackage{title_page}
+
+% Slide layout
+% ------------
+% Reduce margin size
+\useoutertheme{infolines}
+\setbeamertemplate{headline}{}
+
+% Turn off navigation bar
+\beamertemplatenavigationsymbolsempty{}
+
+% itemize settings
+\settowidth{\leftmargini}{\usebeamertemplate{itemize item}}
+\addtolength{\leftmargini}{\labelsep}
+\settowidth{\leftmarginii}{\usebeamertemplate{itemize item}}
+\addtolength{\leftmarginii}{\labelsep}
+\settowidth{\leftmarginiii}{\usebeamertemplate{itemize item}}
+\addtolength{\leftmarginiii}{\labelsep}
+%\setbeamertemplate{itemize items}[triangle]
+\def\insertpresentationendframe{\inserttotalframenumber}
+\makeatletter
+\g@addto@macro{\appendix}{\immediate\write\@auxout{\string\@writefile{nav}{\noexpand\headcommand{\noexpand\def\noexpand\insertpresentationendframe{\the\c@framenumber}}}}}
+\makeatother
+
+\newcommand{\nonexaminable}{\hskip0pt plus 1filll [non-examinable]}
+
+\setbeamerfont{footline}{size*={10pt}{10pt}}
+\setbeamertemplate{footline}{%
+    \begin{beamercolorbox}[leftskip=0.2cm,rightskip=0.2cm]{structure}
+        \href{mailto:wh260@cam.ac.uk}{Will Handley $<$wh260@cam.ac.uk$>$}
+        \hfill
+        \insertframenumber{} / \insertpresentationendframe{}
+    \end{beamercolorbox}
+}
+
+% Colors
+% -------
+
+\setbeamercolor*{structure}{bg=C0!15,fg=C0}
+\setbeamerfont{frametitle}{series=\bfseries}
+
+\setbeamercolor{alerted text}{fg=C3}
+
+\setbeamertemplate{blocks}[rounded]
+
+\setbeamercolor{block body}{bg=C0!5}
+\setbeamerfont{block title}{series=\bfseries}
+
+\setbeamercolor{block title example}{fg=C2, bg=C2!15}
+\setbeamercolor{block body example}{bg=C2!5}
+
+\setbeamercolor{block title alerted}{fg=C3, bg=C3!15}
+\setbeamercolor{block body alerted}{bg=C3!5}
+
