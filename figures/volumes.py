@@ -2,7 +2,6 @@ import lecture_style
 import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib import patheffects, rcParams
-rcParams['path.effects'] = [patheffects.withStroke(linewidth=1, foreground='white')]
 
 fig, ax = plt.subplots()
 
@@ -46,6 +45,7 @@ fig.tight_layout()
 fig.savefig('samples.pdf')
 
 
+rcParams['path.effects'] = [patheffects.withStroke(linewidth=1, foreground='white')]
 np.random.seed(1)
 fig, ax = plt.subplots()
 x = np.linspace(-6,6,100)
