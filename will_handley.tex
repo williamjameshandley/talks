@@ -12,8 +12,8 @@
 
 % Talk details
 % ------------
-\title{Nested Sampling and Likelihood Free Inference}
-\date{21\textsuperscript{st} April 2022}
+\title{High dimensional nested sampling}
+\date{26\textsuperscript{st} January 2023}
 %Nested Sampling is an established numerical technique for optimising,
 %sampling, integrating and scanning *a priori* unknown probability
 %distributions. Whilst typically used in the context of traditional
@@ -33,6 +33,12 @@
     \titlepage
 \end{frame}
 
+\begin{frame}
+    \frametitle{Talk structure}
+    \tableofcontents
+\end{frame}
+
+\section{What is nested sampling?}
 \begin{frame}
     \frametitle{What is Nested Sampling?}
     \begin{itemize}
@@ -69,28 +75,95 @@
 \end{frame}
 
 \begin{frame}
-    \frametitle{MCMC sampling}
+    \frametitle{The three pillars of Bayesian inference}
+    \begin{columns}[t]
+        \column{0.33\textwidth}
+        \begin{block}{Parameter estimation}
+            What do the data tell us about the parameters of a model?
+
+            \textit{e.g. the size or age of a $\Lambda$CDM universe}
+            \[ \hspace{-10pt}\C[0]{P(\theta|D,M)} = \frac{\C[2]{P(D|\theta,M)} \C[1]{P(\theta|M)}}{\C[3]{P(D|M)}}, \] 
+            \[ \C[0]{\mathcal{P}} = \frac{\C[2]{\mathcal{L}} \times\C[1]{\pi}}{\C[3]{\mathcal{Z}}}, \] 
+            \[ \C[0]{\text{Posterior}} = \frac{\C[2]{\text{Likelihood}} \times\C[1]{\text{Prior}}}{\C[3]{\text{Evidence}}}. \]
+        \end{block}
+        \column{0.33\textwidth}
+        \begin{block}{Model comparison}
+            How much does the data support a particular model?
+
+            \textit{e.g. $\Lambda$CDM vs a dynamic dark energy cosmology}
+            \[ \C[4]{P(M|D)} = \frac{\C[3]{P(D|M)} \C[5]{P(M)}}{\C[7]{P(D)}}, \] \[ \frac{\C[3]{\mathcal{Z}_\mathcal{M}} \C[5]{\Pi_\mathcal{M}}}{\C[7]{\sum_m Z_m \Pi_m}}, \] \[ \C[4]{\text{Posterior}} = \frac{\C[3]{\text{Evidence}} \times\C[5]{\text{Prior}}}{\C[7]{\text{Normalisation}}}.\]
+        \end{block}
+        \column{0.33\textwidth}
+        \begin{block}{Tension quantification}
+            Do different datasets make consistent predictions from the same model? 
+
+            \textit{e.g. CMB vs Type IA supernovae data}
+            \[ \mathcal{R} = \frac{\C[3]{\mathcal{Z}}_{AB}}{\C[3]{\mathcal{Z}}_A\C[3]{\mathcal{Z}}_\mathcal{B}}, \] 
+            \[
+                \begin{aligned} \log\mathcal{S} = \av[{\C[0]{\mathcal{P}}_{AB}}]{\C[2]{\log\mathcal{L}}_{AB}}&\\
+                    -\av[{\C[0]{\mathcal{P}}_{A}}]{\C[2]{\log\mathcal{L}}_{A}}&\\
+                    -\av[{\C[0]{\mathcal{P}}_{B}}]{\C[2]{\log\mathcal{L}}_{B}}&
+                \end{aligned}
+            \]
+        \end{block}
+    \end{columns}
+\end{frame}
+
+
+\begin{frame}
+    \frametitle{Why do sampling?}
     \begin{columns}
-        \column{0.6\textwidth}
+        \column{0.5\textwidth}
         \begin{itemize}
-            \item Markov chain based methods generate samples from posterior distribution by a stepping procedure
-            \item This can get stuck in local peaks
-            \item Cannot compute normalisation $\mathcal{Z}$ of Bayes theorem:
-                \[ \C[0]{P(\theta|D,M)} = \frac{\C[2]{P(D|\theta,M)}\C[1]{P(\theta|M)}}{\C[3]{P(D|M)}}\]
-                \[ \C[0]{\mathcal{P}} = \frac{\C[2]{\mathcal{L}}\times \C[1]{\pi}}{\C[3]{\mathcal{Z}}} \qquad \C[0]{\text{posterior}} = \frac{\C[2]{\text{likelihood}}\times \C[1]{\text{prior}}}{\C[3]{\text{evidence}}} \]
-            \item We generally want the evidence $\C[3]{\mathcal{Z}=P(D|M)}$ for the second stage of inference: model comparison
-                \[ P(M|D) = \frac{\C[3]{P(D|M)}P(M)}{P(D)} \qquad \text{Science}(M) = \frac{\C[3]{\mathcal{Z}_M} \Pi_M}{\sum_m \C[3]{\mathcal{Z}}_m \Pi_m} \]
-            
+            \item The cornerstone of numerical Bayesian inference is working with \textbf{samples}.
+            \item Generate a set of representative parameters drawn in proportion to the posterior $\theta\sim\C[0]{\mathcal{P}}$.
+            \item The magic of marginalisation $\Rightarrow$ perform usual analysis on each sample in turn.
+            \item The golden rule is \C[3]{stay in samples} until the last moment before computing summary statistics/triangle plots because \[\boxed{f(\:\av{X}\:)\ne \av{\:f(X)\:}}\]
+            \item Generally need $\sim\mathcal{O}(12)$ independent samples to compute a value and error bar.
         \end{itemize}
-        \column{0.4\textwidth}
+        \column{0.5\textwidth}
+        \includegraphics{figures/samples.pdf}
+    \end{columns}
+\end{frame}
 
-        \includegraphics<1>[width=\textwidth,page=16]{figures/himmelblau}%
-        \includegraphics<2>[width=\textwidth,page=17]{figures/himmelblau}%
-        \includegraphics<3>[width=\textwidth,page=18]{figures/himmelblau}%
-        \includegraphics<4>[width=\textwidth,page=19]{figures/himmelblau}%
-        \includegraphics<5>[width=\textwidth,page=20]{figures/himmelblau}%
-        \includegraphics<6>[width=\textwidth,page=21]{figures/himmelblau}%
-
+\begin{frame}
+    \begin{columns}
+        \column{0.5\textwidth}
+        \begin{block}{\textbf{MCMC}}
+            \includegraphics<1>[width=\textwidth,page=16]{figures/himmelblau}%
+            \includegraphics<2>[width=\textwidth,page=17]{figures/himmelblau}%
+            \includegraphics<3>[width=\textwidth,page=18]{figures/himmelblau}%
+            \includegraphics<4>[width=\textwidth,page=19]{figures/himmelblau}%
+            \includegraphics<5>[width=\textwidth,page=20]{figures/himmelblau}%
+            \includegraphics<6-15>[width=\textwidth,page=21]{figures/himmelblau}%
+            \begin{itemize}
+                \item<16> Single ``walker''
+                \item<16> Explores posterior
+                \item<16> Fast, if proposal matrix is tuned
+                \item<16> Parameter estimation, suspiciousness calculation
+                \item<16> Channel capacity optimised for generating posterior samples
+            \end{itemize}
+        \end{block}
+        \centerline{\includegraphics<16>[width=0.5\textwidth,page=19]{figures/himmelblau}}
+        \column{0.5\textwidth}
+        \begin{block}<7->{\textbf{Nested sampling}}
+            \includegraphics<7|handout:0>[width=\textwidth,page=1]{figures/himmelblau}%
+            \includegraphics<8|handout:0>[width=\textwidth,page=2]{figures/himmelblau}%
+            \includegraphics<9|handout:0>[width=\textwidth,page=3]{figures/himmelblau}%
+            \includegraphics<10          >[width=\textwidth,page=4]{figures/himmelblau}%
+            \includegraphics<11|handout:0>[width=\textwidth,page=5]{figures/himmelblau}%
+            \includegraphics<12|handout:0>[width=\textwidth,page=6]{figures/himmelblau}%
+            \includegraphics<13|handout:0>[width=\textwidth,page=7]{figures/himmelblau}%
+            \includegraphics<14|handout:0>[width=\textwidth,page=8]{figures/himmelblau}%
+            \includegraphics<15|handout:0>[width=\textwidth,page=15]{figures/himmelblau}%
+            \begin{itemize}
+                \item<16> Ensemble of ``live points''
+                \item<16> Scans from prior to peak of likelihood
+                \item<16> Slower, no tuning required
+                \item<16> Parameter estimation, model comparison, tension quantification
+                \item<16> Channel capacity optimised for computing partition function
+            \end{itemize}
+        \centerline{\includegraphics<16>[width=0.5\textwidth,page=4]{figures/himmelblau}} \end{block}
     \end{columns}
 \end{frame}
 
@@ -99,78 +172,37 @@
     \begin{columns}
         \column{0.6\textwidth}
         \begin{itemize}
-            \item Nested sampling: completely different way to sample
-            \item Ensemble sampling to compress prior to posterior.
             \item Sequentially update a set $S$ of $n$ samples:
-                \begin{description}
+                \begin{itemize}
+                    \item[$S_0$:]  Generate $n$ samples uniformly over the space (from the prior $\pi$). 
 
-                    \item[$S_0$:] Generate $n$ samples uniformly over the space (from the prior $\pi$). 
-
-                    \item[$S_{n+1}$:] Delete the lowest likelihood sample in $S_{n}$, and replace it with a new uniform sample with higher likelihood
-                \end{description}
+                    \item[$S_{i+1}$:] Delete the lowest likelihood sample in $S_{i}$, and replace it with a new uniform sample with higher likelihood.
+                \end{itemize}
             \item Requires one to be able to sample uniformly within a region, subject to a {\em hard likelihood constraint}:
-                \[\{\theta\sim \pi : \mathcal{L}(\theta)>\mathcal{L}_* \}\]
+                \[\{\theta\sim \pi : \mathcal{L}(\theta)>\mathcal{L}_*. \}\]
             \item This procedure optimises (multimodally), and can calculate the \C[3]{evidence} \& \C[0]{posterior} weights.
+            \item The evolving ensemble of live points allows algorithms to perform self-tuning and mode clustering.
         \end{itemize}
         \column{0.4\textwidth}
-
-        \includegraphics<1|handout:0>[width=\textwidth,page=1]{figures/himmelblau}%
-        \includegraphics<2|handout:0>[width=\textwidth,page=2]{figures/himmelblau}%
-        \includegraphics<3|handout:0>[width=\textwidth,page=3]{figures/himmelblau}%
-        \includegraphics<4          >[width=\textwidth,page=4]{figures/himmelblau}%
-        \includegraphics<5|handout:0>[width=\textwidth,page=5]{figures/himmelblau}%
-        \includegraphics<6|handout:0>[width=\textwidth,page=6]{figures/himmelblau}%
-        \includegraphics<7|handout:0>[width=\textwidth,page=7]{figures/himmelblau}%
-        \includegraphics<8|handout:0>[width=\textwidth,page=8]{figures/himmelblau}%
-
+        \includegraphics[width=\textwidth,page=8]{figures/himmelblau}%
     \end{columns}
 \end{frame}
 
 \begin{frame}
-\frametitle{Mathematics of Nested Sampling}
-\framesubtitle{A probabilistic Lebesgque integrator}
-  \begin{columns}
-      \column{0.5\textwidth}
-  \begin{itemize}
-    \item At each iteration, the likelihood contour will shrink in volume by  $\approx 1/n$.
-    \item Nested sampling zooms in to the peak of the function $\mathcal{L}$ {\em exponentially}.
-        \vspace{-5pt}
+    \frametitle{Probabalistic volume estimation}
+    \begin{columns}
+        \column{0.5\textwidth}
+        \begin{itemize}
+            \item Key idea in NS: estimating volumes probabilistically
+        \end{itemize}
         \[
-            \mathcal{Z} \approx \sum_i \Delta\mathcal{L}_i X_{i}, \quad
-            X_{i+1} \approx \frac{n}{n+1}X_i, \quad X_{0} = 1 
+            \frac{\C[1]{V_\mathrm{after}}}{\C[0]{V_\mathrm{before}}} 
+            \approx \frac{\C[1]{n_\mathrm{in}}}{\C[0]{n_\mathrm{out}}+\C[1]{n_\mathrm{in}}}
         \]
-        \vspace{-15pt}
-    \item Although this is only approximate, we can quantify the error 
-        \vspace{-10pt}
-        \[
-            P(X_i|X_{i-1}) = \frac{X_{i}^{n-1}}{nX_{i-1}^n}\times[0<X_i<X_{i-1}]
-        \]
-        \vspace{-15pt}
-          \item Integral can be expressed in one of two ways
-        \vspace{-10pt}
-              \[
-                  \mathcal{Z} \approx \sum_i \Delta\mathcal{L}_i X_{i} = \sum_i \mathcal{L}_i \Delta X_{i} 
-      \]
-
-  \end{itemize}
-      \column{0.5\textwidth}
-  \includegraphics<1|handout:0>[width=\textwidth,page=1]{figures/lesbesgue}%
-  \includegraphics<2|handout:0>[width=\textwidth,page=2]{figures/lesbesgue}%
-  \includegraphics<3|handout:0>[width=\textwidth,page=3]{figures/lesbesgue}%
-  \includegraphics<4|handout:0>[width=\textwidth,page=4]{figures/lesbesgue}%
-  \includegraphics<5|handout:0>[width=\textwidth,page=5]{figures/lesbesgue}%
-  \includegraphics<6|handout:0>[width=\textwidth,page=6]{figures/lesbesgue}%
-  \includegraphics<7|handout:0>[width=\textwidth,page=7]{figures/lesbesgue}%
-  \includegraphics<8|handout:0>[width=\textwidth,page=8]{figures/lesbesgue}%
-  \includegraphics<9|handout:0>[width=\textwidth,page=9]{figures/lesbesgue}%
-  \includegraphics<10|handout:0>[width=\textwidth,page=10]{figures/lesbesgue}%
-  \includegraphics<11|handout:0>[width=\textwidth,page=11]{figures/lesbesgue}%
-  \includegraphics<12|handout:0>[width=\textwidth,page=12]{figures/lesbesgue}%
-  \includegraphics<13|handout:0>[width=\textwidth,page=13]{figures/lesbesgue}%
-  \includegraphics<14|handout:0>[width=\textwidth,page=14]{figures/lesbesgue}%
-  \includegraphics<15|handout:0>[width=\textwidth,page=15]{figures/lesbesgue}%
-  \includegraphics<16          >[width=\textwidth,page=16]{figures/lesbesgue}%
-  \end{columns}
+        \column{0.5\textwidth}
+        \includegraphics<1>[width=\textwidth]{figures/compression_1}%
+        \includegraphics<2->[width=\textwidth]{figures/compression_2}%
+    \end{columns}
 \end{frame}
 
 \begin{frame}
@@ -178,18 +210,17 @@
     \begin{columns}
         \column{0.6\textwidth}
         \begin{itemize}
-            \item At the end, one is left with a set of discarded points
-            \item These may be weighted to form weighted posterior samples using $w_i = \mathcal{L}_i \Delta X_i$
+            \item At the end, one is left with a set of discarded points.
+            \item These may be weighted to form weighted posterior samples using $w_i = \mathcal{L}_i \Delta X_i$.
             \item They can also be used to calculate the normalisation $\mathcal{Z} = \sum \mathcal{L}_i \Delta X_i$, or more generally $\sum_i f(\mathcal{L}_i) \Delta X_i$.
                 \begin{itemize}
                     \item Nested sampling probabilistically estimates the volume of the parameter space
                         \[X_i \approx {\left(\frac{n}{n+1}\right)} X_{i-1} \quad\Rightarrow\quad
-                        X_i \approx {\left(\frac{n}{n+1}\right)}^i \approx e^{-i/n} \]
-                    \item only statistical estimates, but we know the error bar
-                    \item Nested sampling thus estimates the density of states
+                        X_i \approx {\left(\frac{n}{n+1}\right)}^i \approx e^{-i/n}, \]
+                    \item Nested sampling thus estimates the density of states,
                     \item it is therefore a partition function calculator
+                        $Z(\beta) = \sum_i \mathcal{L}_i^\beta \Delta X_i$.
                 \end{itemize}
-            \item The evolving ensemble of live points allows algorithms to perform self-tuning and mode clustering.
         \end{itemize}
 
         \column{0.4\textwidth}
@@ -202,24 +233,37 @@
 \end{frame}
 
 \begin{frame}
+  \frametitle{Sampling from a hard likelihood constraint} 
+  
+  \begin{quote}
+    ``It is not the purpose of this introductory paper to develop the technology of navigation within such a volume. We merely note that exploring a hard-edged likelihood-constrained domain should prove to be neither more nor less demanding than exploring a likelihood-weighted space.''
+    
+   {\hfill --- John Skilling}
+  \end{quote}
+
+  \begin{itemize}
+      
+    \item A large fraction of the work in NS to date has been in attempting to implement a hard-edged sampler in the NS meta-algorithm $\{\theta\sim \pi : \mathcal{L}(\theta)>\mathcal{L}_* \}$.
+    \item \url{https://projecteuclid.org/euclid.ba/1340370944}.
+    \item There has also been much work beyond this (focus of this talk).
+  \end{itemize}
+ 
+\end{frame}
+
+
+\begin{frame}
     \frametitle{Implementations of Nested Sampling}
-    %\begin{columns}
-    %    \begin{column}{0.33}
-    %        \includegraphics[width=\textwidth]{figures/multinest}
-    %    \end{column} 
-    %\end{columns}
-    \begin{columns}
-        \column{0.5\textwidth}
-        \texttt{MultiNest}
-        \includegraphics[width=0.8\textwidth]{figures/multinest}
-        \vfill
-        \texttt{DNest}
-        \includegraphics[width=\textwidth]{figures/dnest}
-        \column{0.5\textwidth}
-        \texttt{PolyChord}
+    \begin{columns}[t]
+        \column{0.3\textwidth}
+        \texttt{MultiNest}~\arxiv{0809.3437}
+        \includegraphics[width=\textwidth]{figures/multinest}
+        \texttt{UltraNest}~\arxiv{2101.09604}
+        \includegraphics[width=\textwidth]{figures/radfriends}
+        \column{0.4\textwidth}
+        \texttt{PolyChord}~\arxiv{1506.00171}
         \includegraphics[width=\textwidth]{figures/polychord}
         \vfill
-        \texttt{NeuralNest}
+        \texttt{NeuralNest}~\arxiv{1903.10860}
         \begin{columns}
             \column{0.5\textwidth}
             \includegraphics[width=\textwidth]{figures/rosenbrock_flow.png}
@@ -227,10 +271,52 @@
             \column{0.5\textwidth}
             \includegraphics[width=\textwidth]{figures/chains.png}
         \end{columns}
+        \texttt{dynesty}~\arxiv{1904.02180}
+        \vfill
+        \column{0.3\textwidth}
+        \texttt{DNest}~\arxiv{1606.03757}
+        \includegraphics[width=\textwidth]{figures/dnest}
+        \texttt{ProxNest}~\arxiv{2106.03646}
+        \includegraphics[width=\textwidth]{figures/proxnest_diagram}
         \vfill
     \end{columns}
 \end{frame}
 
+\begin{frame}
+    \frametitle{Types of nested sampler}
+    \begin{itemize}
+        \item Broadly, most nested samplers can be split into how they create new live points.
+        \item i.e. how they sample from the hard likelihood constraint $\{\theta\sim \pi : \mathcal{L}(\theta)>\mathcal{L}_* \}$.
+    \end{itemize}
+    \vspace{-10pt}
+    \begin{columns}[t]
+        \column{0.5\textwidth}
+        \begin{block}{Rejection samplers}
+            \begin{itemize}
+                \item e.g. \texttt{MultiNest}, \texttt{UltraNest}.
+                \item Constructs bounding region and draws many invalid points until one is found within $L_*$.
+                \item Efficient in low dimensions, exponentially inefficient $\sim\mathcal{O}(e^{d/d_0})$ in high  $d>d_0\sim10$.
+            \end{itemize}
+        \end{block}
+        \column{0.5\textwidth}
+        \begin{block}{Chain-based samplers}
+            \begin{itemize}
+                \item e.g. \texttt{PolyChord}, \texttt{ProxNest}.
+                \item Run Markov chain starting at a live point, generating many valid (correlated) points.
+                \item Linear $\sim\mathcal{O}(d)$ penalty in decorrelating new live point from the original seed point.
+            \end{itemize}
+        \end{block}
+    \end{columns}
+    \vspace{15pt}
+    \begin{itemize}
+        \item Nested samplers usually come with:
+            \begin{itemize}
+                \item \emph{resolution} parameter $n_\mathrm{live}$ (which improve results as $\sim\mathcal{O}(n_\mathrm{live}^{-1/2})$.
+                    \item set of \emph{reliability} parameters~\arxiv{2101.04525}, which don't improve results if set arbitrarily high, but introduce systematic errors if set too low.
+                    \item e.g. \texttt{Multinest} efficiency \texttt{eff} or \texttt{PolyChord} chain length $n_\mathrm{repeats}$.
+            \end{itemize}
+    \end{itemize}
+\end{frame}
 
 \begin{frame}
     \frametitle{How does Nested Sampling compare to other approaches?}
@@ -359,32 +445,9 @@
 \end{frame}
 
 \begin{frame}
-    \frametitle{Nested sampling for truncated methods}
-
-    \begin{columns}
-        \column{0.55\textwidth}
-        \begin{itemize}
-            \item Will hear more on this tomorrow from Christoph
-            \item Many Likelihood implicit approaches at the moment have some element of sampling direct from the prior
-            \item Inefficient if number of parameters $>\mathcal{O}(\text{a few})$
-            \item Can get round this by truncating to region:
-                \[ \Gamma\{ \theta\in \mathrm{supp} p(\theta) \:|\: p(\theta|x_0)>\bar\varepsilon\} \]
-            \item At the moment regions defined by nested boxes
-            \item This seems ripe for replacement by NS
-                \begin{itemize}
-                    \item Has anybody tried this?
-                    \item If not, why not?
-                    \item Why not why not? \hfill(let's talk)
-                \end{itemize}
-        \end{itemize}
-        \column{0.45\textwidth}
-        \includegraphics[width=\textwidth]{figures/tmnre}
-
-        \hfill Cole \textit{et al.}~\arxiv{2111.08030}
-    \end{columns}
-    
+    \frametitle{Nested sampling as an optimiser}
+    <++>
 \end{frame}
-
 
 %\begin{frame}
 %    \frametitle{<+Title+>}
@@ -404,6 +467,7 @@
             \begin{itemize}
                 \item Run time is linear in $n_\mathrm{live}$, posterior and evidence accuracy goes as $\frac{1}{\sqrt{n_\mathrm{live}}}$.
                 \item Set low for exploratory runs $\sim\mathcal{O}(10)$ and increased to $\sim\mathcal{O}(1000)$ for production standard.
+                \item Extreme MPI parallelisation means walltime can be made constant.
             \end{itemize}
         \item Most algorithms come with additional reliability parameter(s).
             \begin{itemize}
@@ -412,6 +476,30 @@
                 \item Check that results do not degrade if you reduce them from defaults, otherwise increase.
             \end{itemize}
     \end{enumerate}
+\end{frame}
+
+\begin{frame}
+    \frametitle{A note on dynesty}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Key tools for Nested Sampling}
+    \begin{description}[\& \texttt{UltraNest}]
+        \item[\texttt{anesthetic}] Nested sampling post processing \arxiv{1905.04768}\\
+        \item[\texttt{insertion}] cross-checks using order statistics \arxiv{2006.03371}
+            \hspace{5pt}\url{github.com/williamjameshandley/anesthetic}
+        \item[\texttt{nestcheck}] cross-checks using unthreaded runs \arxiv{1804.06406}\\
+            \hspace{5pt}\url{github.com/ejhigson/nestcheck}
+        \item[\texttt{MultiNest}] Ellipsoidal rejection sampling \arxiv{0809.3437}\\
+            \hspace{5pt}\url{github.com/farhanferoz/MultiNest}
+        \item[\texttt{PolyChord}] Python/C++/Fortran state of the art \arxiv{1506.00171}\\
+            \hspace{5pt}\url{github.com/PolyChord/PolyChordLite} 
+        \item[\texttt{dynesty}] Python re-implementation of several codes \arxiv{1904.02180}\\
+            \hspace{5pt}\url{github.com/joshspeagle/dynesty}
+        \item[\& \texttt{UltraNest}] \hspace{5pt}\url{github.com/JohannesBuchner/UltraNest}
+            \arxiv{2101.09604}
+        \item[\texttt{SuperNest}] Accelerated nested sampling with prior repartitioning \arxiv{2212.01760}
+    \end{description}
 \end{frame}
 
 
@@ -477,25 +565,5 @@
         \includegraphics{figures/volumes.pdf}
     \end{columns}
 \end{frame}
-
-\begin{frame}
-    \frametitle{Key tools for Nested Sampling}
-    \begin{description}[\& \texttt{UltraNest}]
-        \item[\texttt{anesthetic}] Nested sampling post processing \arxiv{1905.04768}\\
-        \item[\texttt{insertion}] cross-checks using order statistics \arxiv{2006.03371}
-            \hspace{5pt}\url{github.com/williamjameshandley/anesthetic}
-        \item[\texttt{nestcheck}] cross-checks using unthreaded runs \arxiv{1804.06406}\\
-            \hspace{5pt}\url{github.com/ejhigson/nestcheck}
-        \item[\texttt{MultiNest}] Ellipsoidal rejection sampling \arxiv{0809.3437}\\
-            \hspace{5pt}\url{github.com/farhanferoz/MultiNest}
-        \item[\texttt{PolyChord}] Python/C++/Fortran state of the art \arxiv{1506.00171}\\
-            \hspace{5pt}\url{github.com/PolyChord/PolyChordLite} 
-        \item[\texttt{dynesty}] Python re-implementation of several codes \arxiv{1904.02180}\\
-            \hspace{5pt}\url{github.com/joshspeagle/dynesty}
-        \item[\& \texttt{UltraNest}] \hspace{5pt}\url{github.com/JohannesBuchner/UltraNest}
-            \arxiv{2101.09604}
-    \end{description}
-\end{frame}
-
 
 \end{document}
