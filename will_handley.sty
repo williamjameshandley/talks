@@ -1,70 +1,21 @@
-% Slide layout
-% ------------
-% Turn off navigation bar
-\beamertemplatenavigationsymbolsempty{}
+\usepackage{matplotlibcolors}
 
-% Reduce margin size
-\setbeamersize{text margin left=20pt,text margin right=20pt}
+\usepackage[en-GB,showdow=true]{datetime2}
+\DTMlangsetup[en-GB]{ord=raise}
+\def\firstlecture{2022-10-07}
+\DTMsavedate{firstlecture}{\firstlecture}
 
-% itemize settings
-\setlength{\leftmargini}{1pt}
-\setbeamertemplate{itemize items}[triangle]
+% custom citations
+\newcommand{\citehref}[3]{[\href{#1/#2}{#3#2}]}
+\newcommand{\doi}[1]{\citehref{https://doi.org}{#1}{doi:}}
+\newcommand{\arxiv}[1]{\citehref{https://arxiv.org/abs}{#1}{arxiv:}}
+\newcommand{\xkcd}[1]{\citehref{https://xkcd.com}{#1}{xkcd:}}
 
-% footline
-\def\insertpresentationendframe{\inserttotalframenumber}
-\makeatletter
-\g@addto@macro{\appendix}{\immediate\write\@auxout{\string\@writefile{nav}{\noexpand\headcommand{\noexpand\def\noexpand\insertpresentationendframe{\the\c@framenumber}}}}}
-\makeatother
-\setbeamerfont{footline}{size*={10pt}{10pt}}
-\setbeamertemplate{footline}{%
-    \begin{beamercolorbox}[leftskip=0.2cm,rightskip=0.2cm]{structure}
-        \href{mailto:wh260@cam.ac.uk}{Will Handley $<$wh260@cam.ac.uk$>$}
-        \hfill
-        \insertframenumber{} / \insertpresentationendframe{}
-    \end{beamercolorbox}
-}
-
-\definecolor{C0}{HTML}{1f77b4}
-\definecolor{C1}{HTML}{ff7f0e}
-\definecolor{C2}{HTML}{2ca02c}
-\definecolor{C3}{HTML}{d62728}
-\definecolor{C4}{HTML}{9467bd}
-\definecolor{C5}{HTML}{8c564b}
-\definecolor{C6}{HTML}{e377c2}
-\definecolor{C7}{HTML}{7f7f7f}
-\definecolor{C8}{HTML}{bcbd22}
-\definecolor{C9}{HTML}{17becf}
-\newcommand\C[2][1]{\textcolor{C#1}{#2}}
-
-\setbeamercolor*{structure}{bg=C0!15,fg=C0}
-\setbeamerfont{frametitle}{series=\bfseries}
-
-% Beamer title page details
-% -------------------------
-\author[Handley]{%
-    Will Handley\\
-    \small{\href{mailto:wh260@cam.ac.uk}{$<$wh260@cam.ac.uk$>$}}
-}
-\institute[University of Cambridge]{%
-	Royal Society University Research Fellow \& Turing Fellow\\
-    Astrophysics Group, Cavendish Laboratory, University of Cambridge\\
-    Kavli Institute for Cosmology, Cambridge\\
-    Gonville \& Caius College\\
-	\url{github.com/williamjameshandley/talks}
-}
-\titlegraphic{%
-    \includegraphics[height=0.08\textwidth]{logos/royalsociety}\hspace{10pt}
-    \includegraphics[height=0.08\textwidth]{logos/ati}\hspace{10pt}
-    \raisebox{0.015\textwidth}{
-        \includegraphics[height=0.05\textwidth]{logos/University_of_Cambridge}\hspace{10pt}
-    }
-    \includegraphics[height=0.08\textwidth]{logos/kicc}\hspace{10pt}
-    \includegraphics[height=0.08\textwidth]{logos/cavendish}\hspace{10pt}
-    \includegraphics[height=0.08\textwidth]{logos/caius}
-}
-
-
-% Useful commands
-% ---------------
-% arxiv link
-\newcommand{\arxiv}[1]{\href{https://arxiv.org/abs/#1}{[#1]}}
+% general packages
+\usepackage{amsmath}
+\usepackage{tikz}
+\usepackage{mathabx}
+\usepackage{cleveref}
+\usepackage{pgfplots}
+\usepackage{siunitx}
+\usepackage{bm}
