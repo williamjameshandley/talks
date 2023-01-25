@@ -44,35 +44,33 @@
 \begin{frame}
     \frametitle{What is Nested Sampling?}
     \begin{itemize}
-        \item Nested sampling is a multi-purpose numerical mathematical tool.
+        \item Nested sampling is a radical, multi-purpose numerical tool.
         \item Given a (scalar) function $f$ with a vector of parameters $\theta$, it can be used for:
     \end{itemize}
     \vspace{-10pt}
     \begin{columns}[t]
-        \column{0.33\textwidth}
+        \column{0.3\textwidth}
         \begin{block}{Optimisation}
-            \vspace{-5pt}
-            \[\theta_\mathrm{max} = \max_\theta{f(\theta)}\]
+            \[\theta_\text{max} = \max_\theta{f(\theta)}\]
         \end{block}
-        \column{0.33\textwidth}
-        \begin{block}{Sampling}
-            \vspace{-5pt}
-            \[\text{draw }\theta\sim f\]
-        \end{block}
-        \column{0.33\textwidth}
-        \begin{block}{Integration}
-            \vspace{-5pt}
-            \[\int f(\theta) dV \]
+        \column{0.3\textwidth}
+        \begin{block}{Exploration}
+            \vspace{-10pt}
+            \[\text{draw/sample}\quad \theta\sim f\]
             \vspace{-15pt}
+        \end{block}
+        \column{0.3\textwidth}
+        \begin{block}{Integration}
+            \[\int f(\theta) dV \]
         \end{block}
     \end{columns}
     \begin{columns}[t]
         \column{0.33\textwidth}
-            \centerline{\includegraphics[width=0.8\textwidth,page=13]{figures/himmelblau}}
+        \centerline{\includegraphics[width=0.8\textwidth,page=13]{figures/himmelblau}}
         \column{0.33\textwidth}
-            \centerline{\includegraphics[width=0.8\textwidth,page=15]{figures/himmelblau}}
+        \centerline{\includegraphics[width=0.8\textwidth,page=15]{figures/himmelblau}}
         \column{0.33\textwidth}
-            \centerline{\includegraphics[width=0.8\textwidth,page=14]{figures/himmelblau}}
+        \centerline{\includegraphics[width=0.8\textwidth,page=14]{figures/himmelblau}}
     \end{columns}
 \end{frame}
 
@@ -88,7 +86,7 @@
             \[ \C[0]{\mathcal{P}} = \frac{\C[2]{\mathcal{L}} \times\C[1]{\pi}}{\C[3]{\mathcal{Z}}}, \] 
             \[ \C[0]{\text{Posterior}} = \frac{\C[2]{\text{Likelihood}} \times\C[1]{\text{Prior}}}{\C[3]{\text{Evidence}}}. \]
         \end{block}
-        \column{0.33\textwidth}
+        \column{0.3\textwidth}
         \begin{block}{Model comparison}
             How much does the data support a particular model?
 
@@ -130,25 +128,37 @@
 
 \begin{frame}
     \begin{columns}
-        \column{0.5\textwidth}
+        \column{0.48\textwidth}
         \begin{block}{\textbf{MCMC}}
+            \only<16>{
+                \begin{itemize}
+                    \item Single ``walker''
+                    \item Explores posterior
+                    \item Fast, if proposal matrix is tuned
+                    \item Parameter estimation, suspiciousness calculation
+                    \item Channel capacity optimised for generating posterior samples
+                \end{itemize}
+            }
+        \end{block}
             \includegraphics<1>[width=\textwidth,page=16]{figures/himmelblau}%
             \includegraphics<2>[width=\textwidth,page=17]{figures/himmelblau}%
             \includegraphics<3>[width=\textwidth,page=18]{figures/himmelblau}%
             \includegraphics<4>[width=\textwidth,page=19]{figures/himmelblau}%
             \includegraphics<5>[width=\textwidth,page=20]{figures/himmelblau}%
             \includegraphics<6-15>[width=\textwidth,page=21]{figures/himmelblau}%
-            \begin{itemize}
-                \item<16> Single ``walker''
-                \item<16> Explores posterior
-                \item<16> Fast, if proposal matrix is tuned
-                \item<16> Parameter estimation, suspiciousness calculation
-                \item<16> Channel capacity optimised for generating posterior samples
-            \end{itemize}
-        \end{block}
         \centerline{\includegraphics<16>[width=0.5\textwidth,page=19]{figures/himmelblau}}
-        \column{0.5\textwidth}
+        \column{0.48\textwidth}
         \begin{block}<7->{\textbf{Nested sampling}}
+            \only<16>{
+                \begin{itemize}
+                    \item Ensemble of ``live points''
+                    \item Scans from prior to peak of likelihood
+                    \item Slower, no tuning required
+                    \item Parameter estimation, model comparison, tension quantification
+                    \item Channel capacity optimised for computing partition function
+                \end{itemize}
+            }
+        \end{block}
             \includegraphics<7|handout:0>[width=\textwidth,page=1]{figures/himmelblau}%
             \includegraphics<8|handout:0>[width=\textwidth,page=2]{figures/himmelblau}%
             \includegraphics<9|handout:0>[width=\textwidth,page=3]{figures/himmelblau}%
@@ -158,14 +168,7 @@
             \includegraphics<13|handout:0>[width=\textwidth,page=7]{figures/himmelblau}%
             \includegraphics<14|handout:0>[width=\textwidth,page=8]{figures/himmelblau}%
             \includegraphics<15|handout:0>[width=\textwidth,page=15]{figures/himmelblau}%
-            \begin{itemize}
-                \item<16> Ensemble of ``live points''
-                \item<16> Scans from prior to peak of likelihood
-                \item<16> Slower, no tuning required
-                \item<16> Parameter estimation, model comparison, tension quantification
-                \item<16> Channel capacity optimised for computing partition function
-            \end{itemize}
-        \centerline{\includegraphics<16>[width=0.5\textwidth,page=4]{figures/himmelblau}} \end{block}
+        \centerline{\includegraphics<16>[width=0.5\textwidth,page=4]{figures/himmelblau}} 
     \end{columns}
 \end{frame}
 
@@ -254,14 +257,14 @@
 
 
 \begin{frame}
-    \frametitle{Implementations of Nested Sampling}
+    \frametitle{Implementations of Nested Sampling \arxiv{2205.15570}(NatReview)}
     \begin{columns}[t]
         \column{0.3\textwidth}
         \texttt{MultiNest}~\arxiv{0809.3437}
         \includegraphics[width=\textwidth]{figures/multinest}
         \texttt{UltraNest}~\arxiv{2101.09604}
         \includegraphics[width=\textwidth]{figures/radfriends}
-        \column{0.4\textwidth}
+        \column{0.3\textwidth}
         \texttt{PolyChord}~\arxiv{1506.00171}
         \includegraphics[width=\textwidth]{figures/polychord}
         \vfill
@@ -292,7 +295,7 @@
     \end{itemize}
     \vspace{-10pt}
     \begin{columns}[t]
-        \column{0.5\textwidth}
+        \column{0.48\textwidth}
         \begin{block}{Rejection samplers}
             \begin{itemize}
                 \item e.g. \texttt{MultiNest}, \texttt{UltraNest}.
@@ -300,7 +303,7 @@
                 \item Efficient in low dimensions, exponentially inefficient $\sim\mathcal{O}(e^{d/d_0})$ in high  $d>d_0\sim10$.
             \end{itemize}
         \end{block}
-        \column{0.5\textwidth}
+        \column{0.48\textwidth}
         \begin{block}{Chain-based samplers}
             \begin{itemize}
                 \item e.g. \texttt{PolyChord}, \texttt{ProxNest}.
@@ -336,7 +339,7 @@
         Modern Nested Sampling algorithms can do this in $\sim\mathcal{O}(100s)$ dimensions
     \end{columns}
     \begin{columns}[t]
-        \column{0.33\textwidth}
+        \column{0.3\textwidth}
         \begin{block}{Optimisation}
         \begin{itemize}
             \item Gradient descent
@@ -349,7 +352,7 @@
                 \end{itemize}
         \end{itemize}
         \end{block}
-        \column{0.33\textwidth}
+        \column{0.3\textwidth}
         \begin{block}{Sampling}
         \begin{itemize}
             \item Metropolis-Hastings?
@@ -364,7 +367,7 @@
         \end{itemize}
         \end{itemize}
             \end{block}
-        \column{0.33\textwidth}
+        \column{0.3\textwidth}
         \begin{block}{Integration}
             \begin{itemize}
                 \item Thermodynamic integration
