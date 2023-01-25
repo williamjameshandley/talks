@@ -1,6 +1,11 @@
 # Will Handley's academic talks
 
 ## Academic talks
+1. High dimensional nested sampling
+    - [Simulation based inference with swyft](https://indico.nikhef.nl/event/4025/)
+    - [PDF](https://github.com/williamjameshandley/talks/raw/amsterdam_lfi_2023/will_handley_amsterdam_lfi_2023.pdf)  
+    - [source](https://github.com/williamjameshandley/talks/tree/amsterdam_lfi_2023)
+    - _Dec 2022_  
 1. Theory, observation & cosmological inference 
     - KICC xmas get-together
     - [PDF](https://github.com/williamjameshandley/talks/raw/KICC_2022/will_handley_KICC_xmas_2022.pdf)  
