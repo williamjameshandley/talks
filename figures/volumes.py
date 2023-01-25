@@ -1,6 +1,8 @@
 import lecture_style
 import matplotlib.pyplot as plt
 import numpy as np
+from matplotlib import patheffects, rcParams
+rcParams['path.effects'] = [patheffects.withStroke(linewidth=1, foreground='white')]
 
 fig, ax = plt.subplots()
 

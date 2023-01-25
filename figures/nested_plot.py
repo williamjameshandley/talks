@@ -1,13 +1,15 @@
 import lecture_style
-from anesthetic import NestedSamples
+from anesthetic import read_chains
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_pdf import PdfPages
 import numpy as np
+from matplotlib import patheffects, rcParams
+rcParams['path.effects'] = [patheffects.withStroke(linewidth=1, foreground='white')]
 
 def f(x,y):
     return - ( (x**2 + y - 11)**2 + (x+y**2-7)**2 )
 
-data = NestedSamples(root='./chains/himmelblau')
+data = read_chains('./chains/himmelblau')
 
 x = np.linspace(-6,6,100)
 y = np.linspace(-6,6,100)
@@ -34,15 +36,15 @@ with PdfPages('himmelblau.pdf') as pdf:
         dead_points = data[data.logL < logL]
 
         live_lines, = ax.plot(*live_points.loc[:,:'theta1'].values.T, 'C0.')
-        ax.contour(x, y, z, levels=[logL], colors='k', linestyles='solid', linewidths=0.3)
+        ax.contour(x, y, z, levels=[logL], colors='k', linestyles='solid')
         pdf.savefig()
         live_lines.remove()
 
-    dead_lines, = ax.plot(*dead_points.loc[:,:'theta1'].values.T, 'k.', ms=2)
+    dead_lines, = ax.plot(*dead_points.loc[:,:'theta1'].values.T, 'k.')
     pdf.savefig()
 
     posterior_points = data.posterior_points()
-    posterior_lines, = ax.plot(*posterior_points.loc[:,:'theta1'].values.T,'C3.', linewidth=0.3)
+    posterior_lines, = ax.plot(*posterior_points.loc[:,:'theta1'].values.T,'C3.')
     pdf.savefig()
 
     dead_lines.remove()
