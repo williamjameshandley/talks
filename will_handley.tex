@@ -14,7 +14,7 @@
 % Talk details
 % ------------
 \title{High dimensional nested sampling}
-\date{26\textsuperscript{st} January 2023}
+\date{26\textsuperscript{th} January 2023}
 %Nested Sampling is an established numerical technique for optimising,
 %sampling, integrating and scanning *a priori* unknown probability
 %distributions. Whilst typically used in the context of traditional
@@ -33,11 +33,6 @@
 
 \begin{frame}
     \titlepage
-\end{frame}
-
-\begin{frame}
-    \frametitle{Talk structure}
-    \tableofcontents
 \end{frame}
 
 \section{What is nested sampling?}
@@ -82,23 +77,24 @@
             What do the data tell us about the parameters of a model?
 
             \textit{e.g. the size or age of a $\Lambda$CDM universe}
-            \[ \hspace{-10pt}\C[0]{P(\theta|D,M)} = \frac{\C[2]{P(D|\theta,M)} \C[1]{P(\theta|M)}}{\C[3]{P(D|M)}}, \] 
-            \[ \C[0]{\mathcal{P}} = \frac{\C[2]{\mathcal{L}} \times\C[1]{\pi}}{\C[3]{\mathcal{Z}}}, \] 
-            \[ \C[0]{\text{Posterior}} = \frac{\C[2]{\text{Likelihood}} \times\C[1]{\text{Prior}}}{\C[3]{\text{Evidence}}}. \]
+            \[ \hspace{-4pt}\C[0]{P(\theta|D,M)} = \frac{\C[2]{P(D|\theta,M)} \C[1]{P(\theta|M)}}{\C[3]{P(D|M)}} \] 
+            \[ \C[0]{\mathcal{P}} = \frac{\C[2]{\mathcal{L}} \times\C[1]{\pi}}{\C[3]{\mathcal{Z}}}\] 
+            \[ \C[0]{\text{Posterior}} = \frac{\C[2]{\text{Likelihood}} \times\C[1]{\text{Prior}}}{\C[3]{\text{Evidence}}}\]
         \end{block}
         \column{0.3\textwidth}
         \begin{block}{Model comparison}
             How much does the data support a particular model?
 
             \textit{e.g. $\Lambda$CDM vs a dynamic dark energy cosmology}
-            \[ \C[4]{P(M|D)} = \frac{\C[3]{P(D|M)} \C[5]{P(M)}}{\C[7]{P(D)}}, \] \[ \frac{\C[3]{\mathcal{Z}_\mathcal{M}} \C[5]{\Pi_\mathcal{M}}}{\C[7]{\sum_m Z_m \Pi_m}}, \] \[ \C[4]{\text{Posterior}} = \frac{\C[3]{\text{Evidence}} \times\C[5]{\text{Prior}}}{\C[7]{\text{Normalisation}}}.\]
+            \[ \C[4]{P(M|D)} = \frac{\C[3]{P(D|M)} \C[5]{P(M)}}{\C[7]{P(D)}} \vspace{-7pt}\]
+            \[ \frac{\C[3]{\mathcal{Z}_\mathcal{M}} \C[5]{\Pi_\mathcal{M}}}{\C[7]{\sum_m Z_m \Pi_m}} \]
+            \[ \C[4]{\text{Posterior}} = \frac{\C[3]{\text{Evidence}} \times\C[5]{\text{Prior}}}{\C[7]{\text{Normalisation}}}\]
         \end{block}
         \column{0.33\textwidth}
         \begin{block}{Tension quantification}
             Do different datasets make consistent predictions from the same model? 
-
             \textit{e.g. CMB vs Type IA supernovae data}
-            \[ \mathcal{R} = \frac{\C[3]{\mathcal{Z}}_{AB}}{\C[3]{\mathcal{Z}}_A\C[3]{\mathcal{Z}}_\mathcal{B}}, \] 
+            \[ \mathcal{R} = \frac{\C[3]{\mathcal{Z}}_{AB}}{\C[3]{\mathcal{Z}}_A\C[3]{\mathcal{Z}}_\mathcal{B}}\] 
             \[
                 \begin{aligned} \log\mathcal{S} = \av[{\C[0]{\mathcal{P}}_{AB}}]{\C[2]{\log\mathcal{L}}_{AB}}&\\
                     -\av[{\C[0]{\mathcal{P}}_{A}}]{\C[2]{\log\mathcal{L}}_{A}}&\\
@@ -199,11 +195,13 @@
         \column{0.5\textwidth}
         \begin{itemize}
             \item Key idea in NS: estimating volumes probabilistically
-        \end{itemize}
         \[
             \frac{\C[1]{V_\mathrm{after}}}{\C[0]{V_\mathrm{before}}} 
             \approx \frac{\C[1]{n_\mathrm{in}}}{\C[0]{n_\mathrm{out}}+\C[1]{n_\mathrm{in}}}
         \]
+            \item This is the \textbf{only} way to calculate volume in high dimensions $d>3$.
+            \item If you want to innovate at the frontier of SBI+NS, this is its USP.
+        \end{itemize}
         \column{0.5\textwidth}
         \includegraphics<1>[width=\textwidth]{figures/compression_1}%
         \includegraphics<2->[width=\textwidth]{figures/compression_2}%
@@ -233,6 +231,33 @@
         \includegraphics<1|handout:0>[width=\textwidth,page=14]{figures/himmelblau}%
         \includegraphics<2          >[width=\textwidth,page=15]{figures/himmelblau}%
 
+    \end{columns}
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{Time complexity of nested sampling}
+    \includegraphics[width=\textwidth]{figures/run_prodecure}
+    \vspace{-20pt}
+    \begin{columns}
+        \column{0.5\textwidth}
+        \vspace{-20pt}
+    \begin{itemize}
+        \item $x$-axis: log-compression of live points
+        \item Area $\propto$ posterior mass
+        \item Shows Bayesian balance of likelihood vs prior
+        \item Run proceeds right to left
+        \item Run finishes after bump (typical set)
+    \end{itemize}
+        \column{0.5\textwidth}
+        \begin{itemize}
+            \item Time complexity\vspace{-5pt}
+                \[ \boxed{T = n_\mathrm{live} \times T_\mathcal{L} \times T_\mathrm{sampler} \times \mathcal{D}_\mathrm{KL}(\mathcal{P}||\pi)} \vspace{-20pt} \]
+                \begin{itemize} 
+                    \item \texttt{PolyChord}: $T_\mathrm{sampler}\sim\mathcal{O}(d)$
+                    \item \texttt{MultiNest}: $T_\mathrm{sampler}\sim\mathcal{O}(d)$
+                \end{itemize}
+        \end{itemize}
     \end{columns}
 
 \end{frame}
@@ -325,7 +350,24 @@
 
 \begin{frame}
     \frametitle{Nested sampling as an optimiser}
-    <++>
+    \begin{itemize}
+        \item Nested sampling can be used in ``pure optimisation mode'' for a function $f(\theta)$ by:
+        \item Turning off the stopping criterion (which only makes sense for likelihoods $f=\mathcal{L}$)
+            \begin{itemize}
+                \item stopping instead after a fixed number of iterations.
+            \end{itemize}
+        \item Pros:
+            \begin{itemize}
+                \item The iteration number $i$ is interpretable as ``log-volume compressed'' $X = e^{-i/n_\mathrm{live}}$
+                \item It is excellent at exploring multimodal functions (local optima)
+                \item The live points allow an element of multi-objective optimisation, e.g. given a maximum cost, what configurations of nuclear reactor are available?
+            \end{itemize}
+        \item Cons:
+            \begin{itemize}
+                \item It is not very fast as an optimiser!
+                \item this can be fixed by running a gradient descent/simplex from the final set of live points to ``polish'' the solution (PolyChord has this as an option with \texttt{settings.optimise=True})
+            \end{itemize}
+    \end{itemize}
 \end{frame}
 
 
@@ -484,6 +526,22 @@
 
 \begin{frame}
     \frametitle{A note on dynesty}
+    \begin{itemize}
+        \item \texttt{dynesty} is a pure Python re-implementation of many existing codes 
+            \begin{itemize}
+                \item (which also now implement dynamic nested sampling)
+            \end{itemize}
+        \item This means that it just works\textsuperscript{TM} (particularly on OSX).
+        \item However:
+    \end{itemize}
+    \begin{enumerate}
+        \item Python overheads can be significant (particularly for fast likelihoods)
+        \item It is not very well parallelised in MPI (one of the key advantages of NS)
+        \item If you are using the techniques it has reimplemented (\texttt{MultiNest}, \texttt{PolyChord}, \texttt{UltraNest}), you should cite these as well as \texttt{dynesty}!
+    \end{enumerate}
+    \begin{itemize}
+        \item If you are finding \texttt{dynesty} is slow, it may be worth switching!
+    \end{itemize}
 \end{frame}
 
 \begin{frame}
