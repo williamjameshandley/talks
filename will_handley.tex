@@ -71,6 +71,7 @@
 
 \begin{frame}
     \frametitle{The three pillars of Bayesian inference}
+    Where NS has been used historically\vspace{-10pt}
     \begin{columns}[t]
         \column{0.33\textwidth}
         \begin{block}{Parameter estimation}
@@ -112,7 +113,7 @@
         \column{0.5\textwidth}
         \begin{itemize}
             \item The cornerstone of numerical Bayesian inference is working with \textbf{samples}.
-            \item Generate a set of representative parameters drawn in proportion to the posterior $\theta\sim\C[0]{\mathcal{P}}$.
+            \item Generate a set of representative parameters drawn in proportion a distributionto the posterior $\theta\sim\C[0]{\mathcal{P}}$.
             \item The magic of marginalisation $\Rightarrow$ perform usual analysis on each sample in turn.
             \item The golden rule is \C[3]{stay in samples} until the last moment before computing summary statistics/triangle plots because \[\boxed{f(\:\av{X}\:)\ne \av{\:f(X)\:}}\]
             \item Generally need $\sim\mathcal{O}(12)$ independent samples to compute a value and error bar.
@@ -185,7 +186,7 @@
             \item The evolving ensemble of live points allows algorithms to perform self-tuning and mode clustering.
         \end{itemize}
         \column{0.4\textwidth}
-        \includegraphics[width=\textwidth,page=8]{figures/himmelblau}%
+        \includegraphics[width=\textwidth,page=4]{figures/himmelblau}%
     \end{columns}
 \end{frame}
 
@@ -200,7 +201,10 @@
             \approx \frac{\C[1]{n_\mathrm{in}}}{\C[0]{n_\mathrm{out}}+\C[1]{n_\mathrm{in}}}
         \]
             \item This is the \textbf{only} way to calculate volume in high dimensions $d>3$.
-            \item If you want to innovate at the frontier of SBI+NS, this is its USP.
+                \begin{itemize}
+                    \item Geometry is exponentially inefficient
+                \end{itemize}
+            \item If you want to innovate at the frontier of SBI+NS, this is a USP.
         \end{itemize}
         \column{0.5\textwidth}
         \includegraphics<1>[width=\textwidth]{figures/compression_1}%
@@ -228,8 +232,7 @@
 
         \column{0.4\textwidth}
 
-        \includegraphics<1|handout:0>[width=\textwidth,page=14]{figures/himmelblau}%
-        \includegraphics<2          >[width=\textwidth,page=15]{figures/himmelblau}%
+        \includegraphics[width=\textwidth,page=15]{figures/himmelblau}%
 
     \end{columns}
 
@@ -252,11 +255,8 @@
         \column{0.5\textwidth}
         \begin{itemize}
             \item Time complexity\vspace{-5pt}
-                \[ \boxed{T = n_\mathrm{live} \times T_\mathcal{L} \times T_\mathrm{sampler} \times \mathcal{D}_\mathrm{KL}(\mathcal{P}||\pi)} \vspace{-20pt} \]
-                \begin{itemize} 
-                    \item \texttt{PolyChord}: $T_\mathrm{sampler}\sim\mathcal{O}(d)$
-                    \item \texttt{MultiNest}: $T_\mathrm{sampler}\sim\mathcal{O}(d)$
-                \end{itemize}
+                \[ \boxed{T = n_\mathrm{live} \times T_\mathcal{L} \times T_\mathrm{sampler} \times \mathcal{D}_\mathrm{KL}(\mathcal{P}||\pi)}\vspace{-5pt}  \]
+            \item Error complexity $\boxed{\sigma \propto \sqrt{\mathcal{D}_\mathrm{KL}(\mathcal{P}||\pi)/n_\mathrm{live}}}$
         \end{itemize}
     \end{columns}
 
