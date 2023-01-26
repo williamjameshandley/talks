@@ -111,6 +111,7 @@
     \frametitle{Why do sampling?}
     \begin{columns}
         \column{0.5\textwidth}
+        \vspace{-10pt}
         \begin{itemize}
             \item The cornerstone of numerical Bayesian inference is working with \textbf{samples}.
             \item Generate a set of representative parameters drawn in proportion a distributionto the posterior $\theta\sim\C[0]{\mathcal{P}}$.
@@ -274,8 +275,13 @@
   \begin{itemize}
       
     \item A large fraction of the work in NS to date has been in attempting to implement a hard-edged sampler in the NS meta-algorithm $\{\theta\sim \pi : \mathcal{L}(\theta)>\mathcal{L}_* \}$.
-    \item \url{https://projecteuclid.org/euclid.ba/1340370944}.
-    \item There has also been much work beyond this (focus of this talk).
+        \begin{itemize}
+            \item \url{https://projecteuclid.org/euclid.ba/1340370944}.
+        \end{itemize}
+    \item There has also been much work beyond this 
+        \begin{itemize}
+            \item see ``Frontiers of nested sampling'' \url{https://willhandley.co.uk/talks}.
+        \end{itemize}
   \end{itemize}
  
 \end{frame}
