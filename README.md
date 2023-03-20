@@ -1,7 +1,4 @@
 # Nested Sampling: A multi-purpose numerical tool for science and machine learning 
-45 minute colloquium given on 14th February 2020 at the University of Adelaide, Australia
-
-
 
 ## Abstract
 
