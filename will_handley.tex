@@ -206,6 +206,42 @@
 \end{frame}
 
 \begin{frame}
+    \frametitle{Integration in Physics}
+    \begin{itemize}
+        \item Integration is a fundamental concept in physics, statistics and data science:
+    \end{itemize}
+    \begin{columns}
+        \column{0.3\textwidth}
+        \begin{block}{Partition functions}
+            \vspace{-11pt}
+            \[ Z(\beta) = \int e^{-\beta H(q,p)} dq dp \]
+        \end{block}
+        \column{0.3\textwidth}
+        \begin{block}{Path integrals}
+            \[ \Psi = \int e^{i S} \mathcal{D}x \]
+        \end{block}
+        \column{0.3\textwidth}
+        \begin{block}{Bayesian marginals}
+            \vspace{-11pt}
+            \[ \mathcal{Z}(D) = \int \mathcal{L}(D|\theta) \pi(\theta) d\theta \]
+        \end{block}
+    \end{columns}
+    \begin{columns}
+        \column{0.6\textwidth}
+        \begin{itemize}
+            \item Need numerical tools if analytic solution unavailable.
+            \item High-dimensional numerical integration is hard.
+            \item Riemannian strategy estimates volumes geometrically:
+                \[ \int f(x) d^nx \approx \sum_i f(x_i) \Delta V_i \sim \mathcal{O}(e^n) \]
+            \item Curse of dimensionality $\Rightarrow$ exponential scaling.
+            \item Nested sampling integrates \textbf{probabilistically}.
+        \end{itemize}
+        \column{0.4\textwidth}
+        \includegraphics[width=\textwidth]{figures/integration.pdf}
+    \end{columns}
+\end{frame}
+
+\begin{frame}
     \frametitle{Integration in high dimensions}
     \begin{columns}
         \column{0.6\textwidth}
@@ -434,70 +470,173 @@
     \end{itemize}
 \end{frame}
 
-
 \begin{frame}
-    \frametitle{Exploration of phase space~\arxiv{2106.02056}}
-    \begin{columns}
-        \column{0.5\textwidth}
-        \begin{itemize}
-            \item Nested sampling for cross section computation/event generation.
-            \item Numerically compute collisional cross section 
-                \vspace{-5pt}\[\sigma = \int_\Omega d\Phi |\mathcal{M}|^2,\]
-                $\Omega$ phase space of kinematic configurations $\Phi$, each with matrix element $\mathcal{M}(\Phi)$.
-            \item Current state of the art e.g. HAAG (improvement on RAMBO) requires knowledge of $\mathcal{M}(\Phi)$.
-            \item Nested sampling can explore the phase space and compute integral blind with comparable efficiency.
-        \end{itemize}
-        \column{0.5\textwidth}
-        \includegraphics[width=\textwidth]{figures/phase_space_1.pdf}
-        \includegraphics[width=\textwidth]{figures/phase_space.pdf}
-    \end{columns}
-\end{frame}
-
-\begin{frame}
-    \frametitle{Statistics: fast estimation of small $p$-values~\arxiv{2106.02056}(PRL)}
+    \frametitle{Applications of nested sampling}
+    \framesubtitle{Cosmology}
     \begin{columns}
         \column{0.55\textwidth}
         \begin{itemize}
-            \item Nested sampling for frequentist computation!?
-            \item $p$-value: $P(\lambda>\lambda^*|H_0)$ -- probability that test statistic $\lambda$ is at least as great as observed $\lambda^*$.
-            \item Computation of a tail probability from sampling distribution of $\lambda$ under $H_0$.
-            \item For gold-standard $5\sigma$, this is very expensive to simulate directly ($\sim10^9$ by definition).
-            \item Need insight/approximation to make efficient.
-            \item Nested sampling is tailor-made for this, just make switch: $X\leftrightarrow p$, $\mathcal{L}\leftrightarrow\lambda$, $\theta \leftrightarrow x$.
-            \item The only real conceptual shift is switching the integrator from parameter- to data-space.
+            \item Battle-tested in Bayesian cosmology on
+                \begin{itemize}
+                    \item Parameter estimation: multimodal alternative to MCMC samplers.
+                    \item Model comparison: using integration to compute the Bayesian evidence
+                    \item Tension quantification: using deep tail sampling and suspiciousness computations.
+                \end{itemize}
+            \item Plays a critical role in major cosmology pipelines: Planck, DES, KiDS, BAO, SNe.
+            \item The default $\Lambda$CDM cosmology is well-tuned to have Gaussian-like posteriors for CMB data. 
+            \item Less true for alternative cosmologies/models and orthogonal datasets, so nested sampling crucial.
         \end{itemize}
         \column{0.45\textwidth}
-        \includegraphics[width=\textwidth]{figures/pvalue.pdf}
+        \includegraphics[width=0.49\textwidth]{figures/pps_both}
+        \includegraphics[width=0.49\textwidth]{figures/reach_fit-cropped.pdf}
+        %\includegraphics[width=0.49\textwidth]{figures/curvature_3}
+        \includegraphics[width=\textwidth]{figures/omegak_H0_2.pdf}
     \end{columns}
-    
 \end{frame}
 
 \begin{frame}
-    \frametitle{Quantification of fine tuning~\arxiv{2101.00428}~\arxiv{2205.13549}}
-    \vspace{-10pt}
+    \frametitle{Applications of nested sampling}
+    \framesubtitle{Astrophysics}
     \begin{columns}
-        \column{0.55\textwidth}
+        \column{0.6\textwidth}
         \begin{itemize}
-            \item Example: Cosmological constraints on decaying axion-like particles~\arxiv{2205.13549}.
-            \item Subset of parameters $\xi,m_a,\tau,g_{a\gamma}$: ALP fraction, mass, lifetime and photon coupling.
-                {(\small Also vary cosmology, $\tau_n$ and nuisance params)}
-            \item Data: CMB, BBN, FIRAS, SMM, BAO.
-            \item Standard profile likelihood fit shows ruled out regions and best-fit point.
-            \item<2-> Nested sampling scan:
+            \item In exoplanets~\arxiv{1806.00518}
                 \begin{itemize}
-                    \item Quantifies amount of parameter space ruled out with Kullback-Liebler divergence $\mathcal{D}_\mathrm{KL}$.
-                    \item Identifies best fit region as statistically irrelevant from information theory/Bayesian.
-                    \item No evidence for decaying ALPs. Fit the data equally well: but more constrained parameters create Occam penalty.
+                    \item Parameter estimation: determining properties of planets.
+                    \item Model comparison: how many planets? Stellar modelling~\arxiv{2007.07278}.
+                    \item exoplanet problems regularly have posterior phase transitions \arxiv{2102.03387}
+                \end{itemize}
+            \item In gravitational waves
+                \begin{itemize}
+                    \item Parameter estimation: Binary merger properties
+                    \item Model comparison: Modified theories of gravity, selecting phenomenological parameterisations~\arxiv{1803.10210}
+                    \item Likelihood reweighting: fast slow properties
                 \end{itemize}
         \end{itemize}
-        \column{0.45\textwidth}
-        \includegraphics<1|handout:0>[width=\textwidth]{figures/ALP_1.pdf}
-        \includegraphics<2          >[width=\textwidth]{figures/ALP_2.pdf}
-        \includegraphics<3|handout:0>[width=\textwidth]{figures/ALP_3.pdf}
+        \column{0.4\textwidth}
+        \includegraphics[width=\textwidth]{figures/rv_full.pdf}
+        \includegraphics[width=0.49\textwidth]{figures/ligo_m1_m2.pdf}
+        \includegraphics[width=0.49\textwidth]{figures/ligo_lambert-skymap.pdf}
     \end{columns}
-    
 \end{frame}
 
+\begin{frame}
+    \frametitle{Applications of nested sampling}
+    \framesubtitle{Particle physics}
+    \begin{columns}
+        \column{0.56\textwidth}
+        \begin{columns}
+            \column{0.67\textwidth}
+            \begin{itemize}
+                \item Nested sampling for cross section computation/event generation
+            \end{itemize}
+            \column{0.3\textwidth}
+            \[\sigma = \int_\Omega d\Phi |\mathcal{M}|^2.\]
+        \end{columns}
+        \begin{itemize}
+            \item Nested sampling can explore the phase space $\Omega$ and compute integral blind with comparable efficiency to HAAG/RAMBO~\arxiv{2205.02030}.
+            \item Bayesian sparse reconstruction~\arxiv{1809.04598} applied to bump hunting allows evidence-based detection of signals in phenomenological backgrounds~\arxiv{2211.10391}.
+            \item Now applying to lattice field theory, and lattice gravity Lagrangians.
+            \item Fine tuning quantification
+        \end{itemize}
+        \column{0.17\textwidth}
+        \includegraphics[width=\textwidth]{figures/phase_space_1-pdfjam-crop.pdf}
+        \column{0.27\textwidth}
+        \includegraphics[width=\textwidth]{figures/psi_predict-crop.pdf}
+    \end{columns}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Applications of nested sampling}
+    \framesubtitle{Machine learning}
+    \begin{columns}
+        \column{0.62\textwidth}
+        \begin{itemize}
+            \item Machine learning requires:
+                \begin{itemize}
+                    \item Training to find weights
+                    \item Choice of architecture/topology/hyperparameters
+                \end{itemize}
+            \item Bayesian NNs treat training as a model fitting problem
+            \item Compute posterior of weights (parameter estimation), rather than optimisation (gradient descent)
+            \item Use evidence to determine best architecture (model comparison), correlates with out-of-sample performance! 
+            \item Solving the full ``shallow learning'' problem without compromise \arxiv{2004.12211}\arxiv{2211.10391}. 
+            \item Promising work ongoing to extend this to transfer learning and deep nets.
+        \end{itemize}
+        \column{0.38\textwidth}
+        \includegraphics[width=\textwidth]{figures/nn_posterior-cropped.pdf}
+    \end{columns}
+\end{frame}
+
+%\begin{frame}
+%    \frametitle{Applications of nested sampling}
+%    \framesubtitle{Statistics: fast estimation of small $p$-values~\arxiv{2106.02056}(PRL)}
+%    \begin{columns}
+%        \column{0.57\textwidth}
+%        \begin{itemize}
+%            \item Nested sampling for frequentist computation!?
+%            \item $p$-value: $P(\lambda>\lambda^*|H_0)$ -- probability that test statistic $\lambda$ is at least as great as observed $\lambda^*$.
+%            \item Computation of a tail probability from sampling distribution of $\lambda$ under $H_0$.
+%            \item For gold-standard $5\sigma$, this is very expensive to simulate directly ($\sim10^9$ by definition).
+%            \item Need insight/approximation to make efficient.
+%            \item Nested sampling is tailor-made for this, just make switch: $X\leftrightarrow p$, $\mathcal{L}\leftrightarrow\lambda$, $\theta \leftrightarrow x$.
+%            \item The only real conceptual shift is switching the integrator from parameter- to data-space.
+%        \end{itemize}
+%        \column{0.43\textwidth}
+%        \includegraphics[width=\textwidth]{figures/pvalue.pdf}
+%    \end{columns}
+%\end{frame}
+
+\begin{frame}
+    \frametitle{Applications of nested sampling}
+    \framesubtitle{and beyond\ldots}
+    \begin{columns}
+        \column{0.6\textwidth}
+        \begin{itemize}
+            \item Techniques have been spun-out (PolyChord Ltd) to:
+            \item Protein folding
+                \begin{itemize}
+                    \item Navigating free energy surface.
+                    \item Computing misfolds.
+                    \item Thermal motion.
+                \end{itemize}
+            \item Nuclear fusion reactor optimisation
+                \begin{itemize}
+                    \item multi-objective.
+                    \item uncertainty propagation.
+                \end{itemize}
+            \item Telecoms \& DSTL research (MIDAS)
+                \begin{itemize}
+                    \item Optimising placement of transmitters/sensors.
+                    \item Maximum information data acquisition strategies.
+                \end{itemize}
+        \end{itemize}
+        \includegraphics<1->[width=0.082\textwidth]{figures/headshots/watkinson-headshot.jpg}%
+        \includegraphics<1->[width=0.082\textwidth]{figures/headshots/mason-headshot.jpg}%
+        \includegraphics<1->[width=0.082\textwidth]{figures/headshots/formanek-headshot.jpg}%
+        \includegraphics<1->[width=0.082\textwidth]{figures/headshots/mcaloone-headshot.jpg}%
+        \includegraphics<1->[width=0.082\textwidth]{figures/headshots/stenczel-headshot.jpg}%
+        \includegraphics<1->[width=0.082\textwidth]{figures/headshots/yallup-headshot.jpg}%
+        \includegraphics<1->[width=0.082\textwidth]{figures/headshots/bex-headshot.jpg}%
+        \includegraphics<1->[width=0.082\textwidth]{figures/headshots/claireburke-headshot.jpg}%
+        \includegraphics<1->[width=0.082\textwidth]{figures/headshots/hobson-headshot.jpg}%
+        \includegraphics<1->[width=0.082\textwidth]{figures/headshots/lasenby-headshot.jpg}%
+        \includegraphics<1->[width=0.082\textwidth]{figures/headshots/mhandley-headshot.jpg}%
+        \includegraphics<1->[width=0.082\textwidth]{figures/headshots/whandley-headshot.jpg}%
+        \column{0.4\textwidth}
+        \includegraphics<1|handout:0>[width=\textwidth]{figures/protein_1.png}%
+        \includegraphics<2          >[width=\textwidth]{figures/protein_2.png}%
+        \includegraphics<3|handout:0>[width=\textwidth]{figures/protein_3.png}%
+        \includegraphics<4|handout:0>[width=\textwidth]{figures/lcoe.png}%
+        %\includegraphics<5|handout:0>[width=\textwidth]{figures/tdoa-cropped-1-crop.pdf}%
+        %\includegraphics<6|handout:0>[width=\textwidth]{figures/tdoa-cropped-2-crop.pdf}%
+        %\includegraphics<7|handout:0>[width=\textwidth]{figures/tdoa-cropped-3-crop.pdf}%
+        \includegraphics<5|handout:0>[width=\textwidth]{figures/DKL_contour-cropped-crop.pdf}%
+        \includegraphics<6|handout:0>[width=\textwidth]{figures/mean_DKL_optimise-3-crop.pdf}%
+        \includegraphics<7|handout:0>[width=\textwidth]{figures/mean_DKL_optimise-4-crop.pdf}%
+        \includegraphics<8|handout:0>[width=\textwidth]{figures/mean_DKL_optimise-5-crop.pdf}%
+    \end{columns}
+\end{frame}
 
 \begin{frame}
     \frametitle{What is a model?}
@@ -553,64 +692,30 @@
 \end{frame}
 
 \begin{frame}
-    \frametitle{NSPLA}
+    \frametitle{\texttt{unimpeded}: legacy suites for the next generation}
     \begin{columns}
         \column{0.5\textwidth}
         \begin{itemize}
             \item DiRAC 2020 RAC allocation of 30MCPUh
             \item Main goal: Planck Legacy Archive equivalent
-                \begin{itemize}
-                    \item Parameter estimation $\to$ Model comparison
-                    \item MCMC $\to$ Nested sampling
-                    \item Planck $\to$ $\{\text{Planck}, \text{DESY1}, \text{BAO}, \ldots \}$
-                    \item Pairwise combinations
-                \end{itemize}
+            \item Parameter estimation $\to$ Model comparison
+            \item MCMC $\to$ Nested sampling
+            \item Planck $\to$ $\{\text{Planck}, \text{DESY1}, \text{BAO}, \ldots \}$
+            \item Pairwise combinations
             \item Suite of tools for processing these 
                 \begin{itemize}
-                    \item \texttt{unimpeded} $1.0$
-                    \item \texttt{margarine} $1.0$
                     \item \texttt{anesthetic} $2.0$
+                    \item \texttt{unimpeded} $1.0$
                     \item \texttt{zenodo} archive
+                    \item \texttt{margarine}
                 \end{itemize}
             \item MCMC chains also available.
+            \item Library of bijectors emulators for fast re-use
         \end{itemize}
         \column{0.5\textwidth}
         \includegraphics[width=\textwidth]{logos/dirac}
         \includegraphics[width=0.5\textwidth,page=21]{figures/himmelblau}%
         \includegraphics[width=0.5\textwidth,page=15]{figures/himmelblau}
-    \end{columns}
-\end{frame}
-
-\begin{frame}[fragile]
-    \frametitle{\texttt{unimpeded}}
-    \framesubtitle{Universal Model comparison and Parameter Estimation Distributed over Every Dataset}
-    \begin{columns}
-        \column{0.5\textwidth}
-    \begin{itemize}
-        \item Python tool for seamlessly downloading, uploading and cacheing of chains
-        \item Data stored on \texttt{zenodo} 
-        \item hdf5 storage for fast \& reliable storage
-        \item \texttt{anesthetic} compatible for processing of chains~\arxiv{1905.04768}
-        %\item $\alpha$-testers wanted! (email \href{mailto:wh260@cam.ac.uk}{wh260@cam.ac.uk}) 
-        \item End goal -- community library which everyone contributes to so expensive inference products are reusable and reused.
-    \end{itemize}
-        \column{0.5\textwidth}
-
-
-\lstset{language=Python}
-\lstset{frame=lines}
-\lstset{basicstyle=\footnotesize}
-\begin{lstlisting}
-from unimpeded import Unimpeded
-store = Unimpeded(cache='data.hdf5')
-samps = store('planck')
-samps.H0.plot.kde_1d()
-samps = store('planck', model='klcdm')
-samps.H0.plot.kde_1d()
-\end{lstlisting}
-\includegraphics[width=\textwidth]{figures/unimpeded.pdf}
-
-        
     \end{columns}
 \end{frame}
 
@@ -915,6 +1020,29 @@ samps.H0.plot.kde_1d()
 %\end{frame}
 
 \begin{frame}
+    \frametitle{Beyond the meta-algorithm}
+    \begin{columns}
+        \column{0.5\textwidth}
+        \begin{itemize}
+            \item Dynamic nested sampling~\arxiv{1704.03459}
+            \item Unwoven nested sampling~\arxiv{1703.09701}
+            \item Accelerated nested sampling~\arxiv{2212.01760}
+            \item Precision nested sampling~\arxiv{2006.03371}
+            \item Multiobjective nested sampling
+            \item Nested sampling with gradients?
+            \item Reversible nested sampling?
+            \item Transdimensional nested sampling?
+            \item postprocessing: \texttt{anesthetic}~\arxiv{1905.04768}
+            \item crosschecking: \texttt{nestcheck}~\arxiv{1804.06406}
+        \end{itemize}
+        \column{0.5\textwidth}
+        \includegraphics[width=\textwidth]{figures/dynesty.pdf}
+        \includegraphics[width=\textwidth]{figures/supernest.pdf}
+    \end{columns}
+\end{frame}
+
+
+\begin{frame}
     \frametitle{Conclusions}
     \begin{columns}
         \column{0.65\textwidth}
@@ -955,11 +1083,12 @@ samps.H0.plot.kde_1d()
         Modern Nested Sampling algorithms can do this in $\sim\mathcal{O}(100s)$ dimensions
     \end{columns}
     \begin{columns}[t]
-        \column{0.33\textwidth}
+        \column{0.3\textwidth}
         \begin{block}{Optimisation}
             \begin{itemize}
                 \item Gradient descent
                     \begin{itemize}
+                        \item[$-$] NS cannot use gradients
                         \item[$+$] NS does not require gradients
                     \end{itemize}
                 \item Genetic algorithms
@@ -968,12 +1097,12 @@ samps.H0.plot.kde_1d()
                     \end{itemize}
             \end{itemize}
         \end{block}
-        \column{0.33\textwidth}
+        \column{0.3\textwidth}
         \begin{block}{Sampling}
             \begin{itemize}
                 \item Metropolis-Hastings?
                     \begin{itemize}
-                        \item[$-$] Very little beats a well-tuned, customised MH
+                        \item[$-$] Nothing beats well-tuned customised MH
                         \item[$+$] NS is self tuning
                     \end{itemize}
                 \item Hamiltonian Monte Carlo?
@@ -983,7 +1112,7 @@ samps.H0.plot.kde_1d()
                     \end{itemize}
             \end{itemize}
         \end{block}
-        \column{0.33\textwidth}
+        \column{0.3\textwidth}
         \begin{block}{Integration}
             \begin{itemize}
                 \item Thermodynamic integration
@@ -993,7 +1122,7 @@ samps.H0.plot.kde_1d()
                     \end{itemize}
                 \item Sequential Monte Carlo
                     \begin{itemize}
-                        \item[$-$] Some people (SMC experts) classify NS as a kind of SMC
+                        \item[$-$] SMC experts classify NS as a kind of SMC
                         \item[$+$] NS is athermal
                     \end{itemize}
             \end{itemize}
@@ -1084,5 +1213,71 @@ samps.H0.plot.kde_1d()
         \includegraphics{figures/volumes.pdf}
     \end{columns}
 \end{frame}
+
+\begin{frame}
+    \frametitle{Statistics: fast estimation of small $p$-values~\arxiv{2106.02056}(PRL)}
+    \begin{columns}
+        \column{0.55\textwidth}
+        \begin{itemize}
+            \item Nested sampling for frequentist computation!?
+            \item $p$-value: $P(\lambda>\lambda^*|H_0)$ -- probability that test statistic $\lambda$ is at least as great as observed $\lambda^*$.
+            \item Computation of a tail probability from sampling distribution of $\lambda$ under $H_0$.
+            \item For gold-standard $5\sigma$, this is very expensive to simulate directly ($\sim10^9$ by definition).
+            \item Need insight/approximation to make efficient.
+            \item Nested sampling is tailor-made for this, just make switch: $X\leftrightarrow p$, $\mathcal{L}\leftrightarrow\lambda$, $\theta \leftrightarrow x$.
+            \item The only real conceptual shift is switching the integrator from parameter- to data-space.
+        \end{itemize}
+        \column{0.45\textwidth}
+        \includegraphics[width=\textwidth]{figures/pvalue.pdf}
+    \end{columns}
+    
+\end{frame}
+
+\begin{frame}
+    \frametitle{Exploration of phase space~\arxiv{2106.02056}}
+    \begin{columns}
+        \column{0.5\textwidth}
+        \begin{itemize}
+            \item Nested sampling for cross section computation/event generation.
+            \item Numerically compute collisional cross section 
+                \vspace{-5pt}\[\sigma = \int_\Omega d\Phi |\mathcal{M}|^2,\]
+                $\Omega$ phase space of kinematic configurations $\Phi$, each with matrix element $\mathcal{M}(\Phi)$.
+            \item Current state of the art e.g. HAAG (improvement on RAMBO) requires knowledge of $\mathcal{M}(\Phi)$.
+            \item Nested sampling can explore the phase space and compute integral blind with comparable efficiency.
+        \end{itemize}
+        \column{0.5\textwidth}
+        \includegraphics[width=\textwidth]{figures/phase_space_1.pdf}
+        \includegraphics[width=\textwidth]{figures/phase_space.pdf}
+    \end{columns}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Quantification of fine tuning~\arxiv{2101.00428}~\arxiv{2205.13549}}
+    \vspace{-10pt}
+    \begin{columns}
+        \column{0.55\textwidth}
+        \begin{itemize}
+            \item Example: Cosmological constraints on decaying axion-like particles~\arxiv{2205.13549}.
+            \item Subset of parameters $\xi,m_a,\tau,g_{a\gamma}$: ALP fraction, mass, lifetime and photon coupling.
+                {(\small Also vary cosmology, $\tau_n$ and nuisance params)}
+            \item Data: CMB, BBN, FIRAS, SMM, BAO.
+            \item Standard profile likelihood fit shows ruled out regions and best-fit point.
+            \item<2-> Nested sampling scan:
+                \begin{itemize}
+                    \item Quantifies amount of parameter space ruled out with Kullback-Liebler divergence $\mathcal{D}_\mathrm{KL}$.
+                    \item Identifies best fit region as statistically irrelevant from information theory/Bayesian.
+                    \item No evidence for decaying ALPs. Fit the data equally well: but more constrained parameters create Occam penalty.
+                \end{itemize}
+        \end{itemize}
+        \column{0.45\textwidth}
+        \includegraphics<1|handout:0>[width=\textwidth]{figures/ALP_1.pdf}
+        \includegraphics<2          >[width=\textwidth]{figures/ALP_2.pdf}
+        \includegraphics<3|handout:0>[width=\textwidth]{figures/ALP_3.pdf}
+    \end{columns}
+    
+\end{frame}
+
+
+
 
 \end{document}
