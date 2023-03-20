@@ -1,8 +1,7 @@
 \documentclass[aspectratio=169]{beamer}
 \usepackage{will_handley_beamer}
 \usepackage{title_page}
-\usepackage{will_handley_beamer}
-\usepackage{title_page}
+\usepackage{pythonhighlight}
 \usepackage{tikz}
 \newcommand{\av}[2][]{\left\langle #2\right\rangle_{#1}}
 
@@ -457,7 +456,7 @@
 \begin{frame}
     \frametitle{Statistics: fast estimation of small $p$-values~\arxiv{2106.02056}(PRL)}
     \begin{columns}
-        \column{0.52\textwidth}
+        \column{0.55\textwidth}
         \begin{itemize}
             \item Nested sampling for frequentist computation!?
             \item $p$-value: $P(\lambda>\lambda^*|H_0)$ -- probability that test statistic $\lambda$ is at least as great as observed $\lambda^*$.
@@ -467,7 +466,7 @@
             \item Nested sampling is tailor-made for this, just make switch: $X\leftrightarrow p$, $\mathcal{L}\leftrightarrow\lambda$, $\theta \leftrightarrow x$.
             \item The only real conceptual shift is switching the integrator from parameter- to data-space.
         \end{itemize}
-        \column{0.48\textwidth}
+        \column{0.45\textwidth}
         \includegraphics[width=\textwidth]{figures/pvalue.pdf}
     \end{columns}
     
@@ -477,7 +476,7 @@
     \frametitle{Quantification of fine tuning~\arxiv{2101.00428}~\arxiv{2205.13549}}
     \vspace{-10pt}
     \begin{columns}
-        \column{0.5\textwidth}
+        \column{0.55\textwidth}
         \begin{itemize}
             \item Example: Cosmological constraints on decaying axion-like particles~\arxiv{2205.13549}.
             \item Subset of parameters $\xi,m_a,\tau,g_{a\gamma}$: ALP fraction, mass, lifetime and photon coupling.
@@ -491,7 +490,7 @@
                     \item No evidence for decaying ALPs. Fit the data equally well: but more constrained parameters create Occam penalty.
                 \end{itemize}
         \end{itemize}
-        \column{0.5\textwidth}
+        \column{0.45\textwidth}
         \includegraphics<1|handout:0>[width=\textwidth]{figures/ALP_1.pdf}
         \includegraphics<2          >[width=\textwidth]{figures/ALP_2.pdf}
         \includegraphics<3|handout:0>[width=\textwidth]{figures/ALP_3.pdf}
@@ -528,7 +527,7 @@
 
     \begin{columns}
 
-        \begin{column}{0.5\textwidth}
+        \begin{column}{0.55\textwidth}
 
             \begin{itemize}
                 \item If you allow $\Omega_K\ne0$, \textit{Planck} (\texttt{plikTTTEEE}) has a moderate preference for closed universes (50:1 betting odds on), $\Omega_K=-4.5\pm1.5\%$
@@ -542,7 +541,7 @@
 
         \end{column}
 
-        \begin{column}{0.5\textwidth}
+        \begin{column}{0.45\textwidth}
             \includegraphics<1|handout:0>[width=\textwidth]{figures/curvature_1}%
             \includegraphics<2|handout:0>[width=\textwidth]{figures/curvature_2}%
             \includegraphics<3          >[width=\textwidth]{figures/curvature_3}%
@@ -552,6 +551,69 @@
     \end{columns}
 
 \end{frame}
+
+\begin{frame}
+    \frametitle{NSPLA}
+    \begin{columns}
+        \column{0.5\textwidth}
+        \begin{itemize}
+            \item DiRAC 2020 RAC allocation of 30MCPUh
+            \item Main goal: Planck Legacy Archive equivalent
+                \begin{itemize}
+                    \item Parameter estimation $\to$ Model comparison
+                    \item MCMC $\to$ Nested sampling
+                    \item Planck $\to$ $\{\text{Planck}, \text{DESY1}, \text{BAO}, \ldots \}$
+                    \item Pairwise combinations
+                \end{itemize}
+            \item Suite of tools for processing these 
+                \begin{itemize}
+                    \item \texttt{unimpeded} $1.0$
+                    \item \texttt{margarine} $1.0$
+                    \item \texttt{anesthetic} $2.0$
+                    \item \texttt{zenodo} archive
+                \end{itemize}
+            \item MCMC chains also available.
+        \end{itemize}
+        \column{0.5\textwidth}
+        \includegraphics[width=\textwidth]{logos/dirac}
+        \includegraphics[width=0.5\textwidth,page=21]{figures/himmelblau}%
+        \includegraphics[width=0.5\textwidth,page=15]{figures/himmelblau}
+    \end{columns}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{\texttt{unimpeded}}
+    \framesubtitle{Universal Model comparison and Parameter Estimation Distributed over Every Dataset}
+    \begin{columns}
+        \column{0.5\textwidth}
+    \begin{itemize}
+        \item Python tool for seamlessly downloading, uploading and cacheing of chains
+        \item Data stored on \texttt{zenodo} 
+        \item hdf5 storage for fast \& reliable storage
+        \item \texttt{anesthetic} compatible for processing of chains~\arxiv{1905.04768}
+        %\item $\alpha$-testers wanted! (email \href{mailto:wh260@cam.ac.uk}{wh260@cam.ac.uk}) 
+        \item End goal -- community library which everyone contributes to so expensive inference products are reusable and reused.
+    \end{itemize}
+        \column{0.5\textwidth}
+
+
+\lstset{language=Python}
+\lstset{frame=lines}
+\lstset{basicstyle=\footnotesize}
+\begin{lstlisting}
+from unimpeded import Unimpeded
+store = Unimpeded(cache='data.hdf5')
+samps = store('planck')
+samps.H0.plot.kde_1d()
+samps = store('planck', model='klcdm')
+samps.H0.plot.kde_1d()
+\end{lstlisting}
+\includegraphics[width=\textwidth]{figures/unimpeded.pdf}
+
+        
+    \end{columns}
+\end{frame}
+
 
 
 \newcommand{\movablecross}[1]{%
@@ -586,7 +648,7 @@
 
 
   \begin{columns}
-      \column{0.5\textwidth}
+      \column{0.55\textwidth}
       \uncover<1->{
           \begin{itemize}
               \item Traditionally parameterise the primordial power spectrum with $(A_s,n_s)$
@@ -596,7 +658,7 @@
               \item Let the Bayesian evidence decide when you've introduced too many parameters
           \end{itemize}
       }
-      \column{0.5\textwidth}
+      \column{0.45\textwidth}
 
       \only<1-5|handout:0>{
   \resizebox{\textwidth} {!} {%
@@ -726,9 +788,9 @@
             \item Global experiments measure monopole across frequency.
             \item Gives a specific absorption trough, which if detected allows constraints on the physics of the dark ages decade(s) before SKA.
             \item Challenge: science hidden in foregrounds $\sim 10^4\times$signal.
-        \includegraphics[height=0.32\textwidth]{figures/EDGES_antenna}
-        \includegraphics[height=0.32\textwidth]{figures/SARAS}
-        \includegraphics[height=0.32\textwidth]{figures/REACH_2.jpg}
+        \includegraphics[height=0.3\textwidth]{figures/EDGES_antenna}
+        \includegraphics[height=0.3\textwidth]{figures/SARAS}
+        \includegraphics[height=0.3\textwidth]{figures/REACH_2.jpg}
         \end{itemize}
 
         \column{0.38\textwidth}
@@ -743,7 +805,7 @@
 \begin{frame}
     \frametitle{REACH: Global 21cm cosmology [\href{https://www.nature.com/articles/s41550-022-01709-9}{NatAstro}]}
     \begin{columns}
-        \column{0.6\textwidth}
+        \column{0.65\textwidth}
         \begin{itemize}
             \item EDGES~[\href{https://www.nature.com/articles/nature25792}{Nat}] claimed a controversial 2019 detection.
             \item SARAS3~[\href{https://www.nature.com/articles/s41550-022-01610-5}{NatAstro}]  would have detected this by 2021.
@@ -759,10 +821,11 @@
             \item A collaboration powered by nested sampling.
         \end{itemize}
 
-        \column{0.4\textwidth}
+        \column{0.35\textwidth}
         \includegraphics[width=\textwidth]{figures/EDGES}
-        \includegraphics[width=0.8\textwidth]{figures/REACH_1}
-
+        \begin{center}
+            \includegraphics[width=0.8\textwidth]{figures/REACH_1}
+        \end{center}
     \end{columns}
 
 \end{frame}
