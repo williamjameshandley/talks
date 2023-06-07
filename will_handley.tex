@@ -324,7 +324,7 @@
     \begin{columns}
         \column{0.5\textwidth}
         \begin{itemize}
-            \item At each iteration, the likelihood contour will shrink in volume $X$ by  $\approx 1/n$.
+            \item At each iteration, the likelihood contour shrinks in volume $X$ by  $\approx 1/n$.
             \item Nested sampling zooms in to the peak of the function $\mathcal{L}$ {\em exponentially}.
                 \vspace{-5pt}
                 \[
@@ -332,18 +332,10 @@
                     X_{i+1} \approx \frac{n}{n+1}X_i, \quad X_{0} = 1 .
                 \]
                 \vspace{-15pt}
-            \item Although this is only approximate, we can quantify the error 
-                \vspace{-10pt}
-                \[
-                    P(X_i|X_{i-1}) = \frac{X_{i}^{n-1}}{nX_{i-1}^n}\times[0<X_i<X_{i-1}].
-                \]
-                \vspace{-15pt}
-            \item Integral can be discretised in several ways
-                \vspace{-10pt}
-                \[
-                    \mathcal{Z} \approx \sum_i \Delta\mathcal{L}_i X_{i} = \sum_i \mathcal{L}_i \Delta X_{i} = \sum_i \tfrac{\mathcal{L}_i+\mathcal{L}_{i-1}}{2}{\small(X_{i-1}-X_i).}
-                \]
-
+            \item At the end, one is left with a set of discarded points.
+            \item These may be weighted to form weighted posterior samples using $w_i = \mathcal{L}_i \Delta X_i$.
+            \item Estimates the density of states, and is therefore a partition function calculator
+                    $Z(\beta) = \sum_i \mathcal{L}_i^\beta \Delta X_i$.
         \end{itemize}
         \column{0.5\textwidth}
         \includegraphics<1|handout:0>[width=\textwidth,page=1]{figures/lesbesgue}%
@@ -362,35 +354,8 @@
         \includegraphics<14|handout:0>[width=\textwidth,page=14]{figures/lesbesgue}%
         \includegraphics<15|handout:0>[width=\textwidth,page=15]{figures/lesbesgue}%
         \includegraphics<16          >[width=\textwidth,page=16]{figures/lesbesgue}%
+        \includegraphics<17|handout:0>[width=\textwidth,page=15]{figures/himmelblau}%
     \end{columns}
-\end{frame}
-
-\begin{frame}
-    \frametitle{Dead points: posteriors \& evidences}
-    \begin{columns}
-        \column{0.6\textwidth}
-        \begin{itemize}
-            \item At the end, one is left with a set of discarded points.
-            \item These may be weighted to form weighted posterior samples using $w_i = \mathcal{L}_i \Delta X_i$.
-            \item They can also be used to calculate the integral $\mathcal{Z} = \sum \mathcal{L}_i \Delta X_i$, or more generally $\sum_i f(\mathcal{L}_i) \Delta X_i$.
-                \begin{itemize}
-                    \item Nested sampling probabilistically estimates the volume of the parameter space
-                        \[X_i \approx {\left(\frac{n}{n+1}\right)} X_{i-1} \quad\Rightarrow\quad
-                        X_i \approx {\left(\frac{n}{n+1}\right)}^i \approx e^{-i/n}, \]
-                    \item Nested sampling thus estimates the density of states,
-                    \item it is therefore a partition function calculator
-                        $Z(\beta) = \sum_i \mathcal{L}_i^\beta \Delta X_i$.
-                \end{itemize}
-            \item The evolving ensemble of live points allows algorithms to perform self-tuning and mode clustering.
-        \end{itemize}
-
-        \column{0.4\textwidth}
-
-        \includegraphics<1|handout:0>[width=\textwidth,page=14]{figures/himmelblau}%
-        \includegraphics<2          >[width=\textwidth,page=15]{figures/himmelblau}%
-
-    \end{columns}
-
 \end{frame}
 
 \begin{frame}
