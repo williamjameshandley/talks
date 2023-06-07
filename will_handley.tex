@@ -62,9 +62,10 @@
                     \item Hamiltonian Monte Carlo (Stan, blackjax)
                     \item Ensemble sampling (emcee, zeus). 
                     \item Variational Inference (Pyro)
-                    \item Sequential Monte Carlo \end{itemize}
+                    \item Sequential Monte Carlo 
                     \item Thermodynamic integration
                     \item Genetic algorithms
+                \end{itemize}
             \end{itemize}
         \column{0.5\textwidth}
         \begin{columns}
@@ -182,14 +183,11 @@
                 }
                 \only<4>{\hspace{-15pt}
                     \frac{\C[1]{V_\mathrm{after}}}{\C[0]{V_\mathrm{before}}} 
-= \frac{\C[1]{n_\mathrm{in}}+1}{\C[0]{n_\mathrm{out}}+\C[1]{n_\mathrm{in}}+2} \pm \sqrt{\tfrac{(\C[1]{n_\mathrm{in}}+1)(\C[0]{n_\mathrm{out}}+1)}{(\C[0]{n_\mathrm{out}}+\C[1]{n_\mathrm{in}}+2)^2(\C[0]{n_\mathrm{out}}+\C[1]{n_\mathrm{in}}+3)}}
+\sim \frac{\C[1]{n_\mathrm{in}}+1}{\C[0]{n_\mathrm{out}}+\C[1]{n_\mathrm{in}}+2} \pm \sqrt{\tfrac{(\C[1]{n_\mathrm{in}}+1)(\C[0]{n_\mathrm{out}}+1)}{(\C[0]{n_\mathrm{out}}+\C[1]{n_\mathrm{in}}+2)^2(\C[0]{n_\mathrm{out}}+\C[1]{n_\mathrm{in}}+3)}}
                 }
                 \]
             \item This is the \textbf{only} way to calculate volume in high dimensions $d>3$.
-                \begin{itemize}
-                    \item Geometry is exponentially inefficient.
-                \end{itemize}
-            \item This estimation process does not depend on geometry, topology or dimensionality
+            \item This process does not depend on geometry, topology or dimensionality
             \item The errors however are not small.
         \end{itemize}
         \column{0.5\textwidth}

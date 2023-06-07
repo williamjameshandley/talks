@@ -3,6 +3,8 @@ from anesthetic import read_chains
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_pdf import PdfPages
 import numpy as np
+from matplotlib import patheffects, rcParams
+rcParams['path.effects'] = [patheffects.withStroke(linewidth=1, foreground='white')]
 
 def f(x,y):
     return - ( (x**2 + y - 11)**2 + (x+y**2-7)**2 )
@@ -27,10 +29,10 @@ with PdfPages('himmelblau_gradient.pdf') as pdf:
     ax.set_yticks([])
     fig.tight_layout()
     live_points = data.live_points(0)
-    lines, = ax.plot(*live_points.loc[:,:'theta1'].values.T, 'C0.')
     live_grads = gradf(live_points.loc[:,'theta0'],live_points.loc[:,'theta1'])
     #live_grads/= np.linalg.norm(live_grads, axis=0)
     grads = ax.quiver(*live_points.loc[:,:'theta1'].values.T, *live_grads)
+    lines, = ax.plot(*live_points.loc[:,:'theta1'].values.T, 'C0.')
 
     pdf.savefig()
     lines.remove()
@@ -43,9 +45,9 @@ with PdfPages('himmelblau_gradient.pdf') as pdf:
         logL = live_points.logL.min()
         dead_points = data[data.logL < logL]
 
-        live_lines, = ax.plot(*live_points.loc[:,:'theta1'].values.T, 'C0.')
         grads = ax.quiver(*live_points.loc[:,:'theta1'].values.T, *live_grads)
         ax.contour(x, y, z, levels=[logL], colors='k', linestyles='solid', linewidths=0.3)
+        live_lines, = ax.plot(*live_points.loc[:,:'theta1'].values.T, 'C0.')
         pdf.savefig()
         live_lines.remove()
         grads.remove()
