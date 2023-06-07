@@ -3,7 +3,7 @@
 ## Academic talks
 1. Gradients and nested sampling: The present state of the art
     - Invited talk at [MIAPbP](https://www.munich-iapbp.de/probabilistic-programming/)
-    - [PDF](https://github.com/williamjameshandley/talks/raw/zurich_2023/will_handley_miapbp_2023.pdf)  
+    - [PDF](https://github.com/williamjameshandley/talks/raw/miapbp_2023/will_handley_miapbp_2023.pdf)  
     - [source](https://github.com/williamjameshandley/talks/tree/miapbp_2023)
     - _Jun 2023_  
 1. Nested Sampling: A multi-purpose numerical tool for science and machine learning
