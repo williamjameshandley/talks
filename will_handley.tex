@@ -359,30 +359,6 @@
 \end{frame}
 
 \begin{frame}
-    \frametitle{Time complexity of nested sampling}
-    \includegraphics[width=\textwidth]{figures/run_prodecure}
-    \vspace{-20pt}
-    \begin{columns}
-        \column{0.5\textwidth}
-        \vspace{-20pt}
-        \begin{itemize}
-            \item $x$-axis: log-compression of live points
-            \item Area $\propto$ posterior mass
-            \item Shows Bayesian balance of likelihood vs prior
-            \item Run proceeds right to left
-            \item Run finishes after bump (typical set)
-        \end{itemize}
-        \column{0.5\textwidth}
-        \begin{itemize}
-            \item Time complexity\vspace{-5pt}
-                \[ \boxed{T = n_\mathrm{live} \times T_\mathcal{L} \times T_\mathrm{sampler} \times \mathcal{D}_\mathrm{KL}(\mathcal{P}||\pi)}\vspace{-5pt}  \]
-            \item Error complexity $\boxed{\sigma \propto \sqrt{\mathcal{D}_\mathrm{KL}(\mathcal{P}||\pi)/n_\mathrm{live}}}$
-        \end{itemize}
-    \end{columns}
-
-\end{frame}
-
-\begin{frame}
     \frametitle{Sampling from a hard likelihood constraint} 
 
     \begin{quote}
@@ -495,32 +471,6 @@
             \includegraphics[width=0.49\textwidth]{figures/reach_fit-cropped.pdf}
         %\includegraphics[width=0.49\textwidth]{figures/curvature_3}
             \includegraphics[width=\textwidth]{figures/omegak_H0_2.pdf}
-        \end{columns}
-    \end{frame}
-
-    \begin{frame}
-        \frametitle{Applications of nested sampling}
-        \framesubtitle{Astrophysics}
-        \begin{columns}
-            \column{0.6\textwidth}
-            \begin{itemize}
-                \item In exoplanets~\arxiv{1806.00518}
-                    \begin{itemize}
-                        \item Parameter estimation: determining properties of planets.
-                        \item Model comparison: how many planets? Stellar modelling~\arxiv{2007.07278}.
-                        \item exoplanet problems regularly have posterior phase transitions \arxiv{2102.03387}
-                    \end{itemize}
-                \item In gravitational waves
-                    \begin{itemize}
-                        \item Parameter estimation: Binary merger properties
-                        \item Model comparison: Modified theories of gravity, selecting phenomenological parameterisations~\arxiv{1803.10210}
-                        \item Likelihood reweighting: fast slow properties
-                    \end{itemize}
-            \end{itemize}
-            \column{0.4\textwidth}
-            \includegraphics[width=\textwidth]{figures/rv_full.pdf}
-            \includegraphics[width=0.49\textwidth]{figures/ligo_m1_m2.pdf}
-            \includegraphics[width=0.49\textwidth]{figures/ligo_lambert-skymap.pdf}
         \end{columns}
     \end{frame}
 
@@ -712,7 +662,7 @@
         \begin{block}{Unique elements}
             \begin{itemize}
                 \item Ensemble sampler
-                \item Estimates volumes
+                \item Estimates volumes, entropies and evidences
                 \item Athermal evolution
                 \item Order statistics
             \end{itemize}
@@ -720,13 +670,32 @@
     \end{columns}
 \end{frame}
 
+\begin{frame}
+    \frametitle{Gradients in nested sampling}
+    \begin{columns}
+        \column{0.5\textwidth}
+        \begin{itemize}
+            \item The challenge: Sample uniformly within likelihood contour:
+                \[\{\theta\sim \pi : \mathcal{L}(\theta)>\mathcal{L}_*. \}\]
+                making use of  $\nabla_\theta \log \mathcal{L}$
+        \end{itemize}
+        \column{0.5\textwidth}
+        \includegraphics<1|handout:3>[width=\textwidth,page=1]{figures/himmelblau_gradient}%
+        \includegraphics<2|handout:3>[width=\textwidth,page=2]{figures/himmelblau_gradient}%
+        \includegraphics<3|handout:3>[width=\textwidth,page=3]{figures/himmelblau_gradient}%
+        %\includegraphics<4|handout:3>[width=\textwidth,page=4]{figures/himmelblau_gradient}%
+        %\includegraphics<5|handout:3>[width=\textwidth,page=5]{figures/himmelblau_gradient}%
+        %\includegraphics<6|handout:3>[width=\textwidth,page=6]{figures/himmelblau_gradient}%
+    \end{columns}
+\end{frame}
 
 \begin{frame}
     \frametitle{Why doesn't HMC work?}
+    \textbf{``Tabletop'' distributions are difficult to sample!}
     \begin{itemize}
         \item Nested sampling requires you to sample from the truncated \emph{prior}, not the likelihood
         \item Other than at the boundaries, it is not obvious how to use a likelihood gradient to navigate the prior.
-        \item In addition, since nested sampling begins in the tails, proceeding through the typical set and onto the peak, the normalisation of the gradient is normally not very useful.
+        \item In addition, since nested sampling begins in the tails, proceeding through the typical set and onto the peak, the normalisation of the gradient is typically wildly misnormalised
     \end{itemize}
 \end{frame}
 
@@ -774,11 +743,26 @@
 \end{frame}
 
 \begin{frame}
+    \frametitle{Things we have tried/are trying}
+    \begin{description}[Stephen Thorpe]
+        \item[Pablo Lemos] Updated existing HMC/Galilean nested sampling to use differentiable programming (jax/torch) -- code release imminent
+        \item[Boris Deletic] Masters project with C++ implementation for lattice field theory calculations
+        \item[Stephen Thorpe] Curved slice sampling.
+        \item[Sam Leeney] Variety of options under exploration:
+            \begin{itemize}
+                \item Tuning the HMC mass matrix with iteration number
+                \item Posterior repartitioning~\arxiv{1908.04655} to ``borrow'' some of the likelihood
+                \item Sampling with $X$ rather than $\mathcal{L}$.
+            \end{itemize}
+    \end{description}
+\end{frame}
+
+\begin{frame}
     \frametitle{Nested sampling with gradients}
     \begin{columns}
         \column{0.5\textwidth}
         \begin{itemize}
-            \item Existing techniques don't make use of:
+            \item Current techniques don't make use of:
             \item We have ``cloud'' of gradients at every point
             \item We have an estimate of the prior volume $X$
             \item $\nabla \log X \:\propto\: \nabla \log L$
@@ -792,7 +776,6 @@
         \includegraphics<6|handout:3>[width=\textwidth,page=6]{figures/himmelblau_gradient}%
     \end{columns}
 \end{frame}
-
 
 %\begin{frame}
 %    \frametitle{Applications of nested sampling}
@@ -910,6 +893,7 @@
         \item It is applied widely across a variety of fields
         \item It can't currently use gradients very effectively.
         \item If it could, probababilistic programming means there are a lot of analyses which would benefit.
+        \item One of my main aims this week is to see if there are any options from other fields
     \end{itemize}
 \end{frame}
 
@@ -1126,5 +1110,29 @@
 
 
 
+\appendix
+\begin{frame}
+    \frametitle{Time complexity of nested sampling}
+    \includegraphics[width=\textwidth]{figures/run_prodecure}
+    \vspace{-20pt}
+    \begin{columns}
+        \column{0.5\textwidth}
+        \vspace{-20pt}
+        \begin{itemize}
+            \item $x$-axis: log-compression of live points
+            \item Area $\propto$ posterior mass
+            \item Shows Bayesian balance of likelihood vs prior
+            \item Run proceeds right to left
+            \item Run finishes after bump (typical set)
+        \end{itemize}
+        \column{0.5\textwidth}
+        \begin{itemize}
+            \item Time complexity\vspace{-5pt}
+                \[ \boxed{T = n_\mathrm{live} \times T_\mathcal{L} \times T_\mathrm{sampler} \times \mathcal{D}_\mathrm{KL}(\mathcal{P}||\pi)}\vspace{-5pt}  \]
+            \item Error complexity $\boxed{\sigma \propto \sqrt{\mathcal{D}_\mathrm{KL}(\mathcal{P}||\pi)/n_\mathrm{live}}}$
+        \end{itemize}
+    \end{columns}
+
+\end{frame}
 
 \end{document}
