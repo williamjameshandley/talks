@@ -18,7 +18,7 @@
     - _Jan 2023_  
 4. Theory, observation & cosmological inference 
     - KICC xmas get-together
-    - [PDF](https://github.com/williamjameshandley/talks/raw/KICC_2022/will_handley_KICC_xmas_2022.pdf)  
+    - [PDF](https://github.com/williamjameshandley/talks/raw/KICC_xmas_2022/will_handley_KICC_xmas_2022.pdf)  
     - [source](https://github.com/williamjameshandley/talks/tree/KICC_xmas_2022)
     - _Dec 2022_  
 5. Next generation cosmological analysis with nested sampling
