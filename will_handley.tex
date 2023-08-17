@@ -35,11 +35,14 @@
             \item Invented by John Skilling in 2004.
             \item Recent Nature review primer on nested sampling led by Andrew Fowlie and assembled by the community.
             \item Showcases the current set of tools, and applications from chemistry to cosmology.
-            \item In this talk
+            \item Recent 1.5 day conference in Munich: ``Frontiers of Nested Sampling''
+            \item Planned week-long NSCON 2024
+            \item In this talk:
                 \begin{itemize}
                     \item User guide to nested sampling
                     \item Particle physics applications
                     \item Cosmology applications
+                    \item Machine learning applications
                 \end{itemize}
         \end{itemize}
         \column{0.3\textwidth}
@@ -51,6 +54,42 @@
     \end{columns}
 
 \end{frame}
+
+\begin{frame}
+    \frametitle{Where is Nested Sampling?}
+    \begin{columns}
+        \column{0.5\textwidth}
+        \begin{itemize}
+            \item For many purposes, in your Neural Net you should group Nested Sampling with (MCMC) techniques such as:
+                \begin{itemize}
+                    \item Metropolis-Hastings (PyMC, MontePython)
+                    \item Hamiltonian Monte Carlo (Stan, blackjax)
+                    \item Ensemble sampling (emcee, zeus). 
+                    \item Variational Inference (Pyro)
+                    \item Sequential Monte Carlo 
+                    \item Thermodynamic integration
+                    \item Genetic algorithms
+                \end{itemize}
+            \item You may have heard of it branded form:
+                \begin{itemize}
+                    \item MultiNest
+                    \item PolyChord
+                    \item dynesty
+                    \item ultranest
+                \end{itemize}
+            \end{itemize}
+        \column{0.5\textwidth}
+        \begin{columns}
+            \column{0.5\textwidth}
+        \includegraphics[width=\textwidth]{figures/emcee}
+        \includegraphics[width=\textwidth]{figures/metropolis-hastings}
+            \column{0.5\textwidth}
+        \includegraphics[width=\textwidth]{figures/zeus}
+        \end{columns}
+        \includegraphics[width=\textwidth]{figures/hmc_explained}
+    \end{columns}
+\end{frame}
+
 
 \begin{frame}
     \frametitle{What is Nested Sampling?}
@@ -396,7 +435,6 @@
   \end{itemize}
  
 \end{frame}
-
 
 \begin{frame}
     \frametitle{Implementations of Nested Sampling \arxiv{2205.15570}(NatReview)}
