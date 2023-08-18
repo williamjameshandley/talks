@@ -5,10 +5,11 @@
 \usepackage{tikz}
 \usetikzlibrary{calc}
 \newcommand{\av}[2][]{\left\langle #2\right\rangle_{#1}}
-\newcommand{\student}[2]{
+\newcommand{\student}[3]{
     \tikz[overlay,remember picture]{
-        \node[anchor=north east] (A) at ($(current page.north east)+(0,0)$) {\includegraphics[width=0.1\textheight]{figures/students/#1}};
-        \node[anchor=north east] at (A.north west) {#2};
+        \node[anchor=north east] (A) at ($(current page.north east)+(0,0)$) {\includegraphics[width=0.09\textheight]{figures/students/#1}};
+        \node[anchor=north east] (B) at (A.north west) {#2};
+        \node[anchor=north east] (B) at (B.south east) {\tiny #3};
     }
     \vspace{-0.1\textheight}
 }
@@ -428,7 +429,7 @@
 \begin{frame}
     \frametitle{Applications of nested sampling}
     \framesubtitle{Cosmology}
-    \student{adam_ormondroyd}{Adam Ormondroyd, PhD}
+    \student{adam_ormondroyd}{Adam Ormondroyd}{PhD}
     \begin{columns}
         \column{0.55\textwidth}
         \begin{itemize}
@@ -453,7 +454,7 @@
 \begin{frame}
     \frametitle{Applications of nested sampling}
     \framesubtitle{Astrophysics}
-    \student{metha_prathaban}{Metha Prathaban, PhD}
+\student{metha_prathaban}{Metha Prathaban}{PhD}
     \begin{columns}
         \column{0.6\textwidth}
         \begin{itemize}
@@ -480,7 +481,7 @@
 \begin{frame}
     \frametitle{Applications of nested sampling}
     \framesubtitle{Particle physics}
-    \student{david_yallup}{David Yallup, PDRA}
+    \student{david_yallup}{David Yallup}{PDRA}
     \begin{columns}
         \column{0.56\textwidth}
         \begin{columns}
@@ -507,7 +508,7 @@
 \begin{frame}
     \frametitle{Applications of nested sampling}
     \framesubtitle{Lattice field theory}
-    \student{david_yallup}{David Yallup, PDRA}
+\student{david_yallup}{David Yallup}{PDRA}
     \begin{columns}
         \column{0.5\textwidth}
         \begin{itemize}
@@ -533,7 +534,7 @@
 \begin{frame}
     \frametitle{Applications of nested sampling}
     \framesubtitle{Machine learning}
-    \student{kamran_javid}{Kamran Javid, PDRA}
+\student{kamran_javid}{Kamran Javid}{PDRA}
     \begin{columns}
         \column{0.62\textwidth}
         \begin{itemize}
@@ -577,7 +578,13 @@
 
 \begin{frame}
     \frametitle{Applications of nested sampling}
-    \framesubtitle{and beyond\ldots}
+    \framesubtitle{And beyond\ldots}
+    \only<1-4>{
+        \student{watkinson-headshot}{Catherine Watkinson}{Senior Data Scientist}
+    }
+    \only<5>{
+        \student{mcaloone-headshot}{Thomas Mcaloone}{PhD $\to$ Data Scientist}
+    }
     \begin{columns}
         \column{0.6\textwidth}
         \begin{itemize}
@@ -669,7 +676,7 @@
 \end{frame}
 \begin{frame}
     \frametitle{Likelihood-free inference (aka SBI)}
-    \student{kilian_scheutwinkel}{Kilian Scheutwinkel, PhD}
+\student{kilian_scheutwinkel}{Kilian Scheutwinkel}{PhD}
 
     \vspace{10pt}
     \begin{columns}
@@ -698,7 +705,7 @@
 
 \begin{frame}
     \frametitle{unimpeded: PLA for the next generation}
-    \student{harry_bevins}{Harry Bevins, PhD$\to$JRF}
+\student{harry_bevins}{Harry Bevins}{PhD$\to$JRF}
     \begin{columns}
         \column{0.5\textwidth}
         \begin{itemize}
@@ -728,7 +735,7 @@
 \begin{frame}
     \frametitle{CosmoTension}
     \framesubtitle{Resolving cosmological tensions with diverse data, novel theories and Bayesian machine learning}
-    \student{will_barker}{Will Barker, PhD$\to$JRF}
+\student{will_barker}{Will Barker}{PhD$\to$JRF}
     \begin{columns}
         \column{0.6\textwidth}
         \begin{itemize}
@@ -746,7 +753,7 @@
 
 \begin{frame}
     \frametitle{Conclusions}
-\framesubtitle{\href{https://www.github.com/handley-lab}{github.com/handley-lab}}
+    \framesubtitle{\href{https://www.github.com/handley-lab}{github.com/handley-lab}}
     \tikz[overlay,remember picture]
         \node[anchor=north east] (A) at ($(current page.north east)+(0,0)$) {
             \includegraphics[width=0.1\textheight]{figures/students/adam_ormondroyd.jpg}%
