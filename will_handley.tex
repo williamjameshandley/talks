@@ -3,7 +3,15 @@
 \usepackage{title_page}
 \usepackage{pythonhighlight}
 \usepackage{tikz}
+\usetikzlibrary{calc}
 \newcommand{\av}[2][]{\left\langle #2\right\rangle_{#1}}
+\newcommand{\student}[2]{
+    \tikz[overlay,remember picture]{
+        \node[anchor=north east] (A) at ($(current page.north east)+(0,0)$) {\includegraphics[width=0.1\textheight]{figures/students/#1}};
+        \node[anchor=north east] at (A.north west) {#2};
+    }
+    \vspace{-0.1\textheight}
+}
 
 % Commands
 % --------
@@ -238,7 +246,7 @@
             \item We can use this evolution to estimate volume \emph{probabilistically}.
             \item At each iteration, the contours contract by $\sim\frac{1}{n}\only<5->{\pm \frac{1}{n}}$ of their volume.
             \item This is an exponential contraction, so
-                \[  \sum_i f(x_i) \Delta V_i, \qquad V_i = V_0 e^{-\only<9->{(}i\only<5->{\pm\sqrt{i})}/n} \]
+                \[  \sum_i f(x_i) \Delta V_i, \qquad V_i = V_0 e^{-\only<5->{(}i\only<5->{\pm\sqrt{i})}/n} \]
 %            \item Nested sampling: completely different way to scan.
 %            \item Ensemble sampling compresses entire space$\to$peak(s).
 %            \item Sequentially update a set $S$ of $n$ samples:
@@ -420,6 +428,7 @@
 \begin{frame}
     \frametitle{Applications of nested sampling}
     \framesubtitle{Cosmology}
+    \student{adam_ormondroyd}{Adam Ormondroyd, PhD}
     \begin{columns}
         \column{0.55\textwidth}
         \begin{itemize}
@@ -444,6 +453,7 @@
 \begin{frame}
     \frametitle{Applications of nested sampling}
     \framesubtitle{Astrophysics}
+    \student{metha_prathaban}{Metha Prathaban, PhD}
     \begin{columns}
         \column{0.6\textwidth}
         \begin{itemize}
@@ -470,6 +480,7 @@
 \begin{frame}
     \frametitle{Applications of nested sampling}
     \framesubtitle{Particle physics}
+    \student{david_yallup}{David Yallup, PDRA}
     \begin{columns}
         \column{0.56\textwidth}
         \begin{columns}
@@ -480,7 +491,6 @@
             \column{0.3\textwidth}
             \[\sigma = \int_\Omega d\Phi |\mathcal{M}|^2.\]
         \end{columns}
-        \hfill [David Yallup (PDRA)]
         \begin{itemize}
             \item Nested sampling can explore the phase space $\Omega$ and compute integral blind with comparable efficiency to HAAG/RAMBO~\arxiv{2205.02030}.
             \item Bayesian sparse reconstruction~\arxiv{1809.04598} applied to bump hunting allows evidence-based detection of signals in phenomenological backgrounds~\arxiv{2211.10391}.
@@ -497,6 +507,7 @@
 \begin{frame}
     \frametitle{Applications of nested sampling}
     \framesubtitle{Lattice field theory}
+    \student{david_yallup}{David Yallup, PDRA}
     \begin{columns}
         \column{0.5\textwidth}
         \begin{itemize}
@@ -522,6 +533,7 @@
 \begin{frame}
     \frametitle{Applications of nested sampling}
     \framesubtitle{Machine learning}
+    \student{kamran_javid}{Kamran Javid, PDRA}
     \begin{columns}
         \column{0.62\textwidth}
         \begin{itemize}
@@ -656,7 +668,10 @@
     \end{columns}
 \end{frame}
 \begin{frame}
-    \frametitle{Likelihood-free inference (aka Simulation based inference)}
+    \frametitle{Likelihood-free inference (aka SBI)}
+    \student{kilian_scheutwinkel}{Kilian Scheutwinkel, PhD}
+
+    \vspace{10pt}
     \begin{columns}
         \column{0.5\textwidth}
         \vspace{-10pt}
@@ -682,7 +697,8 @@
 \end{frame}
 
 \begin{frame}
-    \frametitle{unimpeded: legacy suites for the next generation}
+    \frametitle{unimpeded: PLA for the next generation}
+    \student{harry_bevins}{Harry Bevins, PhD$\to$JRF}
     \begin{columns}
         \column{0.5\textwidth}
         \begin{itemize}
@@ -712,6 +728,7 @@
 \begin{frame}
     \frametitle{CosmoTension}
     \framesubtitle{Resolving cosmological tensions with diverse data, novel theories and Bayesian machine learning}
+    \student{will_barker}{Will Barker, PhD$\to$JRF}
     \begin{columns}
         \column{0.6\textwidth}
         \begin{itemize}
@@ -729,6 +746,24 @@
 
 \begin{frame}
     \frametitle{Conclusions}
+\framesubtitle{\href{https://www.github.com/handley-lab}{github.com/handley-lab}}
+    \tikz[overlay,remember picture]
+        \node[anchor=north east] (A) at ($(current page.north east)+(0,0)$) {
+            \includegraphics[width=0.1\textheight]{figures/students/adam_ormondroyd.jpg}%
+            \includegraphics[width=0.1\textheight]{figures/students/cole_meldorf.jpg}%
+            \includegraphics[width=0.1\textheight]{figures/students/danielle_dineen.jpg}%
+            \includegraphics[width=0.1\textheight]{figures/students/david_yallup.jpg}%
+            \includegraphics[width=0.1\textheight]{figures/students/harry_bevins.jpg}%
+            \includegraphics[width=0.1\textheight]{figures/students/ian_roque.jpg}%
+            \includegraphics[width=0.1\textheight]{figures/students/kilian_scheutwinkel.jpg}%
+            \includegraphics[width=0.1\textheight]{figures/students/metha_prathaban.jpg}%
+            \includegraphics[width=0.1\textheight]{figures/students/sinah_legner.jpg}%
+            \includegraphics[width=0.1\textheight]{figures/students/thomas_gessey-jones.jpg}%
+            \includegraphics[width=0.1\textheight]{figures/students/wei-ning_deng.jpg}%
+            \includegraphics[width=0.1\textheight]{figures/students/will_barker.jpg}%
+            \includegraphics[width=0.1\textheight]{figures/students/zixiao_hu.jpg}%
+    };
+    \vspace{-0.1\textheight}
     \begin{columns}
         \column{0.65\textwidth}
     \begin{itemize}
