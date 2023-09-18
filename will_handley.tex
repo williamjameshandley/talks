@@ -36,33 +36,33 @@
     \titlepage
 \end{frame}
 
-\begin{frame}
-    \frametitle{Highlight: state-of-the-art Nature review [\href{https://www.nature.com/articles/s43586-022-00121-x}{NatRev}]}
-    \begin{columns}
-        \column{0.5\textwidth}
-        \begin{itemize}
-            \item Invented by John Skilling in 2004.
-            \item Recent Nature review primer on nested sampling led by Andrew Fowlie and assembled by the community.
-            \item Showcases the current set of tools, and applications from chemistry to cosmology.
-            \item Recent 1.5 day conference in Munich: ``Frontiers of Nested Sampling''
-            \item Planned week-long NSCON 2024
-            \item In this talk:
-                \begin{itemize}
-                    \item User guide to nested sampling
-                    \item Particle physics applications
-                    \item Cosmology applications
-                    \item Machine learning applications
-                \end{itemize}
-        \end{itemize}
-        \column{0.3\textwidth}
-        \includegraphics[width=\textwidth]{figures/nature1}
-        \includegraphics[width=\textwidth]{figures/nature2}
-        \column{0.2\textwidth}
-        \includegraphics[width=\textwidth]{figures/nature4}
-        \includegraphics[width=\textwidth]{figures/nature5}
-    \end{columns}
-
-\end{frame}
+%\begin{frame}
+%    \frametitle{Highlight: state-of-the-art Nature review [\href{https://www.nature.com/articles/s43586-022-00121-x}{NatRev}]}
+%    \begin{columns}
+%        \column{0.5\textwidth}
+%        \begin{itemize}
+%            \item Invented by John Skilling in 2004.
+%            \item Recent Nature review primer on nested sampling led by Andrew Fowlie and assembled by the community.
+%            \item Showcases the current set of tools, and applications from chemistry to cosmology.
+%            \item Recent 1.5 day conference in Munich: ``Frontiers of Nested Sampling''
+%            \item Planned week-long NSCON 2024
+%            \item In this talk:
+%                \begin{itemize}
+%                    \item User guide to nested sampling
+%                    \item Particle physics applications
+%                    \item Cosmology applications
+%                    \item Machine learning applications
+%                \end{itemize}
+%        \end{itemize}
+%        \column{0.3\textwidth}
+%        \includegraphics[width=\textwidth]{figures/nature1}
+%        \includegraphics[width=\textwidth]{figures/nature2}
+%        \column{0.2\textwidth}
+%        \includegraphics[width=\textwidth]{figures/nature4}
+%        \includegraphics[width=\textwidth]{figures/nature5}
+%    \end{columns}
+%
+%\end{frame}
 
 \begin{frame}
     \frametitle{What is Nested Sampling?}
@@ -275,15 +275,15 @@
         \column{0.5\textwidth}
         \begin{itemize}
             \item At the end, one is left with a set of discarded ``dead'' points.
+            \item Can be weighted to form posterior samples, prior samples, or anything in between.
             \item Nested sampling estimates the \textbf{density of states} and calculates partition functions
-                \[Z(\beta) = \sum_i f(x_i)^\beta \Delta V_i\]
+                \[Z(\beta) = \sum_i f(x_i)^\beta \Delta V_i.\]
             \item The evolving ensemble of live points allows:
                 \begin{itemize}
                     \item implementations to self-tune
                     \item exploration of multimodal functions
                     \item global and local optimisation
                 \end{itemize}
-            \item For this kind of numerical, generic, high-dimensional integration, it is the only game in town.
             %\item Interpreted as a Bayesian algorithm, it
             %    \begin{itemize}
             %        \item Computes the Bayesian evidence (model comparison)
@@ -767,6 +767,7 @@
             \item Simulation based inference gives us the language to marginalise over parameters $\theta$ and possible future data $D$.
             \item Evidence networks~\arxiv{2305.11241} (Jeffreys \& Wandelt) give us the ability to do this at scale in the case of forecasting.
             \item Can answer questions such as ``Given current knowledge/theoretical uncertainty $\pi(\theta)$, how probable is a detection?''
+            \item Re-usable package: \texttt{prescience}
         \end{itemize}
         \column{0.5\textwidth}
         \includegraphics[width=\textwidth]{figures/fbf.pdf}
