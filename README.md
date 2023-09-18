@@ -25,4 +25,3 @@ In this talk I will give a pedagogical introduction to the theory & practice of 
 
  
 [[PDF](https://github.com/williamjameshandley/talks/raw/ucl_2023/will_handley_ucl_2023.pdf)] 
- 
