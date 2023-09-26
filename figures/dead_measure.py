@@ -89,12 +89,22 @@ axes = np.concatenate([axes, [ax]])
 
 fig.canvas.draw()
 fig.canvas.flush_events()
+plot_live_points = True
 
-for i, ax0, ax1 in zip(range(nlive*20, nlive*100, nlive*20), axes[:-1], axes[1:]):
+for k, (i, ax0, ax1) in enumerate(zip(range(nlive*20, nlive*100, nlive*20), axes[:-1], axes[1:])):
+    if plot_live_points:
+        live = samples.live_points(i)
+        ax0.plot(live[x], live[y], f'C{k+1}o')
+        ax1.plot(live[x], live[y], f'C{k+1}o')
     draw_zoom_lines(ax0, ax1, *get_box(i))
 
 fig.canvas.draw()
 fig.canvas.flush_events()
 
-fig.savefig('dead_measure.pdf', transparent=False, bbox_inches='tight')
+if plot_live_points:
+    filename = 'dead_measure_live.pdf'
+else:
+    filename = 'dead_measure.pdf'
+
+fig.savefig(filename, transparent=False, bbox_inches='tight')
 

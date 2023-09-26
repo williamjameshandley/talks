@@ -1,15 +1,6 @@
 \documentclass[aspectratio=169]{beamer}
 \usepackage{will_handley_beamer}
 \usepackage{title_page}
-\newcommand{\av}[2][]{\left\langle #2\right\rangle_{#1}}
-\newcommand{\student}[3]{
-    \tikz[overlay,remember picture]{
-        \node[anchor=north east] (A) at ($(current page.north east)+(0,0)$) {\includegraphics[width=0.09\textheight]{figures/students/#1}};
-        \node[anchor=north east] (B) at (A.north west) {#2};
-        \node[anchor=north east] (B) at (B.south east) {\tiny #3};
-    }
-    \vspace{-0.1\textheight}
-}
 
 % Commands
 % --------
@@ -62,6 +53,81 @@
         \centerline{\includegraphics[width=0.8\textwidth,page=14]{figures/himmelblau}}
     \end{columns}
 \end{frame}
+
+\begin{frame} \frametitle{The three pillars of Bayesian inference}
+    \vspace{-20pt}
+    \begin{columns}[t]
+        \column{0.33\textwidth}
+        \begin{block}{Parameter estimation}
+            What do the data tell us about the parameters of a model?
+
+            \textit{e.g. the central frequency $\nu_0$ of Gaussian global signal}
+            \[ \hspace{-4pt}\C[0]{P(\theta|D,M)} = \frac{\C[2]{P(D|\theta,M)} \C[1]{P(\theta|M)}}{\C[3]{P(D|M)}} \] 
+            \[ \C[0]{\mathcal{P}} = \frac{\C[2]{\mathcal{L}} \times\C[1]{\pi}}{\C[3]{\mathcal{Z}}}\] 
+            \[ \C[0]{\text{Posterior}} = \frac{\C[2]{\text{Likelihood}} \times\C[1]{\text{Prior}}}{\C[3]{\text{Evidence}}}\]
+        \end{block}
+        \column{0.3\textwidth}
+        \begin{block}{Model comparison}
+            How much does the data support a particular model?
+
+            \textit{e.g. $\Lambda$CDM vs cosmic strings}
+            \[ \C[4]{P(M|D)} = \frac{\C[3]{P(D|M)} \C[5]{P(M)}}{\C[7]{P(D)}} \vspace{-7pt}\]
+            \[ \frac{\C[3]{\mathcal{Z}_\mathcal{M}} \C[5]{\Pi_\mathcal{M}}}{\C[7]{\sum_m Z_m \Pi_m}} \]
+            \[ \C[4]{\text{Posterior}} = \frac{\C[3]{\text{Evidence}} \times\C[5]{\text{Prior}}}{\C[7]{\text{Normalisation}}}\]
+        \end{block}
+        \column{0.33\textwidth}
+        \begin{block}{Tension quantification}
+            Do different datasets make consistent predictions from the same model? 
+            \textit{e.g. SARAS vs EDGES}
+            \[ \mathcal{R} = \frac{\C[3]{\mathcal{Z}}_{AB}}{\C[3]{\mathcal{Z}}_A\C[3]{\mathcal{Z}}_\mathcal{B}}\] 
+            \[
+                \begin{aligned} \log\mathcal{S} = \av[{\C[0]{\mathcal{P}}_{AB}}]{\C[2]{\log\mathcal{L}}_{AB}}&\\
+                    -\av[{\C[0]{\mathcal{P}}_{A}}]{\C[2]{\log\mathcal{L}}_{A}}&\\
+                    -\av[{\C[0]{\mathcal{P}}_{B}}]{\C[2]{\log\mathcal{L}}_{B}}&
+                \end{aligned}
+            \]
+        \end{block}
+    \end{columns}
+    \begin{itemize}
+        \item Note, REACH has been a powerful ambassador for ``model'' involving theory, systematics and inference parameters~\arxiv{2204.04491}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Integration in Physics}
+    \begin{itemize}
+        \item Integration is a fundamental concept in physics, statistics and data science:
+    \end{itemize}
+    \begin{columns}
+        \column{0.3\textwidth}
+        \begin{block}{Partition functions}
+            \vspace{-11pt}
+            \[ Z(\beta) = \int e^{-\beta H(q,p)} dq dp \]
+        \end{block}
+        \column{0.3\textwidth}
+        \begin{block}{Path integrals}
+            \[ \Psi = \int e^{i S} \mathcal{D}x \]
+        \end{block}
+        \column{0.3\textwidth}
+        \begin{block}{Bayesian marginals}
+            \vspace{-11pt}
+            \[ \mathcal{Z}(D) = \int \mathcal{L}(D|\theta) \pi(\theta) d\theta \]
+        \end{block}
+    \end{columns}
+    \begin{columns}
+        \column{0.6\textwidth}
+        \begin{itemize}
+            \item Need numerical tools if analytic solution unavailable.
+            \item High-dimensional numerical integration is hard.
+            \item Riemannian strategy estimates volumes geometrically:
+                \[ \int f(x) d^nx \approx \sum_i f(x_i) \Delta V_i \sim \mathcal{O}(e^n) \]
+            \item Curse of dimensionality $\Rightarrow$ exponential scaling.
+        \end{itemize}
+        \column{0.4\textwidth}
+        \includegraphics[width=\textwidth]{figures/integration.pdf}
+    \end{columns}
+\end{frame}
+
 
 \begin{frame}
     \frametitle{The nested sampling meta-algorithm: live points}
@@ -128,7 +194,7 @@
 \end{frame}
 
 \begin{frame}
-    \frametitle{Dead measure}
+    \frametitle{The dead measure}
     \includegraphics[width=\textwidth]{figures/dead_measure}
     \begin{columns}
         \column{0.69\textwidth}
@@ -151,76 +217,105 @@
 \end{frame}
 
 \begin{frame}
-    \frametitle{Applications: The three pillars of Bayesian inference}
-    \vspace{-20pt}
-    \begin{columns}[t]
-        \column{0.33\textwidth}
-        \begin{block}{Parameter estimation}
-            What do the data tell us about the parameters of a model?
+    \frametitle{\texttt{anesthetic}: the nested sampling toolkit}
+    \student{adam_ormondroyd}{Adam Ormondroyd {\tiny \& Lukas Hergt}}{PhD}
+    \begin{columns}
+        \column{0.5\textwidth}
+        \begin{itemize}
+            \item Post-processing nested sampling calculations requires care (e.g.\ weighted samples)
+            \item \texttt{anesthetic} does this all for you
+            \item pip installable (\texttt{pip install anesthetic})
+            \item docs: \href{https://anesthetic.readthedocs.io/en/latest/}{\texttt{anesthetic.readthedocs.io}}
+            \item nested sampling analysis (merging, sampling, weighting)
+            \item dynamic replaying of nested sampling
+            \item plotting
+            \item built on \texttt{pandas} \& \texttt{matplotlib}\\ (extending to weighted dataframes)
+        \end{itemize}
+        \column{0.5\textwidth}
+        \centerline{\includegraphics[width=\textwidth]{figures/anesthetic_docs}}
+    \end{columns}
+\end{frame}
 
-            \textit{e.g. the central frequency $\nu_0$ of Gaussian global signal}
-            \[ \hspace{-4pt}\C[0]{P(\theta|D,M)} = \frac{\C[2]{P(D|\theta,M)} \C[1]{P(\theta|M)}}{\C[3]{P(D|M)}} \] 
-            \[ \C[0]{\mathcal{P}} = \frac{\C[2]{\mathcal{L}} \times\C[1]{\pi}}{\C[3]{\mathcal{Z}}}\] 
-            \[ \C[0]{\text{Posterior}} = \frac{\C[2]{\text{Likelihood}} \times\C[1]{\text{Prior}}}{\C[3]{\text{Evidence}}}\]
-        \end{block}
-        \column{0.3\textwidth}
-        \begin{block}{Model comparison}
-            How much does the data support a particular model?
-
-            \textit{e.g. $\Lambda$CDM vs cosmic strings}
-            \[ \C[4]{P(M|D)} = \frac{\C[3]{P(D|M)} \C[5]{P(M)}}{\C[7]{P(D)}} \vspace{-7pt}\]
-            \[ \frac{\C[3]{\mathcal{Z}_\mathcal{M}} \C[5]{\Pi_\mathcal{M}}}{\C[7]{\sum_m Z_m \Pi_m}} \]
-            \[ \C[4]{\text{Posterior}} = \frac{\C[3]{\text{Evidence}} \times\C[5]{\text{Prior}}}{\C[7]{\text{Normalisation}}}\]
-        \end{block}
-        \column{0.33\textwidth}
-        \begin{block}{Tension quantification}
-            Do different datasets make consistent predictions from the same model? 
-            \textit{e.g. SARAS vs EDGES}
-            \[ \mathcal{R} = \frac{\C[3]{\mathcal{Z}}_{AB}}{\C[3]{\mathcal{Z}}_A\C[3]{\mathcal{Z}}_\mathcal{B}}\] 
-            \[
-                \begin{aligned} \log\mathcal{S} = \av[{\C[0]{\mathcal{P}}_{AB}}]{\C[2]{\log\mathcal{L}}_{AB}}&\\
-                    -\av[{\C[0]{\mathcal{P}}_{A}}]{\C[2]{\log\mathcal{L}}_{A}}&\\
-                    -\av[{\C[0]{\mathcal{P}}_{B}}]{\C[2]{\log\mathcal{L}}_{B}}&
-                \end{aligned}
-            \]
+\begin{frame}
+    \frametitle{Replaying nested sampling}
+    \includegraphics[width=\textwidth]{figures/dead_measure_live}
+    \begin{columns}
+        \column{0.65\textwidth}
+        \begin{itemize}
+            \item Can extract live points at iteration $i$ from dead points
+            \item Can extract posterior at any temperature
+            \item Try out GUI for dynamically replaying run:
+                \begin{itemize}
+                    \item \texttt{\$\ \ \  anesthetic <file root> \#bash}
+                    \item \texttt{>>> samples.gui()\ \ \ \ \ \ \ \ \ \ \#python}
+                \end{itemize}
+        \end{itemize}
+        \column{0.34\textwidth}
+        \begin{block}{Applications}
+        \begin{itemize}
+            \item diagnosing run failures
+            \item training emulators
+            \item multiobjective optimisation
+        \end{itemize}
         \end{block}
     \end{columns}
-    \begin{itemize}
-        \item Note, REACH has been a powerful ambassador for ``model'' involving theory, systematics and inference parameters~\arxiv{2204.04491}
-    \end{itemize}
 \end{frame}
 
 
 \begin{frame}
-    \frametitle{\texttt{anesthetic}: the nested sampling toolkit}
-    \begin{itemize}
-        \item 
-    \end{itemize}<++>
-
+    \frametitle{\texttt{anesthetic} vs \texttt{getdist} vs \texttt{corner.py}}
+    \begin{columns}
+        \column{0.5\textwidth}
+        \begin{itemize}
+            \item \texttt{anesthetic}
+                \begin{itemize}
+                    \item Defaults optimised for nested sampling
+                    \item Colour choice better for priors
+                    \item Not much smoothing
+                \end{itemize}
+            \item \texttt{getdist}
+                \begin{itemize}
+                    \item State-of-the-art smoothing \& edge correction
+                    \item Often over-smoothed
+                \end{itemize}
+            \item \texttt{corner.py}
+                \begin{itemize}
+                    \item Good for MCMC histograms
+                    \item Can't do overlapping plots
+                    \item Gotcha: Slightly different ``2$\sigma$'' convention
+                \end{itemize}
+        \end{itemize}
+        
+        \column{0.5\textwidth}
+        \centerline{
+            \includegraphics<1>[width=0.85\textwidth]{figures/posterior_plotter}%
+        }
+        \includegraphics<2>[width=\textwidth]{figures/anesthetic_kde}%
+        \includegraphics<3>[width=\textwidth]{figures/anesthetic_hist}%
+        \includegraphics<4>[width=\textwidth]{figures/anesthetic_hist_levels}%
+        \includegraphics<5>[width=\textwidth]{figures/getdist}%
+        \includegraphics<6>[width=\textwidth]{figures/corner}%
+    \end{columns}
 \end{frame}
 
 \begin{frame}
     \frametitle{Likelihood-free inference (aka SBI)}
-\student{kilian_scheutwinkel}{Kilian Scheutwinkel}{PhD}
-
+    \student{kilian_scheutwinkel}{Kilian Scheutwinkel}{PhD}
     \vspace{10pt}
     \begin{columns}
         \column{0.5\textwidth}
         \vspace{-10pt}
         \begin{itemize}
             \item How do you do inference if you don't know the likelihood $P(D|\theta)$?
-                \begin{itemize}
-                    \item e.g.\ if you can simulate a disease outbreak, how can you infer a posterior on $R_0$, or select the most predictive model?
-                \end{itemize}
             \item If you can forward simulate/model $\theta\to D$, then you have an implicit likelihood.
             \item LFI aims to (machine-)\emph{learn} the likelihood from forward simulations $\{(\theta,D)\}$.
-            \item Nested sampling has much to offer
+            \item Current REACH-related work
                 \begin{itemize}
-                    \item truncation strategies (\texttt{PolySwyft})
-                    \item evidence driven compression
-                    \item marginalised machine learning
+                    \item Anchal \texttt{swyft}
+                    \item Kilian {\footnotesize \texttt{PolySwyft}:~likelihood-free~nested~sampling}
                 \end{itemize}
-            \item In my view, LFI represents the future of inference -- in twenty years time this will be as well-used as MCMC techniques are today.
+            \item In my view this is the frontier of REACH data analysis
+            \item We have a rudimentary version of this with work on ``likelihood selection''~\arxiv{2204.04491}
         \end{itemize}
         \column{0.5\textwidth}
         \includegraphics[width=\textwidth]{figures/noisy.pdf}
@@ -228,6 +323,35 @@
     \end{columns}
 \end{frame}
 
+\begin{frame}
+    \frametitle{Fully Bayesian Forecasting~\arxiv{2309.06942}}
+    \student{thomas_gessey-jones}{Thomas Gessey-Jones}{PhD}
+    \begin{columns}
+        \column{0.5\textwidth}
+        \begin{itemize}
+            \item Experimental design necessitates forecasting the constraints that future data might give.
+            \item Have you ever done a Fisher forecast, and then felt Bayesian guilt?
+            \item Simulation based inference gives us the language to marginalise over parameters $\theta$ and possible future data $D$.
+            \item Evidence networks~\arxiv{2305.11241} (Jeffreys \& Wandelt) give us the ability to do this at scale in the case of forecasting.
+            \item Can answer questions such as ``Given current knowledge/theoretical uncertainty $\pi(\theta)$, how probable is a detection?''
+            \item Re-usable package: \texttt{prescience}
+        \end{itemize}
+        \column{0.5\textwidth}
+        \includegraphics[width=\textwidth]{figures/fbf.pdf}
+    \end{columns}
+\end{frame}
+
+
+\begin{frame}
+    \frametitle{Future work/discussion points}
+    \begin{itemize}
+        \item \{multiobjective,\}$ $\{antenna,\}\{optimisation\} (John)
+        \item Fully Bayesian Forecasts (Thomas)
+        \item Simulation based inference (Kilian \& Anchal)
+        \item margarine (Harry)
+        \item High-dimensional gradient-based nested sampling (Sam)
+    \end{itemize}
+\end{frame}
 % What could we do better in antenna design in future?
 % multiobjective optimisation
 % evidence networks
