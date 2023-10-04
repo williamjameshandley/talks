@@ -2,6 +2,7 @@
 
 ## Academic talks
 1. Cosmological inference tools: marginal statistics and fully Bayesian forecasts.
+    - [LCDM](https://londoncosmology.net/lcdm/), London, UK
     - [PDF](https://github.com/williamjameshandley/talks/raw/lcdm_2023/will_handley_lcdm_2023.pdf)  
     - [source](https://github.com/williamjameshandley/talks/tree/lcdm_2023)
     - _Oct 2023_    
