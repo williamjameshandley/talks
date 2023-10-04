@@ -52,3 +52,14 @@
 \setbeamercolor{block title alerted}{fg=C3, bg=C3!15}
 \setbeamercolor{block body alerted}{bg=C3!5}
 
+\usepackage{tikz}
+\usetikzlibrary{calc}
+\newcommand{\av}[2][]{\left\langle #2\right\rangle_{#1}}
+\newcommand{\student}[3]{
+    \tikz[overlay,remember picture]{
+        \node[anchor=north east] (A) at ($(current page.north east)+(0,0)$) {\includegraphics[width=0.09\textheight]{figures/students/#1}};
+        \node[anchor=north east] (B) at (A.north west) {#2};
+        \node[anchor=north east] (B) at (B.south east) {\tiny #3};
+    }
+    \vspace{-0.1\textheight}
+}

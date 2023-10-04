@@ -1,6 +1,5 @@
 # Nested sampling: powering next-generation inference and machine learning tools for astrophysics, cosmology, particle physics and beyond
 
-
 ## Abstract
 
 Nested sampling [1] is a radical alternative to traditional MCMC techniques for integrating and exploring probability distributions. With publicly available implementations such as MultiNest, PolyChord, dynesty and ultranest, it has become widely adopted across science as a powerful tool for parameter estimation, model comparison and tension quantification.
