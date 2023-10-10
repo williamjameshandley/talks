@@ -226,7 +226,7 @@
 \end{frame}
 
 \begin{frame}
-    \frametitle{The nested sampling meta-algorithm}
+    \frametitle{The nested sampling meta-algorithm: live points}
     \begin{columns}
         \column{0.5\textwidth}
         \begin{itemize}
@@ -258,11 +258,35 @@
 \end{frame}
 
 \begin{frame}
+    \frametitle{The nested sampling meta-algorithm: dead points}
+    \includegraphics[width=\textwidth]{figures/dead_measure}
+    \begin{columns}
+        \column{0.69\textwidth}
+        \begin{itemize}
+            \item At the end, one is left with a set of discarded ``dead'' points.
+            \item Dead points have a unique scale-invariant distribution $\propto\: \tfrac{dV}{V}$.
+            \item Uniform over original region, exponentially concentrating on region of interest (until termination volume).
+            \item Good for training emulators (HERA~\arxiv{2108.07282}).
+        \end{itemize}
+        \column{0.3\textwidth}
+        \begin{block}{Applications}
+        \begin{itemize}
+            \item training emulators.
+            \item gridding simulations
+            \item beta flows
+            \item ``dead measure'' 
+        \end{itemize}
+        \end{block}
+    \end{columns}
+\end{frame}
+
+
+\begin{frame}
     \frametitle{The nested sampling meta-algorithm: Lebesgue integration}
     \begin{columns}
         \column{0.5\textwidth}
         \begin{itemize}
-            \item At the end, one is left with a set of discarded ``dead'' points.
+            \item Full dead-point coverage of tails enables integration.
             \item Can be weighted to form posterior samples, prior samples, or anything in between.
             \item Nested sampling estimates the \textbf{density of states} and calculates partition functions
                 \[Z(\beta) = \sum_i f(x_i)^\beta \Delta V_i.\]
