@@ -6,3 +6,4 @@ I will present recent work on marginal inference tools and their use in cosmolog
 
 In addition, I will discuss prescience: a fully Bayesian alternative to Fisher Forecasts [[2309.06942](https://arxiv.org/abs/2309.06942)] using Jeffrey & Wandelt Evidence networks [[2305.11241](https://arxiv.org/abs/2305.11241)]. I will finish with discussion of the features and limitations of evidence networks as a tool for Bayesian model comparison.
 
+[[PDF](https://github.com/williamjameshandley/talks/raw/lcdm_2023/will_handley_lcdm_2023.pdf)] 
