@@ -15,14 +15,39 @@
 
 % Talk details
 % ------------
-\title{Cosmological inference tools}
-\subtitle{Marginal statistics and fully Bayesian forecasts}
-\date{12\textsuperscript{th} October 2023}
+\title{\texttt{unimpeded} (\& other cosmological inference tools)}
+%\subtitle{Marginal statistics and fully Bayesian forecasts}
+\date{19\textsuperscript{th} October 2023}
 
 \begin{document}
 
 \begin{frame}
     \titlepage
+\end{frame}
+\begin{frame}
+    \frametitle{Highlighted tools for this audience}
+    \begin{enumerate}
+        \item \texttt{anesthetic} \arxiv{1905.04768}
+            \begin{itemize}
+                \item how to get the most out of your nested sampling runs 
+\item \texttt{\href{https://github.com/handley-lab/anesthetic}{github.com/handley-lab/anesthetic}}
+            \end{itemize}
+        \item \texttt{margarine} \arxiv{2207.11457}
+            \begin{itemize}
+                \item easy-to-use (neural) density estimation for marginal statistics
+                \item \texttt{\href{https://github.com/htjb/margarine}{github.com/htjb/margarine}} 
+            \end{itemize}
+        \item \texttt{prescience} \arxiv{2309.06942}
+            \begin{itemize}
+                \item Fully Bayesian forecasts (no more need for Fisher)
+                \item \texttt{\href{https://github.com/ThomasGesseyJones/FullyBayesianForecastsExample}{github.com/ThomasGesseyJones/FullyBayesianForecastsExample}} 
+            \end{itemize}
+        \item \texttt{unimpeded}
+            \begin{itemize}
+                \item up/downloading tool for transfering inference products (beyond chains)
+                \item \texttt{\href{https://github.com/handley-lab/unimpeded}{github.com/handley-lab/unimpeded}} 
+            \end{itemize}
+    \end{enumerate}
 \end{frame}
 
 \begin{frame}
@@ -45,6 +70,29 @@
         \column{0.5\textwidth}
         \includegraphics{figures/planck_2018_plik.pdf}
     \end{columns}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Relevant examples for this audience}
+    \begin{itemize}
+        \item CMB
+            \begin{itemize}
+                \item Galatic foreground parameters: $A_i$, $n_i$,\ldots
+                \item Calibration: $c$, $y$,\ldots
+            \end{itemize}
+        \item Gravitational wave events
+            \begin{itemize}
+                \item Nuisance event parameters: $M_1$, $M_2$, $\theta$, $\phi$, $r$, $z$, \ldots
+            \end{itemize}
+        \item (time-delay) supernovae
+            \begin{itemize}
+                \item Nuisance lens parameters: $\Phi_\text{lens}$
+                \item Supernova systematics
+            \end{itemize}
+    \end{itemize}
+    Many modern cosmological problems present themselves in hierarchical form
+
+    These (often well-studied) objects have a set of event-specific parameters $\alpha$ alongside  parameters of global interest $\theta$ (e.g. $H_0$).
 \end{frame}
 
 \begin{frame}
@@ -347,34 +395,34 @@
 
 \end{frame}
 
-\begin{frame}
-    \frametitle{Simulation-based inference \& model comparison}
-    \includegraphics<1>[page=1]{figures/sbi.pdf}%
-    \includegraphics<2>[page=2]{figures/sbi.pdf}%
-    \includegraphics<3>[page=3]{figures/sbi.pdf}%
-\end{frame}
-
-\begin{frame}
-    \frametitle{Evidence networks~\arxiv{2305.11241}}
-    \begin{columns}
-        \column{0.5\textwidth}
-    \begin{itemize}
-        \item Procedure proposed by Jeffreys \& Wandelt:
-            \begin{enumerate}
-                \item Generate labelled data from model $A$ and model $B$.
-                \item Train a probabilistic classifier to distinguish between the two.
-                \item Use neural ratio trick to extract Bayes Factor $B = P(D|A)/P(D|B)$.
-            \end{enumerate}
-        \item Fully marginalises out parameters
-        \item Only works in the data space
-        \item Model comparison without nested sampling!
-    \end{itemize}
-        
-        \column{0.5\textwidth}
-\includegraphics{figures/sbi-0.pdf}
-\includegraphics{figures/sbi-1.pdf}
-    \end{columns}
-\end{frame}
+%\begin{frame}
+%    \frametitle{Simulation-based inference \& model comparison}
+%    \includegraphics<1>[page=1]{figures/sbi.pdf}%
+%    \includegraphics<2>[page=2]{figures/sbi.pdf}%
+%    \includegraphics<3>[page=3]{figures/sbi.pdf}%
+%\end{frame}
+%
+%\begin{frame}
+%    \frametitle{Evidence networks~\arxiv{2305.11241}}
+%    \begin{columns}
+%        \column{0.5\textwidth}
+%    \begin{itemize}
+%        \item Procedure proposed by Jeffreys \& Wandelt:
+%            \begin{enumerate}
+%                \item Generate labelled data from model $A$ and model $B$.
+%                \item Train a probabilistic classifier to distinguish between the two.
+%                \item Use neural ratio trick to extract Bayes Factor $B = P(D|A)/P(D|B)$.
+%            \end{enumerate}
+%        \item Fully marginalises out parameters
+%        \item Only works in the data space
+%        \item Model comparison without nested sampling!
+%    \end{itemize}
+%        
+%        \column{0.5\textwidth}
+%\includegraphics{figures/sbi-0.pdf}
+%\includegraphics{figures/sbi-1.pdf}
+%    \end{columns}
+%\end{frame}
 
 \begin{frame}
     \frametitle{Fully Bayesian Forecasting~\arxiv{2309.06942}}
@@ -383,7 +431,7 @@
         \column{0.5\textwidth}
         \begin{itemize}
             \item Simulation based inference gives us the language to marginalise over parameters $\theta$ and possible future data $D$.
-            \item Evidence networks give us the ability to do this at scale for forecasting.
+            \item Evidence networks~\arxiv{2305.11241} give us the ability to do this at scale for forecasting.
             \item Demonstrated in 21cm global experiments, marginalising over:
                 \begin{itemize}
                     \item theoretical uncertainty
@@ -399,36 +447,36 @@
     \end{columns}
 \end{frame}
 
-\begin{frame}
-    \frametitle{A word of caution on evidence networks}
-    \includegraphics<1>[page=4]{figures/sbi.pdf}%
-    \includegraphics<2>[page=5]{figures/sbi.pdf}%
-\end{frame}
-
-\begin{frame}
-    \frametitle{A word of caution on evidence networks}
-    \begin{itemize}
-        \item Does not give evidence/partition function (which can be useful), only Bayes factor.
-        \item Only valid if the true data lies within domain of extrapolation of neural network 
-            \begin{itemize}
-                \item True for forecasting.
-                \item False for real data.
-            \end{itemize}
-        \item By throwing away parameter $\theta$ fitting, model cannot respond to mis-specified data.
-        \item This criticism applies to any method claiming ``amortization''
-            \begin{itemize}
-                \item Amortized methods claim to train a system which works for all possible observed $D$.
-                \item As Bayesians we should be suspicious, since the only truth we know is the observed data.
-            \end{itemize}
-        \item Traditional SBI interchange:
-            \begin{description}
-                \item[audience] What if your simulator is missing (X,Y,Z,\ldots)?
-                \item[speaker] The exact same thing affects likelihood-based analysis
-            \end{description}
-        \item Here, the audience is implicitly making a query about the danger of working in data space, whilst the speaker's comment only applies to parameter space $\theta$.
-        \item We should therefore focus on SBI approaches which have tunable parameter spaces (i.e. interpretable posteriors).
-    \end{itemize}
-\end{frame}
+%\begin{frame}
+%    \frametitle{A word of caution on evidence networks}
+%    \includegraphics<1>[page=4]{figures/sbi.pdf}%
+%    \includegraphics<2>[page=5]{figures/sbi.pdf}%
+%\end{frame}
+%
+%\begin{frame}
+%    \frametitle{A word of caution on evidence networks}
+%    \begin{itemize}
+%        \item Does not give evidence/partition function (which can be useful), only Bayes factor.
+%        \item Only valid if the true data lies within domain of extrapolation of neural network 
+%            \begin{itemize}
+%                \item True for forecasting.
+%                \item False for real data.
+%            \end{itemize}
+%        \item By throwing away parameter $\theta$ fitting, model cannot respond to mis-specified data.
+%        \item This criticism applies to any method claiming ``amortization''
+%            \begin{itemize}
+%                \item Amortized methods claim to train a system which works for all possible observed $D$.
+%                \item As Bayesians we should be suspicious, since the only truth we know is the observed data.
+%            \end{itemize}
+%        \item Traditional SBI interchange:
+%            \begin{description}
+%                \item[audience] What if your simulator is missing (X,Y,Z,\ldots)?
+%                \item[speaker] The exact same thing affects likelihood-based analysis
+%            \end{description}
+%        \item Here, the audience is implicitly making a query about the danger of working in data space, whilst the speaker's comment only applies to parameter space $\theta$.
+%        \item We should therefore focus on SBI approaches which have tunable parameter spaces (i.e. interpretable posteriors).
+%    \end{itemize}
+%\end{frame}
 
 \begin{frame}
     \frametitle{Conclusions}
@@ -451,11 +499,28 @@
             %\includegraphics[width=0.1\textheight]{figures/students/will_barker.jpg}%
             %\includegraphics[width=0.1\textheight]{figures/students/zixiao_hu.jpg}%
     };
-    \begin{itemize}
-        \item \texttt{margarine} as a tool for marginal cosmological inference
-        \item \texttt{unimpeded} as a tool for distributing fast reusable inference products
-        \item \texttt{prescience} as a tool for fully Bayesian forecasting
-    \end{itemize}
+    \begin{enumerate}
+        \item \texttt{anesthetic} \arxiv{1905.04768}
+            \begin{itemize}
+                \item how to get the most out of your nested sampling runs 
+\item \texttt{\href{https://github.com/handley-lab/anesthetic}{github.com/handley-lab/anesthetic}}
+            \end{itemize}
+        \item \texttt{margarine} \arxiv{2207.11457}
+            \begin{itemize}
+                \item easy-to-use (neural) density estimation for marginal statistics
+                \item \texttt{\href{https://github.com/htjb/margarine}{github.com/htjb/margarine}} 
+            \end{itemize}
+        \item \texttt{prescience} \arxiv{2309.06942}
+            \begin{itemize}
+                \item Fully Bayesian forecasts (no more need for Fisher)
+                \item \texttt{\href{https://github.com/ThomasGesseyJones/FullyBayesianForecastsExample}{github.com/ThomasGesseyJones/FullyBayesianForecastsExample}} 
+            \end{itemize}
+        \item \texttt{unimpeded}
+            \begin{itemize}
+                \item up/downloading tool for transfering inference products (beyond chains)
+                \item \texttt{\href{https://github.com/handley-lab/unimpeded}{github.com/handley-lab/unimpeded}} 
+            \end{itemize}
+    \end{enumerate}
 \end{frame}
  
 %\appendix
