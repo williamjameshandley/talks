@@ -1,9 +1,9 @@
-# Cosmological inference tools: marginal statistics and fully Bayesian forecasts.
+# unimpeded: Universal model comparison and parameter estimation distributed over every dataset
 
 ## Abstract
-I will present recent work on marginal inference tools and their use in cosmology: The marginal KL divergence for comparing cosmological constraints between datasets, and the nuisance marginalised likelihood for building fast, reusable libraries of likelihoods and priors for unimpeded cosmological inference. These next-generation tools are enabled by the unique combination of normalising flows and nested sampling [[2207.11457](https://arxiv.org/abs/2207.11457)].
- 
+Cosmological tensions have recieved much attention in recent years, with the community debating the significance (or lack thereof) of the difference in parameter inferences of H0, S8 or ΩK between supernovae, CMB, weak lensing and BAO datasets. Bayesian methods for quantifying tensions across high-dimensional datasets have been developed to robustly determine hidden levels of tension, although these can be expensive to implement in practice due to requirements of nested sampling and MCMC runs across multiple combinations of datasets and models.
 
-In addition, I will discuss prescience: a fully Bayesian alternative to Fisher Forecasts [[2309.06942](https://arxiv.org/abs/2309.06942)] using Jeffrey & Wandelt Evidence networks [[2305.11241](https://arxiv.org/abs/2305.11241)]. I will finish with discussion of the features and limitations of evidence networks as a tool for Bayesian model comparison.
+This talk will present the current status and products of a DiRAC allocation to construct a next-generation legacy archive: a once-and-for-all coverage and public distribution of nested sampling and MCMC runs across a broad variety of models and dataset combinations, packaged in a zenodo-backed downloadable system unimpeded, as well as preliminary cosmological results. I will also highlight the state-of-the art anesthetic post-processing code, suitable for post-processing chains from MultiNest, PolyChord, dynesty and ultranest, as well as MCMC samplers.
 
-[[PDF](https://github.com/williamjameshandley/talks/raw/lcdm_2023/will_handley_lcdm_2023.pdf)] 
+https://github.com/handley-lab/anesthetic
+https://github.com/handley-lab/unimpeded
