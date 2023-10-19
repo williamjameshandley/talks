@@ -1,5 +1,6 @@
 \documentclass[aspectratio=169]{beamer}
 \usepackage{will_handley_beamer}
+\usepackage{pythonhighlight}
 \usepackage{title_page}
 \usetikzlibrary{positioning}
 \usetikzlibrary{calc}
@@ -74,7 +75,7 @@
 
 \begin{frame}
     \frametitle{Relevant examples for this audience}
-    \begin{itemize}
+    \begin{enumerate}
         \item CMB
             \begin{itemize}
                 \item Galatic foreground parameters: $A_i$, $n_i$,\ldots
@@ -89,10 +90,12 @@
                 \item Nuisance lens parameters: $\Phi_\text{lens}$
                 \item Supernova systematics
             \end{itemize}
+    \end{enumerate}
+    \begin{itemize}
+        \item Many modern cosmological problems present themselves in hierarchical form
+        \item These (often well-studied) objects have a set of event-specific parameters $\alpha$ alongside  parameters of global interest $\theta$ (e.g. $H_0$).
+        \item Ideally we would be able to have a ``nuisance marginalised'' likelihood for combining hierarchically.
     \end{itemize}
-    Many modern cosmological problems present themselves in hierarchical form
-
-    These (often well-studied) objects have a set of event-specific parameters $\alpha$ alongside  parameters of global interest $\theta$ (e.g. $H_0$).
 \end{frame}
 
 \begin{frame}
@@ -340,19 +343,100 @@
 
 \begin{frame}
     \frametitle{History of margarine}
-    \student{dily_ong}{Dily Ong}{PhD}
     \begin{itemize}
         \item Papamakarios et al \arxiv{1912.02762} (normalising flows)
         \item Alsing et al \arxiv{1903.00007} (Delfi)
         \item Nested sampling with any prior you like (Alsing \& Handley) \arxiv{2102.12478}
         \item \texttt{margarine} (theory) Bevins et al \arxiv{2207.11457}
         \item \texttt{margarine} (practice) Bevins et al \arxiv{2205.12841}
-        \item Next step: \texttt{unimpeded}
-            \begin{itemize}
-                \item pip-installable download system for DiRAC chains
-            \end{itemize}
     \end{itemize}
 
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{\texttt{unimpeded}}
+    \framesubtitle{Universal Model comparison and Parameter Estimation Distributed over Every Dataset}
+    \student{dily_ong}{Dily Ong}{PhD}
+    \begin{columns}
+        \column{0.5\textwidth}
+    \begin{itemize}
+        \item Python tool for seamlessly downloading, uploading and cacheing of chains
+        \item Data stored on \texttt{zenodo} 
+        \item hdf5 storage for fast \& reliable storage
+        \item \texttt{anesthetic} compatible for processing of chains~\arxiv{1905.04768}
+        \item $\alpha$-testers wanted! (email \href{mailto:wh260@cam.ac.uk}{wh260@cam.ac.uk}) 
+        \item End goal -- community library which everyone contributes to so expensive inference products are reusable and reused.
+    \end{itemize}
+        \column{0.5\textwidth}
+
+
+\lstset{language=Python}
+\lstset{frame=lines}
+\lstset{basicstyle=\footnotesize}
+\begin{lstlisting}
+from unimpeded import Unimpeded
+store = Unimpeded(cache='data.hdf5')
+samps = store('planck')
+samps.H0.plot.kde_1d()
+samps = store('planck', model='klcdm')
+samps.H0.plot.kde_1d()
+\end{lstlisting}
+\includegraphics[width=\textwidth]{figures/unimpeded.pdf}
+
+        
+    \end{columns}
+\end{frame}
+ 
+
+\begin{frame}
+    \frametitle{Inference Legacy Archive}
+    \begin{columns}
+        \column{0.5\textwidth}
+        \begin{itemize}
+            \item DiRAC 2020 RAC allocation of 30MCPUh
+            \item Main goal: Planck Legacy Archive equivalent
+            \item Parameter estimation $\to$ Model comparison
+            \item MCMC $\to$ Nested sampling
+            \item Planck $\to$ $\{\text{Planck}, \text{DESY1}, \text{BAO}, \ldots \}$
+            \item Pairwise combinations
+            \item Suite of tools for processing these 
+                \begin{itemize}
+                    \item \texttt{anesthetic} $2.0$
+                    \item \texttt{unimpeded} $1.0$
+                    \item \texttt{zenodo} archive
+                    \item \texttt{margarine}
+                \end{itemize}
+            \item MCMC chains also available.
+            \item Library of bijectors emulators for fast re-use
+        \end{itemize}
+        \column{0.5\textwidth}
+        \includegraphics[width=\textwidth]{logos/dirac}
+        \includegraphics[width=0.5\textwidth,page=21]{figures/himmelblau}%
+        \includegraphics[width=0.5\textwidth,page=15]{figures/himmelblau}
+    \end{columns}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Fully Bayesian Forecasting~\arxiv{2309.06942}}
+    \student{thomas_gessey-jones}{Thomas Gessey-Jones}{PhD}
+    \begin{columns}
+        \column{0.5\textwidth}
+        \begin{itemize}
+            \item Simulation based inference gives us the language to marginalise over parameters $\theta$ and possible future data $D$.
+            \item Evidence networks~\arxiv{2305.11241} give us the ability to do this at scale for forecasting.
+            \item Demonstrated in 21cm global experiments, marginalising over:
+                \begin{itemize}
+                    \item theoretical uncertainty
+                    \item foreground uncertainty
+                    \item systematic uncertainty
+                \end{itemize}
+            \item Able to say ``at 67mK radiometer noise'', have a 50\% chance of 5$\sigma$ Bayes factor detection.
+            \item Can use to optimise instrument design
+            \item Re-usable package: \texttt{prescience}
+        \end{itemize}
+        \column{0.5\textwidth}
+        \includegraphics[width=\textwidth]{figures/fbf.pdf}
+    \end{columns}
 \end{frame}
 
 \begin{frame}
@@ -395,88 +479,6 @@
 
 \end{frame}
 
-%\begin{frame}
-%    \frametitle{Simulation-based inference \& model comparison}
-%    \includegraphics<1>[page=1]{figures/sbi.pdf}%
-%    \includegraphics<2>[page=2]{figures/sbi.pdf}%
-%    \includegraphics<3>[page=3]{figures/sbi.pdf}%
-%\end{frame}
-%
-%\begin{frame}
-%    \frametitle{Evidence networks~\arxiv{2305.11241}}
-%    \begin{columns}
-%        \column{0.5\textwidth}
-%    \begin{itemize}
-%        \item Procedure proposed by Jeffreys \& Wandelt:
-%            \begin{enumerate}
-%                \item Generate labelled data from model $A$ and model $B$.
-%                \item Train a probabilistic classifier to distinguish between the two.
-%                \item Use neural ratio trick to extract Bayes Factor $B = P(D|A)/P(D|B)$.
-%            \end{enumerate}
-%        \item Fully marginalises out parameters
-%        \item Only works in the data space
-%        \item Model comparison without nested sampling!
-%    \end{itemize}
-%        
-%        \column{0.5\textwidth}
-%\includegraphics{figures/sbi-0.pdf}
-%\includegraphics{figures/sbi-1.pdf}
-%    \end{columns}
-%\end{frame}
-
-\begin{frame}
-    \frametitle{Fully Bayesian Forecasting~\arxiv{2309.06942}}
-    \student{thomas_gessey-jones}{Thomas Gessey-Jones}{PhD}
-    \begin{columns}
-        \column{0.5\textwidth}
-        \begin{itemize}
-            \item Simulation based inference gives us the language to marginalise over parameters $\theta$ and possible future data $D$.
-            \item Evidence networks~\arxiv{2305.11241} give us the ability to do this at scale for forecasting.
-            \item Demonstrated in 21cm global experiments, marginalising over:
-                \begin{itemize}
-                    \item theoretical uncertainty
-                    \item foreground uncertainty
-                    \item systematic uncertainty
-                \end{itemize}
-            \item Able to say ``at 67mK radiometer noise'', have a 50\% chance of 5$\sigma$ Bayes factor detection.
-            \item Can use to optimise instrument design
-            \item Re-usable package: \texttt{prescience}
-        \end{itemize}
-        \column{0.5\textwidth}
-        \includegraphics[width=\textwidth]{figures/fbf.pdf}
-    \end{columns}
-\end{frame}
-
-%\begin{frame}
-%    \frametitle{A word of caution on evidence networks}
-%    \includegraphics<1>[page=4]{figures/sbi.pdf}%
-%    \includegraphics<2>[page=5]{figures/sbi.pdf}%
-%\end{frame}
-%
-%\begin{frame}
-%    \frametitle{A word of caution on evidence networks}
-%    \begin{itemize}
-%        \item Does not give evidence/partition function (which can be useful), only Bayes factor.
-%        \item Only valid if the true data lies within domain of extrapolation of neural network 
-%            \begin{itemize}
-%                \item True for forecasting.
-%                \item False for real data.
-%            \end{itemize}
-%        \item By throwing away parameter $\theta$ fitting, model cannot respond to mis-specified data.
-%        \item This criticism applies to any method claiming ``amortization''
-%            \begin{itemize}
-%                \item Amortized methods claim to train a system which works for all possible observed $D$.
-%                \item As Bayesians we should be suspicious, since the only truth we know is the observed data.
-%            \end{itemize}
-%        \item Traditional SBI interchange:
-%            \begin{description}
-%                \item[audience] What if your simulator is missing (X,Y,Z,\ldots)?
-%                \item[speaker] The exact same thing affects likelihood-based analysis
-%            \end{description}
-%        \item Here, the audience is implicitly making a query about the danger of working in data space, whilst the speaker's comment only applies to parameter space $\theta$.
-%        \item We should therefore focus on SBI approaches which have tunable parameter spaces (i.e. interpretable posteriors).
-%    \end{itemize}
-%\end{frame}
 
 \begin{frame}
     \frametitle{Conclusions}
@@ -546,5 +548,4 @@
 %        \end{block}
 %    \end{columns}
 %\end{frame}
- 
 \end{document}
