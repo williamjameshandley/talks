@@ -417,30 +417,8 @@ samps.H0.plot.kde_1d()
 \end{frame}
 
 \begin{frame}
-    \frametitle{Fully Bayesian Forecasting~\arxiv{2309.06942}}
-    \student{thomas_gessey-jones}{Thomas Gessey-Jones}{PhD}
-    \begin{columns}
-        \column{0.5\textwidth}
-        \begin{itemize}
-            \item Simulation based inference gives us the language to marginalise over parameters $\theta$ and possible future data $D$.
-            \item Evidence networks~\arxiv{2305.11241} give us the ability to do this at scale for forecasting.
-            \item Demonstrated in 21cm global experiments, marginalising over:
-                \begin{itemize}
-                    \item theoretical uncertainty
-                    \item foreground uncertainty
-                    \item systematic uncertainty
-                \end{itemize}
-            \item Able to say ``at 67mK radiometer noise'', have a 50\% chance of 5$\sigma$ Bayes factor detection.
-            \item Can use to optimise instrument design
-            \item Re-usable package: \texttt{prescience}
-        \end{itemize}
-        \column{0.5\textwidth}
-        \includegraphics[width=\textwidth]{figures/fbf.pdf}
-    \end{columns}
-\end{frame}
-
-\begin{frame}
     \frametitle{Cosmological forecasting}
+    \student{thomas_gessey-jones}{Thomas Gessey-Jones}{PhD}
     \framesubtitle{Have you ever done a Fisher forecast, and then felt Bayesian guilt?}
     \vspace{-20pt}
     \begin{columns}[t]
@@ -479,6 +457,29 @@ samps.H0.plot.kde_1d()
 
 \end{frame}
 
+
+\begin{frame}
+    \frametitle{Fully Bayesian Forecasting~\arxiv{2309.06942}}
+    \student{thomas_gessey-jones}{Thomas Gessey-Jones}{PhD}
+    \begin{columns}
+        \column{0.5\textwidth}
+        \begin{itemize}
+            \item Simulation based inference gives us the language to marginalise over parameters $\theta$ and possible future data $D$.
+            \item Evidence networks~\arxiv{2305.11241} give us the ability to do this at scale for forecasting.
+            \item Demonstrated in 21cm global experiments, marginalising over:
+                \begin{itemize}
+                    \item theoretical uncertainty
+                    \item foreground uncertainty
+                    \item systematic uncertainty
+                \end{itemize}
+            \item Able to say ``at 67mK radiometer noise'', have a 50\% chance of 5$\sigma$ Bayes factor detection.
+            \item Can use to optimise instrument design
+            \item Re-usable package: \texttt{prescience}
+        \end{itemize}
+        \column{0.5\textwidth}
+        \includegraphics[width=\textwidth]{figures/fbf.pdf}
+    \end{columns}
+\end{frame}
 
 \begin{frame}
     \frametitle{Conclusions}
