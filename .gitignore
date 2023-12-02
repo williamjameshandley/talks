@@ -7,3 +7,5 @@ will_handley.out
 will_handley.pdf
 will_handley.snm
 will_handley.toc
+venv
+__pycache__
