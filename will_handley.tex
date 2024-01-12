@@ -181,11 +181,11 @@ The standard approach if you are fortunate enough to have a likelihood function 
             \begin{columns}
                 \column{0.5\textwidth}
     \begin{itemize}
-        \item This concern affects any amortized method 
+        \item This concern affects any amortised method 
             \begin{itemize}
                 \item means trainining method on simulations\ldots
                 \item \ldots and then pass in the real data
-                \item They are amortized (over the data) because they can be re-used for any new data.
+                \item They are amortised (over the data) because they can be re-used for any new data.
             \end{itemize}
         \item Observed data is only thing we surely know.
         \item As scientists we should be suspicious of a method that leaves $D_\mathrm{obs}$ until the end.
@@ -202,8 +202,8 @@ The standard approach if you are fortunate enough to have a likelihood function 
 \end{frame}
 
 \begin{frame}
-    \frametitle{Why do amortized methods often work so well?}
-        Whilst these concerns sound worrying, many succesful amortized methods exist. Why?
+    \frametitle{Why do amortised methods often work so well?}
+        Whilst these concerns sound worrying, many succesful amortised methods exist. Why?
     \begin{enumerate}
         \item Some methods are only validated on data generated from the same simulator as the one used for inference.
         \item Some methods are only validated on simple Gaussian examples, since it's possible to compute the ground truth in these cases.
@@ -280,7 +280,7 @@ The standard approach if you are fortunate enough to have a likelihood function 
                 \item Justin Alsing
                 \item Niall Jeffreys
             \end{itemize}
-        \item As scientists, we should be cautious of amortized approaches
+        \item As scientists, we should be cautious of amortised approaches
         \item \texttt{lsbi} preview: a package-driven attempt to free SBI from ML
     \end{itemize}
 \end{frame}
