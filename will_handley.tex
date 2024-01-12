@@ -15,9 +15,9 @@
 
 % Talk details
 % ------------
-\title{Cosmological inference tools}
-\subtitle{Marginal statistics and fully Bayesian forecasts}
-\date{12\textsuperscript{th} October 2023}
+\title{Simulation Based Inference}
+\subtitle{sampling, model comparison, \& amortisation}
+\date{12\textsuperscript{th} January 2024}
 
 \begin{document}
 
@@ -26,285 +26,263 @@
 \end{frame}
 
 \begin{frame}
-    \frametitle{Marginal inference}
-    \begin{columns}
-        \column{0.5\textwidth}
-        \begin{itemize}
-            \item Many cosmological likelihoods come with nuisance parameters that have limited relevance for onward inference.
-            \item Notation: $\mathcal{L} = P(D|\theta,\alpha,M)$
-                \begin{itemize}
-                    \item[$\mathcal{L}$] Likelihood \hfill (e.g. \texttt{plik}),
-                    \item[$D$] Data \hfill (e.g. CMB),
-                    \item[$\theta$] Cosmological parameters \hfill (e.g. $\Omega_m$, $H_0$\ldots),
-                    \item[$\alpha$] Nuisance parameters \hfill (e.g. $A_\text{planck}$\ldots),
-                    \item[$M$] Model \hfill (e.g. $\Lambda$CDM).
-                \end{itemize}
-            \item Some marginal statistics (e.g. marginal means, posteriors\ldots) are easy to compute.
-            \item More machinery is needed for e.g. nuisance marginalised likelihoods and marginal KL divergences $\mathcal{D}_\text{KL}$.
-        \end{itemize}
-        \column{0.5\textwidth}
-        \includegraphics{figures/planck_2018_plik.pdf}
-    \end{columns}
-\end{frame}
-
-\begin{frame}
-    \frametitle{Nuisance marginalised likelihoods: Theory \arxiv{2207.11457}}
-    \begin{columns}[t]
-        \column{0.5\textwidth}
-        \begin{itemize}
-            \item Bayes theorem
-                \begin{align}
-                    \C[2]{\mathcal{L}}(\theta,\alpha) 
-                    \times 
-                    \C[1]{\pi}(\theta,\alpha) &= 
-                    \C[0]{\mathcal{P}}(\theta,\alpha)
-                    \times
-                    \C[3]{\mathcal{Z}}\\
-                    \C[2]{\text{Likelihood}}
-                    \times
-                    \C[1]{\text{Prior}}
-                    &=
-                    \C[0]{\text{Posterior}}
-                    \times
-                    \C[3]{\text{Evidence}}
-                    \nonumber
-                \end{align}
-                \small{$\alpha$: nuisance parameters, $\theta$: cosmo parameters.}
-            \item Marginal Bayes theorem
-                \begin{equation}
-                    \C[2]{\mathcal{L}}(\theta) 
-                    \times 
-                    \C[1]{\pi}(\theta) = 
-                    \C[0]{\mathcal{P}}(\theta)
-                    \times
-                    \C[3]{\mathcal{Z}}
-                \end{equation}
-            \item Non-trivially gives \textbf{nuisance-free likelihood}
-                \begin{equation}
-                    \boxed{
-                        \C[2]{\mathcal{L}}(\theta) 
-                        = 
-                        \frac{
-                            \C[0]{\mathcal{P}}(\theta)
-                            \C[3]{\mathcal{Z}}
-                        }{
-                            \C[1]{\pi}(\theta)
-                        }
-                    }
-                    =
-                    \frac{
-                        \int \C[2]{\mathcal{L}}(\theta,\alpha) \C[1]{\pi}(\theta,\alpha) d{\alpha}
-                    }
-                    {
-                        \int \C[1]{\pi}(\theta,\alpha) d{\alpha}
-                    }
-                \end{equation}
-        \end{itemize}
-        \column{0.5\textwidth}
-        \textbf{Key properties}
-        \begin{itemize}
-            \item Given datasets $A$ and $B$, each with own nuisance parameters $\alpha_A$ and $\alpha_B$:
-            \item If you use $\mathcal{L}_A(\theta)$, you get the same (marginal) posterior and evidence if you had run with nuisance parameters $\alpha_A$ (ditto $B$).
-            \item If you run inference on $\mathcal{L}_A(\theta)\times\mathcal{L}_B(\theta)$, you get the same (marginal) posterior and evidence if you had run with all nuisance parameters $\alpha_A$, $\alpha_B$ on.
-            \item[] \textit{(weak marginal consistency requirements on joint $\pi(\theta,\alpha_A,\alpha_B)$ and marginal priors)}
-        \end{itemize}
-    \end{columns}
-\end{frame}
-
-\begin{frame}
-    \frametitle{Nuisance marginalised likelihoods: Practice}
-    \student{harry_bevins}{Harry Bevins}{PhD$\to$JRF}
-    \begin{columns}
-        \column{0.6\textwidth}
-        \begin{columns}
-            \column{0.3\textwidth}
-            \[
-                \boxed{
-                    \C[2]{\mathcal{L}}(\theta) 
-                    = 
-                    \frac{
-                        \C[0]{\mathcal{P}}(\theta)
-                        \C[3]{\mathcal{Z}}
-                    }{
-                        \C[1]{\pi}(\theta)
-                    }
-                }
-            \]
-            \column{0.7\textwidth}
-            \begin{itemize}
-                \item To compute the nuisance marginalised likelihood, need:
-                    \begin{enumerate}
-                        \item Bayesian evidence $\C[3]{\mathcal{Z}}$
-                        \item Marginal prior and posterior densities
-                    \end{enumerate}
-            \end{itemize}
-        \end{columns}
-        \begin{enumerate}
-            \item Use nested sampling to compute evidence $\C[3]{\mathcal{Z}}$ and marginal samples $\{\theta,\alpha\}_\mathcal{P}$ and $\{\theta,\alpha\}_\pi$.
-            \item Use normalising flows to compute density estimators $\C[0]{\mathcal{P}(\theta)}$, $\C[1]{\pi(\theta)}$ from marginal samples.
-        \end{enumerate}
-        \begin{itemize}
-            %\item Combination termed \texttt{margarine} \arxiv{2205.12841}
-            \item Emulators usually much faster than original likelihoods
-            \item Library of pre-trained bijectors to be used as priors/emulators/nuisance marginalised likelihoods
-            \item e.g. easy to apply a \textit{Planck}/DES/HERA/JWST prior or likelihood to your existing MCMC chains without needing to install the whole cosmology machinery.
-        \end{itemize}
-
-        \column{0.4\textwidth}
-        \begin{tikzpicture}[
-                rednode/.style={rectangle, draw=red!60, fill=red!5, very thick, minimum size=5mm},
-                bluenode/.style={rectangle, draw=blue!60, fill=blue!5, very thick, minimum size=5mm},
-                greennode/.style={rectangle, draw=green!60, very thick, minimum size=5mm},
-                node distance=0.5cm,
-                remember picture, overlay
-            ]
-            \node<1->[bluenode, xshift=0.5\textwidth, yshift=-0.25\textwidth](likelihood) at (current page.north)  {$ \mathcal{L}(\theta,\alpha)$};
-            \node<1->[bluenode, right = of likelihood.east](prior) {$ \pi(\theta,\alpha)$};
-
-            \coordinate<1-> (likelihoodprior) at ($(likelihood.south)!0.5!(prior.south)$);
-
-            \node<2->[rednode, below = of likelihoodprior](nestedsampling) {Nested Sampling};
-            \draw<2->[->](likelihood.south) -- (likelihood|-nestedsampling.north);
-            \draw<2->[->](prior.south) -- (prior|-nestedsampling.north);
-
-            \node<3->[bluenode, below = of nestedsampling](posterior) {$ \{\theta,\alpha\}_\mathcal{P}$};
-            \draw<3->[->](nestedsampling.south-|posterior) -- (posterior.north);
-            \node<4->[bluenode, left = of posterior.west](evidence) {$ \mathcal{Z}$};
-            \draw<4->[->](nestedsampling.south-|likelihood) -- (evidence.north);
-            \node<5->[bluenode, right = of posterior.east](priorSamples) {$ \{\theta,\alpha\}_\pi$};
-            \draw<5->[->](nestedsampling.south-|prior) -- (priorSamples.north);
-
-            \coordinate<5-> (posteriorprior) at ($(posterior.south)!0.5!(priorSamples.south)$);
-
-            \node<6->[rednode, below = of posteriorprior](margarine)  {Density Estimation};
-
-            \draw<6->[->](posterior.south) -- (margarine.north-|posterior.east);
-            \draw<6->[->](priorSamples.south) -- (margarine.north-|priorSamples.west);
-
-            \node<7->[bluenode, below = of posterior|-margarine.south](marginalPosterior) {$ \mathcal{P}(\theta)$};
-
-
-            \draw<7->[->](margarine.south-|marginalPosterior.east) -- (marginalPosterior.north);
-
-
-            \node<8->[bluenode, below = of marginalPosterior.south-|margarine.south-|priorSamples](marginalPrior) {$ \pi(\theta)$};
-            \draw<8->[->](margarine.south-|priorSamples.west) -- (marginalPrior.north);
-
-
-            \node<9->[bluenode, below = of marginalPosterior](marginalLikelihood) {$ \mathcal{L}(\theta)$};
-
-
-            \draw<9->[->](evidence.south) -- (marginalLikelihood.west);
-            \draw<9->[->](marginalPosterior.south) -- (marginalLikelihood.north);
-            \draw<9->[->](marginalPrior.west) -- (marginalLikelihood.east);
-
-            \node<10->[greennode,behind path,fit=(nestedsampling) (marginalPosterior) (priorSamples) (evidence),] {};
-
-        \end{tikzpicture}
-    \end{columns}
-\end{frame}
-
-\begin{frame}
-    \frametitle{Combination}
-    \begin{columns}
-        \column{0.5\textwidth}
-%\begin{tikzpicture}[squarednodeA/.style={rectangle, draw=red!60, fill=red!5, very thick, minimum size=5mm},
-%squarednodeB/.style={rectangle, draw=blue!60, fill=blue!5, very thick, minimum size=5mm},
-%squarednodeC/.style={rectangle, draw=green!60, fill=green!5, very thick, minimum size=5mm}]
-%
-%\node[squarednodeA, text width=3cm, align=center](inference3) at (17, -1.5) {Nested Sampling with $\theta$, $\alpha_A$ and $\alpha_B$};
-%
-%\node[squarednodeB](fulllikelihood1) at (15, 1.5){$ \mathcal{L}_A(\theta,\alpha_A)$};
-%\node[squarednodeB](fulllikelihood2) at (16.85, 1.5){$ \mathcal{L}_B(\theta,\alpha_B)$};
-%\node[squarednodeB](fulljointlikelihood) at (16, 0){$ \mathcal{L}_A(\theta,\alpha_A) \mathcal{L}_B(\theta,\alpha_B)$};
-%\node[squarednodeB](fullprior) at (19, 1.5){$ \pi_{AB}(\theta,\alpha_A, \alpha_B)$};
-%
-%\draw[->](fulllikelihood1.south) -- (15.5, 0.3);
-%\draw[->](fulllikelihood2.south) -- (16.5, 0.3);
-%\draw[->](fullprior.south) -- (inference3.north);
-%\draw[->](fulljointlikelihood.south) -- (inference3.north);
-%
-%\node[squarednodeB](jointEvidence2) at (15, -3){$ \mathcal{Z}_{AB}$};
-%\node[squarednodeB](jointPosterior2) at (17, -3){$ \{\theta\}_{\mathcal{P}_{AB}}$};
-%
-%\draw[<-](jointEvidence2.north) -- (16, -2);
-%\draw[<-](jointPosterior2.north) -- (inference3.south);
-%
-%\node[squarednodeB](jointPosteriorNuisance) at (19, -3){$ \{\alpha_A, \alpha_B\}_{\mathcal{P}_{AB}}$};
-%\draw[->](18, -2) -- (jointPosteriorNuisance.north);
-%\draw[blue,thick](16.2, -3.5) -- (20.1, -3.5) -- (20.1, -2.5) -- (16.2, -2.5) -- (16.2, -3.5);
-%
-%\end{tikzpicture}
-
-        \includegraphics[width=0.7\textwidth]{figures/full_margarine.pdf}
-
-        \column{0.5\textwidth}
-%\begin{tikzpicture}[squarednodeA/.style={rectangle, draw=red!60, fill=red!5, very thick, minimum size=5mm},
-%squarednodeB/.style={rectangle, draw=blue!60, fill=blue!5, very thick, minimum size=5mm},
-%squarednodeC/.style={rectangle, draw=green!60, fill=green!5, very thick, minimum size=5mm}]
-%
-%\node[squarednodeB](likelihood1) at (6, 1.5){$ \mathcal{L}_A(\theta,\alpha_A)$};
-%\node[squarednodeB](prior1) at (8, 1.5){$ \pi_A(\theta,\alpha_A)$};
-%
-%\node[squarednodeC, text width=3cm, align=center](NestedMarg1) at (7, 0){Nested Sampling + \textsc{Margarine}};
-%
-%\draw[->](likelihood1.south) -- (6, 0.5);
-%\draw[->](prior1.south) -- (8, 0.5);
-%
-%\node[squarednodeB](marglike1) at (6, -1.5){$ \mathcal{L}_A(\theta)$};
-%\node[squarednodeB](margprior1) at (9, -1.5){$ \pi(\theta)$};
-%
-%\draw[->](6, -0.5) -- (6, -1.2);
-%\draw[->](8, -0.5) -- (9, -1.2);
-%
-%\node[squarednodeB](likelihood2) at (10, 1.5){$ \mathcal{L}_B(\theta,\alpha_B)$};
-%\node[squarednodeB](prior2) at (12, 1.5){$ \pi_B(\theta,\alpha_B)$};
-%
-%\draw[->](likelihood2.south) -- (10, 0.5);
-%\draw[->](prior2.south) -- (12, 0.5);
-%
-%\node[squarednodeC, text width=3cm, align=center](NestedMarg1) at (11, 0){Nested Sampling + \textsc{Margarine}};
-%
-%\node[squarednodeB](marglike2) at (12, -1.5){$ \mathcal{L}_B(\theta)$};
-%\draw[->](12, -0.5) -- (12, -1.2);
-%\draw[->](10, -0.5) -- (9, -1.2);
-%
-%\node[squarednodeB](combinedlike) at (7, -3){$ \mathcal{L}_A(\theta) \mathcal{L}_B(\theta)$};
-%
-%\draw[->](marglike1.south) -- (combinedlike.north);
-%\draw[->](marglike2.south) -- (combinedlike.north);
-%
-%\node[squarednodeA, text width=3cm, align=center](inference2) at (9, -4.5) {Nested Sampling with $\theta$};
-%
-%\draw[->](combinedlike.south) -- (8, -4);
-%\draw[->](margprior1.south) -- (10, -4);
-%
-%\node[squarednodeB](jointEvidence) at (8, -6){$ \mathcal{Z}_{AB}$};
-%\node[squarednodeB](jointPosterior) at (10, -6){$ \{\theta\}_{\mathcal{P}_{AB}}$};
-%
-%\draw[->](8, -5) -- (jointEvidence.north);
-%\draw[->](10, -5) -- (jointPosterior.north);
-%\end{tikzpicture}
-        \includegraphics[width=0.9\textwidth]{figures/quick_margarine.pdf}
-        
-    \end{columns}
-\end{frame}
-
-\begin{frame}
-    \frametitle{History of margarine}
-    \student{dily_ong}{Dily Ong}{PhD}
+    \frametitle{How all SBI talks finish}
     \begin{itemize}
-        \item Papamakarios et al \arxiv{1912.02762} (normalising flows)
-        \item Alsing et al \arxiv{1903.00007} (Delfi)
-        \item Nested sampling with any prior you like (Alsing \& Handley) \arxiv{2102.12478}
-        \item \texttt{margarine} (theory) Bevins et al \arxiv{2207.11457}
-        \item \texttt{margarine} (practice) Bevins et al \arxiv{2205.12841}
-        \item Next step: \texttt{unimpeded}
+        \item There is a standard exchange that tends to happen after giving an SBI talk:
+
+            \begin{description}
+                \item[audience] Surely you're only as good as your simulations ---\\What if your forward model is missing physics $X$?
+                \item[speaker] The exact same thing affects likelihood-based analysis ---\\
+                    All SBI does is make these assumptions explicit.
+            \end{description}
+        \item I will try to unpack why I think both sides have a point.
+    \end{itemize}
+    \vspace{10pt}
+\hfill \textit{Frontiers of simulation based inference}~\arxiv{1911.01429}
+    \includegraphics[width=\textwidth]{figures/sbi_range.pdf}
+\end{frame}
+
+\begin{frame}
+    \frametitle{LBI: Likelihood-based inference}
+    \begin{columns}
+        \column{0.5\textwidth}
+The standard approach if you are fortunate enough to have a likelihood function $\only<1-2>{P}\only<3->{\mathcal{L}}(\theta|D)$: 
+        \[
+            \only<1-2>{
+                P(\theta|D) = \frac{P(D|\theta)P(\theta)}{P(D)}
+        }
+            \only<2>{
+            \qquad
+            \text{Posterior} = \frac{\text{Likelihood}\times\text{Prior}}{\text{Evidence}}
+        }
+            \only<3>{
+                \mathcal{P}(\theta|D) = \frac{\mathcal{L}(D|\theta)\pi(\theta)}{\mathcal{Z}(D)}
+            \qquad
+            \text{Posterior} = \frac{\text{Likelihood}\times\text{Prior}}{\text{Evidence}}
+        }
+            \only<4>{
+                \mathcal{P}\times\mathcal{Z} = \mathcal{L}\times\pi
+        }
+            \only<5>{
+                \mathcal{P}\times\mathcal{Z} = \mathcal{J} = \mathcal{L}\times\pi, \qquad \text{Joint} = \mathcal{J} = P(D,\theta)
+        }
+        \]
+        \vspace{-10pt}
+        \begin{enumerate}
+            \item Define prior $\pi(\theta)$ 
+                \begin{itemize}
+                    \item spend some time being philosophical
+                \end{itemize}
+            \item Sample posterior $\mathcal{P}(\theta|D)$ 
+                \begin{itemize}
+                    \item use out-of-the-box MCMC tools such as\\ \texttt{emcee} or \texttt{MultiNest}
+                    \item make some triangle plots
+                \end{itemize}
+            \item Optionally compute evidence $\mathcal{Z}(D)$
+                \begin{itemize}
+                    \item e.g. nested sampling or parallel tempering
+                    \item do some model comparison (i.e. science)
+                    \item talk about tensions e.g. \arxiv{2401.02929}
+                \end{itemize}
+        \end{enumerate}
+        \column{0.5\textwidth}
+        \hfill\includegraphics[width=0.6\textwidth]{figures/des_parameters.pdf}
+        \includegraphics[width=0.5\textwidth]{figures/des_model_comparison.pdf}%
+        \includegraphics[width=0.5\textwidth]{figures/des_suspiciousness.pdf}
+    \end{columns}
+\end{frame}
+
+\begin{frame}
+    \frametitle{SBI: Simulation-based inference}
+    \begin{columns}
+        \column{0.5\textwidth}
+        \begin{itemize}
+            \item Only have access to a forward model $\theta \rightarrow D$.
+            \item $(\theta,D)$ plane gives a more expansive theoretical view of inference.
+            \item Forward model defines \emph{implicit} likelihood~$\mathcal{L}$:
+            \item Simulator generates samples from $\mathcal{L}(D|\theta)$.
+            \item With a prior $\pi(\theta)$ can generate samples from joint distribution~$\mathcal{J}(\theta,D)=\mathcal{L}(D|\theta)\pi(\theta)$\\\hfill \emph{the ``probability of everything''}.
+            \item Task of SBI is then to go from joint~$\mathcal{J}$ to posterior $\mathcal{P}(\theta|D)$ and evidence $\mathcal{Z}(D)$ -- and possibly likelihood $\mathcal{L}(D|\theta)$.
+            \item SBI \& forward modelling force us to think about data space~$D$ \& parameter space~$\theta$.
+        \end{itemize}
+        \column{0.5\textwidth}
+        \includegraphics<1>[page=1, width=\textwidth]{figures/sbi_parameter_estimation.pdf}%
+        \includegraphics<2>[page=2, width=\textwidth]{figures/sbi_parameter_estimation.pdf}%
+        \includegraphics<3>[page=3, width=\textwidth]{figures/sbi_parameter_estimation.pdf}%
+        \includegraphics<4>[page=4, width=\textwidth]{figures/sbi_parameter_estimation.pdf}%
+        \includegraphics<5>[page=5, width=\textwidth]{figures/sbi_parameter_estimation.pdf}%
+    \end{columns}
+\end{frame}
+
+
+\begin{frame}
+    \frametitle{Simulation-based inference \& model comparison}
+    \begin{columns}
+        \column{0.3\textwidth}
+        \begin{itemize}
+            \item Extend: models $A$ and $B$.
+            \item Each with own separate parameters $\theta_A$ and $\theta_B$ (can be same).
+            \item The evidence $\mathcal{Z}(D|M)$ compares models
+            \item Occams razor: more~predictive $\equiv$~more~probable \\(due to normalisation).
+        \end{itemize}
+        
+        \column{0.7\textwidth}
+        \includegraphics<1>[page=1, width=\textwidth]{figures/sbi_model_comparison.pdf}%
+        \includegraphics<2>[page=2, width=\textwidth]{figures/sbi_model_comparison.pdf}%
+        \includegraphics<3>[page=3, width=\textwidth]{figures/sbi_model_comparison.pdf}%
+    \end{columns}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Evidence networks~\arxiv{2305.11241}}
+    \begin{columns}
+        \column{0.5\textwidth}
+    \begin{itemize}
+        \item Procedure proposed by Jeffreys \& Wandelt:
+            \begin{enumerate}
+                \item Generate labelled data from model $A$ and model $B$.
+                \item Train a probabilistic classifier to distinguish between the two.
+                \item Use neural ratio trick to extract Bayes Factor $B = P(D|A)/P(D|B)$.
+            \end{enumerate}
+        \item NRE for data
+        \item Fully marginalises out parameters
+        \item Only works in the data space
+        \item Model comparison without nested sampling!
+        \item Can be extremely effective
+    \end{itemize}
+        
+        \column{0.5\textwidth}
+        \includegraphics[width=0.5\textwidth]{figures/sbi-0.pdf}%
+        \includegraphics[width=0.5\textwidth]{figures/sbi-1.pdf}
+    \end{columns}
+\end{frame}
+
+\begin{frame}
+    \frametitle{A word of caution on data-space modelling}
+    \begin{columns}
+        \column{0.3\textwidth}
+        \begin{itemize}
+            \item In practice the situation is more like this $\Rightarrow$
+                \begin{itemize}
+                    \item \emph{``No models are true,} \\\emph{(but some are useful)''}
+                \end{itemize}
+            \item Curse of dimensionality means real data may not lie in either/any evidence distribution $\mathcal{Z}(D)$.
+            \item e.g. if you are training an ML method, it will have never seen simulated data like the real data.
+        \end{itemize}
+        
+        \column{0.7\textwidth}
+        %\includegraphics<1>[page=4, width=\textwidth]{figures/sbi_model_comparison.pdf}%
+        \includegraphics[page=5, width=\textwidth]{figures/sbi_model_comparison.pdf}%
+    \end{columns}
+\end{frame}
+
+\begin{frame}
+    \frametitle{A word of caution on data-space modelling}
+            \begin{columns}
+                \column{0.5\textwidth}
+    \begin{itemize}
+        \item This concern affects any amortized method 
             \begin{itemize}
-                \item pip-installable download system for DiRAC chains
+                \item means trainining method on simulations\ldots
+                \item \ldots and then pass in the real data
+                \item They are amortized (over the data) because they can be re-used for any new data.
+            \end{itemize}
+        \item Observed data is only thing we surely know.
+        \item As scientists we should be suspicious of a method that leaves $D_\mathrm{obs}$ until the end.
+        \item This can be amelioriated by fitting $\theta$.
+            \begin{itemize}
+                \item Fitting concentrates parameters \& simulations around the posterior/real data
+                \item See this in truncated approaches \& ABC
             \end{itemize}
     \end{itemize}
+                \column{0.5\textwidth}
+                \includegraphics[page=6, width=\textwidth]{figures/sbi_parameter_estimation.pdf}%
+            \end{columns}
 
+\end{frame}
+
+\begin{frame}
+    \frametitle{Why do amortized methods often work so well?}
+        Whilst these concerns sound worrying, many succesful amortized methods exist. Why?
+    \begin{enumerate}
+        \item Some methods are only validated on data generated from the same simulator as the one used for inference.
+        \item Some methods are only validated on simple Gaussian examples, since it's possible to compute the ground truth in these cases.
+            \begin{itemize}
+                \item Recommendation: also test on Gaussian mixture models, for which full analytics are also known
+            \end{itemize}
+        \item Real data may not actually be that challenging!
+    \end{enumerate}
+\end{frame}
+\begin{frame}
+    \frametitle{\texttt{lsbi}: Linear Simulation Based Inference}
+    \begin{columns}
+        \column{0.5\textwidth}
+        \begin{itemize}
+            \item If the final point holds, then in many cases we may not need expressive ML/AI methods
+            \item Often it is the data-intensive ``plug-and-play'' power of ML packages that is most useful.
+            \item If your ML is just learning a simple decision boundary, why not just use a linear model?
+            \item \texttt{lsbi} is a python package that implements plug-and-play the fiddly linear mathematics.
+            \item Also pedagogically useful for persuading people that SBI $\ne$ ML.
+            \item Beta-testers wanted:
+            \item \texttt{lsbi}: \href{https://github.com/handley-lab/lsbi}{github.com/handley-lab/lsbi}\\ (PyPI \& conda)
+        \end{itemize}
+        \column{0.5\textwidth}
+        \includegraphics<1>[width=\textwidth]{figures/gaussian.png}%
+        \includegraphics<2>[width=\textwidth]{figures/needles.png}%
+        \includegraphics<3>[width=\textwidth]{figures/ring.png}%
+    \end{columns}
+\end{frame}
+
+
+
+\begin{frame}
+    \frametitle{How this SBI talk finishes}
+    \begin{itemize}
+        \item There is a standard exchange that tends to happen after giving an SBI talk:
+
+            \begin{description}
+                \item[audience] Surely you're only as good as your simulations ---\\What if your forward model is missing physics $X$?
+                \item[speaker] The exact same thing affects likelihood-based analysis ---\\
+                    All SBI does is make these assumptions explicit.
+            \end{description}
+        \item The audience is implicitly making a query about the danger of working in data space~$D$, whilst the speaker's comment only applies to parameter space $\theta$.
+        \item Discussion point: We should therefore focus on SBI approaches which have tunable parameter spaces (i.e. interpretable posteriors).
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}
+    \frametitle{Conclusions}
+    \framesubtitle{\href{https://www.github.com/handley-lab}{github.com/handley-lab}}
+    \tikz[overlay,remember picture]
+        \node[anchor=north east] (A) at ($(current page.north east)+(0,0)$) {
+            \includegraphics[width=0.09\textheight]{figures/students/adam_ormondroyd.jpg}%
+            \includegraphics[width=0.09\textheight]{figures/students/david_yallup.jpg}%
+            \includegraphics[width=0.09\textheight]{figures/students/dily_ong.jpg}%
+            \includegraphics[width=0.09\textheight]{figures/students/felicity_ibrahim.jpg}%
+            \includegraphics[width=0.09\textheight]{figures/students/george_carter.jpg}%
+            \includegraphics[width=0.09\textheight]{figures/students/harry_bevins.jpg}%
+            \includegraphics[width=0.09\textheight]{figures/students/ian_roque.jpg}%
+            \includegraphics[width=0.09\textheight]{figures/students/kilian_scheutwinkel.jpg}%
+            \includegraphics[width=0.09\textheight]{figures/students/metha_prathaban.jpg}%
+            \includegraphics[width=0.09\textheight]{figures/students/namu_kroupa.jpg}%
+            \includegraphics[width=0.09\textheight]{figures/students/sinah_legner.jpg}%
+            \includegraphics[width=0.09\textheight]{figures/students/thomas_gessey-jones.jpg}%
+            \includegraphics[width=0.09\textheight]{figures/students/tze_goh.jpg}%
+            \includegraphics[width=0.09\textheight]{figures/students/wei-ning_deng.jpg}%
+    };
+    \begin{itemize}
+        \item These musings emerged from conversations with:
+            \begin{itemize}
+                \item David Yallup
+                \item Mike Hobson
+                \item Ben Wandelt
+                \item Justin Alsing
+                \item Niall Jeffreys
+            \end{itemize}
+        \item As scientists, we should be cautious of amortized approaches
+        \item \texttt{lsbi} preview: a package-driven attempt to free SBI from ML
+    \end{itemize}
 \end{frame}
 
 \begin{frame}
@@ -324,8 +302,8 @@
             \item To do this properly:
                 \begin{enumerate}
                     \item start from current knowledge $\pi(\theta)$, derived from current data
-                    \item Pick potential dataset $D$ that might be collected from $P(D)\: (=\mathcal{Z})$
-                    \item Derive posterior $P(\theta|D)$
+                    \item Pick potential dataset $D\sim\mathcal{Z}(D)$ that might be collected from $P(D)\: (=\mathcal{Z})$
+\item Derive posterior $\mathcal{P}(\theta|D)$
                     \item Summarise science (e.g. constraint on $\theta$, ability to perform model comparison)
                 \end{enumerate}
         \end{itemize}
@@ -347,35 +325,7 @@
 
 \end{frame}
 
-\begin{frame}
-    \frametitle{Simulation-based inference \& model comparison}
-    \includegraphics<1>[page=1]{figures/sbi.pdf}%
-    \includegraphics<2>[page=2]{figures/sbi.pdf}%
-    \includegraphics<3>[page=3]{figures/sbi.pdf}%
-\end{frame}
-
-\begin{frame}
-    \frametitle{Evidence networks~\arxiv{2305.11241}}
-    \begin{columns}
-        \column{0.5\textwidth}
-    \begin{itemize}
-        \item Procedure proposed by Jeffreys \& Wandelt:
-            \begin{enumerate}
-                \item Generate labelled data from model $A$ and model $B$.
-                \item Train a probabilistic classifier to distinguish between the two.
-                \item Use neural ratio trick to extract Bayes Factor $B = P(D|A)/P(D|B)$.
-            \end{enumerate}
-        \item Fully marginalises out parameters
-        \item Only works in the data space
-        \item Model comparison without nested sampling!
-    \end{itemize}
-        
-        \column{0.5\textwidth}
-\includegraphics{figures/sbi-0.pdf}
-\includegraphics{figures/sbi-1.pdf}
-    \end{columns}
-\end{frame}
-
+\appendix
 \begin{frame}
     \frametitle{Fully Bayesian Forecasting~\arxiv{2309.06942}}
     \student{thomas_gessey-jones}{Thomas Gessey-Jones}{PhD}
@@ -399,87 +349,4 @@
     \end{columns}
 \end{frame}
 
-\begin{frame}
-    \frametitle{A word of caution on evidence networks}
-    \includegraphics<1>[page=4]{figures/sbi.pdf}%
-    \includegraphics<2>[page=5]{figures/sbi.pdf}%
-\end{frame}
-
-\begin{frame}
-    \frametitle{A word of caution on evidence networks}
-    \begin{itemize}
-        \item Does not give evidence/partition function (which can be useful), only Bayes factor.
-        \item Only valid if the true data lies within domain of extrapolation of neural network 
-            \begin{itemize}
-                \item True for forecasting.
-                \item False for real data.
-            \end{itemize}
-        \item By throwing away parameter $\theta$ fitting, model cannot respond to mis-specified data.
-        \item This criticism applies to any method claiming ``amortization''
-            \begin{itemize}
-                \item Amortized methods claim to train a system which works for all possible observed $D$.
-                \item As Bayesians we should be suspicious, since the only truth we know is the observed data.
-            \end{itemize}
-        \item Traditional SBI interchange:
-            \begin{description}
-                \item[audience] What if your simulator is missing (X,Y,Z,\ldots)?
-                \item[speaker] The exact same thing affects likelihood-based analysis
-            \end{description}
-        \item Here, the audience is implicitly making a query about the danger of working in data space, whilst the speaker's comment only applies to parameter space $\theta$.
-        \item We should therefore focus on SBI approaches which have tunable parameter spaces (i.e. interpretable posteriors).
-    \end{itemize}
-\end{frame}
-
-\begin{frame}
-    \frametitle{Conclusions}
-    \framesubtitle{\href{https://www.github.com/handley-lab}{github.com/handley-lab}}
-    \tikz[overlay,remember picture]
-        \node[anchor=north east] (A) at ($(current page.north east)+(0,0)$) {
-            \includegraphics[width=0.1\textheight]{figures/students/adam_ormondroyd.jpg}%
-            %\includegraphics[width=0.1\textheight]{figures/students/cole_meldorf.jpg}%
-            \includegraphics[width=0.1\textheight]{figures/students/david_yallup.jpg}%
-            \includegraphics[width=0.1\textheight]{figures/students/dily_ong.jpg}%
-            %\includegraphics[width=0.1\textheight]{figures/students/harry_bevins.jpg}%
-            \includegraphics[width=0.1\textheight]{figures/students/ian_roque.jpg}%
-            \includegraphics[width=0.1\textheight]{figures/students/george_carter.jpg}%
-            \includegraphics[width=0.1\textheight]{figures/students/kilian_scheutwinkel.jpg}%
-            \includegraphics[width=0.1\textheight]{figures/students/metha_prathaban.jpg}%
-            \includegraphics[width=0.1\textheight]{figures/students/namu_kroupa.jpg}%
-            \includegraphics[width=0.1\textheight]{figures/students/sinah_legner.jpg}%
-            \includegraphics[width=0.1\textheight]{figures/students/thomas_gessey-jones.jpg}%
-            \includegraphics[width=0.1\textheight]{figures/students/wei-ning_deng.jpg}%
-            %\includegraphics[width=0.1\textheight]{figures/students/will_barker.jpg}%
-            %\includegraphics[width=0.1\textheight]{figures/students/zixiao_hu.jpg}%
-    };
-    \begin{itemize}
-        \item \texttt{margarine} as a tool for marginal cosmological inference
-        \item \texttt{unimpeded} as a tool for distributing fast reusable inference products
-        \item \texttt{prescience} as a tool for fully Bayesian forecasting
-    \end{itemize}
-\end{frame}
- 
-%\appendix
-%\begin{frame}
-%    \frametitle{A word on emulators: the dead measure}
-%    \includegraphics[width=\textwidth]{figures/dead_measure}
-%    \begin{columns}
-%        \column{0.69\textwidth}
-%        \begin{itemize}
-%            \item At the end, one is left with a set of discarded ``dead'' points.
-%            \item Dead points have a unique scale-invariant distribution $\propto\: \tfrac{dV}{V}$.
-%            \item Uniform over original region, exponentially concentrating on region of interest (until termination volume).
-%            \item Good for training emulators (HERA~\arxiv{2108.07282}).
-%        \end{itemize}
-%        \column{0.3\textwidth}
-%        \begin{block}{Applications}
-%        \begin{itemize}
-%            \item training emulators.
-%            \item gridding simulations
-%            \item beta flows
-%            \item ``dead measure'' 
-%        \end{itemize}
-%        \end{block}
-%    \end{columns}
-%\end{frame}
- 
 \end{document}
