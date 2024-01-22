@@ -1,4 +1,4 @@
-\documentclass[aspectratio=169]{beamer}
+\documentclass[aspectratio=169,handout]{beamer}
 \usepackage{will_handley_beamer}
 \usepackage{title_page}
 
@@ -12,9 +12,9 @@
 
 % Talk details
 % ------------
-\title{<+Title+>}
-\subtitle{<+subtitle+>}
-\date{<+Date+>}
+\title{Next generation inference tools for cosmology and beyond}
+%\subtitle{}
+\date{23\textsuperscript{rd} Jan 2024}
 
 \begin{document}
 
@@ -23,32 +23,47 @@
 \end{frame}
 
 \begin{frame}
+    \frametitle{The golden age of cosmology data}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Tensions in cosmology}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Perils ahead}
+    \begin{itemize}
+        \item Scale of data is daunting (SKA)
+        \item Systematics vs statistics
+        \item Move from ``precision'' cosmology to ``accurate'' cosmology
+        \item Have to assume a model
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
     \frametitle{<+Bayesian slide+>}
     \begin{itemize}
         \item Bayes theorem
-        \item Joint
-    \end{itemize}<++>
+    \end{itemize}
         \[
-            \only<1-2>{
                 P(\theta|D) = \frac{P(D|\theta)P(\theta)}{P(D)}
-        }
-            \only<2>{
+        \]
+        \[
             \qquad
             \text{Posterior} = \frac{\text{Likelihood}\times\text{Prior}}{\text{Evidence}}
-        }
-            \only<3>{
+        \]
+        \[
                 \mathcal{P}(\theta|D) = \frac{\mathcal{L}(D|\theta)\pi(\theta)}{\mathcal{Z}(D)}
             \qquad
             \text{Posterior} = \frac{\text{Likelihood}\times\text{Prior}}{\text{Evidence}}
-        }
-            \only<4>{
-                \mathcal{P}\times\mathcal{Z} = \mathcal{L}\times\pi
-        }
-            \only<5>{
-                \mathcal{P}\times\mathcal{Z} = \mathcal{J} = \mathcal{L}\times\pi, \qquad \text{Joint} = \mathcal{J} = P(D,\theta)
-        }
         \]
-        \vspace{-10pt}
+        \[
+                \mathcal{P}\times\mathcal{Z} = \mathcal{L}\times\pi
+            \]
+            \[
+                \mathcal{P}\times\mathcal{Z} = \mathcal{J} = \mathcal{L}\times\pi, \qquad \text{Joint} = \mathcal{J} = P(D,\theta)
+            \]
+            \[r = \frac{\mathcal{J}}{\pi\times\mathcal{Z}} = \frac{\mathcal{L}}{\mathcal{Z}} = \frac{\mathcal{P}}{\pi}\]
 \end{frame}
 
 \begin{frame}
