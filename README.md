@@ -1,7 +1,11 @@
 # Will Handley's academic talks
 
 ## Academic talks
-1.  Simulation Based Inference: theory, sampling & model comparison
+1. Next-generation inference tools for cosmology and beyond 
+    - Talk given at Oxford cosmology seminar
+    - [PDF](https://github.com/williamjameshandley/talks/raw/oxford_2024/will_handley_oxford_2024.pdf)  
+    - [source](https://github.com/williamjameshandley/talks/tree/oxford_2024)
+2. Simulation Based Inference: theory, sampling & model comparison
     - Talk given at RAS SBI workshop
     - [PDF](https://github.com/williamjameshandley/talks/raw/ras_sbi_2024/will_handley_ras_sbi_2024.pdf)  
     - [source](https://github.com/williamjameshandley/talks/tree/ras_sbi_2024)
