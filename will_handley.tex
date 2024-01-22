@@ -28,6 +28,27 @@
         \item Bayes theorem
         \item Joint
     \end{itemize}<++>
+        \[
+            \only<1-2>{
+                P(\theta|D) = \frac{P(D|\theta)P(\theta)}{P(D)}
+        }
+            \only<2>{
+            \qquad
+            \text{Posterior} = \frac{\text{Likelihood}\times\text{Prior}}{\text{Evidence}}
+        }
+            \only<3>{
+                \mathcal{P}(\theta|D) = \frac{\mathcal{L}(D|\theta)\pi(\theta)}{\mathcal{Z}(D)}
+            \qquad
+            \text{Posterior} = \frac{\text{Likelihood}\times\text{Prior}}{\text{Evidence}}
+        }
+            \only<4>{
+                \mathcal{P}\times\mathcal{Z} = \mathcal{L}\times\pi
+        }
+            \only<5>{
+                \mathcal{P}\times\mathcal{Z} = \mathcal{J} = \mathcal{L}\times\pi, \qquad \text{Joint} = \mathcal{J} = P(D,\theta)
+        }
+        \]
+        \vspace{-10pt}
 \end{frame}
 
 \begin{frame}
@@ -65,6 +86,77 @@
         \end{block}
     \end{columns}
 \end{frame}
+
+\begin{frame}
+    \frametitle{LBI: Likelihood-based inference}
+    \begin{columns}
+        \column{0.5\textwidth}
+The standard approach if you are fortunate enough to have a likelihood function $\mathcal{L}(\theta|D)$: 
+        \begin{enumerate}
+            \item Define prior $\pi(\theta)$ 
+                \begin{itemize}
+                    \item spend some time being philosophical
+                \end{itemize}
+            \item Sample posterior $\mathcal{P}(\theta|D)$ 
+                \begin{itemize}
+                    \item use out-of-the-box MCMC tools such as\\ \texttt{emcee} or \texttt{MultiNest}
+                    \item make some triangle plots
+                \end{itemize}
+            \item Optionally compute evidence $\mathcal{Z}(D)$
+                \begin{itemize}
+                    \item e.g. nested sampling or parallel tempering
+                    \item do some model comparison (i.e. science)
+                    \item talk about tensions e.g. \arxiv{2401.02929}
+                \end{itemize}
+        \end{enumerate}
+        \column{0.5\textwidth}
+        \hfill\includegraphics[width=0.6\textwidth]{figures/des_parameters.pdf}
+        \includegraphics[width=0.5\textwidth]{figures/des_model_comparison.pdf}%
+        \includegraphics[width=0.5\textwidth]{figures/des_suspiciousness.pdf}
+    \end{columns}
+\end{frame}
+
+\begin{frame}
+    \frametitle{SBI: Simulation-based inference}
+    \begin{columns}
+        \column{0.5\textwidth}
+        \begin{itemize}
+            \item Only have access to a forward model $\theta \rightarrow D$.
+            \item $(\theta,D)$ plane gives a more expansive theoretical view of inference.
+            \item Forward model defines \emph{implicit} likelihood~$\mathcal{L}$:
+            \item Simulator generates samples from $\mathcal{L}(D|\theta)$.
+            \item With a prior $\pi(\theta)$ can generate samples from joint distribution~$\mathcal{J}(\theta,D)=\mathcal{L}(D|\theta)\pi(\theta)$\\\hfill \emph{the ``probability of everything''}.
+            \item Task of SBI is then to go from joint~$\mathcal{J}$ to posterior $\mathcal{P}(\theta|D)$ and evidence $\mathcal{Z}(D)$ -- and possibly likelihood $\mathcal{L}(D|\theta)$.
+            \item SBI \& forward modelling force us to think about data space~$D$ \& parameter space~$\theta$.
+        \end{itemize}
+        \column{0.5\textwidth}
+        \includegraphics<1>[page=1, width=\textwidth]{figures/sbi_parameter_estimation.pdf}%
+        \includegraphics<2>[page=2, width=\textwidth]{figures/sbi_parameter_estimation.pdf}%
+        \includegraphics<3>[page=3, width=\textwidth]{figures/sbi_parameter_estimation.pdf}%
+        \includegraphics<4>[page=4, width=\textwidth]{figures/sbi_parameter_estimation.pdf}%
+        \includegraphics<5>[page=5, width=\textwidth]{figures/sbi_parameter_estimation.pdf}%
+    \end{columns}
+\end{frame}
+
+
+\begin{frame}
+    \frametitle{Simulation-based inference \& model comparison}
+    \begin{columns}
+        \column{0.3\textwidth}
+        \begin{itemize}
+            \item Extend: models $A$ and $B$.
+            \item Each with own separate parameters $\theta_A$ and $\theta_B$ (can be same).
+            \item The evidence $\mathcal{Z}(D|M)$ compares models
+            \item Occams razor: more~predictive $\equiv$~more~probable \\(due to normalisation).
+        \end{itemize}
+        
+        \column{0.7\textwidth}
+        \includegraphics<1>[page=1, width=\textwidth]{figures/sbi_model_comparison.pdf}%
+        \includegraphics<2>[page=2, width=\textwidth]{figures/sbi_model_comparison.pdf}%
+        \includegraphics<3>[page=3, width=\textwidth]{figures/sbi_model_comparison.pdf}%
+    \end{columns}
+\end{frame}
+
 
 \begin{frame}
     \frametitle{Conclusions}
