@@ -35,7 +35,6 @@
 % Commands
 % --------
 % - \arxiv{arxiv number}
-% - \cols{width}{lh column}{rh column}
 % -  \begin{fig(left|right)}[fractional width (e.g 0.6) ]{name of image}
 %        content of other column
 %    \end{fig(left|right)}
@@ -54,18 +53,50 @@
 
 \begin{frame}
     \frametitle{What do I mean by parameter spaces?}
+    \begin{itemize}
+        \item In science we build models $M$ to describe data $D$
+        \item These models usually come with a vector of tunable unknown parameters $\theta$
+        \item The general task of science is to use data to define regions of ``good'' $\theta$
+        \item This talks considers the (increasingly common) case where $\theta$ is high-dimensional
+            \begin{itemize}
+                \item High-dimensional: $d\ge4$
+            \end{itemize}
+        \item Let's look at some concrete examples across fields
+    \end{itemize}
 \end{frame}
 
 \begin{frame}
     \frametitle{Cosmology \& Astrophysics}
     \begin{columns}
-        \column{0.3\textwidth}
+        \column{0.4\textwidth}
+        \begin{itemize}
+            \item Cosmological parameters:%
+                \begin{itemize}
+                    \item matter fraction $\Omega_m$
+                    \item dark matter $\Omega_b$
+                    \item dark energy $\Omega_\Lambda$
+                    \item Hubble constant $H_0$
+                    \item Initial conditions $(A_s, n_s)$
+                    \item optical depth $\tau$
+                \end{itemize}
+            \item LIGO/Virgo/Kagra event:%
+                \begin{itemize}
+                    \item masses $m_1, m_2$
+                    \item spins $\chi_1, \chi_2$
+                    \item sky position $(\theta, \phi)$
+                    \item orientation $(\iota, \psi)$
+                    \item distance $d_L$
+                    \item time \& phase $t_c, \Phi_c$
+                \end{itemize}
+            \item Bayesian framework: $P(\theta|D)$ defines ``credible regions''
+        \end{itemize}
         
         \column{0.35\textwidth}
         \includegraphics[width=\textwidth]{figures/old_parameters}
         \column{0.25\textwidth}
         \includegraphics[width=\textwidth]{figures/darkmatterchart_squared}
         \includegraphics[width=\textwidth]{figures/universe_constraints_zoom}
+        %TODO put in LIGO event
     \end{columns}
 
     
@@ -75,8 +106,14 @@
     \frametitle{Particle physics}
     \begin{columns}
         \column{0.5\textwidth}
-        
-        
+        \begin{itemize}
+            \item The standard model has a several physical/phenomenological parameters
+            \item Frequentist framework: $P(D|\theta)$ defines ``confidence intervals''
+            \item topical: pMSSM ATLAS scans $d=19$
+        \end{itemize}
+        \centerline{
+            \includegraphics[width=\textwidth]{figures/pmssm}
+        }
         \column{0.5\textwidth}
         \includegraphics[width=\textwidth]{figures/gambit_examples}
     \end{columns}
@@ -86,7 +123,14 @@
 \begin{frame}
     \frametitle{Materials/Chemistry}
     \begin{columns}
-        \column{0.5\textwidth}
+        \column{0.65\textwidth}
+        \begin{itemize}
+            \item Here the relevant function is the free energy $F(\theta)$ as a function of system configuration (bond angles, bond lengths).
+            \item Naturally very high dimensional $d\sim\mathcal{O}(10^2\to10^5)$.
+            \item Complicated parameter spaces with many solutions of interest
+            \item Boltzmann distribution $P(\theta) = e^{-\beta E(\theta)}$ defines the thermodnamic ensemble.
+            \item Added challenge of temperature free parameter, meaning ideally one wants $Z(\beta) = e^{-\beta F(\beta)} = \int P(\theta|\beta) d\theta$
+        \end{itemize}
         
         \column{0.35\textwidth}
         \includegraphics[width=\textwidth]{figures/materials}
@@ -98,14 +142,19 @@
     \frametitle{Biophysics}
     \begin{columns}
         \column{0.5\textwidth}
+        \begin{itemize}
+            \item Specific example is protein molecules
+            \item Alphafold made waves in this space in 2022
+            \item Essentially a powerful machine learning optimisation solution
+            \item Full problem is far from solved!
+            \item Ideally one would compute misfolds \& partition functions
+        \end{itemize}
         
         \column{0.5\textwidth}
         \includegraphics[width=\textwidth]{figures/proteins}
         
     \end{columns}
 \end{frame}
-
-
 
 \begin{frame}
     \frametitle{Machine learning}
@@ -121,7 +170,8 @@
                     \item $f$: neural network
                     \item $\theta$: model parameters (weights and biases)
                 \end{itemize}
-            \item The ``Loss function'' $L$, viewed as a function of the model (e.g.\ neural network) parameters $\theta$, is a complicated, high-dimensional surface
+            \item The ``Loss function'' $L$ of the training/testing data defines the ``good'' $\theta$
+            \item Usually optimised with gradient descent (adam).
         \end{itemize}
         
         \column{0.5\textwidth}
@@ -131,38 +181,518 @@
     \end{columns}
 \end{frame}
 
+\begin{frame}[fragile]
+    \frametitle{Why is high-dimensional $d\ge4$?}
+    \begin{columns}
+        \column{0.5\textwidth}
+        \begin{itemize}
+            \item 4D is where 
+            \item The ``curse of dimensionality''
+            \item We can see this effect if we consider trying to do a 1, 2, 3 \& 4D integral numerically
+
+            \item Visualisation requires a 2D projection
+            \item 2D has very specific properties which do not lend themselves well to intuiting the behaviour of the full parameter space
+        \end{itemize}
+        \column{0.5\textwidth}
+    \begin{lstlisting}[language=Python]
+import numpy as np
+from scipy.integrate import nquad
+
+def f(*x):
+    x = np.array([*x])
+    return np.exp(-(x**2).sum())
+
+nquad(f, [[-5, 5]])     # 322  micro s
+nquad(f, [[-5, 5]] * 2) # 33.4 ms
+nquad(f, [[-5, 5]] * 3) # 3.4  s 
+nquad(f, [[-5, 5]] * 4) # ...
+    \end{lstlisting}
+        \includegraphics[width=\textwidth]{figures/integration.pdf}
+    \end{columns}
+    
+\end{frame}
+
+\begin{frame}
+    \frametitle{Observation \#1: The typical set is small}
+
+    \begin{columns}
+        \column{0.6\textwidth}
+    \begin{itemize}
+        \item The non-zero region of the function (the typical set) occupies a tiny fraction of the space
+        \item From a 1D/2D projected view, this is not obvious
+        \item If each parameter has a compressed region $\delta\theta_i$ relative to the initial bounds $\Delta\theta_i$, then the total fraction of the compressed region is
+            $\prod_i^d \frac{\delta \theta_i}{\Delta \theta_i}$
+        which is exponential in the number of parameters $d$
+    \item This is generalised by the KL divergence:
+\[\mathcal{D}_\mathrm{KL} = \int \mathcal{P}(\theta) \log\frac{\mathcal{P}(\theta)}{\pi(\theta)} d\theta \sim \log \frac{V_\pi}{V_\mathcal{P}}\]
+    \item e.g. $6d$ cosmological Planck $\Lambda$CDM $e^{-\mathcal{D}_\mathrm{KL}}\sim 10^{-14}$
+    \end{itemize}
+        
+        \column{0.4\textwidth}
+        \includegraphics[width=\textwidth]{figures/volumes.pdf}
+    \end{columns}
+
+\end{frame}
+
+
+
+\begin{frame}
+    \frametitle{Observation \#2: The typical set is not at the peak}
+    \begin{columns}
+        \column{0.5\textwidth}
+        \begin{itemize}
+            \item In low dimensions, the ``best fit point'' is in the ``best fit region''.
+            \item This is not true in high dimensions.
+            \item This can be thought of as a balance of:
+                \begin{itemize}
+                    \item probability density and volume
+                    \item energy and entropy
+                    \item likelihood and prior
+                \end{itemize}
+        \end{itemize}
+        
+        \column{0.5\textwidth}
+        \includegraphics<1>[width=\textwidth, page=1]{figures/anatomy}%
+        \includegraphics<2>[width=\textwidth, page=2]{figures/anatomy}%
+        \includegraphics<3>[width=\textwidth, page=3]{figures/anatomy}%
+        \includegraphics<4>[width=\textwidth, page=4]{figures/anatomy}%
+        \includegraphics<5>[width=\textwidth, page=5]{figures/anatomy}%
+        \includegraphics<6>[width=\textwidth, page=6]{figures/anatomy}%
+        \includegraphics<7>[width=\textwidth, page=7]{figures/anatomy}%
+        \includegraphics<8>[width=\textwidth, page=8]{figures/anatomy}%
+        \includegraphics<9>[width=\textwidth, page=9]{figures/anatomy}%
+        \includegraphics<10>[width=\textwidth, page=10]{figures/anatomy}%
+        \includegraphics<11>[width=\textwidth, page=11]{figures/anatomy}%
+        \includegraphics<12>[width=\textwidth, page=12]{figures/anatomy}%
+        \includegraphics<13>[width=\textwidth, page=13]{figures/anatomy}%
+    \end{columns}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Principles of parameter exploration}
+    \begin{enumerate}
+        \item \textbf{What do I want to do?}  \textit{(Optimise/Profile/Sample)}
+            \begin{itemize}
+                \item Optimisation can be done with very few function calls
+                \item exploration algorithms require more: $\mathcal{O}(10^4\to10^8)$ in practice
+            \end{itemize}
+        \item \textbf{How long does each function call take?} \textit{(Microseconds/Seconds/Days)}
+            \begin{itemize}
+                \item The first can be done on a laptop, the second on HPC, the third restricts one to optimisation
+            \end{itemize}
+        \item \textbf{How high dimensional is the problem?} \textit{($4\to10$, $10-500$, $500-10^6$, $>10^6$)}
+            \begin{itemize}
+                \item rejection/importance algorithms up to $\sim$10 dimensions (normalising flows, multinest, VEGAS)
+                \item many statistical approaches can work in 100s (Gibbs, Slice, NS)
+                \item Beyond that HMC is king up to millions.
+                \item Current deep learning record training is 530 billion parameters.
+            \end{itemize}
+        \item \textbf{Do I have the gradient of the function?}
+            \begin{itemize}
+                \item autodiff from differentiable programming languages (\texttt{jax},\texttt{pytorch} etc) makes this more common
+                \item some things are not differentiable even in principle
+            \end{itemize}
+        \item \textbf{Is the function an energy$\equiv$log probability?}
+            \begin{itemize}
+                \item Sampling is well defined for energies
+                \item If you're optimising something non-probabilistic e.g.\ financial return, resolution of beam etc then it is more involved (but not impossible) to turn this into a probabilistic problem.
+            \end{itemize}
+    \end{enumerate}
+\end{frame}
+
+%vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+
 \begin{frame}
     \frametitle{Exploring parameter spaces}
     Profiling vs Marginalising
-
-    Visualisation requires a 2D projection
-
-    2D has very specific properties which do not lend themselves well to intuiting the behaviour of the full parameter space
 
     Volumes in high dimensions
     
 \end{frame}
 
+
+\begin{frame}
+    \frametitle{Why do sampling}
+    \begin{itemize}
+        \item Instead of randomly sampling the space, samples $\theta\sim\mathcal{P}$ drawn from the distribution exponentially concentrate around the significantly non-zero region of $\mathcal{P}$
+        \item This represents an optimal compression of the space
+        \item If you have generated a set of samples drawn from a distribution $S=\{\theta_i : i=1\cdots N,\theta_i\sim\mathcal{P}\}$, then one can compute integrals
+            \[ \langle f(\theta) \rangle_\mathcal{P} = \int f(\theta) \mathcal{P}(\theta) d\theta \approx \sum_{\theta_i\in S} f(\theta_i) \]
+        \item Typically this is done using weighted samples $S=\{(w_i, \theta_i) : i=1\cdots N,\theta_i\sim\mathcal{P}\}$
+            \[ \langle f(\theta) \rangle_\mathcal{P} = \int f(\theta) \mathcal{P}(\theta) d\theta \approx \sum_{w_i, \theta_i\in S} w_i f(\theta_i) \]
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{The name of the game}
+    \begin{itemize}
+        \item Many considerations in this talk applicable to Bayesian, Frequentist or ``Monte Carlo'' 
+        \item I acknowledge my Bayesian bias!
+        \item In general consider a function $\mathcal{P}(\theta)$ over some $d$-dimensional space
+        \item This function can be ``forward calculated'': given any location $\theta$ in space, can compute $P$
+        \item Analytic pen-and-paper results assumed unavailable/impossible
+        \item We wish to:
+            \begin{itemize}
+                \item Explore the region(s) of high $\mathcal{P}$
+                \item Generate representative samples, either in this region, or in the tails
+                \item find the hypervolume under the curve $\int P(\theta) d\theta$
+            \end{itemize}
+        \item Examples include
+            \begin{itemize}
+                \item Generating samples from a Bayesian posterior distribution
+                \item Generating datasets for computing test statistics
+                \item Generating Monte Carlo events 
+                \item Computing Bayesian evidences for model comparison
+                \item Computing cross sections
+            \end{itemize}
+    \end{itemize}
+\end{frame}
+
+%^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
 \begin{frame}
     \frametitle{Random scanning: how not to do it}
-    
+    \begin{itemize}
+        \item The worst way to explore/integrate a probability distribution/generate samples is to randomly sample the space using $\pi(\theta)$~\arxiv{2012.09874}
+        \item Gridding is also equivalently bad
+        \item Whilst this works in low dimensions, if each parameter is confined within some fraction $f\sim\ell_\mathcal{P}/\ell_\pi$ of the space, then the volume fraction $\sim\mathcal{O}(f^d)$, or equivalently $\mathcal{D}\sim d\log f$ 
+        \item Random sampling has an efficiency of $\boxed{\approx e^{-\mathcal{D}} \sim e^{-d\log f} = f^{-d}}$
+        \item If you find that naive tail sampling is performant for e.g. importance sampling and unweighting, then your function likely has an unusual $\mathcal{D}$ scaling with $d$. 
+        \item Turning this around, you can use the inefficiency of random sampling to estimate $\mathcal{D}$
+
+        \item \emph{``Exploring phase space with Nested Sampling''} Handley, \textbf{Jan{\ss}en}, Schumann \& \textbf{Yallup} \arxiv{2205.02030}
+            Also \textbf{Carragher} et al~\arxiv{2101.00428}
+    \end{itemize}
 \end{frame}
 
 \begin{frame}
-    \frametitle{Gradient descent}
+    \frametitle{Optimisation: Gradient descent}
 \end{frame}
 
 \begin{frame}
-    \frametitle{Exploration \& sampling}
+    \frametitle{Optimisation: Bayesian optimisation}
 \end{frame}
 
 \begin{frame}
-    \frametitle{Nested sampling}
+    \frametitle{Optimisation: Differential evolution/Genetic Algorithms}
 \end{frame}
 
 \begin{frame}
-    \frametitle{Differential evolution/Genetic Algorithms}
-    
+    \frametitle{A note on adaptive scanning algorithms}
+    Some analyses (e.g. ATLAS) have a legitimate preference for random sampling because it allows parallelised physics computations offline.
+
+    Smart sampling algorithms require all likelihood computations on the fly, so need machinery like GAMBIT
+\end{frame}
+
+
+%\begin{frame}
+%    \frametitle{GAMBIT}
+%    \begin{columns}
+%        \column{0.4\textwidth}
+%        \column{0.6\textwidth}
+%        \includegraphics[width=\textwidth]{figures/gambit_layout}
+%    \end{columns}
+%\end{frame}
+
+
+
+%\begin{frame}
+%    \frametitle{Notation}
+%    \begin{itemize}
+%        \item Space of parameters $\theta$
+%        \item Probability distribution/function $\mathcal{P}(\theta)$
+%        \item Region of valid parameters/support of function/prior/measure $\pi(\theta)$
+%            \begin{itemize}
+%                \item Note that for any numerical method even if not specified there is an implicit measure imposed by floating point arithmetic
+%            \end{itemize}
+%    \end{itemize}
+%\end{frame}
+
+
+
+
+\begin{frame}
+    \frametitle{Metropolis Hastings} 
+    \begin{itemize}
+        \item Turn the $N$-dimensional problem into a one-dimensional one.
+        \item Pick start point $\theta_0$.
+        \item At step $i$:
+            \begin{enumerate}
+                \item Propose a new point $\theta_{i+1}$ a small step away from $\theta_{i}$
+                \item If uphill $\mathcal{P}(\theta_{i+1}) > \mathcal{P}(\theta_i)$, make step\ldots
+                \item \ldots otherwise make step with probability $\alpha = \mathcal{P}(\theta_{i+1}) / \mathcal{P}(\theta_i)$. 
+            \end{enumerate}
+        \item Requires a proposal distribution $\mathcal{Q}(\theta_{i+1}|\theta_i)$
+        \item In general case where $\mathcal{Q}$ is not symmetric, need acceptance ratio:
+            \begin{equation*}
+                \alpha = \frac{\mathcal{P}(\theta_{i+1})\mathcal{Q}(\theta_{i}|\theta_{i+1})}{\mathcal{P}(\theta_{i})\mathcal{Q}(\theta_{i+1}|\theta_{i})}
+            \end{equation*}
+    \end{itemize}
+    \begin{block}{TOOLS}
+        Whilst many exist: $\texttt{PyMC3}$, $\texttt{cobaya}$, $\texttt{MontePython}$,\ldots, in practice the algo is so simple, and the proposal distribution so problem-specific, it's usually relatively efficient to write your own.
+    \end{block}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Metropolis Hastings} 
+    \framesubtitle{Where can this go wrong?}
+    \begin{itemize}
+        \item Burn in
+            \begin{itemize}
+                \item It can take a while for the chain to equilibriate to the typical set
+                \item It is hard to diagnose burn in, particularly in high dimensions
+            \end{itemize}
+        \item Multimodality
+            \begin{itemize}
+                \item If the function has multiple separated peaks, despite mathematical guarantees of convergence it will take a Hubble time to move between modes.
+            \end{itemize}
+        \item Correlated distributions
+            \begin{itemize}
+                \item In practice the peak(s) of the distribution have nontrivial structure (e.g. narrow ridges)
+                \item Very hard to create a flexible enough proposal to accomodate all, and not strictly Markovian
+            \end{itemize}
+        \item Phase transitions
+            \begin{itemize}
+                \item A different kind of multi-modality, which can occur if the function is a ``slab and spike''
+                \item Two regions -- one high-volume $V$ lower $\mathcal{P}$, the other low $V$ high $\mathcal{P}$. Difficult to transition
+            \end{itemize}
+        \item Poor parallelisation
+            \begin{itemize}
+                \item In practice it is not well parallelised, since majority of time is spent in burn-in
+            \end{itemize}
+    \end{itemize}
+\end{frame}
+
+
+
+\begin{frame}
+    \frametitle{Hamiltonian Monte-Carlo} 
+    \begin{itemize}
+        \item Key idea: Treat $\log L(\Theta)$ as a potential energy
+        \item Guide walker under ``force'': \[F(\Theta) =-\nabla \log L(\Theta)\]
+        \item Walker is naturally ``guided'' uphill
+        \item Conserved quantities mean efficient acceptance ratios.
+        \item Whilst the recieved wisdom is that this is ``tuning parameter free'', in practice the mass matrix has similar degrees of tuning unless the problem is already normalised (physicists naturally do this, which explains why it works so well out of the box).
+            \begin{block}{TOOLS}
+                \item \texttt{stan} is a fully fledged, mature programming language with HMC as a default sampler.
+                \item \texttt{TensorFlow}, \texttt{PyTorch} \& \texttt{JAX} all have HMC implementations.
+            \end{block}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Ensemble sampling} 
+    \begin{itemize}
+        \item Instead of one walker, evolve a set of $n$ walkers.
+        \item Can use information present in ensemble to guide proposals.
+        \item Generally tuning parameter free
+        \item Struggles with multimodal distributions
+        \item Strive to be affine invariant
+    \begin{block}{TOOLS}
+        \begin{itemize}
+            \item \texttt{emcee}: The MCMC Hammer~\arxiv{1202.3665}
+            \item \texttt{zeus}: Ensemble slice sampling~\arxiv{2002.06212}
+        \end{itemize}
+    \end{block}
+    \end{itemize}
+\end{frame}
+
+%\begin{frame}
+%    \frametitle{The fundamental issue with all of the above} 
+%
+%    \begin{itemize}
+%        \item They can't integrate functions over the space
+%            \begin{align}
+%                Z
+%                &= P(D|M) 
+%                \nonumber\\
+%                &= \int P(D|\Theta,M)P(\Theta|M) d\Theta 
+%                \nonumber\\
+%                &= \left\langle L \right\rangle_\pi
+%                \nonumber
+%            \end{align}
+%        \item MCMC fundamentally explores the posterior, and cannot average over the prior.
+%        \item Simulated annealing gives one possibility for ``tricking'' MCMC into computing evidences.
+%            \begin{itemize}
+%                \item Inspired by thermodynamics.
+%                \item Suffers from similar issues to MCMC.
+%                \item Unclear how to choose correct annealing schedule
+%            \end{itemize}
+%    \end{itemize}
+%
+%\end{frame}
+
+
+\begin{frame}
+    \frametitle{The nested sampling meta-algorithm}
+    \begin{columns}
+        \column{0.5\textwidth}
+        \begin{itemize}
+            \item Start with $n$ random samples over the space.
+            \item Delete outermost sample, and replace with a new random one at higher integrand value.
+            \item The ``live points'' steadily contract around the peak(s) of the function.
+            \item We can use this evolution to estimate volume \emph{probabilistically}.
+            \item At each iteration, the contours contract by $\sim\frac{1}{n}\only<9->{\pm \frac{1}{n}}$ of their volume.
+            \item This is an exponential contraction, so
+                \[  \int f(x) dV \approx \sum_i f(x_i) \Delta V_i, \quad V_i = V_0 e^{-\only<9->{(}i\only<9->{\pm\sqrt{i})}/n} \]
+%            \item Nested sampling: completely different way to scan.
+%            \item Ensemble sampling compresses entire space$\to$peak(s).
+%            \item Sequentially update a set $S$ of $n$ samples:
+%                \begin{itemize}
+%                    \item[$S_0$:]  Generate $n$ samples uniformly over the space (from a measure $\pi$). 
+%
+%                    \item[$S_{i+1}$:] Delete the lowest likelihood sample in $S_{i}$, and replace it with a new uniform sample with higher likelihood.
+%                \end{itemize}
+%            \item Requires one to be able to sample uniformly within a region, subject to a {\em hard constraint}:
+%                \[\{\theta\sim \pi : \mathcal{L}(\theta)>\mathcal{L}_*. \}\]
+%            \item This procedure optimises (multimodally), and can calculate the \C[3]{evidence}/integral of function \& \C[0]{posterior}/sample weights.
+        \end{itemize}
+        \column{0.5\textwidth}
+        \includegraphics<1|handout:0>[width=\textwidth,page=1]{figures/himmelblau}%
+        \includegraphics<2|handout:0>[width=\textwidth,page=2]{figures/himmelblau}%
+        \includegraphics<3|handout:0>[width=\textwidth,page=3]{figures/himmelblau}%
+        \includegraphics<4|handout:0>[width=\textwidth,page=4]{figures/himmelblau}%
+        \includegraphics<5|handout:0>[width=\textwidth,page=5]{figures/himmelblau}%
+        \includegraphics<6|handout:0>[width=\textwidth,page=6]{figures/himmelblau}%
+        \includegraphics<7|handout:0>[width=\textwidth,page=7]{figures/himmelblau}%
+        \includegraphics<8-         >[width=\textwidth,page=8]{figures/himmelblau}%
+    \end{columns}
+\end{frame}
+
+%\begin{frame}
+%    \frametitle{The nested sampling meta-algorithm: dead points}
+%    \begin{columns}
+%        \column{0.5\textwidth}
+%        \begin{itemize}
+%            \item At the end, one is left with a set of discarded ``dead'' points.
+%            \item Can be weighted to form posterior samples, prior samples, or anything in between.
+%            \item Nested sampling estimates the \textbf{density of states} and calculates partition functions
+%                \[Z(\beta) = \sum_i f(x_i)^\beta \Delta V_i.\]
+%            \item The evolving ensemble of live points allows:
+%                \begin{itemize}
+%                    \item implementations to self-tune
+%                    \item exploration of multimodal functions
+%                    \item global and local optimisation
+%                \end{itemize}
+%            %\item Interpreted as a Bayesian algorithm, it
+%            %    \begin{itemize}
+%            %        \item Computes the Bayesian evidence (model comparison)
+%            %        \item Produces (weighted) posterior samples (parameter estimation)
+%            %    \end{itemize}
+%        \end{itemize}
+%        \column{0.5\textwidth}
+%        \includegraphics[width=\textwidth,page=14]{figures/himmelblau}%
+%        %\includegraphics<1|handout:0>[width=\textwidth,page=14]{figures/himmelblau}%
+%        %\includegraphics<2          >[width=\textwidth,page=15]{figures/himmelblau}%
+%    \end{columns}
+%\end{frame}
+
+\begin{frame}
+    \frametitle{The dead measure~\arxiv{2312.00294}}
+    \includegraphics[width=\textwidth]{figures/dead_measure}
+    \begin{columns}
+        \column{0.69\textwidth}
+        \begin{itemize}
+            \item Dead points have a unique scale-invariant distribution $\propto\: \tfrac{dV}{V}$.
+            \item Uniform over original region, exponentially concentrating on region of interest (until termination volume).
+            \item Full coverage of tails enables integration.
+            \item Good for training emulators (HERA~\arxiv{2108.07282}).
+        \end{itemize}
+        \column{0.3\textwidth}
+        \begin{block}{Applications}
+        \begin{itemize}
+            \item training emulators.
+            \item gridding simulations
+            \item beta flows\ldots
+            \item good name for a band
+        \end{itemize}
+        \end{block}
+    \end{columns}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Implementations of Nested Sampling \arxiv{2205.15570}(NatReview)}
+    %\begin{columns}
+    %    \begin{column}{0.33}
+    %        \includegraphics[width=\textwidth]{figures/multinest}
+    %    \end{column} 
+    %\end{columns}
+    \begin{columns}[t]
+        \column{0.3\textwidth}
+        \texttt{MultiNest}~\arxiv{0809.3437}
+        \includegraphics[width=\textwidth]{figures/multinest}
+        \texttt{UltraNest}~\arxiv{2101.09604}
+        \includegraphics[width=\textwidth]{figures/radfriends}
+        \column{0.4\textwidth}
+        \texttt{PolyChord}~\arxiv{1506.00171}
+        \includegraphics[width=\textwidth]{figures/polychord}
+        \vfill
+        \texttt{NeuralNest}~\arxiv{1903.10860}
+        \begin{columns}
+            \column{0.5\textwidth}
+            \includegraphics[width=\textwidth]{figures/rosenbrock_flow.png}
+            \includegraphics[width=\textwidth]{figures/himmelblau_flow.png}
+            \column{0.5\textwidth}
+            \includegraphics[width=\textwidth]{figures/chains.png}
+        \end{columns}
+        \texttt{nessai}~\arxiv{2102.11056} \texttt{nora}~\arxiv{2305.19267}
+        \vfill
+        \column{0.3\textwidth}
+        \texttt{DNest}~\arxiv{1606.03757}
+        \includegraphics[width=\textwidth]{figures/dnest}
+        \texttt{ProxNest}~\arxiv{2106.03646}
+        \includegraphics[width=\textwidth]{figures/proxnest_diagram}
+        \texttt{dynesty}~\arxiv{1904.02180} 
+        \vfill
+    \end{columns}
+\end{frame}
+
+
+%\begin{frame}
+%    \frametitle{Likelihood free inference}
+%    <+Content+>
+%\end{frame}
+
+
+
+
+
+
+\begin{frame}
+    \frametitle{Software frameworks}
+    \begin{columns}
+        \column{0.5\textwidth}
+        \begin{itemize}
+            \item Principled scientific data analysis requires a lot of different components:
+                \begin{itemize}
+                    \item Data
+                    \item Theory
+                    \item Statistics
+                    \item Likelihoods
+                    \item Samplers/scanners
+                    \item Post-processing
+                \end{itemize}
+            \item Mature communities develop frameworks to do all of the above in one go:
+                \begin{itemize}
+                    \item Cosmology: \texttt{CosmoMC}, \texttt{MontePython}, \texttt{Cobaya}, \texttt{CosmoSIS}, \texttt{CosmoLike}
+                    \item Gravitational Waves : \texttt{LAL}, \texttt{Bilby}, \texttt{PyCBC}
+                    \item Particle physics: \texttt{GAMBIT}, \texttt{MasterCode}
+                \end{itemize}
+            \item Much harder if you want to combine data from multiple communities
+        \end{itemize}
+        \column{0.5\textwidth}
+        \includegraphics[width=0.5\textwidth]{figures/cmb}%
+        \includegraphics[width=0.5\textwidth]{figures/theory}
+        \begin{columns}
+            \column{0.55\textwidth}
+        \includegraphics[width=\textwidth]{figures/coadded}%
+            \column{0.45\textwidth}
+        \includegraphics[width=\textwidth]{figures/multinest}%
+
+        \includegraphics[width=\textwidth]{figures/parameters}
+            
+        \end{columns}
+    \end{columns}
 \end{frame}
 
 {
@@ -173,57 +703,37 @@
 
 \begin{frame}
     \frametitle{What is GAMBIT?}
-    \begin{columns}
+    \vspace{-10pt}
+    \begin{columns}[t]
         \column{0.48\textwidth}
         \begin{block}{GAMBIT as a software framework}
             \begin{itemize}
-                \item Combines collider, direct detection, neutrino \& telescope data
+                \item Combines collider, direct detection, neutrino \& telescope data.
                 \item Allows joint analysis of dark matter, neutrinos \& BSM physics
+                \item MPI + OpenMP parallelisation \\(record of 115,000 CPUs)
+                \item Combines libraries \& codes written in:\\
+                    \texttt{C++}, \texttt{Fortran}, \texttt{Python}, \texttt{Mathematica}\ldots
+                \item Highly modular ``Bits''
+                \item Often with several alternatives
             \end{itemize}
         \end{block}
         \column{0.48\textwidth}
         \begin{block}{GAMBIT as a community}
             \begin{itemize}
-                \item Particle physicists, cosmologists \& statisticians
+                \item Particle physicists, cosmologists \& statisticians ($>$80 members)
                 \item Generates interdisciplinary expertise \& inspires new techniques
-                    %GAMBIT is a framework for combining data from multiple experiments to constrain particle physics and cosmology models. It is both is an open source software framework and a community of high energy physicists, cosmologists and statisticians; capable of linking theory, data and inference approaches allowing the combination of high-energy colliders, direct detection, neutrino experiments and measurements from telescopes using both frequentist and Bayesian paradigms. The power of this set of tools and expertise allows novel analyses of dark matter, neutrinos and beyond the standard model physics which is challenging to achieve with separated datasets.
-
-%This talk will describe GAMBIT, present physics results and map out the prospects for extension.  It will also serve to highlight the key events in the week which people new to the community may wish to come along to, including introductory sessions for installing and using the software.
+                \item Open source software
+                \item Access to large community computing resources (40MCPUh/y)
+                \item Modularity allows parallel teams
+                \item Short-author papers by default
+                \item in-person meetings every 9 months
             \end{itemize}
         \end{block}
     \end{columns}
-%    Anders:
-%    Highlight when we develop GAMBIT we have HPC systems in mind,
-    % two-level paralellisation (MPI to porallelise scanners, openMP to parallelise likelihood computations)
-    % recently set a new internal record for utilising the highest number of cores 115,000 CPUs
-    % 1000 MPI with 100 threads per MPI
-%    Don't expect GAMBIT to be 'pip install gambit'
-%    power tool for heavy tasks
-%    comes with complications
-%
-%    Pointing out the modularity of gambit
-    % reason why it has grown as a large community is that the code & teams are designed to be modular
-    % possible for large groups of people to work in parallel
-    % would be more difficult if it were hard-coded
-    %
-    % UPCOMING:
-    % GAMBITLite
-    % ScannerBit 2.0
-    % 
-    % community: don't have *just* long author papers to improve modularity
 
 
 %Greg
-    %design for interface with different types of software (different libraries and languages, python, mathematica FORTRAN C++
-    %
-    % previous software: cosmomc/superbayes/montepython/coboya/cosmosis
-    %plug-and-play with modularity
-    % combat ``why don't we just use ultranest/dynesty for everything''
 
-    % Andrew:
-    % Community: access to really big computing resources (on average for last 5y have had 40MCPUh/y)
-    % - hard to win/have access to on your own
-    % 
 % More slides
 % https://www.dropbox.com/s/2c7c475t6traj42/Data_at_UiO_2022_Kvellestad.pdf?dl=0
 
@@ -239,24 +749,43 @@
 \end{frame}
 
 \begin{frame}
-    \frametitle{GAMBIT}
+    \frametitle{What is GAMBIT not?}
     \begin{columns}
-        \column{0.4\textwidth}
-        \column{0.6\textwidth}
-        \includegraphics[width=\textwidth]{figures/gambit_layout}
+        \column{0.65\textwidth}
+        \begin{itemize}
+            \item GAMBIT is not pip-installable
+            \item It should be viewed as a ``power tool'' for heavy tasks
+            \item Designed with HPC in mind 
+                \begin{itemize}
+                    \item expectation that forward modelling for frontier science takes seconds to hours
+                \end{itemize}
+            \item Combining data, theory \& code across multiple communities is non trivial
+            \item Installing on a new system takes patience
+                \begin{itemize}
+                    \item Stickers for newcomers!
+                \end{itemize}
+        \end{itemize}
+        \column{0.35\textwidth}
+        \includegraphics[width=\textwidth]{figures/gambit_sticker}
     \end{columns}
+
 \end{frame}
 
-\begin{frame}
+\begin{frame}[fragile]
     \frametitle{ScannerBit~\arxiv{1705.07959}}
     \begin{columns}
         \column{0.5\textwidth}
         Original paper:
         \begin{itemize}
             \item describes code design \& structure
-            \item compares performance of the main two scanning algorithms: \texttt{diver} \& \texttt{MultiNest} 
+            \item compares performance of the main two scanning algorithms: \texttt{diver} \& \texttt{MultiNest}
+                \begin{itemize}
+                    \item also compared \texttt{Great}(MH) and \texttt{Twalk}(affine~invariant) 
+                \end{itemize}
+            \item Discusses Frequentist \& Bayesian analyses
+            \item 15D MSSM scalar singlet (2+13 parameters)
+            \item Modular \& flexible plugins homogenise scanning algorithms (agnostic of model/prior)
         \end{itemize}
-        %took one model and used several different scanners 15D MSSM scalar singlet (2+13)
         
         \column{0.5\textwidth}
         \includegraphics[width=\textwidth]{figures/scannerbit_header}
@@ -265,7 +794,7 @@
     \end{columns}
 \end{frame}
 
-\begin{frame}
+\begin{frame}[fragile]
     \frametitle{ScannerBit 2.0}
     \begin{columns}
         \column{0.5\textwidth}
@@ -279,26 +808,20 @@
                 \end{itemize}
             \item \texttt{PyScannerBit}
                 \begin{itemize}
-                    \item Isolation of scanning algorithms from GAMBIT
+                    \item Isolation of scanners from GAMBIT
                     \item documentation: \href{https://pyscannerbit.readthedocs.io}{pyscannerbit.readthedocs.io}
                 \end{itemize}
             \item Python Scanners
                 \begin{itemize}
                     \item Allows easy incorporation of new scanning algorithms into GAMBIT
-                    \item Including modern machine learning techniques
+                    \item Modern machine learning techniques
+                    \item (embarassingly) easy to incorporate
                 \end{itemize}
         \end{enumerate}
-        \column{0.5\textwidth}
-        
-    \end{columns}
-\end{frame}
-
-
-\begin{frame}[fragile]
-    \frametitle{Python Scanners}
-    \begin{columns}
-        \column{0.5\textwidth}
-        
+        \begin{itemize}
+            \item Paper release later this year.
+            \item Beta testers welcome! \tiny{\href{mailto:gambit-scan@projects.hepforge.org}{gambit-scan@projects.hepforge.org}}
+        \end{itemize}
         \column{0.5\textwidth}
 \begin{lstlisting}[language=Python]
 """scipy.optimize scanner."""
@@ -332,12 +855,34 @@ __plugins__ = {"scipy_minimize": Minimize}
     \end{columns}
 \end{frame}
 
-
 \begin{frame}[fragile]
-    \frametitle{Python Scanners}
+    \frametitle{ScannerBit 2.0}
     \begin{columns}
         \column{0.5\textwidth}
-        
+        Developments since original ScannerBit paper:
+        \begin{enumerate}
+            \item New scanning algorithms
+                \begin{itemize}
+                    \item \texttt{MINUIT2}
+                    \item \texttt{PolyChord}
+                    \item particle swarm
+                \end{itemize}
+            \item \texttt{PyScannerBit}
+                \begin{itemize}
+                    \item Isolation of scanners from GAMBIT
+                    \item documentation: \href{https://pyscannerbit.readthedocs.io}{pyscannerbit.readthedocs.io}
+                \end{itemize}
+            \item Python Scanners
+                \begin{itemize}
+                    \item Allows easy incorporation of new scanning algorithms into GAMBIT
+                    \item Modern machine learning techniques
+                    \item (embarassingly) easy to incorporate
+                \end{itemize}
+        \end{enumerate}
+        \begin{itemize}
+            \item Paper release later this year.
+            \item Beta testers welcome! \tiny{\href{mailto:gambit-scan@projects.hepforge.org}{gambit-scan@projects.hepforge.org}}
+        \end{itemize}
         \column{0.5\textwidth}
 \begin{lstlisting}[language=Python]
 """Grid scanner with MPI."""
@@ -372,12 +917,72 @@ __plugins__={"python_grid": Grid}
     \end{columns}
 \end{frame}
 
+\begin{frame}
+    \frametitle{GAMBIT highlights}
+    \begin{itemize}
+        \item Projects I have been involved in:
+            \begin{description}
+                \item[CosmoBit] \arxiv{2009.03286}(main paper) \arxiv{2009.03287}(neutrinos)
+                \item[DMEFT] \arxiv{2106.02056}
+                \item[CosmoALP] \arxiv{2205.13549}
+            \end{description}
+        \item Projects I'm currently involved in:
+            \begin{description}
+                \item[AnnualModulation] DAMA/LIBRA, COSINE-100, ANAIS, SABRE comparison + EFT
+                \item[SubGeVDM] Global analysis of sub-GeV dark matter
+            \end{description}
+        \item GAMBIT Role: CosmoBit convener
+    \end{itemize}
+
+\end{frame}
+
+    % UPCOMING:
+
+\begin{frame}
+    \frametitle{Upcoming GAMBIT developments}
+    \begin{itemize}
+        \item ScannerBit 2.0
+            \begin{itemize}
+                \item Next-generation scanning algorithms
+            \end{itemize}
+        \item GAMBITLite
+            \begin{itemize}
+                \item Installing GAMBIT framework independent of heavyweight HEP codes
+            \end{itemize}
+        \item GravBit
+            \begin{itemize}
+                \item Beginning with PTAs
+                \item Moving on to GW events
+            \end{itemize}
+    \end{itemize}
+\end{frame}
 
 
-{
-    \usebackgroundtemplate{\includegraphics[width=\paperwidth]{gambit_ad_slide}}
-    \begin{frame}[plain]
-    \end{frame}
-}
+\begin{frame}
+    \frametitle{Conclusions}
+    \begin{itemize}
+        \item Exploring high dimensional parameter spaces is challenging, and an area of active research
+        \item If you would like to learn more about GAMBIT:\\
+            \href{https://gambitbsm.org/}{gambitbsm.org}
+        \item If you would like to find out about joining GAMBIT:
+            email \href{mailto:gambit-community@projects.hepforge.org}{gambit-community@projects.hepforge.org}
+    \end{itemize}
+\end{frame}
+
+\appendix
+\begin{frame}
+    \frametitle{FAQs}
+    
+    \begin{itemize}
+    \item What was that awesome website? \\
+    \hfill Full credit to Chi-feng for this incredible online demonstration tool\\
+    \hfill \href{https://chi-feng.github.io/mcmc-demo/}{chi-feng.github.io/mcmc-demo/}
+
+    \item How do you make your plots look hand-drawn? \\
+        \hfill \texttt{import matplotlib.pyplot as plt; plt.xkcd()}
+    \end{itemize}
+\end{frame}
+
+
 
 \end{document}
