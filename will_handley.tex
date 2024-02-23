@@ -143,7 +143,7 @@
     \begin{columns}
         \column{0.5\textwidth}
         \begin{itemize}
-            \item Specific example is protein molecules
+            \item A specific molecular example is protein molecules
             \item Alphafold made waves in this space in 2022
             \item Essentially a powerful machine learning optimisation solution
             \item Full problem is far from solved!
@@ -162,7 +162,7 @@
         \column{0.5\textwidth}
         \begin{itemize}
             \item Standard machine learning training setup:
-                \[ \hat{\theta} = \min_\theta L(\theta) \]
+                \[ \hat{\theta} = \arg\min_\theta L(\theta) \]
                 \[ L(\theta) = \min_{\theta} \sum_{i\in\text{train}} |f(x_i;\theta)-y_i|^2 \]
                 \begin{itemize}
                     \item $x$: input data
@@ -184,12 +184,11 @@
 \begin{frame}[fragile]
     \frametitle{Why is high-dimensional $d\ge4$?}
     \begin{columns}
-        \column{0.5\textwidth}
+        \column{0.45\textwidth}
         \begin{itemize}
-            \item 4D is where 
-            \item The ``curse of dimensionality''
-            \item We can see this effect if we consider trying to do a 1, 2, 3 \& 4D integral numerically
-
+            \item 4D is the crossover where the ``curse of dimensionality'' kicks in.
+            \item We can see this effect in practiceif we consider trying to do a 1, 2, 3 \& 4D integral numerically.
+            \item Integration grinds to a halt as the number of hyperboxes in the grid becomes exponntially large.
             \item Visualisation requires a 2D projection
             \item 2D has very specific properties which do not lend themselves well to intuiting the behaviour of the full parameter space
         \end{itemize}
@@ -305,7 +304,7 @@ nquad(f, [[-5, 5]] * 4) # ...
 \begin{frame}
     \frametitle{Exploring parameter spaces}
     \begin{description}
-        \item[Option 1] Maximise
+        \item[Option 1] Optimize
             \begin{itemize}
                 \item Solve $\theta = \arg\max_\theta f(\theta)$
             \end{itemize}
@@ -324,76 +323,6 @@ nquad(f, [[-5, 5]] * 4) # ...
     
 \end{frame}
 
-
-\begin{frame}
-    \frametitle{Why do sampling?}
-    \begin{columns}
-        \column{0.5\textwidth}
-        \begin{itemize}
-            \item The cornerstone of numerical Bayesian inference is working with \C[3]{samples}.
-            \item Generate a set of representative parameters drawn in proportion to the posterior $\theta\sim\mathcal{P}$.
-            \item The magic of marginalisation $\Rightarrow$ perform usual analysis on each sample in turn.
-            \item The golden rule is \C[1]{stay in samples} until the last moment before computing summary statistics/triangle plots because \[\boxed{f(\:\av{X}\:)\ne \av{\:f(X)\:}}\]
-            \item Generally need $\sim\mathcal{O}(12)$ independent samples to compute a value and error bar.
-        \end{itemize}
-        \column{0.5\textwidth}
-        \includegraphics<1>{figures/volumes.pdf}%
-        \includegraphics<2>{figures/samples.pdf}
-    \end{columns}
-\end{frame}
-
-
-%\begin{frame}
-%    \frametitle{Why do sampling}
-%    \begin{itemize}
-%        \item $\theta\sim\mathcal{P}$ drawn is optimally concentrated around the typical set of $\mathcal{P}$
-%        \item This represents an optimal compression of the space
-%        \item If you have generated a set of samples drawn from a distribution $S=\{\theta_i : i=1\cdots N,\theta_i\sim\mathcal{P}\}$, then one can compute integrals
-%            \[ \langle f(\theta) \rangle_\mathcal{P} = \int f(\theta) \mathcal{P}(\theta) d\theta \approx \sum_{\theta_i\in S} f(\theta_i) \]
-%    \end{itemize}
-%\end{frame}
-
-%\begin{frame}
-%    \frametitle{The name of the game}
-%    \begin{itemize}
-%        \item Many considerations in this talk applicable to Bayesian, Frequentist or ``Monte Carlo'' 
-%        \item I acknowledge my Bayesian bias!
-%        \item In general consider a function $\mathcal{P}(\theta)$ over some $d$-dimensional space
-%        \item This function can be ``forward calculated'': given any location $\theta$ in space, can compute $P$
-%        \item Analytic pen-and-paper results assumed unavailable/impossible
-%        \item We wish to:
-%            \begin{itemize}
-%                \item Explore the region(s) of high $\mathcal{P}$
-%                \item Generate representative samples, either in this region, or in the tails
-%                \item find the hypervolume under the curve $\int P(\theta) d\theta$
-%            \end{itemize}
-%        \item Examples include
-%            \begin{itemize}
-%                \item Generating samples from a Bayesian posterior distribution
-%                \item Generating datasets for computing test statistics
-%                \item Generating Monte Carlo events 
-%                \item Computing Bayesian evidences for model comparison
-%                \item Computing cross sections
-%            \end{itemize}
-%    \end{itemize}
-%\end{frame}
-
-%^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-\begin{frame}
-    \frametitle{Random scanning: how not to do it}
-    \begin{itemize}
-        \item The worst way to explore/integrate a probability distribution/generate samples is to randomly sample the space using $\pi(\theta)$~\arxiv{2012.09874}
-        \item Gridding is also equivalently bad
-        \item Whilst this works in low dimensions, if each parameter is confined within some fraction $f\sim\ell_\mathcal{P}/\ell_\pi$ of the space, then the volume fraction $\sim\mathcal{O}(f^d)$, or equivalently $\mathcal{D}\sim d\log f$ 
-        \item Random sampling has an efficiency of $\boxed{\approx e^{-\mathcal{D}} \sim e^{-d\log f} = f^{-d}}$
-        \item If you find that naive tail sampling is performant for e.g. importance sampling and unweighting, then your function likely has sublinear $\mathcal{D}$ scaling with $d$. 
-        \item Turning this around, you can use the inefficiency of random sampling to estimate $\mathcal{D}$
-
-        \item \emph{``Exploring phase space with Nested Sampling''} Handley, \textbf{Jan{\ss}en}, Schumann \& \textbf{Yallup} \arxiv{2205.02030}
-            Also \textbf{Carragher} et al~\arxiv{2101.00428}
-    \end{itemize}
-\end{frame}
 
 \begin{frame}
     \frametitle{Optimisation: Gradient descent (for highest dimensions)}
@@ -478,6 +407,76 @@ nquad(f, [[-5, 5]] * 4) # ...
 %            \end{itemize}
 %    \end{itemize}
 %\end{frame}
+
+\begin{frame}
+    \frametitle{Why do sampling?}
+    \begin{columns}
+        \column{0.5\textwidth}
+        \begin{itemize}
+            \item The cornerstone of numerical Bayesian inference is working with \C[3]{samples}.
+            \item Generate a set of representative parameters drawn in proportion to the posterior $\theta\sim\mathcal{P}$.
+            \item The magic of marginalisation $\Rightarrow$ perform usual analysis on each sample in turn.
+            \item The golden rule is \C[1]{stay in samples} until the last moment before computing summary statistics/triangle plots because \[\boxed{f(\:\av{X}\:)\ne \av{\:f(X)\:}}\]
+            \item Generally need $\sim\mathcal{O}(12)$ independent samples to compute a value and error bar.
+        \end{itemize}
+        \column{0.5\textwidth}
+        \includegraphics<1>{figures/volumes.pdf}%
+        \includegraphics<2>{figures/samples.pdf}
+    \end{columns}
+\end{frame}
+
+
+%\begin{frame}
+%    \frametitle{Why do sampling}
+%    \begin{itemize}
+%        \item $\theta\sim\mathcal{P}$ drawn is optimally concentrated around the typical set of $\mathcal{P}$
+%        \item This represents an optimal compression of the space
+%        \item If you have generated a set of samples drawn from a distribution $S=\{\theta_i : i=1\cdots N,\theta_i\sim\mathcal{P}\}$, then one can compute integrals
+%            \[ \langle f(\theta) \rangle_\mathcal{P} = \int f(\theta) \mathcal{P}(\theta) d\theta \approx \sum_{\theta_i\in S} f(\theta_i) \]
+%    \end{itemize}
+%\end{frame}
+
+%\begin{frame}
+%    \frametitle{The name of the game}
+%    \begin{itemize}
+%        \item Many considerations in this talk applicable to Bayesian, Frequentist or ``Monte Carlo'' 
+%        \item I acknowledge my Bayesian bias!
+%        \item In general consider a function $\mathcal{P}(\theta)$ over some $d$-dimensional space
+%        \item This function can be ``forward calculated'': given any location $\theta$ in space, can compute $P$
+%        \item Analytic pen-and-paper results assumed unavailable/impossible
+%        \item We wish to:
+%            \begin{itemize}
+%                \item Explore the region(s) of high $\mathcal{P}$
+%                \item Generate representative samples, either in this region, or in the tails
+%                \item find the hypervolume under the curve $\int P(\theta) d\theta$
+%            \end{itemize}
+%        \item Examples include
+%            \begin{itemize}
+%                \item Generating samples from a Bayesian posterior distribution
+%                \item Generating datasets for computing test statistics
+%                \item Generating Monte Carlo events 
+%                \item Computing Bayesian evidences for model comparison
+%                \item Computing cross sections
+%            \end{itemize}
+%    \end{itemize}
+%\end{frame}
+
+%^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+\begin{frame}
+    \frametitle{Random scanning: how not to do it}
+    \begin{itemize}
+        \item The worst way to explore/integrate a probability distribution/generate samples is to randomly sample the space using $\pi(\theta)$~\arxiv{2012.09874}
+        \item Gridding is also equivalently bad
+        \item Whilst this works in low dimensions, if each parameter is confined within some fraction $f\sim\ell_\mathcal{P}/\ell_\pi$ of the space, then the volume fraction $\sim\mathcal{O}(f^d)$, or equivalently $\mathcal{D}\sim d\log f$ 
+        \item Random sampling has an efficiency of $\boxed{\approx e^{-\mathcal{D}} \sim e^{-d\log f} = f^{-d}}$
+        \item If you find that naive tail sampling is performant for e.g. importance sampling and unweighting, then your function likely has sublinear $\mathcal{D}$ scaling with $d$. 
+        \item Turning this around, you can use the inefficiency of random sampling to estimate $\mathcal{D}$
+
+        \item \emph{``Exploring phase space with Nested Sampling''} Handley, \textbf{Jan{\ss}en}, Schumann \& \textbf{Yallup} \arxiv{2205.02030}
+            Also \textbf{Carragher} et al~\arxiv{2101.00428}
+    \end{itemize}
+\end{frame}
 
 
 
