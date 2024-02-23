@@ -304,49 +304,79 @@ nquad(f, [[-5, 5]] * 4) # ...
 
 \begin{frame}
     \frametitle{Exploring parameter spaces}
-    Profiling vs Marginalising
-
-    Volumes in high dimensions
+    \begin{description}
+        \item[Option 1] Maximise
+            \begin{itemize}
+                \item Solve $\theta = \arg\max_\theta f(\theta)$
+            \end{itemize}
+        \item[Option 2] Sample
+            \begin{itemize}
+                \item Generate a set of samples $\{\theta_i\}$ from the distribution $\mathcal{P}(\theta)$
+                \item Works if your function is a probability  in $\theta$ e.g.\ a Bayesian posterior  $P(\theta|D)$
+            \end{itemize}
+        \item[Option 3] Profile
+            \begin{itemize}
+                \item Solve $f_i = \max_{\theta_{j\ne i}} f(\theta)$ for a range of $\theta_i$
+                \item i.e. fix one parameter, and maximise over the rest, to give a 1D profile
+                \item Also works for 2D profiles.
+            \end{itemize}
+    \end{description}
     
 \end{frame}
 
 
 \begin{frame}
-    \frametitle{Why do sampling}
-    \begin{itemize}
-        \item Instead of randomly sampling the space, samples $\theta\sim\mathcal{P}$ drawn from the distribution exponentially concentrate around the significantly non-zero region of $\mathcal{P}$
-        \item This represents an optimal compression of the space
-        \item If you have generated a set of samples drawn from a distribution $S=\{\theta_i : i=1\cdots N,\theta_i\sim\mathcal{P}\}$, then one can compute integrals
-            \[ \langle f(\theta) \rangle_\mathcal{P} = \int f(\theta) \mathcal{P}(\theta) d\theta \approx \sum_{\theta_i\in S} f(\theta_i) \]
-        \item Typically this is done using weighted samples $S=\{(w_i, \theta_i) : i=1\cdots N,\theta_i\sim\mathcal{P}\}$
-            \[ \langle f(\theta) \rangle_\mathcal{P} = \int f(\theta) \mathcal{P}(\theta) d\theta \approx \sum_{w_i, \theta_i\in S} w_i f(\theta_i) \]
-    \end{itemize}
+    \frametitle{Why do sampling?}
+    \begin{columns}
+        \column{0.5\textwidth}
+        \begin{itemize}
+            \item The cornerstone of numerical Bayesian inference is working with \C[3]{samples}.
+            \item Generate a set of representative parameters drawn in proportion to the posterior $\theta\sim\mathcal{P}$.
+            \item The magic of marginalisation $\Rightarrow$ perform usual analysis on each sample in turn.
+            \item The golden rule is \C[1]{stay in samples} until the last moment before computing summary statistics/triangle plots because \[\boxed{f(\:\av{X}\:)\ne \av{\:f(X)\:}}\]
+            \item Generally need $\sim\mathcal{O}(12)$ independent samples to compute a value and error bar.
+        \end{itemize}
+        \column{0.5\textwidth}
+        \includegraphics<1>{figures/volumes.pdf}%
+        \includegraphics<2>{figures/samples.pdf}
+    \end{columns}
 \end{frame}
 
-\begin{frame}
-    \frametitle{The name of the game}
-    \begin{itemize}
-        \item Many considerations in this talk applicable to Bayesian, Frequentist or ``Monte Carlo'' 
-        \item I acknowledge my Bayesian bias!
-        \item In general consider a function $\mathcal{P}(\theta)$ over some $d$-dimensional space
-        \item This function can be ``forward calculated'': given any location $\theta$ in space, can compute $P$
-        \item Analytic pen-and-paper results assumed unavailable/impossible
-        \item We wish to:
-            \begin{itemize}
-                \item Explore the region(s) of high $\mathcal{P}$
-                \item Generate representative samples, either in this region, or in the tails
-                \item find the hypervolume under the curve $\int P(\theta) d\theta$
-            \end{itemize}
-        \item Examples include
-            \begin{itemize}
-                \item Generating samples from a Bayesian posterior distribution
-                \item Generating datasets for computing test statistics
-                \item Generating Monte Carlo events 
-                \item Computing Bayesian evidences for model comparison
-                \item Computing cross sections
-            \end{itemize}
-    \end{itemize}
-\end{frame}
+
+%\begin{frame}
+%    \frametitle{Why do sampling}
+%    \begin{itemize}
+%        \item $\theta\sim\mathcal{P}$ drawn is optimally concentrated around the typical set of $\mathcal{P}$
+%        \item This represents an optimal compression of the space
+%        \item If you have generated a set of samples drawn from a distribution $S=\{\theta_i : i=1\cdots N,\theta_i\sim\mathcal{P}\}$, then one can compute integrals
+%            \[ \langle f(\theta) \rangle_\mathcal{P} = \int f(\theta) \mathcal{P}(\theta) d\theta \approx \sum_{\theta_i\in S} f(\theta_i) \]
+%    \end{itemize}
+%\end{frame}
+
+%\begin{frame}
+%    \frametitle{The name of the game}
+%    \begin{itemize}
+%        \item Many considerations in this talk applicable to Bayesian, Frequentist or ``Monte Carlo'' 
+%        \item I acknowledge my Bayesian bias!
+%        \item In general consider a function $\mathcal{P}(\theta)$ over some $d$-dimensional space
+%        \item This function can be ``forward calculated'': given any location $\theta$ in space, can compute $P$
+%        \item Analytic pen-and-paper results assumed unavailable/impossible
+%        \item We wish to:
+%            \begin{itemize}
+%                \item Explore the region(s) of high $\mathcal{P}$
+%                \item Generate representative samples, either in this region, or in the tails
+%                \item find the hypervolume under the curve $\int P(\theta) d\theta$
+%            \end{itemize}
+%        \item Examples include
+%            \begin{itemize}
+%                \item Generating samples from a Bayesian posterior distribution
+%                \item Generating datasets for computing test statistics
+%                \item Generating Monte Carlo events 
+%                \item Computing Bayesian evidences for model comparison
+%                \item Computing cross sections
+%            \end{itemize}
+%    \end{itemize}
+%\end{frame}
 
 %^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -357,7 +387,7 @@ nquad(f, [[-5, 5]] * 4) # ...
         \item Gridding is also equivalently bad
         \item Whilst this works in low dimensions, if each parameter is confined within some fraction $f\sim\ell_\mathcal{P}/\ell_\pi$ of the space, then the volume fraction $\sim\mathcal{O}(f^d)$, or equivalently $\mathcal{D}\sim d\log f$ 
         \item Random sampling has an efficiency of $\boxed{\approx e^{-\mathcal{D}} \sim e^{-d\log f} = f^{-d}}$
-        \item If you find that naive tail sampling is performant for e.g. importance sampling and unweighting, then your function likely has an unusual $\mathcal{D}$ scaling with $d$. 
+        \item If you find that naive tail sampling is performant for e.g. importance sampling and unweighting, then your function likely has sublinear $\mathcal{D}$ scaling with $d$. 
         \item Turning this around, you can use the inefficiency of random sampling to estimate $\mathcal{D}$
 
         \item \emph{``Exploring phase space with Nested Sampling''} Handley, \textbf{Jan{\ss}en}, Schumann \& \textbf{Yallup} \arxiv{2205.02030}
@@ -366,24 +396,65 @@ nquad(f, [[-5, 5]] * 4) # ...
 \end{frame}
 
 \begin{frame}
-    \frametitle{Optimisation: Gradient descent}
+    \frametitle{Optimisation: Gradient descent (for highest dimensions)}
+    \begin{columns}
+        \column{0.5\textwidth}
+        \begin{itemize}
+            \item The first thing one thinks of.
+            \item Fastest class of algorithms (used in deep learning e.g. Adam)
+            \item Can get stuck in local minima
+            \item Finds a maximum, but hard to use the samples it's calculated along the way.
+            \item Nontrivial consideration:
+                \begin{quote}
+                    ``While finding the gradient of an objective function is a splendid
+                    idea, ascending the gradient directly may not be.'' (MacKay)
+                \end{quote}
+                (Most gradient descent algorithms are not covariant out-of-the-box).
+        \end{itemize}
+        
+        \column{0.5\textwidth}
+        \includegraphics[width=\textwidth]{figures/gradient_descent}
+    \end{columns}
 \end{frame}
 
 \begin{frame}
-    \frametitle{Optimisation: Bayesian optimisation}
+    \frametitle{Optimisation: Bayesian optimisation (for expensive functions)}
+    \begin{columns}
+        \column{0.5\textwidth}
+        \begin{itemize}
+            \item Best approach for punitively expensive functions
+            \item Uses a Gaussian process to model the function, and propose the optimal new point which achieves an objective (e.g. maximisation), taking into account all uncertanties
+            \item These are used to e.g. optimise hyperparameters in machine learning/N body simulations
+        \end{itemize}
+        
+        \column{0.5\textwidth}
+        \includegraphics[width=\textwidth]{figures/bayesian_optimisation}
+    \end{columns}
 \end{frame}
 
 \begin{frame}
-    \frametitle{Optimisation: Differential evolution/Genetic Algorithms}
+    \frametitle{Optimisation: Genetic Algorithms (for profiling)}
+    \begin{columns}
+        \column{0.5\textwidth}
+        \begin{itemize}
+            \item Algorithms use an evolutionary process:
+                \begin{itemize}
+                    \item Generate a population of points
+                    \item Reproduce: Recombine, mutate
+                    \item Kill off low ranking points
+                \end{itemize}
+            \item \texttt{diver} is the genetic algorithm for differential evolution preferred by GAMBIT
+            \item Generally accepted as being good for solving multimodal functions
+            \item Not statistically principled or interpretable if it goes wrong
+            \item These in practice are good for profiling in medium dimensions, since the evolutionary process generates many good candidate points -- but technically a global optimiser!
+        \end{itemize}
+        \column{0.5\textwidth}
+        \includegraphics[width=0.5\textwidth]{figures/diver_1}%
+        \includegraphics[width=0.5\textwidth]{figures/diver_2}
+        \includegraphics[width=0.5\textwidth]{figures/diver_3}%
+        \includegraphics[width=0.5\textwidth]{figures/diver_4}
+    \end{columns}
 \end{frame}
-
-\begin{frame}
-    \frametitle{A note on adaptive scanning algorithms}
-    Some analyses (e.g. ATLAS) have a legitimate preference for random sampling because it allows parallelised physics computations offline.
-
-    Smart sampling algorithms require all likelihood computations on the fly, so need machinery like GAMBIT
-\end{frame}
-
 
 %\begin{frame}
 %    \frametitle{GAMBIT}
@@ -412,7 +483,7 @@ nquad(f, [[-5, 5]] * 4) # ...
 
 
 \begin{frame}
-    \frametitle{Metropolis Hastings} 
+    \frametitle{Metropolis Hastings (baseline sampling algorithm)} 
     \begin{itemize}
         \item Turn the $N$-dimensional problem into a one-dimensional one.
         \item Pick start point $\theta_0$.
@@ -434,7 +505,7 @@ nquad(f, [[-5, 5]] * 4) # ...
 \end{frame}
 
 \begin{frame}
-    \frametitle{Metropolis Hastings} 
+    \frametitle{Metropolis Hastings } 
     \framesubtitle{Where can this go wrong?}
     \begin{itemize}
         \item Burn in
@@ -466,7 +537,7 @@ nquad(f, [[-5, 5]] * 4) # ...
 
 
 \begin{frame}
-    \frametitle{Hamiltonian Monte-Carlo} 
+    \frametitle{Hamiltonian Monte-Carlo (ultra high dimensional sampling)} 
     \begin{itemize}
         \item Key idea: Treat $\log L(\Theta)$ as a potential energy
         \item Guide walker under ``force'': \[F(\Theta) =-\nabla \log L(\Theta)\]
@@ -481,7 +552,7 @@ nquad(f, [[-5, 5]] * 4) # ...
 \end{frame}
 
 \begin{frame}
-    \frametitle{Ensemble sampling} 
+    \frametitle{Ensemble sampling (robust alternative to MH)} 
     \begin{itemize}
         \item Instead of one walker, evolve a set of $n$ walkers.
         \item Can use information present in ensemble to guide proposals.
@@ -524,7 +595,7 @@ nquad(f, [[-5, 5]] * 4) # ...
 
 
 \begin{frame}
-    \frametitle{The nested sampling meta-algorithm}
+    \frametitle{Nested sampling (high dimensional integration)}
     \begin{columns}
         \column{0.5\textwidth}
         \begin{itemize}
@@ -983,6 +1054,14 @@ __plugins__={"python_grid": Grid}
     \end{itemize}
 \end{frame}
 
+
+
+\begin{frame}
+    \frametitle{A note on adaptive scanning algorithms}
+    Some analyses (e.g. ATLAS) have a legitimate preference for random sampling because it allows parallelised physics computations offline.
+
+    Smart sampling algorithms require all likelihood computations on the fly, so need machinery like GAMBIT
+\end{frame}
 
 
 \end{document}
