@@ -161,10 +161,20 @@
         \column{0.5\textwidth}
         \begin{itemize}
             \item Key idea in NS: estimating volumes probabilistically
-        \[
-            \frac{\C[1]{V_\mathrm{after}}}{\C[0]{V_\mathrm{before}}} 
-            \approx \frac{\C[1]{n_\mathrm{in}}}{\C[0]{n_\mathrm{out}}+\C[1]{n_\mathrm{in}}}
-        \]
+                \[
+                    \only<-2>{
+                    \frac{\C[1]{V_\mathrm{after}}}{\C[0]{V_\mathrm{before}}} 
+                    \approx \frac{\C[1]{n_\mathrm{in}}}{\C[0]{n_\mathrm{out}}+\C[1]{n_\mathrm{in}}}
+                }
+                    \only<3>{
+                    \frac{\C[1]{V_\mathrm{after}}}{\C[0]{V_\mathrm{before}}} 
+                    \approx \frac{\C[1]{n_\mathrm{in}}+1}{\C[0]{n_\mathrm{out}}+\C[1]{n_\mathrm{in}}+2}
+                }
+                \only<4>{\hspace{-15pt}
+                    \frac{\C[1]{V_\mathrm{after}}}{\C[0]{V_\mathrm{before}}} 
+\sim \frac{\C[1]{n_\mathrm{in}}+1}{\C[0]{n_\mathrm{out}}+\C[1]{n_\mathrm{in}}+2} \pm \sqrt{\tfrac{(\C[1]{n_\mathrm{in}}+1)(\C[0]{n_\mathrm{out}}+1)}{(\C[0]{n_\mathrm{out}}+\C[1]{n_\mathrm{in}}+2)^2(\C[0]{n_\mathrm{out}}+\C[1]{n_\mathrm{in}}+3)}}
+                }
+                \]
             \item This is the \textbf{only} way to calculate volume in high dimensions $d>3$.
                 \begin{itemize}
                     \item Geometry is exponentially inefficient.
@@ -343,19 +353,20 @@
         \includegraphics[width=\textwidth]{figures/multinest}
         \texttt{UltraNest}~\arxiv{2101.09604}
         \includegraphics[width=\textwidth]{figures/radfriends}
+        \texttt{nautilus}~\arxiv{2306.16923} 
         \column{0.4\textwidth}
         \texttt{PolyChord}~\arxiv{1506.00171}
         \includegraphics[width=\textwidth]{figures/polychord}
         \vfill
         \texttt{NeuralNest}~\arxiv{1903.10860}
         \begin{columns}
-            \column{0.5\textwidth}
+            \column{0.55\textwidth}
             \includegraphics[width=\textwidth]{figures/rosenbrock_flow.png}
             \includegraphics[width=\textwidth]{figures/himmelblau_flow.png}
-            \column{0.5\textwidth}
+            \column{0.45\textwidth}
             \includegraphics[width=\textwidth]{figures/chains.png}
         \end{columns}
-        \texttt{nessai}~\arxiv{2102.11056} \texttt{nora}~\arxiv{2305.19267}
+        \texttt{nessai}~\arxiv{2102.11056} \texttt{nora}~\arxiv{2305.19267} \texttt{jaxnest}~\arxiv{2012.15286}
         \vfill
         \column{0.3\textwidth}
         \texttt{DNest}~\arxiv{1606.03757}
@@ -768,23 +779,6 @@
     \end{columns}
 \end{frame}
 
-\begin{frame}
-    \frametitle{Fully Bayesian Forecasting~\arxiv{2309.06942}}
-    \student{thomas_gessey-jones}{Thomas Gessey-Jones}{PhD}
-    \begin{columns}
-        \column{0.5\textwidth}
-        \begin{itemize}
-            \item Experimental design necessitates forecasting the constraints that future data might give.
-            \item Have you ever done a Fisher forecast, and then felt Bayesian guilt?
-            \item Simulation based inference gives us the language to marginalise over parameters $\theta$ and possible future data $D$.
-            \item Evidence networks~\arxiv{2305.11241} (Jeffreys \& Wandelt) give us the ability to do this at scale in the case of forecasting.
-            \item Can answer questions such as ``Given current knowledge/theoretical uncertainty $\pi(\theta)$, how probable is a detection?''
-            \item Re-usable package: \texttt{prescience}
-        \end{itemize}
-        \column{0.5\textwidth}
-        \includegraphics[width=\textwidth]{figures/fbf.pdf}
-    \end{columns}
-\end{frame}
 
 \begin{frame}
     \frametitle{Conclusions}
