@@ -12,8 +12,8 @@ variety of scientific fields, including:
 This pedagogical talk will discuss the theoretical challenges of exploring high-dimensional parameter spaces, a practical framework for assessing the performance of different sampling
 algorithms, and scientific case-studies from the fields above. We will focus the discussion around the ScannerBit module of the GAMBIT global fitting framework, which includes a variety of sampling algorithms for both Frequentist and Bayesian analyses. This talk coincides with the announcement of ScannerBit 2.0 which incorporates a python interface to state-of-the-art sampling algorithms alongside the tried-and-tested Differential evolution (Diver) and Nested sampling methods (MultiNest & PolyChord).
 
-https://arxiv.org/abs/1705.07959
-https://arxiv.org/abs/2101.04525
-https://arxiv.org/abs/2205.15570
+- https://arxiv.org/abs/1705.07959
+- https://arxiv.org/abs/2101.04525
+- https://arxiv.org/abs/2205.15570
 
 [[PDF](https://github.com/williamjameshandley/talks/raw/munich_2024/will_handley_munich_2024.pdf)] 
