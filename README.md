@@ -1,4 +1,4 @@
-#Sampling techniques in high-dimensional parameter spaces with ScannerBit 2.0
+# Sampling techniques in high-dimensional parameter spaces with ScannerBit 2.0
 
 Numerical methods for exploring high-dimensional parameter spaces are crucial across a wide
 variety of scientific fields, including:
