@@ -92,7 +92,7 @@
                     \item Remains the leader of the pack in $n\sim\mathcal{O}(10)$ parameter fits.
                     \item Careful testing in \textit{Planck} showed that it couldn't handle the many fast-slow nuisance parameters needed for systematics .
                 \end{itemize}
-            \item I theoretically developed and numerically implemented \texttt{PolyChord}, which has polynomial scaling efficiency $f_{\texttt{PC}}\sim \frac{1}{n}$ with model parameters (c.f.\ exponential $f_{\texttt{MN}}\sim e^{-n/n_0}$).
+            \item I analytically developed and numerically implemented \texttt{PolyChord}, which has polynomial scaling efficiency $f_{\texttt{PC}}\sim \frac{1}{n}$ with model parameters (c.f.\ exponential $f_{\texttt{MN}}\sim e^{-n/n_0}$).
             \item Exemplifies theoretical innovation \& numerical implementation driven by astrophysical challenges.
         \end{itemize}
         \texttt{PolyChord} inspired a new generation of nested samplers (\texttt{dynesty}, \texttt{UltraNest}, \texttt{nessai}\ldots), but remains the state of the art in high-dimensional model comparison.
@@ -197,7 +197,7 @@
 
     \begin{columns}
         \column{0.6\textwidth}
-        Collaboration with Anastasia Fialkov \& Eloy de Lera Acedo transfers interdisciplinary ideas 21cm cosmology
+        Transferring interdisciplinary ideas into 21cm cosmology with Anastasia Fialkov \& Eloy de Lera Acedo.
         \begin{itemize}
             \item \texttt{maxsmooth} \arxiv{2007.14970}
                 \begin{itemize}
@@ -260,7 +260,11 @@
             \item Nested sampling has been used in GW since the beginning [\textcolor{C0}{\href{https://arxiv.org/abs/1602.03840}{GW150914}}]
             \item Work with Alvin Chua \& Chris Moore on transdimensional sampling for EMRI~\arxiv{1803.10210}
             \item Recent work with Metha Prathaban showing new chain-based approaches for improving precision~\arxiv{2404.16428}
-            \item Discussed use of \texttt{margarine}~\arxiv{2207.11457} as alternative to GW hierarchical modelling at inaugural data science discussion group
+        \includegraphics[width=\textwidth]{figures/gw_chua.pdf}
+
+
+        \vspace{8pt}
+        \includegraphics[width=\textwidth]{figures/gw_prathaban.pdf}
         \end{itemize}
         \column{0.5\textwidth}
         \includegraphics[width=0.49\textwidth]{figures/ligo_m1_m2.pdf}%
@@ -272,7 +276,9 @@
         \begin{overpic}[height=0.27\textwidth]{figures/gw_chains.pdf}
             \put(65,-4) {\tiny \arxiv{2404.16428}}
         \end{overpic}
-
+        \begin{itemize}
+            \item Discussed use of \texttt{margarine}~\arxiv{2207.11457} as alternative to GW hierarchical modelling at inaugural data science discussion group
+        \end{itemize}
     \end{columns}
 
 \end{frame}
@@ -529,9 +535,8 @@
         \includegraphics[height=0.18428\textwidth]{figures/telescopes/CTA.jpg}%
 
         \begin{itemize}
-            \item We are moving from an age of \textbf{precision} cosmology to \textbf{accurate} cosmology.
-            \item \textbf{Systematics} $\gtrsim$ \textbf{statistics}.
-            \item Tools risk lagging behind hardware
+            \item This ever-increasing statistical weight will mean true accuracy demands rigorous attention to systematics.
+            \item This applies to all of cosmology, astrophysics, particle physics and beyond.
         \end{itemize}
 
     \end{columns}
@@ -565,9 +570,9 @@
 
     \vspace{20pt}
     \begin{itemize}
-        \item Tensions of debatable significance have been plaguing cosmology for the past five years
-        \item Independent of veracity, they have revealed a gap in the armour of modern data analysis.
-        \item Likelihood-based methods have assume a fiducial cosmology. 
+        \item Tensions have been appearing in cosmology over the last five years.
+        \item Though their significance may be debatable, they have revealed a gap in the armour of modern data analysis.
+        \item Likelihood-based methods have to pragmatically assume a fiducial cosmology. 
         \item This will cast greater doubt on the robustness of our conclusions from stage 4 surveys.
     \end{itemize}
 
@@ -660,19 +665,26 @@
 \begin{frame}
     \frametitle{Conclusions}
     \framesubtitle{\tthref{github.com/handley-lab}}
+    \begin{columns}
+        \column{0.6\textwidth}
     \begin{itemize}
         \item The astronomy challenges of our generation are interdisciplinary.
         \item Interdisciplinary approaches are two-way streets for innovation.
         \item Simulation-based inference represents the frontier of how we will all be doing data analysis.
         \item Our research programme at the interface between theory, observation and inference is well-placed to explore the interdisciplinary frontier.
     \end{itemize}
+        
+        \column{0.4\textwidth}
+    \includegraphics[height=0.32\textwidth]{logos/ukri}\hfill
+    \includegraphics[height=0.32\textwidth]{logos/ukerc}\hfill
+    \includegraphics[height=0.32\textwidth]{logos/royalsociety}
+
+    \centerline{
+        \includegraphics[width=0.8\textwidth]{logos/dirac.png}%
+    }
+    \end{columns}
     \vspace{10pt}
 
-    \includegraphics[height=0.09\textwidth]{logos/dirac.png}%
-    \includegraphics[height=0.09\textwidth]{logos/ukerc}
-    \includegraphics[height=0.09\textwidth]{logos/ukri}
-    \includegraphics[height=0.09\textwidth]{logos/royalsociety}
-    \includegraphics[height=0.09\textwidth]{logos/polychord}
 
     \tikz[overlay,remember picture]
     \node[anchor=north east] (A) at ($(current page.north east)+(0,0)$) {
