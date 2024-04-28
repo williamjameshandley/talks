@@ -1,7 +1,12 @@
-\documentclass[aspectratio=169]{beamer}
+\documentclass[aspectratio=169, handout]{beamer}
 \usepackage{will_handley_beamer}
 \usepackage{title_page}
 \usepackage{slashed}
+\usepackage{tikz}
+\usetikzlibrary{arrows,arrows.meta,automata,positioning}
+\usepackage{bm}
+\usepackage[percent]{overpic}
+
 
 % Commands
 % --------
@@ -23,110 +28,134 @@
 \end{frame}
 
 \begin{frame}
-    \frametitle{Beginning the golden age of astronomy data}
+    \frametitle{The future of astronomy is interdisciplinary}
+    \begin{itemize}
+        \item Across astronomy, combining data and disciplines will be the key to the next breakthroughs.
+    \end{itemize}
     \begin{columns}
-        \column{0.45\textwidth}
+        \column{0.31\textwidth}
+        \begin{block}{CMB+BAO}
+            \includegraphics[width=\textwidth]{figures/desi_w_constraints.pdf}
+        \end{block}
+        \column{0.29\textwidth}
+        \begin{block}{GW170817}
+            \includegraphics[width=\textwidth]{figures/mma_1.pdf}
+        \end{block}
+        \column{0.33\textwidth}
+        \begin{block}{HEP+Astro}
+            \includegraphics[width=\textwidth]{figures/cosmoalp.pdf}
+
+            \hfill\arxiv{2205.13549}
+        \end{block}
+    \end{columns}
+
+    \begin{itemize}
+        \item We have spent the last 5 years hairsplitting ``parkable'' tensions.
+        \item The next 25 years we will confront the real tensions in our understanding of the universe.
+        \item I aim to show how my research programme is preparing us for this interdisciplinary challenge.
+    \end{itemize}
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{\textit{Planck}: Inflation \& primordial power spectrum}
+    \begin{columns}
+        \column{0.5\textwidth}
         \begin{itemize}
-            \item Over our research lifetimes we will see next-generation data rates across the electromagnetic spectrum \& beyond:
-                \begin{description}
-                    \item[Radio] SKA \textit{et al}
-                    \item[Micro] SO/CMB-S4
-                    \item[IR] JWST, Roman (WFIRST)
-                    \item[Optical] Euclid, DESI, Rubin (LSST), EELT
-                    \item[X-ray] Athena
-                    \item[Gamma-ray] e-ASTROGAM
-                    \item[Gravitational] LIGO/Virgo/Kagra + LISA
-                    \item[Particle] CTA, IceCube, KM3NeT
-                \end{description}
+            \item Began theoretical PhD in 2012 investigating initial conditions for inflation.
+            \item Joined Planck inflation team, working on Bayesian model fitting alongside theory.
+            \item Found I enjoyed the observation \& inference as much as the theory.
+            \item \texttt{FlexKnots} were used to reconstruct the primordial power spectrum, inflationary potential \& reionisation history (now used by Fialkov group)~\arxiv{1908.00906}.
+            \item \texttt{PolyChord} developed for model comparison, particularly axion monodromy.
         \end{itemize}
-        \column{0.55\textwidth}
 
-        \includegraphics[height=0.145\textwidth]{figures/telescopes/jwst.png}%
-        \includegraphics[height=0.145\textwidth]{figures/telescopes/roman.jpg}%
-        \includegraphics[height=0.145\textwidth]{figures/telescopes/euclid.jpeg}%
-        \includegraphics[height=0.145\textwidth]{figures/telescopes/athena.jpg}%
-        \includegraphics[height=0.145\textwidth]{figures/telescopes/lisa.jpg}%
-        \includegraphics[height=0.145\textwidth]{figures/telescopes/e-ASTROGAM.pdf}%
-        \vspace{-1pt}
+        \column{0.5\textwidth}
+        \includegraphics[height=0.4\textwidth]{figures/kinetic_dominance.pdf}%
+        \includegraphics[height=0.4\textwidth]{figures/axion_monodromy.pdf}
 
-        \includegraphics[height=0.15183\textwidth]{figures/telescopes/desi.jpg}%
-        \includegraphics[height=0.15183\textwidth]{figures/telescopes/eelt.jpg}%
-        \includegraphics[height=0.15183\textwidth]{figures/telescopes/ska.jpg}%
-        \includegraphics[height=0.15183\textwidth]{figures/telescopes/SO.jpg}%
-        \vspace{-1pt}
 
-        \includegraphics[height=0.18428\textwidth]{figures/telescopes/ligo.jpg}%
-        \includegraphics[height=0.18428\textwidth]{figures/telescopes/km3n.jpg}%
-        \includegraphics[height=0.18428\textwidth]{figures/telescopes/icecube.jpg}%
-        \includegraphics[height=0.18428\textwidth]{figures/telescopes/CTA.jpg}%
+        \includegraphics[height=0.4\textwidth]{figures/flexknots.pdf}%
+        \includegraphics[height=0.4\textwidth]{figures/pps.pdf}
 
-        \begin{itemize}
-            \item We are moving from an age of \textbf{precision} cosmology to \textbf{accurate} cosmology.
-            \item \textbf{Systematics} $\gtrsim$ \textbf{statistics}.
-            \item Tools risk lagging behind hardware
-        \end{itemize}
 
     \end{columns}
 \end{frame}
 
 \begin{frame}
-    \frametitle{Interdisciplinarity}
-    Combining data and disciplines will be the key to breakthroughs
+    \frametitle{Analytic innovation: from \texttt{MultiNest} to \texttt{PolyChord}}
+    \begin{columns}
+        \column{0.66\textwidth}
+        \begin{itemize}
+            \item \texttt{MultiNest}~\arxiv{0809.3437} was the leading Bayesian numerical model comparison tool in 2013.
+                \begin{itemize}
+                    \item A general purpose \& performant implementation of John Skilling's nested sampling meta-algorithm.
+                    \item Remains the leader of the pack in $n\sim\mathcal{O}(10)$ parameter fits.
+                    \item Careful testing in \textit{Planck} showed that it couldn't handle the many fast-slow nuisance parameters needed for systematics .
+                \end{itemize}
+            \item I theoretically developed and numerically implemented \texttt{PolyChord}, which has polynomial scaling efficiency $f_{\texttt{PC}}\sim \frac{1}{n}$ with model parameters (c.f.\ exponential $f_{\texttt{MN}}\sim e^{-n/n_0}$).
+            \item Highlights a trend of theoretical innovation \& numerical implementation driven by astrophysical challenges.
+        \end{itemize}
+        \column{0.33\textwidth}
+        \vspace{-10pt}
+        %\includegraphics[width=\textwidth,page=14]{figures/himmelblau.pdf}%
+        \begin{block}{\texttt{MultiNest}~\arxiv{0809.3437}}
+            \includegraphics[width=\textwidth]{figures/multinest.pdf}
+        \end{block}%
+        \vspace{-5pt}
+        \begin{block}{\texttt{PolyChord}~\arxiv{1506.00171}}
+            \includegraphics[width=\textwidth]{figures/polychord.png}
+        \end{block}
 
-    INSERT graphic of combinations of data for DESI
 
-    INSERT graphic of combinations of data for Particle physics
 
-    INSERT graphic of combinations of data for PTAs
-
-    INSERT graphic of combinations of data for astronomy (e.g. AGN)
-
-    Interdisciplinarity gives two-way interchange of ideas
-
-    (Diversity comment)
-
-    Take you through a tour of how my research programme is well placed to do this
-\end{frame}
-
-\begin{frame}
-    \frametitle{\textit{Planck}: Inflation \& primordial power spectrum}
-
-    Began PhD in initial conditions for inflation
-
-    Joined Planck inflation team
-
-    Performing model comparison fits 
-
-    FlexKnots
-
-    (could merge with next slide)
-\end{frame}
-
-\begin{frame}
-    \frametitle{From \texttt{MultiNest} to \texttt{PolyChord}}
-    Emphasise key theoretical skills that come from a background in theoretical ideas giving breakthroughs in theory of nested sampling
-
-    then implementation in practice into software
-
-    Enabling analyses that were not possible (axions)
+    \end{columns}
 \end{frame}
 
 \begin{frame}
     \frametitle{Aside: theoretical work}
+    \begin{columns}
+        \column{0.5\textwidth}
 
-    Whilst I maintain an interest in the theoretical side of cosmology, the law of evolution shows inevitably there is higher impact (and likely higher interest) in the interdisciplinary work that I do
+        This talk will focus on my interdisciplinary work, but I have theoretical interests in:
+        \begin{itemize}
+            \item Quantum fields in curved spacetime \\\hfill (Mary Letey, Fruzsina Agocs)
+            \item Poincare Gauge Theory \\\hfill (Sinah Legner, Will Barker)
+            \item Future conformal boundary/CPT universes \\\hfill (Metha Prathaban, Wei-Ning Deng)
+            \item Curved finite inflation \hfill (Lukas Hergt)
+        \end{itemize}
+        \includegraphics[width=0.145\textwidth]{figures/students/mary_letey.jpg}%
+        \includegraphics[width=0.145\textwidth]{figures/students/fruzsina_agocs.jpg}%
+        \includegraphics[width=0.145\textwidth]{figures/students/sinah_legner.jpg}%
+        \includegraphics[width=0.145\textwidth]{figures/students/will_barker.jpg}%
+        \includegraphics[width=0.145\textwidth]{figures/students/metha_prathaban.jpg}%
+        \includegraphics[width=0.145\textwidth]{figures/students/wei-ning_deng.jpg}%
+        \includegraphics[width=0.145\textwidth]{figures/students/lukas_hergt.jpg}%
 
-    cursory slide on:
+        \column{0.5\textwidth}
+        \begin{columns}
+            \column{0.5\textwidth}
+            \begin{overpic}[width=\textwidth]{figures/qic.pdf}
+                \put(65,-4) {\tiny \arxiv{1607.04148}}
+            \end{overpic}
+            \vspace{-5pt}
 
-    - quantum fields in curved spacetime
+            \begin{overpic}[width=\textwidth]{figures/pgt.pdf}
+                \put(65,0) {\tiny \arxiv{2003.02690}}
+            \end{overpic}
+            \column{0.5\textwidth}
+            \begin{overpic}[width=\textwidth]{figures/fcb.pdf}
+                \put(65,0) {\tiny \arxiv{2111.14588}}
+            \end{overpic}
 
-    - future conformal boundary/CPT
-
-    - curved primordial power spectra equations
-
-    - Poincare gauge theory
-
-    danielle, will, sinah
+            \begin{overpic}[width=\textwidth]{figures/pps_analytic.pdf}
+                \put(65,20) {\tiny \arxiv{1907.08524}}
+            \end{overpic}
+        \end{columns}
+        \vspace{5pt}
+        \begin{overpic}[width=\textwidth]{figures/hergt.pdf}
+            \put(45,0) {\tiny \arxiv{2211.17248}}
+        \end{overpic}
+    \end{columns}
 \end{frame}
 
 \begin{frame}
@@ -172,15 +201,28 @@
 \end{frame}
 
 \begin{frame}
-    \frametitle{REACH:}
-
-    radiometry
-
-    model fitting
-
-    antenna design
-
-    cutting edge machine learning methods
+    \frametitle{REACH: Global 21cm cosmology {\small \arxiv{2210.07409}(NatAstro)}}
+    \student{ian_roque}{Ian Roque}{PhD}
+    \vspace{10pt}
+    \begin{columns}
+        \column{0.65\textwidth}
+        \vspace{-10pt}
+        \begin{itemize}
+            \item Imaging the universal dark ages using CMB backlight.
+            \item $21\text{cm}$ hyperfine line emission from neutral hydrogen.
+            \item Global experiments measure monopole across frequency.
+            \item Challenge: science hidden in foregrounds $\sim 10^4\times$signal.
+            \item Lead data analysis team (REACH first light in January)
+            \item Nested sampling woven in from the ground up (calibrator, beam modelling, signal fitting, likelihood selection).
+            \item All treated as parameterised model comparison problems.
+                \includegraphics[height=0.3\textwidth]{figures/EDGES_antenna.JPG}
+                \includegraphics[height=0.3\textwidth]{figures/SARAS.jpg}
+                \includegraphics[height=0.3\textwidth]{figures/REACH_2.jpg}
+        \end{itemize}
+        \column{0.35\textwidth}
+        \includegraphics[width=\textwidth]{figures/21cm_1.png}
+        \includegraphics[width=\textwidth]{figures/21cm.png}
+    \end{columns}
 \end{frame}
 
 \begin{frame}
@@ -258,8 +300,8 @@
 \end{frame}
 
 \begin{frame}
-    \frametitle{Applications of nested sampling}
-    \framesubtitle{And beyond\ldots}
+    \frametitle{PolyChord Ltd: interdisciplinary R\&D spinout}
+    \framesubtitle{Interdisciplinary case studies}
     \only<1-4>{
         \student{watkinson-headshot}{Catherine Watkinson}{Senior Data Scientist}
     }
@@ -287,18 +329,17 @@
                     \item Maximum information data acquisition strategies.
                 \end{itemize}
         \end{itemize}
-            \includegraphics[width=0.08\textwidth]{figures/headshots/catherine-watkinson.pdf}%
-            \includegraphics[width=0.08\textwidth]{figures/headshots/thomas-macaloone.pdf}%
-            \includegraphics[width=0.08\textwidth]{figures/headshots/parul-janagal.pdf}%
-            \includegraphics[width=0.08\textwidth]{figures/headshots/angus-peters.pdf}%
-            \includegraphics[width=0.08\textwidth]{figures/headshots/tamas-stenzel.pdf}%
-            \includegraphics[width=0.08\textwidth]{figures/headshots/david-yallup.pdf}%
-            \includegraphics[width=0.08\textwidth]{figures/headshots/rebecca-handley.pdf}%
-            \includegraphics[width=0.08\textwidth]{figures/headshots/adam-ormondroyd.pdf}%
-            \includegraphics[width=0.08\textwidth]{figures/headshots/mike-hobson.pdf}%
-            \includegraphics[width=0.08\textwidth]{figures/headshots/anthony-lasenby.pdf}%
-            \includegraphics[width=0.08\textwidth]{figures/headshots/mike-handley.pdf}%
-            \includegraphics[width=0.08\textwidth]{figures/headshots/will-handley.pdf}%
+        \includegraphics[width=0.08\textwidth]{figures/headshots/catherine-watkinson-polychord.jpg}%
+        \includegraphics[width=0.08\textwidth]{figures/headshots/thomas-macaloone-polychord.jpg}%
+        \includegraphics[width=0.08\textwidth]{figures/headshots/angus-peters-polychord.jpg}%
+        \includegraphics[width=0.08\textwidth]{figures/headshots/tamas-stenzel-polychord.jpg}%
+        \includegraphics[width=0.08\textwidth]{figures/headshots/david-yallup-polychord.jpg}%
+        \includegraphics[width=0.08\textwidth]{figures/headshots/rebecca-handley-polychord.jpg}%
+        \includegraphics[width=0.08\textwidth]{figures/headshots/adam-ormondroyd-polychord.jpg}%
+        \includegraphics[width=0.08\textwidth]{figures/headshots/mike-hobson-polychord.jpg}%
+        \includegraphics[width=0.08\textwidth]{figures/headshots/anthony-lasenby-polychord.jpg}%
+        \includegraphics[width=0.08\textwidth]{figures/headshots/mike-handley-polychord.jpg}%
+        \includegraphics[width=0.08\textwidth]{figures/headshots/will-handley-polychord.jpg}%
         \column{0.4\textwidth}
         \includegraphics<1|handout:0>[width=\textwidth]{figures/protein_1.png}%
         \includegraphics<2          >[width=\textwidth]{figures/protein_2.png}%
@@ -316,9 +357,119 @@
 
 
 \begin{frame}
-    \frametitle{DSTL: }
+    \frametitle{DSTL: Bayesian OODA loops}
     \framesubtitle{Interdisciplinary case studies}
-    Bayesian OODA loops
+    \begin{columns}
+        \column{0.5\textwidth}
+        \begin{itemize}
+            \item Work th through Isaac Newton Institute with Defense Science \& Technology Laboratory.
+            \item Quantification of ``OODA'' loop concept from litigation, business, law enforcement, management and military strategy
+        \end{itemize}
+
+
+        \begin{columns}
+            \column{0.5\textwidth}
+            \includegraphics[width=\textwidth]{figures/midas.png}%
+            \column{0.5\textwidth}
+            \begin{itemize}
+                \item Two-way research interaction between government and academia.
+                \item techniques now being used in REACH antenna design~\arxiv{2309.06942}
+            \end{itemize}
+        \end{columns}
+
+
+        \column{0.5\textwidth}
+        \begin{minipage}[]{0.6\textwidth}
+            \begin{tikzpicture}[
+                    node distance=5mm,
+                    >=stealth, auto,
+                    every state/.style={
+                        rectangle, rounded corners, minimum height=6em, minimum width=2em,
+                        text width=3cm, align=center
+                    }
+                ]
+
+
+                \node[state, fill=C3!20] (q14) {{\textbf{Act}}
+                    \\ 
+                    \small
+                    Execute strategy $\bm{s}$\\
+                    Replace prior $\pi$ with posterior $\mathcal{P}$
+                };
+                \node[state, fill=C0!20] (q12) [above=of q14] { {\textbf{Observe}} 
+                    \\
+                    \small
+                    Collect data $\bm{D}$ about system $\bm{\theta}$ using strategy $\bm{s}$.
+                };
+                \node[state, fill=C1!20] (q23) [right=of q12] { {\textbf{Orient}} 
+                    \\
+                    \small
+                    Update knowledge from prior~$\pi(\bm{\theta})$ to posterior~$\mathcal{P}(\bm{\theta}|\bm{D})$.
+                };
+                \node[state, fill=C2!20] (q34) [below=of q23] { {\textbf{Decide}} 
+                    \\
+                    \small
+                    choose strategy $\bm{s}$ using information $\hat{\mathcal{D}}_\mathrm{KL}(\bm{s}|\mathcal{P})$.
+                };
+                \begin{scope}[bend left]%
+                    \path[thick,-{Latex[width=2mm]}]   (q14.north) edge node {} (q12.south)
+                    (q12.east) edge node {} (q23.west)
+                    (q23.south) edge node {} (q34.north)
+                    (q34.west) edge node {} (q14.east);
+                \end{scope}
+
+                \node[align=center] (e) at (barycentric cs:q12=1,q23=1,q34=1,q14=1) {\Large\textbf{MIDAS}};
+
+            \end{tikzpicture}
+        \end{minipage}%
+    \end{columns}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Beginning the golden age of astronomy data}
+    \begin{columns}
+        \column{0.45\textwidth}
+        \begin{itemize}
+            \item Over our research lifetimes we will see next-generation data rates across the electromagnetic spectrum \& beyond:
+                \begin{description}
+                    \item[Radio] SKA \textit{et al}
+                    \item[Micro] SO/CMB-S4
+                    \item[IR] JWST, Roman (WFIRST)
+                    \item[Optical] Euclid, DESI, Rubin (LSST), EELT
+                    \item[X-ray] Athena
+                    \item[Gamma-ray] e-ASTROGAM
+                    \item[Gravitational] LIGO/Virgo/Kagra + LISA
+                    \item[Particle] CTA, IceCube, KM3NeT
+                \end{description}
+        \end{itemize}
+        \column{0.55\textwidth}
+
+        \includegraphics[height=0.145\textwidth]{figures/telescopes/jwst.png}%
+        \includegraphics[height=0.145\textwidth]{figures/telescopes/roman.jpg}%
+        \includegraphics[height=0.145\textwidth]{figures/telescopes/euclid.jpeg}%
+        \includegraphics[height=0.145\textwidth]{figures/telescopes/athena.jpg}%
+        \includegraphics[height=0.145\textwidth]{figures/telescopes/lisa.jpg}%
+        \includegraphics[height=0.145\textwidth]{figures/telescopes/e-ASTROGAM.pdf}%
+        \vspace{-1pt}
+
+        \includegraphics[height=0.15183\textwidth]{figures/telescopes/desi.jpg}%
+        \includegraphics[height=0.15183\textwidth]{figures/telescopes/eelt.jpg}%
+        \includegraphics[height=0.15183\textwidth]{figures/telescopes/ska.jpg}%
+        \includegraphics[height=0.15183\textwidth]{figures/telescopes/SO.jpg}%
+        \vspace{-1pt}
+
+        \includegraphics[height=0.18428\textwidth]{figures/telescopes/ligo.jpg}%
+        \includegraphics[height=0.18428\textwidth]{figures/telescopes/km3n.jpg}%
+        \includegraphics[height=0.18428\textwidth]{figures/telescopes/icecube.jpg}%
+        \includegraphics[height=0.18428\textwidth]{figures/telescopes/CTA.jpg}%
+
+        \begin{itemize}
+            \item We are moving from an age of \textbf{precision} cosmology to \textbf{accurate} cosmology.
+            \item \textbf{Systematics} $\gtrsim$ \textbf{statistics}.
+            \item Tools risk lagging behind hardware
+        \end{itemize}
+
+    \end{columns}
 \end{frame}
 
 \begin{frame}
@@ -378,10 +529,23 @@
 \end{frame}
 
 \begin{frame}
-    \frametitle{ERC grant: COSMOTENSION}
+    \frametitle{ERC grant: COSMOTENSION \hspace{95pt}\small \texttt{\tthref{willhandley.co.uk/ERC.pdf}}}
     \framesubtitle{Resolving cosmological tensions with diverse data, novel theories and Bayesian machine learning}
 
-    \texttt{\tthref{willhandley.co.uk/ERC.pdf}}
+    \begin{columns}
+        \column{0.6\textwidth}
+        \begin{itemize}
+            \item ERC starting grant $\Rightarrow$ UKRI Frontier, commencing October 2024.
+            \item Funds 3 PDRAs and 4 PhDs over 5 years.
+            \item Research programme centered around combining novel theories of gravity, Boltzmann solvers~\arxiv{1906.01421}, reconstruction~\arxiv{1908.00906}, nested sampling \& likelihood free inference.
+            \item Aims to disentangle cosmological tensions $H_0$, $\sigma_8$, $\Omega_K$ with next-generation data analysis techniques.
+        \end{itemize}
+        \column{0.4\textwidth}
+        \includegraphics[width=\textwidth]{figures/denseoutput.pdf}
+        \includegraphics[width=\textwidth]{figures/pps.pdf}
+        \includegraphics[width=\textwidth]{figures/gantt.pdf}
+    \end{columns}
+
 \end{frame}
 
 \begin{frame}
