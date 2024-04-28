@@ -50,7 +50,7 @@
     \end{columns}
 
     \begin{itemize}
-        \item We have spent the last 5 years hairsplitting ``parkable'' tensions.
+        \item We have spent the last 5 years hair-splitting ``parkable'' tensions.
         \item The next 25 years of data confront the real tensions in our understanding of the Universe.
         \item I aim to show how my research programme is preparing us for this interdisciplinary challenge.
     \end{itemize}
@@ -120,7 +120,7 @@
         This talk will focus on my interdisciplinary work, but I have theoretical interests in:
         \begin{itemize}
             \item Quantum fields in curved spacetime \\\hfill {\small (Mary Letey, Zak Shumaylov, Fruzsina Agocs)}
-            \item Poincare Gauge Theory \\\hfill {\small (Sinah Legner, Will Barker)}
+            \item Poincar\'{e} Gauge Theory \\\hfill {\small (Sinah Legner, Will Barker)}
             \item Future conformal boundary/CPT universes \\\hfill {\small (Metha Prathaban, Wei-Ning Deng)}
             \item Curved finite inflation \hfill {\small (Lukas Hergt)}
         \end{itemize}
@@ -205,14 +205,14 @@
                 \end{itemize}
             \item \texttt{FlexKnots}
                 \begin{itemize}
-                    \item importing ideas from inflationary reconstrution into reionisation \arxiv{2310.05608}(Heimersheim) \& ionospheric reconstruction \arxiv{2311.14537}(Shen).
+                    \item importing ideas from inflationary reconstruction into reionisation \arxiv{2310.05608}(Heimersheim) \& ionospheric reconstruction \arxiv{2311.14537}(Shen).
                 \end{itemize}
             \item \texttt{margarine} \arxiv{2205.12841} \arxiv{2207.11457}
                 \begin{itemize}
                     \item combination of ideas from interdisciplinary fields (emulators, nested sampling, marginal density estimation)
                 \end{itemize}
         \end{itemize}
-        These techniques are now widely used beyond the cambridge 21cm community.
+        These techniques are now widely used beyond the Cambridge 21cm community.
         
         \column{0.4\textwidth}
         \begin{overpic}[height=0.45\textwidth]{figures/maxsmooth_1.pdf}
@@ -228,8 +228,7 @@
 \end{frame}
 
 \begin{frame}
-    \frametitle{REACH: Global 21cm cosmology {\small \arxiv{2210.07409}(NatAstro)}}
-    \student{ian_roque}{Ian Roque}{PhD}
+    \frametitle{REACH: Global 21cm cosmology {\small \arxiv{2210.07409}}}
     \vspace{10pt}
     \begin{columns}
         \column{0.65\textwidth}
@@ -258,10 +257,10 @@
     \begin{columns}
         \column{0.5\textwidth}
         \begin{itemize}
-            \item General usage within GW community 
-            \item Alvin Chua \& Chris Moore~\arxiv{1803.10210}
-            \item Metha Prathaban~\arxiv{2404.16428}
-            \item Covered use of \texttt{margarine}~\arxiv{2207.11457} as alternative to GW hierarchical modelling at inaugural data science discussion group
+            \item Nested sampling has been used in GW since the beginning [\textcolor{C0}{\href{https://arxiv.org/abs/1602.03840}{GW150914}}]
+            \item Work with Alvin Chua \& Chris Moore on transdimensional sampling for EMRI~\arxiv{1803.10210}
+            \item Recent work with Metha Prathaban showing new chain-based approaches for improving precision~\arxiv{2404.16428}
+            \item Discussed use of \texttt{margarine}~\arxiv{2207.11457} as alternative to GW hierarchical modelling at inaugural data science discussion group
         \end{itemize}
         \column{0.5\textwidth}
         \includegraphics[width=0.49\textwidth]{figures/ligo_m1_m2.pdf}%
@@ -318,7 +317,7 @@
                 \begin{itemize}
                     \item Collider data (e.g. LHC)
                     \item Direct detections (e.g. XENON1T)
-                    \item Cosmology (MontePython)
+                    \item Cosmology (\texttt{MontePython})
                     \item Astrophysics (e.g. Bullet Cluster, Supernovae)
                     \item Pulsar timing
                     \item \ldots \& much more
@@ -428,7 +427,7 @@
     \begin{columns}
         \column{0.5\textwidth}
         \begin{itemize}
-            \item Work through Isaac Newton Institute with Defense Science \& Technology Laboratory.
+            \item Work through Isaac Newton Institute with Defence Science \& Technology Laboratory.
             \item Quantification of ``OODA'' loop concept from litigation, business, law enforcement, management and military strategy
         \end{itemize}
 
@@ -541,57 +540,101 @@
 \begin{frame}
     \frametitle{Tensions in cosmology}
     \begin{columns}
-        \column{0.31\textwidth}
-        \begin{block}{Hubble tension}
-            <+Content+>
+        \column{0.38\textwidth}
+        \begin{block}{Hubble}
+            \begin{overpic}[width=\textwidth]{figures/hubble_tension.pdf}
+                \put(72,37) {\tiny \arxiv{1907.05922}}
+            \end{overpic}
         \end{block}
-        \column{0.31\textwidth}
-        \begin{block}{Weak lensing tension}
-            <+Content+>
+        \column{0.17\textwidth}
+        \begin{block}{Weak lensing}
+            \begin{overpic}[width=\textwidth]{figures/kids_tension.pdf}
+                \put(13,18) {\tiny \arxiv{2007.15632}}
+            \end{overpic}%
         \end{block}
-        \column{0.31\textwidth}
-        \begin{block}{$w_0$/$\Omega_K$/$\nu$}
-            <+Content+>
+        \column{0.36\textwidth}
+        \begin{block}{\hfill other $w_0$/$\Omega_K$/$\nu$?}
+            \begin{overpic}[width=0.48\textwidth]{figures/desi_tension.pdf}
+                \put(0,90) {\tiny \arxiv{2404.03002}}
+            \end{overpic}%
+            \begin{overpic}[width=0.48\textwidth]{figures/curvature_3.pdf}
+                \put(54,20) {\tiny \arxiv{1908.09139}}
+            \end{overpic}%
         \end{block}
     \end{columns}
 
-    In order to disentangle systematics from statistics we need a new theory of data analysis
-
-    Whilst we are all waiting for a new theory of the universe, we must also be prepared for the possibility that it at the largest scales $\Lambda$CDM really is the correcty phenomenological description.
-
-    The redshift frontier of gravitational waves, 21cm SKA, and observations from the moon are what will really challenge our astronomical understanding.
+    \vspace{20pt}
+    \begin{itemize}
+        \item Tensions of debatable significance have been plaguing cosmology for the past five years
+        \item Independent of veracity, they have revealed a gap in the armour of modern data analysis.
+        \item Likelihood-based methods have assume a fiducial cosmology. 
+        \item This will cast greater doubt on the robustness of our conclusions from stage 4 surveys.
+    \end{itemize}
 
 \end{frame}
 
 \begin{frame}
-    \frametitle{The real tension in the room}
+    \frametitle{The real tensions in the room}
+
 
     \begin{columns}
-        \column{0.31\textwidth}
+        \column{0.34\textwidth}
         \begin{block}{Dark tension}
-            <+Content+>
+            \includegraphics[width=\textwidth]{figures/pie_chart.jpg}
         \end{block}
-        \column{0.31\textwidth}
+        \column{0.26\textwidth}
         \begin{block}{Initial conditions}
-            <+Content+>
+            \includegraphics[width=\textwidth]{figures/multiverse.jpg}
         \end{block}
-        \column{0.31\textwidth}
+        \column{0.32\textwidth}
         \begin{block}{Quantum gravity}
-            <+Content+>
+            \includegraphics[width=\textwidth]{figures/quantum_gravity.jpeg}
         \end{block}
+    \end{columns}
+    \begin{columns}
+        \column{0.6\textwidth}
+        \begin{itemize}
+            \item These are existential questions that don't go away if $\Lambda$CDM is phenomenologically correct\ldots
+            \item \ldots and if it is, we will need an interdisciplinary approach that goes far beyond cosmology (using astronomy, collider \& experimental physics).
+        \end{itemize}
+        \column{0.4\textwidth}
+        \begin{itemize}
+            \item The GW redshift frontier, time domain astronomy \& 21cm SKA will be the key tools for challenging our astronomical understanding.
+        \end{itemize}
     \end{columns}
 \end{frame}
 
 \begin{frame}
     \frametitle{The future: simulation-based inference}
+    \student{kilian_scheutwinkel}{Kilian Scheutwinkel}{PhD}
+    \begin{itemize}
+        \item Traditional Likelihood-based inference (LBI) requires knowledge of the likelihood $P(D|\theta)$
+            \begin{itemize}
+                \item For the CMB, it is possible to compute Probability(Sky$|\Lambda$CDM) [with caveats]
+                \item For almost everybody else (different models, more evolved systems), the likelihood is approximate
+            \end{itemize}
+        \item Simulation-based inference learns the likelihood from physical simulations $\theta\to D$.
+    \end{itemize}
+    \begin{columns}
+        \column{0.75\textwidth}
+        \begin{itemize}
+            \item Can extract nonlinear information from data
+            \item Users do not need to know advanced statistics
+                \begin{itemize}
+                    \item For this reason alone, it will come to dominate the next generation, so it is imperative to build a principled understanding!
+                \end{itemize}
+            \item The current state of the art is achieved with \textit{Neural}~estimation
+            \item My interest has been in understanding how essential machine learning is by building analytics \tthref{github.com/handley-lab/lsbi}
+            \item Have also made progress on the first simulation-based nested sampler \texttt{PolySwyft}~\arxiv{2403.02314} (presenting at EuCAIFCon)
+        \end{itemize}
+        \column{0.25\textwidth}
+    \begin{overpic}[width=\textwidth]{figures/des_sbi.pdf}
+    \put(65,80) {\tiny \arxiv{2403.02314}}
+    \put(65,73) {\tiny (Jeffrey et DES)}
+    \end{overpic}
+        
+    \end{columns}
 
-    This will be how everybody does it (evolutionary principles)
-
-    We should ask ourselves why most people don't use LBI
-
-    re-emphasise analytical work in the context of frontiers of data analysis
-
-    PolySwyft \& LSBI
 \end{frame}
 
 \begin{frame}
@@ -603,7 +646,7 @@
         \begin{itemize}
             \item ERC starting grant $\Rightarrow$ UKRI Frontier, commencing October 2024.
             \item Funds 3 PDRAs and 4 PhDs over 5 years.
-            \item Research programme centered around combining novel theories of gravity, Boltzmann solvers~\arxiv{1906.01421}, reconstruction~\arxiv{1908.00906}, nested sampling \& likelihood free inference.
+            \item Research programme centered around combining novel theories of gravity, Boltzmann solvers~\arxiv{1906.01421}, reconstruction~\arxiv{1908.00906}, nested sampling \& simulation-based inference (n\'{e}e LFI).
             \item Aims to disentangle cosmological tensions $H_0$, $\sigma_8$, $\Omega_K$ with next-generation data analysis techniques.
         \end{itemize}
         \column{0.4\textwidth}
@@ -617,10 +660,19 @@
 \begin{frame}
     \frametitle{Conclusions}
     \framesubtitle{\tthref{github.com/handley-lab}}
-    %TODO
-    Images of DiRAC, ERC, URF and PCLtd for resources at my disposal
+    \begin{itemize}
+        \item The astronomy challenges of our generation are interdisciplinary.
+        \item Interdisciplinary approaches are two-way streets for innovation.
+        \item Simulation-based inference represents the frontier of how we will all be doing data analysis.
+        \item Our research programme at the interface between theory, observation and inference is well-placed to explore the interdisciplinary frontier.
+    \end{itemize}
+    \vspace{10pt}
 
-    Interdisciplinarity of theory, observation and inference
+    \includegraphics[height=0.09\textwidth]{logos/dirac.png}%
+    \includegraphics[height=0.09\textwidth]{logos/ukerc}
+    \includegraphics[height=0.09\textwidth]{logos/ukri}
+    \includegraphics[height=0.09\textwidth]{logos/royalsociety}
+    \includegraphics[height=0.09\textwidth]{logos/polychord}
 
     \tikz[overlay,remember picture]
     \node[anchor=north east] (A) at ($(current page.north east)+(0,0)$) {
