@@ -71,21 +71,32 @@
     \frametitle{\textit{Planck}: Inflation \& primordial power spectrum}
     \begin{columns}
         \column{0.5\textwidth}
+        \vspace{-5pt}
         \begin{itemize}
             \item Began theoretical PhD in 2012 investigating initial conditions for inflation.
             \item Joined Planck inflation team, working on Bayesian model fitting alongside theory.
             \item Found I enjoyed the observation \& inference as much as the theory.
             \item \texttt{FlexKnots} were used to reconstruct the primordial power spectrum, inflationary potential \& reionisation history (now used by Fialkov group)~\arxiv{1908.00906}.
             \item \texttt{PolyChord} developed for model comparison, particularly axion monodromy.
+                \begin{itemize}
+                    \item Now used widely within cosmology (DES, DESI, CMB) and beyond (exoplanets, GW, galaxies, 21cm, \ldots ) [\textcolor{C0}{\texttt{\href{https://ui.adsabs.harvard.edu/abs/2015MNRAS.453.4384H/citations}{ADS}}}]
+                \end{itemize}
         \end{itemize}
 
         \column{0.5\textwidth}
-        \includegraphics[height=0.4\textwidth]{figures/kinetic_dominance.pdf}%
-        \includegraphics[height=0.4\textwidth]{figures/axion_monodromy.pdf}
+        \begin{overpic}[height=0.4\textwidth]{figures/kinetic_dominance.pdf}%
+                \put(68,-2) {\tiny \arxiv{1809.07185}}
+        \end{overpic}
+        \begin{overpic}[height=0.4\textwidth]{figures/axion_monodromy.pdf}
+                \put(70,0) {\tiny \arxiv{1502.02114}}
+        \end{overpic}
 
 
-        \includegraphics[height=0.4\textwidth]{figures/flexknots.pdf}%
-        \includegraphics[height=0.4\textwidth]{figures/pps_planck.pdf}
+        \begin{overpic}[height=0.4\textwidth]{figures/flexknots.pdf}%
+        \end{overpic}
+        \begin{overpic}[height=0.4\textwidth]{figures/pps_planck.pdf}
+                \put(70,0) {\tiny \arxiv{1908.00906}}
+        \end{overpic}
 
 
     \end{columns}
@@ -626,6 +637,7 @@
 \begin{frame}
     \frametitle{The future: simulation-based inference}
     \student{kilian_scheutwinkel}{Kilian Scheutwinkel}{PhD}
+    \vspace{5pt}
     \begin{itemize}
         \item Traditional Likelihood-based inference (LBI) requires knowledge of the likelihood $P(D|\theta)$
             \begin{itemize}
@@ -635,25 +647,24 @@
         \item Simulation-based inference learns the likelihood from physical simulations $\theta\to D$.
     \end{itemize}
     \begin{columns}
-        \column{0.75\textwidth}
+        \column{0.65\textwidth}
         \begin{itemize}
-            \item Can extract nonlinear information from data
+            \item Can extract nonlinear information from data.
+            \item Do not need to assume a fiducial model, since data covariance is implicit in simulations.
             \item Users do not need to know advanced statistics
                 \begin{itemize}
-                    \item For this reason alone, it will come to dominate the next generation, so it is imperative to build a principled understanding!
+                    \item For this reason alone, it will come to dominate the next generation $\Rightarrow$ imperative to build a principled understanding!
                 \end{itemize}
-            \item The current state of the art is achieved with \textit{Neural}~estimation
+            %\item The current state of the art is achieved with \textit{Neural}~estimation
             \item My interest has been in understanding how essential machine learning is by building analytics \tthref{github.com/handley-lab/lsbi}
-            \item Have also made progress on the first simulation-based nested sampler \texttt{PolySwyft}~\arxiv{2403.02314} (presenting at EuCAIFCon)
+            \item Have also made progress on the first simulation-based nested sampler \texttt{PolySwyft} (presenting at EuCAIFCon)
         \end{itemize}
-        \column{0.25\textwidth}
+        \column{0.35\textwidth}
         \begin{overpic}[width=\textwidth]{figures/des_sbi.pdf}
             \put(65,80) {\tiny \arxiv{2403.02314}}
             \put(65,73) {\tiny (Jeffrey et DES)}
         \end{overpic}
-
     \end{columns}
-
 \end{frame}
 
 \begin{frame}
