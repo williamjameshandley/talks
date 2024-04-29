@@ -32,28 +32,38 @@
     \begin{itemize}
         \item Across astronomy, combining data and disciplines will be the key to the next breakthroughs.
     \end{itemize}
-    \begin{columns}
-        \column{0.31\textwidth}
-        \begin{block}{CMB+BAO}
-            \includegraphics[width=\textwidth]{figures/desi_w_constraints.pdf}
-        \end{block}
-        \column{0.29\textwidth}
+    \vspace{-15pt}
+    \begin{columns}[t]
+        \column{0.72\textwidth}
+        \begin{columns}
+            \column{0.4\textwidth}
+            \begin{block}{CMB+BAO}
+                \begin{overpic}[width=\textwidth]{figures/desi_w_constraints.pdf} 
+                    \put(70,15) {\tiny \arxiv{2404.03002}}
+                \end{overpic}
+            \end{block}
+            \column{0.5\textwidth}
+            \begin{block}{HEP+Astro}
+                \begin{overpic}[width=\textwidth]{figures/cosmoalp.pdf}
+                    \put(15,12) {\tiny \arxiv{2205.13549}}
+                \end{overpic}
+            \end{block}
+        \end{columns}
+        \begin{itemize}
+            \item We have spent the last 5 years hair-splitting ``parkable'' tensions.
+            \item The next 25 years of data confront the real tensions in our understanding of the Universe.
+        \end{itemize}
+        \column{0.25\textwidth}
         \begin{block}{GW170817}
-            \includegraphics[width=\textwidth]{figures/mma_1.pdf}
-        \end{block}
-        \column{0.33\textwidth}
-        \begin{block}{HEP+Astro}
-            \includegraphics[width=\textwidth]{figures/cosmoalp.pdf}
-
-            \hfill\arxiv{2205.13549}
+            \begin{overpic}[width=\textwidth]{figures/mma_2.pdf}
+                \put(50,103) {\tiny \arxiv{1710.05833}}
+            \end{overpic}
         \end{block}
     \end{columns}
-
     \begin{itemize}
-        \item We have spent the last 5 years hair-splitting ``parkable'' tensions.
-        \item The next 25 years of data confront the real tensions in our understanding of the Universe.
         \item I aim to show how my research programme is preparing us for this interdisciplinary challenge.
     \end{itemize}
+
 
 \end{frame}
 
@@ -213,7 +223,7 @@
                 \end{itemize}
         \end{itemize}
         These techniques are now widely used beyond the Cambridge 21cm community.
-        
+
         \column{0.4\textwidth}
         \begin{overpic}[height=0.45\textwidth]{figures/maxsmooth_1.pdf}
             \put(0,0) {\tiny \arxiv{2007.14970}}
@@ -221,9 +231,9 @@
         \includegraphics[height=0.45\textwidth]{figures/maxsmooth_2.pdf}
         \vspace{5pt}
 
-         \begin{overpic}[width=\textwidth]{figures/margarine_data.pdf}
+        \begin{overpic}[width=\textwidth]{figures/margarine_data.pdf}
             \put(0,0) {\tiny \arxiv{2301.03298}}
-         \end{overpic}
+        \end{overpic}
     \end{columns}
 \end{frame}
 
@@ -259,12 +269,11 @@
         \begin{itemize}
             \item Nested sampling has been used in GW since the beginning [\textcolor{C0}{\href{https://arxiv.org/abs/1602.03840}{GW150914}}]
             \item Work with Alvin Chua \& Chris Moore on transdimensional sampling for EMRI~\arxiv{1803.10210}
-            \item Recent work with Metha Prathaban showing new chain-based approaches for improving precision~\arxiv{2404.16428}
-        \includegraphics[width=\textwidth]{figures/gw_chua.pdf}
+            \item Recent work with Metha Prathaban showing new chain-based approaches for improving precision \arxiv{2404.16428}
 
-
-        \vspace{8pt}
-        \includegraphics[width=\textwidth]{figures/gw_prathaban.pdf}
+                \includegraphics[width=\textwidth]{figures/gw_chua.pdf}
+                \vspace{8pt}
+                \includegraphics[width=\textwidth]{figures/gw_prathaban.pdf}
         \end{itemize}
         \column{0.5\textwidth}
         \includegraphics[width=0.49\textwidth]{figures/ligo_m1_m2.pdf}%
@@ -426,7 +435,6 @@
     \end{columns}
 \end{frame}
 
-
 \begin{frame}
     \frametitle{DSTL: Bayesian OODA loops}
     \framesubtitle{Interdisciplinary case studies}
@@ -499,17 +507,17 @@
 \begin{frame}
     \frametitle{Beginning the golden age of astronomy data}
     \begin{columns}
-        \column{0.45\textwidth}
+        \column{0.47\textwidth}
         \begin{itemize}
             \item Over our research lifetimes we will see next-generation data rates across the electromagnetic spectrum \& beyond:
                 \begin{description}
                     \item[Radio] SKA \textit{et al}
-                    \item[Micro] SO/CMB-S4
-                    \item[IR] JWST, Roman (WFIRST)
-                    \item[Optical] Euclid, DESI, Rubin (LSST), EELT
+                    \item[Micro] SO/CMB-S4/LiteBIRD
+                    \item[IR] JWST, Roman
+                    \item[Optical] Euclid, DESI, Rubin, EELT
                     \item[X-ray] Athena
                     \item[Gamma-ray] e-ASTROGAM
-                    \item[Gravitational] LIGO/Virgo/Kagra + LISA
+                    \item[Gravitational] LIGO/LVK$^+$/LISA
                     \item[Particle] CTA, IceCube, KM3NeT
                 \end{description}
         \end{itemize}
@@ -568,13 +576,19 @@
         \end{block}
     \end{columns}
 
-    \vspace{20pt}
-    \begin{itemize}
-        \item Tensions have been appearing in cosmology over the last five years.
-        \item Though their significance may be debatable, they have revealed a gap in the armour of modern data analysis.
-        \item Likelihood-based methods have to pragmatically assume a fiducial cosmology. 
-        \item This will cast greater doubt on the robustness of our conclusions from stage 4 surveys.
-    \end{itemize}
+    \begin{columns}
+        \column{0.75\textwidth}
+        \begin{itemize}
+            \item Tensions have been appearing in cosmology over the last five years.
+            \item Though their significance may be debatable, they have revealed a gap in the armour of modern data analysis.
+            \item Likelihood-based methods have to assume a fiducial cosmology. 
+            \item This will cast greater doubt on the robustness of our conclusions from stage 4 surveys and beyond.
+        \end{itemize}
+        \column{0.25\textwidth}
+        \begin{block}{\tiny DESI BAO paper: \arxiv{2404.03000}}
+            \includegraphics[width=\textwidth]{figures/desi_fiducial.pdf}
+        \end{block}
+    \end{columns}
 
 \end{frame}
 
@@ -633,11 +647,11 @@
             \item Have also made progress on the first simulation-based nested sampler \texttt{PolySwyft}~\arxiv{2403.02314} (presenting at EuCAIFCon)
         \end{itemize}
         \column{0.25\textwidth}
-    \begin{overpic}[width=\textwidth]{figures/des_sbi.pdf}
-    \put(65,80) {\tiny \arxiv{2403.02314}}
-    \put(65,73) {\tiny (Jeffrey et DES)}
-    \end{overpic}
-        
+        \begin{overpic}[width=\textwidth]{figures/des_sbi.pdf}
+            \put(65,80) {\tiny \arxiv{2403.02314}}
+            \put(65,73) {\tiny (Jeffrey et DES)}
+        \end{overpic}
+
     \end{columns}
 
 \end{frame}
@@ -667,21 +681,21 @@
     \framesubtitle{\tthref{github.com/handley-lab}}
     \begin{columns}
         \column{0.6\textwidth}
-    \begin{itemize}
-        \item The astronomy challenges of our generation are interdisciplinary.
-        \item Interdisciplinary approaches are two-way streets for innovation.
-        \item Simulation-based inference represents the frontier of how we will all be doing data analysis.
-        \item Our research programme at the interface between theory, observation and inference is well-placed to explore the interdisciplinary frontier.
-    \end{itemize}
-        
-        \column{0.4\textwidth}
-    \includegraphics[height=0.32\textwidth]{logos/ukri}\hfill
-    \includegraphics[height=0.32\textwidth]{logos/ukerc}\hfill
-    \includegraphics[height=0.32\textwidth]{logos/royalsociety}
+        \begin{itemize}
+            \item The astronomy challenges of our generation are interdisciplinary.
+            \item Interdisciplinary approaches are two-way streets for innovation.
+            \item Simulation-based inference represents the frontier of how we will all be doing data analysis.
+            \item Our research programme at the interface between theory, observation and inference is well-placed to explore the interdisciplinary frontier.
+        \end{itemize}
 
-    \centerline{
-        \includegraphics[width=0.8\textwidth]{logos/dirac.png}%
-    }
+        \column{0.4\textwidth}
+        \includegraphics[height=0.32\textwidth]{logos/ukri}\hfill
+        \includegraphics[height=0.32\textwidth]{logos/ukerc}\hfill
+        \includegraphics[height=0.32\textwidth]{logos/royalsociety}
+
+        \centerline{
+            \includegraphics[width=0.8\textwidth]{logos/dirac.png}%
+        }
     \end{columns}
     \vspace{10pt}
 
