@@ -109,42 +109,32 @@
         \only<1>{
         \begin{tikzpicture}[node distance=1cm, every neuron/.style={circle, draw, minimum size=1cm},]
 
-            \node[every neuron/.try] (logr) { $\ln r$};
-            \node[every neuron/.try, left= 0.5cm of logr] (p) { $p$};
+            \node[every neuron/.try] (j2)  {};
+            \node[every neuron/.try, above left = 0cm and 0.5cm of j2] (theta) { $\theta$};
+            \node[every neuron/.try, below left = 0cm and 0.5cm of j2] (D) { $D$};
+            \node[every neuron/.try, above = 0.5cm of j2] (j1) {};
+            \node[every neuron/.try, below = 0.5cm of j2] (j3) {};
+            \node[every neuron/.try, above right = 0cm and 0.5cm of j2] (h1) {};
+            \node[every neuron/.try, below right = 0cm and 0.5cm of j2] (h2) {};
+            \node[every neuron/.try, right = 1.3cm of j2] (p) { $p$};
+            \node[every neuron/.try, right = 0.5cm of p] (logr) { $logr$};
 
-            \node[left of=p] (hgap)  {\vdots};
-            \node[every neuron/.try, above of=hgap] (h1) {};
-            \node[every neuron/.try, below of=hgap] (hk)  {};
+            \draw[-] (theta) -- (j1);
+            \draw[-] (D) -- (j1);
+            \draw[-] (theta) -- (j2);
+            \draw[-] (D) -- (j2);
+            \draw[-] (theta) -- (j3);
+            \draw[-] (D) -- (j3);
 
-            \node[left = 1cm of hgap] (jgap)  {\vdots};
-            \node[every neuron/.try, above of=jgap] (j1) {};
-            \node[every neuron/.try, below of=jgap] (jk)  {};
-
-            \node[every neuron/.try, above left= 0cm and 1cm of jgap] (thetan)  { $\theta_n$};
-            \node[above of=thetan] (thetagap)  {\vdots};
-            \node[every neuron/.try, above of= thetagap] (theta1) { $\theta_1$};
-
-            \node[every neuron/.try, below left = 0cm and 1cm of jgap] (D1)  { $D_1$};
-            \node[below of = D1] (Dgap)  {\vdots};
-            \node[every neuron/.try, below of=Dgap] (Dd)  { $D_d$};
-
-            \draw[-] (theta1) -- (j1);
-            \draw[-] (theta1) -- (jk);
-            \draw[-] (thetan) -- (j1);
-            \draw[-] (thetan) -- (jk);
-
-            \draw[-] (D1) -- (j1);
-            \draw[-] (D1) -- (jk);
-            \draw[-] (Dd) -- (j1);
-            \draw[-] (Dd) -- (jk);
-
-            \draw[-, dashed] (j1) -- (h1);
-            \draw[-, dashed] (j1) -- (hk);
-            \draw[-, dashed] (jk) -- (h1);
-            \draw[-, dashed] (jk) -- (hk);
+            \draw[-] (j1) -- (h1);
+            \draw[-] (j1) -- (h2);
+            \draw[-] (j2) -- (h1);
+            \draw[-] (j2) -- (h2);
+            \draw[-] (j3) -- (h1);
+            \draw[-] (j3) -- (h2);
 
             \draw[-] (h1) -- (p);
-            \draw[-] (hk) -- (p);
+            \draw[-] (h2) -- (p);
 
             \draw[-] (p) -- (logr);
         \end{tikzpicture}
