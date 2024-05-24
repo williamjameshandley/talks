@@ -67,140 +67,140 @@
 
 \end{frame}
 
-\begin{frame}
-    \frametitle{\textit{Planck}: Inflation \& primordial power spectrum}
-    \begin{columns}
-        \column{0.5\textwidth}
-        \vspace{-5pt}
-        \begin{itemize}
-            \item Began theoretical PhD in 2012 investigating initial conditions for inflation.
-            \item Joined Planck inflation team, working on Bayesian model fitting alongside theory.
-            \item Found I enjoyed the observation \& inference as much as the theory.
-            \item \texttt{FlexKnots} were used to reconstruct the primordial power spectrum, inflationary potential \& reionisation history (now used by Fialkov group)~\arxiv{1908.00906}.
-            \item \texttt{PolyChord} developed for model comparison, particularly axion monodromy.
-                \begin{itemize}
-                    \item Now used widely within cosmology (DES, DESI, CMB) and beyond (exoplanets, GW, galaxies, 21cm, \ldots ) [\textcolor{C0}{\texttt{\href{https://ui.adsabs.harvard.edu/abs/2015MNRAS.453.4384H/citations}{ADS}}}]
-                \end{itemize}
-        \end{itemize}
+%\begin{frame}
+%    \frametitle{\textit{Planck}: Inflation \& primordial power spectrum}
+%    \begin{columns}
+%        \column{0.5\textwidth}
+%        \vspace{-5pt}
+%        \begin{itemize}
+%            \item Began theoretical PhD in 2012 investigating initial conditions for inflation.
+%            \item Joined Planck inflation team, working on Bayesian model fitting alongside theory.
+%            \item Found I enjoyed the observation \& inference as much as the theory.
+%            \item \texttt{FlexKnots} were used to reconstruct the primordial power spectrum, inflationary potential \& reionisation history (now used by Fialkov group)~\arxiv{1908.00906}.
+%            \item \texttt{PolyChord} developed for model comparison, particularly axion monodromy.
+%                \begin{itemize}
+%                    \item Now used widely within cosmology (DES, DESI, CMB) and beyond (exoplanets, GW, galaxies, 21cm, \ldots ) [\textcolor{C0}{\texttt{\href{https://ui.adsabs.harvard.edu/abs/2015MNRAS.453.4384H/citations}{ADS}}}]
+%                \end{itemize}
+%        \end{itemize}
+%
+%        \column{0.5\textwidth}
+%        \begin{overpic}[height=0.4\textwidth]{figures/kinetic_dominance.pdf}%
+%                \put(68,-2) {\tiny \arxiv{1809.07185}}
+%        \end{overpic}
+%        \begin{overpic}[height=0.4\textwidth]{figures/axion_monodromy.pdf}
+%                \put(70,0) {\tiny \arxiv{1502.02114}}
+%        \end{overpic}
+%
+%
+%        \begin{overpic}[height=0.4\textwidth]{figures/flexknots.pdf}%
+%        \end{overpic}
+%        \begin{overpic}[height=0.4\textwidth]{figures/pps_planck.pdf}
+%                \put(70,0) {\tiny \arxiv{1908.00906}}
+%        \end{overpic}
+%
+%
+%    \end{columns}
+%\end{frame}
 
-        \column{0.5\textwidth}
-        \begin{overpic}[height=0.4\textwidth]{figures/kinetic_dominance.pdf}%
-                \put(68,-2) {\tiny \arxiv{1809.07185}}
-        \end{overpic}
-        \begin{overpic}[height=0.4\textwidth]{figures/axion_monodromy.pdf}
-                \put(70,0) {\tiny \arxiv{1502.02114}}
-        \end{overpic}
+%\begin{frame}
+%    \frametitle{Analytic innovation: from \texttt{MultiNest} to \texttt{PolyChord}}
+%    \begin{columns}
+%        \column{0.66\textwidth}
+%        \begin{itemize}
+%            \item \texttt{MultiNest}~\arxiv{0809.3437} was the leading Bayesian numerical model comparison tool in 2013.
+%                \begin{itemize}
+%                    \item A general purpose \& performant implementation of John Skilling's nested sampling meta-algorithm.
+%                    \item Remains the leader of the pack in $n\sim\mathcal{O}(10)$ parameter fits.
+%                    \item Careful testing in \textit{Planck} showed that it couldn't handle the many fast-slow nuisance parameters needed for systematics .
+%                \end{itemize}
+%            \item I analytically developed and numerically implemented \texttt{PolyChord}, which has polynomial scaling efficiency $f_{\texttt{PC}}\sim \frac{1}{n}$ with model parameters (c.f.\ exponential $f_{\texttt{MN}}\sim e^{-n/n_0}$).
+%            \item Exemplifies theoretical innovation \& numerical implementation driven by astrophysical challenges.
+%        \end{itemize}
+%        \texttt{PolyChord} inspired a new generation of nested samplers (\texttt{dynesty}, \texttt{UltraNest}, \texttt{nessai}\ldots), but remains the state of the art in high-dimensional model comparison.
+%        \column{0.33\textwidth}
+%        \vspace{-10pt}
+%        %\includegraphics[width=\textwidth,page=14]{figures/himmelblau.pdf}%
+%        \begin{block}{\texttt{MultiNest}~\arxiv{0809.3437}}
+%            \includegraphics[width=\textwidth]{figures/multinest.pdf}
+%        \end{block}%
+%        \vspace{-5pt}
+%        \begin{block}{\texttt{PolyChord}~\arxiv{1506.00171}}
+%            \includegraphics[width=\textwidth]{figures/polychord.png}
+%        \end{block}
+%
+%
+%
+%    \end{columns}
+%\end{frame}
 
-
-        \begin{overpic}[height=0.4\textwidth]{figures/flexknots.pdf}%
-        \end{overpic}
-        \begin{overpic}[height=0.4\textwidth]{figures/pps_planck.pdf}
-                \put(70,0) {\tiny \arxiv{1908.00906}}
-        \end{overpic}
-
-
-    \end{columns}
-\end{frame}
-
-\begin{frame}
-    \frametitle{Analytic innovation: from \texttt{MultiNest} to \texttt{PolyChord}}
-    \begin{columns}
-        \column{0.66\textwidth}
-        \begin{itemize}
-            \item \texttt{MultiNest}~\arxiv{0809.3437} was the leading Bayesian numerical model comparison tool in 2013.
-                \begin{itemize}
-                    \item A general purpose \& performant implementation of John Skilling's nested sampling meta-algorithm.
-                    \item Remains the leader of the pack in $n\sim\mathcal{O}(10)$ parameter fits.
-                    \item Careful testing in \textit{Planck} showed that it couldn't handle the many fast-slow nuisance parameters needed for systematics .
-                \end{itemize}
-            \item I analytically developed and numerically implemented \texttt{PolyChord}, which has polynomial scaling efficiency $f_{\texttt{PC}}\sim \frac{1}{n}$ with model parameters (c.f.\ exponential $f_{\texttt{MN}}\sim e^{-n/n_0}$).
-            \item Exemplifies theoretical innovation \& numerical implementation driven by astrophysical challenges.
-        \end{itemize}
-        \texttt{PolyChord} inspired a new generation of nested samplers (\texttt{dynesty}, \texttt{UltraNest}, \texttt{nessai}\ldots), but remains the state of the art in high-dimensional model comparison.
-        \column{0.33\textwidth}
-        \vspace{-10pt}
-        %\includegraphics[width=\textwidth,page=14]{figures/himmelblau.pdf}%
-        \begin{block}{\texttt{MultiNest}~\arxiv{0809.3437}}
-            \includegraphics[width=\textwidth]{figures/multinest.pdf}
-        \end{block}%
-        \vspace{-5pt}
-        \begin{block}{\texttt{PolyChord}~\arxiv{1506.00171}}
-            \includegraphics[width=\textwidth]{figures/polychord.png}
-        \end{block}
-
-
-
-    \end{columns}
-\end{frame}
-
-\begin{frame}
-    \frametitle{Aside: theoretical work}
-    \begin{columns}
-        \column{0.5\textwidth}
-
-        This talk will focus on my interdisciplinary work, but I have theoretical interests in:
-        \begin{itemize}
-            \item Quantum fields in curved spacetime \\\hfill {\small (Mary Letey, Zak Shumaylov, Fruzsina Agocs)}
-            \item Poincar\'{e} Gauge Theory \\\hfill {\small (Sinah Legner, Will Barker)}
-            \item Future conformal boundary/CPT universes \\\hfill {\small (Metha Prathaban, Wei-Ning Deng)}
-            \item Curved finite inflation \hfill {\small (Lukas Hergt)}
-        \end{itemize}
-        \includegraphics[width=0.125\textwidth]{figures/students/mary_letey.jpg}%
-        \includegraphics[width=0.125\textwidth]{figures/students/zak_shumaylov.jpg}%
-        \includegraphics[width=0.125\textwidth]{figures/students/fruzsina_agocs.jpg}%
-        \includegraphics[width=0.125\textwidth]{figures/students/sinah_legner.jpg}%
-        \includegraphics[width=0.125\textwidth]{figures/students/will_barker.jpg}%
-        \includegraphics[width=0.125\textwidth]{figures/students/metha_prathaban.jpg}%
-        \includegraphics[width=0.125\textwidth]{figures/students/wei-ning_deng.jpg}%
-        \includegraphics[width=0.125\textwidth]{figures/students/lukas_hergt.jpg}%
-
-        \column{0.5\textwidth}
-        \begin{columns}
-            \column{0.5\textwidth}
-            \begin{overpic}[width=\textwidth]{figures/qic.pdf}
-                \put(65,-5) {\tiny \arxiv{1607.04148}}
-            \end{overpic}
-            \vspace{-5pt}
-
-            \begin{overpic}[width=\textwidth]{figures/pgt.pdf}
-                \put(65,-2) {\tiny \arxiv{2003.02690}}
-            \end{overpic}
-            \column{0.5\textwidth}
-            \begin{overpic}[width=\textwidth]{figures/fcb.pdf}
-                \put(65,0) {\tiny \arxiv{2111.14588}}
-            \end{overpic}
-
-            \begin{overpic}[width=\textwidth]{figures/pps_analytic.pdf}
-                \put(65,20) {\tiny \arxiv{1907.08524}}
-            \end{overpic}
-        \end{columns}
-        \vspace{5pt}
-        \begin{overpic}[width=\textwidth]{figures/hergt.pdf}
-            \put(45,0) {\tiny \arxiv{2211.17248}}
-        \end{overpic}
-    \end{columns}
-\end{frame}
+%\begin{frame}
+%    \frametitle{Aside: theoretical work}
+%    \begin{columns}
+%        \column{0.5\textwidth}
+%
+%        This talk will focus on my interdisciplinary work, but I have theoretical interests in:
+%        \begin{itemize}
+%            \item Quantum fields in curved spacetime \\\hfill {\small (Mary Letey, Zak Shumaylov, Fruzsina Agocs)}
+%            \item Poincar\'{e} Gauge Theory \\\hfill {\small (Sinah Legner, Will Barker)}
+%            \item Future conformal boundary/CPT universes \\\hfill {\small (Metha Prathaban, Wei-Ning Deng)}
+%            \item Curved finite inflation \hfill {\small (Lukas Hergt)}
+%        \end{itemize}
+%        \includegraphics[width=0.125\textwidth]{figures/students/mary_letey.jpg}%
+%        \includegraphics[width=0.125\textwidth]{figures/students/zak_shumaylov.jpg}%
+%        \includegraphics[width=0.125\textwidth]{figures/students/fruzsina_agocs.jpg}%
+%        \includegraphics[width=0.125\textwidth]{figures/students/sinah_legner.jpg}%
+%        \includegraphics[width=0.125\textwidth]{figures/students/will_barker.jpg}%
+%        \includegraphics[width=0.125\textwidth]{figures/students/metha_prathaban.jpg}%
+%        \includegraphics[width=0.125\textwidth]{figures/students/wei-ning_deng.jpg}%
+%        \includegraphics[width=0.125\textwidth]{figures/students/lukas_hergt.jpg}%
+%
+%        \column{0.5\textwidth}
+%        \begin{columns}
+%            \column{0.5\textwidth}
+%            \begin{overpic}[width=\textwidth]{figures/qic.pdf}
+%                \put(65,-5) {\tiny \arxiv{1607.04148}}
+%            \end{overpic}
+%            \vspace{-5pt}
+%
+%            \begin{overpic}[width=\textwidth]{figures/pgt.pdf}
+%                \put(65,-2) {\tiny \arxiv{2003.02690}}
+%            \end{overpic}
+%            \column{0.5\textwidth}
+%            \begin{overpic}[width=\textwidth]{figures/fcb.pdf}
+%                \put(65,0) {\tiny \arxiv{2111.14588}}
+%            \end{overpic}
+%
+%            \begin{overpic}[width=\textwidth]{figures/pps_analytic.pdf}
+%                \put(65,20) {\tiny \arxiv{1907.08524}}
+%            \end{overpic}
+%        \end{columns}
+%        \vspace{5pt}
+%        \begin{overpic}[width=\textwidth]{figures/hergt.pdf}
+%            \put(45,0) {\tiny \arxiv{2211.17248}}
+%        \end{overpic}
+%    \end{columns}
+%\end{frame}
 
 \begin{frame}
     \frametitle{Interdisciplinary work to date}
     \begin{columns}
         \column{0.35\textwidth}
         \begin{itemize}
-            \item CMB cosmology
+            \item CMB cosmology \& inflation
             \item Cosmological tension quantification
             \item \textbf{21cm cosmology}
             \item Radio Instrumentation
             \item \textbf{Gravitational waves}
-            \item \textbf{Exoplanets}
+            \item Exoplanets
             \item \textbf{Particle physics}
             \item Theory of machine learning
-            \item Nested sampling theory
+            \item Gravitational Gauge theories
             \item Atomistic chemistry
             \item \textbf{Industrial applications}
             \item \ldots
         \end{itemize}
         \column{0.65\textwidth}
-        50 minutes is not enough time to cover a decade's publishing.
+        20 minutes is not enough time to cover a decade's publishing.
 
         \vspace{10pt}
 
@@ -212,41 +212,41 @@
     \end{columns}
 \end{frame}
 
-\begin{frame}
-    \frametitle{21cm cosmology}
-    \student{harry_bevins}{Harry Bevins}{PhD$\to$KICC fellow}
-
-    \begin{columns}
-        \column{0.6\textwidth}
-        Transferring interdisciplinary ideas into 21cm cosmology with Anastasia Fialkov \& Eloy de Lera Acedo.
-        \begin{itemize}
-            \item \texttt{maxsmooth} \arxiv{2007.14970}
-                \begin{itemize}
-                    \item quadratic programming choice arose from quantitative finance consultancy work
-                \end{itemize}
-            \item \texttt{FlexKnots}
-                \begin{itemize}
-                    \item importing ideas from inflationary reconstruction into reionisation \arxiv{2310.05608}(Heimersheim) \& ionospheric reconstruction \arxiv{2311.14537}(Shen).
-                \end{itemize}
-            \item \texttt{margarine} \arxiv{2205.12841} \arxiv{2207.11457}
-                \begin{itemize}
-                    \item combination of ideas from interdisciplinary fields (emulators, nested sampling, marginal density estimation)
-                \end{itemize}
-        \end{itemize}
-        These techniques are now widely used beyond the Cambridge 21cm community.
-
-        \column{0.4\textwidth}
-        \begin{overpic}[height=0.45\textwidth]{figures/maxsmooth_1.pdf}
-            \put(0,0) {\tiny \arxiv{2007.14970}}
-        \end{overpic}%
-        \includegraphics[height=0.45\textwidth]{figures/maxsmooth_2.pdf}
-        \vspace{5pt}
-
-        \begin{overpic}[width=\textwidth]{figures/margarine_data.pdf}
-            \put(0,0) {\tiny \arxiv{2301.03298}}
-        \end{overpic}
-    \end{columns}
-\end{frame}
+%\begin{frame}
+%    \frametitle{21cm cosmology}
+%    \student{harry_bevins}{Harry Bevins}{PhD$\to$KICC fellow}
+%
+%    \begin{columns}
+%        \column{0.6\textwidth}
+%        Transferring interdisciplinary ideas into 21cm cosmology with Anastasia Fialkov \& Eloy de Lera Acedo.
+%        \begin{itemize}
+%            \item \texttt{maxsmooth} \arxiv{2007.14970}
+%                \begin{itemize}
+%                    \item quadratic programming choice arose from quantitative finance consultancy work
+%                \end{itemize}
+%            \item \texttt{FlexKnots}
+%                \begin{itemize}
+%                    \item importing ideas from inflationary reconstruction into reionisation \arxiv{2310.05608}(Heimersheim) \& ionospheric reconstruction \arxiv{2311.14537}(Shen).
+%                \end{itemize}
+%            \item \texttt{margarine} \arxiv{2205.12841} \arxiv{2207.11457}
+%                \begin{itemize}
+%                    \item combination of ideas from interdisciplinary fields (emulators, nested sampling, marginal density estimation)
+%                \end{itemize}
+%        \end{itemize}
+%        These techniques are now widely used beyond the Cambridge 21cm community.
+%
+%        \column{0.4\textwidth}
+%        \begin{overpic}[height=0.45\textwidth]{figures/maxsmooth_1.pdf}
+%            \put(0,0) {\tiny \arxiv{2007.14970}}
+%        \end{overpic}%
+%        \includegraphics[height=0.45\textwidth]{figures/maxsmooth_2.pdf}
+%        \vspace{5pt}
+%
+%        \begin{overpic}[width=\textwidth]{figures/margarine_data.pdf}
+%            \put(0,0) {\tiny \arxiv{2301.03298}}
+%        \end{overpic}
+%    \end{columns}
+%\end{frame}
 
 \begin{frame}
     \frametitle{REACH: Global 21cm cosmology {\small \arxiv{2210.07409}}}
@@ -306,34 +306,34 @@
 
 \end{frame}
 
-\begin{frame}
-    \frametitle{Exoplanets}
-    \student{namu_kroupa}{Namu Kroupa}{PhD}
-
-    \begin{columns}
-        \column{0.5\textwidth}
-        \begin{itemize}
-            \item Exoplanet science requires solution of subtle inference problems
-                \begin{itemize}
-                    \item Inference from RV data~\arxiv{1806.00518}
-                    \item Survey challenges~\arxiv{2007.07278}
-                    \item Stellar activity~\arxiv{2102.03387} 
-                \end{itemize}
-            \item Gaussian processes+Nested Sampling for transit astronomy~\arxiv{2311.04153}
-            \item Potential for further collaboration with Madhu's group who are seeking beyond \texttt{MultiNest} solutions as their problems scale in dimensionality
-            \item Ongoing cross-disciplinary theoretical chemistry work may be useful in Paul Rimmer's group.
-        \end{itemize}
-
-        \column{0.5\textwidth}
-        \includegraphics[width=\textwidth]{figures/exoplanet_kernel.pdf}%
-        \vspace{10pt}
-        \includegraphics[width=\textwidth]{figures/harps_headline.pdf}%
-        \vspace{10pt}
-        \includegraphics[width=\textwidth]{figures/trappist_headline.pdf}%
-        \vspace{10pt}
-        \includegraphics[width=\textwidth]{figures/rv_headline.pdf}%
-    \end{columns}
-\end{frame}
+%\begin{frame}
+%    \frametitle{Exoplanets}
+%    \student{namu_kroupa}{Namu Kroupa}{PhD}
+%
+%    \begin{columns}
+%        \column{0.5\textwidth}
+%        \begin{itemize}
+%            \item Exoplanet science requires solution of subtle inference problems
+%                \begin{itemize}
+%                    \item Inference from RV data~\arxiv{1806.00518}
+%                    \item Survey challenges~\arxiv{2007.07278}
+%                    \item Stellar activity~\arxiv{2102.03387} 
+%                \end{itemize}
+%            \item Gaussian processes+Nested Sampling for transit astronomy~\arxiv{2311.04153}
+%            \item Potential for further collaboration with Madhu's group who are seeking beyond \texttt{MultiNest} solutions as their problems scale in dimensionality
+%            \item Ongoing cross-disciplinary theoretical chemistry work may be useful in Paul Rimmer's group.
+%        \end{itemize}
+%
+%        \column{0.5\textwidth}
+%        \includegraphics[width=\textwidth]{figures/exoplanet_kernel.pdf}%
+%        \vspace{10pt}
+%        \includegraphics[width=\textwidth]{figures/harps_headline.pdf}%
+%        \vspace{10pt}
+%        \includegraphics[width=\textwidth]{figures/trappist_headline.pdf}%
+%        \vspace{10pt}
+%        \includegraphics[width=\textwidth]{figures/rv_headline.pdf}%
+%    \end{columns}
+%\end{frame}
 
 \begin{frame}
     \frametitle{GAMBIT}
