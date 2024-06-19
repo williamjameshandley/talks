@@ -2,7 +2,7 @@
 
 ## Academic talks
 1. Resonant or asymmetric: The status of sub-GeV dark matter Sub-GeV dark matter
-    - talk given at [Dark Matter in Astrophysical Laboratories](Dark Matter in Astrophysical Laboratories) KICC workshop
+    - talk given at [Dark Matter in Astrophysical Laboratories](https://www.kicc.cam.ac.uk/events/kavli-science-themed-meetings/dark-matter-astrophysical-laboratories) KICC workshop
     - [PDF](https://github.com/williamjameshandley/talks/raw/kicc_2024/will_handley_kicc_2024.pdf)  
     - [source](https://github.com/williamjameshandley/talks/tree/kicc_2024) 
 2. Next generation astrophysical inference across the interdisciplinary frontier
