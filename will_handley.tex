@@ -126,7 +126,7 @@
     \frametitle{Data}
     \student{gambit}{}{}
     \begin{columns}
-        \column{0.5\textwidth}
+        \column{0.49\textwidth}
         \begin{block}{Cosmological constraints}
                 CMB \& BBN
 
@@ -146,7 +146,7 @@
 
             Bullet cluster gives self-interaction constraints%, since interactions make friction, and would cause subcluster to lose DM. (focus on the latter due to need for SBI for the former).
         \end{block}
-        \column{0.5\textwidth}
+        \column{0.49\textwidth}
         \begin{block}{Accelerator constraints}
             Beam dumps \& electron-positron colliders
 
@@ -170,12 +170,36 @@
     \end{frame}
 }
 
+%\begin{frame}
+%    \frametitle{GAMBIT: combining datasets}
+%    \begin{columns}
+%        \column{0.5\textwidth}
+%        \begin{itemize}
+%            \item GAMBIT is an interdisciplinary community and software framework.
+%            \item Like \texttt{CosmoMC}/\texttt{Cobaya}/\texttt{Bilby}, an organiser of data, likelihoods \& theory, including:
+%                \begin{itemize}
+%                    \item Collider data (e.g. LHC)
+%                    \item Direct detections (e.g. XENON1T)
+%                    \item Cosmology (\texttt{MontePython})
+%                    \item Astrophysics (e.g. Bullet Cluster, Supernovae)
+%                    \item Pulsar timing
+%                    \item \ldots \& much more
+%                \end{itemize}
+%            \item \texttt{GravBit} and \texttt{LowEnergyBit} arising from GAMBIT@KICC workshop
+%        \end{itemize}
+%        \column{0.5\textwidth}
+%        \includegraphics[height=0.423\textwidth]{figures/students/gambit.png}
+%        \includegraphics[height=0.423\textwidth]{figures/gambit_kicc.jpg}
+%        \includegraphics[width=\textwidth]{figures/gambit_meetingbanner.jpg}
+%    \end{columns}
+%\end{frame}
+
 
 %\begin{frame}
 %    \frametitle{What is GAMBIT?}
 %    \student{gambit}{}{}
 %    \vspace{-10pt}
-%    \begin{columns}[t]
+%    \begin{columns}
 %        \column{0.48\textwidth}
 %        \begin{block}{GAMBIT as a software framework}
 %            \begin{itemize}
@@ -189,7 +213,7 @@
 %            \end{itemize}
 %        \end{block}
 %        \column{0.48\textwidth}
-%        \begin{block}{GAMBIT as a community}
+%        \begin{block}<only@1>{GAMBIT as a community}
 %            \begin{itemize}
 %                \item Particle physicists, cosmologists \& statisticians ($>$80 members)
 %                \item Generates interdisciplinary expertise \& inspires new techniques
@@ -199,7 +223,8 @@
 %                \item Short-author papers by default
 %                \item in-person meetings every 9 months
 %            \end{itemize}
-%        \end{block}
+%        \end{block}%
+%        \includegraphics<2>[width=\textwidth]{figures/gambit_kicc.jpg}
 %    \end{columns}
 %\end{frame}
 
@@ -220,7 +245,7 @@
             \item Grey contours have $f_\text{DM}\le1$.
             \item Similar plots for fermions.
             \item Asymmetric dark matter less constrained.
-            \item GAMBIT is flexible enough to also do Bayesian analyses.
+            \item GAMBIT can do Bayesian \& Frequentist analyses.
         \end{itemize}
         
         \column{0.6\textwidth}
@@ -271,11 +296,19 @@
     \frametitle{Conclusions}
     \student{gambit}{}{}
     \framesubtitle{\tthref{gambitbsm.org}}
-    \begin{itemize}
-        \item GAMBIT \texttt{DarkBit}, \texttt{CosmoBit} \& \texttt{ScannerBit} modules now mature enough to fit principled dark matter models to a wide variety of data.
-        \item Unique combination of tools \& expertise that can systematically test dark matter models.
-        \item Looking for other possible contributions to GAMBIT physics-driven global fits
-    \end{itemize}
+    \begin{columns}
+        \column{0.5\textwidth}
+            \begin{itemize}
+                \item GAMBIT \texttt{DarkBit}, \texttt{CosmoBit} \& \texttt{ScannerBit} modules now mature enough to fit principled dark matter models to a wide variety of data.
+                \item Unique combination of tools \& expertise that can systematically test dark matter models.
+                \item Future detectors will constrain these further.
+                \item Looking for other possible contributions to GAMBIT physics-driven global fits
+            \end{itemize}
+        \column{0.5\textwidth}
+        \includegraphics<1>[width=\textwidth]{figures/fermion_asym_mAp_kappa_sensitivities.pdf}%
+        \includegraphics<2>[width=\textwidth]{figures/fermion_asym_mDM_fsigmap_sensitivities.pdf}
+        \includegraphics<3>[width=\textwidth]{figures/fermion_asym_mDM_fsigmae_sensitivities.pdf}
+    \end{columns}
 \end{frame}
 
 \end{document}
