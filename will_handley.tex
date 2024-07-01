@@ -435,6 +435,26 @@ Whilst posteriors and evidences are invariant to repartitioning $\C[2]{\mathcal{
 \end{frame}
 
 \begin{frame}
+    \frametitle{Memory scaling}
+    \student{adam_ormondroyd}{Adam Ormondroyd}{PhD}
+    \begin{columns}
+        \column{0.4\textwidth}
+    \begin{itemize}
+        \item Memory is driven by needing to store:
+            \begin{itemize}
+                \item dead points $n_\text{dead}=n_\text{live}\times\mathcal{D}_\text{KL}\sim \mathcal{O}(d^2)$
+                \item optionally their coordinates $\sim\mathcal{O}(d)$
+                \item optionally further machinery for generating new live points $\sim\mathcal{O}(d)$
+            \end{itemize}      
+        \item \texttt{anesthetic}~\arxiv{1905.04768} as a performant tool for post-processing nested sampling runs
+    \end{itemize}
+        
+        \column{0.6\textwidth}
+        \includegraphics[width=\textwidth]{figures/dataframe}
+    \end{columns}
+\end{frame}
+
+\begin{frame}
     \frametitle{Conclusions}
     \framesubtitle{\tthref{github.com/handley-lab}}
 
@@ -454,6 +474,7 @@ Whilst posteriors and evidences are invariant to repartitioning $\C[2]{\mathcal{
         \begin{itemize}
             \item Scaling on the face of it $T\sim\mathcal{O}(d^4)$
             \item In reality can be anywhere between $T\sim\mathcal{O}(d_\text{slow})$ and $T\sim\mathcal{O}(d^4)$
+            \item Memory scaling $\sim\mathcal{O}(d^{2-4})$
             \item Most people focus on improving $f_\text{sampler}$, but this is only a fraction of the story.
             \item Large accelerations to be made in the other terms
         \end{itemize}
