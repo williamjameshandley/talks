@@ -2,16 +2,6 @@
 \usepackage{will_handley_beamer}
 \usepackage{title_page}
 
-% Commands
-% --------
-% - \arxiv{arxiv number}
-% - \cols{width}{lh column}{rh column}
-% -  \begin{fig(left|right)}[fractional width (e.g 0.6) ]{name of image}
-%        content of other column
-%    \end{fig(left|right)}
-
-% Talk details
-% ------------
 \title{The scaling frontier of nested sampling}
 \date{1\textsuperscript{st} July 2024}
 
@@ -33,17 +23,6 @@
             \item At each iteration, the contours contract by $\sim\frac{1}{n_\text{live}}\only<5->{\pm \frac{1}{n_\text{live}}}$ of their volume.
             \item This is an exponential contraction, so
                 \[  \C[3]{\mathcal{Z}} = \int \C[2]{\mathcal{L}} \C[1]{\pi} d\theta \approx \sum_{\mathclap{i\in\text{dead}}} \C[2]{\mathcal{L}}_i \Delta X_i, \quad X_i = e^{-\only<5->{(}i\only<5->{\pm\sqrt{i})}/n_\text{live}} \]
-%            \item Nested sampling: completely different way to scan.
-%            \item Ensemble sampling compresses entire space$\to$peak(s).
-%            \item Sequentially update a set $S$ of $n$ samples:
-%                \begin{itemize}
-%                    \item[$S_0$:]  Generate $n$ samples uniformly over the space (from a measure $\pi$). 
-%
-%                    \item[$S_{i+1}$:] Delete the lowest likelihood sample in $S_{i}$, and replace it with a new uniform sample with higher likelihood.
-%                \end{itemize}
-%            \item Requires one to be able to sample uniformly within a region, subject to a {\em hard constraint}:
-%                \[\{\theta\sim \pi : \mathcal{L}(\theta)>\mathcal{L}_*. \}\]
-%            \item This procedure optimises (multimodally), and can calculate the \C[3]{evidence}/integral of function \& \C[0]{posterior}/sample weights.
         \end{itemize}
         \column{0.5\textwidth}
         \includegraphics<1|handout:0>[width=\textwidth,page=1]{figures/himmelblau}%
@@ -54,16 +33,16 @@
 \end{frame}
 
 \begin{frame}
-    \frametitle{Kullback Liebler divergence (or entropy $H$ or, information gain)}
+    \frametitle{Kullback Leibler divergence (or entropy $H$ or, information gain)}
     \begin{columns}
         \column{0.5\textwidth}
         \begin{itemize}
             \item The KL divergence between \C[1]{prior $\pi$} and \C[0]{posterior $\mathcal{P}$} is is defined as:
-                \[\mathcal{D}_\text{KL} = \av[\mathcal{P}]{\log\frac{\mathcal{P}}{\pi}} = \int \mathcal{P}(\theta) \log \frac{\mathcal{P}(\theta)}{\pi(\theta)}d\theta.\]
-            \item Whilst not a distance, $\mathcal{D}=0$ when $\mathcal{P}=\pi$.
+                \[\mathcal{D}_\text{KL} = \av[{\C[0]{\mathcal{P}}}]{\log\frac{\C[0]{\mathcal{P}}}{\C[1]{\pi}}} = \int \C[0]{\mathcal{P}}(\theta) \log \frac{\C[0]{\mathcal{P}}(\theta)}{\C[1]{\pi}(\theta)}d\theta.\]
+            \item Whilst not a distance, $\mathcal{D}=0$ when $\C[0]{\mathcal{P}}=\C[1]{\pi}$.
             \item Occurs in the context of machine learning as an objective function for training functions.
             \item In Bayesian inference it can be understood as a log-ratio of ``volumes'':
-                \[ \mathcal{D}_\text{KL} \approx \log \frac{V_\pi}{V_\mathcal{P}}.\]
+                \[ \mathcal{D}_\text{KL} \approx \log \frac{V_{\C[1]{\pi}}}{V_{\C[0]{\mathcal{P}}}}.\]
                 (this is exact for top-hat distributions).
         \end{itemize}
         \column{0.5\textwidth}
@@ -78,12 +57,12 @@
         \column{0.75\textwidth}
         \[
             \boxed{
-                T = T_\mathcal{L} \times \underbrace{
+                T = T_{\C[2]{\mathcal{L}}} \times \underbrace{
                     \overbrace{
                         n_\text{live}  \times \mathcal{D}_\text{KL}
                     }^{\displaystyle n_\text{dead}}
                     \times f_\text{sampler}
-                }_{\displaystyle n_\mathcal{L}},
+                }_{\displaystyle n_{\C[2]{\mathcal{L}}}},
             }
         \]
         \vspace{-10pt}
@@ -91,8 +70,8 @@
             \item NS compresses the volume $X$ of the live points from prior $X=1$ to posterior $X = e^{-\mathcal{D}_\text{KL}}$.
             \item It does this exponentially so at iteration $i$, $X_i = e^{-i/n_\text{live}}$
             \item Need $e^{-n_\text{dead}/n_\text{live}}\sim e^{-\mathcal{D}_\text{KL}}\Rightarrow \boxed{n_\text{dead}\sim n_\text{live}\times\mathcal{D}_\text{KL}}$.
-            \item It takes a $f_\text{sampler}$ likelihood evaluations to generate a new live point, so $n_\mathcal{L} = n_\text{dead}\times f_\text{sampler}$
-            \item It takes $T_\mathcal{L}$ seconds to call the likelihood, so $T=T_\mathcal{L}\times n_\mathcal{L}$
+            \item It takes a $f_\text{sampler}$ likelihood evaluations to generate a new live point, so $n_{\C[2]{\mathcal{L}}} = n_\text{dead}\times f_\text{sampler}$
+            \item It takes $T_{\C[2]{\mathcal{L}}}$ seconds to call the likelihood, so $T=T_{\C[2]{\mathcal{L}}}\times n_{\C[2]{\mathcal{L}}}$
         \end{itemize}
         \begin{exampleblock}{Further reading~\arxiv{2312.00294}}
             \texttt{aeons}: approximating the end of nested sampling, (Zixiao Hu et al) 
@@ -128,11 +107,10 @@
 
 \begin{frame}
     \frametitle{The scaling frontier of nested sampling}
-    %\includegraphics[width=\textwidth]{figures/run_prodecure}
     \begin{columns}[t]
         \column{0.47\textwidth}
         \begin{block}{How fast in nested sampling?}
-            \[ \boxed{T = T_\mathcal{L} \times n_\text{live} \times \mathcal{D}_\text{KL} \times f_\text{sampler}} \]
+            \[ \boxed{T = T_{\C[2]{\mathcal{L}}} \times n_\text{live} \times \mathcal{D}_\text{KL} \times f_\text{sampler}} \]
         \end{block}
         \column{0.43\textwidth}
         \begin{block}{How accurate is nested sampling?}
@@ -144,9 +122,9 @@
         \column{0.5\textwidth}
         in $d$ dimensional parameter space:
         \begin{description}
-            \item[$T_\mathcal{L}$:] likelihood eval time \hfill$\sim\mathcal{O}(d)$
+\item[$T_{\C[2]{\mathcal{L}}}$:] likelihood eval time \hfill$\sim\mathcal{O}(d)$
             \item[$n_\text{live}$:] number of live points\hfill$\sim\mathcal{O}(d)$
-            \item[$\mathcal{D}_\text{KL}$:] KL divergence from prior to posterior $\approx\log{V_\pi}/{V_\mathcal{P}}$ \hfill$\sim\mathcal{O}(d)$
+            \item[$\mathcal{D}_\text{KL}$:] KL divergence from prior to posterior $\approx\log{V_{\C[1]{\pi}}}/{V_{\C[0]{\mathcal{P}}}}$ \hfill$\sim\mathcal{O}(d)$
             \item[$f_\text{sampler}$:] efficiency of point generation \\ region$\sim\mathcal{O}(e^{d/d_0})$ or path$\sim\mathcal{O}(d)$
         \end{description}
         \column{0.5\textwidth}
@@ -163,11 +141,6 @@
 
 \begin{frame}
     \frametitle{$f_\text{sampler}$: live-point generation efficiency}
-    %\begin{columns}
-    %    \begin{column}{0.33}
-    %        \includegraphics[width=\textwidth]{figures/multinest}
-    %    \end{column} 
-    %\end{columns}
     \begin{columns}[t]
         \column{0.3\textwidth}
         \texttt{MultiNest}~\arxiv{0809.3437}
@@ -205,7 +178,7 @@
     \frametitle{$f_\text{sampler}$: live-point generation efficiency}
     \begin{itemize}
         \item Broadly, most nested samplers can be split into how they create new live points.
-        \item i.e. how they sample from the hard likelihood constraint $\{\theta\sim \pi : \mathcal{L}(\theta)>\mathcal{L}_* \}$.
+        \item i.e. how they sample from the hard likelihood constraint $\{\theta\sim \C[1]{\pi} : \C[2]{\mathcal{L}}(\theta)>\C[2]{\mathcal{L}_*} \}$.
     \end{itemize}
     \vspace{-10pt}
     \begin{columns}[t]
@@ -213,7 +186,7 @@
         \begin{block}{Rejection samplers}
             \begin{itemize}
                 \item e.g. \texttt{MultiNest}, \texttt{UltraNest}.
-                \item Constructs bounding region and draws many invalid points until $\mathcal{L}(\theta)>\mathcal{L}_*$.
+                \item Constructs bounding region and draws many invalid points until $\C[2]{\mathcal{L}}(\theta)>\C[2]{\mathcal{L}_*}$.
                 \item Efficient in low dimensions, exponentially inefficient $\sim\mathcal{O}(e^{d/d_0})$ in high  $d>d_0\sim10$.
             \end{itemize}
         \end{block}
@@ -232,7 +205,7 @@
         \item Recent innovations in \texttt{UltraNest} allow self-tuning of efficiency for rejection sampling
     \end{itemize}
     \begin{alertblock}{Frontier}
-        Can chain-based NS self-tune chain length to be sublinear at run time?
+        Can chain-based NS self-tune chain length to be sub-linear at run time?
     \end{alertblock}
 \end{frame}
 
@@ -268,7 +241,7 @@
 \end{frame}
 
 \begin{frame}
-    \frametitle{$T_\mathcal{L}$: the time to evaluate the likelihood}
+    \frametitle{$T_{\C[2]{\mathcal{L}}}$: the time to evaluate the likelihood}
     \begin{columns}
         \column{0.42\textwidth}
         \begin{block}{Acceleration/emulation}
@@ -287,7 +260,7 @@
         \begin{block}{Fast-slow hierarchies}
             \begin{itemize}
                 \item Success in cosmology where some parameters take longer than others
-                \item reduces $T_\mathcal{L}\sim\mathcal{O}(d_\text{slow})$.
+                \item reduces $T_{\C[2]{\mathcal{L}}}\sim\mathcal{O}(d_\text{slow})$.
             \end{itemize}
         \end{block}
         \includegraphics[width=\textwidth]{figures/fast_slow.pdf}
@@ -298,13 +271,13 @@
 \end{frame}
 
 \begin{frame}
-    \frametitle{$\mathcal{D}_\text{KL}$: The Kullback Liebler divergence}
+    \frametitle{$\mathcal{D}_\text{KL}$: The Kullback Leibler divergence}
     \begin{columns}
         \column{0.75\textwidth}
         \begin{itemize}
             \item Naively $\mathcal{D}_\text{KL} \sim \mathcal{O}(d)$, since if you have $d$ \emph{useful} parameters, you would expect to need to compress each of them, so each contribute linearly to the volume contribution
             \item From the Occam's razor equation however:
-                \[\log \C[3]{\mathcal{Z}} = \left\langle\log\mathcal{L}\right\rangle_\mathcal{P} - \mathcal{D}_\text{KL}\]
+                \[\log \C[3]{\mathcal{Z}} = \av[{\mathcal{P}}]{\log\C[2]{\mathcal{L}}} - \mathcal{D}_\text{KL}\]
                 a large $\mathcal{D}_\text{KL}$ means a ``bad'' model
             \item Methods which explore models weighted by their evidence won't spend as much time in high $\mathcal{D}_\text{KL}$ regions~\arxiv{1506.09024}.
             \item There's also an intuition of the KL being ``information'', so increasing the number of parameters shouldn't extract more content.
@@ -312,8 +285,8 @@
         \end{itemize}
         \column{0.25\textwidth}
         \includegraphics[width=\textwidth]{figures/volumes.pdf}
-        \[ \mathcal{D}_\text{KL} = \log \frac{V_\pi}{V_\mathcal{P}} \]
-        \[ \mathcal{D}_\text{KL} = \av[\mathcal{P}]{\log\frac{\mathcal{P}}{\pi}} \]
+        \[ \mathcal{D}_\text{KL} = \log \frac{V_{\C[1]{\pi}}}{V_{\C[0]{\mathcal{P}}}} \]
+        \[ \mathcal{D}_\text{KL} = \av[{\C[0]{\mathcal{P}}}]{\log\frac{\C[0]{\mathcal{P}}}{\C[1]{\pi}}} \]
     \end{columns}
 \end{frame}
 
@@ -325,17 +298,17 @@
         \begin{itemize}
             \item Almost all sampling algorithms (MH, HMC, SMC) are only sensitive to the product of likelihood and prior $\boxed{\C[2]{\mathcal{L}}\times\C[1]{\pi}}$.
             \item In practice this manifests as many codes implementing ``prior terms'' in the likelihood (or visa-versa) with no ill effect
-            \item Nested sampling is unusual, in that one ``samples from the prior $\C[1]{\pi}$, subject to a hard constraint $\C[2]{\mathcal{L}>\mathcal{L}_*}$.'':
+        \item Nested sampling is unusual, in that one ``samples from the prior $\C[1]{\pi}$, subject to a hard constraint $\C[2]{\mathcal{L}}>\C[2]{\mathcal{L}_*}$.'':
                 \[\{\theta\sim \C[1]{\pi} : \C[2]{\mathcal{L}}(\theta)>\C[2]{\mathcal{L}_*} \}\] 
             \item This separates the prior from the likelihood at an algorithmic level.
         \end{itemize}
         \column{0.5\textwidth}
         \begin{itemize}
-            \item One can therefore repartition the likelihood and prior $(\mathcal{L},\pi)\to(\tilde{\mathcal{L}},\tilde{\pi})$, providing
+\item One can therefore repartition the likelihood and prior $(\C[2]{\mathcal{L}},\C[1]{\pi})\to(\C[2]{\tilde{\mathcal{L}}},\C[1]{\tilde{\pi}})$, providing
                 \[ \boxed{\C[2]{\mathcal{L}}\times\C[1]{\pi} = \C[2]{\tilde{\mathcal{L}}}\times\C[1]{\tilde{\pi}}}\]
             \item This moves pieces between likelihood and prior that you have analytic control over.
                 \includegraphics[width=\textwidth]{figures/repartition}
-            \item Chen, Feroz \& Hobson~\arxiv{1908.04655} invented this to deal with mispecified priors
+            \item Chen, Feroz \& Hobson~\arxiv{1908.04655} invented this to deal with misspecified priors
         \end{itemize}
     \end{columns}
 \end{frame}
@@ -346,16 +319,16 @@
     \begin{columns}
         \column{0.5\textwidth}
         \begin{exampleblock}{Key idea}
-            Whilt posteriors and evidences invariant to repartioning $\mathcal{L}\to\tilde{\mathcal{L}}$, the KL divergence is not.
+Whilst posteriors and evidences are invariant to repartitioning $\C[2]{\mathcal{L}}\to\C[2]{\tilde{\mathcal{L}}}$, the KL divergence is not.
         \end{exampleblock}
     \begin{itemize}
             \item For constant ``run quality'' $\sigma$, 
             \begin{gather*} 
                 {\scriptstyle
-         T = T_\mathcal{L} \times n_\text{live} \times \mathcal{D}_\text{KL} \times f_\text{sampler}, \quad
+                    T = T_{\C[2]{\mathcal{L}}} \times n_\text{live} \times \mathcal{D}_\text{KL} \times f_\text{sampler}, \quad
 \sigma \approx \sqrt{\mathcal{D}_\text{KL}/n_\text{live}} }
     \\
-    \Rightarrow\boxed{T = T_\mathcal{L} \times \sigma \times \mathcal{D}_\text{KL}^2 \times f_\text{sampler}} 
+\Rightarrow\boxed{T = T_{\C[2]{\mathcal{L}}} \times \sigma \times \mathcal{D}_\text{KL}^2 \times f_\text{sampler}} 
         \end{gather*}
             so if you can reduce the KL divergence, then quadratic gains to be made
         \item \texttt{SuperNest}~\arxiv{2212.01760}
@@ -378,7 +351,7 @@
             \item Nested sampling is well-suited to parallelisation, up to the number of live points, in contrast with MH/HMC
             \item I've known people run nested sampling on 10,000 CPUs
             \item This is in addition to any existing parallelisation in the likelihood
-            \item Dynamic nested sampling very useful here adding machinering for throwing away multiple points~\arxiv{1704.03459}
+            \item Dynamic nested sampling very useful here adding machinery for throwing away multiple points~\arxiv{1704.03459}
         \end{itemize}
         \begin{alertblock}{Frontier}
             Are there any other parallelisation strategies, e.g. clustering/divide \& conquer?
@@ -422,28 +395,18 @@
         \item[Skilling] Galilean and Hamiltonian Monte Carlo~\doi{10.3390/proceedings2019033019}
         \item[Speagle] Incorporated into \texttt{dynesty}~\arxiv{1904.02180}.
         \item[Habeck] Habeck Demonic nested sampling -- uses thermodynamic analogy to soften the hard boundary with a Maxwell daemon~\doi{10.1063/1.4905971}.
-        \item[Baldock] Total Enthalpy HMC, incoporating momenta in a more HMC like way, but specialised to materials science~\arxiv{1710.11085}.
+        \item[Baldock] Total Enthalpy HMC, incorporating momenta in a more HMC like way, but specialised to materials science~\arxiv{1710.11085}.
         \item[Cai] ProxNest for high-dimensional convex imaging problems~\arxiv{2106.03646}.
         \item[Lemos] Updated existing HMC/Galilean nested sampling to use differentiable programming (jax/torch) ICML 2024~\arxiv{2312.03911}
     \end{description}
     \begin{itemize}
         \item See also 2023 MIAPbP talk ``Gradients and nested sampling: The present state of the art''
-        \item Come talk to me afterward for further detail on what I'm working on with Namu Kroupa.
+        \item Come talk to me afterwards for further detail on what I'm working on with Namu Kroupa.
     \end{itemize}
 \end{frame}
 
 \begin{frame}
     \frametitle{Reversible nested sampling}
-    %\begin{columns}
-    %    \column{0.48\textwidth}
-    %    \begin{block}{Forward nested sampling}
-    %        \[ X_{i} = t_i X_{i-1},\quad P(t_i) = n_i t^{n_i-1},\quad X_0=1 \]
-    %    \end{block}
-    %    \column{0.48\textwidth}
-    %    \begin{block}{Reversible nested sampling}
-    %        \[ X_{i} = t_i X_{i-1},\quad P(t_i) = n_i t^{n_i-1},\quad X_0=? \]
-    %    \end{block}
-    %\end{columns}
     \begin{columns}
         \column{0.5\textwidth}
 \vspace{-10pt}
@@ -478,7 +441,7 @@
     \begin{columns}[t]
         \column{0.47\textwidth}
         \begin{block}{How fast in nested sampling?}
-            \[ \boxed{T = T_\mathcal{L} \times n_\text{live} \times \mathcal{D}_\text{KL} \times f_\text{sampler}} \]
+            \[ \boxed{T = T_{\C[2]{\mathcal{L}}} \times n_\text{live} \times \mathcal{D}_\text{KL} \times f_\text{sampler}} \]
         \end{block}
         \column{0.43\textwidth}
         \begin{block}{How accurate is nested sampling?}
@@ -487,8 +450,10 @@
     \end{columns}
 
     \begin{itemize}
-        \item Review paper: Buchner \arxiv{2101.09675}, Nature \arxiv{2205.15570}
+        \item Technical Review paper: Buchner \arxiv{2101.09675}
+        \item Nature Review paper: \arxiv{2205.15570}
         \item \texttt{aeons}~\arxiv{2312.00294}
+        \item \texttt{SuperNest}~\arxiv{2212.01760}
     \end{itemize}
 
 
@@ -542,9 +507,5 @@
         \includegraphics<2->[width=\textwidth]{figures/compression_2}%
     \end{columns}
 \end{frame}
-
-%\begin{frame}
-%    \frametitle{Why dynamic nested sampling doesn't help}
-%\end{frame}
 
 \end{document}
