@@ -5,11 +5,13 @@
 There are two questions any afficionado of nested sampling [1] should be able to answer:
 
 ### How long does nested sampling take?
-
-$$T_\mathrm{NS} = T_\mathcal{L} \times n_\mathrm{live}  \times\mathcal{D}_\mathrm{KL}\times f_\mathrm{sampler}$$
+```math
+T_\mathrm{NS} = T_\mathcal{L} \times n_\mathrm{live}  \times\mathcal{D}_\mathrm{KL} \times f_\mathrm{sampler}
+```
 ### How accurate is nested sampling?
-
-$$\sigma(\log\mathcal{Z}) \approx \sqrt{\mathcal{D}_\mathrm{KL}/n_\mathrm{live}}$$
+```math
+\sigma(\log\mathcal{Z}) \approx \sqrt{\mathcal{D}_\mathrm{KL}/n_\mathrm{live}}
+```
 
 The first equation says that the expected runtime $T_\mathrm{NS}$ of nested sampling can be calculated as the product of the average likelihood call time $T_\mathcal{L}$, the number of live points $n_\mathrm{live}$, the Kullback Liebler divergence between the prior and posterior, and the efficiency of the sampler $f_\mathrm{sampler}$. 
 
