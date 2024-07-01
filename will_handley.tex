@@ -187,14 +187,16 @@
             \column{0.45\textwidth}
             \includegraphics[width=\textwidth]{figures/chains.png}
         \end{columns}
-        \texttt{nessai}~\arxiv{2102.11056} \texttt{nora}~\arxiv{2305.19267} \texttt{jaxnest}~\arxiv{2012.15286}
+        \texttt{nessai}~\arxiv{2102.11056} \texttt{nora}~\arxiv{2305.19267} \texttt{jaxnest}~\arxiv{2012.15286},
         \vfill
-        \column{0.3\textwidth}
+        \column{0.25\textwidth}
         \texttt{DNest}~\arxiv{1606.03757}
         \includegraphics[width=\textwidth]{figures/dnest}
         \texttt{ProxNest}~\arxiv{2106.03646}
         \includegraphics[width=\textwidth]{figures/proxnest_diagram}
         \texttt{dynesty}~\arxiv{1904.02180} 
+        \texttt{nested\_fit}~\arxiv{1611.10189}
+        \texttt{pymatnext}~\arxiv{0906.3544}
         \vfill
     \end{columns}
 \end{frame}
@@ -430,9 +432,44 @@
     \end{itemize}
 \end{frame}
 
-%\begin{frame}
-%    \frametitle{Reversible nested sampling}
-%\end{frame}
+\begin{frame}
+    \frametitle{Reversible nested sampling}
+    %\begin{columns}
+    %    \column{0.48\textwidth}
+    %    \begin{block}{Forward nested sampling}
+    %        \[ X_{i} = t_i X_{i-1},\quad P(t_i) = n_i t^{n_i-1},\quad X_0=1 \]
+    %    \end{block}
+    %    \column{0.48\textwidth}
+    %    \begin{block}{Reversible nested sampling}
+    %        \[ X_{i} = t_i X_{i-1},\quad P(t_i) = n_i t^{n_i-1},\quad X_0=? \]
+    %    \end{block}
+    %\end{columns}
+    \begin{columns}
+        \column{0.5\textwidth}
+\vspace{-10pt}
+        \begin{itemize}
+            \item One could in principle reverse the direction of travel, and move outward from a peak.
+            \item Need to know the initial volume $X_\text{start}\ne1$
+            \item e.g. if a Laplace estimation were good enough at the peak.
+            \item The same trick in normal nested sampling would reduce volume estimation error and hence improve scaling.
+        \end{itemize}
+        \begin{alertblock}{Frontier}
+            \begin{itemize}
+                \item Can you come up with a reversible nested sampling algorithm?
+                \item Can you reduce the volume estimation error by clamping the end point?
+            \end{itemize}
+        \end{alertblock}
+        
+        \column{0.5\textwidth}
+        \includegraphics<1>[width=\textwidth,page=7]{figures/himmelblau}%
+        \includegraphics<2|handout:0>[width=\textwidth,page=6]{figures/himmelblau}%
+        \includegraphics<3|handout:0>[width=\textwidth,page=5]{figures/himmelblau}%
+        \includegraphics<4|handout:0>[width=\textwidth,page=4]{figures/himmelblau}%
+        \includegraphics<5|handout:0>[width=\textwidth,page=3]{figures/himmelblau}%
+        \includegraphics<6|handout:0>[width=\textwidth,page=2]{figures/himmelblau}%
+        \includegraphics<7-|handout:0>[width=\textwidth,page=1]{figures/himmelblau}%
+    \end{columns}
+\end{frame}
 
 \begin{frame}
     \frametitle{Conclusions}
