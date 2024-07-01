@@ -449,12 +449,22 @@ Whilst posteriors and evidences are invariant to repartitioning $\C[2]{\mathcal{
         \end{block}
     \end{columns}
 
-    \begin{itemize}
-        \item Technical Review paper: Buchner \arxiv{2101.09675}
-        \item Nature Review paper: \arxiv{2205.15570}
-        \item \texttt{aeons}~\arxiv{2312.00294}
-        \item \texttt{SuperNest}~\arxiv{2212.01760}
-    \end{itemize}
+    \begin{columns}
+        \column{0.5\textwidth}
+        \begin{itemize}
+            \item Scaling on the face of it $T\sim\mathcal{O}(d^4)$
+            \item In reality can be anywhere between $T\sim\mathcal{O}(d_\text{slow})$ and $T\sim\mathcal{O}(d^4)$
+            \item Most people focus on improving $f_\text{sampler}$, but this is only a fraction of the story.
+            \item Large accelerations to be made in the other terms
+        \end{itemize}
+        \column{0.5\textwidth}
+        \begin{itemize}
+            \item Technical Review paper: Buchner \arxiv{2101.09675}
+            \item Nature Review paper: \arxiv{2205.15570}
+            \item \texttt{aeons}~\arxiv{2312.00294}
+            \item \texttt{SuperNest}~\arxiv{2212.01760}
+        \end{itemize}
+    \end{columns}
 
 
     \tikz[overlay,remember picture]
@@ -505,6 +515,24 @@ Whilst posteriors and evidences are invariant to repartitioning $\C[2]{\mathcal{
         \column{0.5\textwidth}
         \includegraphics<1>[width=\textwidth]{figures/compression_1}%
         \includegraphics<2->[width=\textwidth]{figures/compression_2}%
+    \end{columns}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Why dynamic nested sampling doesn't help}
+    \includegraphics[width=\textwidth]{figures/dynamic}
+    \vspace{-20pt}
+    \begin{columns}
+        \column{0.5\textwidth}
+        \begin{itemize}
+            \item In dynamic nested sampling~\arxiv{1704.03459}, live points are varied by choosing to optionally create/delete at each iteration.
+            \item Can use this to ``focus'' computational power on posterior.
+        \end{itemize}
+        \column{0.5\textwidth}
+        \begin{itemize}
+            \item However, this is at the cost of reducing evidence accuracy.
+            \item Equivalent to saying ``We could just set $n_\text{live}$ very low'' as a solution to scaling.
+        \end{itemize}
     \end{columns}
 \end{frame}
 
