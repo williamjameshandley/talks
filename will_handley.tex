@@ -28,7 +28,7 @@
     \begin{columns}
         \column{0.77\textwidth}
         \begin{enumerate}
-            \item Notation
+            \item Likelihood- vs Simulation-based inference (LBI vs SBI) 
             \item Neural Ratio estimation (NRE)
             \item Nested sampling (NS)
             \item NS+NRE
@@ -46,42 +46,190 @@
 \end{frame}
 
 \begin{frame}
-    \frametitle{Notation}
-    \begin{itemize}
-        \item A ``generative'' model $M$, with tunable parameters $\theta$, describing (compressed) data $D$.
-            \begin{itemize}
-                \item e.g. $M=\Lambda$CDM, $\theta=\{\Omega_b,\Omega_c, \tau, H_0, A_s, n_s\}$, $D=\{C_\ell\}$.
-            \end{itemize}
-        \item Described by simulation process $\theta\to D$, or likelihood $\C[2]{P}(D|\theta,M)$.
-        %\item Frequentists \& Bayesians agree on the likelihood.
-        %\item Bayesians treat parameter space $\theta$ the same as data space $D$.
-        \item Quantifying uncertainty with probability using Bayes theorem:
-            \[
-                \C[0]{P}(\theta|D,M) = \frac{\C[2]{P}(D|\theta,M)\C[1]{P}(\theta|M)}{\C[3]{P}(D|M)},
-                \quad
-                \C[0]{\text{Posterior}} = \frac{\C[2]{\text{Likelihood}}\times\C[1]{\text{Prior}}}{\C[3]{\text{Evidence}}},
-                \quad
-                \C[0]{\mathcal{P}}(\theta|D) = \frac{\C[2]{\mathcal{L}}(D|\theta)\C[1]{\pi}(\theta)}{\C[3]{\mathcal{Z}}(D)}.
-            \]
-        \item Follows from the oft-forgotten Joint (the probability of everything):
-            \[
-                \C[0]{\mathcal{P}}\times\C[3]{\mathcal{Z}} = \C[4]{\mathcal{J}} = \C[2]{\mathcal{L}}\times\C[1]{\pi}, \qquad \C[4]{P}(D,\theta|M) = \C[4]{\text{Joint}} = \C[4]{\mathcal{J}}  
-            \]
-        \item Highly relevant (in many overlapping contexts) is the dimensionless ratio
-            \[\C[5]{r} = \frac{\C[0]{\mathcal{P}}}{\C[1]{\pi}} = \frac{\C[4]{\mathcal{J}}}{\C[1]{\pi}\times\C[3]{\mathcal{Z}}} = \frac{\C[2]{\mathcal{L}}}{\C[3]{\mathcal{Z}}}\]
-        \item e.g.\ $r$ occurs in neural ratio estimation, and has the properties that
-            \[ 
-            \mathcal{D}_\mathrm{KL}(\C[0]{\mathcal{P}}||\C[1]{\pi}) = \langle \log \C[5]{r} \rangle_{\C[0]{\mathcal{P}}}, \qquad                  \mathcal{I}(\theta,D))= \langle \mathcal{D}_\mathrm{KL} \rangle_{\C[3]{\mathcal{Z}}}  = \langle \log \C[5]{r} \rangle_{\C[4]{\mathcal{J}}}
+    \frametitle{LBI: Likelihood-based inference}
+    \begin{columns}
+        \column{0.5\textwidth}
+        The standard approach if you are fortunate enough to have a likelihood function $\only<1-2>{P(D|\theta)}\only<3->{\C[2]{\mathcal{L}(D|\theta)}}$: 
+        \[
+            \only<1-2>{
+                P(\theta|D) = \frac{P(D|\theta)P(\theta)}{P(D)}
+        }
+            \only<2>{
+            \qquad
+            \C[0]{\text{Posterior}} = \frac{\C[2]{\text{Likelihood}}\times\C[1]{\text{Prior}}}{\C[3]{\text{Evidence}}}
+        }
+            \only<3>{
+                \C[0]{\mathcal{P}(\theta|D)} = \frac{\C[2]{\mathcal{L}(D|\theta)}\C[1]{\pi(\theta)}}{\C[3]{\mathcal{Z}(D)}}
+            \qquad
+            \C[0]{\text{Posterior}} = \frac{\C[2]{\text{Likelihood}}\times\C[1]{\text{Prior}}}{\C[3]{\text{Evidence}}}
+        }
+            \only<4>{
+                P(\theta|D) P(D) = P(D,\theta) = P(D|\theta)P(\theta), \qquad
+        }
+            \only<5>{
+                \C[0]{\mathcal{P}}\times\C[3]{\mathcal{Z}} = \C[4]{\mathcal{J}} = \C[2]{\mathcal{L}}\times\C[1]{\pi}, \qquad \C[4]{\text{Joint}} = \C[4]{\mathcal{J}} = P(D,\theta)
+        }
         \]
-\end{itemize}
+        \vspace{-10pt}
+        \begin{enumerate}
+            \item Define \C[1]{prior $\pi(\theta)$} 
+                \begin{itemize}
+                    \item spend some time being philosophical
+                \end{itemize}
+            \item Sample \C[0]{posterior $\mathcal{P}(\theta|D)$} 
+                \begin{itemize}
+                    \item use out-of-the-box MCMC tools such as\\ \texttt{emcee} or \texttt{MultiNest}
+                    \item make some triangle plots
+                \end{itemize}
+            \item Optionally compute \C[3]{evidence $\mathcal{Z}(D)$}
+                \begin{itemize}
+                    \item e.g. nested sampling or parallel tempering
+                    \item do some model comparison (i.e. science)
+                    \item talk about tensions
+                \end{itemize}
+        \end{enumerate}
+        \column{0.5\textwidth}
+        \hfill%
+        \begin{overpic}[width=0.6\textwidth]{figures/des_parameters.pdf}
+            \put(-40,90) {DES Y5 SN Ia}
+            \put(-40,80) {\arxiv{2401.02929}}
+        \end{overpic}
+        \includegraphics[width=0.5\textwidth]{figures/des_model_comparison.pdf}%
+        \includegraphics[width=0.5\textwidth]{figures/des_suspiciousness.pdf}
+    \end{columns}
 \end{frame}
 
+%TODO work on this plot to make it curvier/more lsbi
+\begin{frame}
+    \frametitle{SBI: Simulation-based inference}
+    \begin{columns}
+        \column{0.5\textwidth}
+        \begin{itemize}
+            \item What do you do if you don't know \C[2]{$\mathcal{L}(D|\theta)$}?
+            \item If you have a simulator/forward model $\theta \rightarrow D$.
+            defines an \C[2]{\emph{implicit} likelihood~$\mathcal{L}$}
+            \item Simulator generates samples from $\C[2]{\mathcal{L}}(D|\theta)$.
+            \item With a prior $\C[1]{\pi}(\theta)$ can generate samples from \C[4]{joint distribution}~$\C[4]{\mathcal{J}(\theta,D)}=\C[2]{\mathcal{L}(D|\theta)}\C[1]{\pi(\theta)}$\\\hfill \emph{the ``probability of everything''}.
+            \item Task of SBI is take joint~$\C[4]{\mathcal{J}}$ samples and learn \C[0]{posterior $\mathcal{P}(\theta|D)$} and \C[3]{evidence $\mathcal{Z}(D)$} \\\hfill and possibly \C[2]{likelihood $\mathcal{L}(D|\theta)$}.
+            \item Present state of the art achieves this using \emph{machine learning} (neural networks).
+                \begin{itemize}
+                    \item My group's research tries to removes machine learning \tthref{github.com/handley-lab/lsbi}.
+                        
+                \end{itemize}
+            %\item Present SotA: NPE, NLE, NJE, NRE
+            %\item SBI \& forward modelling force us to think about data space~$D$ \& parameter space~$\theta$.
+        \end{itemize}
+        \column{0.5\textwidth}
+        \includegraphics<1>[page=1, width=\textwidth]{figures/sbi_parameter_estimation.pdf}%
+        \includegraphics<2>[page=2, width=\textwidth]{figures/sbi_parameter_estimation.pdf}%
+        \includegraphics<3>[page=3, width=\textwidth]{figures/sbi_parameter_estimation.pdf}%
+        \includegraphics<4>[page=4, width=\textwidth]{figures/sbi_parameter_estimation.pdf}%
+        \includegraphics<5>[page=5, width=\textwidth]{figures/sbi_parameter_estimation.pdf}%
+        \includegraphics<6>[page=6, width=\textwidth]{figures/sbi_parameter_estimation.pdf}%
+        \includegraphics<7>[page=7, width=\textwidth]{figures/sbi_parameter_estimation.pdf}%
+        \includegraphics<8>[page=8, width=\textwidth]{figures/sbi_parameter_estimation.pdf}%
+        \includegraphics<9>[page=9, width=\textwidth]{figures/sbi_parameter_estimation.pdf}%
+        \includegraphics<10>[page=10, width=\textwidth]{figures/sbi_parameter_estimation.pdf}%
+        \includegraphics<11>[page=11, width=\textwidth]{figures/sbi_parameter_estimation.pdf}%
+        \includegraphics<12>[page=12, width=\textwidth]{figures/sbi_parameter_estimation.pdf}%
+        \includegraphics<13>[page=13, width=\textwidth]{figures/sbi_parameter_estimation.pdf}%
+        \includegraphics<14>[page=14, width=\textwidth]{figures/sbi_parameter_estimation.pdf}%
+        \includegraphics<15>[page=15, width=\textwidth]{figures/sbi_parameter_estimation.pdf}%
+        \includegraphics<16>[page=16, width=\textwidth]{figures/sbi_parameter_estimation.pdf}%
+        \includegraphics<17>[page=17, width=\textwidth]{figures/sbi_parameter_estimation.pdf}%
+        \includegraphics<18>[page=18, width=\textwidth]{figures/sbi_parameter_estimation.pdf}%
+        \includegraphics<19>[page=19, width=\textwidth]{figures/sbi_parameter_estimation.pdf}%
+        \includegraphics<20>[page=20, width=\textwidth]{figures/sbi_parameter_estimation.pdf}%
+        \includegraphics<21>[page=21, width=\textwidth]{figures/sbi_parameter_estimation.pdf}%
+    \end{columns}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Why SBI?}
+    \begin{columns}
+        \column{0.6\textwidth}
+        SBI is useful because:
+        \begin{enumerate}
+            \item If you don't have a likelihood, you can still do inference
+                \begin{itemize}
+                    \item This is the usual case beyond CMB cosmology
+                \end{itemize}
+            \item Faster than LBI
+                \begin{itemize}
+                    \item emulation -- also applies to LBI in principle
+                \end{itemize}
+            \item No need to pragmatically encode fiducial cosmologies
+                \begin{itemize}
+                    \item Covariance computation implicitly encoded in simulations
+                \end{itemize}
+            \item Equips AI/ML with Bayesian interpretability
+            \item Lower barrier to entry than LBI
+                \begin{itemize}
+                    \item Much easier to forward model a systematic
+                    \item Emerging set of plug-and-play packages
+                    \item For this reason alone, it will come to dominate scientific inference
+                \end{itemize}
+        \end{enumerate}
+
+        \column{0.4\textwidth}
+        \includegraphics[width=\textwidth]{figures/sbi_screenshot}
+        \href{https://github.com/sbi-dev}{github.com/sbi-dev}
+        \includegraphics[width=\textwidth]{figures/swyft_screenshot}
+        \href{https://github.com/undark-lab/swyft}{github.com/undark-lab/swyft}
+        \includegraphics[width=\textwidth]{figures/selfi_screenshot}
+        \href{https://github.com/florent-leclercq/pyselfi}{github.com/florent-leclercq/pyselfi}
+        \includegraphics[width=\textwidth]{figures/delfi_screenshot}
+        \href{https://github.com/justinalsing/pydelfi}{github.com/justinalsing/pydelfi}
+    \end{columns}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Why aren't we currently using SBI in cosmology?}
+    \begin{columns}
+        \column{0.4\textwidth}
+        \begin{itemize}
+            \item Short answer: we are!
+                \begin{itemize}
+                    \item Mostly for weak lensing
+                \end{itemize}
+            \item Longer answer: SBI requires mock data generation code
+            \item Most data analysis codes were built before the generative paradigm.
+            \item It's still a lot of work to upgrade cosmological likelihoods  to be able to do this (e.g.\ \texttt{plik} \& \texttt{camspec}).
+        \end{itemize}
+        \column{0.3\textwidth}
+        \includegraphics[width=\textwidth]{figures/sbi_papers/clusters.pdf}
+        \vspace{10pt}
+
+        \includegraphics[width=\textwidth]{figures/sbi_papers/des.pdf}
+        \vspace{10pt}
+
+        \includegraphics[width=\textwidth]{figures/sbi_papers/gw.pdf}
+        \vspace{10pt}
+
+        \includegraphics[width=\textwidth]{figures/sbi_papers/center.pdf}
+        \column{0.3\textwidth}
+        \includegraphics[width=\textwidth]{figures/sbi_papers/kidsdes.pdf}
+        \vspace{10pt}
+
+        \includegraphics[width=\textwidth]{figures/sbi_papers/kids.pdf}
+        \vspace{10pt}
+
+        \includegraphics[width=\textwidth]{figures/sbi_papers/population.pdf}
+        \vspace{10pt}
+
+        \includegraphics[width=\textwidth]{figures/sbi_papers/simbig.pdf}
+        %TODO include examples of SBI in weak lensing
+    \end{columns}
+    
+\end{frame}
+
+%TODO include graph that indicates classification problem
 \begin{frame}
     \frametitle{Neural Ratio Estimation}
     \begin{columns}
         \column{0.5\textwidth}
         \begin{itemize}
-            \item SBI flavours:
+            \item SBI flavours: {\small \hfill\tthref{github.com/sbi-dev/sbi}}
                 {\small
                     \begin{description}
                         \item[NPE] Neural posterior estimation
@@ -95,18 +243,21 @@
                     \item Generate joint samples $(\theta,D)\sim\C[4]{\mathcal{J}}$
                         \label{step:joint}
                         \begin{itemize}
-                            \item \textit{straightforward if you have a simulator:\\ $\theta\sim\C[1]{\pi}(\cdot)$, $D\sim\C[2]{\mathcal{L}}(\cdot|\theta)$}
+                            \item \textit{straightforward if you have a simulator:\\ $\theta\sim\C[1]{\pi(\cdot)}$, $D\sim\C[2]{\mathcal{L}(\cdot|\theta)}$}
                         \end{itemize}
                     \item Generate separated samples $\theta\sim\C[1]{\pi}$, $D\sim\C[3]{\mathcal{Z}}$\label{step:sep}
                         \begin{itemize}
                             \item \textit{aside: can shortcut step~\ref{step:sep} by scrambling the $(\theta,D)$ pairings from step~\ref{step:joint}}
                         \end{itemize}
                     \item Train probabilistic classifier $p$ to distinguish whether $(\theta,D)$ came from $\C[4]{\mathcal{J}}$ or $\C[1]{\pi}\times\C[3]{\mathcal{Z}}$.
-                    \item $\log \C[5]{r} = p/(1-p)$.
+                    \item $\frac{p}{1-p} = \C[5]{r} = \frac{P(\theta,D)}{P(\theta)P(D)} 
+            =
+            \frac{\C[4]{\mathcal{J}}}{\C[1]{\pi}\times\C[3]{\mathcal{Z}}} = \frac{\C[2]{\mathcal{L}}}{\C[3]{\mathcal{Z}}} = \frac{\C[0]{\mathcal{P}}}{\C[1]{\pi}}$.
+            \item Use ratio $\C[5]{r}$ for parameter estimation $\C[0]{\mathcal{P}} = \C[5]{r}\C[1]\times {\pi}$
                 \end{enumerate}
         \end{itemize}
         \column{0.5\textwidth}
-        \only<1>{
+        \only<1|handout:0>{
         \begin{tikzpicture}[node distance=1cm, every neuron/.style={circle, draw, minimum size=1cm},]
 
             \node[every neuron/.try] (j2)  {};
@@ -117,7 +268,7 @@
             \node[every neuron/.try, above right = 0cm and 0.5cm of j2] (h1) {};
             \node[every neuron/.try, below right = 0cm and 0.5cm of j2] (h2) {};
             \node[every neuron/.try, right = 1.3cm of j2] (p) { $p$};
-            \node[every neuron/.try, right = 0.5cm of p] (logr) { $logr$};
+            \node[every neuron/.try, right = 0.5cm of p] (logr) { $\C[5]{r}$};
 
             \draw[-] (theta) -- (j1);
             \draw[-] (D) -- (j1);
@@ -139,11 +290,34 @@
             \draw[-] (p) -- (logr);
         \end{tikzpicture}
         }
-        \only<2|handout:0>{
+        \only<2>{
+    \begin{exampleblock}{Bayesian proof}
+        \begin{itemize}
+            \item Let $M_{\C[4]{\mathcal{J}}}$: $(\theta,D)\sim\C[4]{\mathcal{J}}$, $M_{\C[1]{\pi}\C[3]{\mathcal{Z}}}$: $(\theta,D)\sim\C[1]{\pi}\times\C[3]{\mathcal{Z}}$
+            \item Classifier gives
+                ${p(\theta,D) = P(M_{\C[4]{\mathcal{J}}}|\theta,D) = 1- P(M_{\C[1]{\pi}\C[3]{\mathcal{Z}}}|\theta,D)}$
+            \item Bayes theorem then shows
+        ${\frac{p}{1-p}=\frac{P(M_{\C[4]{\mathcal{J}}}|\theta,D)}{P(M_{\C[1]{\pi}\C[3]{\mathcal{Z}}}|\theta,D)} = \frac{P(\theta,D|M_{\C[4]{\mathcal{J}}})P(M_{\C[4]{\mathcal{J}}})}{P(\theta,D|M_{\C[1]{\pi}\C[3]{\mathcal{Z}}})P(M_{\C[1]{\pi}\C[3]{\mathcal{Z}}})} = 
+        \frac{\C[4]{\mathcal{J}}}{\C[1]{\pi}\C[3]{\mathcal{Z}}}}$, \\
+    where we have assumed 
+        \begin{itemize}
+            \item $P(M_{\C[4]{\mathcal{J}}}) = P(M_{\C[1]{\pi}\C[3]{\mathcal{Z}}})$,
+        \end{itemize}
+    and by definition
+        \begin{itemize}
+            \item $\C[4]{\mathcal{J}(D,\theta)} = P(\theta,D|M_{\C[4]{\mathcal{J}}})$
+            \item $\C[1]{\pi(\theta)}\C[3]{\mathcal{Z}(D)} = P(\theta,D|M_{\C[1]{\pi}\C[3]{\mathcal{Z}}})$.
+        \end{itemize}
+        \end{itemize}
+    \end{exampleblock}
+}
+
+
+        \only<3|handout:0>{
         \begin{block}{Why I like NRE}
             \begin{itemize}
-                \item Link between classification and inference is profound.
-                \item Density estimation is hard -- Dimensionless $r$ divides out the hard-to-calculate bits.
+                \item The link between classification and inference is profound.
+                \item Density estimation is hard -- Dimensionless $r$ divides out the hard-to-calculate parts.
             \end{itemize}
         \end{block}
         \begin{block}{Why I don't like NRE}
@@ -153,9 +327,11 @@
             \end{itemize}
         \end{block}
     }
+
     \end{columns}
 \end{frame}
 
+%TODO emphasise cosmology from this paper
 \begin{frame}
     \frametitle{TMNRE: Truncated Marginal Neural Ratio Estimation}
     \framesubtitle{\texttt{swyft}: \tthref{github.com/undark-lab/swyft}}
@@ -261,7 +437,6 @@
     \end{columns}
 \end{frame}
 
-
 \begin{frame}
     \frametitle{The nested sampling meta-algorithm: dead points}
     \includegraphics[width=\textwidth]{figures/dead_measure}
@@ -284,8 +459,6 @@
         \end{block}
     \end{columns}
 \end{frame}
-
-
 
 \begin{frame}
     \frametitle{Similarities}
@@ -383,6 +556,7 @@
     \end{columns}
 \end{frame}
 
+%TODO update this with latest plot
 \begin{frame}
     \frametitle{Convergence diagnostics}
     \begin{columns}
@@ -405,14 +579,46 @@
     \end{columns}
 \end{frame}
 
+
+%TODO update this
 \begin{frame}
-    \frametitle{What does NSNRE give you that TMNRE doesn't?}
+    \frametitle{Conclusions}
+    \framesubtitle{\tthref{github.com/handley-lab}}
+    \tikz[overlay,remember picture]
+    \node[anchor=north east] (A) at ($(current page.north east)+(0,0)$) {
+        \includegraphics[width=0.09\textheight]{figures/students/adam_ormondroyd.jpg}%
+        \includegraphics[width=0.09\textheight]{figures/students/david_yallup.jpg}%
+        \includegraphics[width=0.09\textheight]{figures/students/dily_ong.jpg}%
+        \includegraphics[width=0.09\textheight]{figures/students/george_carter.jpg}%
+        \includegraphics[width=0.09\textheight]{figures/students/harry_bevins.jpg}%
+        \includegraphics[width=0.09\textheight]{figures/students/ian_roque.jpg}%
+        \includegraphics[width=0.09\textheight]{figures/students/kilian_scheutwinkel.jpg}%
+        \includegraphics[width=0.09\textheight]{figures/students/metha_prathaban.jpg}%
+        \includegraphics[width=0.09\textheight]{figures/students/namu_kroupa.jpg}%
+        \includegraphics[width=0.09\textheight]{figures/students/sinah_legner.jpg}%
+        \includegraphics[width=0.09\textheight]{figures/students/sam_leeney.jpg}%
+        \includegraphics[width=0.09\textheight]{figures/students/thomas_gessey-jones.jpg}%
+        \includegraphics[width=0.09\textheight]{figures/students/wei-ning_deng.jpg}%
+    };
+
     \begin{itemize}
-        \item Use of dead points which scan from prior to logr peak avoids risk of 'trimming' important regions of the space
-        \item Likelihood-driven contours (slightly) allow more parameters $n>2$ to be considered in comparison with box priors
+        %\item What does NSNRE give you that TMNRE doesn't?
+        %    \begin{itemize}
+        %        \item Use of dead points which scan from prior to logr peak avoids risk of 'trimming' important regions of the space
+        %        \item Likelihood-driven contours allow more parameters $n>2$ to be considered in comparison with box priors
+        %    \end{itemize}
+        \item \texttt{PolySwyft} can perform NRE on $n\sim 6$ parameter spaces and $d\sim100$ data spaces.
+        \item This makes it relevant for cosmological applications.
+        \item Look out for imminent paper (post Kilian's thesis hand-in in $\sim\mathcal{O}(1 \text{month}))$
+        %\item Investigating this raises (?existential) questions regarding NRE.
+        %\item Is the $-5 <\log r < 5$ saturation of NREs a fundamental problem, or an engineering one?
+        %\item Is there a ``nested'' approach to crossing this range in larger parameter spaces $n\gg 5$?
+        \item Examples produced using \texttt{lsbi} package: \tthref{github.com/handley-lab/lsbi}\\
     \end{itemize}
+
 \end{frame}
 
+\appendix
 
 \begin{frame}
     \frametitle{Considerations of ratio estimation}
@@ -441,42 +647,9 @@
     \end{columns}
 
 
-
 \end{frame}
 
-\begin{frame}
-    \frametitle{Conclusions}
-    \framesubtitle{\tthref{github.com/handley-lab}}
-    \tikz[overlay,remember picture]
-    \node[anchor=north east] (A) at ($(current page.north east)+(0,0)$) {
-        \includegraphics[width=0.09\textheight]{figures/students/adam_ormondroyd.jpg}%
-        \includegraphics[width=0.09\textheight]{figures/students/david_yallup.jpg}%
-        \includegraphics[width=0.09\textheight]{figures/students/dily_ong.jpg}%
-        \includegraphics[width=0.09\textheight]{figures/students/felicity_ibrahim.jpg}%
-        \includegraphics[width=0.09\textheight]{figures/students/george_carter.jpg}%
-        \includegraphics[width=0.09\textheight]{figures/students/harry_bevins.jpg}%
-        \includegraphics[width=0.09\textheight]{figures/students/ian_roque.jpg}%
-        \includegraphics[width=0.09\textheight]{figures/students/kilian_scheutwinkel.jpg}%
-        \includegraphics[width=0.09\textheight]{figures/students/metha_prathaban.jpg}%
-        \includegraphics[width=0.09\textheight]{figures/students/namu_kroupa.jpg}%
-        \includegraphics[width=0.09\textheight]{figures/students/sinah_legner.jpg}%
-        \includegraphics[width=0.09\textheight]{figures/students/thomas_gessey-jones.jpg}%
-        \includegraphics[width=0.09\textheight]{figures/students/tze_goh.jpg}%
-        \includegraphics[width=0.09\textheight]{figures/students/wei-ning_deng.jpg}%
-    };
 
-    \begin{itemize}
-        \item \texttt{PolySwyft} can perform NRE on $n=5$ parameter spaces and $d=100$ data spaces.
-        \item This makes it relevant for cosmological applications.
-        \item Investigating this raises (?existential) questions regarding NRE.
-        \item Is the $-5 <\log r < 5$ saturation of NREs a fundamental problem, or an engineering one?
-        \item Is there a ``nested'' approach to crossing this range in larger parameter spaces $n\gg 5$?
-        \item Examples produced using \texttt{lsbi} package: \tthref{github.com/handley-lab/lsbi}\\
-    \end{itemize}
-
-\end{frame}
-
-\appendix
 \begin{frame}
     \frametitle{Cosmological forecasting}
     \framesubtitle{Have you ever done a Fisher forecast, and then felt Bayesian guilt?}
