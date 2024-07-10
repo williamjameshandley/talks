@@ -106,9 +106,9 @@
         \column{0.5\textwidth}
         \begin{itemize}
             \item What do you do if you don't know \C[2]{$\mathcal{L}(D|\theta)$}?
-            \item If you have a simulator/forward model $\theta \rightarrow D$.
-            defines an \C[2]{\emph{implicit} likelihood~$\mathcal{L}$}
-            \item Simulator generates samples from $\C[2]{\mathcal{L}}(D|\theta)$.
+            \item If you have a simulator/forward model $\theta \rightarrow D$
+                defines an \C[2]{\emph{implicit} likelihood~$\mathcal{L}$}.
+            \item Simulator generates samples from $\C[2]{\mathcal{L}(\cdot|\theta)}$.
             \item With a prior $\C[1]{\pi}(\theta)$ can generate samples from \C[4]{joint distribution}~$\C[4]{\mathcal{J}(\theta,D)}=\C[2]{\mathcal{L}(D|\theta)}\C[1]{\pi(\theta)}$\\\hfill \emph{the ``probability of everything''}.
             \item Task of SBI is take joint~$\C[4]{\mathcal{J}}$ samples and learn \C[0]{posterior $\mathcal{P}(\theta|D)$} and \C[3]{evidence $\mathcal{Z}(D)$} \\\hfill and possibly \C[2]{likelihood $\mathcal{L}(D|\theta)$}.
             \item Present state of the art achieves this using \emph{machine learning} (neural networks).
@@ -352,7 +352,7 @@
         \end{block}
         \begin{block}{Truncation}
                 \begin{itemize}
-                    \item focus parameters $\theta$ on a subset of the prior which reproduces observed data $D_\mathrm{obs}$
+                    \item focus parameters $\theta$ on a subset of the prior which reproduces observed data $D_\text{obs}$
                     \item region is somewhat arbitrary (usually a box)
                     \item not amortised, sounds a bit like ABC
                 \end{itemize}
@@ -502,12 +502,12 @@
 
         \node[state, fill=C3!20, minimum height=3cm] (q14) {
             \textbf{NS}\\
-            Run nested sampling on $\log r_{i}(\theta, D_\mathrm{obs})$ \\
-            to generate $\theta$ dead samples between prior and posterior targeted at $D_\mathrm{obs}$.
+            Run nested sampling on $\log r_{i}(\theta, D_\text{obs})$ \\
+            to generate $\theta$ dead samples between prior and posterior targeted at $D_\text{obs}$.
 
         };
         \node[state, fill=C0!20, minimum height=1cm] (q121) [above=of q14] {
-            \textbf{Terminate} if $\mathcal{D}_\mathrm{KL}$ has converged
+            \textbf{Terminate} if $\mathcal{D}_\text{KL}$ has converged
         };
         \node[state, fill=C0!20, minimum height=1cm] (q12) [above=of q121] {
             \textbf{Initialise} $\theta\sim\pi$\\
@@ -628,15 +628,15 @@
         \begin{itemize}
             \item Neural REs can in practice only estimate in a band of $\log r$ before the activation function saturates (typically $-5 < \log r < 5$).
             \item Consider a posterior $\mathcal{P}$ well approximated by a Gaussian profile in an $n$-dimensional parameter space~\arxiv{2312.00294}
-            \item If $\mathcal{D}_\mathrm{KL}\gg1$ between prior and posterior:
+            \item If $\mathcal{D}_\text{KL}\gg1$ between prior and posterior:
                 \begin{gather*}
-                    \log r = \frac{n}{2} + \mathcal{D}_\mathrm{KL} + \chi^2_{n} \\
-            %\[\mathcal{P}(\log r) = \frac{1}{\Gamma(\tfrac{n}{2})} e^{\log r-\frac{n}{2}-\mathcal{D}_\mathrm{KL}} \left(\tfrac{n}{2}+\mathcal{D}_\mathrm{KL}-\log r\right)^{\frac{n}{2}-1}\]
+                    \log r = \frac{n}{2} + \mathcal{D}_\text{KL} + \chi^2_{n} \\
+            %\[\mathcal{P}(\log r) = \frac{1}{\Gamma(\tfrac{n}{2})} e^{\log r-\frac{n}{2}-\mathcal{D}_\text{KL}} \left(\tfrac{n}{2}+\mathcal{D}_\text{KL}-\log r\right)^{\frac{n}{2}-1}\]
             %i.e. $\log r$ has an offset \& rescaled chi-squared distribution:
-            %\[n + 2\mathcal{D}_\mathrm{KL} - 2\log r \sim \chi^2_{n} \]
-                    \left\langle \log r \right\rangle_\mathcal{P} = \mathcal{D}_\mathrm{KL}, \qquad \sigma(\log r)_\mathcal{P} = \sqrt{\frac{n}{2}}
+            %\[n + 2\mathcal{D}_\text{KL} - 2\log r \sim \chi^2_{n} \]
+                    \left\langle \log r \right\rangle_\mathcal{P} = \mathcal{D}_\text{KL}, \qquad \sigma(\log r)_\mathcal{P} = \sqrt{\frac{n}{2}}
                 \end{gather*}
-            \item Truncation ({\bf T}MNRE) reduces $\mathcal{D}_\mathrm{KL}$, focusing the distribution into the $[-5,5]$ band.
+            \item Truncation ({\bf T}MNRE) reduces $\mathcal{D}_\text{KL}$, focusing the distribution into the $[-5,5]$ band.
             \item Marginalisation (T{\bf M}NRE) reduces $n$ \& $\sigma$.
         \end{itemize}
 
