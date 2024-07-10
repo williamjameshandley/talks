@@ -91,7 +91,7 @@ with PdfPages('sbi_parameter_estimation.pdf') as pdf:
         x.remove()
 
 
-    pdf_plot_2d(ax_joint, model.joint(), color='C4', nplot_2d=100000)
+    pdf_plot_2d(ax_joint, model.joint(), color='C4', nplot_2d=100000, label=r'$\mathcal{J}$')
     pdf_plot_1d(ax_theta, model.prior(), color='C1')
     labelLine(ax_theta.get_lines()[-1], 2.0, label=r'$\pi(\theta)$')
     pdf.savefig(fig)
@@ -119,5 +119,23 @@ with PdfPages('sbi_parameter_estimation.pdf') as pdf:
 
     for x in to_remove:
         x.remove()
+
+    class separated(object):
+        def rvs(self, size):
+            ans = model.joint().rvs(size)
+            i = np.random.permutation(len(ans))
+            ans[:,1] = ans[i,1] 
+            return ans
+
+        def logpdf(self, x):
+            return model.prior().logpdf(x[:,:1]) + model.prior().logpdf(x[:,-1:])
+
+        def pdf(self, x):
+            return np.exp(self.logpdf(x))
+
+
+    pdf_plot_2d(ax_joint, separated(), color='C6', nplot_2d=100000, label=r'$\pi\times\mathcal{Z}$', zorder=0)
+
+    ax_joint.legend()
 
     pdf.savefig(fig)
