@@ -64,10 +64,10 @@
                 \C[0]{\text{Posterior}} = \frac{\C[2]{\text{Likelihood}}\times\C[1]{\text{Prior}}}{\C[3]{\text{Evidence}}}
             }
             \only<4>{
-                P(\theta|D) P(D) = P(D,\theta) = P(D|\theta)P(\theta), \qquad
+                P(\theta|D) P(D) = P(\theta,D) = P(D|\theta)P(\theta), \qquad
             }
             \only<5>{
-                \C[0]{\mathcal{P}}\times\C[3]{\mathcal{Z}} = \C[4]{\mathcal{J}} = \C[2]{\mathcal{L}}\times\C[1]{\pi}, \qquad \C[4]{\text{Joint}} = \C[4]{\mathcal{J}} = P(D,\theta)
+                \C[0]{\mathcal{P}}\times\C[3]{\mathcal{Z}} = \C[4]{\mathcal{J}} = \C[2]{\mathcal{L}}\times\C[1]{\pi}, \qquad \C[4]{\text{Joint}} = \C[4]{\mathcal{J}} = P(\theta,D)
             }
         \]
         \vspace{-10pt}
@@ -292,7 +292,7 @@
                         \end{itemize}
                         and by definition
                         \begin{itemize}
-                            \item $\C[4]{\mathcal{J}(D,\theta)} = P(\theta,D|M_{\C[4]{\mathcal{J}}})$
+                            \item $\C[4]{\mathcal{J}(\theta,D)} = P(\theta,D|M_{\C[4]{\mathcal{J}}})$
                             \item $\C[1]{\pi(\theta)}\C[3]{\mathcal{Z}(D)} = P(\theta,D|M_{\C[1]{\pi}\C[3]{\mathcal{Z}}})$.
                         \end{itemize}
                 \end{itemize}
