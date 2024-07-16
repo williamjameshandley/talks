@@ -6,7 +6,9 @@
 \DTMsavedate{firstlecture}{\firstlecture}
 
 % custom citations
-\newcommand{\citehref}[3]{[\href{#1/#2}{#3#2}]}
+\newcommand{\email}[1]{\textcolor{C0}{\href{mailto:#1}{\texttt{<#1>}}}}
+\newcommand{\tthref}[1]{\textcolor{C0}{\texttt{\href{https://www.#1}{#1}}}}
+\newcommand{\citehref}[3]{[\textcolor{C0}{\href{#1/#2}{#3#2}}]}
 \newcommand{\doi}[1]{\citehref{https://doi.org}{#1}{doi:}}
 \newcommand{\oldarxiv}[1]{\citehref{https://arxiv.org/}{#1}{}}
 \newcommand{\arxiv}[1]{\citehref{https://arxiv.org/abs}{#1}{}}
@@ -15,6 +17,7 @@
 % general packages
 \usepackage{amsmath}
 \usepackage{tikz}
+\usepackage{mathtools}
 \usepackage{mathabx}
 \usepackage{cleveref}
 \usepackage{pgfplots}

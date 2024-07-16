@@ -21,6 +21,5 @@ In this talk I will give a pedagogical introduction to the theory & practice of 
 - [13] https://arxiv.org/abs/1809.04598
 - [14] https://arxiv.org/a/handley_w_1.html
 
-
  
 [[PDF](https://github.com/williamjameshandley/talks/raw/gatsby_2024/will_handley_gatsby_2024.pdf)] 
