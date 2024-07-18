@@ -22,6 +22,62 @@
     \titlepage
 \end{frame}
 
+
+\begin{frame}
+    \frametitle{LBI: Likelihood-based inference}
+    \begin{columns}
+        \column{0.5\textwidth}
+        The standard approach if you are fortunate enough to have a likelihood function $\only<1-2>{P(D|\theta)}\only<3->{\C[2]{\mathcal{L}(D|\theta)}}$: 
+        \[
+            \only<1-2>{
+                P(\theta|D) = \frac{P(D|\theta)P(\theta)}{P(D)}
+            }
+            \only<2>{
+                \qquad
+                \C[0]{\text{Posterior}} = \frac{\C[2]{\text{Likelihood}}\times\C[1]{\text{Prior}}}{\C[3]{\text{Evidence}}}
+            }
+            \only<3>{
+                \C[0]{\mathcal{P}(\theta|D)} = \frac{\C[2]{\mathcal{L}(D|\theta)}\C[1]{\pi(\theta)}}{\C[3]{\mathcal{Z}(D)}}
+                \qquad
+                \C[0]{\text{Posterior}} = \frac{\C[2]{\text{Likelihood}}\times\C[1]{\text{Prior}}}{\C[3]{\text{Evidence}}}
+            }
+            \only<4>{
+                P(\theta|D) P(D) = P(\theta,D) = P(D|\theta)P(\theta), \qquad
+            }
+            \only<5>{
+                \C[0]{\mathcal{P}}\times\C[3]{\mathcal{Z}} = \C[4]{\mathcal{J}} = \C[2]{\mathcal{L}}\times\C[1]{\pi}, \qquad \C[4]{\text{Joint}} = \C[4]{\mathcal{J}} = P(\theta,D)
+            }
+        \]
+        \vspace{-10pt}
+        \begin{enumerate}
+            \item Define \C[1]{prior $\pi(\theta)$} 
+                \begin{itemize}
+                    \item spend some time being philosophical
+                \end{itemize}
+            \item Sample \C[0]{posterior $\mathcal{P}(\theta|D)$} 
+                \begin{itemize}
+                    \item use out-of-the-box MCMC tools such as\\ \texttt{emcee} or \texttt{MultiNest}
+                    \item make some triangle plots
+                \end{itemize}
+            \item Optionally compute \C[3]{evidence $\mathcal{Z}(D)$}
+                \begin{itemize}
+                    \item e.g. nested sampling or parallel tempering
+                    \item do some model comparison (i.e. science)
+                    \item talk about tensions
+                \end{itemize}
+        \end{enumerate}
+        \column{0.5\textwidth}
+        \hfill%
+        \begin{overpic}[width=0.6\textwidth]{figures/des_parameters.pdf}
+            \put(-40,90) {DES Y5 SN Ia}
+            \put(-40,80) {\arxiv{2401.02929}}
+        \end{overpic}
+        \includegraphics[width=0.5\textwidth]{figures/des_model_comparison.pdf}%
+        \includegraphics[width=0.5\textwidth]{figures/des_suspiciousness.pdf}
+    \end{columns}
+\end{frame}
+
+
 \begin{frame}
     \frametitle{What is Nested Sampling?}
     \begin{itemize}
@@ -122,40 +178,6 @@
         \end{itemize}
         \column{0.4\textwidth}
         \includegraphics[width=\textwidth]{figures/integration.pdf}
-    \end{columns}
-\end{frame}
-
-\begin{frame}
-    \frametitle{Probabalistic volume estimation}
-    \begin{columns}
-        \column{0.5\textwidth}
-        \begin{itemize}
-            \item Key idea in NS: estimating volumes probabilistically
-                \[
-                    \only<-2>{
-                    \frac{\C[1]{V_\mathrm{after}}}{\C[0]{V_\mathrm{before}}} 
-                    \approx \frac{\C[1]{n_\mathrm{in}}}{\C[0]{n_\mathrm{out}}+\C[1]{n_\mathrm{in}}}
-                }
-                    \only<3>{
-                    \frac{\C[1]{V_\mathrm{after}}}{\C[0]{V_\mathrm{before}}} 
-                    \approx \frac{\C[1]{n_\mathrm{in}}+1}{\C[0]{n_\mathrm{out}}+\C[1]{n_\mathrm{in}}+2}
-                }
-                \only<4>{\hspace{-15pt}
-                    \frac{\C[1]{V_\mathrm{after}}}{\C[0]{V_\mathrm{before}}} 
-\sim \frac{\C[1]{n_\mathrm{in}}+1}{\C[0]{n_\mathrm{out}}+\C[1]{n_\mathrm{in}}+2} \pm \sqrt{\tfrac{(\C[1]{n_\mathrm{in}}+1)(\C[0]{n_\mathrm{out}}+1)}{(\C[0]{n_\mathrm{out}}+\C[1]{n_\mathrm{in}}+2)^2(\C[0]{n_\mathrm{out}}+\C[1]{n_\mathrm{in}}+3)}}
-                }
-                \]
-            \item This is the \textbf{only} way to calculate volume in high dimensions $d>3$.
-                \begin{itemize}
-                    \item Geometry is exponentially inefficient.
-                \end{itemize}
-            \item This estimation process does not depend on geometry, topology or dimensionality
-            \item Basis of all Monte-Carlo integration
-            \item Nested Sampling uniquely uses a nested framework to couple together MC integrals in a robust, scalable manner.
-        \end{itemize}
-        \column{0.5\textwidth}
-        \includegraphics<1>[width=\textwidth]{figures/compression_1}%
-        \includegraphics<2->[width=\textwidth]{figures/compression_2}%
     \end{columns}
 \end{frame}
 
@@ -794,6 +816,42 @@
 
 
 \appendix
+
+\begin{frame}
+    \frametitle{Probabalistic volume estimation}
+    \begin{columns}
+        \column{0.5\textwidth}
+        \begin{itemize}
+            \item Key idea in NS: estimating volumes probabilistically
+                \[
+                    \only<-2>{
+                    \frac{\C[1]{V_\mathrm{after}}}{\C[0]{V_\mathrm{before}}} 
+                    \approx \frac{\C[1]{n_\mathrm{in}}}{\C[0]{n_\mathrm{out}}+\C[1]{n_\mathrm{in}}}
+                }
+                    \only<3>{
+                    \frac{\C[1]{V_\mathrm{after}}}{\C[0]{V_\mathrm{before}}} 
+                    \approx \frac{\C[1]{n_\mathrm{in}}+1}{\C[0]{n_\mathrm{out}}+\C[1]{n_\mathrm{in}}+2}
+                }
+                \only<4>{\hspace{-15pt}
+                    \frac{\C[1]{V_\mathrm{after}}}{\C[0]{V_\mathrm{before}}} 
+\sim \frac{\C[1]{n_\mathrm{in}}+1}{\C[0]{n_\mathrm{out}}+\C[1]{n_\mathrm{in}}+2} \pm \sqrt{\tfrac{(\C[1]{n_\mathrm{in}}+1)(\C[0]{n_\mathrm{out}}+1)}{(\C[0]{n_\mathrm{out}}+\C[1]{n_\mathrm{in}}+2)^2(\C[0]{n_\mathrm{out}}+\C[1]{n_\mathrm{in}}+3)}}
+                }
+                \]
+            \item This is the \textbf{only} way to calculate volume in high dimensions $d>3$.
+                \begin{itemize}
+                    \item Geometry is exponentially inefficient.
+                \end{itemize}
+            \item This estimation process does not depend on geometry, topology or dimensionality
+            \item Basis of all Monte-Carlo integration
+            \item Nested Sampling uniquely uses a nested framework to couple together MC integrals in a robust, scalable manner.
+        \end{itemize}
+        \column{0.5\textwidth}
+        \includegraphics<1>[width=\textwidth]{figures/compression_1}%
+        \includegraphics<2->[width=\textwidth]{figures/compression_2}%
+    \end{columns}
+\end{frame}
+
+
 \begin{frame}
     \frametitle{How does Nested Sampling compare to other approaches?}
     \begin{columns}
