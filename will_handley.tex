@@ -914,7 +914,59 @@
     \end{columns}
 \end{frame}
 
+\begin{frame}
+    \frametitle{Posterior repartitioning}
+    \student{aleksandr_petrosyan}{Aleksandr Petrosyan}{MSci 2021}
+    \begin{columns}
+        \column{0.5\textwidth}
+        \begin{itemize}
+            \item Almost all sampling algorithms (MH, HMC, SMC) are only sensitive to the product of likelihood and prior $\boxed{\C[2]{\mathcal{L}}\times\C[1]{\pi}}$.
+            \item In practice this manifests as many codes implementing ``prior terms'' in the likelihood (or visa-versa) with no ill effect
+        \item Nested sampling is unusual, in that one ``samples from the prior $\C[1]{\pi}$, subject to a hard constraint $\C[2]{\mathcal{L}}>\C[2]{\mathcal{L}_*}$.'':
+                \[\{\theta\sim \C[1]{\pi} : \C[2]{\mathcal{L}}(\theta)>\C[2]{\mathcal{L}_*} \}\] 
+            \item This separates the prior from the likelihood at an algorithmic level.
+        \end{itemize}
+        \column{0.5\textwidth}
+        \begin{itemize}
+\item One can therefore repartition the likelihood and prior $(\C[2]{\mathcal{L}},\C[1]{\pi})\to(\C[2]{\tilde{\mathcal{L}}},\C[1]{\tilde{\pi}})$, providing
+                \[ \boxed{\C[2]{\mathcal{L}}\times\C[1]{\pi} = \C[2]{\tilde{\mathcal{L}}}\times\C[1]{\tilde{\pi}}}\]
+            \item This moves pieces between likelihood and prior that you have analytic control over.
+                \includegraphics[width=\textwidth]{figures/repartition}
+            \item Chen, Feroz \& Hobson~\arxiv{1908.04655} invented this to deal with misspecified priors
+        \end{itemize}
+    \end{columns}
+\end{frame}
 
+\begin{frame}
+    \frametitle{Posterior repartitioning for acceleration}
+    \student{metha_prathaban}{Metha Prathaban}{PhD}
+    \begin{columns}
+        \column{0.5\textwidth}
+        \begin{exampleblock}{Key idea}
+Whilst posteriors and evidences are invariant to repartitioning $\C[2]{\mathcal{L}}\to\C[2]{\tilde{\mathcal{L}}}$, the KL divergence is not.
+        \end{exampleblock}
+    \begin{itemize}
+            \item For constant ``run quality'' $\sigma$, 
+            \begin{gather*} 
+                {\scriptstyle
+                    T = T_{\C[2]{\mathcal{L}}} \times n_\text{live} \times \mathcal{D}_\text{KL} \times f_\text{sampler}, \quad
+\sigma \approx \sqrt{\mathcal{D}_\text{KL}/n_\text{live}} }
+    \\
+\Rightarrow\boxed{T = T_{\C[2]{\mathcal{L}}} \times \sigma \times \mathcal{D}_\text{KL}^2 \times f_\text{sampler}} 
+        \end{gather*}
+            so if you can reduce the KL divergence, then quadratic gains to be made
+        \item \texttt{SuperNest}~\arxiv{2212.01760}
+        \item Ongoing work with Metha Prathaban \& Harry Bevins.
+    \end{itemize}
+        \column{0.5\textwidth}
+        \vspace{8pt}
+        \includegraphics[width=\textwidth]{figures/supernest.pdf}
+        \begin{itemize}
+            \item Easy to get 40x performance normalised speed-up on cosmological scale cases
+            \item Paper $\sim\mathcal{O}(\text{next month})$.
+        \end{itemize}
+    \end{columns}
+\end{frame}
 
 \begin{frame}
     \frametitle{Conclusions}
@@ -957,6 +1009,7 @@
     \includegraphics[height=0.2\textwidth]{figures/curvature_3}%
     \includegraphics[height=0.2\textwidth]{figures/ALP_3}%
 \end{frame}
+
 
 
 \appendix
