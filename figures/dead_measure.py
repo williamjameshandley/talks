@@ -19,7 +19,8 @@ for ax in axes:
     ax.set_xticks([])
     ax.set_yticks([])
     ax.set_box_aspect(1)
-    ax.plot(samples[x], samples[y], 'C0.', ms=0.5)
+    ax.plot(samples[x], samples[y], 'C0.', ms=0.5, zorder=-1)
+    ax.set_rasterization_zorder(0)
 
 axes[0].get_children()[-1].get_zorder()
 axes[0].set_zorder(10)
