@@ -2,6 +2,11 @@
 
 ## Academic talks
 1. Nested sampling: powering next-generation inference and machine learning tools for astrophysics, cosmology, particle physics and beyond  
+    - Colloquium given at [University of Queensland](https://www.uq.edu.au/)
+    - [PDF](https://github.com/williamjameshandley/talks/raw/queensland_2024/will_handley_queensland_2024.pdf)  
+    - [source](https://github.com/williamjameshandley/talks/tree/queensland_2024)
+    - _Aug 2024_
+1. Nested sampling: powering next-generation inference and machine learning tools for astrophysics, cosmology, particle physics and beyond  
     - Talk given at [Aachen RWTH](https://www.physik.rwth-aachen.de/cms/~mya/physik/?lidx=1)
     - [PDF](https://github.com/williamjameshandley/talks/raw/aachen_2024/will_handley_aachen_2024.pdf)  
     - [source](https://github.com/williamjameshandley/talks/tree/aachen_2024)
