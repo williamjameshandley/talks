@@ -2,6 +2,7 @@
 \usepackage{will_handley_beamer}
 \usepackage{title_page}
 \usetikzlibrary{arrows,arrows.meta,automata,positioning}
+\usepackage{slashed}
 
 % Commands
 % --------
@@ -77,6 +78,54 @@
         \includegraphics[width=0.5\textwidth]{figures/des_suspiciousness.pdf}
     \end{columns}
 \end{frame}
+
+%\begin{frame}
+%    \frametitle{The three pillars of Bayesian inference}
+%    \begin{columns}[t]
+%        \column{0.33\textwidth}
+%        \begin{block}{Parameter estimation}
+%            What do the data tell us about the parameters of a model?
+%
+%            \textit{e.g. the size or age of a $\Lambda$CDM universe}
+%            \[ \hspace{-4pt}\C[0]{P(\theta|D,M)} = \frac{\C[2]{P(D|\theta,M)} \C[1]{P(\theta|M)}}{\C[3]{P(D|M)}} \] 
+%            \[ \C[0]{\mathcal{P}} = \frac{\C[2]{\mathcal{L}} \times\C[1]{\pi}}{\C[3]{\mathcal{Z}}}\] 
+%            \[ \C[0]{\text{Posterior}} = \frac{\C[2]{\text{Likelihood}} \times\C[1]{\text{Prior}}}{\C[3]{\text{Evidence}}}\]
+%        \end{block}
+%        \column{0.3\textwidth}
+%        \begin{block}{Model comparison}
+%            How much does the data support a particular model?
+%
+%            \textit{e.g. $\Lambda$CDM vs a dynamic dark energy cosmology}
+%            \[ \C[4]{P(M|D)} = \frac{\C[3]{P(D|M)} \C[5]{P(M)}}{\C[7]{P(D)}} \vspace{-7pt}\]
+%            \[ \frac{\C[3]{\mathcal{Z}_{M}} \C[5]{\Pi_{M}}}{\C[7]{\sum_m Z_m \Pi_m}} \]
+%            \[ \C[4]{\text{Posterior}} = \frac{\C[3]{\text{Evidence}} \times\C[5]{\text{Prior}}}{\C[7]{\text{Normalisation}}}\]
+%        \end{block}
+%        \column{0.33\textwidth}
+%        \begin{block}{Tension quantification}
+%            Do different datasets make consistent predictions from the same model? 
+%            \textit{e.g. CMB vs Type IA supernovae data}
+%            \[ \mathcal{R} = \frac{\C[3]{\mathcal{Z}}_{AB}}{\C[3]{\mathcal{Z}}_A\C[3]{\mathcal{Z}}_\mathcal{B}}\] 
+%            \[
+%                \begin{aligned} \log\mathcal{S} = \av[{\C[0]{\mathcal{P}}_{AB}}]{\C[2]{\log\mathcal{L}}_{AB}}&\\
+%                    -\av[{\C[0]{\mathcal{P}}_{A}}]{\C[2]{\log\mathcal{L}}_{A}}&\\
+%                    -\av[{\C[0]{\mathcal{P}}_{B}}]{\C[2]{\log\mathcal{L}}_{B}}&
+%                \end{aligned}
+%            \]
+%        \end{block}
+%    \end{columns}
+%\end{frame}
+%
+%\begin{frame}
+%    \frametitle{Model comparison $\C[3]{\mathcal{Z}=P(D|M)}$}
+%    \begin{columns}[t]
+%        \column{0.47\textwidth}
+%        \begin{block}{Popper's falsificationism}
+%        \end{block}
+%        \column{0.47\textwidth}
+%        \begin{block}{Occam's razor}
+%        \end{block}
+%    \end{columns}
+%\end{frame}
 
 
 \begin{frame}
@@ -375,7 +424,7 @@
 %
 %            \textit{e.g. $\Lambda$CDM vs a dynamic dark energy cosmology}
 %            \[ \C[4]{P(M|D)} = \frac{\C[3]{P(D|M)} \C[5]{P(M)}}{\C[7]{P(D)}} \vspace{-7pt}\]
-%            \[ \frac{\C[3]{\mathcal{Z}_\mathcal{M}} \C[5]{\Pi_\mathcal{M}}}{\C[7]{\sum_m Z_m \Pi_m}} \]
+%            \[ \frac{\C[3]{\mathcal{Z}_{M}} \C[5]{\Pi_{M}}}{\C[7]{\sum_m Z_m \Pi_m}} \]
 %            \[ \C[4]{\text{Posterior}} = \frac{\C[3]{\text{Evidence}} \times\C[5]{\text{Prior}}}{\C[7]{\text{Normalisation}}}\]
 %        \end{block}
 %        \column{0.33\textwidth}
@@ -574,18 +623,18 @@
                     \item Maximum information data acquisition strategies.
                 \end{itemize}
         \end{itemize}
-            \includegraphics[width=0.08\textwidth]{figures/headshots/catherine-watkinson.pdf}%
-            \includegraphics[width=0.08\textwidth]{figures/headshots/thomas-macaloone.pdf}%
-            \includegraphics[width=0.08\textwidth]{figures/headshots/parul-janagal.pdf}%
-            \includegraphics[width=0.08\textwidth]{figures/headshots/angus-peters.pdf}%
-            \includegraphics[width=0.08\textwidth]{figures/headshots/tamas-stenzel.pdf}%
-            \includegraphics[width=0.08\textwidth]{figures/headshots/david-yallup.pdf}%
-            \includegraphics[width=0.08\textwidth]{figures/headshots/rebecca-handley.pdf}%
-            \includegraphics[width=0.08\textwidth]{figures/headshots/adam-ormondroyd.pdf}%
-            \includegraphics[width=0.08\textwidth]{figures/headshots/mike-hobson.pdf}%
-            \includegraphics[width=0.08\textwidth]{figures/headshots/anthony-lasenby.pdf}%
-            \includegraphics[width=0.08\textwidth]{figures/headshots/mike-handley.pdf}%
-            \includegraphics[width=0.08\textwidth]{figures/headshots/will-handley.pdf}%
+        \includegraphics[width=0.08\textwidth]{figures/headshots/catherine-watkinson-polychord.jpg}%
+        \includegraphics[width=0.08\textwidth]{figures/headshots/thomas-macaloone-polychord.jpg}%
+        \includegraphics[width=0.08\textwidth]{figures/headshots/parul-janagal-polychord.jpg}%
+        \includegraphics[width=0.08\textwidth]{figures/headshots/angus-peters-polychord.jpg}%
+        \includegraphics[width=0.08\textwidth]{figures/headshots/tamas-stenzel-polychord.jpg}%
+        \includegraphics[width=0.08\textwidth]{figures/headshots/david-yallup-polychord.jpg}%
+        \includegraphics[width=0.08\textwidth]{figures/headshots/rebecca-handley-polychord.jpg}%
+        \includegraphics[width=0.08\textwidth]{figures/headshots/adam-ormondroyd-polychord.jpg}%
+        \includegraphics[width=0.08\textwidth]{figures/headshots/mike-hobson-polychord.jpg}%
+        \includegraphics[width=0.08\textwidth]{figures/headshots/anthony-lasenby-polychord.jpg}%
+        \includegraphics[width=0.08\textwidth]{figures/headshots/mike-handley-polychord.jpg}%
+        \includegraphics[width=0.08\textwidth]{figures/headshots/will-handley-polychord.jpg}%
         \column{0.4\textwidth}
         \includegraphics<1|handout:0>[width=\textwidth]{figures/protein_1.png}%
         \includegraphics<2          >[width=\textwidth]{figures/protein_2.png}%
@@ -626,24 +675,83 @@
     \end{columns}
 \end{frame}
 
+%\begin{frame}
+%    \frametitle{GAMBIT: combining particle physics \& cosmological data}
+%    \begin{columns}
+%        \column{0.52\textwidth}
+%        \begin{itemize}
+%            \item Multinational team of particle physicists, cosmologists and statisticians.
+%            \item Combine cosmological data, particle colliders, direct detection, \& neutrino detectors in a statistically principled manner~\arxiv{2205.13549}.
+%            \item Lead Cosmo/Dark Matter working group~\arxiv{2009.03286}.
+%            \item Nested sampling used for global fitting, and fine-tuning quantification~\arxiv{2101.00428}
+%        \end{itemize}
+%        \begin{center}
+%            \includegraphics[width=0.5\textwidth]{figures/gambit_logo.png}
+%        \end{center}
+%        \column{0.48\textwidth}
+%        \vspace{-40pt}
+%        \includegraphics[width=\textwidth]{figures/ALP_2.pdf}
+%    \end{columns}
+%\end{frame}
+
 \begin{frame}
-    \frametitle{GAMBIT: combining particle physics \& cosmological data}
+    \frametitle{GAMBIT}
+    \framesubtitle{Interdisciplinary case studies}
     \begin{columns}
-        \column{0.52\textwidth}
+        \column{0.5\textwidth}
         \begin{itemize}
-            \item Multinational team of particle physicists, cosmologists and statisticians.
-            \item Combine cosmological data, particle colliders, direct detection, \& neutrino detectors in a statistically principled manner~\arxiv{2205.13549}.
-            \item Lead Cosmo/Dark Matter working group~\arxiv{2009.03286}.
-            \item Nested sampling used for global fitting, and fine-tuning quantification~\arxiv{2101.00428}
+            \item GAMBIT is an interdisciplinary community and software framework.
+            \item Like \texttt{CosmoMC}/\texttt{Cobaya}/\texttt{Bilby}, an organiser of data, likelihoods \& theory, including:
+                \begin{itemize}
+                    \item Collider data (e.g. LHC)
+                    \item Direct detections (e.g. XENON1T)
+                    \item Cosmology (\texttt{MontePython})
+                    \item Astrophysics (e.g. Bullet Cluster, Supernovae)
+                    \item Pulsar timing
+                    \item \ldots \& much more
+                \end{itemize}
+            \item \texttt{GravBit} and \texttt{LowEnergyBit} arising from GAMBIT@KICC workshop
         \end{itemize}
-        \begin{center}
-            \includegraphics[width=0.5\textwidth]{figures/gambit_logo.png}
-        \end{center}
-        \column{0.48\textwidth}
-        \vspace{-40pt}
-        \includegraphics[width=\textwidth]{figures/ALP_2.pdf}
+        \column{0.5\textwidth}
+        \includegraphics[height=0.423\textwidth]{figures/students/gambit.png}
+        \includegraphics[height=0.423\textwidth]{figures/gambit_kicc.jpg}
+        \includegraphics[width=\textwidth]{figures/gambit_meetingbanner.jpg}
     \end{columns}
 \end{frame}
+
+\begin{frame}
+    \frametitle{GAMBIT: sub-GeV Dark matter constraints}
+    \framesubtitle{Interdisciplinary case studies}
+    \student{gambit}{Felix Kahlhoefer et al}{GAMBIT cosmo/DM working group}
+    \begin{columns}
+        \column{0.56\textwidth}
+        \begin{itemize}
+            \item Physical model of sub-GeV thermal dark matter with a dark photon mediator~$A$:
+        \end{itemize}
+        \vspace{-10pt}
+        \begin{align*}
+            \small
+            \mathcal{L}_\text{int} =& -\frac{1}{2} m_{A'}^2 A'^\mu A'_\mu - \frac{1}{4} A'^{\mu\nu}A'_{\mu\nu} -\kappa e A'^\mu \sum_{f} q_f \overline{f} \gamma_\mu f \,,
+            \normalsize
+        \end{align*}
+        \vspace{-15pt}
+        \begin{itemize}
+            \item Constrain using cosmological, astrophysical, accelerator \& direct detection data.
+            \item Bayesian Model comparison of Fermion~$\psi$ vs scalar~$\Phi$ models (scalar preferred).
+        \end{itemize}
+        \vspace{-10pt}
+        \begin{align*}
+            \small
+            \mathcal{L}_\psi  =& \bar{\psi}(i \slashed{\partial} - m_\text{DM}) \psi + g_\text{DM} A'^\mu \bar{\psi} \gamma_\mu \psi \,,\\
+            \mathcal{L}_\Phi  =& |\partial_\mu \Phi|^2 - m_\text{DM}^2 |\Phi|^2 - g_\text{DM}^2 A'_\mu A'^\mu |\Phi|^2 \\ &+ i g_\text{DM} A'^\mu \left[\Phi^\ast (\partial_\mu \Phi) - (\partial_\mu \Phi^\ast) \Phi\right]\,,
+            \normalsize
+        \end{align*}
+        \column{0.44\textwidth}
+        \vspace{10pt}
+        \includegraphics[width=\textwidth]{figures/Bayes_SubGeVDM_fermion_RDprior_allDM_asym_observables.pdf}
+    \end{columns}
+\end{frame}
+
 
 \begin{frame}
     \frametitle{SBI: Simulation-based inference}
@@ -689,284 +797,88 @@
     \end{columns}
 \end{frame}
 
-
 \begin{frame}
-    \frametitle{Neural Ratio Estimation}
+    \frametitle{Why SBI?}
     \begin{columns}
-        \column{0.5\textwidth}
-        \begin{itemize}
-            \item SBI flavours: {\small \hfill\tthref{github.com/sbi-dev/sbi}}
-                {\small
-                    \begin{description}
-                        \item[NPE] Neural posterior estimation
-                        \item[NLE] Neural likelihood estimation
-                        \item[NJE] Neural joint estimation
-                        \item[NRE] Neural ratio estimation
-                    \end{description}
-                }
-            \item NRE recap:
-                \begin{enumerate}
-                    \item Generate joint samples $(\theta,D)\sim\C[4]{\mathcal{J}}$
-                        \label{step:joint}
-                        \begin{itemize}
-                            \item \textit{straightforward if you have a simulator:\\ $\theta\sim\C[1]{\pi(\cdot)}$, $D\sim\C[2]{\mathcal{L}(\cdot|\theta)}$}
-                        \end{itemize}
-                    \item Generate separated samples $\theta\sim\C[1]{\pi}$, $D\sim\C[3]{\mathcal{Z}}$\label{step:sep}
-                        \begin{itemize}
-                            \item \textit{aside: can shortcut step~\ref{step:sep} by scrambling the $(\theta,D)$ pairings from step~\ref{step:joint}}
-                        \end{itemize}
-                    \item Train probabilistic classifier $p$ to distinguish whether $(\theta,D)$ came from $\C[4]{\mathcal{J}}$ or $\C[1]{\pi}\times\C[3]{\mathcal{Z}}$.
-                    \item $\frac{p}{1-p} = \C[5]{r} = \frac{P(\theta,D)}{P(\theta)P(D)} 
-                        =
-                        \frac{\C[4]{\mathcal{J}}}{\C[1]{\pi}\times\C[3]{\mathcal{Z}}} = \frac{\C[2]{\mathcal{L}}}{\C[3]{\mathcal{Z}}} = \frac{\C[0]{\mathcal{P}}}{\C[1]{\pi}}$.
-                    \item Use ratio $\C[5]{r}$ for parameter estimation $\C[0]{\mathcal{P}} = \C[5]{r}\C[1]\times {\pi}$
-                \end{enumerate}
-        \end{itemize}
-        \column{0.5\textwidth}
-        \only<1|handout:0>{
-            \begin{tikzpicture}[node distance=1cm, every neuron/.style={circle, draw, minimum size=1cm},]
-                \node[every neuron/.try] (j2)  {};
-                \node[every neuron/.try, above left = 0cm and 0.5cm of j2] (theta) { $\theta$};
-                \node[every neuron/.try, below left = 0cm and 0.5cm of j2] (D) { $D$};
-                \node[every neuron/.try, above = 0.5cm of j2] (j1) {};
-                \node[every neuron/.try, below = 0.5cm of j2] (j3) {};
-                \node[every neuron/.try, above right = 0cm and 0.5cm of j2] (h1) {};
-                \node[every neuron/.try, below right = 0cm and 0.5cm of j2] (h2) {};
-                \node[every neuron/.try, right = 1.3cm of j2] (p) { $p$};
-                \node[every neuron/.try, right = 0.5cm of p] (logr) { $\C[5]{r}$};
-                \draw[-] (theta) -- (j1);
-                \draw[-] (D) -- (j1);
-                \draw[-] (theta) -- (j2);
-                \draw[-] (D) -- (j2);
-                \draw[-] (theta) -- (j3);
-                \draw[-] (D) -- (j3);
-                \draw[-] (j1) -- (h1);
-                \draw[-] (j1) -- (h2);
-                \draw[-] (j2) -- (h1);
-                \draw[-] (j2) -- (h2);
-                \draw[-] (j3) -- (h1);
-                \draw[-] (j3) -- (h2);
-                \draw[-] (h1) -- (p);
-                \draw[-] (h2) -- (p);
-                \draw[-] (p) -- (logr);
-                \node[below =0.5cm of logr] {\includegraphics[page=22, width=0.5\textwidth]{figures/sbi_parameter_estimation.pdf}};
-            \end{tikzpicture}
-        }
-        \only<2>{
-            \begin{exampleblock}{Bayesian proof}
+        \column{0.6\textwidth}
+        SBI is useful because:
+        \begin{enumerate}
+            \item If you don't have a likelihood, you can still do inference
                 \begin{itemize}
-                    \item Let $M_{\C[4]{\mathcal{J}}}$: $(\theta,D)\sim\C[4]{\mathcal{J}}$, $M_{\C[1]{\pi}\C[3]{\mathcal{Z}}}$: $(\theta,D)\sim\C[1]{\pi}\times\C[3]{\mathcal{Z}}$
-                    \item Classifier gives
-                        ${p(\theta,D) = P(M_{\C[4]{\mathcal{J}}}|\theta,D) = 1- P(M_{\C[1]{\pi}\C[3]{\mathcal{Z}}}|\theta,D)}$
-                    \item Bayes theorem then shows
-                        ${\frac{p}{1-p}=\frac{P(M_{\C[4]{\mathcal{J}}}|\theta,D)}{P(M_{\C[1]{\pi}\C[3]{\mathcal{Z}}}|\theta,D)} = \frac{P(\theta,D|M_{\C[4]{\mathcal{J}}})P(M_{\C[4]{\mathcal{J}}})}{P(\theta,D|M_{\C[1]{\pi}\C[3]{\mathcal{Z}}})P(M_{\C[1]{\pi}\C[3]{\mathcal{Z}}})} = 
-                        \frac{\C[4]{\mathcal{J}}}{\C[1]{\pi}\C[3]{\mathcal{Z}}}}$, \\
-                        where we have assumed 
-                        \begin{itemize}
-                            \item $P(M_{\C[4]{\mathcal{J}}}) = P(M_{\C[1]{\pi}\C[3]{\mathcal{Z}}})$,
-                        \end{itemize}
-                        and by definition
-                        \begin{itemize}
-                            \item $\C[4]{\mathcal{J}(\theta,D)} = P(\theta,D|M_{\C[4]{\mathcal{J}}})$
-                            \item $\C[1]{\pi(\theta)}\C[3]{\mathcal{Z}(D)} = P(\theta,D|M_{\C[1]{\pi}\C[3]{\mathcal{Z}}})$.
-                        \end{itemize}
+                    \item This is the usual case beyond CMB cosmology
                 \end{itemize}
-            \end{exampleblock}
-        }
-        \only<3|handout:0>{
-            \begin{block}{Why I like NRE}
+            \item Faster than LBI
                 \begin{itemize}
-                    \item The link between classification and inference is profound.
-                    \item Density estimation is hard -- Dimensionless $r$ divides out the hard-to-calculate parts.
+                    \item emulation -- also applies to LBI in principle
                 \end{itemize}
-            \end{block}
-            \begin{block}{Why I don't like NRE}
+            \item No need to pragmatically encode fiducial cosmologies
                 \begin{itemize}
-                    \item Practical implementations require marginalisation~\arxiv{2107.01214}, or autoregression~\arxiv{2308.08597}.
-                    \item Model comparison and parameter estimation are separate~\arxiv{2305.11241}.
+                    \item Covariance computation implicitly encoded in simulations
+                    \item Highly relevant for disentangling tensions \& systematics
                 \end{itemize}
-            \end{block}
-        }
-    \end{columns}
-\end{frame}
-
-\begin{frame}
-    \frametitle{TMNRE: Truncated Marginal Neural Ratio Estimation}
-    \framesubtitle{\texttt{swyft}: \tthref{github.com/undark-lab/swyft}}
-    \begin{columns}
-        \column{0.55\textwidth}
-        \begin{itemize}
-            \item Two tricks for practical NRE:
-        \end{itemize}
-        \begin{block}{Marginalisation}
-            \begin{itemize}
-                \item Only consider one or two parameters at a time.
-                \item Fine if your goal is to produce triangle plots.
-                \item Problematic if information is contained jointly in more than two parameters.
-            \end{itemize}
-        \end{block}
-        \begin{block}{Truncation}
-            \begin{itemize}
-                \item focus parameters $\theta$ on a subset of the prior which reproduces observed data $D_\text{obs}$
-                \item region is somewhat arbitrary (usually a box)
-                \item not amortised, sounds a bit like ABC
-            \end{itemize}
-        \end{block}
-        \column{0.45\textwidth}
-        \begin{overpic}[width=\textwidth]{figures/tmnre}
-            \put(70,0) {\arxiv{2111.08030}}
-        \end{overpic}
-    \end{columns}
-\end{frame}
-
-
-\begin{frame}
-    \frametitle{Similarities}
-    \begin{columns}
-        \column{0.5\textwidth}
-        \includegraphics[width=\textwidth,page=15]{figures/himmelblau}% 
-        \column{0.5\textwidth}
-        \includegraphics[width=\textwidth]{figures/tmnre.pdf}
-    \end{columns}
-\end{frame}
-
-\begin{frame}
-    \frametitle{Sequential NRE with nested sampling}
-    \begin{tikzpicture}[
-            node distance=1cm,
-            >=stealth, auto,
-            every state/.style={
-                rectangle, rounded corners, minimum width=2em,
-                text width=6.8cm, align=center
-            }
-        ]
-        \node[state, fill=C3!20, minimum height=3cm] (q14) {
-            \textbf{NS}\\
-            Run nested sampling on $\log r_{i}(\theta, D_\text{obs})$ \\
-            to generate $\theta$ dead samples between prior and posterior targeted at $D_\text{obs}$.
-        };
-        \node[state, fill=C0!20, minimum height=1cm] (q121) [above=of q14] {
-            \textbf{Terminate} if $\mathcal{D}_\text{KL}$ has converged
-        };
-        \node[state, fill=C0!20, minimum height=1cm] (q12) [above=of q121] {
-            \textbf{Initialise} $\theta\sim\pi$\\
-        };
-        \node[state, fill=C2!20, minimum height=3cm] (q34) [right=of q14] {
-            \textbf{NRE}\\
-            Train Neural ratio estimator $\log r_i$
-            with weights initialised from previous run
-        };
-        \node[state, fill=C1!20, minimum height=3cm] (q23) [above=of q34] {
-            \textbf{Simulate}\\
-            Generate simulations $\theta\to D$ from all discarded points
-        };
-        \begin{scope}[bend left]%
-            \path[thick,-{Latex[width=2mm]}]   (q14.north) edge node {} (q121.south)
-            (q121.east) edge node {}($(q23.south west)!0.16!(q23.north west)$) 
-            (q23.south) edge node {} (q34.north)
-            (q34.west) edge node {} (q14.east)
-            (q12.east) edge node {}($(q23.south west)!0.84!(q23.north west)$) ;
-        \end{scope}
-        \node[align=center] (e) at (barycentric cs:q121=0.5,q12=0.5,q23=1,q34=1,q14=1) {\Large\textbf{NSNRE}};
-    \end{tikzpicture}
-\end{frame}
-
-\begin{frame}
-    \frametitle{\texttt{PolySwyft}}
-    \begin{columns}[t]
-        \column{0.45\textwidth}
-        \begin{block}{\texttt{PolyChord}}
-            \tthref{github.com/PolyChord/PolyChordLite}
-            \includegraphics[width=\textwidth]{figures/polychord.png}
-            \begin{itemize}
-                \item Widely used high-performance nested sampling tool (implementing slice sampling \& clustering in MPI Fortran)
-            \end{itemize}
-        \end{block}
-        \column{0.45\textwidth}
-        \begin{block}{\texttt{Swyft}}
-            \tthref{github.com/undark-lab/swyft}
-            \includegraphics[width=\textwidth]{figures/swyft_logo_wide.png}
-            \begin{itemize}
-                \item Widely used TMNRE tool in cosmology/astrophysics.
-            \end{itemize}
-        \end{block}
-        However, NSNRE is general, and not specific to these choices.
-    \end{columns}
-\end{frame}
-
-\begin{frame}
-    \frametitle{Convergence diagnostics}
-    \begin{columns}
-        \column{0.5\textwidth}
-        \begin{itemize}
-            \item Example for a $n=5$ dimensional parameter space, with $d=100$ data points, (\texttt{lsbi} gaussian mixture model).
-            \item This is the regime for cosmological scale problems.
-            \item To determine convergence we track:
+            \item Equips AI/ML with Bayesian interpretability
+            \item Lower barrier to entry than LBI
                 \begin{itemize}
-                    \item The change in KL divergence between rounds (\C[0]{blue}), and check when this goes to zero.
-                    \item The total KL divergence between prior and posterior estimate (\C[1]{orange}), and check when this levels off (ground truth in \C[3]{red}).
-                    \item Also shown is the KL divergence between the estimate and the ground truth (\C[2]{green}).
+                    \item Much easier to forward model a systematic
+                    \item Emerging set of plug-and-play packages
+                    \item For this reason alone, it will come to dominate scientific inference
                 \end{itemize}
-        \end{itemize}
-        \column{0.5\textwidth}
-        \includegraphics<1>[width=\textwidth]{figures/GMM_posterior_estimates.pdf}%
-        \includegraphics<2|handout:0>[width=\textwidth]{figures/GMM_KL_div_per_round.pdf}
+        \end{enumerate}
+        \column{0.4\textwidth}
+        \includegraphics[width=\textwidth]{figures/sbi_screenshot}
+        \href{https://github.com/sbi-dev}{github.com/sbi-dev}
+        \includegraphics[width=\textwidth]{figures/swyft_screenshot}
+        \href{https://github.com/undark-lab/swyft}{github.com/undark-lab/swyft}
+        \includegraphics[width=\textwidth]{figures/selfi_screenshot}
+        \href{https://github.com/florent-leclercq/pyselfi}{github.com/florent-leclercq/pyselfi}
+        \includegraphics[width=\textwidth]{figures/delfi_screenshot}
+        \href{https://github.com/justinalsing/pydelfi}{github.com/justinalsing/pydelfi}
     \end{columns}
 \end{frame}
 
 \begin{frame}
-    \frametitle{Posterior repartitioning}
-    \student{aleksandr_petrosyan}{Aleksandr Petrosyan}{MSci 2021}
+    \frametitle{Why aren't we currently using SBI in cosmology?}
     \begin{columns}
-        \column{0.5\textwidth}
+        \column{0.4\textwidth}
         \begin{itemize}
-            \item Almost all sampling algorithms (MH, HMC, SMC) are only sensitive to the product of likelihood and prior $\boxed{\C[2]{\mathcal{L}}\times\C[1]{\pi}}$.
-            \item In practice this manifests as many codes implementing ``prior terms'' in the likelihood (or visa-versa) with no ill effect
-        \item Nested sampling is unusual, in that one ``samples from the prior $\C[1]{\pi}$, subject to a hard constraint $\C[2]{\mathcal{L}}>\C[2]{\mathcal{L}_*}$.'':
-                \[\{\theta\sim \C[1]{\pi} : \C[2]{\mathcal{L}}(\theta)>\C[2]{\mathcal{L}_*} \}\] 
-            \item This separates the prior from the likelihood at an algorithmic level.
+            \item Short answer: we are!
+                \begin{itemize}
+                    \item Mostly for weak lensing
+                    \item 2024 has been the year it has started to be applied to real data.
+                \end{itemize}
+            \item Longer answer: SBI requires mock data generation code
+            \item Most data analysis codes were built before the generative paradigm.
+            \item It's still a lot of work to upgrade cosmological likelihoods  to be able to do this (e.g.\ \texttt{plik} \& \texttt{camspec}).
         \end{itemize}
-        \column{0.5\textwidth}
-        \begin{itemize}
-\item One can therefore repartition the likelihood and prior $(\C[2]{\mathcal{L}},\C[1]{\pi})\to(\C[2]{\tilde{\mathcal{L}}},\C[1]{\tilde{\pi}})$, providing
-                \[ \boxed{\C[2]{\mathcal{L}}\times\C[1]{\pi} = \C[2]{\tilde{\mathcal{L}}}\times\C[1]{\tilde{\pi}}}\]
-            \item This moves pieces between likelihood and prior that you have analytic control over.
-                \includegraphics[width=\textwidth]{figures/repartition}
-            \item Chen, Feroz \& Hobson~\arxiv{1908.04655} invented this to deal with misspecified priors
-        \end{itemize}
+        \column{0.3\textwidth}
+        \includegraphics[width=\textwidth]{figures/sbi_papers/clusters.pdf}
+        \vspace{10pt}\\
+        \includegraphics[width=\textwidth]{figures/sbi_papers/des.pdf}
+        \vspace{10pt}\\
+        \includegraphics[width=\textwidth]{figures/sbi_papers/gw.pdf}
+        \vspace{10pt}\\
+        \includegraphics[width=\textwidth]{figures/sbi_papers/center.pdf}
+        \column{0.3\textwidth}
+        \includegraphics[width=\textwidth]{figures/sbi_papers/kidsdes.pdf}
+        \vspace{10pt}\\
+        \includegraphics[width=\textwidth]{figures/sbi_papers/kids.pdf}
+        \vspace{10pt}\\
+        \includegraphics[width=\textwidth]{figures/sbi_papers/population.pdf}
+        \vspace{10pt}\\
+        \includegraphics[width=\textwidth]{figures/sbi_papers/simbig.pdf}
     \end{columns}
 \end{frame}
 
-\begin{frame}
-    \frametitle{Posterior repartitioning for acceleration}
-    \student{metha_prathaban}{Metha Prathaban}{PhD}
-    \begin{columns}
-        \column{0.5\textwidth}
-        \begin{exampleblock}{Key idea}
-Whilst posteriors and evidences are invariant to repartitioning $\C[2]{\mathcal{L}}\to\C[2]{\tilde{\mathcal{L}}}$, the KL divergence is not.
-        \end{exampleblock}
-    \begin{itemize}
-            \item For constant ``run quality'' $\sigma$, 
-            \begin{gather*} 
-                {\scriptstyle
-                    T = T_{\C[2]{\mathcal{L}}} \times n_\text{live} \times \mathcal{D}_\text{KL} \times f_\text{sampler}, \quad
-\sigma \approx \sqrt{\mathcal{D}_\text{KL}/n_\text{live}} }
-    \\
-\Rightarrow\boxed{T = T_{\C[2]{\mathcal{L}}} \times \sigma \times \mathcal{D}_\text{KL}^2 \times f_\text{sampler}} 
-        \end{gather*}
-            so if you can reduce the KL divergence, then quadratic gains to be made
-        \item \texttt{SuperNest}~\arxiv{2212.01760}
-        \item Ongoing work with Metha Prathaban \& Harry Bevins.
-    \end{itemize}
-        \column{0.5\textwidth}
-        \vspace{8pt}
-        \includegraphics[width=\textwidth]{figures/supernest.pdf}
-        \begin{itemize}
-            \item Easy to get 40x performance normalised speed-up on cosmological scale cases
-            \item Paper $\sim\mathcal{O}(\text{next month})$.
-        \end{itemize}
-    \end{columns}
-\end{frame}
+%\begin{frame}
+%    \frametitle{Navigating the SBI zoo}
+%
+%    \& my research
+%
+%    Polyswyft
+%
+%    lsbi
+%\end{frame}
+
 
 \begin{frame}
     \frametitle{Conclusions}
@@ -985,7 +897,6 @@ Whilst posteriors and evidences are invariant to repartitioning $\C[2]{\mathcal{
         \includegraphics[width=0.09\textheight]{figures/students/namu_kroupa.jpg}%
         \includegraphics[width=0.09\textheight]{figures/students/sinah_legner.jpg}%
         \includegraphics[width=0.09\textheight]{figures/students/sam_leeney.jpg}%
-        \includegraphics[width=0.09\textheight]{figures/students/thomas_gessey-jones.jpg}%
         \includegraphics[width=0.09\textheight]{figures/students/wei-ning_deng.jpg}%
     };
     \vspace{-0.1\textheight}
