@@ -79,53 +79,78 @@
     \end{columns}
 \end{frame}
 
-%\begin{frame}
-%    \frametitle{The three pillars of Bayesian inference}
-%    \begin{columns}[t]
-%        \column{0.33\textwidth}
-%        \begin{block}{Parameter estimation}
-%            What do the data tell us about the parameters of a model?
-%
-%            \textit{e.g. the size or age of a $\Lambda$CDM universe}
-%            \[ \hspace{-4pt}\C[0]{P(\theta|D,M)} = \frac{\C[2]{P(D|\theta,M)} \C[1]{P(\theta|M)}}{\C[3]{P(D|M)}} \] 
-%            \[ \C[0]{\mathcal{P}} = \frac{\C[2]{\mathcal{L}} \times\C[1]{\pi}}{\C[3]{\mathcal{Z}}}\] 
-%            \[ \C[0]{\text{Posterior}} = \frac{\C[2]{\text{Likelihood}} \times\C[1]{\text{Prior}}}{\C[3]{\text{Evidence}}}\]
-%        \end{block}
-%        \column{0.3\textwidth}
-%        \begin{block}{Model comparison}
-%            How much does the data support a particular model?
-%
-%            \textit{e.g. $\Lambda$CDM vs a dynamic dark energy cosmology}
-%            \[ \C[4]{P(M|D)} = \frac{\C[3]{P(D|M)} \C[5]{P(M)}}{\C[7]{P(D)}} \vspace{-7pt}\]
-%            \[ \frac{\C[3]{\mathcal{Z}_{M}} \C[5]{\Pi_{M}}}{\C[7]{\sum_m Z_m \Pi_m}} \]
-%            \[ \C[4]{\text{Posterior}} = \frac{\C[3]{\text{Evidence}} \times\C[5]{\text{Prior}}}{\C[7]{\text{Normalisation}}}\]
-%        \end{block}
-%        \column{0.33\textwidth}
-%        \begin{block}{Tension quantification}
-%            Do different datasets make consistent predictions from the same model? 
-%            \textit{e.g. CMB vs Type IA supernovae data}
-%            \[ \mathcal{R} = \frac{\C[3]{\mathcal{Z}}_{AB}}{\C[3]{\mathcal{Z}}_A\C[3]{\mathcal{Z}}_\mathcal{B}}\] 
-%            \[
-%                \begin{aligned} \log\mathcal{S} = \av[{\C[0]{\mathcal{P}}_{AB}}]{\C[2]{\log\mathcal{L}}_{AB}}&\\
-%                    -\av[{\C[0]{\mathcal{P}}_{A}}]{\C[2]{\log\mathcal{L}}_{A}}&\\
-%                    -\av[{\C[0]{\mathcal{P}}_{B}}]{\C[2]{\log\mathcal{L}}_{B}}&
-%                \end{aligned}
-%            \]
-%        \end{block}
-%    \end{columns}
-%\end{frame}
-%
-%\begin{frame}
-%    \frametitle{Model comparison $\C[3]{\mathcal{Z}=P(D|M)}$}
-%    \begin{columns}[t]
-%        \column{0.47\textwidth}
-%        \begin{block}{Popper's falsificationism}
-%        \end{block}
-%        \column{0.47\textwidth}
-%        \begin{block}{Occam's razor}
-%        \end{block}
-%    \end{columns}
-%\end{frame}
+\begin{frame}
+    \frametitle{The three pillars of Bayesian inference}
+    \begin{columns}[t]
+        \column{0.33\textwidth}
+        \begin{block}{Parameter estimation}
+            What do the data tell us about the parameters of a model?
+
+            \textit{e.g. the size or age of a $\Lambda$CDM universe}
+            \[ \hspace{-4pt}\C[0]{P(\theta|D,M)} = \frac{\C[2]{P(D|\theta,M)} \C[1]{P(\theta|M)}}{\C[3]{P(D|M)}} \] 
+            \[ \C[0]{\mathcal{P}} = \frac{\C[2]{\mathcal{L}} \times\C[1]{\pi}}{\C[3]{\mathcal{Z}}}\] 
+            \[ \C[0]{\text{Posterior}} = \frac{\C[2]{\text{Likelihood}} \times\C[1]{\text{Prior}}}{\C[3]{\text{Evidence}}}\]
+        \end{block}
+        \column{0.3\textwidth}
+        \begin{block}{Model comparison}
+            How much does the data support a particular model?
+
+            \textit{e.g. $\Lambda$CDM vs a dynamic dark energy cosmology}
+            \[ \C[4]{P(M|D)} = \frac{\C[3]{P(D|M)} \C[5]{P(M)}}{\C[7]{P(D)}} \vspace{-7pt}\]
+            \[ \frac{\C[3]{\mathcal{Z}_{M}} \C[5]{\Pi_{M}}}{\C[7]{\sum_m Z_m \Pi_m}} \]
+            \[ \C[4]{\text{Posterior}} = \frac{\C[3]{\text{Evidence}} \times\C[5]{\text{Prior}}}{\C[7]{\text{Normalisation}}}\]
+        \end{block}
+        \column{0.33\textwidth}
+        \begin{block}{Tension quantification}
+            Do different datasets make consistent predictions from the same model? 
+            \textit{e.g. CMB vs Type IA supernovae data}
+            \[ \mathcal{R} = \frac{\C[3]{\mathcal{Z}}_{AB}}{\C[3]{\mathcal{Z}}_A\C[3]{\mathcal{Z}}_\mathcal{B}}\] 
+            \[
+                \begin{aligned} \log\mathcal{S} = \av[{\C[0]{\mathcal{P}}_{AB}}]{\C[2]{\log\mathcal{L}}_{AB}}&\\
+                    -\av[{\C[0]{\mathcal{P}}_{A}}]{\C[2]{\log\mathcal{L}}_{A}}&\\
+                    -\av[{\C[0]{\mathcal{P}}_{B}}]{\C[2]{\log\mathcal{L}}_{B}}&
+                \end{aligned}
+            \]
+        \end{block}
+    \end{columns}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Model comparison $\C[3]{\mathcal{Z}=P(D|M)}$}
+    \begin{itemize}
+        \item Bayesian model comparison allows mathematical derivation of key philosophical principles.
+    \end{itemize}
+    \begin{columns}[t]
+        \column{0.47\textwidth}
+        Viewed from data-space $D$:
+        \begin{block}{Popper's falsificationism}
+            \begin{itemize}
+                \item Prefer models that make bold predictions.
+                \item if proven true, model more likely correct.
+            \end{itemize}
+        \end{block}
+        \includegraphics<1>[width=\textwidth, page=1]{figures/popper.pdf}%
+        \includegraphics<2>[width=\textwidth, page=2]{figures/popper.pdf}%
+        \includegraphics<3>[width=\textwidth, page=3]{figures/popper.pdf}%
+        \begin{itemize}
+            \item Falsificationism comes from normalisation
+        \end{itemize}
+        \column{0.47\textwidth}
+        Viewed from parameter-space $\theta$:
+        \begin{block}{Occam's razor}
+            \begin{itemize}
+                \item Models should be as simple as possible
+                \item \ldots but no simpler
+            \end{itemize}
+        \end{block}
+        \begin{itemize}
+            \item Occam's razor equation:
+                \[\C[3]{\log\mathcal{Z}} = \av[{\C[0]{\mathcal{P}}}]{\C[2]{\log\mathcal{L}}} - \mathcal{D}_\text{KL}\]
+            \item ``Occam penalty'': KL divergence between \C[1]{prior~$\pi$} and \C[0]{posterior~$\mathcal{P}$}.
+                \[ \mathcal{D}_\text{KL}\sim \log\frac{\text{\C[1]{Prior volume} }}{\text{\C[0]{Posterior volume}}}\]
+        \end{itemize}
+    \end{columns}
+\end{frame}
 
 
 \begin{frame}
@@ -837,16 +862,13 @@
 \end{frame}
 
 \begin{frame}
-    \frametitle{Why aren't we currently using SBI in cosmology?}
+    \frametitle{SBI in cosmology}
     \begin{columns}
         \column{0.4\textwidth}
         \begin{itemize}
-            \item Short answer: we are!
-                \begin{itemize}
-                    \item Mostly for weak lensing
-                    \item 2024 has been the year it has started to be applied to real data.
-                \end{itemize}
-            \item Longer answer: SBI requires mock data generation code
+            \item 2024 has been the year it has started to be applied to real data.
+            \item Mostly for weak lensing
+            \item However: SBI requires mock data generation code
             \item Most data analysis codes were built before the generative paradigm.
             \item It's still a lot of work to upgrade cosmological likelihoods  to be able to do this (e.g.\ \texttt{plik} \& \texttt{camspec}).
         \end{itemize}
@@ -868,16 +890,6 @@
         \includegraphics[width=\textwidth]{figures/sbi_papers/simbig.pdf}
     \end{columns}
 \end{frame}
-
-%\begin{frame}
-%    \frametitle{Navigating the SBI zoo}
-%
-%    \& my research
-%
-%    Polyswyft
-%
-%    lsbi
-%\end{frame}
 
 
 \begin{frame}
@@ -909,8 +921,9 @@
                 \item Exploring/scanning/optimising \textit{a priori} unknown functions,
                 \item Performing Bayesian inference and model comparison.
             \end{itemize}
-        \item It is applied widely across cosmology, particle physics \& machine learning.
+        \item It is applied widely across cosmology \& particle physics.
         \item It's unique traits as the only numerical Lebesgue integrator mean with compute it will continue to grow in importance.
+        \item SBI represents the future of inference beyond LBI.
     \end{itemize}
         \column{0.35\textwidth}
     \includegraphics[height=0.6\textwidth]{figures/pps_both}%
