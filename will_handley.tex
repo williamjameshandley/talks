@@ -1,4 +1,4 @@
-\documentclass[aspectratio=169]{beamer}
+\documentclass[aspectratio=169,handout]{beamer}
 \usepackage{will_handley_beamer}
 \usepackage{title_page}
 
@@ -29,6 +29,79 @@
 \begin{frame}
     \frametitle{<+Frame title+>}
     <+Content+>
+\end{frame}
+
+\begin{frame}
+    \frametitle{The nature of sampling}
+    <++>
+\end{frame}
+
+
+\begin{frame}
+    \begin{columns}
+        \column{0.48\textwidth}
+        \begin{block}{\textbf{MCMC}}
+            \only<16>{
+                \begin{itemize}
+                    \item Single ``walker''
+                    \item Explores posterior
+                    \item Fast, if proposal matrix is tuned
+                    \item Parameter estimation, suspiciousness calculation
+                    \item Channel capacity optimised for generating posterior samples
+                \end{itemize}
+            }
+        \end{block}
+            \includegraphics<1>[width=\textwidth,page=16]{figures/himmelblau.pdf}%
+            \includegraphics<2>[width=\textwidth,page=17]{figures/himmelblau.pdf}%
+            \includegraphics<3>[width=\textwidth,page=18]{figures/himmelblau.pdf}%
+            \includegraphics<4>[width=\textwidth,page=19]{figures/himmelblau.pdf}%
+            \includegraphics<5>[width=\textwidth,page=20]{figures/himmelblau.pdf}%
+            \includegraphics<6-15>[width=\textwidth,page=21]{figures/himmelblau.pdf}%
+        \centerline{\includegraphics<16>[width=0.5\textwidth,page=19]{figures/himmelblau.pdf}}
+        \column{0.48\textwidth}
+        \begin{block}<7->{\textbf{Nested sampling}}
+            \only<16>{
+                \begin{itemize}
+                    \item Ensemble of ``live points''
+                    \item Scans from prior to peak of likelihood
+                    \item Slower, no tuning required
+                    \item Parameter estimation, model comparison, tension quantification
+                    \item Channel capacity optimised for computing partition function
+                \end{itemize}
+            }
+        \end{block}
+            \includegraphics<7|handout:0>[width=\textwidth,page=1]{figures/himmelblau.pdf}%
+            \includegraphics<8|handout:0>[width=\textwidth,page=2]{figures/himmelblau.pdf}%
+            \includegraphics<9|handout:0>[width=\textwidth,page=3]{figures/himmelblau.pdf}%
+            \includegraphics<10          >[width=\textwidth,page=4]{figures/himmelblau.pdf}%
+            \includegraphics<11|handout:0>[width=\textwidth,page=5]{figures/himmelblau.pdf}%
+            \includegraphics<12|handout:0>[width=\textwidth,page=6]{figures/himmelblau.pdf}%
+            \includegraphics<13|handout:0>[width=\textwidth,page=7]{figures/himmelblau.pdf}%
+            \includegraphics<14|handout:0>[width=\textwidth,page=8]{figures/himmelblau.pdf}%
+            \includegraphics<15|handout:0>[width=\textwidth,page=15]{figures/himmelblau.pdf}%
+        \centerline{\includegraphics<16>[width=0.5\textwidth,page=4]{figures/himmelblau.pdf}} 
+    \end{columns}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Nested Sampling}
+    <++>
+\end{frame}
+\begin{frame}
+    \frametitle{Lattice QCD with nested sampling}
+    <++>
+\end{frame}
+\begin{frame}
+    \frametitle{$p$-values with nested sampling}
+    <++>
+\end{frame}
+\begin{frame}
+    \frametitle{Fine-tuning with nested sampling}
+    <++>
+\end{frame}
+\begin{frame}
+    \frametitle{Model comparison as quantifying fine tuning}
+    <++>
 \end{frame}
 
 \begin{frame}
