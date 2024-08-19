@@ -11,7 +11,7 @@
 % - \xkcd{<number>}             xkcd.com/<number>
 % - \email{<email>}             <<email>>
 % - \tthref{<website>}          <website>
-% - \av[dist]{<quantity>}       <quantity>_{dist}
+% - \av[list]{<quantity>}       <quantity>_{list}
 % - \student{<name>}{<detail>}{<photo>}
 
 % Talk details
@@ -27,14 +27,85 @@
 \end{frame}
 
 %\begin{frame}
-%    \frametitle{The nature of sampling}
+%    \frame title{The nature of sampling}
 %    <++>
 %\end{frame}
 %
 %\begin{frame}
-%    \frametitle{Monte carlo integration}
+%    \frame title{Monte Carlo integration}
 %    <++>
 %\end{frame}
+
+\begin{frame}
+    \frametitle{Numerical inference tasks}
+    \begin{itemize}
+        \item Given a (scalar) function $f$ with a vector of parameters $\theta$, one might want to:
+    \end{itemize}
+    \vspace{-10pt}
+    \begin{columns}[t]
+        \column{0.3\textwidth}
+        \begin{block}{Optimise}
+            \[\theta_\text{Max} = \max_\theta{f(\theta)}\]
+        \end{block}
+        \column{0.3\textwidth}
+        \begin{block}{Explore}
+            \vspace{-10pt}
+            \[\text{draw/sample}\quad \theta\sim f\]
+            \vspace{-15pt}
+        \end{block}
+        \column{0.3\textwidth}
+        \begin{block}{Integrate}
+            \[\int f(\theta) dV \]
+        \end{block}
+    \end{columns}
+    \begin{columns}[t]
+        \column{0.33\textwidth}
+        \centerline{\includegraphics[width=0.8\textwidth,page=13]{figures/himmelblau}}
+        \column{0.33\textwidth}
+        \centerline{\includegraphics[width=0.8\textwidth,page=15]{figures/himmelblau}}
+        \column{0.33\textwidth}
+        \centerline{\includegraphics[width=0.8\textwidth,page=14]{figures/himmelblau}}
+    \end{columns}
+\end{frame}
+
+\begin{frame}
+    \frametitle{(incomplete) list of techniques}
+    \begin{columns}
+        \column{0.5\textwidth}
+        \begin{itemize}
+            \item Optimisers
+                \begin{itemize}
+                    \item Gradient descent (ADAM, BFGS)
+                    \item simplex method (Nelder-Mead)
+                    \item Genetic algorithms (Diver)
+                \end{itemize}
+            \item Samplers
+                \begin{itemize}
+                    \item \textbf{Metropolis-Hastings} (PyMC, MontePython)
+                    \item Hamiltonian Monte Carlo (Stan, blackjax)
+                    \item Ensemble sampling (emcee, zeus). 
+                    \item Variational Inference (Pyro, NIFTY)
+                \end{itemize}
+            \item Integrators
+                \begin{itemize}
+                    \item \textbf{Nested sampling} (MultiNest, dynesty)
+                    \item Thermodynamic integration
+                    \item Sequential Monte Carlo (pocomc)
+                \end{itemize}
+            \end{itemize}
+        \column{0.5\textwidth}
+        \begin{columns}
+            \column{0.5\textwidth}
+        \includegraphics[width=\textwidth]{figures/emcee}
+        \includegraphics[width=\textwidth]{figures/metropolis-hastings}
+            \column{0.5\textwidth}
+        \includegraphics[width=\textwidth]{figures/zeus}
+        \end{columns}
+        \includegraphics[width=\textwidth]{figures/hmc_explained}
+    \end{columns}
+\end{frame}
+
+
 
 \begin{frame}
     \begin{columns}
@@ -329,12 +400,17 @@
         \item It's unique traits as the only numerical Lebesgue integrator mean with compute it will continue to grow in importance.
     \end{itemize}
         \column{0.35\textwidth}
+    \includegraphics[width=\textwidth]{figures/multinest}
+
     %\includegraphics[height=0.6\textwidth]{figures/pps_both}%
     %\includegraphics[height=0.6\textwidth]{figures/REACH_2}%
     \end{columns}
     %\includegraphics[height=0.2\textwidth]{figures/integration}%
     %\includegraphics[height=0.2\textwidth]{figures/curvature_3}%
     %\includegraphics[height=0.2\textwidth]{figures/ALP_3}%
+    \includegraphics[height=0.2\textwidth]{figures/potential_shape}%
+    \includegraphics[height=0.2\textwidth]{figures/2d_phase}%
+    \includegraphics[height=0.2\textwidth]{figures/popper}
 \end{frame}
 
 \end{document}
