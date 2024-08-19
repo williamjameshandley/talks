@@ -1,4 +1,4 @@
-\documentclass[aspectratio=169,handout]{beamer}
+\documentclass[aspectratio=169]{beamer}
 \usepackage{will_handley_beamer}
 \usepackage{title_page}
 
@@ -226,6 +226,32 @@
 \end{frame}
 
 \begin{frame}
+    \frametitle{Cross sections \& Bayesian detection}
+    \framesubtitle{Applications of nested sampling}
+    \student{david_yallup}{David Yallup}{PDRA}
+    \begin{columns}
+        \column{0.56\textwidth}
+        \begin{columns}
+            \column{0.67\textwidth}
+            \begin{itemize}
+                \item Nested sampling for cross section computation/event generation
+            \end{itemize}
+            \column{0.3\textwidth}
+            \[\sigma = \int_\Omega d\Phi |\mathcal{M}|^2.\]
+        \end{columns}
+        \begin{itemize}
+            \item Nested sampling can explore the phase space $\Omega$ and compute integral blind with comparable efficiency to HAAG/RAMBO~\arxiv{2205.02030}.
+            \item Bayesian sparse reconstruction~\arxiv{1809.04598} applied to bump hunting allows evidence-based detection of signals in phenomenological backgrounds~\arxiv{2211.10391}.
+        \end{itemize}
+        \column{0.17\textwidth}
+        \includegraphics[width=\textwidth]{figures/phase_space_1-pdfjam-crop.pdf}
+        \column{0.27\textwidth}
+        \includegraphics[width=\textwidth]{figures/psi_predict-crop.pdf}
+    \end{columns}
+\end{frame}
+
+
+\begin{frame}
     \frametitle{Lattice field theory}
     \framesubtitle{Applications of nested sampling}
 \student{david_yallup}{David Yallup}{PDRA}
@@ -258,7 +284,6 @@
     \begin{columns}
         \column{0.55\textwidth}
         \begin{itemize}
-            \item Nested sampling for frequentist computation!?
             \item $p$-value: $P(\lambda>\lambda^*|H_0)$ -- probability that test statistic $\lambda$ is at least as great as observed $\lambda^*$.
             \item Computation of a tail probability from sampling distribution of $\lambda$ under $H_0$.
             \item For gold-standard $5\sigma$, this is very expensive to simulate directly ($\sim10^9$ by definition).
@@ -268,32 +293,6 @@
         \end{itemize}
         \column{0.45\textwidth}
         \includegraphics[width=\textwidth]{figures/pvalue.pdf}
-    \end{columns}
-\end{frame}
-
-\begin{frame}
-    \frametitle{Cross section calculation}
-    \framesubtitle{Applications of nested sampling}
-    \student{david_yallup}{David Yallup}{PDRA}
-    \begin{columns}
-        \column{0.56\textwidth}
-        \begin{columns}
-            \column{0.67\textwidth}
-            \begin{itemize}
-                \item Nested sampling for cross section computation/event generation
-            \end{itemize}
-            \column{0.3\textwidth}
-            \[\sigma = \int_\Omega d\Phi |\mathcal{M}|^2.\]
-        \end{columns}
-        \begin{itemize}
-            \item Nested sampling can explore the phase space $\Omega$ and compute integral blind with comparable efficiency to HAAG/RAMBO~\arxiv{2205.02030}.
-            \item Bayesian sparse reconstruction~\arxiv{1809.04598} applied to bump hunting allows evidence-based detection of signals in phenomenological backgrounds~\arxiv{2211.10391}.
-            \item Fine tuning quantification
-        \end{itemize}
-        \column{0.17\textwidth}
-        \includegraphics[width=\textwidth]{figures/phase_space_1-pdfjam-crop.pdf}
-        \column{0.27\textwidth}
-        \includegraphics[width=\textwidth]{figures/psi_predict-crop.pdf}
     \end{columns}
 \end{frame}
 
@@ -394,7 +393,7 @@
             \begin{itemize}
                 \item Numerical integration $\int f(x) dV$,
                 \item Exploring/scanning/optimising \textit{a priori} unknown functions,
-                \item Performing Bayesian inference and model comparison.
+                \item Quantifying fine-tuning with Bayesian theory
             \end{itemize}
         \item It is applied widely across cosmology \& particle physics.
         \item It's unique traits as the only numerical Lebesgue integrator mean with compute it will continue to grow in importance.
