@@ -16,7 +16,7 @@ x = np.linspace(-3, 3, 1000)
 from matplotlib.backends.backend_pdf import PdfPages
 
 with PdfPages('popper.pdf') as pdf:
-    fig, ax = plt.subplots(figsize=(7, 3))
+    fig, ax = plt.subplots(figsize=(lecture_style.width, lecture_style.width*0.4))
     ax.set_xticks([])
     ax.set_yticks([])
     ax.set_xlabel('$D$')
@@ -24,7 +24,8 @@ with PdfPages('popper.pdf') as pdf:
     labelLine(ax.get_lines()[-1], 1.5, label=r'$P(D|M_1)$')
     ax.plot(x, rounded_top_hat(x, -1, 1, 0.1), label=r'$P(D|M_2)$')
     labelLine(ax.get_lines()[-1], -0.5, label=r'$P(D|M_2)$')
-    pdf.savefig(fig, bbox_inches='tight')
+    fig.tight_layout()
+    pdf.savefig(fig)
 
     to_delete = []
     to_delete.append(ax.axvline(1, color='black', ls=':'))
@@ -32,8 +33,8 @@ with PdfPages('popper.pdf') as pdf:
     ax.set_xlabel(None)
     ax.set_xticklabels([r'$D_\mathrm{obs}$'])
     # Put axis text in top right of figure
-    to_delete.append(ax.text(0.95, 0.95, r'Prefer Model $M_1$', transform=ax.transAxes, ha='right', va='top'))
-    pdf.savefig(fig, bbox_inches='tight')
+    to_delete.append(ax.text(0.95, 0.95, r'Prefer Model $M_1$', transform=ax.transAxes, ha='right', va='top', color='C0'))
+    pdf.savefig(fig)
     for line in to_delete:
         line.remove()
 
@@ -41,7 +42,7 @@ with PdfPages('popper.pdf') as pdf:
     to_delete.append(ax.axvline(-1, color='black', ls=':'))
     ax.set_xticks([-1])
     ax.set_xticklabels([r'$D_\mathrm{obs}$'])
-    to_delete.append(ax.text(0.95, 0.95, r'Prefer Model $M_2$', transform=ax.transAxes, ha='right', va='top'))
-    pdf.savefig(fig, bbox_inches='tight')
+    to_delete.append(ax.text(0.95, 0.95, r'Prefer Model $M_2$', transform=ax.transAxes, ha='right', va='top', color='C1'))
+    pdf.savefig(fig)
     for line in to_delete:
         line.remove()
