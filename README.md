@@ -2,7 +2,7 @@
 
 ## Academic talks
 1. Sampling methods for high energy physics & particle astrophysics
-    - Invited talk given at [XVIth Quark Confinement and the Hadron Spectrum] https://indico.cern.ch/event/1293041/overview)
+    - Invited talk given at [XVIth Quark Confinement and the Hadron Spectrum](https://indico.cern.ch/event/1293041/overview)
     - [PDF](https://github.com/williamjameshandley/talks/raw/cairns_2024/will_handley_cairns_2024.pdf)  
     - [source](https://github.com/williamjameshandley/talks/tree/cairns_2024)
     - _Aug 2024_
