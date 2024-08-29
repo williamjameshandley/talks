@@ -2,7 +2,7 @@
 
 ## Academic talks
 1. Sampling methods for high energy physics & particle astrophysics
-    - Invited talk given at [XVIth Quark Confinement and the Hadron Spectrum] https://indico.cern.ch/event/1293041/overview)
+    - Invited talk given at [XVIth Quark Confinement and the Hadron Spectrum](https://indico.cern.ch/event/1293041/overview)
     - [PDF](https://github.com/williamjameshandley/talks/raw/cairns_2024/will_handley_cairns_2024.pdf)  
     - [source](https://github.com/williamjameshandley/talks/tree/cairns_2024)
     - _Aug 2024_
@@ -32,7 +32,7 @@
     - [source](https://github.com/williamjameshandley/talks/tree/kicc_2024) 
     - _Jun 2024_
 7. Next generation astrophysical inference across the interdisciplinary frontier
-    - remote talk given to UCL
+    - remote job talk given to UCL
     - [PDF](https://github.com/williamjameshandley/talks/raw/ucl_2024/will_handley_ucl_2024.pdf)  
     - [source](https://github.com/williamjameshandley/talks/tree/ucl_2024) 
     - _May 2024_
@@ -42,7 +42,7 @@
     - [source](https://github.com/williamjameshandley/talks/tree/phystat_2024) 
     - _May 2024_
 9. Next generation astrophysical inference across the interdisciplinary frontier
-    - Talk given at the Institute of Astronomy, Cambridge
+    - Job Talk given at the Institute of Astronomy, Cambridge
     - [PDF](https://github.com/williamjameshandley/talks/raw/ioa_2024/will_handley_ioa_2024.pdf)  
     - [source](https://github.com/williamjameshandley/talks/tree/ioa_2024) 
     - _April 2024_
@@ -122,7 +122,7 @@
     - [source](https://github.com/williamjameshandley/talks/tree/amsterdam_lfi_2023)
     - _Jan 2023_  
 25. Nested sampling: powering the next-generation of Bayesian inference tools for cosmology, particle physics and beyond
-    - Cavendish laboratory, Cambridge 
+    - Job talk given at Cavendish laboratory, Cambridge 
     - [PDF](https://github.com/williamjameshandley/talks/raw/cavendish_2022/will_handley_cavendish_2022.pdf)  
     - [source](https://github.com/williamjameshandley/talks/tree/cavendish_2022)
     - _Dec 2022_  
