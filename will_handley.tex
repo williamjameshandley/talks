@@ -24,7 +24,6 @@
     \titlepage
 \end{frame}
 
-
 \begin{frame}
     \frametitle{LBI: Likelihood-based inference}
     \begin{columns}
@@ -84,8 +83,7 @@
     \begin{columns}[t]
         \column{0.33\textwidth}
         \begin{block}{Parameter estimation}
-            What do the data tell us about the parameters of a model?
-
+            What do the data tell us about the parameters of a model?\\
             \textit{e.g. the size or age of a $\Lambda$CDM universe}
             \[ \hspace{-4pt}\C[0]{P(\theta|D,M)} = \frac{\C[2]{P(D|\theta,M)} \C[1]{P(\theta|M)}}{\C[3]{P(D|M)}} \] 
             \[ \C[0]{\mathcal{P}} = \frac{\C[2]{\mathcal{L}} \times\C[1]{\pi}}{\C[3]{\mathcal{Z}}}\] 
@@ -93,8 +91,7 @@
         \end{block}
         \column{0.3\textwidth}
         \begin{block}{Model comparison}
-            How much does the data support a particular model?
-
+            How much does the data support a particular model?\\
             \textit{e.g. $\Lambda$CDM vs a dynamic dark energy cosmology}
             \[ \C[4]{P(M|D)} = \frac{\C[3]{P(D|M)} \C[5]{P(M)}}{\C[7]{P(D)}} \vspace{-7pt}\]
             \[ \frac{\C[3]{\mathcal{Z}_{M}} \C[5]{\Pi_{M}}}{\C[7]{\sum_m Z_m \Pi_m}} \]
@@ -151,7 +148,6 @@
         \end{itemize}
     \end{columns}
 \end{frame}
-
 
 \begin{frame}
     \frametitle{What is Nested Sampling?}
@@ -314,17 +310,6 @@
             \item At each iteration, the contours contract by $\sim\frac{1}{n}\only<5->{\pm \frac{1}{n}}$ of their volume.
             \item This is an exponential contraction, so
                 \[  \int f(x) dV \approx \sum_i f(x_i) \Delta V_i, \quad V_i = V_0 e^{-\only<5->{(}i\only<5->{\pm\sqrt{i})}/n} \]
-%            \item Nested sampling: completely different way to scan.
-%            \item Ensemble sampling compresses entire space$\to$peak(s).
-%            \item Sequentially update a set $S$ of $n$ samples:
-%                \begin{itemize}
-%                    \item[$S_0$:]  Generate $n$ samples uniformly over the space (from a measure $\pi$). 
-%
-%                    \item[$S_{i+1}$:] Delete the lowest likelihood sample in $S_{i}$, and replace it with a new uniform sample with higher likelihood.
-%                \end{itemize}
-%            \item Requires one to be able to sample uniformly within a region, subject to a {\em hard constraint}:
-%                \[\{\theta\sim \pi : \mathcal{L}(\theta)>\mathcal{L}_*. \}\]
-%            \item This procedure optimises (multimodally), and can calculate the \C[3]{evidence}/integral of function \& \C[0]{posterior}/sample weights.
         \end{itemize}
         \column{0.5\textwidth}
         \includegraphics<1|handout:0>[width=\textwidth,page=1]{figures/himmelblau}%
@@ -359,11 +344,6 @@
 
 \begin{frame}
     \frametitle{Implementations of Nested Sampling \arxiv{2205.15570}(NatReview)}
-    %\begin{columns}
-    %    \begin{column}{0.33}
-    %        \includegraphics[width=\textwidth]{figures/multinest}
-    %    \end{column} 
-    %\end{columns}
     \begin{columns}[t]
         \column{0.3\textwidth}
         \texttt{MultiNest}~\arxiv{0809.3437}
@@ -431,42 +411,6 @@
     \end{itemize}
 \end{frame}
 
-%\begin{frame}
-%    \frametitle{Applications: The three pillars of Bayesian inference}
-%    \begin{columns}[t]
-%        \column{0.33\textwidth}
-%        \begin{block}{Parameter estimation}
-%            What do the data tell us about the parameters of a model?
-%
-%            \textit{e.g. the size or age of a $\Lambda$CDM universe}
-%            \[ \hspace{-4pt}\C[0]{P(\theta|D,M)} = \frac{\C[2]{P(D|\theta,M)} \C[1]{P(\theta|M)}}{\C[3]{P(D|M)}} \] 
-%            \[ \C[0]{\mathcal{P}} = \frac{\C[2]{\mathcal{L}} \times\C[1]{\pi}}{\C[3]{\mathcal{Z}}}\] 
-%            \[ \C[0]{\text{Posterior}} = \frac{\C[2]{\text{Likelihood}} \times\C[1]{\text{Prior}}}{\C[3]{\text{Evidence}}}\]
-%        \end{block}
-%        \column{0.3\textwidth}
-%        \begin{block}{Model comparison}
-%            How much does the data support a particular model?
-%
-%            \textit{e.g. $\Lambda$CDM vs a dynamic dark energy cosmology}
-%            \[ \C[4]{P(M|D)} = \frac{\C[3]{P(D|M)} \C[5]{P(M)}}{\C[7]{P(D)}} \vspace{-7pt}\]
-%            \[ \frac{\C[3]{\mathcal{Z}_{M}} \C[5]{\Pi_{M}}}{\C[7]{\sum_m Z_m \Pi_m}} \]
-%            \[ \C[4]{\text{Posterior}} = \frac{\C[3]{\text{Evidence}} \times\C[5]{\text{Prior}}}{\C[7]{\text{Normalisation}}}\]
-%        \end{block}
-%        \column{0.33\textwidth}
-%        \begin{block}{Tension quantification}
-%            Do different datasets make consistent predictions from the same model? 
-%            \textit{e.g. CMB vs Type IA supernovae data}
-%            \[ \mathcal{R} = \frac{\C[3]{\mathcal{Z}}_{AB}}{\C[3]{\mathcal{Z}}_A\C[3]{\mathcal{Z}}_\mathcal{B}}\] 
-%            \[
-%                \begin{aligned} \log\mathcal{S} = \av[{\C[0]{\mathcal{P}}_{AB}}]{\C[2]{\log\mathcal{L}}_{AB}}&\\
-%                    -\av[{\C[0]{\mathcal{P}}_{A}}]{\C[2]{\log\mathcal{L}}_{A}}&\\
-%                    -\av[{\C[0]{\mathcal{P}}_{B}}]{\C[2]{\log\mathcal{L}}_{B}}&
-%                \end{aligned}
-%            \]
-%        \end{block}
-%    \end{columns}
-%\end{frame}
-
 \begin{frame}
     \frametitle{Applications of nested sampling}
     \framesubtitle{Cosmology}
@@ -487,7 +431,6 @@
         \column{0.45\textwidth}
         \includegraphics[width=0.49\textwidth]{figures/pps_both}
         \includegraphics[width=0.49\textwidth]{figures/reach_fit-cropped.pdf}
-        %\includegraphics[width=0.49\textwidth]{figures/curvature_3}
         \includegraphics[width=\textwidth]{figures/omegak_H0_2.pdf}
     \end{columns}
 \end{frame}
@@ -538,7 +481,6 @@
             \item Bayesian sparse reconstruction~\arxiv{1809.04598} applied to bump hunting allows evidence-based detection of signals in phenomenological backgrounds~\arxiv{2211.10391}.
             \item Fine tuning quantification
             \item Fast estimation of small $p$-values \arxiv{2106.02056}(PRL), just make switch:\\ $X\leftrightarrow p$, $\mathcal{L}\leftrightarrow\lambda$, $\theta \leftrightarrow x$.
-
         \end{itemize}
         \column{0.17\textwidth}
         \includegraphics[width=\textwidth]{figures/phase_space_1-pdfjam-crop.pdf}
@@ -546,7 +488,6 @@
         \includegraphics[width=\textwidth]{figures/psi_predict-crop.pdf}
     \end{columns}
 \end{frame}
-
 
 \begin{frame}
     \frametitle{Applications of nested sampling}
@@ -573,6 +514,7 @@
         \includegraphics[width=\textwidth]{figures/lattice_field_theory.pdf}
     \end{columns}
 \end{frame}
+
 \begin{frame}
     \frametitle{Applications of nested sampling}
     \framesubtitle{Machine learning}
@@ -598,25 +540,6 @@
         \includegraphics[width=\textwidth]{figures/nn_posterior-cropped.pdf}
     \end{columns}
 \end{frame}
-
-%\begin{frame}
-%    \frametitle{Applications of nested sampling}
-%    \framesubtitle{Statistics: fast estimation of small $p$-values~\arxiv{2106.02056}(PRL)}
-%    \begin{columns}
-%        \column{0.57\textwidth}
-%        \begin{itemize}
-%            \item Nested sampling for frequentist computation!?
-%            \item $p$-value: $P(\lambda>\lambda^*|H_0)$ -- probability that test statistic $\lambda$ is at least as great as observed $\lambda^*$.
-%            \item Computation of a tail probability from sampling distribution of $\lambda$ under $H_0$.
-%            \item For gold-standard $5\sigma$, this is very expensive to simulate directly ($\sim10^9$ by definition).
-%            \item Need insight/approximation to make efficient.
-%            \item Nested sampling is tailor-made for this, just make switch: $X\leftrightarrow p$, $\mathcal{L}\leftrightarrow\lambda$, $\theta \leftrightarrow x$.
-%            \item The only real conceptual shift is switching the integrator from parameter- to data-space.
-%        \end{itemize}
-%        \column{0.43\textwidth}
-%        \includegraphics[width=\textwidth]{figures/pvalue.pdf}
-%    \end{columns}
-%\end{frame}
 
 \begin{frame}
     \frametitle{Applications of nested sampling}
@@ -665,9 +588,6 @@
         \includegraphics<2          >[width=\textwidth]{figures/protein_2.png}%
         \includegraphics<3|handout:0>[width=\textwidth]{figures/protein_3.png}%
         \includegraphics<4|handout:0>[width=\textwidth]{figures/lcoe.png}%
-        %\includegraphics<5|handout:0>[width=\textwidth]{figures/tdoa-cropped-1-crop.pdf}%
-        %\includegraphics<6|handout:0>[width=\textwidth]{figures/tdoa-cropped-2-crop.pdf}%
-        %\includegraphics<7|handout:0>[width=\textwidth]{figures/tdoa-cropped-3-crop.pdf}%
         \includegraphics<5|handout:0>[width=\textwidth]{figures/DKL_contour-cropped-crop.pdf}%
         \includegraphics<6|handout:0>[width=\textwidth]{figures/mean_DKL_optimise-3-crop.pdf}%
         \includegraphics<7|handout:0>[width=\textwidth]{figures/mean_DKL_optimise-4-crop.pdf}%
@@ -699,25 +619,6 @@
         \includegraphics[width=\textwidth]{figures/21cm.png}
     \end{columns}
 \end{frame}
-
-%\begin{frame}
-%    \frametitle{GAMBIT: combining particle physics \& cosmological data}
-%    \begin{columns}
-%        \column{0.52\textwidth}
-%        \begin{itemize}
-%            \item Multinational team of particle physicists, cosmologists and statisticians.
-%            \item Combine cosmological data, particle colliders, direct detection, \& neutrino detectors in a statistically principled manner~\arxiv{2205.13549}.
-%            \item Lead Cosmo/Dark Matter working group~\arxiv{2009.03286}.
-%            \item Nested sampling used for global fitting, and fine-tuning quantification~\arxiv{2101.00428}
-%        \end{itemize}
-%        \begin{center}
-%            \includegraphics[width=0.5\textwidth]{figures/gambit_logo.png}
-%        \end{center}
-%        \column{0.48\textwidth}
-%        \vspace{-40pt}
-%        \includegraphics[width=\textwidth]{figures/ALP_2.pdf}
-%    \end{columns}
-%\end{frame}
 
 \begin{frame}
     \frametitle{GAMBIT}
@@ -777,7 +678,6 @@
     \end{columns}
 \end{frame}
 
-
 \begin{frame}
     \frametitle{SBI: Simulation-based inference}
     \begin{columns}
@@ -792,10 +692,7 @@
             \item Present state of the art achieves this using \emph{machine learning} (neural networks).
                 \begin{itemize}
                     \item My group's research tries to removes machine learning \tthref{github.com/handley-lab/lsbi}.
-
                 \end{itemize}
-            %\item Present SotA: NPE, NLE, NJE, NRE
-            %\item SBI \& forward modelling force us to think about data space~$D$ \& parameter space~$\theta$.
         \end{itemize}
         \column{0.5\textwidth}
         \includegraphics<1>[page=1, width=\textwidth]{figures/sbi_parameter_estimation.pdf}%
@@ -891,7 +788,6 @@
     \end{columns}
 \end{frame}
 
-
 \begin{frame}
     \frametitle{Conclusions}
     \framesubtitle{\tthref{github.com/handley-lab}}
@@ -933,8 +829,6 @@
     \includegraphics[height=0.2\textwidth]{figures/curvature_3}%
     \includegraphics[height=0.2\textwidth]{figures/ALP_3}%
 \end{frame}
-
-
 
 \appendix
 
