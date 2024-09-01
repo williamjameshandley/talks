@@ -7,10 +7,14 @@
 % Commands
 % --------
 % - \arxiv{arxiv number}
-% - \cols{width}{lh column}{rh column}
-% -  \begin{fig(left|right)}[fractional width (e.g 0.6) ]{name of image}
-%        content of other column
-%    \end{fig(left|right)}
+% - \arxiv{<number>}            arxiv.org/abs/<number>
+% - \oldarxiv{<arxiv number>}   arxiv.org/<number>
+% - \doi{<doi>}                 doi.org/<doi>
+% - \xkcd{<number>}             xkcd.com/<number>
+% - \email{<email>}             <<email>>
+% - \tthref{<website>}          <website>
+% - \av[dist]{<quantity>}       <quantity>_{dist}
+% - \student{<name>}{<detail>}{<photo>}
 
 % Talk details
 % ------------
@@ -545,10 +549,10 @@
     \frametitle{Applications of nested sampling}
     \framesubtitle{And beyond\ldots}
     \only<1-4>{
-        \student{watkinson-headshot}{Catherine Watkinson}{Senior Data Scientist}
+        \student{catherine-watkinson-polychord}{Catherine Watkinson}{Senior Data Scientist}
     }
     \only<5->{
-        \student{mcaloone-headshot}{Thomas Mcaloone}{PhD $\to$ Data Scientist}
+        \student{thomas-macaloone-polychord}{Thomas Mcaloone}{PhD $\to$ Data Scientist}
     }
     \begin{columns}
         \column{0.6\textwidth}
@@ -571,18 +575,18 @@
                     \item Maximum information data acquisition strategies.
                 \end{itemize}
         \end{itemize}
-        \includegraphics[width=0.08\textwidth]{figures/headshots/catherine-watkinson-polychord.jpg}%
-        \includegraphics[width=0.08\textwidth]{figures/headshots/thomas-macaloone-polychord.jpg}%
-        \includegraphics[width=0.08\textwidth]{figures/headshots/parul-janagal-polychord.jpg}%
-        \includegraphics[width=0.08\textwidth]{figures/headshots/angus-peters-polychord.jpg}%
-        \includegraphics[width=0.08\textwidth]{figures/headshots/tamas-stenzel-polychord.jpg}%
-        \includegraphics[width=0.08\textwidth]{figures/headshots/david-yallup-polychord.jpg}%
-        \includegraphics[width=0.08\textwidth]{figures/headshots/rebecca-handley-polychord.jpg}%
-        \includegraphics[width=0.08\textwidth]{figures/headshots/adam-ormondroyd-polychord.jpg}%
-        \includegraphics[width=0.08\textwidth]{figures/headshots/mike-hobson-polychord.jpg}%
-        \includegraphics[width=0.08\textwidth]{figures/headshots/anthony-lasenby-polychord.jpg}%
-        \includegraphics[width=0.08\textwidth]{figures/headshots/mike-handley-polychord.jpg}%
-        \includegraphics[width=0.08\textwidth]{figures/headshots/will-handley-polychord.jpg}%
+        \includegraphics[width=0.08\textwidth]{people/catherine-watkinson-polychord.jpg}%
+        \includegraphics[width=0.08\textwidth]{people/thomas-macaloone-polychord.jpg}%
+        \includegraphics[width=0.08\textwidth]{people/parul-janagal-polychord.jpg}%
+        \includegraphics[width=0.08\textwidth]{people/angus-peters-polychord.jpg}%
+        \includegraphics[width=0.08\textwidth]{people/tamas-stenzel-polychord.jpg}%
+        \includegraphics[width=0.08\textwidth]{people/david-yallup-polychord.jpg}%
+        \includegraphics[width=0.08\textwidth]{people/rebecca-handley-polychord.jpg}%
+        \includegraphics[width=0.08\textwidth]{people/adam-ormondroyd-polychord.jpg}%
+        \includegraphics[width=0.08\textwidth]{people/mike-hobson-polychord.jpg}%
+        \includegraphics[width=0.08\textwidth]{people/anthony-lasenby-polychord.jpg}%
+        \includegraphics[width=0.08\textwidth]{people/mike-handley-polychord.jpg}%
+        \includegraphics[width=0.08\textwidth]{people/will-handley-polychord.jpg}%
         \column{0.4\textwidth}
         \includegraphics<1|handout:0>[width=\textwidth]{figures/protein_1.png}%
         \includegraphics<2          >[width=\textwidth]{figures/protein_2.png}%
@@ -639,7 +643,7 @@
             \item \texttt{GravBit} and \texttt{LowEnergyBit} arising from GAMBIT@KICC workshop
         \end{itemize}
         \column{0.5\textwidth}
-        \includegraphics[height=0.423\textwidth]{figures/students/gambit.png}
+        \includegraphics[height=0.423\textwidth]{people/gambit.png}
         \includegraphics[height=0.423\textwidth]{figures/gambit_kicc.jpg}
         \includegraphics[width=\textwidth]{figures/gambit_meetingbanner.jpg}
     \end{columns}
@@ -793,19 +797,19 @@
     \framesubtitle{\tthref{github.com/handley-lab}}
     \tikz[overlay,remember picture]
         \node[anchor=north east] (A) at ($(current page.north east)+(0,0)$) {
-        \includegraphics[width=0.10\textheight]{figures/students/adam_ormondroyd.jpg}%
-        \includegraphics[width=0.10\textheight]{figures/students/charlotte_priestley.jpg}%
-        \includegraphics[width=0.10\textheight]{figures/students/david_yallup.jpg}%
-        \includegraphics[width=0.10\textheight]{figures/students/dily_ong.jpg}%
-        \includegraphics[width=0.10\textheight]{figures/students/george_carter.jpg}%
-        \includegraphics[width=0.10\textheight]{figures/students/harry_bevins.jpg}%
-        \includegraphics[width=0.10\textheight]{figures/students/kilian_scheutwinkel.jpg}%
-        \includegraphics[width=0.10\textheight]{figures/students/metha_prathaban.jpg}%
-        \includegraphics[width=0.10\textheight]{figures/students/namu_kroupa.jpg}%
-        \includegraphics[width=0.10\textheight]{figures/students/sinah_legner.jpg}%
-        \includegraphics[width=0.10\textheight]{figures/students/sam_leeney.jpg}%
-        \includegraphics[width=0.10\textheight]{figures/students/wei-ning_deng.jpg}%
-        \includegraphics[width=0.10\textheight]{figures/students/will_handley.jpg}%
+        \includegraphics[width=0.10\textheight]{people/adam_ormondroyd.jpg}%
+        \includegraphics[width=0.10\textheight]{people/charlotte_priestley.jpg}%
+        \includegraphics[width=0.10\textheight]{people/david_yallup.jpg}%
+        \includegraphics[width=0.10\textheight]{people/dily_ong.jpg}%
+        \includegraphics[width=0.10\textheight]{people/george_carter.jpg}%
+        \includegraphics[width=0.10\textheight]{people/harry_bevins.jpg}%
+        \includegraphics[width=0.10\textheight]{people/kilian_scheutwinkel.jpg}%
+        \includegraphics[width=0.10\textheight]{people/metha_prathaban.jpg}%
+        \includegraphics[width=0.10\textheight]{people/namu_kroupa.jpg}%
+        \includegraphics[width=0.10\textheight]{people/sinah_legner.jpg}%
+        \includegraphics[width=0.10\textheight]{people/sam_leeney.jpg}%
+        \includegraphics[width=0.10\textheight]{people/wei-ning_deng.jpg}%
+        \includegraphics[width=0.10\textheight]{people/will_handley.jpg}%
     };
     \vspace{-0.1\textheight}
     \begin{columns}
