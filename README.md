@@ -23,3 +23,5 @@ In this talk I will give a pedagogical introduction to the theory & practice of 
 
  
 [[PDF](https://github.com/williamjameshandley/talks/raw/sydney_2024/will_handley_sydney_2024.pdf)] 
+
+[recording](https://uni-sydney.zoom.us/rec/share/FNwIQwjswSIU5sLwrGY3thH_ZGPPmuNMzOlLsejj3fBF-cYDR6oUiNLHmYDahEfI.DRPVZ5j-v_bgiGzM)
