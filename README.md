@@ -5,6 +5,7 @@
     - Colloquium given at [University of Sydney](https://sifa.sydney.edu.au/)
     - [PDF](https://github.com/williamjameshandley/talks/raw/sydney_2024/will_handley_sydney_2024.pdf)  
     - [source](https://github.com/williamjameshandley/talks/tree/sydney_2024)
+    - [video](https://uni-sydney.zoom.us/rec/share/FNwIQwjswSIU5sLwrGY3thH_ZGPPmuNMzOlLsejj3fBF-cYDR6oUiNLHmYDahEfI.DRPVZ5j-v_bgiGzM)
     - _Aug 2024_
 2. Sampling methods for high energy physics & particle astrophysics
     - Invited talk given at [XVIth Quark Confinement and the Hadron Spectrum](https://indico.cern.ch/event/1293041/overview)
