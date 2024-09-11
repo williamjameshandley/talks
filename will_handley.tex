@@ -53,20 +53,20 @@
     \frametitle{Who?}
     \begin{columns}
         \column{0.8\textwidth}
-    Idea I've been working on/talking about for the better part of 18 months,
-    \begin{itemize}
-        \item Nicolas Mediato Diaz (MSci project)
-        \item David Yallup (Postdoc)
-        \item Thomas Gessey Jones (Postdoc)
-    \end{itemize}
+        Idea I've been working on/talking about for the better part of 18 months,
+        \begin{itemize}
+            \item Nicolas Mediato Diaz (MSci project)
+            \item David Yallup (Postdoc)
+            \item Thomas Gessey Jones (Postdoc)
+        \end{itemize}
 
-    Many others have also presented this idea independently
-    \begin{itemize}
-        \item \texttt{SELFI} incorporates much of this idea: Leclercq~\arxiv{1902.10149}
-        \item some of these ideas are in \texttt{MOPED}: Heavens~\oldarxiv{astro-ph/9911102}
-        \item Also appears in Häggström~\arxiv{2403.07454}
-    \end{itemize}
-        
+        Many others have also presented this idea independently
+        \begin{itemize}
+            \item \texttt{SELFI} incorporates much of this idea: Leclercq~\arxiv{1902.10149}
+            \item some of these ideas are in \texttt{MOPED}: Heavens~\oldarxiv{astro-ph/9911102}
+            \item Also appears in Häggström~\arxiv{2403.07454}
+        \end{itemize}
+
         \column{0.2\textwidth}
         \includegraphics[width=\textwidth]{people/david_yallup}
         \includegraphics[width=\textwidth]{people/thomas_gessey-jones}
@@ -154,7 +154,7 @@
                     \item[$C$]:  $d\times d$ data covariance
                 \end{description}
         \end{itemize}
-        
+
         \pause
         \column{0.5\textwidth}
         \begin{itemize}
@@ -186,16 +186,16 @@
                 \[P(\{D_i\}|\{\theta_i\}|m, M, C) = \prod_i \mathcal{N}(D_i|m+M\theta_i,C)\]
             \item It can be shown the \C[0]{posterior $\mathcal{P}$} is\ldots
                 \onslide<3>{
-                \begin{align*}
-                    m&|M,C,S \sim \mathcal{N}(\tfrac{k}{k+1}(\bar D - M \bar \theta), \tfrac{C}{k+1}), \\
-                    M&|C,S \sim \mathcal{MN}(\Psi \Theta^{-1}_*, \tfrac{C}{k-1}, \Theta^{-1}_*), \\
-                    C&|S\sim \mathcal{W}^{-1}_\nu(C_0 + (k-1)(\Delta-\Psi \Theta^{-1} \Psi')),
-                \end{align*}%
-                where $\Theta_* = \tfrac{1}{k-1}\Theta_0 + \Theta$, $\nu=\nu_0+k$, and $C_0$ define conjugate \C[2]{prior $\pi$} on $m,M,C$
-            }
+                    \begin{align*}
+                        m&|M,C,S \sim \mathcal{N}(\tfrac{k}{k+1}(\bar D - M \bar \theta), \tfrac{C}{k+1}), \\
+                        M&|C,S \sim \mathcal{MN}(\Psi \Theta^{-1}_*, \tfrac{C}{k-1}, \Theta^{-1}_*), \\
+                        C&|S\sim \mathcal{W}^{-1}_\nu(C_0 + (k-1)(\Delta-\Psi \Theta^{-1} \Psi')),
+                    \end{align*}%
+                    where $\Theta_* = \tfrac{1}{k-1}\Theta_0 + \Theta$, $\nu=\nu_0+k$, and $C_0$ define conjugate \C[2]{prior $\pi$} on $m,M,C$
+                }
         \end{itemize}
 
-        
+
         \column{0.3\textwidth}
         \includegraphics<2->[width=\textwidth]{figures/matrix_variate_distributions.jpg}
     \end{columns}
@@ -232,7 +232,7 @@
             \item<7-> Evaluate the new posterior
             \item<8-> Iterate
         \end{itemize}
-        
+
         \column{0.5\textwidth}
         \includegraphics<1|handout:0>[width=\textwidth, page=1]{figures/lsbi_plot.pdf}%
         \includegraphics<2|handout:0>[width=\textwidth, page=2]{figures/lsbi_plot.pdf}%
@@ -249,12 +249,37 @@
         \includegraphics<13|handout:0>[width=\textwidth, page=13]{figures/lsbi_plot.pdf}%
         \includegraphics<14|handout:0>[width=\textwidth, page=14]{figures/lsbi_plot.pdf}%
         \includegraphics<15|handout:0>[width=\textwidth, page=15]{figures/lsbi_plot.pdf}%
-        \includegraphics<16|handout:0>[width=\textwidth, page=16]{figures/lsbi_plot.pdf}%
+        \includegraphics<16>[width=\textwidth, page=16]{figures/lsbi_plot.pdf}%
     \end{columns}
 \end{frame}
 
 \begin{frame}
     \frametitle{Example of this on the CMB}
+    \begin{columns}
+        \column{0.52\textwidth}
+        \begin{itemize}
+            \item Now apply this to a ``real'' cosmology example, inferring $\Lambda$CDM from the CMB
+            \item Unfortunately generative planck likelihoods do not exist yet
+            \item Consider a cosmic-variance limited, temperature-only, full sky CMB experiment with no foregrounds
+            \item This is a $n=6$, $d=2500$ non-linear problem
+                \begin{itemize}
+                    \item No compression needed
+                \end{itemize}
+            \item Apply the above procedure
+            \item Slight bias these results, but this can be fixed by marginalising over $m,M,C$, rather than taking point estimates.
+        \end{itemize}
+
+        \column{0.48\textwidth}
+        \includegraphics<1|handout:0>[width=\textwidth,page=1]{figures/cosmo_update.pdf}%
+        \includegraphics<2|handout:0>[width=\textwidth,page=2]{figures/cosmo_update.pdf}%
+        \includegraphics<3|handout:0>[width=\textwidth,page=3]{figures/cosmo_update.pdf}%
+        \includegraphics<4|handout:0>[width=\textwidth,page=4]{figures/cosmo_update.pdf}%
+        \includegraphics<5|handout:0>[width=\textwidth,page=5]{figures/cosmo_update.pdf}%
+        \includegraphics<6|handout:0>[width=\textwidth,page=6]{figures/cosmo_update.pdf}%
+        \includegraphics<7|handout:0>[width=\textwidth,page=7]{figures/cosmo_update.pdf}%
+        \includegraphics<8|handout:0>[width=\textwidth,page=8]{figures/cosmo_update.pdf}%
+        \includegraphics<9|handout:0>[width=\textwidth,page=9]{figures/cosmo_update.pdf}%
+    \end{columns}
 \end{frame}
 
 \begin{frame}
@@ -277,7 +302,6 @@
             \end{itemize}
         \item \tthref{github.com/handley-lab/lsbi}
     \end{itemize}
-
 \end{frame}
 
 \begin{frame}
@@ -291,7 +315,11 @@
         \item Include realistic CMB simulation effects (foregrounds)
         \item Extend to more examples (BAO, SNe)
         \item How does LSBI contribute to the question of compression
+        \item Explore limits of $d$ and $n$
+        \item Explore mixture modelling for real nonlinear effects
         \item If the posterior is the answer, what is the question?
+        \item Importance sampling?
+        \item Model comparison?
     \end{itemize}
 \end{frame}
 
@@ -315,7 +343,11 @@
         \includegraphics[width=0.10\textheight]{people/will_handley.jpg}%
     };
     \begin{itemize}
-        \item 
+        \item \textbf{Introduction to \texttt{lsbi}:} A linear simulation-based inference method developed over 18 months by the speaker and collaborators.
+        \item \textbf{Benefits of Linear SBI:} Pedagogical value, practical examples with known ground truths, competitive accuracy, speed, and interpretability compared to neural networks.
+        \item \textbf{Mathematical Setup:} Uses a linear generative model to fit simulation data and iteratively refine posterior estimations, demonstrated through toy and cosmology examples.
+        \item \textbf{\texttt{lsbi} Python Package:} Extends \texttt{scipy.stats.multivariate\_normal} with functionalities for marginalization, conditioning, and plotting; under active development and open source.
+        \item \textbf{Future Directions:} Include realistic CMB simulations, extend to other examples (BAO, SNe), explore parameter limits, mixture modeling, and integrate importance sampling and model comparison.
     \end{itemize}
 \end{frame}
 
