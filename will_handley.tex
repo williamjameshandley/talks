@@ -47,11 +47,13 @@
 
 \begin{frame}
     \frametitle{Who?}
+    \begin{columns}
+        \column{0.8\textwidth}
     Idea I've been working on/talking about for the better part of 18 months,
     \begin{itemize}
-        \item Nicolas Mediato Diaz
-        \item David Yallup
-        \item Thomas Gessey Jones
+        \item Nicolas Mediato Diaz (MSci project)
+        \item David Yallup (Postdoc)
+        \item Thomas Gessey Jones (Postdoc)
     \end{itemize}
 
     Many others have also presented this idea independently
@@ -60,6 +62,11 @@
         \item some of these ideas are in \texttt{MOPED}: Heavens~\oldarxiv{astro-ph/9911102}
         \item Also appears in Häggström~\arxiv{2403.07454}
     \end{itemize}
+        
+        \column{0.2\textwidth}
+        \includegraphics[width=\textwidth]{people/david_yallup}
+        \includegraphics[width=\textwidth]{people/thomas_gessey-jones}
+    \end{columns}
 \end{frame}
 
 \begin{frame}
@@ -131,7 +138,8 @@
             \item Linear generative model $(m,M,C)$
                 \[ 
                     \only<1>{D = m + M \theta \pm \sqrt{C}}%
-                    \only<2>{D \sim \mathcal{N}(m + M \theta, C)}
+                    \only<2>{D \sim \mathcal{N}(m + M \theta, C)}%D \sim 
+                    %\only<3>{p = \mathcal{N}(D|m + M \theta, C)}
                 \]%
                 where:
                 \begin{description}
@@ -143,6 +151,7 @@
                 \end{description}
         \end{itemize}
         
+        \pause
         \column{0.5\textwidth}
         \begin{itemize}
             \item $k$ Simulations 
@@ -171,14 +180,14 @@
             \item We now wish to infer the parameters of the linear model $(m,M,C)$ from simulations $S$ (which define $\bar\theta,\bar D, \Theta, \Delta, \Psi$)
             \item The likelihood for this problem is:
                 \[P(\{D_i\}|\{\theta_i\}|m, M, C) = \prod_i \mathcal{N}(D_i|m+M\theta_i,C)\]
-            \item It can be shown\ldots
+            \item It can be shown the \C[0]{posterior $\mathcal{P}$} is\ldots
                 \onslide<3>{
                 \begin{align*}
                     m&|M,C,S \sim \mathcal{N}(\tfrac{k}{k+1}(\bar D - M \bar \theta), \tfrac{C}{k+1}), \\
                     M&|C,S \sim \mathcal{MN}(\Psi \Theta^{-1}_*, \tfrac{C}{k-1}, \Theta^{-1}_*), \\
                     C&|S\sim \mathcal{W}^{-1}_\nu(C_0 + (k-1)(\Delta-\Psi \Theta^{-1} \Psi')),
                 \end{align*}%
-                where $\Theta_* = \tfrac{1}{k-1}\Theta_0 + \Theta$, $\nu=\nu_0+k$ and $C_0$ define conjugate priors on $m,M,C$
+                where $\Theta_* = \tfrac{1}{k-1}\Theta_0 + \Theta$, $\nu=\nu_0+k$, and $C_0$ define conjugate \C[2]{prior $\pi$} on $m,M,C$
             }
         \end{itemize}
 
@@ -191,32 +200,48 @@
 
 \begin{frame}
     \frametitle{Example of this on our toy model}
-    <++>
 \end{frame}
 
 \begin{frame}
     \frametitle{Example of this on the CMB}
-    <++>
 \end{frame}
 
 \begin{frame}
-    \frametitle{Code details}
-    Design philosophy
-
-    Mirrors \texttt{scipy}
-
-    Adds conditioning
-
-    Adds further vectorisation
+    \frametitle{\texttt{lsbi}: linear simulation based inference}
+    \framesubtitle{Code details}
+    \begin{itemize}
+        \item \texttt{lsbi} is a pip-installable python package
+        \item it extends \texttt{scipy.stats.multivariate\_normal}
+            \begin{itemize}
+                \item vectorised distributions with (broadcastable) arrays of \texttt{mean} and \texttt{cov}
+                \item \texttt{.marginalise(...)} and \texttt{.condition(...)} methods
+                \item Plotting functionality
+            \end{itemize}
+        \item Implements \texttt{LinearModel} class with \texttt{.prior()}, \texttt{.likelihood(theta)}, \texttt{.posterior(D)} \& \texttt{.evidence()} methods which return distributions
+        \item Also implement \texttt{MixtureModel}
+        \item Under active develpoment
+            \begin{itemize}
+                \item Open source
+                \item Continuous integration
+            \end{itemize}
+        \item \tthref{github.com/handley-lab/lsbi}
+    \end{itemize}
 
 \end{frame}
 
 \begin{frame}
     \frametitle{Where next?}
-    Write up paper
-    Extend to more examples
-    Investigate compression
-    If the posterior is the answer, what is the question?
+    \begin{itemize}
+        \item Paper being written up 
+            \begin{itemize}
+                \item soft deadline for Nicolas' MPhil start in October
+                \item hard deadline for PhD applications
+            \end{itemize}
+        \item Include realistic CMB simulation effects (foregrounds)
+        \item Extend to more examples (BAO, SNe)
+        \item How does LSBI contribute to the question of compression
+        \item If the posterior is the answer, what is the question?
+    \end{itemize}
 \end{frame}
 
 \begin{frame}
@@ -238,6 +263,9 @@
         \includegraphics[width=0.10\textheight]{people/wei-ning_deng.jpg}%
         \includegraphics[width=0.10\textheight]{people/will_handley.jpg}%
     };
+    \begin{itemize}
+        \item 
+    \end{itemize}
 \end{frame}
 
 \end{document}
