@@ -30,17 +30,21 @@
     \begin{itemize}
         \item From \textbf{Jesse Thaler}'s talk on Interpretable Machine Learning:
             \begin{quote}
-                ``If asked what is the most under-used Machine Learning technique in physics\ldots\\ \hfill\ldots my answer is only half jokingly \textbf{linear regression}.''
+                ``If asked what is the most under-used Machine Learning technique in physics\ldots\\ \hfill\ldots my answer is only half-jokingly \textbf{linear regression}.''
             \end{quote}
         \item sbi mentioned in (so far)
             \begin{itemize}
                 \item Monday
-                    \begin{itemize}
-                        \item Ben Wandelt: Cosmology and machine learning¶
-                        \item Maximilian Dax: Simulation-based machine learning for gravitational-wave analysis
-                        \item Andre Scaffidi: Anomaly aware machine learning for dark matter direct detection at the DARWIN experiment
-                        \item Joshua Villarrea: Feldman-Cousins’ ML Cousin
-                    \end{itemize}
+                    \begin{description}
+                        \item[Ben Wandelt] Cosmology and machine learning¶
+                        \item[Maximilian Dax] Simulation-based machine learning for gravitational-wave analysis
+                        \item[Andre Scaffidi] Anomaly aware machine learning for dark matter direct detection at the DARWIN experiment
+                        \item[Joshua Villarrea] Feldman-Cousins’ ML Cousin
+                    \end{description}
+                \item Tuesday
+                    \begin{description}
+                        \item[Aishik Ghosh] Simulation-based Inference (SBI)
+                    \end{description}
             \end{itemize}
     \end{itemize}
 \end{frame}
@@ -199,6 +203,17 @@
 
 \begin{frame}
     \frametitle{Sequential LSBI}
+    \begin{itemize}
+        \item As we shall see, for non-linear problems, a linear approximation is unlikely to be a good one.
+        \item Sequential methods iteratively improve by focussing effort around observed data~$D_\text{obs}$.
+            \begin{itemize}
+                \item This is orthogonal to amortised approaches
+                \item More appropriate to cosmology, where there is only one dataset
+                \item Less appropriate to particle physics/GW
+            \end{itemize}
+        \item We are free to choose where to place simulation parameters $\{\theta_i\}$, so it makes sense to choose these so that they generate simulations close to the observed data
+        \item Our current approximation to the posterior is a natural choice.
+    \end{itemize}
 \end{frame}
 
 
@@ -206,6 +221,17 @@
     \frametitle{Example of this on our toy model}
     \begin{columns}
         \column{0.5\textwidth}
+        \begin{itemize}
+            \item<1-> Same model as before
+            \item<2-> Mark the observed data~$D_\text{obs}$
+            \item<3-> Fit a model using \texttt{lsbi}
+            \item<4-> Evaluate the posterior (cheap as linear)
+            \item<5-> Now use this posterior to pick $\{\theta_i\}$
+            \item<5-> Generate $\{D_i\}$ from original simulator
+            \item<6-> Fit \texttt{lsbi} to these
+            \item<7-> Evaluate the new posterior
+            \item<8-> Iterate
+        \end{itemize}
         
         \column{0.5\textwidth}
         \includegraphics<1|handout:0>[width=\textwidth, page=1]{figures/lsbi_plot.pdf}%
