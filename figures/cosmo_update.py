@@ -92,20 +92,38 @@ from anesthetic.plot import make_2d_axes
 
 pdf = PdfPages('cosmo_update.pdf')
 
+
+
 with PdfPages('cosmo_update.pdf') as pdf:
     fig, axes = make_2d_axes(params, labels=samples.get_labels_map())
     fig.set_size_inches(7, 7)
-    fig.tight_layout()
     axes = models[0].prior().plot_2d(axes, label='prior')
-    samples.plot_2d(axes, color='k', alpha=0.5, label='ground truth', zorder=1000)
-    axes.axlines(dict(zip(params, θobs)), color='k', ls='--')
-    pdf.savefig(fig)
+    axes.iloc[-1,  0].legend(loc='lower center', bbox_to_anchor=(len(axes)/2, len(axes)), ncol=6)
+    fig.tight_layout()
+
+    def update_and_save():
+        for i in range(6):
+            for j in range(i):
+                ax = axes.loc[params[j], params[i]]
+                lines = ax.get_lines()
+                for k, line in enumerate(lines):
+                    line.set_zorder(-1000+k)
+                ax.set_rasterization_zorder(-1)
+        axes.iloc[-1, 0].get_legend().remove()
+        axes.iloc[-1, 0].legend(loc='lower center', bbox_to_anchor=(len(axes)/2, len(axes)), ncol=6)
+        pdf.savefig(fig)
+
+    update_and_save()
     for i, model in enumerate(models):
         posterior = model.posterior(Dobs)
-        axes = posterior.plot_2d(axes, label=f'round {i}')
-        samps = posterior.rvs(1000)
-        pdf.savefig(fig)
-        for p, x in zip(params, samps.T):
+        axes = posterior.plot_2d(axes, label=f'round {i+1}')
+        update_and_save()
+        for p, x in zip(params, posterior.rvs(1000).T):
             axes.loc[p, p].set_xlim(x.mean() - 5* x.std(), x.mean() + 5* x.std())
-        pdf.savefig(fig)
+        update_and_save()
+    axes.axlines(dict(zip(params, θobs)), color='k', ls='--')
+    update_and_save()
+
+    samples.plot_2d(axes, label='true', alpha=0.9, color='k')
+    update_and_save()
 
