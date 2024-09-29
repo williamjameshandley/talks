@@ -63,6 +63,8 @@ D = CMB(Cl).rvs()
 #| Define the observed variables
 θobs = θ[0]
 Dobs = D[0]
+np.savetxt("theta.csv", θobs)
+np.savetxt("data.csv", Dobs)
 
 #| If you want to reproduce the ground-truth yourself, uncomment and run the below (takes about an hour on four cores)
 
