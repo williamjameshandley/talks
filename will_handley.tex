@@ -108,40 +108,38 @@
             \item If you have a simulator/forward model $\theta \rightarrow D$
                 defines an \C[2]{\emph{implicit} likelihood~$\mathcal{L}$}.
             \item Simulator generates samples from $\C[2]{\mathcal{L}(\cdot|\theta)}$.
-            \item With a prior $\C[1]{\pi}(\theta)$ can generate samples from \C[4]{joint distribution}~$\C[4]{\mathcal{J}(\theta,D)}=\C[2]{\mathcal{L}(D|\theta)}\C[1]{\pi(\theta)}$\\\hfill \emph{the ``probability of everything''}.
-            \item Task of SBI is take joint~$\C[4]{\mathcal{J}}$ samples and learn \C[0]{posterior $\mathcal{P}(\theta|D)$} and \C[3]{evidence $\mathcal{Z}(D)$} \\\hfill and possibly \C[2]{likelihood $\mathcal{L}(D|\theta)$}.
+            \item With a \C[1]{prior $\pi(\theta)$} can generate samples from \C[4]{joint distribution}~$\C[4]{\mathcal{J}(\theta,D)}=\C[2]{\mathcal{L}(D|\theta)}\C[1]{\pi(\theta)}$\\\hfill \emph{the ``probability of everything''}.
+            \item Task of SBI is take \C[4]{joint~$\mathcal{J}$} samples and learn \C[0]{posterior $\mathcal{P}(\theta|D)$},  and \C[3]{evidence $\mathcal{Z}(D)$} \\ or even \C[2]{likelihood~$\mathcal{L}(D|\theta)$} or \C[4]{joint~$\mathcal{J}(\theta,D)$}.
             \item Present state of the art achieves this using \emph{machine learning} (neural networks).
                 \begin{itemize}
                     \item My group's research tries to removes machine learning \tthref{github.com/handley-lab/lsbi}.
-
                 \end{itemize}
-            %\item Present SotA: NPE, NLE, NJE, NRE
-            %\item SBI \& forward modelling force us to think about data space~$D$ \& parameter space~$\theta$.
         \end{itemize}
         \column{0.5\textwidth}
-        \includegraphics<1>[page=1, width=\textwidth]{figures/sbi_parameter_estimation.pdf}%
-        \includegraphics<2>[page=2, width=\textwidth]{figures/sbi_parameter_estimation.pdf}%
-        \includegraphics<3>[page=3, width=\textwidth]{figures/sbi_parameter_estimation.pdf}%
-        \includegraphics<4>[page=4, width=\textwidth]{figures/sbi_parameter_estimation.pdf}%
-        \includegraphics<5>[page=5, width=\textwidth]{figures/sbi_parameter_estimation.pdf}%
-        \includegraphics<6>[page=6, width=\textwidth]{figures/sbi_parameter_estimation.pdf}%
-        \includegraphics<7>[page=7, width=\textwidth]{figures/sbi_parameter_estimation.pdf}%
-        \includegraphics<8>[page=8, width=\textwidth]{figures/sbi_parameter_estimation.pdf}%
-        \includegraphics<9>[page=9, width=\textwidth]{figures/sbi_parameter_estimation.pdf}%
-        \includegraphics<10>[page=10, width=\textwidth]{figures/sbi_parameter_estimation.pdf}%
-        \includegraphics<11>[page=11, width=\textwidth]{figures/sbi_parameter_estimation.pdf}%
-        \includegraphics<12>[page=12, width=\textwidth]{figures/sbi_parameter_estimation.pdf}%
-        \includegraphics<13>[page=13, width=\textwidth]{figures/sbi_parameter_estimation.pdf}%
-        \includegraphics<14>[page=14, width=\textwidth]{figures/sbi_parameter_estimation.pdf}%
-        \includegraphics<15>[page=15, width=\textwidth]{figures/sbi_parameter_estimation.pdf}%
-        \includegraphics<16>[page=16, width=\textwidth]{figures/sbi_parameter_estimation.pdf}%
-        \includegraphics<17>[page=17, width=\textwidth]{figures/sbi_parameter_estimation.pdf}%
-        \includegraphics<18>[page=18, width=\textwidth]{figures/sbi_parameter_estimation.pdf}%
-        \includegraphics<19>[page=19, width=\textwidth]{figures/sbi_parameter_estimation.pdf}%
-        \includegraphics<20>[page=20, width=\textwidth]{figures/sbi_parameter_estimation.pdf}%
+        \includegraphics<1|handout:0>[page=1, width=\textwidth]{figures/sbi_parameter_estimation.pdf}%
+        \includegraphics<2|handout:0>[page=2, width=\textwidth]{figures/sbi_parameter_estimation.pdf}%
+        \includegraphics<3|handout:0>[page=3, width=\textwidth]{figures/sbi_parameter_estimation.pdf}%
+        \includegraphics<4|handout:0>[page=4, width=\textwidth]{figures/sbi_parameter_estimation.pdf}%
+        \includegraphics<5|handout:0>[page=5, width=\textwidth]{figures/sbi_parameter_estimation.pdf}%
+        \includegraphics<6|handout:0>[page=6, width=\textwidth]{figures/sbi_parameter_estimation.pdf}%
+        \includegraphics<7|handout:0>[page=7, width=\textwidth]{figures/sbi_parameter_estimation.pdf}%
+        \includegraphics<8|handout:0>[page=8, width=\textwidth]{figures/sbi_parameter_estimation.pdf}%
+        \includegraphics<9|handout:0>[page=9, width=\textwidth]{figures/sbi_parameter_estimation.pdf}%
+        \includegraphics<10|handout:0>[page=10, width=\textwidth]{figures/sbi_parameter_estimation.pdf}%
+        \includegraphics<11|handout:0>[page=11, width=\textwidth]{figures/sbi_parameter_estimation.pdf}%
+        \includegraphics<12|handout:0>[page=12, width=\textwidth]{figures/sbi_parameter_estimation.pdf}%
+        \includegraphics<13|handout:0>[page=13, width=\textwidth]{figures/sbi_parameter_estimation.pdf}%
+        \includegraphics<14|handout:0>[page=14, width=\textwidth]{figures/sbi_parameter_estimation.pdf}%
+        \includegraphics<15|handout:0>[page=15, width=\textwidth]{figures/sbi_parameter_estimation.pdf}%
+        \includegraphics<16|handout:0>[page=16, width=\textwidth]{figures/sbi_parameter_estimation.pdf}%
+        \includegraphics<17|handout:0>[page=17, width=\textwidth]{figures/sbi_parameter_estimation.pdf}%
+        \includegraphics<18|handout:0>[page=18, width=\textwidth]{figures/sbi_parameter_estimation.pdf}%
+        \includegraphics<19|handout:0>[page=19, width=\textwidth]{figures/sbi_parameter_estimation.pdf}%
+        \includegraphics<20|handout:0>[page=20, width=\textwidth]{figures/sbi_parameter_estimation.pdf}%
         \includegraphics<21>[page=21, width=\textwidth]{figures/sbi_parameter_estimation.pdf}%
     \end{columns}
 \end{frame}
+
 
 \begin{frame}
     \frametitle{Why SBI?}
@@ -214,6 +212,22 @@
         \includegraphics[width=\textwidth]{figures/sbi_papers/simbig.pdf}
     \end{columns}
 \end{frame}
+
+\begin{frame}
+    \frametitle{Why aren't we currently using SBI in 21cm cosmology?}
+    \begin{itemize}
+        \item Search for \texttt{21} in list of SBI references:~\tthref{github.com/smsharma/awesome-neural-sbi}
+            \begin{enumerate}
+                \item \arxiv{2203.15734} Implicit Likelihood Inference of Reionization Parameters from the 21 cm Power Spectrum, \textbf{Xiaosheng Zhao, Yi Mao, Benjamin D. Wandelt}
+                \item \arxiv{2303.07339} Constraining the X-ray heating and reionization using 21-cm power spectra with Marginal Neural Ratio Estimation \textbf{Anchal Saxena, et al}
+                \item \arxiv{2305.03074} Exploring the likelihood of the 21-cm power spectrum with simulation-based inference, \textbf{David Prelogović, Andrei Mesinger}
+                \item \arxiv{2310.17602} Simulation-based Inference of Reionization Parameters from 3D Tomographic 21 cm Light-cone Images -- II: Application of Solid Harmonic Wavelet Scattering Transform, \textbf{Xiaosheng Zhao, Yi Mao, Shifan Zuo, Benjamin D. Wandelt}
+                \item \arxiv{2401.04174} Optimal, fast, and robust inference of reionization-era cosmology with the 21cmPIE-INN, \textbf{Benedikt Schosser, Caroline Heneka, Tilman Plehn}
+                \item \arxiv{2403.14618} Simulation-Based Inference of the sky-averaged 21-cm signal from CD-EoR with REACH, \textbf{Anchal Saxena et al}
+            \end{enumerate}
+    \end{itemize}
+\end{frame}
+
 
 \begin{frame}
     \frametitle{Neural Ratio Estimation}
