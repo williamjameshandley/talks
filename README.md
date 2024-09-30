@@ -42,7 +42,7 @@
     - [PDF](https://github.com/williamjameshandley/talks/raw/maxent_2024/will_handley_maxent_2024.pdf)  
     - [source](https://github.com/williamjameshandley/talks/tree/maxent_2024) 
     - _Jul 2024_
-9. Resonant or asymmetric: The status of sub-GeV dark matter Sub-GeV dark matter
+9. Resonant or asymmetric: The status of sub-GeV dark matter
     - talk given at [Dark Matter in Astrophysical Laboratories](https://www.kicc.cam.ac.uk/events/kavli-science-themed-meetings/dark-matter-astrophysical-laboratories) KICC workshop
     - [PDF](https://github.com/williamjameshandley/talks/raw/kicc_2024/will_handley_kicc_2024.pdf)  
     - [source](https://github.com/williamjameshandley/talks/tree/kicc_2024) 
