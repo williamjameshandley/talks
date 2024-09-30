@@ -22,8 +22,6 @@
 \g@addto@macro{\appendix}{\immediate\write\@auxout{\string\@writefile{nav}{\noexpand\headcommand{\noexpand\def\noexpand\insertpresentationendframe{\the\c@framenumber}}}}}
 \makeatother
 
-\newcommand{\nonexaminable}{\hskip0pt plus 1filll [non-examinable]}
-
 \setbeamerfont{footline}{size*={10pt}{10pt}}
 \setbeamertemplate{footline}{%
     \begin{beamercolorbox}[leftskip=0.2cm,rightskip=0.2cm]{structure}
@@ -59,7 +57,7 @@
 \newcommand{\av}[2][]{\left\langle #2\right\rangle_{#1}}
 \newcommand{\student}[3]{
     \tikz[overlay,remember picture]{
-        \node[anchor=north east] (A) at ($(current page.north east)+(0,0)$) {\includegraphics[width=0.09\textheight]{figures/students/#1}};
+        \node[anchor=north east] (A) at ($(current page.north east)+(0,0)$) {\includegraphics[width=0.09\textheight]{people/#1}};
         \node[anchor=north east] (B) at (A.north west) {#2};
         \node[anchor=north east] (B) at (B.south east) {\tiny #3};
     }
