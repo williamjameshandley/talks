@@ -19,3 +19,5 @@ As an example of this synthesis, we use PolyChord [6] for nested sampling and sw
 
 [[PDF](https://github.com/williamjameshandley/talks/raw/queensland_2024/will_handley_india_2024.pdf)] 
 
+[[raw transcript](transcript)]
+
