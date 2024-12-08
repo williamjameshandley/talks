@@ -42679,6 +42679,39 @@ Response:
 \end{document}
 ```
 
+Q: Which git branches contain the material most relevant to this talk?
+A: The most relevant branches are: `remotes/origin/ras_sbi_2024`, `remotes/origin/lcdm_2023`, `remotes/origin/tools_2021`, `remotes/origin/cavendish_2024`, `remotes/origin/cosmoverse_2024`, and `remotes/origin/adelaide_2020`.  Some older branches like `remotes/origin/garching_2015` and `remotes/origin/edinburgh_2016` also have useful introductory material on Nested Sampling, but the figures and explanations may be slightly outdated.
+
+
+Q: Write a slide in the same style which introduces the topic in the context of the workshop
+A:
+```latex
+% custom
+\begin{frame}
+    \frametitle{Statistical inference for primordial gravitational wave backgrounds}
+    \begin{itemize}
+        \item Primordial gravitational wave backgrounds (GWBs) are a key target for current and
+future gravitational wave detectors (PTA, LISA\ldots).
+        \item Detection requires separating these faint signals from a variety of astrophysical
+foregrounds and instrumental noise.
+        \item This presents a significant challenge for statistical inference, requiring robust
+methods for:
+            \begin{itemize}
+                \item Parameter estimation: characterising the properties of the primordial GWB
+signal.
+                \item Model comparison: distinguishing between different theoretical models of
+GWBs, and assessing the evidence for a primordial component.
+                \item Tension quantification: evaluating the consistency of different
+datasets/detectors in their constraints on GWBs.
+            \end{itemize}
+        \item This talk will focus on Markov Chain Monte Carlo (MCMC) and Nested Sampling, and how they can be applied to
+make robust inferences on the properties of primordial GWBs.
+    \end{itemize}
+\end{frame}
+```
+
+
+
 
 #ATTEMPT 1
 Working from those slides, and the workshop description, what do you think would be a good set of slide titles to pick out for my talk at this workshop? Answer in a bulleted list
