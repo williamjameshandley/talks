@@ -25,32 +25,17 @@
 \date{13\textsuperscript{th} November 2024}
 
 \begin{document}
-%The most relevant branches are: `remotes/origin/ras_sbi_2024`, `remotes/origin/lcdm_2023`, `remotes/origin/tools_2021`, `remotes/origin/cavendish_2024`, `remotes/origin/cosmoverse_2024`, and `remotes/origin/adelaide_2020`.  Some older branches like `remotes/origin/garching_2015` and `remotes/origin/edinburgh_2016` also have useful introductory material on Nested Sampling, but the figures and explanations may be slightly outdated.
-% Also phystat_2024 and phystat_imperial_2024
-
-
-
-%- [X] take the sydney talk as base
-%  -[ ] borrow some old slides for MCMC-based comparison (particularly relevant for the global fit) 
-%-[X] Nested Sampling & MCMC
-%-[X] SBI
-%  -[X] Take these from sydney talk 
-%-[X] Margarine
-%  -[X] take these from?? 
-%    -[X] oxford? 
-%- [ ] Accelerated nested sampling
-%- [X] JaxNS
-%- [ ] Add CPNest arxiv link to zoo
-%- [ ] Add REACH arxiv link
-
-% TODO:
-% - reduce emphasis on nested sampling
-% - put in slides
 
 \begin{frame}
     \titlepage
 \end{frame}
 
+\begin{frame}
+    \frametitle{Contents}
+    \tableofcontents
+\end{frame}
+
+\section{Likelihood-based inference}
 \begin{frame}
     \frametitle{LBI: Likelihood-based inference}
     \begin{columns}
@@ -142,6 +127,7 @@
     \end{columns}
 \end{frame}
 
+\subsection{Sampling \& model comparison}
 \begin{frame}
     \frametitle{Model comparison $\C[3]{\mathcal{Z}=P(D|M)}$}
     \begin{itemize}
@@ -196,7 +182,7 @@
     \end{columns}
 \end{frame}
 
-
+\subsection{MCMC \& Nested sampling}
 \begin{frame}
     \begin{columns}
         \column{0.48\textwidth}
@@ -333,6 +319,8 @@
     \end{itemize}
 \end{frame}
 
+\section{Simulation-based inference}
+\subsection{Principles \& motivation}
 \begin{frame}
     \frametitle{SBI: Simulation-based inference}
     \begin{columns}
@@ -443,6 +431,7 @@
     \end{columns}
 \end{frame}
 
+\subsection{Practice: NRE vs NDE}
 \begin{frame}
     \frametitle{Neural Ratio Estimation}
     \begin{columns}
@@ -543,6 +532,8 @@
     \end{columns}
 \end{frame}
 
+\section{Marginal inference}
+\subsection{Theory}
 \begin{frame}
     \frametitle{Marginal inference}
     \student{harry_bevins}{Harry Bevins}{PhD$\to$JRF}
@@ -634,6 +625,7 @@
     \end{columns}
 \end{frame}
 
+\subsection{Practice: \texttt{margarine}}
 \begin{frame}
     \frametitle{Nuisance marginalised likelihoods: Practice~{\small\arxiv{2205.12841}}}
     \student{harry_bevins}{Harry Bevins}{PhD$\to$JRF}
@@ -716,7 +708,6 @@
             \draw<9->[->](marginalPosterior.south) -- (marginalLikelihood.north);
             \draw<9->[->](marginalPrior.west) -- (marginalLikelihood.east);
             \node<10->[greennode,behind path,fit=(nestedsampling) (marginalPosterior) (priorSamples) (evidence),] {};
-
         \end{tikzpicture}
     \end{columns}
 \end{frame}
@@ -737,6 +728,8 @@
     \end{itemize}
 \end{frame}
 
+\section{Accelerated nested sampling}
+\subsection{Why can nested sampling be slow?}
 \begin{frame}
     \frametitle{The scaling frontier of nested sampling}
     \student{zixiao_hu}{Zixiao Hu}{MSci 2023}
@@ -772,6 +765,7 @@
     \end{itemize}
 \end{frame}
 
+\subsection{Accelerating with $\beta$-flows}
 \begin{frame}
     \frametitle{Accelerated nested sampling with beta flows}
     \student{metha_prathaban}{Metha Prathaban}{PhD}
@@ -797,7 +791,7 @@
     \end{columns}
 \end{frame}
 
-
+\subsection{Accelerating with \texttt{jax}}
 \begin{frame}[fragile]
     \frametitle{Jax-based nested samplers}
     \student{david_yallup}{David Yallup}{PDRA}
@@ -838,6 +832,28 @@ import blackjax.ns.adaptive\end{lstlisting}
         \includegraphics[width=0.08\textheight]{people/will_handley.jpg}%
         \includegraphics[width=0.08\textheight]{people/will_templeton.jpg}%
     };
+    \begin{itemize}
+        \item \textbf{Next-generation inference:} Addressing challenges in astrophysical analysis, whether likelihoods are available or not.
+        \item \textbf{Simulation-based inference (SBI):{}}  Leveraging simulations and machine learning for posterior estimation and model comparison when only a forward model exists.  Advantages include speed, implicit covariance handling, and ease of incorporating systematics.
+        \item \textbf{Marginal statistics:{}}  Efficient computation of nuisance-marginalised likelihoods using \texttt{margarine}. Applications to hierarchical modeling and building prior/likelihood libraries.
+        \item \textbf{Accelerated nested sampling:{}}  Improving the scaling of nested sampling with techniques like beta flows, posterior repartitioning, and \texttt{SuperNest}.
+        \item \textbf{Jax-based nested samplers:{}}  Introducing recent work on parallel nested sampling implementations in \texttt{Jax} for increased performance.
+    \end{itemize}
+\end{frame}
+
+\appendix
+
+\begin{frame}
+    \frametitle{SGW relevant portions}
+    \begin{itemize}
+        \item Earth term/pulsar term from Stas Babak is ripe for a \texttt{margarine} based approach.
+        \item Nested sampling is an (underused) alternative for computing Bayes factors in the PTA community 
+            \begin{itemize}
+                \item current approaches are often Savage-Dicke density ratio/PTMCMC parallel tempering. 
+            \end{itemize}
+        \item 
+        \item Global fitting could benefit from accelerated approaches
+    \end{itemize}
 \end{frame}
 
 \end{document}
