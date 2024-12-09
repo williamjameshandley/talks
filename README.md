@@ -2,11 +2,10 @@
 
 ## Academic talks
 1.   Next-generation statistical inference tools: Simulation-based inference, marginal statistics & accelerated nested sampling 
-  -  talk given at [Towards a realistic detection of Primordial Gravitational Wave Backgrounds](https://indico.ific.uv.es/event/7656/) 
+    -  talk given at [Towards a realistic detection of Primordial Gravitational Wave Backgrounds](https://indico.ific.uv.es/event/7656/) 
     - [PDF](https://github.com/williamjameshandley/talks/raw/valencia_2024/will_handley_valencia_2024.pdf)  
     - [source](https://github.com/williamjameshandley/talks/tree/valencia_2024) 
     - _Dec 2024_
-  - 
 2.  PolySwyft: a sequential simulation-based nested sampler
     - talk given at [Global 21cm workshop 2024](https://sites.google.com/view/global-21-cm-workshop)
     - [PDF](https://github.com/williamjameshandley/talks/raw/india_2024/will_handley_india_2024.pdf)  
