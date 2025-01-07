@@ -1,33 +1,38 @@
 # Will Handley's academic talks
 
 ## Academic talks
-1.   Next-generation statistical inference tools: Simulation-based inference, marginal statistics & accelerated nested sampling 
-    -  talk given at [Towards a realistic detection of Primordial Gravitational Wave Backgrounds](https://indico.ific.uv.es/event/7656/) 
+1.  Theory meets experiment 2025: New frontiers in particle cosmology  
+    - Invited talk given at [Rencontres du Vietnam](http://vietnam.in2p3.fr/2025/tmex/) 
+    - [PDF](https://github.com/williamjameshandley/talks/raw/vietnam_2025/will_handley_vietnam_2025.pdf)  
+    - [source](https://github.com/williamjameshandley/talks/tree/vietnam_2025) 
+    - _Jan 2025_
+2.   Next-generation statistical inference tools: Simulation-based inference, marginal statistics & accelerated nested sampling 
+    - Invited talk given at [Towards a realistic detection of Primordial Gravitational Wave Backgrounds](https://indico.ific.uv.es/event/7656/) 
     - [PDF](https://github.com/williamjameshandley/talks/raw/valencia_2024/will_handley_valencia_2024.pdf)  
     - [source](https://github.com/williamjameshandley/talks/tree/valencia_2024) 
     - _Dec 2024_
-2.  PolySwyft: a sequential simulation-based nested sampler
+3.  PolySwyft: a sequential simulation-based nested sampler
     - talk given at [Global 21cm workshop 2024](https://sites.google.com/view/global-21-cm-workshop)
     - [PDF](https://github.com/williamjameshandley/talks/raw/india_2024/will_handley_india_2024.pdf)  
     - [source](https://github.com/williamjameshandley/talks/tree/india_2024) 
     - _Oct 2024_
-3. lsbi: linear simulation based inference 
+4. lsbi: linear simulation based inference 
     - Talsk given at [PhyStat: Statistics meets ML](https://indico.cern.ch/event/1407421/overview)
     - [PDF](https://github.com/williamjameshandley/talks/raw/imperial_2024/will_handley_imperial_2024.pdf)  
     - [source](https://github.com/williamjameshandley/talks/tree/imperial_2024)
     - _Sep 2024_
-4. Nested sampling: powering next-generation inference and machine learning tools for astrophysics, cosmology, particle physics and beyond  
+5. Nested sampling: powering next-generation inference and machine learning tools for astrophysics, cosmology, particle physics and beyond  
     - Colloquium given at [University of Sydney](https://sifa.sydney.edu.au/)
     - [PDF](https://github.com/williamjameshandley/talks/raw/sydney_2024/will_handley_sydney_2024.pdf)  
     - [source](https://github.com/williamjameshandley/talks/tree/sydney_2024)
     - [video](https://uni-sydney.zoom.us/rec/share/FNwIQwjswSIU5sLwrGY3thH_ZGPPmuNMzOlLsejj3fBF-cYDR6oUiNLHmYDahEfI.DRPVZ5j-v_bgiGzM)
     - _Aug 2024_
-5. Sampling methods for high energy physics & particle astrophysics
+6. Sampling methods for high energy physics & particle astrophysics
     - Invited talk given at [XVIth Quark Confinement and the Hadron Spectrum](https://indico.cern.ch/event/1293041/overview)
     - [PDF](https://github.com/williamjameshandley/talks/raw/cairns_2024/will_handley_cairns_2024.pdf)  
     - [source](https://github.com/williamjameshandley/talks/tree/cairns_2024)
     - _Aug 2024_
-6. Nested sampling: powering next-generation inference and machine learning tools for astrophysics, cosmology, particle physics and beyond  
+7. Nested sampling: powering next-generation inference and machine learning tools for astrophysics, cosmology, particle physics and beyond  
     - Colloquium given at [University of Queensland](https://www.uq.edu.au/)
     - [PDF](https://github.com/williamjameshandley/talks/raw/queensland_2024/will_handley_queensland_2024.pdf)  
     - [source](https://github.com/williamjameshandley/talks/tree/queensland_2024)
