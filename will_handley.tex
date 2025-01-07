@@ -30,7 +30,6 @@
 \begin{frame}
     \frametitle{TMEX: Theory meets experiment}
     \framesubtitle{New frontiers in particle cosmology}
-
     \centerline{%
         \begin{tikzpicture}[
                 every node/.style={align=center, font=\bfseries},
@@ -40,22 +39,16 @@
                 cloudoid/.style={draw, cloud, cloud puffs=10, aspect=2, inner ysep=1em, fill=C3!30}, % Cloud style
                 arrow/.style={thick, -{Stealth[length=3mm, width=2mm]}}
             ]
-
             \node[ellipsoid] (theory) {\Large Theory};
             \node[trapezoid] (experiment) at (6,0) {\Large Experiment};
-
             \node[box] (forward) at (3,1.5) {Forward Model};
             \node[cloudoid] (inference) at (3,-1.5) {Inference}; % Cloud shape
-
             \draw[arrow] (theory) to[bend left=25]  (forward);
             \draw[arrow] (forward) to[bend left=25] (experiment);
-
             \draw[arrow] (experiment) to[bend left=25] (inference);
             \draw[arrow] (inference) to[bend left=25] (theory);
-
         \end{tikzpicture}
     }
-
     \begin{columns}
         \column{0.5\textwidth}
         \begin{itemize}
@@ -73,6 +66,10 @@
             \item GPU-accelerated inference
         \end{enumerate}
     \end{columns}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Examples from this conference (so far)}
 \end{frame}
 
 \begin{frame}
@@ -112,7 +109,44 @@
 \begin{frame}
     \frametitle{An aside: difference in plotting}
     \framesubtitle{Exclusion vs.\  posterior plots}
-    %examples of bad practice, e.g. PTA data
+    \only<1>{%
+    \begin{columns}
+        \column{0.5\textwidth}
+        \begin{overpic}[width=\textwidth]{figures/inflation}
+            \put(85,5) {\tiny\arxiv{1807.06211}}
+        \end{overpic}
+        \column{0.5\textwidth}
+        \begin{overpic}[width=\textwidth]{figures/axions}
+            \put(70,2) {\tiny\github{cajohare/AxionLimits}}
+        \end{overpic}
+    \end{columns}
+\begin{columns}
+        \column{0.5\textwidth}
+        \begin{itemize}
+            \item Contours indicate \textbf{allowed} regions
+            \item Preferred in astro/cosmology
+        \end{itemize}
+        \column{0.5\textwidth}
+        \begin{itemize}
+            \item Contours indicate \textbf{excluded} regions
+            \item Preferred in particle physics
+        \end{itemize}
+    \end{columns}
+    }%
+    \only<2>{%
+        \begin{columns}
+        \column{0.4\textwidth}
+        \begin{itemize}
+            \item Beware this kind of particularly confusing plot, which uses both!
+            \item Here almost all of these are $2\sigma$ exclusion plots
+            \item But 'DAMA' are (controversial \& conflicting) superimposed constraints/allowed regions.
+        \end{itemize}
+        \column{0.6\textwidth}
+            \begin{overpic}[width=\textwidth]{figures/combined}
+                \put(55,73){\tiny\github{cajohare/DirectDetectionPlots}}
+            \end{overpic}
+        \end{columns}
+    }
 \end{frame}
 
 \begin{frame}
@@ -146,6 +180,43 @@
                 \end{aligned}
             \]
         \end{block}
+    \end{columns}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Model comparison $\C[3]{\mathcal{Z}=P(D|M)}$}
+    \begin{itemize}
+        \item Bayesian model comparison allows mathematical derivation of key philosophical principles.
+    \end{itemize}
+    \begin{columns}[t]
+        \column{0.47\textwidth}
+        Viewed from data-space $D$:
+        \begin{block}{Popper's falsificationism}
+            \begin{itemize}
+                \item Prefer models that make bold predictions.
+                \item if proven true, model more likely correct.
+            \end{itemize}
+        \end{block}
+        \includegraphics<1|handout:0>[width=\textwidth, page=1]{figures/popper}%
+        \includegraphics<2|handout:0>[width=\textwidth, page=2]{figures/popper}%
+        \includegraphics<3>[width=\textwidth, page=3]{figures/popper}%
+        \begin{itemize}
+            \item Falsificationism comes from normalisation
+        \end{itemize}
+        \column{0.47\textwidth}
+        Viewed from parameter-space $\theta$:
+        \begin{block}{Occam's razor}
+            \begin{itemize}
+                \item Models should be as simple as possible
+                \item \ldots but no simpler
+            \end{itemize}
+        \end{block}
+        \begin{itemize}
+            \item Occam's razor equation:
+                \[\C[3]{\log\mathcal{Z}} = \av[{\C[0]{\mathcal{P}}}]{\C[2]{\log\mathcal{L}}} - \mathcal{D}_\text{KL}\]
+            \item ``Occam penalty'': KL divergence between \C[1]{prior~$\pi$} and \C[0]{posterior~$\mathcal{P}$}.
+                \[ \mathcal{D}_\text{KL}\sim \log\frac{\text{\C[1]{Prior volume} }}{\text{\C[0]{Posterior volume}}}\]
+        \end{itemize}
     \end{columns}
 \end{frame}
 
@@ -220,7 +291,7 @@
             \item Task of SBI is take joint~$\C[4]{\mathcal{J}}$ samples and learn \C[0]{posterior $\mathcal{P}(\theta|D)$} and \C[3]{evidence $\mathcal{Z}(D)$} \\\hfill and possibly \C[2]{likelihood $\mathcal{L}(D|\theta)$}.
             \item Present state of the art achieves this using \emph{machine learning} (neural networks).
                 \begin{itemize}
-                    \item My group's research tries to removes machine learning \tthref{github.com/handley-lab/lsbi}.
+                    \item My group's research tries to removes machine learning \github{handley-lab/lsbi}.
                 \end{itemize}
         \end{itemize}
         \column{0.5\textwidth}
@@ -277,13 +348,13 @@
         \end{enumerate}
         \column{0.4\textwidth}
         \includegraphics[width=\textwidth]{figures/sbi_screenshot}
-        \href{https://github.com/sbi-dev}{github.com/sbi-dev}
+        \github{sbi-dev}
         \includegraphics[width=\textwidth]{figures/swyft_screenshot}
-        \href{https://github.com/undark-lab/swyft}{github.com/undark-lab/swyft}
+        \github{undark-lab/swyft}
         \includegraphics[width=\textwidth]{figures/selfi_screenshot}
-        \href{https://github.com/florent-leclercq/pyselfi}{github.com/florent-leclercq/pyselfi}
+        \github{florent-leclercq/pyselfi}
         \includegraphics[width=\textwidth]{figures/delfi_screenshot}
-        \href{https://github.com/justinalsing/pydelfi}{github.com/justinalsing/pydelfi}
+        \github{justinalsing/pydelfi}
     \end{columns}
 \end{frame}
 
@@ -420,7 +491,7 @@
 
 \section{GPU-accelerated inference}
 \begin{frame}
-    \frametitle{}
+    \frametitle{GPU-accelerated inference}
 \end{frame}
 
 \subsection{Accelerating with \texttt{jax}}
@@ -429,27 +500,18 @@
     \student{david_yallup}{David Yallup}{PDRA}
     \begin{itemize}
         \item \textbf{very} recent work over the past month
-        \item Have implemented a nested slice sampler in \texttt{blackjax}~[\textcolor{C0}{\texttt{\href{https://github.com/blackjax-devs/blackjax/pull/755}{\#755}}}]
+        \item Have implemented a nested slice sampler in \texttt{blackjax}~\github{blackjax-devs/blackjax/pull/755}
 \begin{lstlisting}[language=Python]
 pip install git+https://github.com/handley-lab/blackjax@nested_sampling
 import blackjax.ns.adaptive\end{lstlisting}
-        \item parallelised over \texttt{vmap}ped likelihood \& prior evaluations
-        \item Plugs into \texttt{jim}~\arxiv{kazewong/jim} and \texttt{ripple}~\arxiv{2302.05329}
-        \item interested in finding use-cases for such a sampler this week
-        \item Also interested in understanding current limitations/strengths of $\texttt{jax}$/GPU GW programming
+        \item Plugs into \texttt{jim}~\github{kazewong/jim} and \texttt{ripple}~\arxiv{2302.05329}
     \end{itemize}
 \end{frame}
 
 
 \begin{frame}
-    \frametitle{\ldots}
-\hfill \textit{Frontiers of simulation based inference}~\arxiv{1911.01429}
-    \includegraphics[width=\textwidth]{figures/sbi_range.pdf}
-\end{frame}
-
-\begin{frame}
     \frametitle{Conclusions}
-    \framesubtitle{\tthref{github.com/handley-lab/group}}
+    \framesubtitle{\github{handley-lab}}
     \tikz[overlay,remember picture]
         \node[anchor=north east] (A) at ($(current page.north east)+(0,0)$) {
         \includegraphics[width=0.09\textheight]{people/adam_ormondroyd.jpg}%
@@ -469,6 +531,8 @@ import blackjax.ns.adaptive\end{lstlisting}
         \includegraphics[width=0.09\textheight]{people/will_handley.jpg}%
         \includegraphics[width=0.09\textheight]{people/will_templeton.jpg}%
     };
+\hfill \textit{Frontiers of simulation based inference}~\arxiv{1911.01429}
+    \includegraphics[width=\textwidth]{figures/sbi_range.pdf}
 \end{frame}
 
 \end{document}
