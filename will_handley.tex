@@ -56,7 +56,6 @@
             \item Also called ``inverse problems''
             \item Process is direct: ``measurement''
         \end{itemize}
-        
         \column{0.5\textwidth}
         \begin{itemize}
             \item This talk focuses on \textbf{frontiers}:
@@ -69,7 +68,15 @@
 \end{frame}
 
 \begin{frame}
-    \frametitle{Examples from this conference (so far)}
+    \frametitle{Examples of forward models from Monday}
+    \centerline{%
+        \includegraphics[height=0.45\textheight]{figures/tmex-1}\hfill
+        \includegraphics[height=0.45\textheight]{figures/tmex-4}
+    }
+    \centerline{%
+        \includegraphics[height=0.45\textheight]{figures/tmex-2}\hfill
+        \includegraphics[height=0.45\textheight]{figures/tmex-3}
+    }
 \end{frame}
 
 \begin{frame}
@@ -110,38 +117,38 @@
     \frametitle{An aside: difference in plotting}
     \framesubtitle{Exclusion vs.\  posterior plots}
     \only<1>{%
-    \begin{columns}
-        \column{0.5\textwidth}
-        \begin{overpic}[width=\textwidth]{figures/inflation}
-            \put(85,5) {\tiny\arxiv{1807.06211}}
-        \end{overpic}
-        \column{0.5\textwidth}
-        \begin{overpic}[width=\textwidth]{figures/axions}
-            \put(70,2) {\tiny\github{cajohare/AxionLimits}}
-        \end{overpic}
-    \end{columns}
-\begin{columns}
-        \column{0.5\textwidth}
-        \begin{itemize}
-            \item Contours indicate \textbf{allowed} regions
-            \item Preferred in astro/cosmology
-        \end{itemize}
-        \column{0.5\textwidth}
-        \begin{itemize}
-            \item Contours indicate \textbf{excluded} regions
-            \item Preferred in particle physics
-        \end{itemize}
-    \end{columns}
+        \begin{columns}
+            \column{0.5\textwidth}
+            \begin{overpic}[width=\textwidth]{figures/inflation}
+                \put(85,5) {\tiny\arxiv{1807.06211}}
+            \end{overpic}
+            \column{0.5\textwidth}
+            \begin{overpic}[width=\textwidth]{figures/axions}
+                \put(70,2) {\tiny\github{cajohare/AxionLimits}}
+            \end{overpic}
+        \end{columns}
+        \begin{columns}
+            \column{0.5\textwidth}
+            \begin{itemize}
+                \item Contours indicate \textbf{allowed} regions
+                \item Preferred in astro/cosmology
+            \end{itemize}
+            \column{0.5\textwidth}
+            \begin{itemize}
+                \item Contours indicate \textbf{excluded} regions
+                \item Preferred in particle physics
+            \end{itemize}
+        \end{columns}
     }%
     \only<2>{%
         \begin{columns}
-        \column{0.4\textwidth}
-        \begin{itemize}
-            \item Beware this kind of particularly confusing plot, which uses both!
-            \item Here almost all of these are $2\sigma$ exclusion plots
-            \item But 'DAMA' are (controversial \& conflicting) superimposed constraints/allowed regions.
-        \end{itemize}
-        \column{0.6\textwidth}
+            \column{0.4\textwidth}
+            \begin{itemize}
+                \item Beware this kind of particularly confusing plot, which uses both!
+                \item Here almost all of these are $2\sigma$ exclusion plots
+                \item But 'DAMA' are (controversial \& conflicting) superimposed constraints/allowed regions.
+            \end{itemize}
+            \column{0.6\textwidth}
             \begin{overpic}[width=\textwidth]{figures/combined}
                 \put(55,73){\tiny\github{cajohare/DirectDetectionPlots}}
             \end{overpic}
@@ -220,7 +227,6 @@
     \end{columns}
 \end{frame}
 
-\section{Likelihood-based inference}
 \begin{frame}
     \frametitle{LBI: Likelihood-based inference}
     \begin{columns}
@@ -275,9 +281,6 @@
     \end{columns}
 \end{frame}
 
-
-\section{Simulation-based inference}
-\subsection{Principles \& motivation}
 \begin{frame}
     \frametitle{SBI: Simulation-based inference}
     \begin{columns}
@@ -368,6 +371,7 @@
             \item However: SBI requires mock data generation code
             \item Most data analysis codes were built before the generative paradigm.
             \item It's still a lot of work to upgrade cosmological likelihoods  to be able to do this (e.g.\ \texttt{plik} \& \texttt{camspec}).
+            \item \github{smsharma/awesome-neural-sbi}
         \end{itemize}
         \column{0.3\textwidth}
         \includegraphics[width=\textwidth]{figures/sbi_papers/clusters.pdf}
@@ -379,16 +383,17 @@
         \includegraphics[width=\textwidth]{figures/sbi_papers/center.pdf}
         \column{0.3\textwidth}
         \includegraphics[width=\textwidth]{figures/sbi_papers/kidsdes.pdf}
-        \vspace{10pt}\\
+        \vspace{0pt}\\
         \includegraphics[width=\textwidth]{figures/sbi_papers/kids.pdf}
-        \vspace{10pt}\\
+        \vspace{0pt}\\
         \includegraphics[width=\textwidth]{figures/sbi_papers/population.pdf}
-        \vspace{10pt}\\
+        \vspace{0pt}\\
         \includegraphics[width=\textwidth]{figures/sbi_papers/simbig.pdf}
+        \vspace{0pt}\\
+        \includegraphics[width=\textwidth]{figures/sbi_papers/hsc.pdf}
     \end{columns}
 \end{frame}
 
-\subsection{Practice: NRE vs NDE}
 \begin{frame}
     \frametitle{Neural Ratio Estimation}
     \begin{columns}
@@ -489,31 +494,96 @@
     \end{columns}
 \end{frame}
 
-\section{GPU-accelerated inference}
 \begin{frame}
-    \frametitle{GPU-accelerated inference}
+    \frametitle{I want (my student) to get started with SBI\ldots}
+    \framesubtitle{\ldots where should I send them?}
+    \begin{columns}
+        \column{0.45\textwidth}
+        \begin{block}{the \texttt{swyft} package}
+            \begin{itemize}
+                \item Ratio estimation
+                \item astro/cosmology specific examples
+            \end{itemize}
+            {\small \tthref{swyft.readthedocs.io/en/stable}}
+        \end{block}
+        \begin{block}{the \texttt{pydelfi} package}
+            \begin{itemize}
+                \item Neural density estimation
+                \item astro/cosmology specific examples
+            \end{itemize}
+            {\small \tthref{justinalsing.github.io/pydelfi}}
+        \end{block}
+        \column{0.45\textwidth}
+        \begin{block}{the \texttt{sbi} package}
+            \begin{itemize}
+                \item General package
+                \item Not domain specific
+                \item A lot of (opaquely named) methods
+            \end{itemize}
+            {\small \tthref{sbi-dev.github.io/sbi/latest/tutorials}}
+        \end{block}
+        All methods generally require:
+        \begin{itemize}
+            \item A forward simulator
+            \item A data compressor
+        \end{itemize}
+        All methods either:
+        \begin{itemize}
+            \item ``Amortized'' over data $D$
+            \item ``Sequential'' tuning to $D_\text{obs}$
+        \end{itemize}
+    \end{columns}
 \end{frame}
 
-\subsection{Accelerating with \texttt{jax}}
+\begin{frame}
+    \frametitle{GPU-accelerated inference}
+    \begin{columns}
+        \column{0.45\textwidth}
+        \begin{description}
+            \item[CMB] \texttt{cosmopower}~\arxiv{2106.03846}
+            \item[CMB] \texttt{candl}~\arxiv{2401.13433}
+            \item[SNe] \texttt{BayesSN}~\arxiv{2401.08755}
+            \item[SGW]  \texttt{Eryn}~\arxiv{2303.02164}
+            \item[GW] \texttt{redback}~\arxiv{2308.12806}
+            \item[GW] \texttt{ripple}~\arxiv{2302.05329}
+            \item[EP] \texttt{ExoJAX}~\arxiv{2105.14782}
+            \item[X]  \texttt{jaxspec}~\arxiv{2409.05757}
+        \end{description}
+        \github{JAXtronomy}
+        \column{0.55\textwidth}
+        \begin{itemize}
+            \item Increase in the number of cosmological codes written for GPUs (particularly jax).
+            \item Over the next few years, more and more analyses will be done on GPUs.
+            \item Several trends trigger this
+                \begin{itemize}
+                    \item the rise of machine learning, whose linear algebra is well-suited to GPUs
+                    \item the creation of usable languages for GPU programming (e.g.\ \texttt{jax}, \texttt{pytorch}, \texttt{tensorflow})
+                    \item the rise of large language models, which ease writing codes for GPUs
+                \end{itemize}
+            \item Prediction: low-power GPUs (likely ARM-based) will become the norm for scientific computing.
+        \end{itemize}
+    \end{columns}
+\end{frame}
+
 \begin{frame}[fragile]
     \frametitle{Jax-based nested samplers}
     \student{david_yallup}{David Yallup}{PDRA}
     \begin{itemize}
         \item \textbf{very} recent work over the past month
-        \item Have implemented a nested slice sampler in \texttt{blackjax}~\github{blackjax-devs/blackjax/pull/755}
-\begin{lstlisting}[language=Python]
-pip install git+https://github.com/handley-lab/blackjax@nested_sampling
-import blackjax.ns.adaptive\end{lstlisting}
+        \item Have implemented a nested slice sampler in \texttt{blackjax}~\github{blackjax-devs/blackjax/pull/755}.
+            \begin{lstlisting}[language=Python]
+            pip install git+https://github.com/handley-lab/blackjax@nested_sampling
+            import blackjax.ns.adaptive\end{lstlisting}
+        \item Think \texttt{MultiNest} for jax.
         \item Plugs into \texttt{jim}~\github{kazewong/jim} and \texttt{ripple}~\arxiv{2302.05329}
     \end{itemize}
 \end{frame}
-
 
 \begin{frame}
     \frametitle{Conclusions}
     \framesubtitle{\github{handley-lab}}
     \tikz[overlay,remember picture]
-        \node[anchor=north east] (A) at ($(current page.north east)+(0,0)$) {
+    \node[anchor=north east] (A) at ($(current page.north east)+(0,0)$) {
         \includegraphics[width=0.09\textheight]{people/adam_ormondroyd.jpg}%
         \includegraphics[width=0.09\textheight]{people/charlotte_priestley.jpg}%
         \includegraphics[width=0.09\textheight]{people/david_yallup.jpg}%
@@ -531,7 +601,13 @@ import blackjax.ns.adaptive\end{lstlisting}
         \includegraphics[width=0.09\textheight]{people/will_handley.jpg}%
         \includegraphics[width=0.09\textheight]{people/will_templeton.jpg}%
     };
-\hfill \textit{Frontiers of simulation based inference}~\arxiv{1911.01429}
+    \vspace{-5pt}
+    \begin{itemize}
+        \item \textbf{Inference} bridges theory and experiment, crucial for extracting information from data.
+        \item \textbf{Simulation-Based Inference (SBI)} enables inference when the likelihood is intractable, using simulations and machine learning. SBI is becoming increasingly popular for complex astrophysical analyses.
+        \item \textbf{GPU-accelerated inference} is transforming the field, allowing faster and more complex computations. Tools like \texttt{jax} are empowering a new generation of GPU-ready inference codes.
+    \end{itemize}
+    \hfill \textit{Frontiers of simulation based inference}~\arxiv{1911.01429}
     \includegraphics[width=\textwidth]{figures/sbi_range.pdf}
 \end{frame}
 
