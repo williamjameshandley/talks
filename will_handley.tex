@@ -16,8 +16,7 @@
 
 % Talk details
 % ------------
-\title{Cosmological tensions?}
-\subtitle{A guide for high energy theorists}
+\title{Cosmic Tensions: A Particle Physicist's Primer}
 \date{1\textsuperscript{st} November 2024}
 
 \begin{document}
@@ -27,40 +26,181 @@
 \end{frame}
 
 \begin{frame}
-    \frametitle{Structure}
-    - Intro: what is the Hubble tension
-    - Measurements and inference in cosmology
-        - measuring distances is hard
-            - standard candles
-            - standard rulers
-            - standard sirens
-    - What is the Hubble constant
-        - present day expansion rate of the universe
-    - Challenges of 'measurement' in cosmology
-        - difference with particle physics
-    - frequentist vs bayesian inference in cosmology
-        - frequentist approaches make sense in particle physics (independent identically distributed events)
-        - in much of 
-    - gotcha's
-        - HEP and AP colour in their plots in opposite directions
-        - marginalisation vs profiling
-        - nuisance parameters
-    - Plots:
-        - H(z) with supernovae disagreeing
-        - summary of all other measurements
-    - Weak lensing tension
-    - Curvature tension?
-    - dark energy tension and DESI
-    - Future
-        - simulation-based inference
-        - removing fiducial cosmology assumptions
-        - lensed calibrators
-    - Reference the upcoming tensions paper
+    \frametitle{Introduction: Precision Cosmology and its Discontents}
+    \begin{columns}
+        \column{0.5\textwidth}
+        \begin{itemize}
+            \item Cosmology has well-and-truly entered an era of precise measurements, analogous to particle physics.
+            \item Multiple independent observations allow us to constrain the parameters of our cosmological model.
+            \item The Standard Model of Cosmology ($\Lambda$CDM) successfully explains a wide range of observations.
+            \item However, increasing precision has revealed inconsistencies, or tensions, between different measurements.
+            \item Are these tensions cracks in $\Lambda$CDM, hints of new physics, or simply measurement systematics?
+        \end{itemize}
+        \column{0.5\textwidth}
+        \includegraphics[width=\textwidth]{figures/Logo_rgb.pdf}
+    \end{columns}
+\end{frame}
+
+
+\begin{frame}
+    \frametitle{Measuring Distances in the Universe: A Cosmological Toolkit}
+    \begin{columns}
+        \column{0.5\textwidth}
+        \begin{itemize}
+            \item \textbf{Standard Candles:} Objects with known intrinsic luminosity (e.g., Type Ia supernovae).  Measuring their apparent brightness allows us to infer their distance. \arxiv{2112.04510}
+            \item \textbf{Standard Rulers:} Objects with known physical size (e.g., Baryon Acoustic Oscillations). Measuring their apparent size allows us to infer their distance. \arxiv{2404.03000}
+            \item \textbf{Standard Sirens:} Merging compact objects (e.g., neutron stars, black holes). The gravitational wave signal provides a direct measurement of their distance. \arxiv{1710.05835}
+        \end{itemize}
+        \column{0.5\textwidth}
+        \includegraphics[width=\textwidth]{figures/Dist_Ladd_distance_ladder_R22.pdf}
+    \end{columns}
+\end{frame}
+
+
+\begin{frame}
+    \frametitle{The Hubble Constant: A Tale of Two Values}
+    \begin{columns}
+        \column{0.5\textwidth}
+        \begin{itemize}
+            \item $H_0$ quantifies the current expansion rate of the Universe.
+            \item Early Universe probes (CMB) infer $H_0 \approx 67$ \kms. \arxiv{1807.06209}
+            \item Late Universe probes (distance ladder) measure $H_0 \approx 73$ \kms. \arxiv{2112.04510}
+            \item This $\sim 5\sigma$ discrepancy is the Hubble tension.
+        \end{itemize}
+        \column{0.5\textwidth}
+        \includegraphics[width=\textwidth]{figures/Intro_H0_whisk.pdf}
+    \end{columns}
 \end{frame}
 
 \begin{frame}
-    \frametitle{<+Frame title+>}
-    <+Content+>
+    \frametitle{The Sound Horizon: Another Perspective on Expansion}
+    \begin{columns}
+        \column{0.5\textwidth}
+        \begin{itemize}
+            \item The sound horizon ($r_d$) is the distance sound waves travelled in the early Universe. It acts as a standard ruler.
+            \item CMB infers $r_d \approx 147$ Mpc. \arxiv{1807.06209}
+            \item Late-time measurements suggest $r_d \approx 137$ Mpc.
+            \item This discrepancy is linked to the Hubble tension.
+        \end{itemize}
+        \column{0.5\textwidth}
+        \includegraphics[width=\textwidth]{figures/BAO_CosmoVerse_HubbleDiag_2D_final.pdf}
+    \end{columns}
+\end{frame}
+
+\begin{frame}
+    \frametitle{The Clustering of Matter: A Smoother Universe?}
+    \begin{columns}
+        \column{0.5\textwidth}
+        \begin{itemize}
+            \item $S_8$ quantifies the amplitude of matter fluctuations on large scales.
+            \item CMB infers a larger $S_8$ than weak lensing surveys. This is the $S_8$ tension.
+            \item Could indicate less structure in the late Universe than predicted.
+        \end{itemize}
+        \column{0.5\textwidth}
+        \includegraphics[width=\textwidth]{figures/Intro_S8_whisk.pdf}
+    \end{columns}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Cosmology vs. Particle Physics: A Tale of Two Disciplines}
+    \begin{columns}
+        \column{0.5\textwidth}
+        \begin{itemize}
+            \item Cosmology: Single realization of the Universe.  Observations are limited by cosmic variance.
+            \item Particle Physics: Multiple, repeatable experiments. Statistical uncertainties dominate.
+            \item These differences necessitate different statistical approaches.
+        \end{itemize}
+        \column{0.5\textwidth}
+        \includegraphics[width=\textwidth]{figures/cross_correlation_schematic_1.pdf}
+    \end{columns}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Bayesian vs. Frequentist Inference}
+    \begin{columns}
+        \column{0.5\textwidth}
+        \begin{itemize}
+            \item \textbf{Bayesian:}  Incorporates prior knowledge.  Provides probability distributions for parameters.
+            \item \textbf{Frequentist:} Relies solely on data.  Provides confidence intervals for parameters.
+            \item Both approaches have their pros and cons in cosmology.
+        \end{itemize}
+        \column{0.5\textwidth}
+        \includegraphics[width=\textwidth]{figures/BAO_CosmoVerse_fig_3a_final_rectangle.pdf}
+    \end{columns}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Marginalization vs. Profiling: A Matter of Perspective}
+    \begin{columns}
+        \column{0.5\textwidth}
+        \begin{itemize}
+            \item \textbf{Marginalization:} Integrating over nuisance parameters. Common in Bayesian analyses.  Can be affected by volume effects.
+            \item \textbf{Profiling:} Minimizing over nuisance parameters. Common in frequentist analyses. Less sensitive to priors.
+            \item Understanding these differences is crucial for interpreting results. \arxiv{2408.07700}
+        \end{itemize}
+        \column{0.5\textwidth}
+        \includegraphics[width=\textwidth]{figures/PMF_MCMC.pdf}
+    \end{columns}
+\end{frame}
+
+
+\begin{frame}
+    \frametitle{Nuisance Parameters: The Unseen Hand}
+    \begin{columns}
+        \column{0.5\textwidth}
+        \begin{itemize}
+            \item Parameters that affect the data but are not of primary interest (e.g., dust extinction, calibration uncertainties).
+            \item Can introduce degeneracies and bias cosmological parameter estimates.
+            \item Careful treatment is essential for robust results.
+        \end{itemize}
+        \column{0.5\textwidth}
+        \includegraphics[width=\textwidth]{figures/snia_H0_syst.pdf}
+    \end{columns}
+\end{frame}
+
+
+\begin{frame}
+    \frametitle{The Dark Energy Tension: Hints of Dynamics?}
+    \begin{columns}
+        \column{0.5\textwidth}
+        \begin{itemize}
+            \item The equation of state of dark energy, $w$, describes its properties.
+            \item $\Lambda$CDM assumes $w = -1$ (cosmological constant).
+            \item Some data suggests $w \neq -1$, hinting at dynamic dark energy.  \arxiv{2307.14802}
+            \item The Dark Energy Spectroscopic Instrument (DESI) will provide crucial data.
+        \end{itemize}
+        \column{0.5\textwidth}
+        \includegraphics[width=\textwidth]{figures/Whisker_plot_w.pdf}
+    \end{columns}
+\end{frame}
+
+\begin{frame}
+    \frametitle{The Future of Cosmic Tensions}
+    \begin{columns}
+        \column{0.5\textwidth}
+        \begin{itemize}
+            \item New surveys (Euclid, Rubin Observatory LSST, Roman Space Telescope) will provide unprecedented data.
+            \item Advanced data analysis techniques (simulation-based inference, machine learning) will be crucial. \arxiv{2401.17029}
+            \item Removing fiducial cosmology assumptions will improve robustness.
+            \item Lensed calibrators will provide independent distance measurements.
+        \end{itemize}
+        \column{0.5\textwidth}
+        \includegraphics[width=\textwidth]{figures/Mod_Grav.pdf}
+    \end{columns}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Conclusion: A Call to Arms}
+    \begin{columns}
+        \column{0.5\textwidth}
+        \begin{itemize}
+            \item Cosmic tensions are a major challenge to our understanding of the Universe.
+            \item Could lead to revolutionary discoveries in cosmology and fundamental physics.
+            \item Interdisciplinary collaborations between particle physicists, astrophysicists, and cosmologists will be essential.
+        \end{itemize}
+        \column{0.5\textwidth}
+        \includegraphics[width=\textwidth]{figures/IntroFunSols.pdf}
+    \end{columns}
 \end{frame}
 
 \begin{frame}
@@ -83,5 +223,6 @@
         \includegraphics[width=0.10\textheight]{people/will_handley.jpg}%
     };
 \end{frame}
+
 
 \end{document}
