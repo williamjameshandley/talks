@@ -16,8 +16,9 @@
 
 % Talk details
 % ------------
-\title{Cosmic Tensions: A Particle Physicist's Primer}
-\date{1\textsuperscript{st} November 2024}
+\title{Cosmic Tensions}
+\subtitle{A High Energy Physicist's Primer}
+\date{31\textsuperscript{st} January 2025}
 
 \begin{document}
 
@@ -27,202 +28,338 @@
 
 \begin{frame}
     \frametitle{Introduction: Precision Cosmology and its Discontents}
+    \vspace{-0.1cm}
     \begin{columns}
         \column{0.5\textwidth}
         \begin{itemize}
-            \item Cosmology has well-and-truly entered an era of precise measurements, analogous to particle physics.
+            \item Have well-and-truly entered an era of precision cosmology.
             \item Multiple independent observations allow us to constrain the parameters of our cosmological model.
             \item The Standard Model of Cosmology ($\Lambda$CDM) successfully explains a wide range of observations.
             \item However, increasing precision has revealed inconsistencies, or tensions, between different measurements.
             \item Are these tensions cracks in $\Lambda$CDM, hints of new physics, or simply measurement systematics?
         \end{itemize}
         \column{0.5\textwidth}
-        \includegraphics[width=\textwidth]{figures/Logo_rgb.pdf}
+        \includegraphics[width=\textwidth]{figures/cosmos.png}
+    \end{columns}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Measuring the Universe}
+    \begin{columns}
+        \column{0.53\textwidth}
+        \begin{itemize}
+            \item How do you know how far away anything is?
+                \begin{itemize}
+                    \item<2-> Beyond our arms reach (where stereopsis fails), we rely on parallax between objects picked up by slight head motion.
+                \end{itemize}
+            \item<3-> Parallax is the archetypal cosmological \textbf{geometric} measurement\ldots
+            \item<4-> \ldots but it only gets you so far.
+            \item<5-> To go beyond parallax you need:
+                \begin{itemize}
+                    \item<5-> a standardisable object that exists next to your geometric measurements\ldots
+                    \item<5-> \ldots or some other way to measure distance.
+                \end{itemize}
+        \end{itemize}
+        \column{0.47\textwidth}
+        \includegraphics<3>[width=\textwidth]{figures/parallax_geom.jpg}% 
+        \includegraphics<4->[width=\textwidth]{figures/parallax.png}
     \end{columns}
 \end{frame}
 
 
 \begin{frame}
-    \frametitle{Measuring Distances in the Universe: A Cosmological Toolkit}
+    \frametitle{Standard Candles}
+    \framesubtitle{Supernovae}
     \begin{columns}
         \column{0.5\textwidth}
         \begin{itemize}
-            \item \textbf{Standard Candles:} Objects with known intrinsic luminosity (e.g., Type Ia supernovae).  Measuring their apparent brightness allows us to infer their distance. \arxiv{2112.04510}
-            \item \textbf{Standard Rulers:} Objects with known physical size (e.g., Baryon Acoustic Oscillations). Measuring their apparent size allows us to infer their distance. \arxiv{2404.03000}
-            \item \textbf{Standard Sirens:} Merging compact objects (e.g., neutron stars, black holes). The gravitational wave signal provides a direct measurement of their distance. \arxiv{1710.05835}
+            \item <+SH0ES+>
+            \item <+CCHP+>
+            \item <+Type Ia+>
+            \item <+Cepheids+>
+            \item <+TRGB stars+>
+            \item <+JAGB stars+>
         \end{itemize}
         \column{0.5\textwidth}
-        \includegraphics[width=\textwidth]{figures/Dist_Ladd_distance_ladder_R22.pdf}
+        \includegraphics<1>[width=\textwidth]{figures/candles.jpg}%
+        \only<2>{
+            \begin{overpic}[width=\textwidth]{figures/Dist_Ladd_distance_ladder_R22.pdf}
+                \put(0,65){\includegraphics[width=0.3\textwidth]{figures/type_ia.jpg}}
+                \put(60,0){\includegraphics[width=0.4\textwidth]{figures/cepheid.jpg}}
+                \put(70,25){\includegraphics[width=0.3\textwidth]{figures/cepheid_curve.jpg}}
+            \end{overpic}
+        }
     \end{columns}
 \end{frame}
 
+\begin{frame}
+    \frametitle{Standard Rulers}
+    \begin{columns}
+        \column{0.55\textwidth}
+        \begin{itemize}
+            \item <+CMB+>
+            \item <+BAO+>
+            \item <+Strong lensing+>
+            \item <+Weak lensing+>
+        \end{itemize}
+        \column{0.45\textwidth}
+        \includegraphics[width=\textwidth]{figures/rulers.jpg}
+    \end{columns}
+\end{frame}
 
 \begin{frame}
-    \frametitle{The Hubble Constant: A Tale of Two Values}
+    \frametitle{Standard Rulers}
+    \framesubtitle{The cosmic microwave background}
+    \begin{columns}
+        \column{0.55\textwidth}
+        \begin{itemize}
+            \item <+CMB+>
+        \end{itemize}
+        \column{0.45\textwidth}
+        \includegraphics[width=\textwidth]{figures/cmb.png}
+        \includegraphics[width=\textwidth]{figures/cmb_power_spectrum.jpg}%
+    \end{columns}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Standard Rulers}
+    \framesubtitle{Baryon Acoustic Oscillations}
+    \begin{columns}
+        \column{0.55\textwidth}
+        \begin{itemize}
+            \item <+Explanation+>
+            \item <+SDSS+>
+            \item <+DESI+>
+        \end{itemize}
+        \column{0.45\textwidth}
+        \includegraphics[width=\textwidth]{figures/desi_galaxies.png}
+        \includegraphics[width=\textwidth]{figures/desi_bao.jpg}%
+    \end{columns}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Standard Rulers}
+    \framesubtitle{Strong Lensing}
+    \begin{columns}
+        \column{0.55\textwidth}
+        \begin{itemize}
+            \item <+Explanation+>
+            \item <+Planck+>
+        \end{itemize}
+        \column{0.45\textwidth}
+        \includegraphics[width=\textwidth]{figures/time_delay.jpg}
+        \includegraphics[width=\textwidth]{figures/time_delay_curve.png}%
+    \end{columns}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Standard Rulers}
+    \framesubtitle{Weak Lensing}
+    \begin{columns}
+        \column{0.55\textwidth}
+        \begin{itemize}
+            \item <+DES+>
+            \item <+KiDS+>
+            \item <+HSC+>
+        \end{itemize}
+        \column{0.45\textwidth}
+        \includegraphics[width=\textwidth]{figures/weak_lensing.png}
+    \end{columns}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Standard Sirens}
     \begin{columns}
         \column{0.5\textwidth}
         \begin{itemize}
-            \item $H_0$ quantifies the current expansion rate of the Universe.
-            \item Early Universe probes (CMB) infer $H_0 \approx 67$ \kms. \arxiv{1807.06209}
-            \item Late Universe probes (distance ladder) measure $H_0 \approx 73$ \kms. \arxiv{2112.04510}
-            \item This $\sim 5\sigma$ discrepancy is the Hubble tension.
+            \item <+Bright sirens+>
+            \item <+Dark sirens+>
+            \item <+Spectral sirens+>
         \end{itemize}
+        
         \column{0.5\textwidth}
-        \includegraphics[width=\textwidth]{figures/Intro_H0_whisk.pdf}
+        \includegraphics[height=0.33\textwidth]{figures/gw.jpg}%
+        \includegraphics[height=0.33\textwidth]{figures/gw_local.jpg}
+        \includegraphics[width=\textwidth]{figures/posterior_O3_dr9beta_170817.png} % 2111.06445
+        
     \end{columns}
 \end{frame}
 
 \begin{frame}
-    \frametitle{The Sound Horizon: Another Perspective on Expansion}
+    \frametitle{Standard Clocks}
     \begin{columns}
         \column{0.5\textwidth}
         \begin{itemize}
-            \item The sound horizon ($r_d$) is the distance sound waves travelled in the early Universe. It acts as a standard ruler.
-            \item CMB infers $r_d \approx 147$ Mpc. \arxiv{1807.06209}
-            \item Late-time measurements suggest $r_d \approx 137$ Mpc.
-            \item This discrepancy is linked to the Hubble tension.
+            \item <+Cosmic Chronometers+>
+            \item <+Pulsar timing arrays+>
         \end{itemize}
         \column{0.5\textwidth}
-        \includegraphics[width=\textwidth]{figures/BAO_CosmoVerse_HubbleDiag_2D_final.pdf}
+        %\includegraphics[width=\textwidth]{figures/clocks.jpg}
+        \includegraphics[width=\textwidth]{figures/timers.jpg}
+    \end{columns}
+\end{frame}
+ 
+\begin{frame}
+    \frametitle{The Hubble tension}
+    \begin{columns}
+        \column{0.5\textwidth}
+        \begin{itemize}
+            \item CMB: $H_0=67.4\pm0.5$ km/s/Mpc.
+            \item S$H_0$ES: $H_0=73.2\pm1.3$ km/s/Mpc.
+            \item Exciting if not measurement error
+                \begin{itemize}
+                    \item People trust the CMB measurement, but perhaps not $\Lambda$CDM model
+                    \item Measurements of $H_0$ from supernovae notoriously challenging
+                \end{itemize}
+            \item As of 2024 Hubble three ways (Cepheids, TRGB, JAGB)
+                \begin{description}
+                    \item [Friedmann] $H_0 = (72.0, 69.8, 67.96)\pm1.8$ 
+                    \item [Riess] $H_0 = (73.4, 72.1, 72.2)\pm2.2$ 
+                \end{description}                                      
+                \hfill\arxiv{2408.06153}\arxiv{2408.11770}
+        \end{itemize}
+        \column{0.5\textwidth}
+        \includegraphics<1>[width=\textwidth]{figures/H0_1.jpg}%
+        \includegraphics<2>[width=\textwidth]{figures/H0_2.jpg}%
+        \includegraphics<3>[width=\textwidth]{figures/H0_3.png}%
+        \includegraphics<4>[width=\textwidth]{figures/H0_4.png}%
+        \only<5>{
+            \begin{overpic}[height=0.9\textheight]{figures/hH0whisker_Chapter2_SameRowColor4_SN_P15.pdf}
+                \put(18,4){\tiny\arxiv{2103.01183}}
+            \end{overpic}
+        }
     \end{columns}
 \end{frame}
 
 \begin{frame}
-    \frametitle{The Clustering of Matter: A Smoother Universe?}
+    \frametitle{The $S_8$ tension}
+    \framesubtitle{aka $\sigma_8$/weak lensing tension}
     \begin{columns}
-        \column{0.5\textwidth}
+        \column{0.52\textwidth}
         \begin{itemize}
             \item $S_8$ quantifies the amplitude of matter fluctuations on large scales.
-            \item CMB infers a larger $S_8$ than weak lensing surveys. This is the $S_8$ tension.
-            \item Could indicate less structure in the late Universe than predicted.
+            \item $S_8=\sqrt{\sigma_8(\Omega_m/0.3)^{0.5}}$.
         \end{itemize}
-        \column{0.5\textwidth}
-        \includegraphics[width=\textwidth]{figures/Intro_S8_whisk.pdf}
+        \column{0.48\textwidth}
+        \includegraphics<1>[width=\textwidth]{figures/K+Dcontour_sig8om.pdf}%
+        \includegraphics<2>[width=\textwidth]{figures/K+Dcontour.pdf}%
+        \only<3>{%
+        \begin{overpic}[width=\textwidth]{figures/s8_tension.pdf}
+            \put(0,0){\arxiv{2402.08458}}
+        \end{overpic}}
     \end{columns}
+    \arxiv{2305.17173}
 \end{frame}
 
+
 \begin{frame}
-    \frametitle{Cosmology vs. Particle Physics: A Tale of Two Disciplines}
+    \frametitle{Other Tensions and Anomalies}
     \begin{columns}
         \column{0.5\textwidth}
         \begin{itemize}
-            \item Cosmology: Single realization of the Universe.  Observations are limited by cosmic variance.
-            \item Particle Physics: Multiple, repeatable experiments. Statistical uncertainties dominate.
-            \item These differences necessitate different statistical approaches.
+            \item $A_{\rm lens}$ anomaly \arxiv{1807.06209 }
+            \item Non-zero curvature \arxiv{1902.04029}
+            \item CMB anisotropic anomalies \arxiv{1510.07929}
+            \item BBN anomalies \arxiv{1912.01132}
         \end{itemize}
         \column{0.5\textwidth}
-        \includegraphics[width=\textwidth]{figures/cross_correlation_schematic_1.pdf}
+        \begin{overpic}[width=\textwidth]{figures/omegak_H0.pdf} 
+            \put(0,0){\tiny\arxiv{1908.09139}}
+        \end{overpic}
+        \includegraphics[width=\textwidth]{figures/lithium.pdf}
     \end{columns}
 \end{frame}
 
 \begin{frame}
-    \frametitle{Bayesian vs. Frequentist Inference}
+    \frametitle{Cosmology in 2024}
     \begin{columns}
         \column{0.5\textwidth}
         \begin{itemize}
-            \item \textbf{Bayesian:}  Incorporates prior knowledge.  Provides probability distributions for parameters.
-            \item \textbf{Frequentist:} Relies solely on data.  Provides confidence intervals for parameters.
-            \item Both approaches have their pros and cons in cosmology.
+            \item 2024 was a big year for cosmology:
+                \begin{description}
+                    \item[Jan] DESY5 SNe \arxiv{2401.02929}
+                    \item[Feb] eROSITA \arxiv{2402.08458}
+                    \item[Mar] DESI \arxiv{2404.03002}
+                \end{description}
         \end{itemize}
         \column{0.5\textwidth}
-        \includegraphics[width=\textwidth]{figures/BAO_CosmoVerse_fig_3a_final_rectangle.pdf}
+        \includegraphics[width=\textwidth]{figures/HD_5yr_KeyPaper.pdf}
+        \includegraphics[height=0.42\textwidth]{figures/LCDM_paper.pdf}%
+        \includegraphics[height=0.42\textwidth]{figures/w0wa_paper_wZoom.pdf}
     \end{columns}
 \end{frame}
 
 \begin{frame}
-    \frametitle{Marginalization vs. Profiling: A Matter of Perspective}
+    \frametitle{eROSITA}
     \begin{columns}
         \column{0.5\textwidth}
         \begin{itemize}
-            \item \textbf{Marginalization:} Integrating over nuisance parameters. Common in Bayesian analyses.  Can be affected by volume effects.
-            \item \textbf{Profiling:} Minimizing over nuisance parameters. Common in frequentist analyses. Less sensitive to priors.
-            \item Understanding these differences is crucial for interpreting results. \arxiv{2408.07700}
+            \item <+Paper+> \arxiv{2402.08458}
         \end{itemize}
         \column{0.5\textwidth}
-        \includegraphics[width=\textwidth]{figures/PMF_MCMC.pdf}
+        \includegraphics[width=\textwidth]{figures/eROSITA.pdf}
     \end{columns}
 \end{frame}
 
-
 \begin{frame}
-    \frametitle{Nuisance Parameters: The Unseen Hand}
+    \frametitle{DESI}
     \begin{columns}
         \column{0.5\textwidth}
         \begin{itemize}
-            \item Parameters that affect the data but are not of primary interest (e.g., dust extinction, calibration uncertainties).
-            \item Can introduce degeneracies and bias cosmological parameter estimates.
-            \item Careful treatment is essential for robust results.
-        \end{itemize}
+            \item <+Cosmology+> \arxiv{2404.03002}
+            \item <+Data+> \arxiv{2404.03000}
+        \end{itemize}<++>
         \column{0.5\textwidth}
-        \includegraphics[width=\textwidth]{figures/snia_H0_syst.pdf}
+        \includegraphics[width=\textwidth]{figures/w0wa_DESI-Planck-SN-95lim.pdf}
     \end{columns}
 \end{frame}
 
-
 \begin{frame}
-    \frametitle{The Dark Energy Tension: Hints of Dynamics?}
+    \frametitle{What to watch out for}
     \begin{columns}
-        \column{0.5\textwidth}
+        \column{0.33\textwidth}
         \begin{itemize}
-            \item The equation of state of dark energy, $w$, describes its properties.
-            \item $\Lambda$CDM assumes $w = -1$ (cosmological constant).
-            \item Some data suggests $w \neq -1$, hinting at dynamic dark energy.  \arxiv{2307.14802}
-            \item The Dark Energy Spectroscopic Instrument (DESI) will provide crucial data.
+            \item In 2025
+                \begin{itemize}
+                    \item DESI: BAO
+                    \item DES/Euclid: Weak lensing
+                    \item eROSITA: X-ray clusters
+                    \item ACT: CMB
+                    \item LIGO(LVK): GWs
+                \end{itemize}
+            \item Next 5 years
+                \begin{itemize}
+                    \item Simons Observatory: CMB
+                    \item Rubin: Strong lensing
+                    \item Roman: [Hubble 3.0]
+                    \item IPTA: Pulsar timing arrays
+                \end{itemize}
+            \item Next 10-20 years
+                \begin{itemize}
+                    \item LISA/Einstein: GWs
+                    \item SKA: FRBs
+                    \item LiteBird: CMB
+                    \item ATHENA: X-ray clusters
+                \end{itemize}
         \end{itemize}
-        \column{0.5\textwidth}
-        \includegraphics[width=\textwidth]{figures/Whisker_plot_w.pdf}
+        \column{0.67\textwidth}
+        \includegraphics[height=0.145\textwidth]{figures/telescopes/jwst.png}%
+        \includegraphics[height=0.145\textwidth]{figures/telescopes/roman.jpg}%
+        \includegraphics[height=0.145\textwidth]{figures/telescopes/euclid.jpeg}%
+        \includegraphics[height=0.145\textwidth]{figures/telescopes/athena.jpg}%
+        \includegraphics[height=0.145\textwidth]{figures/telescopes/lisa.jpg}%
+        \includegraphics[height=0.145\textwidth]{figures/telescopes/e-ASTROGAM.pdf}%
+        \vspace{-1pt}
+        \includegraphics[height=0.15183\textwidth]{figures/telescopes/desi.jpg}%
+        \includegraphics[height=0.15183\textwidth]{figures/telescopes/eelt.jpg}%
+        \includegraphics[height=0.15183\textwidth]{figures/telescopes/ska.jpg}%
+        \includegraphics[height=0.15183\textwidth]{figures/telescopes/SO.jpg}%
+        \vspace{-1pt}
+        \includegraphics[height=0.18428\textwidth]{figures/telescopes/ligo.jpg}%
+        \includegraphics[height=0.18428\textwidth]{figures/telescopes/km3n.jpg}%
+        \includegraphics[height=0.18428\textwidth]{figures/telescopes/icecube.jpg}%
+        \includegraphics[height=0.18428\textwidth]{figures/telescopes/CTA.jpg}%
     \end{columns}
 \end{frame}
-
-\begin{frame}
-    \frametitle{The Future of Cosmic Tensions}
-    \begin{columns}
-        \column{0.5\textwidth}
-        \begin{itemize}
-            \item New surveys (Euclid, Rubin Observatory LSST, Roman Space Telescope) will provide unprecedented data.
-            \item Advanced data analysis techniques (simulation-based inference, machine learning) will be crucial. \arxiv{2401.17029}
-            \item Removing fiducial cosmology assumptions will improve robustness.
-            \item Lensed calibrators will provide independent distance measurements.
-        \end{itemize}
-        \column{0.5\textwidth}
-        \includegraphics[width=\textwidth]{figures/Mod_Grav.pdf}
-    \end{columns}
-\end{frame}
-
-\begin{frame}
-    \frametitle{Conclusion: A Call to Arms}
-    \begin{columns}
-        \column{0.5\textwidth}
-        \begin{itemize}
-            \item Cosmic tensions are a major challenge to our understanding of the Universe.
-            \item Could lead to revolutionary discoveries in cosmology and fundamental physics.
-            \item Interdisciplinary collaborations between particle physicists, astrophysicists, and cosmologists will be essential.
-        \end{itemize}
-        \column{0.5\textwidth}
-        \includegraphics[width=\textwidth]{figures/IntroFunSols.pdf}
-    \end{columns}
-\end{frame}
-
-\begin{frame}
-    \frametitle{Conclusions}
-    \framesubtitle{\tthref{github.com/handley-lab}}
-    \tikz[overlay,remember picture]
-        \node[anchor=north east] (A) at ($(current page.north east)+(0,0)$) {
-        \includegraphics[width=0.10\textheight]{people/adam_ormondroyd.jpg}%
-        \includegraphics[width=0.10\textheight]{people/charlotte_priestley.jpg}%
-        \includegraphics[width=0.10\textheight]{people/david_yallup.jpg}%
-        \includegraphics[width=0.10\textheight]{people/dily_ong.jpg}%
-        \includegraphics[width=0.10\textheight]{people/george_carter.jpg}%
-        \includegraphics[width=0.10\textheight]{people/harry_bevins.jpg}%
-        \includegraphics[width=0.10\textheight]{people/kilian_scheutwinkel.jpg}%
-        \includegraphics[width=0.10\textheight]{people/metha_prathaban.jpg}%
-        \includegraphics[width=0.10\textheight]{people/namu_kroupa.jpg}%
-        \includegraphics[width=0.10\textheight]{people/sinah_legner.jpg}%
-        \includegraphics[width=0.10\textheight]{people/sam_leeney.jpg}%
-        \includegraphics[width=0.10\textheight]{people/wei-ning_deng.jpg}%
-        \includegraphics[width=0.10\textheight]{people/will_handley.jpg}%
-    };
-\end{frame}
-
 
 \end{document}
