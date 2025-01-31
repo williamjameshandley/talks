@@ -303,7 +303,7 @@
         \begin{itemize}
             \item eROSITA performed the first all-sky survey in X-rays since ROSAT.
             \item Detected $\sim$12,000 galaxy clusters, providing a powerful new dataset for cosmology.
-            \item Results broadly consistent with $\Lambda$CDM, but with some hints of tension in $\sigma_8$. \hfill \arxiv{2402.08458}
+            \item Results broadly consistent with $\Lambda$CDM, but with some hints of tension in $\sigma_8$, but in the wrong direction! \hfill \arxiv{2402.08458}
         \end{itemize}
         \column{0.5\textwidth}
         \includegraphics[width=\textwidth]{figures/eROSITA.pdf}
@@ -315,9 +315,12 @@
     \begin{columns}
         \column{0.5\textwidth}
         \begin{itemize}
-            \item DESI is mapping millions of galaxies and quasars to measure BAO and redshift-space distortions.
-            \item First year cosmology results strengthen evidence for dark energy, but do not resolve the $H_0$ tension. \hfill \arxiv{2404.03002}
+            \item DESI is a BAO survey, so measures $r_d H_0$, not $H_0$ directly, but agrees with other `early time' probes.
             \item Full BAO and BBN analysis yields $H_0 = 68.53 \pm 0.80$ km/s/Mpc (independent of CMB). \hfill \arxiv{2404.03000}
+            \item First year cosmology results have tentatively exciting results -- possible evidence for evolving dark energy. \hfill \arxiv{2404.03002}
+                \[ w(a) = w_0 + w_a(1-a) \]
+                \[ w_a \ne 0, \quad w_0 \ne -1 \]
+            \item Watch this space in 2025!
         \end{itemize}
         \column{0.5\textwidth}
         \includegraphics[width=\textwidth]{figures/w0wa_DESI-Planck-SN-95lim.pdf}
@@ -376,6 +379,36 @@
         \includegraphics[height=0.18428\textwidth]{figures/telescopes/icecube.jpg}%
         \includegraphics[height=0.18428\textwidth]{figures/telescopes/CTA.jpg}%
     \end{columns}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Where do I fit into this?}
+    \framesubtitle{\tthref{github.com/handley-lab/group}}
+    \tikz[overlay,remember picture]
+        \node[anchor=north east] (A) at ($(current page.north east)+(0,0)$) {
+        \includegraphics[width=0.09\textheight]{people/adam_ormondroyd.jpg}%
+        \includegraphics[width=0.09\textheight]{people/charlotte_priestley.jpg}%
+        \includegraphics[width=0.09\textheight]{people/david_yallup.jpg}%
+        \includegraphics[width=0.09\textheight]{people/dily_ong.jpg}%
+        \includegraphics[width=0.09\textheight]{people/harry_bevins.jpg}%
+        \includegraphics[width=0.09\textheight]{people/harvey_williams.jpg}%
+        \includegraphics[width=0.09\textheight]{people/krish_nanavati.jpg}%
+        \includegraphics[width=0.09\textheight]{people/metha_prathaban.jpg}%
+        \includegraphics[width=0.09\textheight]{people/ming_yang.jpg}%
+        \includegraphics[width=0.09\textheight]{people/namu_kroupa.jpg}%
+        \includegraphics[width=0.09\textheight]{people/sam_leeney.jpg}%
+        \includegraphics[width=0.09\textheight]{people/sinah_legner.jpg}%
+        \includegraphics[width=0.09\textheight]{people/toby_lovick.jpg}%
+        \includegraphics[width=0.09\textheight]{people/wei-ning_deng.jpg}%
+        \includegraphics[width=0.09\textheight]{people/will_handley.jpg}%
+        \includegraphics[width=0.09\textheight]{people/will_templeton.jpg}%
+    };
+    \begin{itemize}
+        \item I was on \textit{Planck}
+        \item I'm an astrostatistician
+        \item My model comparison theory \& codes underpin several of the teams pipelines above
+        \item My current research interest is into trying to remove ``modelling systematics'' with Simulation Based Inference, as well as developing tools that are flexible enough to be able to combine the next generation of data at speed.
+    \end{itemize}<++>
 \end{frame}
 
 \end{document}
