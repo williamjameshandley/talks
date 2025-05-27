@@ -1,7 +1,7 @@
 # Will Handley's academic talks
 
 ## Academic talks
-1. TITLE
+1.  Scanning for cosmological tensions across a DiRAC-enabled grid of models, datasets and samplers 
     - Talk given to DAMTP HEP group Cambridge
     - Invited talk given at [Cosmoverse 2025](https://agenda.infn.it/event/43058/overview)
     - [PDF](https://github.com/williamjameshandley/talks/raw/cosmoverse_2025/will_handley_cosmoverse_2025.pdf)  
