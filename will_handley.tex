@@ -19,7 +19,7 @@
 % ------------
 \title{GPU-native nested sampling in BlackJAX}
 \subtitle{For simulation-based inference at scale}
-\date{Bristol SBI Galaxy Evolution Workshop 2025}
+\date{29\textsuperscript{th} May 2025}
 
 \begin{document}
 
@@ -63,7 +63,7 @@
 \begin{frame}
     \frametitle{Why nested sampling for SBI?}
     \begin{columns}
-        \column{0.5\textwidth}
+        \column{0.4\textwidth}
         \begin{itemize}
             \item Other than NPE, all SBI methods (NLE, NRE, NJE etc) need a sampler
             \item Most existing samplers are limited:
@@ -78,7 +78,7 @@
                     \item Dissociated from original authors
                 \end{itemize}
         \end{itemize}
-        \column{0.5\textwidth}
+        \column{0.6\textwidth}
         \centerline{%
             \begin{tikzpicture}[
                     every node/.style={align=center, font=\bfseries},
@@ -137,22 +137,22 @@
     \frametitle{BlackJAX nested sampling}
     \student{david_yallup}{David Yallup}{PDRA}
     \begin{columns}
-        \column{0.6\textwidth}
+        \column{0.75\textwidth}
         \begin{itemize}
             \item Very recent work (past month!)
             \item Nested slice sampler in BlackJAX
             \item Think MultiNest for JAX
-            \item Plugs into \texttt{jim} and \texttt{ripple}
             \item Installation:
         \end{itemize}
-        \begin{block}{Installation}
-            \texttt{pip install git+https://github.com/handley-lab/blackjax@nested\_sampling}
-        \end{block}
         \begin{block}{Usage}
             \texttt{import blackjax.ns.adaptive}
         \end{block}
-        \column{0.4\textwidth}
+        \begin{block}{Installation}
+            \texttt{pip install git+https://github.com/handley-lab/blackjax}
+        \end{block}
+        \column{0.25\textwidth}
         \includegraphics[width=\textwidth]{people/david_yallup.jpg}
+        % insert blackjax logo here
     \end{columns}
 \end{frame}
 
