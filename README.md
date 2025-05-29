@@ -6,3 +6,4 @@ Recent cosmological surveys have revealed persistent discrepancies within the co
 
 [[PDF](https://github.com/williamjameshandley/talks/raw/cosmoverse_2025/will_handley_cosmoverse_2025.pdf)] 
 [[Prompt](https://github.com/williamjameshandley/talks/blob/cosmoverse_2025/prompt_materials/prompt-abbrv.md)]
+[[video](https://youtu.be/SbcV3rNo4Yo)]
