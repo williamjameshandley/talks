@@ -1,3 +1,13 @@
+# GPU-native nested sampling in BlackJAX: For simulation-based inference at scale
+
+## Abstract
+
+This workshop introduces GPU-native nested sampling in BlackJAX as a solution for simulation-based inference (SBI) at scale. Unlike Neural Posterior Estimation (NPE), most SBI methods (Neural Likelihood Estimation, Neural Ratio Estimation, Neural Joint Estimation) require efficient samplers. Traditional implementations are either legacy Fortran codes (MultiNest, PolyChord) or slow Python implementations (dynesty, ultranest, nautilus). BlackJAX provides a GPU-native, open-source, community-driven alternative that leverages JAX's dual capabilities: automatic differentiation and just-in-time compilation for GPUs. This 15-minute talk positions nested sampling as essential for SBI, emphasizes the GPU imperative in scientific computing driven by machine learning adoption, and demonstrates the performance advantages of modern implementations. The presentation highlights David Yallup's recent nested slice sampler implementation in BlackJAX and sets up the subsequent hands-on workshop covering nested sampling execution, Anesthetic visualization, and performance comparisons with traditional MCMC methods.
+
+[[PDF](https://github.com/williamjameshandley/talks/raw/bristol_2025/will_handley_bristol_2025.pdf)]  
+[[source](https://github.com/williamjameshandley/talks/tree/bristol_2025)]  
+_Feb 2025_
+
 # Will Handley's academic talks
 
 ## Academic talks
