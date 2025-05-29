@@ -110,7 +110,6 @@
                 \begin{itemize}
                     \item All future HPC heavily weighted toward GPUs
                     \item Driven by machine learning adoption
-                    \item Low-power ARM-based GPUs becoming the norm
                 \end{itemize}
             \item JAX does two \emph{separate} things:
                 \begin{enumerate}
@@ -139,52 +138,50 @@
     \begin{columns}
         \column{0.75\textwidth}
         \begin{itemize}
-            \item Very recent work (past month!)
-            \item Nested slice sampler in BlackJAX
-            \item Think MultiNest for JAX
-            \item Installation:
+            \item Very recent development (December 2024!)
+            \item GPU-native nested slice sampler
+            \item Modern alternative to MultiNest/PolyChord
+            \item Slice sampling with adaptive live point allocation
+            \item Compatible with existing BlackJAX ecosystem
         \end{itemize}
-        \begin{block}{Usage}
-            \texttt{import blackjax.ns.adaptive}
+        \begin{block}{Learn more}
+            \begin{itemize}
+                \item Theory: \texttt{handley-lab.co.uk/nested-sampling-book}
+                \item Implementation: David Yallup's PDRA work
+                \item Workshop: Hands-on tutorial today
+            \end{itemize}
         \end{block}
         \begin{block}{Installation}
             \texttt{pip install git+https://github.com/handley-lab/blackjax}
         \end{block}
         \column{0.25\textwidth}
         \includegraphics[width=\textwidth]{people/david_yallup.jpg}
-        % insert blackjax logo here
+        \vspace{10pt}
+        \centerline{\includegraphics[width=0.8\textwidth]{figures/jax_logo.png}}
     \end{columns}
 \end{frame}
 
 \begin{frame}
-    \frametitle{The AI surge in scientific research}
+    \frametitle{AI-enabled research workflows}
     \begin{columns}
-        \column{0.7\textwidth}
+        \column{0.57\textwidth}
         \begin{itemize}
-            \item We are witnessing an unprecedented AI acceleration in scientific computing:
+            \item Modern scientific computing benefits from AI integration:
                 \begin{itemize}
-                    \item GPU-accelerated inference becoming standard
-                    \item Large language models facilitating code development
-                    \item Neural networks powering SBI methods
-                    \item Automatic differentiation enabling new sampling techniques
+                    \item GPU-accelerated inference
+                    \item Neural networks in SBI methods
+                    \item Automatic differentiation for sampling
                 \end{itemize}
-            \item This workshop and talk preparation itself demonstrates the AI revolution:
+            \item But the real coming disruption is from using AI to do day-to-day scientific tasks.
                 \begin{itemize}
-                    \item Writing and organizing this content in one day
-                    \item AI-assisted research workflows
-                    \item Community-driven development models
+                    \item I wrote this talk with AI assistance [claude code]. This morning. 
+                    \item I have written and been awarded several grants that were majority written by AI.
+                    \item My most recent papers are drafted with AI.
                 \end{itemize}
-            \item BlackJAX represents this new paradigm: \textbf{open, fast, and AI-ready}
         \end{itemize}
-        \column{0.3\textwidth}
-        \begin{block}{Key advantages}
-            \begin{itemize}
-                \item Performance at scale
-                \item Community development
-                \item Modern software practices
-                \item Integration ready
-            \end{itemize}
-        \end{block}
+        \column{0.43\textwidth}
+        \includegraphics<1>[width=\textwidth]{figures/2025-05-29_10-34-55.png}%
+        \includegraphics<2>[width=\textwidth]{figures/2025-05-29_10-37-37.png}%
     \end{columns}
 \end{frame}
 
@@ -288,30 +285,48 @@
 \end{frame}
 
 \begin{frame}
-    \frametitle{MCMC vs Nested Sampling}
     \begin{columns}
         \column{0.48\textwidth}
         \begin{block}{\textbf{MCMC}}
-            \begin{itemize}
-                \item Single ``walker''
-                \item Explores posterior
-                \item Fast, if proposal matrix is tuned
-                \item Parameter estimation, suspiciousness calculation
-                \item Channel capacity optimised for generating posterior samples
-            \end{itemize}
+            \only<16>{
+                \begin{itemize}
+                    \item Single ``walker''
+                    \item Explores posterior
+                    \item Fast, if proposal matrix is tuned
+                    \item Parameter estimation, suspiciousness calculation
+                    \item Channel capacity optimised for generating posterior samples
+                \end{itemize}
+            }
         \end{block}
-        \centerline{\includegraphics[width=0.5\textwidth,page=19]{figures/himmelblau}}
+            \includegraphics<1>[width=\textwidth,page=16]{figures/himmelblau}%
+            \includegraphics<2>[width=\textwidth,page=17]{figures/himmelblau}%
+            \includegraphics<3>[width=\textwidth,page=18]{figures/himmelblau}%
+            \includegraphics<4>[width=\textwidth,page=19]{figures/himmelblau}%
+            \includegraphics<5>[width=\textwidth,page=20]{figures/himmelblau}%
+            \includegraphics<6-15>[width=\textwidth,page=21]{figures/himmelblau}%
+        \centerline{\includegraphics<16>[width=0.5\textwidth,page=19]{figures/himmelblau}}
         \column{0.48\textwidth}
-        \begin{block}{\textbf{Nested sampling}}
-            \begin{itemize}
-                \item Ensemble of ``live points''
-                \item Scans from prior to peak of likelihood
-                \item Slower, no tuning required
-                \item Parameter estimation, model comparison, tension quantification
-                \item Channel capacity optimised for computing partition function
-            \end{itemize}
+        \begin{block}<7->{\textbf{Nested sampling}}
+            \only<16>{
+                \begin{itemize}
+                    \item Ensemble of ``live points''
+                    \item Scans from prior to peak of likelihood
+                    \item Slower, no tuning required
+                    \item Parameter estimation, model comparison, tension quantification
+                    \item Channel capacity optimised for computing partition function
+                \end{itemize}
+            }
         \end{block}
-        \centerline{\includegraphics[width=0.5\textwidth,page=4]{figures/himmelblau}} 
+            \includegraphics<7|handout:0>[width=\textwidth,page=1]{figures/himmelblau}%
+            \includegraphics<8|handout:0>[width=\textwidth,page=2]{figures/himmelblau}%
+            \includegraphics<9|handout:0>[width=\textwidth,page=3]{figures/himmelblau}%
+            \includegraphics<10          >[width=\textwidth,page=4]{figures/himmelblau}%
+            \includegraphics<11|handout:0>[width=\textwidth,page=5]{figures/himmelblau}%
+            \includegraphics<12|handout:0>[width=\textwidth,page=6]{figures/himmelblau}%
+            \includegraphics<13|handout:0>[width=\textwidth,page=7]{figures/himmelblau}%
+            \includegraphics<14|handout:0>[width=\textwidth,page=8]{figures/himmelblau}%
+            \includegraphics<15|handout:0>[width=\textwidth,page=15]{figures/himmelblau}%
+        \centerline{\includegraphics<16>[width=0.5\textwidth,page=4]{figures/himmelblau}} 
     \end{columns}
 \end{frame}
 
@@ -324,12 +339,15 @@
             \item Delete outermost sample, and replace with a new random one at higher integrand value.
             \item The ``live points'' steadily contract around the peak(s) of the function.
             \item We can use this evolution to estimate volume \emph{probabilistically}.
-            \item At each iteration, the contours contract by $\sim\frac{1}{n}$ of their volume.
+            \item At each iteration, the contours contract by $\sim\frac{1}{n}\only<5->{\pm \frac{1}{n}}$ of their volume.
             \item This is an exponential contraction, so
-                \[  \int f(x) dV \approx \sum_i f(x_i) \Delta V_i, \quad V_i = V_0 e^{-i/n} \]
+                \[  \int f(x) dV \approx \sum_i f(x_i) \Delta V_i, \quad V_i = V_0 e^{-\only<5->{(}i\only<5->{\pm\sqrt{i})}/n} \]
         \end{itemize}
         \column{0.5\textwidth}
-        \includegraphics[width=\textwidth,page=4]{figures/himmelblau}
+        \includegraphics<1|handout:0>[width=\textwidth,page=1]{figures/himmelblau}%
+        \includegraphics<2|handout:0>[width=\textwidth,page=2]{figures/himmelblau}%
+        \includegraphics<3|handout:0>[width=\textwidth,page=3]{figures/himmelblau}%
+        \includegraphics<4-         >[width=\textwidth,page=4]{figures/himmelblau}%
     \end{columns}
 \end{frame}
 
