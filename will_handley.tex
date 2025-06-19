@@ -17,6 +17,7 @@
 % Talk details
 % ------------
 \title{\texttt{lsbi}: linear simulation based inference }
+\subtitle{\arxiv{2501.03921}}
 \date{19\textsuperscript{th} July 2025}
 
 \begin{document}
@@ -37,7 +38,7 @@
     \frametitle{Who?}
     \begin{columns}
         \column{0.8\textwidth}
-        Idea I've been working on/talking about for the better part of 18 months,
+        Idea I've been working on/talking about on-and-off for the better part of 2 years,
         \begin{itemize}
             \item Nicolas Mediato Diaz (MSci project)
             \item David Yallup (Postdoc)
@@ -52,10 +53,16 @@
             \item Also appears in Häggström~\arxiv{2403.07454}
         \end{itemize}
 
-        \column{0.2\textwidth}
+        \column{0.14\textwidth}
         \includegraphics[width=\textwidth]{people/david_yallup}
+\tiny{David Yallup}
+
         \includegraphics[width=\textwidth]{people/thomas_gessey-jones}
-\includegraphics[width=\textwidth]{people/toby_lovick}
+\tiny{Thomas Gessey-Jones}
+
+        \includegraphics[width=\textwidth]{people/toby_lovick}
+\tiny{Toby Lovick}
+
     \end{columns}
 \end{frame}
 
@@ -128,9 +135,8 @@
             \item Linear generative model $(m,M,C)$
                 \[ 
                     \only<1>{D = m + M \theta \pm \sqrt{C}}%
-                    \only<2>{D \sim \mathcal{N}(m + M \theta, C)}%D \sim 
-                    %\only<3>{p = \mathcal{N}(D|m + M \theta, C)}
-                \]%
+                    \only<2->{D \sim \mathcal{N}(m + M \theta, C)}%D \sim 
+                \]
                 where:
                 \begin{description}
                     \item[$\theta$]: $n$ dimensional parameters
@@ -141,8 +147,8 @@
                 \end{description}
         \end{itemize}
 
-        \pause
         \column{0.5\textwidth}
+        \only<3->{
         \begin{itemize}
             \item $k$ Simulations 
                 \[
@@ -153,37 +159,58 @@
                 \begin{description}
                     \item[$\bar\theta$] $= \tfrac{1}{k}\sum_k \theta_i$
                     \item[$\bar D$] $= \tfrac{1}{k}\sum_k D_i$
-                    \item[$\Theta$] $=\tfrac{1}{k-1}\sum_i (\theta_i-\bar\theta)(\theta_i-\bar\theta)'$
-                    \item[$\Delta$] $=\tfrac{1}{k-1}\sum_i (D_i-\bar D)(D_i-\bar D)'$
-                    \item[$\Psi$] $=\tfrac{1}{k-1}\sum_i (D_i-\bar D)(\theta_i-\bar \theta)'$
+                    \item[$\Theta$] $=\tfrac{1}{k}\sum_i (\theta_i-\bar\theta)(\theta_i-\bar\theta)'$
+                    \item[$\Delta$] $=\tfrac{1}{k}\sum_i (D_i-\bar D)(D_i-\bar D)'$
+                    \item[$\Psi$] $=\tfrac{1}{k}\sum_i (D_i-\bar D)(\theta_i-\bar \theta)'$
                 \end{description}
         \end{itemize}
+    }
     \end{columns}
     \footnotetext[1]{N.B. using matrix variate notation where primes denote transposes $M' = M^T$}
 \end{frame}
 
 \begin{frame}
-    \frametitle{Linear Simulation Based Inference: gory mathematical details}
+    \frametitle{Gory mathematical details}
+    \student{toby_lovick}{PhD student}{Toby Lovick}
     \begin{columns}
-        \column{0.7\textwidth}
+        \column{0.55\textwidth}
         \begin{itemize}
-            \item We now wish to infer the parameters of the linear model $(m,M,C)$ from simulations $S$ (which define $\bar\theta,\bar D, \Theta, \Delta, \Psi$)
+            \item We now wish to infer the parameters of the linear model $(m,M,C)$ from simulations $S$ \linebreak (which define $\bar\theta,\bar D, \Theta, \Delta, \Psi$)
             \item The likelihood for this problem is:
-                \[P(\{D_i\}|\{\theta_i\}|m, M, C) = \prod_i \mathcal{N}(D_i|m+M\theta_i,C)\]
-            \item It can be shown the \C[0]{posterior $\mathcal{P}$} is\ldots
-                \onslide<3>{
-                    \begin{align*}
-                        m&|M,C,S \sim \mathcal{N}(\tfrac{k}{k+1}(\bar D - M \bar \theta), \tfrac{C}{k+1}), \\
-                        M&|C,S \sim \mathcal{MN}(\Psi \Theta^{-1}_*, \tfrac{C}{k-1}, \Theta^{-1}_*), \\
-                        C&|S\sim \mathcal{W}^{-1}_\nu(C_0 + (k-1)(\Delta-\Psi \Theta^{-1} \Psi')),
-                    \end{align*}%
-                    where $\Theta_* = \tfrac{1}{k-1}\Theta_0 + \Theta$, $\nu=\nu_0+k$, and $C_0$ define conjugate \C[2]{prior $\pi$} on $m,M,C$
+                \begin{align*}
+                    \C[2]{\mathcal{L}(M,m,c)} &= P(\{D_i\}|\{\theta_i\}|m, M, C) \\
+                &= \prod_i \mathcal{N}(D_i|m+M\theta_i,C)
+\end{align*}
+                \onslide<2->{
+                    \vspace{-15pt}
+            \item It can be shown the \C[1]{prior $\pi$} and  \C[0]{posterior $\mathcal{P}$} are conjugately\ldots
+        \begin{align*}
+            m&|M,C, \sim \mathcal{N}(D_p-M\theta_p, \tfrac{1}{\lambda_p}C), \\
+            M&|C, \sim \mathcal{MN}(M_p, C, \Omega_p^{-1}), \\
+            C &\sim \mathcal{W}^{-1}_{\nu_p}(\Psi_p)
+        \end{align*}
                 }
         \end{itemize}
 
-
-        \column{0.3\textwidth}
-        \includegraphics<2->[width=\textwidth]{figures/matrix_variate_distributions.jpg}
+        \column{0.45\textwidth}
+        \hfill\includegraphics<2>[width=0.7\textwidth]{figures/matrix_variate_distributions.jpg}%
+    \only<3->{
+        \small{
+\begin{align}
+\nu_\mathcal{P} =& \nu_\pi+k,\qquad \lambda_\mathcal{P} = \lambda_\pi+k\qquad\nonumber\\
+\theta_\mathcal{P} =& \frac{\lambda_\pi\theta_\pi + k\bar{\theta}}{\lambda_\pi+k}\qquad
+D_\mathcal{P} = \frac{\lambda_\pi D_\pi + k\bar{D}}{\lambda_\pi+k}\nonumber\\
+\Omega_\mathcal{P} =&  \Omega_\pi+ k\Theta + \tfrac{k\lambda_\pi}{k+\lambda_\pi}(\theta_\pi-\bar{\theta})(\theta_\pi-\bar{\theta})'\nonumber\\
+M_\mathcal{P}\Omega_\mathcal{P} =& M_\pi \Omega_\pi + k \Phi \nonumber\\
+&+ \tfrac{k\lambda_\pi}{k+\lambda_\pi}(D_\pi-\bar{D})(\theta_\pi-\bar{\theta})', \nonumber\\
+    \Psi_\mathcal{P} =&\Psi_\pi + k\Delta-k\Phi\Theta^{-1}\Phi' \nonumber\\
+    &+\tfrac{k\lambda_\pi}{k+\lambda_\pi} (M_\mathcal{P}(\theta_\pi-\bar{\theta}) - (D_\pi-\bar{D})) \nonumber\\
+    &\hspace{35pt}(M_\mathcal{P}(\theta_\pi-\bar{\theta})- (D_\pi-\bar{D}))'  \nonumber\\
+    &+ k(M_\mathcal{P}-\Phi\Theta^{-1})\Theta(M_\mathcal{P}-\Phi\Theta^{-1})' \nonumber\\
+    &+(M_\mathcal{P}-M_\pi)\Omega_\pi(M_\mathcal{P}-M_\pi)' \nonumber
+\end{align}
+}
+}
     \end{columns}
 \end{frame}
 
@@ -204,6 +231,7 @@
 
 \begin{frame}
     \frametitle{Example of this on our toy model}
+    \student{toby_lovick}{PhD student}{Toby Lovick}
     \begin{columns}
         \column{0.5\textwidth}
         \begin{itemize}
@@ -239,7 +267,7 @@
 \end{frame}
 
 \begin{frame}
-    \frametitle{Example of this on the CMB}
+    \frametitle{Example of this on the CMB~\arxiv{2501.03921}}
     \begin{columns}
         \column{0.52\textwidth}
         \begin{itemize}
@@ -293,20 +321,62 @@
 
 \begin{frame}
     \frametitle{Where next?}
-    \begin{itemize}
-        \item Paper being written up 
+    \student{toby_lovick}{PhD student}{Toby Lovick}
+    \begin{columns}
+        \begin{column}{0.45\textwidth}
+            \begin{block}{Algorithms}
+                \begin{itemize}
+        \item Explore mixture modelling for real nonlinear effects
             \begin{itemize}
-                \item soft deadline for Nicolas' MPhil start in October
-                \item hard deadline for PhD applications
+                \item ``\texttt{multinest} for sbi''
             \end{itemize}
-        \item Include realistic CMB simulation effects (foregrounds)
-        \item Extend to more examples (BAO, SNe)
         \item How does LSBI contribute to the question of compression
         \item Explore limits of $d$ and $n$
-        \item Explore mixture modelling for real nonlinear effects
-        \item If the posterior is the answer, what is the question?
-        \item Importance sampling?
-        \item Model comparison?
+                \end{itemize}
+            \end{block}
+    \begin{block}{Code}
+        \begin{itemize}
+            \item Jax
+        \end{itemize}
+    \end{block}
+        \end{column}
+        \begin{column}{0.45\textwidth}
+            \begin{block}{Astrophysics}
+                \begin{itemize}
+        \item Include realistic CMB simulation effects (foregrounds)
+        \item Extend to more examples (BAO, SNe, weak \& strong lensing)
+    \end{itemize}
+            \end{block}
+            \begin{block}{Theory}
+                \begin{itemize}
+                    \item If the posterior is the answer, what is the question?
+                    \item Importance sampling?
+                    \item Model comparison?
+                \end{itemize}
+            \end{block}
+            
+        \end{column}
+    \end{columns}
+                
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{AI and science}
+    \framesubtitle{What I've really been doing for the past 8 months}
+    \begin{itemize}
+        \item Many talks this conference focus on using AI in the direct analysis of scientific data, or the construction of scientific models.
+        \item There is another, far more important arena where AI is about to totally transform science.
+        \item This is in how we do the business of science:
+            \begin{itemize}
+                \item Drafting papers/grants
+                \item Deriving equations/long calculations
+                \item Writing large codebases
+                \item Multi-modal synthesis (meetings, papers, code, conferences, talks)
+            \end{itemize}
+        \item The latest agentic systems allow you to write code and papers that would take you months in a week.
+        \item If you are not using the latest large language models (o3, claude 4.0, gemini 2.5) and agentic systems (claude code, cursor, roocode, codex, deep research) \textbf{you are months behind}
+        \item e.g. as a group we are porting legacy systems onto GPU at a pace I would have considered unimaginable \textit{last month}.
     \end{itemize}
 \end{frame}
 

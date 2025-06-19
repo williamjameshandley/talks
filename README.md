@@ -13,4 +13,4 @@
     - An evolving code-driven PyPI/conda research package is available at: https://github.com/handley-lab/lsbi
 
 
-[[PDF](https://github.com/williamjameshandley/talks/raw/imperial_2024/will_handley_imperial_2024.pdf)] 
+[[PDF](https://github.com/williamjameshandley/talks/raw/sardinia_2025/will_handley_sardinia_2025.pdf)] 
