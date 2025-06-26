@@ -27,6 +27,41 @@
 \end{frame}
 
 \begin{frame}
+    \frametitle{Astrostatistics: Real-Time Inference for Gravitational Wave Astronomy}
+    \begin{columns}
+        \column{0.48\textwidth}
+        \begin{block}{The Challenge: GW170817}
+            \begin{itemize}
+                \item \textbf{Gravitational wave detected}: Binary neutron star merger
+                \item \textbf{Real-time parameter estimation}: 15+ dimensional space
+                \item \textbf{Sky localization}: $\sim 30$ square degrees uncertainty
+                \item \textbf{EM counterpart follow-up}: Telescopes need targets within hours
+            \end{itemize}
+        \end{block}
+        \begin{block}{Statistical Requirements}
+            \begin{itemize}
+                \item \textbf{Parameter estimation}: Masses, spins, distance, sky position
+                \item \textbf{Model comparison}: Signal vs noise, waveform models
+                \item \textbf{Uncertainty quantification}: Posterior credible regions
+                \item \textbf{Speed}: Results needed for telescope scheduling
+            \end{itemize}
+        \end{block}
+        \column{0.48\textwidth}
+        \includegraphics[width=0.49\textwidth]{figures/ligo_m1_m2}
+        \includegraphics[width=0.49\textwidth]{figures/ligo_lambert-skymap}
+        \vspace{10pt}
+        \begin{block}{The Broader Astrostatistics Context}
+            \begin{itemize}
+                \item \textbf{High-dimensional}: $d \sim 10^2$--$10^3$ parameters
+                \item \textbf{Multimodal}: Competing physical models
+                \item \textbf{Expensive likelihoods}: Complex simulations
+                \item \textbf{Model selection critical}: Which physics to include?
+            \end{itemize}
+        \end{block}
+    \end{columns}
+\end{frame}
+
+\begin{frame}
     \frametitle{The Bayesian Inference Challenge}
     \begin{columns}
         \column{0.48\textwidth}
@@ -124,7 +159,7 @@
             \includegraphics<5>[width=\textwidth,page=5]{figures/himmelblau_mcmc}%
             \includegraphics<6-15>[width=\textwidth,page=9]{figures/himmelblau_mcmc}%
         \centerline{\includegraphics<16>[width=0.5\textwidth,page=9]{figures/himmelblau_mcmc}}
-        \column{0.49\textwidth}
+        \column{0.48\textwidth}
         \begin{block}<7->{\textbf{Nested sampling}}
             \only<16>{
                 \begin{itemize}
@@ -171,108 +206,124 @@
 \end{frame}
 
 \begin{frame}
-    \frametitle{The nested sampling meta-algorithm: dead points}
-    \includegraphics[width=\textwidth]{figures/dead_measure}
+    \frametitle{Nested Sampling as Density of States Calculator}
     \begin{columns}
-        \column{0.69\textwidth}
-        \begin{itemize}
-            \item At the end, one is left with a set of discarded ``dead'' points.
-            \item Dead points have a unique scale-invariant distribution $\propto\: \tfrac{dV}{V}$.
-            \item Uniform over original region, exponentially concentrating on region of interest (until termination volume).
-            \item Good for training emulators (HERA~\arxiv{2108.07282}).
-        \end{itemize}
-        \column{0.3\textwidth}
-        \begin{block}{Applications}
-        \begin{itemize}
-            \item training emulators.
-            \item gridding simulations
-            \item beta flows
-            \item ``dead measure'' 
-        \end{itemize}
-        \end{block}
-    \end{columns}
-\end{frame}
-
-\begin{frame}
-    \frametitle{The Challenge: Legacy vs Modern Paradigms}
-    \begin{columns}
-        \column{0.6\textwidth}
-        \begin{block}{The Problem}
+        \column{0.48\textwidth}
+        \begin{block}{The Key Insight}
             \begin{itemize}
-                \item Nested sampling viewed as \emph{legacy codebase}
-                \item GPU-native paradigms dominating:
-                    \begin{itemize}
-                        \item Neural simulation-based inference
-                        \item Modern JAX/PyTorch frameworks
-                        \item Automatic differentiation \& JIT compilation
-                    \end{itemize}
-                \item Existing NS implementations:
-                    \begin{itemize}
-                        \item CPU-focused (Fortran, C++)
-                        \item Limited vectorization
-                        \item Difficult integration with ML workflows
-                    \end{itemize}
+                \item Nested sampling directly estimates the \textbf{density of states}:
+                    \[ g(\mathcal{L}) = \int \delta(\mathcal{L}(\theta) - \mathcal{L}) \pi(\theta) d\theta \]
+                \item This is the \textbf{partition function} at inverse temperature $\beta$:
+                    \[ \mathcal{Z}(\beta) = \int g(\mathcal{L}) e^{-\beta \mathcal{L}} d\mathcal{L} \]
+                \item Evidence is special case: $\mathcal{Z} = \mathcal{Z}(\beta=1)$
+                \item Full temperature dependence available: $\log \mathcal{Z}(\beta)$
             \end{itemize}
         \end{block}
-        \column{0.4\textwidth}
-        \begin{block}{The Solution}
+        \column{0.48\textwidth}
+        \begin{block}{Statistical Physics Connection}
             \begin{itemize}
-                \item \textbf{Reformulate} nested sampling for GPU hardware
-                \item \textbf{Vectorization} opportunities
-                \item \textbf{Integration} with modern frameworks
-                \item \textbf{State-of-the-art} performance
+                \item \textbf{Canonical ensemble}: $p(\theta|\beta) \propto \mathcal{L}(\theta)^\beta \pi(\theta)$
+                \item \textbf{Free energy}: $F(\beta) = -\log \mathcal{Z}(\beta)$
+                \item \textbf{Internal energy}: $U(\beta) = -\frac{\partial \log \mathcal{Z}}{\partial \beta}$
+                \item \textbf{Heat capacity}: $C(\beta) = \frac{\partial U}{\partial \beta}$
             \end{itemize}
         \end{block}
         \vspace{10pt}
-        \centerline{\includegraphics[width=0.8\textwidth]{figures/ns_diagram}}
+        \begin{center}
+            \textbf{Nested sampling provides the fundamental thermodynamic quantities}\\
+            for any probabilistic model
+        \end{center}
     \end{columns}
 \end{frame}
 
 \begin{frame}
-    \frametitle{Why BlackJAX? Unified Framework for Bayesian Inference}
+    \frametitle{Why GPUs? The Future of High-Performance Computing}
     \begin{columns}
-        \column{0.49\textwidth}
-        \begin{block}{The Problem}
+        \column{0.48\textwidth}
+        \begin{block}{GPU Advantages (Often Confused!)}
             \begin{itemize}
-                \item Multiple inference methods scattered across frameworks
-                \item No fair comparison between algorithms
-                \item Different GPU implementations with varying quality
-                \item Scientific workflows locked into specific tools
+                \item \textbf{Massive Parallelization}:
+                    \begin{itemize}
+                        \item 1000s of cores vs 10s on CPU
+                        \item Perfect for ensemble algorithms
+                        \item Vectorization across particles/chains
+                        \item Independent likelihood evaluations
+                    \end{itemize}
+                \item \textbf{Automatic Differentiation} (separate advantage):
+                    \begin{itemize}
+                        \item GPU-accelerated gradient computation
+                        \item JAX/PyTorch ecosystem integration
+                        \item Forward/reverse mode AD
+                        \item Essential for modern optimization
+                    \end{itemize}
+            \end{itemize}
+        \end{block}
+        \column{0.48\textwidth}
+        \begin{block}{The HPC Reality}
+            \begin{itemize}
+                \item \textbf{All major HPC systems are GPU-first}:
+                    \begin{itemize}
+                        \item Exascale systems: Frontier, Aurora
+                        \item Cloud computing: A100, H100 dominance
+                        \item Scientific computing shifting entirely
+                    \end{itemize}
+                \item \textbf{Legacy CPU codes becoming obsolete}
+                \item \textbf{Funding agencies expect GPU utilization}
+                \item \textbf{Graduate students trained on GPU frameworks}
+            \end{itemize}
+        \end{block}
+        \vspace{10pt}
+        \begin{center}
+            \textbf{Scientific inference must adapt or become irrelevant}
+        \end{center}
+    \end{columns}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Why BlackJAX? Unified GPU Framework for Bayesian Inference}
+    \begin{columns}
+        \column{0.48\textwidth}
+        \begin{block}{The Fragmentation Problem}
+            \begin{itemize}
+                \item \textbf{Scattered ecosystem}:
+                    \begin{itemize}
+                        \item Stan (CPU HMC), emcee (CPU ensemble)
+                        \item PyMC (mixed GPU support)
+                        \item Custom NS codes (mostly Fortran/C++)
+                    \end{itemize}
+                \item \textbf{No fair algorithmic comparisons}
+                \item \textbf{Different GPU implementations, varying quality}
+                \item \textbf{Scientific workflows locked into specific tools}
             \end{itemize}
         \end{block}
         \begin{block}{BlackJAX Solution}
             \begin{itemize}
-                \item \textbf{Single JAX codebase} for all methods:
-                    \begin{itemize}
-                        \item Nested sampling (slice, rejection)
-                        \item HMC \& variants (NUTS, MALA)
-                        \item SMC \& tempering
-                        \item Ensemble methods
-                    \end{itemize}
-                \item \textbf{Fair benchmarking} with identical infrastructure
-                \item \textbf{Composable algorithms} and shared components
+                \item \textbf{Single JAX codebase} for all major methods
+                \item \textbf{Fair benchmarking} with identical GPU infrastructure
+                \item \textbf{Composable algorithms} with shared components
+                \item \textbf{Modern ML ecosystem integration}
             \end{itemize}
         \end{block}
-        \column{0.49\textwidth}
-        \begin{block}{GPU Vectorization Advantage}
+        \column{0.48\textwidth}
+        \begin{block}{Algorithm-Hardware Matching}
             \begin{itemize}
-                \item \textbf{Ensemble algorithms} naturally parallelize:
+                \item \textbf{Ensemble methods $\leftrightarrow$ GPU parallelization}:
                     \begin{itemize}
-                        \item Multiple particles/chains
-                        \item Independent operations
-                        \item Batch likelihood evaluations
+                        \item Nested sampling: 100-1000 live points
+                        \item SMC: 1000s of particles
+                        \item Embarrassingly parallel operations
+                    \end{itemize}
+                \item \textbf{Single-chain methods struggle}:
+                    \begin{itemize}
+                        \item HMC: Variable trajectory lengths
+                        \item Sequential dependencies
+                        \item Synchronization overhead
                     \end{itemize}
                 \item \textbf{Scientific problems are compute-bound}:
                     \begin{itemize}
                         \item Unlike ultra-large DL models
-                        \item GPU memory rarely limiting factor
-                        \item Perfect for vectorization
-                    \end{itemize}
-                \item \textbf{HMC struggles} with vectorization:
-                    \begin{itemize}
-                        \item Variable trajectory lengths
-                        \item Sequential nature
-                        \item Synchronization overhead
+                        \item GPU memory rarely limiting
+                        \item Perfect match for vectorization
                     \end{itemize}
             \end{itemize}
         \end{block}
@@ -446,6 +497,50 @@
 % \end{frame}
 
 \begin{frame}
+    \frametitle{The Real AI Revolution: LLMs as the Missing Piece}
+    \begin{columns}
+        \column{0.48\textwidth}
+        \begin{block}{LLMs: The GPU Code Translator}
+            \begin{itemize}
+                \item \textbf{The missing piece} for porting legacy code to GPUs
+                \item Automated translation: Fortran/C++ $\rightarrow$ JAX/PyTorch
+                \item Handles boilerplate, vectorization patterns
+                \item Bridges the gap between legacy science and modern hardware
+            \end{itemize}
+        \end{block}
+        \begin{block}{The 80/20 Rule of Scientific Work}
+            \begin{itemize}
+                \item \textbf{80\% ``boring'' tasks}: Spreadsheets, forms, papers, grants, reviews, grading, code writing
+                \item \textbf{20\% hard thinking}: Novel insights, experimental design, theory
+                \item \textbf{AI's biggest impact}: Automating the 80\%, not the 20\%
+            \end{itemize}
+        \end{block}
+        \column{0.48\textwidth}
+        \begin{block}{Beyond Scientific Analysis}
+            \begin{itemize}
+                \item \textbf{Common focus}: Using LLMs for data analysis
+                \item \textbf{Real transformation}: Automating scientific workflow
+                \item \textbf{Already happening}:
+                    \begin{itemize}
+                        \item Grant writing assistance
+                        \item Paper drafting and review
+                        \item Code generation and debugging
+                        \item Literature review automation
+                    \end{itemize}
+            \end{itemize}
+        \end{block}
+        \begin{block}{The Productivity Explosion}
+            \begin{itemize}
+                \item \textbf{Success story}: My group's paper production rate
+                \item \textbf{New bottleneck}: \emph{``Papers generated so fast I can't review them all''}
+                \item \textbf{Quality control}: Becomes the limiting factor
+                \item \textbf{Focus shift}: From writing to critical thinking
+            \end{itemize}
+        \end{block}
+    \end{columns}
+\end{frame}
+
+\begin{frame}
     \frametitle{Conclusions}
     \framesubtitle{\tthref{github.com/handley-lab/group}}
     \tikz[overlay,remember picture]
@@ -475,7 +570,7 @@
 \begin{frame}
     \frametitle{Appendix: Sequential Monte Carlo Connection}
     \begin{columns}
-        \column{0.5\textwidth}
+        \column{0.48\textwidth}
         \begin{block}{SMC Framework}
             \begin{itemize}
                 \item Rigorous statistical foundation
@@ -492,7 +587,7 @@
                 \item \textbf{NS}: Specialized for constrained sampling
             \end{itemize}
         \end{block}
-        \column{0.5\textwidth}
+        \column{0.48\textwidth}
         \begin{block}{BlackJAX Implementation}
             \begin{itemize}
                 \item Direct comparison possible:
