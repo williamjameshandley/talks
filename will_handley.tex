@@ -27,61 +27,64 @@
 \end{frame}
 
 \begin{frame}
-    \frametitle{What is Nested Sampling?}
-    \begin{itemize}
-        \item Nested sampling is a radical, multi-purpose numerical tool.
-        \item Given a (scalar) function $f$ with a vector of parameters $\theta$, it can be used for:
-    \end{itemize}
-    \vspace{-10pt}
-    \begin{columns}[t]
-        \column{0.3\textwidth}
-        \begin{block}{Optimisation}
-            \[\theta_\text{max} = \max_\theta{f(\theta)}\]
+    \frametitle{The Bayesian Inference Challenge}
+    \begin{columns}
+        \column{0.48\textwidth}
+        \begin{block}{Parameter Estimation}
+            \begin{itemize}
+                \item Posterior: $p(\theta|D) \propto \mathcal{L}(D|\theta) \pi(\theta)$
+                \item Need samples from $p(\theta|D)$
+                \item Standard approach: MCMC methods
+                \item Well-solved problem in many cases
+            \end{itemize}
         \end{block}
-        \column{0.3\textwidth}
-        \begin{block}{Exploration}
-            \vspace{-10pt}
-            \[\text{draw/sample}\quad \theta\sim f\]
-            \vspace{-15pt}
+        \begin{block}{Model Comparison}
+            \begin{itemize}
+                \item Evidence: $\mathcal{Z} = \int \mathcal{L}(D|\theta) \pi(\theta) d\theta$
+                \item Bayes factors: $\mathcal{B}_{12} = \mathcal{Z}_1 / \mathcal{Z}_2$
+                \item \textbf{Much harder problem}
+                \item MCMC doesn't estimate $\mathcal{Z}$ directly
+            \end{itemize}
         \end{block}
-        \column{0.3\textwidth}
-        \begin{block}{Integration}
-            \[\int f(\theta) dV \]
+        \column{0.48\textwidth}
+        \begin{block}{Challenges for Modern Science}
+            \begin{itemize}
+                \item \textbf{High dimensions}: $d \sim 10^2$--$10^3$
+                \item \textbf{Multimodality}: Multiple competing theories
+                \item \textbf{Computational cost}: Complex forward models
+                \item \textbf{Model selection}: Which physics to include?
+            \end{itemize}
         \end{block}
-    \end{columns}
-    \begin{columns}[t]
-        \column{0.33\textwidth}
-        \centerline{\includegraphics[width=0.8\textwidth,page=13]{figures/himmelblau}}
-        \column{0.33\textwidth}
-        \centerline{\includegraphics[width=0.8\textwidth,page=15]{figures/himmelblau}}
-        \column{0.33\textwidth}
-        \centerline{\includegraphics[width=0.8\textwidth,page=14]{figures/himmelblau}}
+        \vspace{10pt}
+        \begin{center}
+            \textbf{Key Insight:}\\
+            Need methods that compute \emph{both} \\
+            posterior samples \emph{and} evidence
+        \end{center}
     \end{columns}
 \end{frame}
 
 \begin{frame}
-    \frametitle{Where is Nested Sampling?}
+    \frametitle{Sampling Methods for Bayesian Inference}
     \begin{columns}
         \column{0.5\textwidth}
-        \begin{itemize}
-            \item For many purposes, you should group Nested Sampling with (MCMC) techniques such as:
-                \begin{itemize}
-                    \item Metropolis-Hastings (PyMC, MontePython)
-                    \item Hamiltonian Monte Carlo (Stan, \textbf{blackjax})
-                    \item Ensemble sampling (emcee, zeus). 
-                    \item Variational Inference (Pyro)
-                    \item Sequential Monte Carlo 
-                    \item Thermodynamic integration
-                    \item Genetic algorithms
-                \end{itemize}
-            \item You may have heard of it in branded form:
-                \begin{itemize}
-                    \item MultiNest
-                    \item PolyChord
-                    \item dynesty
-                    \item ultranest
-                \end{itemize}
+        \begin{block}{Single-Chain MCMC}
+            \begin{itemize}
+                \item \textbf{Metropolis-Hastings}: Simple, widely used (PyMC)
+                \item \textbf{HMC/NUTS}: Gradient-based, efficient (Stan, BlackJAX)
+                \item \textbf{Strengths}: Fast for unimodal, well-conditioned problems
+                \item \textbf{Limitations}: Poor multimodal mixing, no evidence
             \end{itemize}
+        \end{block}
+        \begin{block}{Ensemble Methods}
+            \begin{itemize}
+                \item \textbf{Affine-invariant}: emcee, zeus - excellent multimodal sampling
+                \item \textbf{Sequential Monte Carlo}: Tempering, annealing
+                \item \textbf{Nested Sampling}: Evidence-focused, robust multimodal
+                \item \textbf{Strengths}: Handle multimodality, some estimate evidence
+                \item \textbf{GPU Advantage}: Natural vectorization across ensemble
+            \end{itemize}
+        \end{block}
         \column{0.5\textwidth}
         \begin{columns}
             \column{0.5\textwidth}
@@ -91,6 +94,12 @@
         \includegraphics[width=\textwidth]{figures/zeus}
         \end{columns}
         \includegraphics[width=\textwidth]{figures/hmc_explained}
+        \vspace{5pt}
+        \begin{center}
+            \textbf{Nested sampling}: \\
+            Unique in targeting \\
+            evidence computation directly
+        \end{center}
     \end{columns}
 \end{frame}
 
@@ -115,7 +124,7 @@
             \includegraphics<5>[width=\textwidth,page=5]{figures/himmelblau_mcmc}%
             \includegraphics<6-15>[width=\textwidth,page=9]{figures/himmelblau_mcmc}%
         \centerline{\includegraphics<16>[width=0.5\textwidth,page=9]{figures/himmelblau_mcmc}}
-        \column{0.48\textwidth}
+        \column{0.49\textwidth}
         \begin{block}<7->{\textbf{Nested sampling}}
             \only<16>{
                 \begin{itemize}
@@ -127,16 +136,16 @@
                 \end{itemize}
             }
         \end{block}
-            \includegraphics<7|handout:0>[width=\textwidth,page=1]{figures/himmelblau}%
-            \includegraphics<8|handout:0>[width=\textwidth,page=2]{figures/himmelblau}%
-            \includegraphics<9|handout:0>[width=\textwidth,page=3]{figures/himmelblau}%
-            \includegraphics<10          >[width=\textwidth,page=4]{figures/himmelblau}%
-            \includegraphics<11|handout:0>[width=\textwidth,page=5]{figures/himmelblau}%
-            \includegraphics<12|handout:0>[width=\textwidth,page=6]{figures/himmelblau}%
-            \includegraphics<13|handout:0>[width=\textwidth,page=7]{figures/himmelblau}%
-            \includegraphics<14|handout:0>[width=\textwidth,page=8]{figures/himmelblau}%
-            \includegraphics<15|handout:0>[width=\textwidth,page=15]{figures/himmelblau}%
-        \centerline{\includegraphics<16>[width=0.5\textwidth,page=4]{figures/himmelblau}} 
+            \includegraphics<7|handout:0>[width=\textwidth,page=1]{figures/himmelblau_ns}%
+            \includegraphics<8|handout:0>[width=\textwidth,page=2]{figures/himmelblau_ns}%
+            \includegraphics<9|handout:0>[width=\textwidth,page=3]{figures/himmelblau_ns}%
+            \includegraphics<10          >[width=\textwidth,page=4]{figures/himmelblau_ns}%
+            \includegraphics<11|handout:0>[width=\textwidth,page=5]{figures/himmelblau_ns}%
+            \includegraphics<12|handout:0>[width=\textwidth,page=6]{figures/himmelblau_ns}%
+            \includegraphics<13|handout:0>[width=\textwidth,page=7]{figures/himmelblau_ns}%
+            \includegraphics<14|handout:0>[width=\textwidth,page=8]{figures/himmelblau_ns}%
+            \includegraphics<15|handout:0>[width=\textwidth,page=8]{figures/himmelblau_ns}%
+        \centerline{\includegraphics<16>[width=0.5\textwidth,page=4]{figures/himmelblau_ns}} 
     \end{columns}
 \end{frame}
 
@@ -154,10 +163,10 @@
                 \[  \int f(x) dV \approx \sum_i f(x_i) \Delta V_i, \quad V_i = V_0 e^{-\only<5->{(}i\only<5->{\pm\sqrt{i})}/n} \]
         \end{itemize}
         \column{0.5\textwidth}
-        \includegraphics<1|handout:0>[width=\textwidth,page=1]{figures/himmelblau}%
-        \includegraphics<2|handout:0>[width=\textwidth,page=2]{figures/himmelblau}%
-        \includegraphics<3|handout:0>[width=\textwidth,page=3]{figures/himmelblau}%
-        \includegraphics<4-         >[width=\textwidth,page=4]{figures/himmelblau}%
+        \includegraphics<1|handout:0>[width=\textwidth,page=1]{figures/himmelblau_ns}%
+        \includegraphics<2|handout:0>[width=\textwidth,page=2]{figures/himmelblau_ns}%
+        \includegraphics<3|handout:0>[width=\textwidth,page=3]{figures/himmelblau_ns}%
+        \includegraphics<4-         >[width=\textwidth,page=4]{figures/himmelblau_ns}%
     \end{columns}
 \end{frame}
 
@@ -220,41 +229,54 @@
 \end{frame}
 
 \begin{frame}
-    \frametitle{Nested Sampling and Sequential Monte Carlo}
+    \frametitle{Why BlackJAX? Unified Framework for Bayesian Inference}
     \begin{columns}
-        \column{0.5\textwidth}
-        \begin{block}{Statistical Perspective}
+        \column{0.49\textwidth}
+        \begin{block}{The Problem}
             \begin{itemize}
-                \item SMC: Rigorous statistical framework
-                \item Rich theoretical foundation
-                \item Nested sampling is a \emph{special case} of SMC
-                \item Singular type of importance sampling
+                \item Multiple inference methods scattered across frameworks
+                \item No fair comparison between algorithms
+                \item Different GPU implementations with varying quality
+                \item Scientific workflows locked into specific tools
             \end{itemize}
         \end{block}
-        \begin{block}{Physics Perspective}
+        \begin{block}{BlackJAX Solution}
             \begin{itemize}
-                \item Nested sampling: Practical inference tool
-                \item Direct evidence computation
-                \item Model comparison focus
-                \item Established in physical sciences
-            \end{itemize}
-        \end{block}
-        \column{0.5\textwidth}
-        \begin{block}{BlackJAX Integration}
-            \begin{itemize}
-                \item \textbf{Unified framework} for comparison:
+                \item \textbf{Single JAX codebase} for all methods:
                     \begin{itemize}
-                        \item Nested sampling
-                        \item HMC \& variants
+                        \item Nested sampling (slice, rejection)
+                        \item HMC \& variants (NUTS, MALA)
                         \item SMC \& tempering
-                        \item MALA, NUTS, etc.
+                        \item Ensemble methods
                     \end{itemize}
-                \item \textbf{Same GPU codebase} for all methods
-                \item \textbf{Direct benchmarking} possible
-                \item \textbf{Composable algorithms}
+                \item \textbf{Fair benchmarking} with identical infrastructure
+                \item \textbf{Composable algorithms} and shared components
             \end{itemize}
         \end{block}
-        \vspace{10pt}
+        \column{0.49\textwidth}
+        \begin{block}{GPU Vectorization Advantage}
+            \begin{itemize}
+                \item \textbf{Ensemble algorithms} naturally parallelize:
+                    \begin{itemize}
+                        \item Multiple particles/chains
+                        \item Independent operations
+                        \item Batch likelihood evaluations
+                    \end{itemize}
+                \item \textbf{Scientific problems are compute-bound}:
+                    \begin{itemize}
+                        \item Unlike ultra-large DL models
+                        \item GPU memory rarely limiting factor
+                        \item Perfect for vectorization
+                    \end{itemize}
+                \item \textbf{HMC struggles} with vectorization:
+                    \begin{itemize}
+                        \item Variable trajectory lengths
+                        \item Sequential nature
+                        \item Synchronization overhead
+                    \end{itemize}
+            \end{itemize}
+        \end{block}
+        \vspace{5pt}
         \includegraphics[width=\textwidth]{figures/slice_sampling_diagram}
     \end{columns}
 \end{frame}
@@ -291,6 +313,40 @@
 \end{frame}
 
 \begin{frame}
+    \frametitle{Accelerating Scientific Discovery: The Broader Impact}
+    \begin{columns}
+        \column{0.6\textwidth}
+        \begin{block}{Connecting to Workshop Themes}
+            \begin{itemize}
+                \item \textbf{Experimental Design}: Nested sampling enables efficient model comparison for optimal experiment selection
+                \item \textbf{Amortized Inference}: GPU vectorization amortizes computational cost across ensemble
+                \item \textbf{Scientific Workflows}: BlackJAX integrates with ML pipelines (JAX ecosystem)
+                \item \textbf{Diffusion Models}: Evidence computation enables model selection between generative approaches
+            \end{itemize}
+        \end{block}
+        \begin{block}{Real-World Impact}
+            \begin{itemize}
+                \item \textbf{LIGO/Virgo}: Real-time gravitational wave analysis
+                \item \textbf{Cosmology}: Model comparison for dark energy theories
+                \item \textbf{Climate Science}: Parameter estimation in complex Earth system models
+                \item \textbf{Drug Discovery}: Bayesian optimization of molecular properties
+            \end{itemize}
+        \end{block}
+        \column{0.4\textwidth}
+        \vspace{20pt}
+        \begin{center}
+        \textbf{The Missing Link}\\[10pt]
+        \begin{itemize}
+            \item Traditional MCMC: \\ \emph{Samples but no evidence}
+            \item Neural approaches: \\ \emph{Fast but approximate}
+            \item Nested Sampling: \\ \emph{Exact evidence + samples}
+            \item GPU Acceleration: \\ \emph{Speed without approximation}
+        \end{itemize}
+        \end{center}
+    \end{columns}
+\end{frame}
+
+\begin{frame}
     \frametitle{Performance Comparisons}
     \begin{columns}
         \column{0.5\textwidth}
@@ -312,82 +368,82 @@
     \end{columns}
 \end{frame}
 
-\begin{frame}
-    \frametitle{Applications: Gravitational Wave Parameter Estimation}
-    \student{david_yallup}{David Yallup}{PDRA}
-    \begin{columns}
-        \column{0.6\textwidth}
-        \begin{itemize}
-            \item \textbf{LIGO/Virgo data analysis}:
-                \begin{itemize}
-                    \item Binary merger parameter estimation
-                    \item 15+ dimensional parameter spaces
-                    \item Complex, multimodal posteriors
-                    \item Real-time analysis requirements
-                \end{itemize}
-            \item \textbf{GPU advantages}:
-                \begin{itemize}
-                    \item Parallel waveform generation
-                    \item Vectorized likelihood evaluations
-                    \item $>10\times$ speedup for parameter estimation
-                    \item Memory-efficient for long signals
-                \end{itemize}
-            \item \textbf{Evidence computation}:
-                \begin{itemize}
-                    \item Model comparison (GR vs modified gravity)
-                    \item Detection vs noise discrimination
-                    \item Population studies
-                \end{itemize}
-        \end{itemize}
-        \column{0.4\textwidth}
-        \includegraphics[width=0.49\textwidth]{figures/ligo_m1_m2}
-        \includegraphics[width=0.49\textwidth]{figures/ligo_lambert-skymap}
-        \vspace{10pt}
-        \begin{itemize}
-            \item Mass-mass posterior
-            \item Sky localization
-            \item Real-time follow-up enabled
-        \end{itemize}
-    \end{columns}
-\end{frame}
+% \begin{frame}
+%     \frametitle{Applications: Gravitational Wave Parameter Estimation}
+%     \student{david_yallup}{David Yallup}{PDRA}
+%     \begin{columns}
+%         \column{0.6\textwidth}
+%         \begin{itemize}
+%             \item \textbf{LIGO/Virgo data analysis}:
+%                 \begin{itemize}
+%                     \item Binary merger parameter estimation
+%                     \item 15+ dimensional parameter spaces
+%                     \item Complex, multimodal posteriors
+%                     \item Real-time analysis requirements
+%                 \end{itemize}
+%             \item \textbf{GPU advantages}:
+%                 \begin{itemize}
+%                     \item Parallel waveform generation
+%                     \item Vectorized likelihood evaluations
+%                     \item $>10\times$ speedup for parameter estimation
+%                     \item Memory-efficient for long signals
+%                 \end{itemize}
+%             \item \textbf{Evidence computation}:
+%                 \begin{itemize}
+%                     \item Model comparison (GR vs modified gravity)
+%                     \item Detection vs noise discrimination
+%                     \item Population studies
+%                 \end{itemize}
+%         \end{itemize}
+%         \column{0.4\textwidth}
+%         \includegraphics[width=0.49\textwidth]{figures/ligo_m1_m2}
+%         \includegraphics[width=0.49\textwidth]{figures/ligo_lambert-skymap}
+%         \vspace{10pt}
+%         \begin{itemize}
+%             \item Mass-mass posterior
+%             \item Sky localization
+%             \item Real-time follow-up enabled
+%         \end{itemize}
+%     \end{columns}
+% \end{frame}
 
-\begin{frame}
-    \frametitle{Applications: CMB Cosmology}
-    \student{adam_ormondroyd}{Adam Ormondroyd}{PhD}
-    \begin{columns}
-        \column{0.55\textwidth}
-        \begin{itemize}
-            \item \textbf{Cosmological parameter inference}:
-                \begin{itemize}
-                    \item $\Lambda$CDM and extensions
-                    \item 6-20+ dimensional parameter spaces
-                    \item Non-Gaussian posteriors common
-                    \item Model comparison critical
-                \end{itemize}
-            \item \textbf{GPU acceleration benefits}:
-                \begin{itemize}
-                    \item Vectorized $C_\ell$ computations
-                    \item Parallel likelihood evaluations
-                    \item Large survey data volumes
-                    \item Systematic exploration of model space
-                \end{itemize}
-            \item \textbf{Tension quantification}:
-                \begin{itemize}
-                    \item CMB vs local universe measurements
-                    \item Evidence ratios: $\mathcal{R} = \mathcal{Z}_{AB}/(\mathcal{Z}_A \mathcal{Z}_B)$
-                    \item Suspiciousness calculations
-                \end{itemize}
-        \end{itemize}
-        \column{0.45\textwidth}
-        \includegraphics[width=\textwidth]{figures/omegak_H0_2}
-        \vspace{5pt}
-        \begin{itemize}
-            \item Curvature-Hubble tension
-            \item Non-Gaussian posteriors
-            \item Model comparison essential
-        \end{itemize}
-    \end{columns}
-\end{frame}
+% \begin{frame}
+%     \frametitle{Applications: CMB Cosmology}
+%     \student{adam_ormondroyd}{Adam Ormondroyd}{PhD}
+%     \begin{columns}
+%         \column{0.55\textwidth}
+%         \begin{itemize}
+%             \item \textbf{Cosmological parameter inference}:
+%                 \begin{itemize}
+%                     \item $\Lambda$CDM and extensions
+%                     \item 6-20+ dimensional parameter spaces
+%                     \item Non-Gaussian posteriors common
+%                     \item Model comparison critical
+%                 \end{itemize}
+%             \item \textbf{GPU acceleration benefits}:
+%                 \begin{itemize}
+%                     \item Vectorized $C_\ell$ computations
+%                     \item Parallel likelihood evaluations
+%                     \item Large survey data volumes
+%                     \item Systematic exploration of model space
+%                 \end{itemize}
+%             \item \textbf{Tension quantification}:
+%                 \begin{itemize}
+%                     \item CMB vs local universe measurements
+%                     \item Evidence ratios: $\mathcal{R} = \mathcal{Z}_{AB}/(\mathcal{Z}_A \mathcal{Z}_B)$
+%                     \item Suspiciousness calculations
+%                 \end{itemize}
+%         \end{itemize}
+%         \column{0.45\textwidth}
+%         \includegraphics[width=\textwidth]{figures/omegak_H0_2}
+%         \vspace{5pt}
+%         \begin{itemize}
+%             \item Curvature-Hubble tension
+%             \item Non-Gaussian posteriors
+%             \item Model comparison essential
+%         \end{itemize}
+%     \end{columns}
+% \end{frame}
 
 \begin{frame}
     \frametitle{Conclusions}
@@ -411,6 +467,52 @@
         \includegraphics[width=0.09\textheight]{people/will_handley.jpg}%
         \includegraphics[width=0.09\textheight]{people/will_templeton.jpg}%
     };
+\end{frame}
+
+% Appendix
+\appendix
+
+\begin{frame}
+    \frametitle{Appendix: Sequential Monte Carlo Connection}
+    \begin{columns}
+        \column{0.5\textwidth}
+        \begin{block}{SMC Framework}
+            \begin{itemize}
+                \item Rigorous statistical foundation
+                \item Tempered distributions: $p_t(\theta) \propto \mathcal{L}(\theta)^{\beta_t} \pi(\theta)$
+                \item Nested sampling as special case of SMC
+                \item Adaptive temperature schedules
+            \end{itemize}
+        \end{block}
+        \begin{block}{Key Differences}
+            \begin{itemize}
+                \item \textbf{SMC}: Annealing in temperature $\beta_t$
+                \item \textbf{NS}: Annealing in likelihood threshold $\mathcal{L}_*$
+                \item \textbf{SMC}: Flexible inner kernels
+                \item \textbf{NS}: Specialized for constrained sampling
+            \end{itemize}
+        \end{block}
+        \column{0.5\textwidth}
+        \begin{block}{BlackJAX Implementation}
+            \begin{itemize}
+                \item Direct comparison possible:
+                    \begin{itemize}
+                        \item Same GPU codebase
+                        \item Identical likelihood evaluations
+                        \item Fair benchmarking
+                    \end{itemize}
+                \item SMC with adaptive tempering
+                \item Nested sampling with slice sampling
+                \item Both estimate evidence $\mathcal{Z}$
+            \end{itemize}
+        \end{block}
+        \vspace{10pt}
+        \begin{center}
+            \textbf{Perspective:}\\
+            Statistics community: NS $\subset$ SMC\\
+            Physics community: SMC $\approx$ NS variant
+        \end{center}
+    \end{columns}
 \end{frame}
 
 \end{document}
