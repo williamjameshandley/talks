@@ -2,7 +2,7 @@
 
 ## Academic talks
 1. GPU-native nested sampling in BlackJAX: Accelerating Bayesian inference to state-of-the-art levels
-    - Talk given at Newton Institute workshop
+    - Talk given at [Newton Institute workshop](https://www.newton.ac.uk/event/rclw03/)
     - [PDF](https://github.com/williamjameshandley/talks/raw/gpu_nested_sampling_2025/will_handley_gpu_nested_sampling_2025.pdf)  
     - [source](https://github.com/williamjameshandley/talks/tree/gpu_nested_sampling_2025) 
     - _Jun 2025_
