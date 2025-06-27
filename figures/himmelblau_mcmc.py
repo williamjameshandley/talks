@@ -27,7 +27,7 @@ Z = himmelblau(X, Y)
 
 # MCMC parameters using BlackJAX
 initial_position = jnp.array([0.0, 0.0])  # Start from middle of space
-step_size = 2.0
+step_size = 1.0
 
 # Create MCMC sampler
 rw_sampler = blackjax.random_walk.normal_random_walk(logprob, step_size)
@@ -52,7 +52,7 @@ for i in range(num_steps):
 with PdfPages('himmelblau_mcmc.pdf') as pdf:
     # Page 1: Just contours
     fig, ax = plt.subplots(1, 1, figsize=(3, 3))
-    ax.contour(X, Y, Z, levels=np.logspace(0, 3, 20), colors='black', linewidths=1.0)
+    ax.contour(X, Y, Z, levels=np.logspace(0, 3, 8), colors='black', linewidths=1.0)
     ax.set_xlim(-5, 5)
     ax.set_ylim(-5, 5)
     ax.set_aspect('equal')
@@ -70,7 +70,7 @@ with PdfPages('himmelblau_mcmc.pdf') as pdf:
     
     for steps in path_steps:
         fig, ax = plt.subplots(1, 1, figsize=(3, 3))
-        ax.contour(X, Y, Z, levels=np.logspace(0, 3, 20), colors='black', linewidths=1.0)
+        ax.contour(X, Y, Z, levels=np.logspace(0, 3, 8), colors='black', linewidths=1.0)
         
         # Draw MCMC path up to this step
         path_array = jnp.array(mcmc_path[:steps+1])

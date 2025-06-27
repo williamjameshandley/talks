@@ -20,7 +20,7 @@ def loglikelihood(params):
 
 key = jax.random.PRNGKey(42)
 num_live = 200
-num_delete = 50
+num_delete = 100
 
 prior_bounds = {"x": (-5.0, 5.0), "y": (-5.0, 5.0)}
 
@@ -47,7 +47,8 @@ dead_points = []
 
 with PdfPages('himmelblau_ns.pdf') as pdf:
     fig, ax = plt.subplots(1, 1, figsize=(3, 3))
-    ax.scatter(live.particles['x'], live.particles['y'], s=5, c='C0')
+    # No dead points yet, just live points
+    ax.scatter(live.particles['x'], live.particles['y'], s=5, c='C0', zorder=2)
     ax.set_xlim(-5, 5)
     ax.set_ylim(-5, 5)
     ax.set_aspect('equal')
@@ -87,7 +88,17 @@ with PdfPages('himmelblau_ns.pdf') as pdf:
             if current_threshold > 0:
                 ax.contour(X, Y, Z, levels=[current_threshold], colors='black', linewidths=1.0)
         
-        ax.scatter(live.particles['x'], live.particles['y'], s=5, c='C0')
+        # Plot dead points in faint grey
+        if dead_points:
+            all_dead_x = []
+            all_dead_y = []
+            for dp in dead_points:
+                all_dead_x.extend(dp.particles['x'])
+                all_dead_y.extend(dp.particles['y'])
+            ax.scatter(all_dead_x, all_dead_y, s=3, c='lightgrey', alpha=0.4, zorder=1)
+        
+        # Plot live points in blue
+        ax.scatter(live.particles['x'], live.particles['y'], s=5, c='C0', zorder=2)
         ax.set_xlim(-5, 5)
         ax.set_ylim(-5, 5)
         ax.set_aspect('equal')
