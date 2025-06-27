@@ -3,8 +3,8 @@
 ## Academic talks
 1. GPU Accelerated Nested Sampling
     - Talk given at [Newton Institute workshop](https://www.newton.ac.uk/event/rclw03/)
-    - [PDF](https://github.com/williamjameshandley/talks/raw/gpu_nested_sampling_2025/will_handley_gpu_nested_sampling_2025.pdf)  
-    - [source](https://github.com/williamjameshandley/talks/tree/gpu_nested_sampling_2025) 
+    - [PDF](https://github.com/williamjameshandley/talks/raw/ini_2025/will_handley_ini_2025.pdf)  
+    - [source](https://github.com/williamjameshandley/talks/tree/ini_2025) 
     - _Jun 2025_
 2. lsbi: linear simulation based inference
     - Talk given at [EUCAIFCON 2025](https://agenda.infn.it/event/43565/contributions/2601), Sardinia
