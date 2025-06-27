@@ -18,7 +18,7 @@
 % ------------
 \title{GPU-native nested sampling in BlackJAX}
 \subtitle{Accelerating Bayesian inference to state-of-the-art levels}
-\date{<+Date+>}
+\date{27$^{\text{th}}$ June 2025}
 
 \begin{document}
 
@@ -27,35 +27,33 @@
 \end{frame}
 
 \begin{frame}
-    \frametitle{Astrostatistics: Real-Time Inference for Gravitational Wave Astronomy}
+    \frametitle{A Case Study in Astrostatistics}
     \begin{columns}
         \column{0.48\textwidth}
+        \vspace{-10pt}
         \begin{block}{The Challenge: GW170817}
             \begin{itemize}
                 \item \textbf{Gravitational wave detected}: Binary neutron star merger
                 \item \textbf{Real-time parameter estimation}: 15+ dimensional space
-                \item \textbf{Sky localization}: $\sim 30$ square degrees uncertainty
-                \item \textbf{EM counterpart follow-up}: Telescopes need targets within hours
+                \item \textbf{Sky localization}: $\sim 30$ deg$^2$ uncertainty
+                \item \textbf{EM counterpart follow-up}: Telescopes need targets within seconds to minutes
             \end{itemize}
         \end{block}
         \begin{block}{Statistical Requirements}
             \begin{itemize}
                 \item \textbf{Parameter estimation}: Masses, spins, distance, sky position
                 \item \textbf{Model comparison}: Signal vs noise, waveform models
-                \item \textbf{Uncertainty quantification}: Posterior credible regions
-                \item \textbf{Speed}: Results needed for telescope scheduling
             \end{itemize}
         \end{block}
         \column{0.48\textwidth}
-        \includegraphics[width=0.49\textwidth]{figures/ligo_m1_m2}
-        \includegraphics[width=0.49\textwidth]{figures/ligo_lambert-skymap}
-        \vspace{10pt}
+        \includegraphics[height=0.49\textwidth]{figures/ligo_m1_m2}
+        \includegraphics[height=0.49\textwidth]{figures/ligo_lambert-skymap}
         \begin{block}{The Broader Astrostatistics Context}
             \begin{itemize}
-                \item \textbf{High-dimensional}: $d \sim 10^2$--$10^3$ parameters
+                \item \textbf{High-dimensional}: $d \sim 10^2$--$10^3$
                 \item \textbf{Multimodal}: Competing physical models
-                \item \textbf{Expensive likelihoods}: Complex simulations
-                \item \textbf{Model selection critical}: Which physics to include?
+                \item \textbf{Expensive likelihoods}: Complex sims
+                \item \textbf{Model selection critical}: Which physics?
             \end{itemize}
         \end{block}
     \end{columns}
@@ -85,12 +83,11 @@
         \begin{block}{Challenges for Modern Science}
             \begin{itemize}
                 \item \textbf{High dimensions}: $d \sim 10^2$--$10^3$
-                \item \textbf{Multimodality}: Multiple competing theories
+                \item \textbf{Natural, relevant multimodality}: Multiple acceptable answers need investigation
                 \item \textbf{Computational cost}: Complex forward models
                 \item \textbf{Model selection}: Which physics to include?
             \end{itemize}
         \end{block}
-        \vspace{10pt}
         \begin{center}
             \textbf{Key Insight:}\\
             Need methods that compute \emph{both} \\
@@ -102,25 +99,22 @@
 \begin{frame}
     \frametitle{Sampling Methods for Bayesian Inference}
     \begin{columns}
-        \column{0.5\textwidth}
+        \column{0.65\textwidth}
         \begin{block}{Single-Chain MCMC}
             \begin{itemize}
                 \item \textbf{Metropolis-Hastings}: Simple, widely used (PyMC)
                 \item \textbf{HMC/NUTS}: Gradient-based, efficient (Stan, BlackJAX)
-                \item \textbf{Strengths}: Fast for unimodal, well-conditioned problems
-                \item \textbf{Limitations}: Poor multimodal mixing, no evidence
+                \item Fast for unimodal well-conditioned problems, no evidence
             \end{itemize}
         \end{block}
         \begin{block}{Ensemble Methods}
             \begin{itemize}
                 \item \textbf{Affine-invariant}: emcee, zeus - excellent multimodal sampling
                 \item \textbf{Sequential Monte Carlo}: Tempering, annealing
-                \item \textbf{Nested Sampling}: Evidence-focused, robust multimodal
-                \item \textbf{Strengths}: Handle multimodality, some estimate evidence
-                \item \textbf{GPU Advantage}: Natural vectorization across ensemble
+                \item Handle multimodality, some estimate evidence
             \end{itemize}
         \end{block}
-        \column{0.5\textwidth}
+        \column{0.35\textwidth}
         \begin{columns}
             \column{0.5\textwidth}
         \includegraphics[width=\textwidth]{figures/emcee}
@@ -129,10 +123,10 @@
         \includegraphics[width=\textwidth]{figures/zeus}
         \end{columns}
         \includegraphics[width=\textwidth]{figures/hmc_explained}
-        \vspace{5pt}
+        \vspace{-20pt}
         \begin{center}
             \textbf{Nested sampling}: \\
-            Unique in targeting \\
+            Unique in targeting 
             evidence computation directly
         \end{center}
     \end{columns}
@@ -270,6 +264,12 @@
                 \item \textbf{Legacy CPU codes becoming obsolete}
                 \item \textbf{Funding agencies expect GPU utilization}
                 \item \textbf{Graduate students trained on GPU frameworks}
+                \item \textbf{Resource efficiency critical}:
+                    \begin{itemize}
+                        \item GPUs ~40× more expensive to rent than CPUs
+                        \item GPUs ~100× rarer in HPC allocations
+                        \item Must maximize throughput per GPU-hour
+                    \end{itemize}
             \end{itemize}
         \end{block}
         \vspace{10pt}
@@ -334,6 +334,7 @@
 
 \begin{frame}
     \frametitle{BlackJAX Nested Slice Sampling}
+    \student{david_yallup}{David Yallup}{PDRA}
     \begin{columns}
         \column{0.5\textwidth}
         \begin{block}{Core Algorithm}
@@ -398,26 +399,78 @@
 \end{frame}
 
 \begin{frame}
-    \frametitle{Performance Comparisons}
+    \frametitle{Real Data: GW150914 Binary Black Hole Merger}
+    \student{metha_prathaban}{Metha Prathaban}{PhD}
     \begin{columns}
         \column{0.5\textwidth}
-        \includegraphics[width=\textwidth]{figures/pc_comparison}
-        \vspace{5pt}
-        \begin{itemize}
-            \item Comparison with PolyChord (CPU)
-            \item Same accuracy, faster convergence
-            \item GPU memory efficiency
-        \end{itemize}
+        \begin{block}{Performance on Real Data}
+            \begin{itemize}
+                \item \textbf{BlackJAX GPU-NS}: 207 seconds (1 GPU)
+                \item \textbf{FlowMC (GPU MCMC)}: 742 seconds (1 GPU)
+                \item \textbf{Bilby/Dynesty}: ~2 hours (400 CPUs)*
+            \end{itemize}
+            \vspace{5pt}
+            \begin{center}
+                \textbf{Orders of magnitude speedup over CPU}\\
+                \textbf{Comparable to other GPU-native methods}
+            \end{center}
+            \vspace{5pt}
+            \small{*\arxiv{2302.05333}}
+        \end{block}
+        \begin{block}{Key Achievement}
+            \begin{itemize}
+                \item Nested sampling now competitive on GPUs
+                \item Direct evidence computation included
+                \item 3000 live points, 1500 updated/iteration
+            \end{itemize}
+        \end{block}
         \column{0.5\textwidth}
-        \includegraphics[width=\textwidth]{figures/mixture_gaussians_high_dim}
+        \includegraphics[width=\textwidth]{materials/gw/data/GW150914_corner.pdf}
         \vspace{5pt}
-        \begin{itemize}
-            \item High-dimensional test problems
-            \item Robust multimodal sampling
-            \item Consistent evidence estimates
-        \end{itemize}
+        \begin{center}
+            \small{Perfect agreement between BlackJAX\\and FlowMC posteriors}
+        \end{center}
     \end{columns}
 \end{frame}
+
+\begin{frame}
+    \frametitle{Real Data: CMB \& Cosmic Shear Analysis}
+    \student{toby_lovick}{Toby Lovick}{PhD}
+    \begin{columns}
+        \column{0.5\textwidth}
+        \begin{block}{CMB Power Spectrum (6 params)}
+            \begin{itemize}
+                \item \textbf{PolyChord (CPU)}: ~1 hour
+                \item \textbf{BlackJAX (GPU)}: 12 seconds
+            \end{itemize}
+            \vspace{5pt}
+            \begin{center}
+                \textbf{300× speedup}
+            \end{center}
+        \end{block}
+        \begin{block}{Cosmic Shear (37 params)}
+            \begin{itemize}
+                \item \textbf{PolyChord (48 CPUs)}: ~8 months
+                \item \textbf{NUTS (12 A100 GPUs)}: 2 days
+                \item \textbf{BlackJAX (1 A100 GPU)}: 4.5 hours
+            \end{itemize}
+            \vspace{5pt}
+            \begin{center}
+                \textbf{>1000× speedup vs CPU}\\
+                \textbf{10× speedup vs other GPU methods}
+            \end{center}
+        \end{block}
+        \column{0.5\textwidth}
+        \includegraphics[width=0.48\textwidth]{materials/cmb_wl/CMB.pdf}
+        \includegraphics[width=0.48\textwidth]{materials/cmb_wl/jaxLCDM.pdf}
+        \vspace{5pt}
+        \begin{center}
+            \small{Flat scaling to 10,000+ parallel calls\\
+            Direct evidence for model comparison}
+        \end{center}
+    \end{columns}
+\end{frame}
+
 
 % \begin{frame}
 %     \frametitle{Applications: Gravitational Wave Parameter Estimation}
@@ -541,6 +594,43 @@
 \end{frame}
 
 \begin{frame}
+    \frametitle{Resources}
+    \begin{columns}
+        \column{0.48\textwidth}
+        \begin{block}{BlackJAX Implementation}
+            \begin{itemize}
+                \item \textbf{BlackJAX}: \github{blackjax-devs/blackjax}
+                \item \textbf{Nested sampling}: Available in main branch
+                \item \textbf{Installation}: \texttt{pip install blackjax}
+                \item \textbf{Documentation}: \tthref{blackjax.readthedocs.io}
+            \end{itemize}
+        \end{block}
+        \begin{block}{Theory \& Background}
+            \begin{itemize}
+                \item \textbf{Review paper}: \arxiv{2205.15570}
+                \item \textbf{Nested sampling book}: \tthref{handley-lab.co.uk/nested-sampling-book}
+                \item \textbf{Original paper}: Skilling (2006) \arxiv{physics/0506018}
+            \end{itemize}
+        \end{block}
+        \column{0.48\textwidth}
+        \begin{block}{Analysis Tools}
+            \begin{itemize}
+                \item \textbf{Anesthetic}: \github{handley-lab/anesthetic}
+                \item \textbf{Plotting \& visualization}: \tthref{anesthetic.readthedocs.io}
+                \item \textbf{Installation}: \texttt{pip install anesthetic}
+            \end{itemize}
+        \end{block}
+        \begin{block}{Group \& Contact}
+            \begin{itemize}
+                \item \textbf{Research group}: \github{handley-lab}
+                \item \textbf{Email}: \email{wh260@cam.ac.uk}
+                \item \textbf{Workshop materials}: Available on group GitHub
+            \end{itemize}
+        \end{block}
+    \end{columns}
+\end{frame}
+
+\begin{frame}
     \frametitle{Conclusions}
     \framesubtitle{\tthref{github.com/handley-lab/group}}
     \tikz[overlay,remember picture]
@@ -562,6 +652,14 @@
         \includegraphics[width=0.09\textheight]{people/will_handley.jpg}%
         \includegraphics[width=0.09\textheight]{people/will_templeton.jpg}%
     };
+    \vspace{-0.1\textheight}
+    \begin{itemize}
+        \item \textbf{Nested sampling is essential} for model comparison and evidence computation
+        \item \textbf{BlackJAX provides GPU-native implementation} with $10\times$-$100\times$ speedups
+        \item \textbf{JAX ecosystem integration} enables modern scientific workflows
+        \item \textbf{Real applications} from gravitational waves to cosmology benefit immediately
+        \item \textbf{The future is GPU-accelerated} scientific computing with AI integration
+    \end{itemize}
 \end{frame}
 
 % Appendix
