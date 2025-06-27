@@ -330,34 +330,31 @@
 \end{frame}
 
 \begin{frame}
-    \frametitle{BlackJAX Nested Slice Sampling}
+    \frametitle{BlackJAX Nested Sampling: Kernel Choice}
     \student{david_yallup}{David Yallup}{PDRA}
     \begin{columns}
         \column{0.5\textwidth}
-        \begin{block}{Core Algorithm}
+        \begin{block}{Nested Sampling Meta-Algorithm}
             \begin{itemize}
-                \item \textbf{Slice sampling} for constrained sampling
-                \item Generate new live points: $\{\theta \sim \pi : \mathcal{L}(\theta) > \mathcal{L}_*\}$
-                \item Vectorized operations across live points
-                \item JAX transformations: \texttt{jit}, \texttt{vmap}, \texttt{grad}
+                \item \textbf{Framework is kernel-agnostic}:
+                    \begin{itemize}
+                        \item Original: Metropolis Hastings (Skilling 2006)
+                        \item MultiNest: rejection ellipsoids
+                        \item PolyChord: slice sampling
+                        \item nessai/nautilus: ML techniques
+                    \end{itemize}
             \end{itemize}
         \end{block}
-        \begin{block}{GPU Advantages}
+        \begin{block}{Our Choice: Slice Sampling}
             \begin{itemize}
-                \item \textbf{Parallel live points}: $n_{\text{live}} \sim 100\text{-}1000$
-                \item \textbf{Vectorized slice sampling}
-                \item \textbf{Batch likelihood evaluations}
-                \item \textbf{Memory-efficient} on GPU
+                \item \textbf{First scalable generic solution} in BlackJAX
+                \item \textbf{No tuning required} (unlike MCMC proposal matrices)
+                \item \textbf{Robust across dimensions} \& problem types
             \end{itemize}
         \end{block}
         \column{0.5\textwidth}
-        \includegraphics[width=\textwidth]{figures/scaling}
-        \vspace{10pt}
-        \begin{itemize}
-            \item \textbf{Performance scaling}: Linear with $n_{\text{live}}$
-            \item \textbf{GPU speedup}: $10\times$-$100\times$ vs CPU
-            \item \textbf{Memory usage}: Constant per live point
-        \end{itemize}
+        \vspace{7pt}   
+        \includegraphics[width=\textwidth,page=4]{figures/himmelblau_ns}
     \end{columns}
 \end{frame}
 
@@ -524,52 +521,6 @@
         \item \textbf{Real applications} from gravitational waves to cosmology benefit immediately
         \item \textbf{The future is GPU-accelerated} scientific computing with AI integration
     \end{itemize}
-\end{frame}
-
-% Appendix
-\appendix
-
-\begin{frame}
-    \frametitle{Appendix: Sequential Monte Carlo Connection}
-    \begin{columns}
-        \column{0.48\textwidth}
-        \begin{block}{SMC Framework}
-            \begin{itemize}
-                \item Rigorous statistical foundation
-                \item Tempered distributions: $p_t(\theta) \propto \mathcal{L}(\theta)^{\beta_t} \pi(\theta)$
-                \item Nested sampling as special case of SMC
-                \item Adaptive temperature schedules
-            \end{itemize}
-        \end{block}
-        \begin{block}{Key Differences}
-            \begin{itemize}
-                \item \textbf{SMC}: Annealing in temperature $\beta_t$
-                \item \textbf{NS}: Annealing in likelihood threshold $\mathcal{L}_*$
-                \item \textbf{SMC}: Flexible inner kernels
-                \item \textbf{NS}: Specialized for constrained sampling
-            \end{itemize}
-        \end{block}
-        \column{0.48\textwidth}
-        \begin{block}{BlackJAX Implementation}
-            \begin{itemize}
-                \item Direct comparison possible:
-                    \begin{itemize}
-                        \item Same GPU codebase
-                        \item Identical likelihood evaluations
-                        \item Fair benchmarking
-                    \end{itemize}
-                \item SMC with adaptive tempering
-                \item Nested sampling with slice sampling
-                \item Both estimate evidence $\mathcal{Z}$
-            \end{itemize}
-        \end{block}
-        \vspace{10pt}
-        \begin{center}
-            \textbf{Perspective:}\\
-            Statistics community: NS $\subset$ SMC\\
-            Physics community: SMC $\approx$ NS variant
-        \end{center}
-    \end{columns}
 \end{frame}
 
 \end{document}
