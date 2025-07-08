@@ -55,7 +55,7 @@
     \end{columns}
     \vspace{1em}
     \begin{alertblock}{Key Message}
-        SED fitting is not just about finding the "best" parameters; it's about mapping the entire landscape of possibilities.
+        SED fitting is not just about finding the ``best'' parameters; it's about mapping the entire landscape of possibilities.
     \end{alertblock}
 \end{frame}
 
@@ -87,14 +87,15 @@
 \end{frame}
 
 % --- SLIDE 3: Chi-squared Maximization (3 minutes) ---
-\begin{frame}
+\begin{frame}<1-10>
     \frametitle{The Simplest Approach: Optimization (e.g., $\chi^2$ Minimization)}
-    \framesubtitle{Finding the single "best" answer}
+    \vspace{-1em}
     
-    \begin{columns}[T]
+    \begin{columns}
         \column{0.5\textwidth}
+        \only<1-6>{
         \begin{block}{How it Works: Hill Climbing}
-            Imagine the parameter space is a landscape where lower $\chi^2$ (or higher likelihood) is "downhill".
+            Imagine the parameter space is a landscape where lower $\chi^2$ (or higher likelihood) is ``downhill''.
             \begin{itemize}
                 \item Start somewhere.
                 \item Follow the steepest gradient downhill.
@@ -108,26 +109,37 @@
                 \item Good for a quick first look.
             \end{itemize}
         \end{block}
+        }
         
+        \only<7-10>{
         \begin{block}{Limitations}
             \begin{itemize}
-                \item Only gives a single \keyterm{point estimate} (the "best fit").
+                \item Only gives a single \keyterm{point estimate} (the ``best fit'').
                 \item \textbf{No uncertainty quantification!} Where are the error bars?
                 \item Can easily get stuck in a \keyterm{local minimum}, missing the true global best fit.
             \end{itemize}
         \end{block}
         
+        \begin{alertblock}{Key Message}
+            Optimization is fast but gives an incomplete and potentially misleading picture. Science needs error bars.
+        \end{alertblock}
+        }
+        
         \column{0.5\textwidth}
         \begin{center}
-            \includegraphics[width=\textwidth,page=1]{figures/himmelblau_ns.pdf} % Figure from: ini_2025/figures/himmelblau_ns (page 1)
-            An optimizer might find one of these minima, but which one? And how deep/wide are they?
+            \includegraphics<1>[width=\textwidth,page=1]{figures/himmelblau_gradient_ascent.pdf}%
+            \includegraphics<2>[width=\textwidth,page=2]{figures/himmelblau_gradient_ascent.pdf}%
+            \includegraphics<3>[width=\textwidth,page=3]{figures/himmelblau_gradient_ascent.pdf}%
+            \includegraphics<4>[width=\textwidth,page=4]{figures/himmelblau_gradient_ascent.pdf}%
+            \includegraphics<5>[width=\textwidth,page=5]{figures/himmelblau_gradient_ascent.pdf}%
+            \includegraphics<6>[width=\textwidth,page=6]{figures/himmelblau_gradient_ascent.pdf}%
+            \includegraphics<7>[width=\textwidth,page=7]{figures/himmelblau_gradient_ascent.pdf}%
+            \includegraphics<8>[width=\textwidth,page=8]{figures/himmelblau_gradient_ascent.pdf}%
+            \includegraphics<9>[width=\textwidth,page=9]{figures/himmelblau_gradient_ascent.pdf}%
+            \includegraphics<10>[width=\textwidth,page=10]{figures/himmelblau_gradient_ascent.pdf}%
         \end{center}
     \end{columns}
     
-    \vspace{1em}
-    \begin{alertblock}{Key Message}
-        Optimization is fast but gives an incomplete and potentially misleading picture. Science needs error bars.
-    \end{alertblock}
 \end{frame}
 
 % --- SLIDE 4: Sampling vs Optimization (3 minutes) ---
@@ -157,8 +169,8 @@
         \begin{itemize}
             \item \keyterm{Uncertainties}: The spread of the samples tells you the uncertainty on each parameter.
             \item \keyterm{Degeneracies}: The shape of the sample cloud reveals correlations (e.g., the age-dust degeneracy).
-            \item \keyterm{Multimodality}: Sampling can find all the "good" solutions, not just one.
-            \item \keyterm{Model Comparison}: Some methods give us the Bayesian Evidence, allowing us to ask "Is model A better than model B?".
+            \item \keyterm{Multimodality}: Sampling can find all the ``good'' solutions, not just one.
+            \item \keyterm{Model Comparison}: Some methods give us the Bayesian Evidence, allowing us to ask ``Is model A better than model B?''.
         \end{itemize}
     \end{block}
     
@@ -168,49 +180,60 @@
 \end{frame}
 
 % --- SLIDE 5: MCMC Sampling (4 minutes) ---
-\begin{frame}
+\begin{frame}<1-9>
     \frametitle{The Classic Workhorse: Markov Chain Monte Carlo (MCMC)}
-    \framesubtitle{The "random walker"}
+    \vspace{-2em}
     
-    \begin{columns}[T]
+    \begin{columns}
         \column{0.5\textwidth}
+        \only<1-5>{
         \begin{block}{How it Works (Metropolis-Hastings)}
-            Imagine a "walker" exploring the parameter landscape.
+            Imagine a ``walker'' exploring the parameter landscape.
             \begin{enumerate}
                 \item Take a random step to a new position.
-                \item If the new spot is "higher" (better likelihood), move there.
-                \item If it's "lower", maybe move there anyway (with a probability that depends on how much lower it is).
+                \item If the new spot is ``higher'' (better likelihood), move there.
+                \item If it's ``lower'', maybe move there anyway (with a probability that depends on how much lower it is).
                 \item Repeat millions of times. The path the walker takes traces the posterior distribution.
             \end{enumerate}
         \end{block}
+        }
         
+        \only<6-9>{
         \begin{block}{Advantages \& Limitations}
             \begin{itemize}
                 \item Explores the full posterior and gives uncertainties.
-                \item \textcolor{red}{Limitation:} The walker can be inefficient. It can get "stuck" in a local high-likelihood region and fail to find other, separate modes.
-                \item \textcolor{red}{Limitation:} Can be slow to explore highly correlated ("banana-shaped") posteriors.
+                \item \textcolor{red}{Limitation:} The walker can be inefficient. It can get ``stuck'' in a local high-likelihood region and fail to find other, separate modes.
+                \item \textcolor{red}{Limitation:} Can be slow to explore highly correlated (``banana-shaped'') posteriors.
             \end{itemize}
         \end{block}
+        \begin{alertblock}{Key Message}
+            MCMC is a foundational sampling method, but its simple ``random walk'' can be inefficient in the complex parameter spaces of SED fitting.
+        \end{alertblock}
+        }
         
         \column{0.5\textwidth}
         \begin{center}
-            \includegraphics[width=0.8\textwidth]{figures/metropolis-hastings.png} % Figure from: ini_2025/figures/metropolis-hastings.png
-            \small A single walker exploring a multimodal posterior. It finds one mode but struggles to jump to the others.
+            \includegraphics<1>[page=1]{figures/himmelblau_mcmc.pdf}%
+            \includegraphics<2>[page=2]{figures/himmelblau_mcmc.pdf}%
+            \includegraphics<3>[page=3]{figures/himmelblau_mcmc.pdf}%
+            \includegraphics<4>[page=4]{figures/himmelblau_mcmc.pdf}%
+            \includegraphics<5>[page=5]{figures/himmelblau_mcmc.pdf}%
+            \includegraphics<6>[page=6]{figures/himmelblau_mcmc.pdf}%
+            \includegraphics<7>[page=7]{figures/himmelblau_mcmc.pdf}%
+            \includegraphics<8>[page=8]{figures/himmelblau_mcmc.pdf}%
+            \includegraphics<9>[page=9]{figures/himmelblau_mcmc.pdf}%
         \end{center}
     \end{columns}
     
-    \begin{alertblock}{Key Message}
-        MCMC is a foundational sampling method, but its simple "random walk" can be inefficient in the complex parameter spaces of SED fitting.
-    \end{alertblock}
 \end{frame}
 
 % --- SLIDE 6: Ensemble Sampling (emcee) (4 minutes) ---
-\begin{frame}
+\begin{frame}<1-9>
     \frametitle{A Better Way: Ensemble Sampling (e.g., \texttt{emcee})}
-    \framesubtitle{Many walkers are better than one}
-    
-    \begin{columns}[T]
+    \vspace{-1em}
+    \begin{columns}
         \column{0.5\textwidth}
+        \only<1-5>{
         \begin{block}{How it Works}
             Instead of one walker, we use an \keyterm{ensemble} of hundreds of walkers.
             \begin{itemize}
@@ -219,67 +242,88 @@
                 \item This allows the whole group to learn about the shape of the posterior (e.g., its correlations) and explore it more efficiently.
             \end{itemize}
         \end{block}
+        }
         
+        \only<6-9>{
         \begin{block}{Advantages}
             \begin{itemize}
-                \item Much better at exploring correlated, "banana-shaped" parameter spaces.
-                \item More efficient "mixing" than a single MCMC chain.
-                \item Easy to parallelize (each walker can be on a different CPU core).
+                \item Much better at exploring correlated, ``banana-shaped'' parameter spaces.
+                \item More efficient ``mixing'' than a single chain.
+                \item Easy to parallelize (one walker per CPU).
             \end{itemize}
         \end{block}
         
         \begin{block}{Limitation}
             \begin{itemize}
-                \item While better, the whole ensemble can still get trapped in one mode if other modes are very far away.
+                \item Ensemble can still get trapped in one mode if other modes are very far away.
             \end{itemize}
         \end{block}
         
+        \begin{alertblock}{Key Message}
+            Ensemble samplers like \texttt{emcee} are a major improvement for many problems, especially those with parameter degeneracies.
+        \end{alertblock}
+        }
+        
         \column{0.5\textwidth}
         \begin{center}
-            \includegraphics[width=0.8\textwidth]{figures/emcee.png} % Figure from: ini_2025/figures/emcee.png
-            \small Walkers communicate to efficiently map out a correlated posterior.
+            \includegraphics<1>[width=\textwidth,page=1]{figures/himmelblau_emcee.pdf}%
+            \includegraphics<2>[width=\textwidth,page=2]{figures/himmelblau_emcee.pdf}%
+            \includegraphics<3>[width=\textwidth,page=3]{figures/himmelblau_emcee.pdf}%
+            \includegraphics<4>[width=\textwidth,page=4]{figures/himmelblau_emcee.pdf}%
+            \includegraphics<5>[width=\textwidth,page=5]{figures/himmelblau_emcee.pdf}%
+            \includegraphics<6>[width=\textwidth,page=6]{figures/himmelblau_emcee.pdf}%
+            \includegraphics<7>[width=\textwidth,page=7]{figures/himmelblau_emcee.pdf}%
+            \includegraphics<8>[width=\textwidth,page=8]{figures/himmelblau_emcee.pdf}%
+            \includegraphics<9>[width=\textwidth,page=9]{figures/himmelblau_emcee.pdf}%
         \end{center}
     \end{columns}
     
-    \begin{alertblock}{Key Message}
-        Ensemble samplers like \texttt{emcee} are a major improvement for many problems, especially those with parameter degeneracies.
-    \end{alertblock}
 \end{frame}
 
 % --- SLIDE 7: Nested Sampling (5 minutes) ---
-\begin{frame}
+\begin{frame}<1-8>
     \frametitle{The State of the Art: Nested Sampling (e.g., \texttt{dynesty})}
-    \framesubtitle{For multimodality and model comparison}
     
     \begin{columns}[T]
         \column{0.5\textwidth}
+        \only<1-4>{
         \begin{block}{A Radically Different Approach}
             Instead of random walking, nested sampling attacks the problem from the outside-in.
             \begin{enumerate}
-                \item Start with a set of "live points" scattered across the entire \keyterm{prior}.
+                \item Start with a set of ``live points'' scattered across the entire \keyterm{prior}.
                 \item At each step: find the point with the \textit{worst} likelihood and discard it.
                 \item Replace it with a new point drawn from the prior, but with one constraint: its likelihood must be \textit{better} than the point you just discarded.
-                \item This forces the set of live points to continuously "shrink" into regions of higher and higher likelihood.
+                \item This forces the set of live points to continuously ``shrink'' into regions of higher and higher likelihood.
             \end{enumerate}
         \end{block}
+        }
         
+        \only<5-8>{
         \begin{block}{Key Advantages}
             \begin{itemize}
                 \item Naturally handles \keyterm{multimodality}. The shrinking cloud of points will find and explore all modes simultaneously.
-                \item It calculates the \keyterm{Bayesian Evidence} ($\mathcal{Z}$) as a primary output. This is essential for model comparison!
+                \item It calculates the \keyterm{Bayesian Evidence} ($\C[3]{\mathcal{Z}}$) as a primary output. This is essential for model comparison!
             \end{itemize}
         \end{block}
         
+        \begin{alertblock}{Key Message}
+            Nested sampling excels at exploring complex, multimodal posteriors and is the go-to method for Bayesian model comparison.
+        \end{alertblock}
+        }
+        
         \column{0.5\textwidth}
         \begin{center}
-            \includegraphics[width=0.8\textwidth]{figures/nested_sampling.pdf} % Figure from: aachen_2017/figures/nested_sampling.pdf
-            \small The cloud of live points shrinks from the prior towards the peaks of the likelihood, mapping everything along the way.
+            \includegraphics<1>[width=\textwidth,page=1]{figures/himmelblau_ns.pdf}%
+            \includegraphics<2>[width=\textwidth,page=2]{figures/himmelblau_ns.pdf}%
+            \includegraphics<3>[width=\textwidth,page=3]{figures/himmelblau_ns.pdf}%
+            \includegraphics<4>[width=\textwidth,page=4]{figures/himmelblau_ns.pdf}%
+            \includegraphics<5>[width=\textwidth,page=5]{figures/himmelblau_ns.pdf}%
+            \includegraphics<6>[width=\textwidth,page=6]{figures/himmelblau_ns.pdf}%
+            \includegraphics<7>[width=\textwidth,page=7]{figures/himmelblau_ns.pdf}%
+            \includegraphics<8>[width=\textwidth,page=8]{figures/himmelblau_ns.pdf}%
         \end{center}
     \end{columns}
     
-    \begin{alertblock}{Key Message}
-        Nested sampling is powerful. It excels at exploring complex, multimodal posteriors and is the go-to method when you need to perform Bayesian model comparison.
-    \end{alertblock}
 \end{frame}
 
 % --- SLIDE 8: Method Comparison (2 minutes) ---
@@ -329,7 +373,7 @@
             The biggest impact of AI may not be in analyzing data, but in helping us write the code to do it.
             \begin{itemize}
                 \item \keyterm{Automated code translation}: LLMs can help port legacy Fortran/C++ models to modern, GPU-friendly frameworks like JAX or PyTorch.
-                \item \keyterm{Automatic Differentiation}: These modern frameworks give us model gradients "for free," enabling more powerful sampling methods (like Hamiltonian Monte Carlo).
+                \item \keyterm{Automatic Differentiation}: These modern frameworks give us model gradients ``for free,'' enabling more powerful sampling methods (like Hamiltonian Monte Carlo).
                 \item \keyterm{Neural Emulators}: If your model is very slow to run, you can train a neural network to emulate it, providing a massive speed-up for sampling.
             \end{itemize}
         \end{block}
@@ -337,8 +381,8 @@
         \column{0.49\textwidth}
         \begin{block}{The 80/20 Rule of Scientific Work}
             \begin{itemize}
-                \item \textbf{80\% "boring" tasks}: Writing code, debugging, drafting papers, managing data...
-                \item \textbf{20\% "hard thinking"}: The actual scientific insight.
+                \item \textbf{80\% ``boring'' tasks}: Writing code, debugging, drafting papers, managing data...
+                \item \textbf{20\% ``hard thinking''}: The actual scientific insight.
             \end{itemize}
             AI's biggest immediate impact is automating and accelerating the 80\%, freeing up human time for the 20\%.
         \end{block}
@@ -391,9 +435,61 @@
         \end{itemize}
     \end{block}
     
-    \begin{alertblock}{Next Up: David Yallup on "GPU Accelerated Nested Sampling"}
+    \begin{alertblock}{Next Up: David Yallup on ``GPU Accelerated Nested Sampling''}
         Now that we know \textit{why} nested sampling is so powerful, we'll hear about how to make it \textit{fast}!
     \end{alertblock}
+\end{frame}
+
+% --- APPENDIX: HMC Sampling ---
+\appendix
+
+\begin{frame}<1-9>
+    \frametitle{Appendix: Hamiltonian Monte Carlo (HMC)}
+    \vspace{-1em}
+    
+    \begin{columns}
+        \column{0.5\textwidth}
+        \only<1-5>{
+        \begin{block}{How it Works}
+            Uses gradients to guide exploration more efficiently than random walks.
+            \begin{enumerate}
+                \item Treat parameters as ``particles'' with position and momentum.
+                \item Use gradient of log-likelihood as ``force'' to guide movement.
+                \item Propose coherent moves along gradient directions.
+                \item Accept/reject using Metropolis criterion.
+            \end{enumerate}
+        \end{block}
+        }
+        
+        \only<6-9>{
+        \begin{block}{Advantages \& Requirements}
+            \begin{itemize}
+                \item Much more efficient than random walk for smooth posteriors.
+                \item Requires gradients of the likelihood function.
+                \item Can traverse parameter space much faster.
+                \item Less likely to get stuck in local regions.
+            \end{itemize}
+        \end{block}
+        
+        \begin{alertblock}{Key Message}
+            HMC leverages gradient information for efficient sampling, but requires differentiable models.
+        \end{alertblock}
+        }
+        
+        \column{0.5\textwidth}
+        \begin{center}
+            \includegraphics<1>[width=\textwidth,page=1]{figures/himmelblau_hmc.pdf}%
+            \includegraphics<2>[width=\textwidth,page=2]{figures/himmelblau_hmc.pdf}%
+            \includegraphics<3>[width=\textwidth,page=3]{figures/himmelblau_hmc.pdf}%
+            \includegraphics<4>[width=\textwidth,page=4]{figures/himmelblau_hmc.pdf}%
+            \includegraphics<5>[width=\textwidth,page=5]{figures/himmelblau_hmc.pdf}%
+            \includegraphics<6>[width=\textwidth,page=6]{figures/himmelblau_hmc.pdf}%
+            \includegraphics<7>[width=\textwidth,page=7]{figures/himmelblau_hmc.pdf}%
+            \includegraphics<8>[width=\textwidth,page=8]{figures/himmelblau_hmc.pdf}%
+            \includegraphics<9>[width=\textwidth,page=9]{figures/himmelblau_hmc.pdf}%
+        \end{center}
+    \end{columns}
+    
 \end{frame}
 
 \end{document}
