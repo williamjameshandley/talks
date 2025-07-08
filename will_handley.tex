@@ -1,29 +1,27 @@
 \documentclass[aspectratio=169]{beamer}
-\usepackage{graphicx}
-\usepackage{amsmath}
-\usepackage{amsfonts}
-\usepackage{amssymb}
-\usepackage{bm}
-\usepackage{tikz}
-\usepackage{hyperref}
-\usepackage{multicol}
+\usepackage{will_handley_beamer}
+\usepackage{title_page}
 
-% Basic beamer setup for a clean look
-\usetheme{default}
-\setbeamertemplate{navigation symbols}{} % Turn off navigation symbols
-\setbeamertemplate{footline}[frame number]
-
-% Define block colors for clarity
-\setbeamercolor{block title}{bg=blue!20,fg=black}
-\setbeamercolor{block body}{bg=blue!5,fg=black}
+% Commands
+% --------
+% - \arxiv{arxiv number}
+% - \arxiv{<number>}            arxiv.org/abs/<number>
+% - \oldarxiv{<arxiv number>}   arxiv.org/<number>
+% - \doi{<doi>}                 doi.org/<doi>
+% - \xkcd{<number>}             xkcd.com/<number>
+% - \email{<email>}             <<email>>
+% - \tthref{<website>}          <website>
+% - \av[dist]{<quantity>}       <quantity>_{dist}
+% - \student{<name>}{<detail>}{<photo>}
 
 % A simple command for highlighting key terms
-\newcommand{\keyterm}[1]{\textbf{\textcolor{blue!70!black}{#1}}}
+\newcommand{\keyterm}[1]{\textbf{\textcolor{C0}{#1}}}
 
+% Talk details
+% ------------
 \title{A Statistician's Guide to the Galaxy (Fitting Zoo)}
 \subtitle{An Introduction to the Statistical Foundations of SED Fitting}
-\author{Future SED Fitting Workshop}
-\date{\today}
+\date{8 July 2025}
 
 \begin{document}
 
@@ -37,31 +35,23 @@
     \frametitle{The Goal: From Photons to Physics}
     \framesubtitle{Why SED fitting is a statistical inference problem}
     \begin{columns}[T]
-        \column{0.5\textwidth}
-        \begin{block}{The Data}
+        \column{0.49\textwidth}
+        \begin{block}{The Data $D$}
             We observe a galaxy's light (photometry or spectra) across different wavelengths. This is our dataset, $D$.
         \end{block}
-        \includegraphics[width=\textwidth]{figures/data_points.pdf} % Figure from: aachen_2018/figures/data_points.pdf
+        \includegraphics[width=\textwidth]{figures/sed.png}
         
-        \column{0.5\textwidth}
-        \begin{block}{The Model}
-            We want to infer the underlying physical properties, our parameters, $\theta$:
-            \begin{itemize}
-                \item Stellar Mass ($M_*$)
-                \item Star Formation History (SFH)
-                \item Dust content ($A_V$)
-                \item Metallicity ($Z$)
-                \item ... and many more
-            \end{itemize}
+        \column{0.49\textwidth}
+        \begin{block}{The Model $\theta|M$}
+            We want to infer the underlying physical properties, our parameters, $\theta$: Stellar Mass ($M_*$), Star Formation History (SFH), Dust content ($A_V$), Metallicity ($Z$), ...
         \end{block}
         \begin{block}{The Challenge}
             The parameter space is often:
             \begin{itemize}
                 \item \keyterm{High-dimensional}: Many parameters to fit.
-                \item \keyterm{Degenerate}: Different combinations of parameters can produce similar SEDs (e.g., an old, dust-free galaxy can look like a young, dusty one).
+                \item \keyterm{Degenerate}: Different combinations of parameters can produce similar SEDs.
             \end{itemize}
         \end{block}
-        \includegraphics[width=0.8\textwidth]{figures/ligo_m1_m2.pdf} % Figure from: ift_2017/figures/ligo_m1_m2.pdf (used as an example of degeneracy)
     \end{columns}
     \vspace{1em}
     \begin{alertblock}{Key Message}
@@ -71,39 +61,29 @@
 
 % --- SLIDE 2: Statistical Framework (2 minutes) ---
 \begin{frame}
-    \frametitle{The Language of Inference: Bayes' Theorem}
+    \frametitle{The Language of Inference: }
     \framesubtitle{How we quantify what we learn from data}
-    
-    \begin{center}
-    \Large
-    $\underbrace{P(\theta|D)}_{\text{Posterior}} = \frac{\overbrace{P(D|\theta)}^{\text{Likelihood}} \times \overbrace{P(\theta)}^{\text{Prior}}}{\underbrace{P(D)}_{\text{Evidence}}}$
-    \end{center}
-    \vspace{1em}
-    
-    \begin{columns}[T]
+
+    \begin{columns}
         \column{0.33\textwidth}
-        \begin{block}{Prior}
-            $P(\theta)$ \\
-            What we believe about the parameters \textit{before} we see the data. Our physical assumptions.
+            \begin{block}{\C[1]{Prior}\hfill $\C[1]{\pi(\theta)}$}
+                What we believe about the parameters \textit{before} we see the data. Our physical assumptions.
+            \end{block}
+        \vspace{2em}
+        \begin{block}{\C[3]{Evidence}\hfill $\C[3]{\mathcal{Z}(D)}$}
+            How we update our belief in the model using the data.
         \end{block}
-        
         \column{0.33\textwidth}
-        \begin{block}{Likelihood}
-            $P(D|\theta)$ \\
-            The probability of observing our data, given a specific set of model parameters. This is where the physics model (e.g., from \texttt{Prospector}) connects to the data.
-        \end{block}
-        
+\[\underbrace{\C[0]{\mathcal{P}(\theta|D)}}_{\C[0]{\text{Posterior}}} = \frac{\overbrace{\C[2]{\mathcal{L}(D|\theta)}}^{\C[2]{\text{Likelihood}}} \times \overbrace{\C[1]{\pi(\theta)}}^{\C[1]{\text{Prior}}}}{\underbrace{\C[3]{\mathcal{Z}(D)}}_{\C[3]{\text{Evidence}}}}\]
         \column{0.33\textwidth}
-        \begin{block}{Posterior}
-            $P(\theta|D)$ \\
+            \begin{block}{\C[2]{Likelihood}\hfill $\C[2]{\mathcal{L}(D|\theta)}$}
+                How we update our belief in the parameters using the data.
+            \end{block}
+        \vspace{2em}
+        \begin{block}{\C[0]{Posterior}\hfill $\C[0]{\mathcal{P}(\theta|D)}$}
             What we know about the parameters \textit{after} seeing the data. It's our updated state of knowledge.
         \end{block}
     \end{columns}
-    
-    \vspace{1em}
-    \begin{alertblock}{Key Message}
-        Our goal is to find the \keyterm{posterior probability distribution}. This gives us not just best-fit values, but also the crucial uncertainties (\textit{error bars}) on our inferred parameters.
-    \end{alertblock}
 \end{frame}
 
 % --- SLIDE 3: Chi-squared Maximization (3 minutes) ---
@@ -156,7 +136,7 @@
     \framesubtitle{Getting the full story, not just the headline}
     
     \begin{columns}[T]
-        \column{0.5\textwidth}
+        \column{0.49\textwidth}
         \begin{block}{Optimization gives you the Peak}
             \begin{center}
                 \includegraphics[width=0.7\textwidth,page=4]{figures/himmelblau_ns.pdf} % Figure from: ini_2025/figures/himmelblau_ns (page 4)
@@ -164,7 +144,7 @@
             \end{center}
         \end{block}
         
-        \column{0.5\textwidth}
+        \column{0.49\textwidth}
         \begin{block}{Sampling gives you the whole Mountain Range}
             \begin{center}
                 \includegraphics[width=0.7\textwidth,page=9]{figures/himmelblau_mcmc.pdf} % Figure from: ini_2025/figures/himmelblau_mcmc (page 9)
@@ -344,7 +324,7 @@
     \frametitle{The Future: AI in Scientific Code Development}
     \framesubtitle{How these tools themselves are evolving}
     \begin{columns}[T]
-        \column{0.5\textwidth}
+        \column{0.49\textwidth}
         \begin{block}{The Real AI Revolution: LLMs as Translators}
             The biggest impact of AI may not be in analyzing data, but in helping us write the code to do it.
             \begin{itemize}
@@ -354,7 +334,7 @@
             \end{itemize}
         \end{block}
         
-        \column{0.5\textwidth}
+        \column{0.49\textwidth}
         \begin{block}{The 80/20 Rule of Scientific Work}
             \begin{itemize}
                 \item \textbf{80\% "boring" tasks}: Writing code, debugging, drafting papers, managing data...
@@ -380,6 +360,27 @@
 % --- SLIDE 10: Conclusions (1 minute) ---
 \begin{frame}
     \frametitle{Conclusions \& What's Next}
+    \framesubtitle{\tthref{github.com/handley-lab/group}}
+    \tikz[overlay,remember picture]
+        \node[anchor=north east] (A) at ($(current page.north east)+(0,0)$) {
+        \includegraphics[width=0.06\textheight]{people/adam_ormondroyd.jpg}%
+        \includegraphics[width=0.06\textheight]{people/charlotte_priestley.jpg}%
+        \includegraphics[width=0.06\textheight]{people/claude.jpg}%
+        \includegraphics[width=0.06\textheight]{people/david_yallup.jpg}%
+        \includegraphics[width=0.06\textheight]{people/dily_ong.jpg}%
+        \includegraphics[width=0.06\textheight]{people/gemini.jpg}%
+        \includegraphics[width=0.06\textheight]{people/harry_bevins.jpg}%
+        \includegraphics[width=0.06\textheight]{people/metha_prathaban.jpg}%
+        \includegraphics[width=0.06\textheight]{people/ming_yang.jpg}%
+        \includegraphics[width=0.06\textheight]{people/namu_kroupa.jpg}%
+        \includegraphics[width=0.06\textheight]{people/openai.jpg}%
+        \includegraphics[width=0.06\textheight]{people/sam_leeney.jpg}%
+        \includegraphics[width=0.06\textheight]{people/sinah_legner.jpg}%
+        \includegraphics[width=0.06\textheight]{people/toby_lovick.jpg}%
+        \includegraphics[width=0.06\textheight]{people/wei-ning_deng.jpg}%
+        \includegraphics[width=0.06\textheight]{people/will_handley.jpg}%
+        \includegraphics[width=0.06\textheight]{people/will_templeton.jpg}%
+    };
     
     \begin{block}{Key Takeaways}
         \begin{itemize}
@@ -389,14 +390,6 @@
             \item The choice of sampler—from MCMC to Ensemble to Nested—depends on the complexity of your problem and whether you need to do \keyterm{model comparison}.
         \end{itemize}
     \end{block}
-    
-    \vspace{2em}
-    
-    \begin{center}
-        \huge Thank you!
-    \end{center}
-    
-    \vspace{1em}
     
     \begin{alertblock}{Next Up: David Yallup on "GPU Accelerated Nested Sampling"}
         Now that we know \textit{why} nested sampling is so powerful, we'll hear about how to make it \textit{fast}!
