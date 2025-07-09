@@ -374,7 +374,42 @@
     \end{columns}
 \end{frame}
 
-% --- SLIDE 10: Method Comparison (2 minutes) ---
+% --- SLIDE 10: Practical Guidance for Nested Sampling (2 minutes) ---
+\begin{frame}
+    \frametitle{Practical Guidance: How to Use Nested Sampling}
+    \framesubtitle{Understanding resolution and reliability parameters}
+    \vspace{-1em}
+    \begin{columns}[T]
+        \column{0.49\textwidth}
+        \begin{block}{Rejection Samplers}
+            \begin{itemize}
+                \item e.g. \texttt{MultiNest}, \texttt{UltraNest}, \texttt{nessai}
+                \item Construct bounding regions, reject invalid points
+                \item Efficient in low dimensions ($d \lesssim 10$)
+                \item Exponentially inefficient in high dimensions
+            \end{itemize}
+        \end{block}
+        \column{0.49\textwidth}
+        \begin{block}{Chain-based Samplers}
+            \begin{itemize}
+                \item e.g. \texttt{PolyChord}, \texttt{dynesty}, \texttt{blackjax}
+                \item Run Markov chains from live points
+                \item Linear $\sim\mathcal{O}(d)$ scaling penalty
+                \item Better for high-dimensional problems
+            \end{itemize}
+        \end{block}
+    \end{columns}
+    \vspace{5pt}
+    \begin{alertblock}{Key Parameters}
+        \begin{itemize}
+            \item \textbf{Resolution parameter} $n_{\text{live}}$: Improves results as $\sim\mathcal{O}(n_{\text{live}}^{-1/2})$
+            \item \textbf{Reliability parameters}: Don't improve results if set arbitrarily high, but introduce systematic errors if set too low
+            \item Examples: \texttt{MultiNest} efficiency \texttt{eff}, \texttt{PolyChord} chain length \texttt{n\_repeats}
+        \end{itemize}
+    \end{alertblock}
+\end{frame}
+
+% --- SLIDE 11: Method Comparison (2 minutes) ---
 \begin{frame}
     \frametitle{Choosing Your Tool: A Summary}
     \framesubtitle{No single best method, only the right tool for the job}
@@ -403,7 +438,7 @@
     \end{block}
 \end{frame}
 
-% --- SLIDE 11: AI in Scientific Code Development (2 minutes) ---
+% --- SLIDE 12: AI in Scientific Code Development (2 minutes) ---
 \begin{frame}
     \frametitle{The Future: AI in Scientific Code Development}
     \framesubtitle{How these tools themselves are evolving}
@@ -430,7 +465,7 @@
     \end{alertblock}
 \end{frame}
 
-% --- SLIDE 12: Conclusions (1 minute) ---
+% --- SLIDE 13: Conclusions (1 minute) ---
 \begin{frame}
     \frametitle{Conclusions \& What's Next}
     \framesubtitle{\tthref{github.com/handley-lab/group}}
