@@ -16,8 +16,8 @@ def himmelblau(x, y):
 
 def logprob(position):
     x, y = position
-    beta = 100
-    return -himmelblau(x, y) / (beta * 0.1)  # Scale for better acceptance
+    beta = 0.1
+    return -himmelblau(x, y) * beta  # Scale for better acceptance
 
 key = jax.random.PRNGKey(42)
 

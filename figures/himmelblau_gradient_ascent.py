@@ -14,8 +14,8 @@ def himmelblau(x, y):
 
 def logprob(position):
     x, y = position
-    beta = 100
-    return -himmelblau(x, y) / (beta * 0.1)  # Scale for better visualization
+    beta = 0.1
+    return -himmelblau(x, y) * beta  # Scale for better visualization
 
 # Gradient function
 grad_logprob = jax.grad(logprob)

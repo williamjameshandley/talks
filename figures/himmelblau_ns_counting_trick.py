@@ -15,11 +15,11 @@ def himmelblau(x, y):
     return (x**2 + y - 11)**2 + (x + y**2 - 7)**2
 
 # Global beta parameter for consistent scaling
-beta = 100
+beta = 0.1
 
 def loglikelihood(params):
     x, y = params["x"], params["y"]
-    return -himmelblau(x, y) / (beta * 0.1)
+    return -himmelblau(x, y) * beta
 
 key = jax.random.PRNGKey(42)
 num_live = 200
@@ -80,9 +80,9 @@ with PdfPages('himmelblau_ns_counting_trick.pdf') as pdf:
     
     # The threshold is the worst likelihood that was just killed
     threshold_logL = float(dead_point.loglikelihood.max())
-    # Convert back to Himmelblau function value: logL = -himmelblau / (beta * 0.1)
-    # So himmelblau = -logL * (beta * 0.1)
-    threshold_val = -threshold_logL * (beta * 0.1)
+    # Convert back to Himmelblau function value: logL = -himmelblau * beta
+    # So himmelblau = -logL / beta
+    threshold_val = -threshold_logL / beta
     
     # Frame 2: Show contour and classify points for deletion
     fig, ax = plt.subplots(1, 1, figsize=(3, 3))
@@ -204,13 +204,13 @@ with PdfPages('himmelblau_ns_counting_trick.pdf') as pdf:
     
     # The new threshold
     threshold_logL = float(dead_point.loglikelihood.max())
-    threshold_val = -threshold_logL * (beta * 0.1)
+    threshold_val = -threshold_logL / beta
     
     # Frame 5: Next iteration - show new contour and classification
     fig, ax = plt.subplots(1, 1, figsize=(3, 3))
     
     # Draw previous contour faintly
-    prev_threshold = -float(dead_points[0].loglikelihood.max()) * (beta * 0.1)
+    prev_threshold = -float(dead_points[0].loglikelihood.max()) / beta
     if prev_threshold > 0:
         ax.contour(X, Y, Z, levels=[prev_threshold], colors='black', 
                   linewidths=0.5, alpha=0.3, zorder=1)
@@ -260,7 +260,7 @@ with PdfPages('himmelblau_ns_counting_trick.pdf') as pdf:
     fig, ax = plt.subplots(1, 1, figsize=(3, 3))
     
     # Draw previous contour faintly
-    prev_threshold = -float(dead_points[0].loglikelihood.max()) * (beta * 0.1)
+    prev_threshold = -float(dead_points[0].loglikelihood.max()) / beta
     if prev_threshold > 0:
         ax.contour(X, Y, Z, levels=[prev_threshold], colors='black', 
                   linewidths=0.5, alpha=0.3, zorder=1)
