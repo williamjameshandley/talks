@@ -40,7 +40,6 @@
             We observe a galaxy's light (photometry or spectra) across different wavelengths. This is our dataset, $D$.
         \end{block}
         \includegraphics[width=\textwidth]{figures/sed.png}
-        
         \column{0.49\textwidth}
         \begin{block}{The Model $\theta|M$}
             We want to infer the underlying physical properties, our parameters, $\theta$: Stellar Mass ($M_*$), Star Formation History (SFH), Dust content ($A_V$), Metallicity ($Z$), ...
@@ -53,17 +52,12 @@
             \end{itemize}
         \end{block}
     \end{columns}
-    \vspace{1em}
-    \begin{alertblock}{Key Message}
-        SED fitting is not just about finding the ``best'' parameters; it's about mapping the entire landscape of possibilities.
-    \end{alertblock}
 \end{frame}
 
 % --- SLIDE 2: Statistical Framework (2 minutes) ---
 \begin{frame}
     \frametitle{The Language of Inference: }
     \framesubtitle{How we quantify what we learn from data}
-
     \begin{columns}
         \column{0.33\textwidth}
             \begin{block}{\C[1]{Prior}\hfill $\C[1]{\pi(\theta)}$}
@@ -89,9 +83,7 @@
 % --- SLIDE 3: Chi-squared Maximization (3 minutes) ---
 \begin{frame}<1-10>
     \frametitle{The Simplest Approach: Optimization (e.g., $\chi^2$ Minimization)}
-    \vspace{-1em}
-    
-    \begin{columns}
+    \begin{columns}[T]
         \column{0.5\textwidth}
         \only<1-6>{
         \begin{block}{How it Works: Hill Climbing}
@@ -102,7 +94,6 @@
                 \item Stop when you reach the bottom of a valley.
             \end{itemize}
         \end{block}
-        
         \begin{block}{Advantages}
             \begin{itemize}
                 \item \keyterm{Fast} and computationally cheap.
@@ -110,7 +101,6 @@
             \end{itemize}
         \end{block}
         }
-        
         \only<7-10>{
         \begin{block}{Limitations}
             \begin{itemize}
@@ -119,13 +109,12 @@
                 \item Can easily get stuck in a \keyterm{local minimum}, missing the true global best fit.
             \end{itemize}
         \end{block}
-        
         \begin{alertblock}{Key Message}
             Optimization is fast but gives an incomplete and potentially misleading picture. Science needs error bars.
         \end{alertblock}
         }
-        
         \column{0.5\textwidth}
+        \vspace{-1.8em}
         \begin{center}
             \includegraphics<1>[width=\textwidth,page=1]{figures/himmelblau_gradient_ascent.pdf}%
             \includegraphics<2>[width=\textwidth,page=2]{figures/himmelblau_gradient_ascent.pdf}%
@@ -142,49 +131,30 @@
     
 \end{frame}
 
-% --- SLIDE 4: Sampling vs Optimization (3 minutes) ---
+% --- SLIDE 4: Why do sampling? (3 minutes) ---
 \begin{frame}
-    \frametitle{Why We Sample: Exploring the Whole Landscape}
-    \framesubtitle{Getting the full story, not just the headline}
-    
+    \frametitle{Why do sampling?}
     \begin{columns}[T]
-        \column{0.49\textwidth}
-        \begin{block}{Optimization gives you the Peak}
-            \begin{center}
-                \includegraphics[width=0.7\textwidth,page=4]{figures/himmelblau_ns.pdf} % Figure from: ini_2025/figures/himmelblau_ns (page 4)
-                \small The single best point.
-            \end{center}
-        \end{block}
-        
-        \column{0.49\textwidth}
-        \begin{block}{Sampling gives you the whole Mountain Range}
-            \begin{center}
-                \includegraphics[width=0.7\textwidth,page=9]{figures/himmelblau_mcmc.pdf} % Figure from: ini_2025/figures/himmelblau_mcmc (page 9)
-                \small A collection of points that map the entire posterior.
-            \end{center}
-        \end{block}
-    \end{columns}
-    
-    \begin{block}{Why is this critical for SED fitting?}
+        \column{0.5\textwidth}
         \begin{itemize}
-            \item \keyterm{Uncertainties}: The spread of the samples tells you the uncertainty on each parameter.
-            \item \keyterm{Degeneracies}: The shape of the sample cloud reveals correlations (e.g., the age-dust degeneracy).
-            \item \keyterm{Multimodality}: Sampling can find all the ``good'' solutions, not just one.
-            \item \keyterm{Model Comparison}: Some methods give us the Bayesian Evidence, allowing us to ask ``Is model A better than model B?''.
+            \item The cornerstone of numerical Bayesian inference is working with \textbf{samples}.
+            \item Generate a set of representative parameters drawn in proportion to the posterior $\theta\sim\mathcal{P}$.
+            \item The magic of marginalisation $\Rightarrow$ perform usual analysis on each sample in turn.
+            \item The golden rule is \textbf{stay in samples} until the last moment before computing summary statistics/triangle plots because \[\boxed{f(\:\av{X}\:)\ne \av{\:f(X)\:}}\]
+            \item Generally need $\sim\mathcal{O}(12)$ independent samples to compute a value and error bar.
         \end{itemize}
-    \end{block}
-    
-    \begin{alertblock}{Key Message}
-        We sample because our physical questions require more than a single best-fit value. We need to characterize the full posterior distribution.
-    \end{alertblock}
+        \column{0.5\textwidth}
+        \vspace{-1.8em}
+        \begin{center}
+            \includegraphics[width=\textwidth]{figures/himmelblau_samples.pdf}
+        \end{center}
+    \end{columns}
 \end{frame}
 
 % --- SLIDE 5: MCMC Sampling (4 minutes) ---
 \begin{frame}<1-9>
     \frametitle{The Classic Workhorse: Markov Chain Monte Carlo (MCMC)}
-    \vspace{-2em}
-    
-    \begin{columns}
+    \begin{columns}[T]
         \column{0.5\textwidth}
         \only<1-5>{
         \begin{block}{How it Works (Metropolis-Hastings)}
@@ -192,13 +162,13 @@
             \begin{enumerate}
                 \item Take a random step to a new position.
                 \item If the new spot is ``higher'' (better likelihood), move there.
-                \item If it's ``lower'', maybe move there anyway (with a probability that depends on how much lower it is).
+                \item If it's ``lower'', maybe move there anyway (with probability proportional to how much lower it is).
                 \item Repeat millions of times. The path the walker takes traces the posterior distribution.
             \end{enumerate}
         \end{block}
         }
-        
         \only<6-9>{
+            \vspace{-1em}
         \begin{block}{Advantages \& Limitations}
             \begin{itemize}
                 \item Explores the full posterior and gives uncertainties.
@@ -210,8 +180,8 @@
             MCMC is a foundational sampling method, but its simple ``random walk'' can be inefficient in the complex parameter spaces of SED fitting.
         \end{alertblock}
         }
-        
         \column{0.5\textwidth}
+        \vspace{-1.8em}
         \begin{center}
             \includegraphics<1>[page=1]{figures/himmelblau_mcmc.pdf}%
             \includegraphics<2>[page=2]{figures/himmelblau_mcmc.pdf}%
@@ -224,14 +194,12 @@
             \includegraphics<9>[page=9]{figures/himmelblau_mcmc.pdf}%
         \end{center}
     \end{columns}
-    
 \end{frame}
 
 % --- SLIDE 6: Ensemble Sampling (emcee) (4 minutes) ---
 \begin{frame}<1-9>
     \frametitle{A Better Way: Ensemble Sampling (e.g., \texttt{emcee})}
-    \vspace{-1em}
-    \begin{columns}
+    \begin{columns}[T]
         \column{0.5\textwidth}
         \only<1-5>{
         \begin{block}{How it Works}
@@ -243,7 +211,6 @@
             \end{itemize}
         \end{block}
         }
-        
         \only<6-9>{
         \begin{block}{Advantages}
             \begin{itemize}
@@ -252,19 +219,17 @@
                 \item Easy to parallelize (one walker per CPU).
             \end{itemize}
         \end{block}
-        
         \begin{block}{Limitation}
             \begin{itemize}
                 \item Ensemble can still get trapped in one mode if other modes are very far away.
             \end{itemize}
         \end{block}
-        
         \begin{alertblock}{Key Message}
             Ensemble samplers like \texttt{emcee} are a major improvement for many problems, especially those with parameter degeneracies.
         \end{alertblock}
         }
-        
         \column{0.5\textwidth}
+        \vspace{-1.8em}
         \begin{center}
             \includegraphics<1>[width=\textwidth,page=1]{figures/himmelblau_emcee.pdf}%
             \includegraphics<2>[width=\textwidth,page=2]{figures/himmelblau_emcee.pdf}%
@@ -277,13 +242,11 @@
             \includegraphics<9>[width=\textwidth,page=9]{figures/himmelblau_emcee.pdf}%
         \end{center}
     \end{columns}
-    
 \end{frame}
 
 % --- SLIDE 7: Nested Sampling (5 minutes) ---
 \begin{frame}<1-8>
     \frametitle{The State of the Art: Nested Sampling (e.g., \texttt{dynesty})}
-    
     \begin{columns}[T]
         \column{0.5\textwidth}
         \only<1-4>{
@@ -297,7 +260,6 @@
             \end{enumerate}
         \end{block}
         }
-        
         \only<5-8>{
         \begin{block}{Key Advantages}
             \begin{itemize}
@@ -305,13 +267,12 @@
                 \item It calculates the \keyterm{Bayesian Evidence} ($\C[3]{\mathcal{Z}}$) as a primary output. This is essential for model comparison!
             \end{itemize}
         \end{block}
-        
         \begin{alertblock}{Key Message}
             Nested sampling excels at exploring complex, multimodal posteriors and is the go-to method for Bayesian model comparison.
         \end{alertblock}
         }
-        
         \column{0.5\textwidth}
+        \vspace{-1.8em}
         \begin{center}
             \includegraphics<1>[width=\textwidth,page=1]{figures/himmelblau_ns.pdf}%
             \includegraphics<2>[width=\textwidth,page=2]{figures/himmelblau_ns.pdf}%
@@ -323,14 +284,12 @@
             \includegraphics<8>[width=\textwidth,page=8]{figures/himmelblau_ns.pdf}%
         \end{center}
     \end{columns}
-    
 \end{frame}
 
 % --- SLIDE 8: Method Comparison (2 minutes) ---
 \begin{frame}
     \frametitle{Choosing Your Tool: A Summary}
     \framesubtitle{No single best method, only the right tool for the job}
-    
     \begin{center}
         \begin{tabular}{|l|c|c|c|c|}
             \hline
@@ -346,9 +305,7 @@
             \hline
         \end{tabular}
     \end{center}
-    
     \vspace{2em}
-    
     \begin{block}{Practical Guidance}
         \begin{itemize}
             \item \textbf{Quick exploration / Sanity check?} $\rightarrow$ Use Optimization.
@@ -357,7 +314,6 @@
             \item \textbf{Need to compare different physical models?} $\rightarrow$ You \textit{must} use Nested Sampling to get the evidence.
         \end{itemize}
     \end{block}
-    
     \begin{alertblock}{Key Message}
         Your choice of statistical method depends on your scientific question and the expected complexity of your model.
     \end{alertblock}
@@ -377,7 +333,6 @@
                 \item \keyterm{Neural Emulators}: If your model is very slow to run, you can train a neural network to emulate it, providing a massive speed-up for sampling.
             \end{itemize}
         \end{block}
-        
         \column{0.49\textwidth}
         \begin{block}{The 80/20 Rule of Scientific Work}
             \begin{itemize}
@@ -386,7 +341,6 @@
             \end{itemize}
             AI's biggest immediate impact is automating and accelerating the 80\%, freeing up human time for the 20\%.
         \end{block}
-        
         \begin{block}{Challenges}
             As we rely more on AI-generated code, we must be vigilant.
             \begin{itemize}
@@ -395,7 +349,6 @@
             \end{itemize}
         \end{block}
     \end{columns}
-    
     \begin{alertblock}{Key Message}
         AI is not just a tool for analysis; it's fundamentally changing how we develop, optimize, and deploy our scientific software.
     \end{alertblock}
@@ -425,7 +378,6 @@
         \includegraphics[width=0.06\textheight]{people/will_handley.jpg}%
         \includegraphics[width=0.06\textheight]{people/will_templeton.jpg}%
     };
-    
     \begin{block}{Key Takeaways}
         \begin{itemize}
             \item SED fitting is a problem of \keyterm{statistical inference}, not just optimization.
@@ -434,7 +386,6 @@
             \item The choice of sampler—from MCMC to Ensemble to Nested—depends on the complexity of your problem and whether you need to do \keyterm{model comparison}.
         \end{itemize}
     \end{block}
-    
     \begin{alertblock}{Next Up: David Yallup on ``GPU Accelerated Nested Sampling''}
         Now that we know \textit{why} nested sampling is so powerful, we'll hear about how to make it \textit{fast}!
     \end{alertblock}
@@ -445,9 +396,7 @@
 
 \begin{frame}<1-9>
     \frametitle{Appendix: Hamiltonian Monte Carlo (HMC)}
-    \vspace{-1em}
-    
-    \begin{columns}
+    \begin{columns}[T]
         \column{0.5\textwidth}
         \only<1-5>{
         \begin{block}{How it Works}
@@ -460,7 +409,6 @@
             \end{enumerate}
         \end{block}
         }
-        
         \only<6-9>{
         \begin{block}{Advantages \& Requirements}
             \begin{itemize}
@@ -470,13 +418,12 @@
                 \item Less likely to get stuck in local regions.
             \end{itemize}
         \end{block}
-        
         \begin{alertblock}{Key Message}
             HMC leverages gradient information for efficient sampling, but requires differentiable models.
         \end{alertblock}
         }
-        
         \column{0.5\textwidth}
+        \vspace{-1.8em}
         \begin{center}
             \includegraphics<1>[width=\textwidth,page=1]{figures/himmelblau_hmc.pdf}%
             \includegraphics<2>[width=\textwidth,page=2]{figures/himmelblau_hmc.pdf}%
@@ -489,7 +436,6 @@
             \includegraphics<9>[width=\textwidth,page=9]{figures/himmelblau_hmc.pdf}%
         \end{center}
     \end{columns}
-    
 \end{frame}
 
 \end{document}
