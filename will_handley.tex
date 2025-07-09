@@ -212,6 +212,7 @@
         \end{block}
         }
         \only<6-9>{
+        \vspace{-1em}
         \begin{block}{Advantages}
             \begin{itemize}
                 \item Much better at exploring correlated, ``banana-shaped'' parameter spaces.
@@ -286,7 +287,58 @@
     \end{columns}
 \end{frame}
 
-% --- SLIDE 8: Method Comparison (2 minutes) ---
+% --- SLIDE 8: How Nested Sampling Estimates Volumes (2 minutes) ---
+\begin{frame}<1-9>
+    \frametitle{How Nested Sampling Estimates Volumes: The Counting Trick}
+    \begin{columns}[T]
+        \column{0.5\textwidth}
+        \begin{block}{Volume Contraction}
+            At each step, the volume contracts predictably:
+            \[V_{i+1} = V_i \times \frac{n_{\text{inside}}}{n_{\text{total}}}\]
+            indep.\ of dimensionality, geometry or topology
+        \end{block}
+        
+        \begin{columns}[T]
+            \column{0.45\textwidth}
+            \begin{block}{Evidence}
+                The evidence is computed as:
+                \[\mathcal{Z} = \sum \mathcal{L}_i \Delta V_i\]
+            \end{block}
+            
+            \column{0.45\textwidth}
+            \begin{block}{Posterior}
+                Each sample gets importance weight:
+                \[w_i = \mathcal{L}_i \times \Delta V_i\]
+            \end{block}
+        \end{columns}
+        \column{0.5\textwidth}
+        \vspace{-1.8em}
+        \begin{center}
+            \includegraphics<1>[width=\textwidth,page=1]{figures/himmelblau_ns_counting_trick.pdf}
+            \includegraphics<2>[width=\textwidth,page=2]{figures/himmelblau_ns_counting_trick.pdf}
+            \includegraphics<3>[width=\textwidth,page=3]{figures/himmelblau_ns_counting_trick.pdf}
+            \includegraphics<4>[width=\textwidth,page=4]{figures/himmelblau_ns_counting_trick.pdf}
+            \includegraphics<5>[width=\textwidth,page=5]{figures/himmelblau_ns_counting_trick.pdf}
+            \includegraphics<6>[width=\textwidth,page=6]{figures/himmelblau_ns_counting_trick.pdf}
+            \includegraphics<7>[width=\textwidth,page=7]{figures/himmelblau_ns_counting_trick.pdf}
+            \includegraphics<8>[width=\textwidth,page=8]{figures/himmelblau_ns_counting_trick.pdf}
+            \includegraphics<9>[width=\textwidth,page=9]{figures/himmelblau_ns_counting_trick.pdf}
+        \end{center}
+        \begin{center}
+            \only<1>{\textbf{200 live points}}
+            \only<2>{\textbf{Mark for deletion}}
+            \only<3>{\textbf{Delete points}}
+            \only<4>{\textbf{Repopulate}}
+            \only<5>{\textbf{Next iteration}}
+            \only<6>{\textbf{Delete again}}
+            \only<7>{\textbf{Repopulate again}}
+            \only<8>{\textbf{Complete sampling}}
+            \only<9>{\textbf{Posterior reweighting}}
+        \end{center}
+    \end{columns}
+\end{frame}
+
+% --- SLIDE 9: Method Comparison (2 minutes) ---
 \begin{frame}
     \frametitle{Choosing Your Tool: A Summary}
     \framesubtitle{No single best method, only the right tool for the job}
@@ -315,7 +367,7 @@
     \end{block}
 \end{frame}
 
-% --- SLIDE 9: AI in Scientific Code Development (2 minutes) ---
+% --- SLIDE 10: AI in Scientific Code Development (2 minutes) ---
 \begin{frame}
     \frametitle{The Future: AI in Scientific Code Development}
     \framesubtitle{How these tools themselves are evolving}
@@ -342,7 +394,7 @@
     \end{alertblock}
 \end{frame}
 
-% --- SLIDE 10: Conclusions (1 minute) ---
+% --- SLIDE 11: Conclusions (1 minute) ---
 \begin{frame}
     \frametitle{Conclusions \& What's Next}
     \framesubtitle{\tthref{github.com/handley-lab/group}}

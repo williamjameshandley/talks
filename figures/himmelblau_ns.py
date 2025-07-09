@@ -16,7 +16,8 @@ def himmelblau(x, y):
 
 def loglikelihood(params):
     x, y = params["x"], params["y"]
-    return -himmelblau(x, y)
+    beta = 100
+    return -himmelblau(x, y) / (beta * 0.1)
 
 key = jax.random.PRNGKey(42)
 num_live = 200
