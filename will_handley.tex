@@ -255,7 +255,7 @@
             \begin{enumerate}
                 \item Start with a set of ``live points'' scattered across the entire \keyterm{prior}.
                 \item At each step: find the point with the \textit{worst} likelihood and discard it.
-                \item Replace it with a new point drawn from the prior, but with one constraint: its likelihood must be \textit{better} than the point you just discarded.
+                \item Replace it with a new point drawn from the prior, but with a likelihood \textit{better} than the point you just discarded.
                 \item This forces the set of live points to continuously ``shrink'' into regions of higher and higher likelihood.
             \end{enumerate}
         \end{block}
@@ -297,7 +297,7 @@
             \hline
             \textbf{Optimization} ($\chi^2$) & \textcolor{green!50!black}{Very Fast} & \textcolor{red}{No} & \textcolor{red}{No} & \textcolor{red}{No} \\
             \hline
-            \textbf{MCMC} & \textcolor{orange}{Medium} & \textcolor{green!50!black}{Yes} & \textcolor{orange}{Poorly} & \textcolor{red}{No} \\
+            \textbf{MCMC} (\texttt{pymc} etc) & \textcolor{orange}{Medium} & \textcolor{green!50!black}{Yes} & \textcolor{orange}{Poorly} & \textcolor{red}{No} \\
             \hline
             \textbf{Ensemble} (\texttt{emcee}) & \textcolor{orange}{Medium} & \textcolor{green!50!black}{Yes} & \textcolor{orange}{Okay} & \textcolor{red}{No} \\
             \hline
@@ -305,52 +305,40 @@
             \hline
         \end{tabular}
     \end{center}
-    \vspace{2em}
     \begin{block}{Practical Guidance}
         \begin{itemize}
             \item \textbf{Quick exploration / Sanity check?} $\rightarrow$ Use Optimization.
             \item \textbf{Simple, well-behaved posterior?} $\rightarrow$ \texttt{emcee} is a great choice.
             \item \textbf{Complex, possibly multimodal posterior?} $\rightarrow$ Use \texttt{dynesty}.
-            \item \textbf{Need to compare different physical models?} $\rightarrow$ You \textit{must} use Nested Sampling to get the evidence.
+            \item \textbf{Need to compare different physical models?} $\rightarrow$ You \textit{must} use Nested Sampling.
         \end{itemize}
     \end{block}
-    \begin{alertblock}{Key Message}
-        Your choice of statistical method depends on your scientific question and the expected complexity of your model.
-    \end{alertblock}
 \end{frame}
 
 % --- SLIDE 9: AI in Scientific Code Development (2 minutes) ---
 \begin{frame}
     \frametitle{The Future: AI in Scientific Code Development}
     \framesubtitle{How these tools themselves are evolving}
+    \vspace{-1em}
     \begin{columns}[T]
         \column{0.49\textwidth}
-        \begin{block}{The Real AI Revolution: LLMs as Translators}
-            The biggest impact of AI may not be in analyzing data, but in helping us write the code to do it.
+        \begin{block}{The Real AI Revolution: LLMs}
+            The biggest impact of AI will not be in analyzing data, but in helping us write the code to do it.
             \begin{itemize}
-                \item \keyterm{Automated code translation}: LLMs can help port legacy Fortran/C++ models to modern, GPU-friendly frameworks like JAX or PyTorch.
-                \item \keyterm{Automatic Differentiation}: These modern frameworks give us model gradients ``for free,'' enabling more powerful sampling methods (like Hamiltonian Monte Carlo).
-                \item \keyterm{Neural Emulators}: If your model is very slow to run, you can train a neural network to emulate it, providing a massive speed-up for sampling.
+                \item \keyterm{Automated code translation}: LLMs can help port legacy Fortran/C++ models to modern, GPU-friendly \& differentiable frameworks like JAX or PyTorch.
             \end{itemize}
         \end{block}
         \column{0.49\textwidth}
         \begin{block}{The 80/20 Rule of Scientific Work}
             \begin{itemize}
-                \item \textbf{80\% ``boring'' tasks}: Writing code, debugging, drafting papers, managing data...
+                \item \textbf{80\% ``boring'' tasks}: Writing code, debugging, drafting \& reviewing papers, munging data, organising meetings...
                 \item \textbf{20\% ``hard thinking''}: The actual scientific insight.
             \end{itemize}
             AI's biggest immediate impact is automating and accelerating the 80\%, freeing up human time for the 20\%.
         \end{block}
-        \begin{block}{Challenges}
-            As we rely more on AI-generated code, we must be vigilant.
-            \begin{itemize}
-                \item Ensuring correctness and reproducibility.
-                \item Maintaining interpretability of our models and methods.
-            \end{itemize}
-        \end{block}
     \end{columns}
     \begin{alertblock}{Key Message}
-        AI is not just a tool for analysis; it's fundamentally changing how we develop, optimize, and deploy our scientific software.
+        AI is not just a tool for analysis; it's about to fundamentally change how we develop, optimize, and deploy our science
     \end{alertblock}
 \end{frame}
 
