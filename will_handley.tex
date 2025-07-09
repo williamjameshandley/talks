@@ -81,7 +81,7 @@
 \end{frame}
 
 % --- SLIDE 3: Chi-squared Maximization (3 minutes) ---
-\begin{frame}<1-10>
+\begin{frame}
     \frametitle{The Simplest Approach: Optimization (e.g., $\chi^2$ Minimization)}
     \begin{columns}[T]
         \column{0.5\textwidth}
@@ -152,7 +152,7 @@
 \end{frame}
 
 % --- SLIDE 5: MCMC Sampling (4 minutes) ---
-\begin{frame}<1-9>
+\begin{frame}
     \frametitle{The Classic Workhorse: Markov Chain Monte Carlo (MCMC)}
     \begin{columns}[T]
         \column{0.5\textwidth}
@@ -197,7 +197,7 @@
 \end{frame}
 
 % --- SLIDE 6: Ensemble Sampling (emcee) (4 minutes) ---
-\begin{frame}<1-9>
+\begin{frame}
     \frametitle{A Better Way: Ensemble Sampling (e.g., \texttt{emcee})}
     \begin{columns}[T]
         \column{0.5\textwidth}
@@ -246,7 +246,7 @@
 \end{frame}
 
 % --- SLIDE 7: Why Evidence Calculation Matters (3 minutes) ---
-\begin{frame}<1-2>
+\begin{frame}
     \frametitle{The Missing Piece: Why Evidence Calculation Matters}
     \framesubtitle{And why it's so hard to compute}
     \begin{columns}[T]
@@ -257,7 +257,7 @@
             \[\mathcal{P}(M|D) \propto \mathcal{Z}(D|M) \mathcal{P}(M)\]
             For SED fitting: Which stellar population model best explains the galaxy photometry?
         \item  \textbf{Occam's Razor}: Automatic complexity penalty
-            \[\log \mathcal{Z} = \langle \log \mathcal{L} \rangle_{\pi} - \mathcal{D}_{\text{KL}}\]
+            \[\log \mathcal{Z} = \langle \log \mathcal{L} \rangle_{\mathcal{P}} - \mathcal{D}_{\text{KL}}(\mathcal{P}||\pi)\]
         \item \textbf{Bayesian Model Averaging}: Weighted model combinations
             \end{itemize}
         \end{block}
@@ -277,7 +277,7 @@
 \end{frame}
 
 % --- SLIDE 8: Nested Sampling (5 minutes) ---
-\begin{frame}<1-8>
+\begin{frame}
     \frametitle{The State of the Art: Nested Sampling (e.g., \texttt{dynesty})}
     \begin{columns}[T]
         \column{0.5\textwidth}
@@ -319,7 +319,7 @@
 \end{frame}
 
 % --- SLIDE 9: How Nested Sampling Estimates Volumes (2 minutes) ---
-\begin{frame}<1-9>
+\begin{frame}
     \frametitle{How Nested Sampling Estimates Volumes: The Counting Trick}
     \begin{columns}[T]
         \column{0.5\textwidth}
@@ -399,7 +399,9 @@
         \begin{itemize}
             \item \textbf{Resolution parameter} $n_{\text{live}}$: Improves results as $\sim\mathcal{O}(n_{\text{live}}^{-1/2})$
             \item \textbf{Reliability parameters}: Don't improve results if set arbitrarily high, but introduce systematic errors if set too low
-            \item Examples: \texttt{MultiNest} efficiency \texttt{eff}, \texttt{PolyChord} chain length \texttt{n\_repeats}
+                \begin{itemize}
+                    \item \texttt{MultiNest} efficiency \texttt{eff}, \texttt{PolyChord} chain length \texttt{n\_repeats}, \texttt{dynesty} \texttt{slices}
+                \end{itemize}
         \end{itemize}
     \end{alertblock}
 \end{frame}
@@ -500,7 +502,7 @@
 % --- APPENDIX: HMC Sampling ---
 \appendix
 
-\begin{frame}<1-9>
+\begin{frame}
     \frametitle{Appendix: Hamiltonian Monte Carlo (HMC)}
     \begin{columns}[T]
         \column{0.5\textwidth}
