@@ -246,36 +246,31 @@
 \end{frame}
 
 % --- SLIDE 7: Why Evidence Calculation Matters (3 minutes) ---
-\begin{frame}
+\begin{frame}<1-2>
     \frametitle{The Missing Piece: Why Evidence Calculation Matters}
     \framesubtitle{And why it's so hard to compute}
     \begin{columns}[T]
         \column{0.49\textwidth}
         \begin{block}{Why Evidence is Important}
             \begin{itemize}
-                \item \textbf{Model Comparison}: Which model best explains the data?
-                \item \textbf{Bayesian Model Averaging}: Weighted model combinations
-                \item \textbf{Occam's Razor}: Automatic complexity penalty
-                \item \textbf{Parameter Estimation}: Proper marginalization
+                \item \textbf{Model Comparison}: Bayes model theorem:
+            \[\mathcal{P}(M|D) \propto \mathcal{Z}(D|M) \mathcal{P}(M)\]
+            For SED fitting: Which stellar population model best explains the galaxy photometry?
+        \item  \textbf{Occam's Razor}: Automatic complexity penalty
+            \[\log \mathcal{Z} = \langle \log \mathcal{L} \rangle_{\pi} - \mathcal{D}_{\text{KL}}\]
+        \item \textbf{Bayesian Model Averaging}: Weighted model combinations
             \end{itemize}
         \end{block}
-        \begin{alertblock}{The Problem}
-            MCMC and Ensemble methods give you samples from $\mathcal{P}(\theta|D)$, but they don't compute $\mathcal{Z}(D)$!
-        \end{alertblock}
         \column{0.49\textwidth}
         \begin{block}{Why Evidence is Hard}
             \begin{itemize}
-                \item \textbf{High-dimensional integration}: $\mathcal{Z} = \int \mathcal{L}(\theta) \pi(\theta) d\theta$
-                \item \textbf{Exponential suppression}: Most of parameter space has $\mathcal{L} \approx 0$
-                \item \textbf{Multimodality}: Integration over disconnected regions
-                \item \textbf{Phase transitions}: Sharp likelihood boundaries
-            \end{itemize}
-        \end{block}
-        \begin{block}{Common Approaches}
-            \begin{itemize}
-                \item \textbf{Thermodynamic Integration}: Expensive, requires many chains
-                \item \textbf{Harmonic Mean}: Notoriously unstable
-                \item \textbf{Nested Sampling}: Designed specifically for evidence calculation
+                \item The high-dimensional evidence integral:
+            \[\mathcal{Z} = \int \mathcal{L}(\theta) \pi(\theta) d\theta\]
+            \[\left(\text{from Bayes theorem}:\mathcal{P}(\theta|D) = \frac{\mathcal{L}(\theta) \pi(\theta)}{\mathcal{Z}}\right)\]
+            \pause
+        \item The difficulty is \textbf{not} that most of parameter space has $\mathcal{L} \approx 0$...
+            \pause
+        \item The difficulty is that we can't estimate \textbf{volume} $d\theta$ in high dimensions!
             \end{itemize}
         \end{block}
     \end{columns}
