@@ -245,7 +245,43 @@
     \end{columns}
 \end{frame}
 
-% --- SLIDE 7: Nested Sampling (5 minutes) ---
+% --- SLIDE 7: Why Evidence Calculation Matters (3 minutes) ---
+\begin{frame}
+    \frametitle{The Missing Piece: Why Evidence Calculation Matters}
+    \framesubtitle{And why it's so hard to compute}
+    \begin{columns}[T]
+        \column{0.49\textwidth}
+        \begin{block}{Why Evidence is Important}
+            \begin{itemize}
+                \item \textbf{Model Comparison}: Which model best explains the data?
+                \item \textbf{Bayesian Model Averaging}: Weighted model combinations
+                \item \textbf{Occam's Razor}: Automatic complexity penalty
+                \item \textbf{Parameter Estimation}: Proper marginalization
+            \end{itemize}
+        \end{block}
+        \begin{alertblock}{The Problem}
+            MCMC and Ensemble methods give you samples from $\mathcal{P}(\theta|D)$, but they don't compute $\mathcal{Z}(D)$!
+        \end{alertblock}
+        \column{0.49\textwidth}
+        \begin{block}{Why Evidence is Hard}
+            \begin{itemize}
+                \item \textbf{High-dimensional integration}: $\mathcal{Z} = \int \mathcal{L}(\theta) \pi(\theta) d\theta$
+                \item \textbf{Exponential suppression}: Most of parameter space has $\mathcal{L} \approx 0$
+                \item \textbf{Multimodality}: Integration over disconnected regions
+                \item \textbf{Phase transitions}: Sharp likelihood boundaries
+            \end{itemize}
+        \end{block}
+        \begin{block}{Common Approaches}
+            \begin{itemize}
+                \item \textbf{Thermodynamic Integration}: Expensive, requires many chains
+                \item \textbf{Harmonic Mean}: Notoriously unstable
+                \item \textbf{Nested Sampling}: Designed specifically for evidence calculation
+            \end{itemize}
+        \end{block}
+    \end{columns}
+\end{frame}
+
+% --- SLIDE 8: Nested Sampling (5 minutes) ---
 \begin{frame}<1-8>
     \frametitle{The State of the Art: Nested Sampling (e.g., \texttt{dynesty})}
     \begin{columns}[T]
@@ -287,7 +323,7 @@
     \end{columns}
 \end{frame}
 
-% --- SLIDE 8: How Nested Sampling Estimates Volumes (2 minutes) ---
+% --- SLIDE 9: How Nested Sampling Estimates Volumes (2 minutes) ---
 \begin{frame}<1-9>
     \frametitle{How Nested Sampling Estimates Volumes: The Counting Trick}
     \begin{columns}[T]
@@ -338,7 +374,7 @@
     \end{columns}
 \end{frame}
 
-% --- SLIDE 9: Method Comparison (2 minutes) ---
+% --- SLIDE 10: Method Comparison (2 minutes) ---
 \begin{frame}
     \frametitle{Choosing Your Tool: A Summary}
     \framesubtitle{No single best method, only the right tool for the job}
@@ -367,7 +403,7 @@
     \end{block}
 \end{frame}
 
-% --- SLIDE 10: AI in Scientific Code Development (2 minutes) ---
+% --- SLIDE 11: AI in Scientific Code Development (2 minutes) ---
 \begin{frame}
     \frametitle{The Future: AI in Scientific Code Development}
     \framesubtitle{How these tools themselves are evolving}
@@ -394,7 +430,7 @@
     \end{alertblock}
 \end{frame}
 
-% --- SLIDE 11: Conclusions (1 minute) ---
+% --- SLIDE 12: Conclusions (1 minute) ---
 \begin{frame}
     \frametitle{Conclusions \& What's Next}
     \framesubtitle{\tthref{github.com/handley-lab/group}}

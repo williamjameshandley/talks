@@ -14,9 +14,11 @@ jax.config.update("jax_enable_x64", True)
 def himmelblau(x, y):
     return (x**2 + y - 11)**2 + (x + y**2 - 7)**2
 
+# Global beta parameter for consistent scaling
+beta = 100
+
 def loglikelihood(params):
     x, y = params["x"], params["y"]
-    beta = 100
     return -himmelblau(x, y) / (beta * 0.1)
 
 key = jax.random.PRNGKey(42)
@@ -77,9 +79,12 @@ with PdfPages('himmelblau_ns.pdf') as pdf:
         
         # Add contours for dead point likelihood thresholds
         if dead_points:
-            # Get all dead point thresholds
+            # Get all dead point log-likelihood values
             all_dead_logL = [float(dp.loglikelihood.max()) for dp in dead_points]
-            all_threshold_vals = [-logL for logL in all_dead_logL]
+            
+            # Convert back to Himmelblau function values: logL = -himmelblau / (beta * 0.1)
+            # So himmelblau = -logL * (beta * 0.1)
+            all_threshold_vals = [-logL * (beta * 0.1) for logL in all_dead_logL]
             
             # Current threshold is the most recent (highest likelihood killed)
             current_threshold = all_threshold_vals[-1]
