@@ -6,7 +6,7 @@ This workshop serves as a follow-up to the successful Part II/III student traini
 
 The workshop introduces a three-layer framework for understanding AI tools:
 1. **Autocomplete** (GitHub Copilot)  
-2. **Prompt Engineering** (ChatGPT, Claude, Gemini interfaces)
+2. **Chat-based AI** (ChatGPT, Claude, Gemini interfaces)
 3. **Agentic Systems** (Claude Code, autonomous workflows)
 
 Key demonstrations include comprehensive workflow examples, cost comparisons, and practical getting started guidance. The workshop addresses common questions researchers have about AI tools: which models to use, handling hallucinations, getting started effectively, and determining worthwhile investments in AI-assisted research workflows.
