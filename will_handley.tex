@@ -16,9 +16,9 @@
 
 % Talk details
 % ------------
-\title{<+Title+>}
-\subtitle{<+subtitle+>}
-\date{<+Date+>}
+\title{AI/ML Tools for Research}
+\subtitle{KICC Workshop}
+\date{23rd July 2025}
 
 \begin{document}
 
@@ -27,33 +27,386 @@
 \end{frame}
 
 \begin{frame}
-    \frametitle{<+Frame title+>}
-    <+Content+>
+    \frametitle{Overview}
+    \begin{columns}
+        \column{0.48\textwidth}
+        \begin{block}{Context for workshop}
+            \begin{itemize}
+                \item Follow-up to successful Part II/III training (February).
+                \item Faculty, postdocs, PhD students welcome.
+                \item Rapid evolution of tools.
+                \item Focus on ``doing'' not ``explaining''.
+            \end{itemize}
+        \end{block}
+        
+        \begin{block}{Common questions}
+            \begin{itemize}
+                \item ``Which model should I use?''
+                \item ``Don't these things hallucinate?''
+                \item ``How do I get started?''
+                \item ``Is this worth the investment?''
+            \end{itemize}
+        \end{block}
+        
+        \column{0.48\textwidth}
+        \begin{block}{Rough plan}
+            \begin{itemize}
+                \item Three layers of AI tools framework.
+                \item Interactive demonstrations.
+                \item Research workflow integration.
+                \item Hands-on experience.
+                \item Concrete next steps.
+            \end{itemize}
+        \end{block}
+        
+        \begin{block}{Workshop format}
+            \begin{itemize}
+                \item 2 hours with tea break.
+                \item Multiple presenters.
+                \item Live demos preferred.
+                \item Questions encouraged.
+            \end{itemize}
+        \end{block}
+    \end{columns}
 \end{frame}
 
 \begin{frame}
-    \frametitle{Conclusions}
-    \framesubtitle{\tthref{github.com/handley-lab/group}}
-    \tikz[overlay,remember picture]
-        \node[anchor=north east] (A) at ($(current page.north east)+(0,0)$) {
-        \includegraphics[width=0.06\textheight]{people/adam_ormondroyd.jpg}%
-        \includegraphics[width=0.06\textheight]{people/charlotte_priestley.jpg}%
-        \includegraphics[width=0.06\textheight]{people/claude.jpg}%
-        \includegraphics[width=0.06\textheight]{people/david_yallup.jpg}%
-        \includegraphics[width=0.06\textheight]{people/dily_ong.jpg}%
-        \includegraphics[width=0.06\textheight]{people/gemini.jpg}%
-        \includegraphics[width=0.06\textheight]{people/harry_bevins.jpg}%
-        \includegraphics[width=0.06\textheight]{people/metha_prathaban.jpg}%
-        \includegraphics[width=0.06\textheight]{people/ming_yang.jpg}%
-        \includegraphics[width=0.06\textheight]{people/namu_kroupa.jpg}%
-        \includegraphics[width=0.06\textheight]{people/openai.jpg}%
-        \includegraphics[width=0.06\textheight]{people/sam_leeney.jpg}%
-        \includegraphics[width=0.06\textheight]{people/sinah_legner.jpg}%
-        \includegraphics[width=0.06\textheight]{people/toby_lovick.jpg}%
-        \includegraphics[width=0.06\textheight]{people/wei-ning_deng.jpg}%
-        \includegraphics[width=0.06\textheight]{people/will_handley.jpg}%
-        \includegraphics[width=0.06\textheight]{people/will_templeton.jpg}%
-    };
+    \frametitle{First things first}
+    If you've been busy, the past six months have seen a couple of inflection points
+    \vspace{0.5cm}
+    \begin{itemize}
+        \item \textbf{February 2025}: Models acquired many of the capabilities we prize in our PhD students
+            \begin{itemize}
+                \item Models: o3 series, Gemini 2.5, Claude 3.5 Sonnet.
+                \item Capabilities: Code development, mathematical reasoning, literature review, paper drafting, grant writing.
+            \end{itemize}
+        \item \textbf{May 2025}: Agentic systems launched commercially
+            \begin{itemize}
+                \item Tools: Claude Code, Cursor agent mode, Deep Research.
+                \item Capabilities: Writing test suites, assembling pip-installable codes, synthesising handwritten notes and TeX files, write/run/debug code in languages you don't know.
+            \end{itemize}
+        \item \textbf{The performance gap}: Free models lag significantly behind paid versions
+    \end{itemize}
+    
+    \vspace{0.5cm}
+    If your lived experience is typing a research question into free ChatGPT at the start of the year and finding it was rubbish, things have moved on
+\end{frame}
+
+\begin{frame}
+    \frametitle{On AI Hype}
+    \begin{columns}
+        \column{0.48\textwidth}
+        \begin{itemize}
+            \item These things are not ``intelligent'' in the way Silicon Valley wants you to believe (AGI is not just around the corner).
+            \item \emph{Caveat emptor}: It is very hard for a human to read language, and not reflexively construct a mind behind it.
+            \item You should not however think of them as mere ``next token predictors'':
+                \begin{itemize}
+                    \item The modern reinforcement learnt reasoning systems are significantly more than that.
+                    \item Agentic tools ground these in reality.
+                \end{itemize}
+        \end{itemize}
+        
+        \column{0.48\textwidth}
+        \begin{block}{A senior examiner's experiment}
+            \begin{itemize}
+                \item I got o3 to take the Part II exams.
+                \item Prompt on exam day: ``You are a first class Part II Cambridge astronomy student... here is the syllabus... here is the question, answer it''.
+                \item Toby Lovick transcribed answers onto written exam scripts.
+                \item Slipped them amongst real scripts and marked blind.
+                \item \textbf{Result}: Best student we've had across IoA history, even without coursework.
+            \end{itemize}
+        \end{block}
+    \end{columns}
+\end{frame}
+
+\begin{frame}
+    \frametitle{The AI landscape}
+    \centering
+    \begin{tabular}{l|c|c|c|}
+        \visible<3->{Under the hood} & 
+        \visible<3->{\includegraphics[valign=m, width=0.2\textwidth]{logos/microsoft}} & 
+        \visible<3->{\includegraphics[valign=m, width=0.2\textwidth]{logos/amazon}} & 
+        \visible<3->{\includegraphics[valign=m, width=0.2\textwidth]{logos/google}} \\[0.5cm]
+        
+        \visible<2->{Companies} & 
+        \visible<2->{\includegraphics[valign=m, width=0.2\textwidth]{logos/openai}} & 
+        \visible<2->{\includegraphics[valign=m, width=0.2\textwidth]{logos/anthropic}} & 
+        \visible<2->{\includegraphics[valign=m, width=0.2\textwidth]{logos/deepmind}} \\[0.5cm]
+        
+        \visible<1->{Models} & 
+        \visible<1->{\includegraphics[valign=m, width=0.2\textwidth]{figures/chatgpt.png}} & 
+        \visible<1->{\includegraphics[valign=m, width=0.2\textwidth]{figures/claude.pdf}} & 
+        \visible<1->{\includegraphics[valign=m, width=0.2\textwidth]{figures/gemini.pdf}}
+    \end{tabular}
+    
+    \vspace{1cm}
+    \visible<4->{
+        \textbf{Others exist:} Perplexity, Poe, Character.ai, You.com, Cohere, xAI, Llama...
+    }
+    
+    \vspace{0.5cm}
+    \visible<5->{
+        \textbf{But these are the three main pillars (July 2025).}
+    }
+\end{frame}
+
+\begin{frame}
+    \frametitle{Three layers of AI tools}
+    \framesubtitle{A framework for understanding the landscape}
+    \begin{block}{Layer 3: Agentic Systems}
+        \begin{columns}
+            \column{0.48\textwidth}
+            \begin{itemize}
+                \item Claude Code, cursor agent mode.
+                \item Custom workflows.
+            \end{itemize}
+            \column{0.48\textwidth}
+            \begin{itemize}
+                \item Autonomous task completion.
+                \item Steeper learning curve but transformative.
+            \end{itemize}
+        \end{columns}
+    \end{block}
+    
+    \begin{block}{Layer 2: Prompt Engineering}
+        \begin{columns}
+            \column{0.48\textwidth}
+            \begin{itemize}
+                \item ChatGPT, Claude, Gemini.
+                \item Web interfaces.
+            \end{itemize}
+            \column{0.48\textwidth}
+            \begin{itemize}
+                \item Interactive problem solving.
+                \item Good for exploration and learning.
+            \end{itemize}
+        \end{columns}
+    \end{block}
+    
+    \begin{block}{Layer 1: Autocomplete}
+        \begin{columns}
+            \column{0.48\textwidth}
+            \begin{itemize}
+                \item GitHub Copilot.
+                \item VS Code extensions.
+            \end{itemize}
+            \column{0.48\textwidth}
+            \begin{itemize}
+                \item Completes code as you type.
+                \item Minimal learning curve.
+            \end{itemize}
+        \end{columns}
+    \end{block}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Layer 1: Autocomplete}
+    \framesubtitle{Standard code-completion, but powered by AI}
+    
+    \begin{columns}
+        \column{0.6\textwidth}
+        \begin{block}{Core idea}
+            \begin{itemize}
+                \item AI-powered code-completion.
+                \item Trained on all of GitHub.
+                \item Context-aware suggestions.
+            \end{itemize}
+        \end{block}
+        
+        \begin{block}{Recommendation}
+            \begin{itemize}
+                \item GitHub Copilot (Pro subscription).
+                \item Free for university email holders.
+                \item \url{github.com/settings/education/benefits}.
+                \item Worth \$10/month.
+                \item Also available in Cursor.
+            \end{itemize}
+        \end{block}
+
+        \column{0.4\textwidth}
+        \includegraphics[width=\textwidth]{figures/copilot_screenshot.png}
+    \end{columns}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Layer 2: Prompt Engineering}
+    \framesubtitle{The usual chat versions}
+    
+    \begin{columns}
+        \column{0.3\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figures/chatgpt_screenshot.png}
+        
+        ChatGPT
+        
+        \url{chat.openai.com}
+        
+        \column{0.3\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figures/claude_screenshot.png}
+        
+        Claude
+        
+        \url{claude.ai}
+        
+        \column{0.3\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figures/gemini_screenshot.png}
+        
+        Gemini
+        
+        \url{gemini.google.com}
+    \end{columns}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Layer 2: Developer versions}
+    \framesubtitle{Use their developer level tools}
+    
+    \begin{columns}
+        \column{0.3\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figures/chatgpt_dev_screenshot.png}
+        
+        OpenAI Playground
+        
+        \url{platform.openai.com/playground}
+        
+        \column{0.3\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figures/claude_dev_screenshot.png}
+        
+        Claude Workbench
+        
+        \url{console.anthropic.com/workbench}
+        
+        \column{0.3\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figures/gemini_dev_screenshot.png}
+        
+        Google AI Studio
+        
+        \url{aistudio.google.com}
+    \end{columns}
+    
+    \vspace{0.3cm}
+    
+    \textbf{These should be your default as a scientist} -- if you're happy using a command line, you shouldn't be satisfied by an interface that looks like a child's toy.
+\end{frame}
+
+\begin{frame}
+    \frametitle{Layer 2: Prompt Engineering}
+    \framesubtitle{Use AI to improve AI}
+    \begin{columns}
+        \column{0.48\textwidth}
+        \begin{itemize}
+            \item Likely the layer of AI most familiar to you.
+            \item ``chatting''/conversation can be very powerful for naturally tuning the attention/context of the model.
+            \item For one shot work, a little prompt engineering goes a long way:
+                \begin{itemize}
+                    \item You can use these tools to improve prompts.
+                \end{itemize}
+        \end{itemize}
+        \column{0.48\textwidth}
+        \includegraphics<1>[width=\textwidth]{figures/prompt_demo1.png}%
+        \includegraphics<2>[width=\textwidth]{figures/prompt_demo2.png}
+    \end{columns}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Layer 2: Cost}
+    \framesubtitle{Pay as you use vs subscription models}
+    
+    \begin{columns}
+        \column{0.6\textwidth}
+        \begin{itemize}
+            \item Gemini is free to use (but you sign away your data to Google).
+            \item ChatGPT and Claude offer \$20/month subscriptions.
+            \item API access available: pay per token consumed:
+                \begin{itemize}
+                    \item \$0.0002-0.015 per 1000 tokens (roughly 750 words).
+                    \item Orders of magnitude cheaper for research use.
+                    \item Only pay for what you actually use.
+                \end{itemize}
+            \item Never buy yearly subscriptions - AI evolves too rapidly.
+            \item My group's preference: pay for API access via tokens.
+                \begin{itemize}
+                    \item Pay for what you use.
+                    \item Allows you to try out the latest models.
+                    \item API keys allow you to do all kinds of tricks at the command line.
+                \end{itemize}
+        \end{itemize}
+        
+        \column{0.4\textwidth}
+        \includegraphics[width=\textwidth]{figures/cost_demo1.png}
+        \includegraphics[width=\textwidth]{figures/cost_demo2.png}
+    \end{columns}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Layer 3: Agentic Systems}
+    \framesubtitle{Autonomous task completion - transformative but complex}
+    
+    \begin{columns}
+        \column{0.6\textwidth}
+        \begin{itemize}
+            \item Emerged commercially in April 2025.
+            \item If you get too skilled at prompt engineering, your job ends up being a copy-paste-run-debug monkey.
+            \item Agentic systems are what happens if you let ChatGPT edit files, run commands, and inspect the behaviour.
+            \item This closes the scientific loop.
+            \item Agentic systems are \textbf{grounded in reality}. They self-correct hallucinations by testing their hypotheses.
+            \item Claude Code (CLI), Cursor Agent mode, Gemini CLI.
+            \item Deep research also falls into this category (around for longer)
+            \item Goal-based vs task-based.
+        \end{itemize}
+        
+        \column{0.4\textwidth}
+        \includegraphics<1>[width=\textwidth]{figures/agentic_demo.png}%
+        \includegraphics<2>[width=\textwidth]{figures/agentic_demo2.png}%
+    \end{columns}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Layer 3: Agentic Systems Cost}
+    \framesubtitle{More expensive but potentially more valuable}
+    
+    \begin{itemize}
+        \item Significantly more expensive than prompt engineering.
+        \item Can consume hundreds of API calls per task.
+        \item For agentic systems, subscriptions \emph{are} cheaper than pay-per-token.
+        \item I was spending \$40/day on Claude Code with API tokens.
+        \item Subscription gives you about 2hr coding session per day for \$20/month/user.
+        \item Gemini CLI is ``free'' but risks going over free tier limit, and is less stable.
+        \item In July 2025, Claude Code best in class.
+        \item There are many further unknown costs of shifting your research toward ``vibe coding''.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Conclusions and Getting Started}
+    
+    \begin{columns}
+        \column{0.5\textwidth}
+        \begin{itemize}
+            \item Use developer-level tools, not consumer interfaces.
+            \item API access typically cheaper for research use.
+            \item Capturing and owning content is critical -- use Otter for transcription.
+            \item Export conversations and notes in formats that can be fed to LLMs.
+            \item Get into the habit of recording information in exportable forms.
+            \item Agentic systems are transformative but carry additional risks requiring careful consideration.
+        \end{itemize}
+        
+        \column{0.5\textwidth}
+        \begin{block}{To-do}
+            \begin{itemize}
+                \item Set up GitHub Copilot Pro (takes a couple of days to approve).
+                \item Try AI Studio rather than ChatGPT.
+                \item Get your PI to set up some tokens for your group to use (you only need ~O(\$10) to try it out).
+                \item Try Google Gemini's Deep Research \textbf{button}.
+                \item Test Claude Code/Gemini CLI for a month.
+            \end{itemize}
+        \end{block}
+    \end{columns}
 \end{frame}
 
 \end{document}
