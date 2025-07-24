@@ -31,4 +31,19 @@ This workshop builds on the February 2025 Part II/III student training session "
 [Previous slides](https://docs.google.com/presentation/d/1rnbk7WZUjMIAGBzkN6i8v0tEe1imiHprvL1ZOjs2B20)
 
  
-[[PDF](https://github.com/williamjameshandley/talks/raw/kicc_ai_tools_2025/will_handley_kicc_ai_tools_2025.pdf)] 
+## Files
+
+- **Core presentation**: [[PDF](https://github.com/williamjameshandley/talks/raw/kicc_ai_tools_2025/will_handley_kicc_ai_tools_2025.pdf)] 
+- **Extended version with additions**: [[PDF](https://github.com/williamjameshandley/talks/raw/kicc_ai_tools_2025/will_handley_with_additions_kicc_ai_tools_2025.pdf)]
+
+The extended version includes additional content from post-session discussions:
+- Miles' model comparison recommendations (lmarena.ai)
+- Claude Code & OpenAI Codex for development work
+- Cursor AI-first editor with agent mode
+- Boris' agentic tools section (HAL/USACO, SWE-bench)
+- RAG systems explanation with visual demonstrations
+- Large context windows (2M tokens for Gemini 2.5 Pro)
+- Contextmaker library for codebase-to-context conversion
+- DENARIO end-to-end paper writing system
+- Outlier physics training platform
+- Durham University vs Cambridge AI exam performance comparison
