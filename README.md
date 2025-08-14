@@ -35,6 +35,8 @@ This workshop builds on the February 2025 Part II/III student training session "
 
 - **Core presentation**: [[PDF](https://github.com/williamjameshandley/talks/raw/kicc_ai_tools_2025/will_handley_kicc_ai_tools_2025.pdf)] 
 - **Extended version with additions**: [[PDF](https://github.com/williamjameshandley/talks/raw/kicc_ai_tools_2025/will_handley_with_additions_kicc_ai_tools_2025.pdf)]
+- **Session transcript, audio and screenshots**: [Otter.ai recording](https://otter.ai/u/_vjee8a8H54IoUtQOYQrX9kjiTI)
+- **February 2025 student session**: [Google Slides](https://www.docs.google.com/presentation/d/1rnbk7WZUjMIAGBzkN6i8v0tEe1imiHprvL1ZOjs2B20)
 
 The extended version includes additional content from post-session discussions:
 - Miles' model comparison recommendations (lmarena.ai)
