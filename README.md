@@ -1,8 +1,13 @@
-# GPU Accelerated Nested Sampling
+# Next-Generation Model Comparison for Primordial Cosmology
 
 ## Abstract
 
-Nested Sampling is a Monte Carlo method that performs parameter estimation and model comparison robustly for a variety of high dimensional and complicated distributions. It has seen widespread usage in the physical sciences, however in recent years increasingly it is viewed as part of a legacy code base, with GPU native paradigms such as neural simulation based inference coming to the fore. In this work we demonstrate that we can effectively reformulate Nested Sampling to a form that is highly amenable to modern GPU hardware, taking unique advantage of vectorization opportunities to accelerate numerical inference to state of the art levels. We provide a public implementation of this code, distributed via the blackjax statistical framework, which allows direct comparison with other well-established statistical methods such as Hamiltonian Monte Carlo and Sequential Monte Carlo, and in this contribution will explore its application to a number of inference problems such as Gravitational Wave parameter estimation and CMB cosmology.
+A new paradigm is emerging in computational cosmology, shifting from legacy CPU-bound codes to unified, GPU-native ecosystems. Our work is at the forefront of this transition, aimed at one of the key challenges in the field: performing robust Bayesian model selection to test the limits of the ΛCDM model with CMB data.
+
+We have developed a complete inference pipeline in `jax`, integrating a novel Boltzmann solver with a vectorized Nested Sampling algorithm. The construction of this pipeline, a task of significant numerical complexity, was accelerated through the use of AI agentic systems for code generation in our group. By unifying the physics simulation and statistical inference on the GPU, we can efficiently explore high-dimensional parameter spaces and accurately compute the Bayesian evidence.
+
+I will present the first results from this framework, focusing on its application to key questions in primordial cosmology, such as the physics of inflation and the nature of dark energy. The performance gains demonstrated will be crucial for fully exploiting upcoming datasets from next-generation CMB experiments, and I look forward to exploring opportunities for joint projects.
+
 
  
-[[PDF](https://github.com/williamjameshandley/talks/raw/ini_2025/will_handley_ini_2025.pdf)] 
+[[PDF](https://github.com/williamjameshandley/talks/raw/lmu_2025/will_handley_lmu_2025.pdf)] 

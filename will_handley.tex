@@ -16,8 +16,8 @@
 
 % Talk details
 % ------------
-\title{GPU Accelerated Nested Sampling}
-\date{27$^{\text{th}}$ June 2025}
+\title{Next-Generation Model Comparison for Primordial Cosmology}
+\date{LMU-Cambridge Partnership 2025}
 
 \begin{document}
 
@@ -26,371 +26,139 @@
 \end{frame}
 
 \begin{frame}
-    \frametitle{A Case Study in Astrostatistics}
+    \frametitle{Beginning the golden age of astronomy data}
     \begin{columns}
-        \column{0.48\textwidth}
-        \vspace{-10pt}
-        \begin{block}{The Challenge: GW170817}
-            \begin{itemize}
-                \item \textbf{Gravitational wave detected}: Binary neutron star merger
-                \item \textbf{Real-time parameter estimation}: 15+ dimensional space
-                \item \textbf{Sky localization}: $\sim 30$ deg$^2$ uncertainty
-                \item \textbf{EM counterpart follow-up}: Telescopes need targets within seconds to minutes
-            \end{itemize}
-        \end{block}
-        \begin{block}{Statistical Requirements}
-            \begin{itemize}
-                \item \textbf{Parameter estimation}: Masses, spins, distance, sky position
-                \item \textbf{Model comparison}: Signal vs noise, waveform models
-            \end{itemize}
-        \end{block}
-        \column{0.48\textwidth}
-        \includegraphics[height=0.49\textwidth]{figures/ligo_m1_m2}
-        \includegraphics[height=0.49\textwidth]{figures/ligo_lambert-skymap}
-        \begin{block}{The Broader Astrostatistics Context}
-            \begin{itemize}
-                \item \textbf{High-dimensional}: $d \sim 10^2$--$10^3$
-                \item \textbf{Multimodal}: Competing physical models
-                \item \textbf{Expensive likelihoods}: Complex sims
-                \item \textbf{Model selection critical}: Which physics?
-            \end{itemize}
-        \end{block}
-    \end{columns}
-\end{frame}
-
-\begin{frame}
-    \frametitle{The Bayesian Inference Challenge}
-    \begin{columns}
-        \column{0.48\textwidth}
-        \begin{block}{Parameter Estimation $P(\theta|D,M)$}
-            \begin{itemize}
-                \item Posterior: $\mathcal{P}(\theta|D) \propto \mathcal{L}(D|\theta) \pi(\theta)$
-                \item Need samples from $\mathcal{P}(\theta|D)$
-                \item Standard approach: MCMC methods
-                \item Well-solved problem in many cases
-            \end{itemize}
-        \end{block}
-        \begin{block}{Model Comparison $P(M|D)$}
-            \begin{itemize}
-                \item $\mathcal{Z} = \mathcal{P}(D|M) = \int \mathcal{L}(D|\theta) \pi(\theta) d\theta$
-                \item Evidence/marginal likelihood/Bayes factor
-                \item \textbf{Much harder to compute}
-                \item MCMC doesn't estimate $\mathcal{Z}$ directly
-            \end{itemize}
-        \end{block}
-        \column{0.48\textwidth}
-        \begin{block}{Challenges for Modern Science}
-            \begin{itemize}
-                \item \textbf{High dimensions}: $d \sim 10^2$--$10^3$
-                \item \textbf{Natural, relevant multimodality}: Multiple acceptable answers need investigation
-                \item \textbf{Computational cost}: Complex forward models
-                \item \textbf{Model selection}: Which physics to include?
-            \end{itemize}
-        \end{block}
-        \begin{center}
-            \textbf{Key Insight:}\\
-            Need methods that compute \emph{both} \\
-            posterior samples \emph{and} evidence
-        \end{center}
-    \end{columns}
-\end{frame}
-
-\begin{frame}
-    \frametitle{Sampling Methods for Bayesian Inference}
-    \begin{columns}
-        \column{0.65\textwidth}
-        \begin{block}{Single-Chain MCMC}
-            \begin{itemize}
-                \item \textbf{Metropolis-Hastings}: Simple, widely used (PyMC)
-                \item \textbf{HMC/NUTS}: Gradient-based, efficient (Stan, BlackJAX)
-                \item Fast for unimodal well-conditioned problems, no evidence
-            \end{itemize}
-        \end{block}
-        \begin{block}{Ensemble Methods}
-            \begin{itemize}
-                \item \textbf{Affine-invariant}: emcee, zeus
-                \item \textbf{Sequential Monte Carlo}: Tempering, annealing
-                \item can struggle with multimodality, some estimate evidence
-            \end{itemize}
-        \end{block}
-        \column{0.35\textwidth}
-        \begin{columns}
-            \column{0.5\textwidth}
-        \includegraphics[width=\textwidth]{figures/emcee}
-        \includegraphics[width=\textwidth]{figures/metropolis-hastings}
-            \column{0.5\textwidth}
-        \includegraphics[width=\textwidth]{figures/zeus}
-        \end{columns}
-        \includegraphics[width=\textwidth]{figures/hmc_explained}
-        \vspace{-20pt}
-        \begin{center}
-            \textbf{Nested sampling}: \\
-            Unique in targeting 
-            evidence computation directly
-        \end{center}
-    \end{columns}
-\end{frame}
-
-\begin{frame}
-    \begin{columns}
-        \column{0.48\textwidth}
-        \begin{block}{\textbf{MCMC}}
-            \only<16>{
-                \begin{itemize}
-                    \item Single ``walker''
-                    \item Explores posterior
-                    \item Fast, if proposal matrix is tuned
-                    \item Parameter estimation
-                    \item Channel capacity optimised for generating posterior samples
-                \end{itemize}
-            }
-        \end{block}
-            \includegraphics<1>[width=\textwidth,page=1]{figures/himmelblau_mcmc}%
-            \includegraphics<2>[width=\textwidth,page=2]{figures/himmelblau_mcmc}%
-            \includegraphics<3>[width=\textwidth,page=3]{figures/himmelblau_mcmc}%
-            \includegraphics<4>[width=\textwidth,page=4]{figures/himmelblau_mcmc}%
-            \includegraphics<5>[width=\textwidth,page=5]{figures/himmelblau_mcmc}%
-            \includegraphics<6-15>[width=\textwidth,page=9]{figures/himmelblau_mcmc}%
-        \centerline{\includegraphics<16>[width=0.5\textwidth,page=9]{figures/himmelblau_mcmc}}%
-        \column{0.48\textwidth}
-        \begin{block}<7->{\textbf{Nested sampling}}
-            \only<16>{
-                \begin{itemize}
-                    \item Ensemble of ``live points''
-                    \item Scans from prior to peak of likelihood
-                    \item Slower, no tuning required
-                    \item Parameter estimation, model comparison
-                    \item Channel capacity optimised for computing partition function
-                \end{itemize}
-            }
-        \end{block}
-            \includegraphics<7|handout:0>[width=\textwidth,page=1]{figures/himmelblau_ns}%
-            \includegraphics<8|handout:0>[width=\textwidth,page=2]{figures/himmelblau_ns}%
-            \includegraphics<9|handout:0>[width=\textwidth,page=3]{figures/himmelblau_ns}%
-            \includegraphics<10          >[width=\textwidth,page=4]{figures/himmelblau_ns}%
-            \includegraphics<11|handout:0>[width=\textwidth,page=5]{figures/himmelblau_ns}%
-            \includegraphics<12|handout:0>[width=\textwidth,page=6]{figures/himmelblau_ns}%
-            \includegraphics<13|handout:0>[width=\textwidth,page=7]{figures/himmelblau_ns}%
-            \includegraphics<14|handout:0>[width=\textwidth,page=8]{figures/himmelblau_ns}%
-            \includegraphics<15|handout:0>[width=\textwidth,page=8]{figures/himmelblau_ns}%
-        \centerline{\includegraphics<16>[width=0.5\textwidth,page=4]{figures/himmelblau_ns}} %
-    \end{columns}
-\end{frame}
-
-\begin{frame}
-    \frametitle{The nested sampling meta-algorithm: live points}
-    \begin{columns}
-        \column{0.5\textwidth}
+        \column{0.47\textwidth}
         \begin{itemize}
-            \item Start with $n$ random samples over the space.
-            \item Delete outermost sample, and replace with a new random one at higher integrand value.
-            \item The ``live points'' steadily contract around the peak(s) of the function.
-            \item We can use this evolution to estimate volume \emph{probabilistically}.
-            \item At each iteration, the contours contract by $\sim\frac{1}{n}\only<5->{\pm \frac{1}{n}}$ of their volume.
-            \item This is an exponential contraction, so
-                \[  \int f(x) dV \approx \sum_i f(x_i) \Delta V_i, \quad V_i = V_0 e^{-\only<5->{(}i\only<5->{\pm\sqrt{i})}/n} \]
+            \item Over our research lifetimes we will see next-generation data rates across the electromagnetic spectrum \& beyond:
+                \begin{description}
+                    \item[Radio] SKA \textit{et al}
+                    \item[Micro] SO/CMB-S4/LiteBIRD
+                    \item[IR] JWST, Roman
+                    \item[Optical] Euclid, DESI, Rubin, EELT
+                    \item[X-ray] Athena
+                    \item[Gamma-ray] e-ASTROGAM
+                    \item[Gravitational] LIGO/LVK$^+$/LISA
+                    \item[Particle] CTA, IceCube, KM3NeT
+                \end{description}
         \end{itemize}
-        \column{0.5\textwidth}
-        \includegraphics<1|handout:0>[width=\textwidth,page=1]{figures/himmelblau_ns}%
-        \includegraphics<2|handout:0>[width=\textwidth,page=2]{figures/himmelblau_ns}%
-        \includegraphics<3|handout:0>[width=\textwidth,page=3]{figures/himmelblau_ns}%
-        \includegraphics<4-         >[width=\textwidth,page=4]{figures/himmelblau_ns}%
-    \end{columns}
-\end{frame}
+        \column{0.55\textwidth}
 
-\begin{frame}
-    \frametitle{The nested sampling meta-algorithm: dead points}
-    \includegraphics[width=\textwidth]{figures/dead_measure}
-    \begin{columns}
-        \column{0.7\textwidth}
+        \includegraphics[height=0.145\textwidth]{figures/telescopes/jwst.png}%
+        \includegraphics[height=0.145\textwidth]{figures/telescopes/roman.jpg}%
+        \includegraphics[height=0.145\textwidth]{figures/telescopes/euclid.jpeg}%
+        \includegraphics[height=0.145\textwidth]{figures/telescopes/athena.jpg}%
+        \includegraphics[height=0.145\textwidth]{figures/telescopes/lisa.jpg}%
+        \includegraphics[height=0.145\textwidth]{figures/telescopes/e-ASTROGAM.pdf}%
+        \vspace{-1pt}
+
+        \includegraphics[height=0.15183\textwidth]{figures/telescopes/desi.jpg}%
+        \includegraphics[height=0.15183\textwidth]{figures/telescopes/eelt.jpg}%
+        \includegraphics[height=0.15183\textwidth]{figures/telescopes/ska.jpg}%
+        \includegraphics[height=0.15183\textwidth]{figures/telescopes/SO.jpg}%
+        \vspace{-1pt}
+
+        \includegraphics[height=0.18428\textwidth]{figures/telescopes/ligo.jpg}%
+        \includegraphics[height=0.18428\textwidth]{figures/telescopes/km3n.jpg}%
+        \includegraphics[height=0.18428\textwidth]{figures/telescopes/icecube.jpg}%
+        \includegraphics[height=0.18428\textwidth]{figures/telescopes/CTA.jpg}%
+
         \begin{itemize}
-            \item At the end, left with a set of discarded ``dead points''.
-            \item Dead points have a unique scale-invariant distribution $\propto\: \tfrac{dV}{V}$.
-            \item Each dead point gets a \textbf{posterior weight}: $w_i = \mathcal{L}_i \Delta V_i$
+            \item This ever-increasing statistical weight will mean true accuracy demands rigorous attention to systematics.
+            \item This applies to all of cosmology, astrophysics, particle physics and beyond.
         \end{itemize}
-        \column{0.3\textwidth}
-        \begin{block}{Key Output}
-        \begin{itemize}
-            \item \textbf{Posterior samples} $\theta_i$ weight~$w_i=\mathcal{L}_i \Delta V_i$
-            \item \textbf{Evidence} $\mathcal{Z} = \sum_i w_i$
-        \end{itemize}
-        \end{block}
+
     \end{columns}
 \end{frame}
 
 \begin{frame}
-    \frametitle{Nested Sampling as Partition Function Calculator $\log \mathcal{Z}(\beta)$}
+    \frametitle{GPU Computing: Beyond Machine Learning}
     \begin{columns}
         \column{0.48\textwidth}
-        \begin{block}{The Key Insight}
+        \begin{block}{GPU Architecture Advantages}
             \begin{itemize}
-                \item Nested sampling directly estimates the \textbf{density of states}:
-                    \[ g(\mathcal{L}) = \int \delta(\mathcal{L}(\theta) - \mathcal{L}) \pi(\theta) d\theta \]
-                \item This is the \textbf{partition function} at inverse temperature $\beta$:
-                    \[ \mathcal{Z}(\beta) = \int g(\mathcal{L}) \mathcal{L}^{\beta} d\mathcal{L} \]
-                \item Evidence is special case: $\mathcal{Z} = \mathcal{Z}(\beta=1)$
-                \item \textbf{In practice}: $\mathcal{Z}(\beta) \approx \sum_i \mathcal{L}_i^\beta \Delta V_i$
-            \end{itemize}
-        \end{block}
-        \column{0.48\textwidth}
-        \begin{block}{Statistical Physics Connection}
-            \begin{itemize}
-                \item \textbf{Canonical ensemble}: $p(\theta|\beta) \propto \mathcal{L}(\theta)^\beta \pi(\theta)$
-                \item \textbf{Free energy}: $\beta F = -\log \mathcal{Z}$
-                \item \textbf{Internal energy}: $U = -\frac{\partial \log \mathcal{Z}}{\partial \beta}$
-                \item \textbf{Heat capacity}: $C = \frac{\partial U}{\partial \beta}$
-            \end{itemize}
-        \end{block}
-        \vspace{10pt}
-        \begin{center}
-            \textbf{Nested sampling provides the fundamental thermodynamic quantities}\\
-            for any probabilistic model
-        \end{center}
-    \end{columns}
-\end{frame}
-
-\begin{frame}
-    \frametitle{Why GPUs? The Future of High-Performance Computing}
-    \begin{columns}
-        \column{0.48\textwidth}
-        \begin{block}{GPU Advantages (Often Confused!)}
-            \begin{itemize}
-                \item \textbf{Massive Parallelization}:
+                \item \textbf{Parallel Processing}:
                     \begin{itemize}
                         \item 1000s of cores vs 10s on CPU
-                        \item Perfect for ensemble algorithms
+                        \item Suitable for ensemble algorithms
                         \item Vectorization across particles/chains
                         \item Independent likelihood evaluations
                     \end{itemize}
-                \item \textbf{Automatic Differentiation}:
+                \item \textbf{Memory Bandwidth}:
                     \begin{itemize}
-                        \item GPU-accelerated gradients ``for free''
-                        \item JAX/PyTorch ecosystem make this possible
-                        \item Essential for modern optimization
+                        \item GPU memory: $\sim$1 TB/s
+                        \item CPU memory: $\sim$100 GB/s
+                        \item 10× advantage for data-intensive computation
                     \end{itemize}
             \end{itemize}
         \end{block}
         \column{0.48\textwidth}
-        \begin{block}{The HPC Reality}
+        \begin{block}{HPC Landscape Evolution}
             \begin{itemize}
-                \item \textbf{Future HPC is GPU dominated}:
-                \item \textbf{Legacy CPU codes becoming obsolete}
+                \item HPC transitioning to GPU-based architectures
+                \item ML adoption accelerating hardware development
+                \item Legacy CPU codes require modernization
+                \item Exascale systems: Aurora, Frontier, El Capitan
+                \item GPU accelerators becoming standard in HPC
             \end{itemize}
         \end{block}
-        \begin{block}{Apples-to-Apples comparison}
-            \begin{itemize}
-                \item Quantifying GPU advantage
-                    \begin{itemize}
-                        \item GPUs ~40× more expensive to rent
-                        \item GPUs ~100× rarer in HPC allocations
-                    \end{itemize}
-                \item Sometimes you don't care about walltime.
-            \end{itemize}
-        \end{block}
-    \end{columns}
-\end{frame}
-
-\begin{frame}
-    \frametitle{Why BlackJAX? Unified GPU Framework for Bayesian Inference}
-    \begin{columns}
-        \column{0.48\textwidth}
-        \begin{block}{The Fragmentation Problem}
-            \begin{itemize}
-                \item \textbf{Scattered ecosystem}:
-                    \texttt{MultiNest}, \texttt{PolyChord}, \texttt{dynesty}, \texttt{UltraNest}, \texttt{nautilus}, \texttt{nessai}, \ldots
-            \end{itemize}
-        \end{block}
-        \begin{block}{BlackJAX Solution}
-            \begin{itemize}
-                \item \textbf{Community JAX codebase}
-                \item \textbf{Fair benchmarking} with identical GPU infrastructure
-                \item \textbf{Composable algorithms} with shared components
-                \item \textbf{Modern ML ecosystem integration}
-            \end{itemize}
-        \end{block}
-        \column{0.48\textwidth}
-        \begin{block}{Algorithm-Hardware Matching}
-            \begin{itemize}
-                \item \textbf{Ensemble methods $\leftrightarrow$ GPU parallelization}:
-                    \begin{itemize}
-                        \item Nested sampling: 100-1000 live points
-                        \item SMC: 1000s of particles
-                        \item Embarrassingly parallel operations
-                    \end{itemize}
-                \item \textbf{Scientific problems are compute-bound}:
-                    \begin{itemize}
-                        \item Unlike ultra-large DL models
-                        \item GPU memory rarely limiting
-                        \item Perfect match for vectorization
-                    \end{itemize}
-            \end{itemize}
-        \end{block}
-    \end{columns}
-\end{frame}
-
-\begin{frame}
-    \frametitle{BlackJAX Nested Sampling: Kernel Choice}
-    \student{david_yallup}{David Yallup}{PDRA}
-    \begin{columns}
-        \column{0.5\textwidth}
-        \begin{block}{Nested Sampling Meta-Algorithm}
-            \begin{itemize}
-                \item \textbf{Framework is kernel-agnostic}:
-                    \begin{itemize}
-                        \item Original: Metropolis Hastings (Skilling 2006)
-                        \item MultiNest: rejection ellipsoids
-                        \item PolyChord: slice sampling
-                        \item nessai/nautilus: ML techniques
-                    \end{itemize}
-            \end{itemize}
-        \end{block}
-        \begin{block}{Our Choice: Slice Sampling}
-            \begin{itemize}
-                \item \textbf{First scalable generic solution} in BlackJAX
-                \item \textbf{No tuning required} (unlike MCMC proposal matrices)
-                \item \textbf{Robust across dimensions} \& problem types
-            \end{itemize}
-        \end{block}
-        \column{0.5\textwidth}
-        \vspace{7pt}   
-        \includegraphics[width=\textwidth,page=4]{figures/himmelblau_ns}
-    \end{columns}
-\end{frame}
-
-\begin{frame}
-    \frametitle{GW150914 Binary Black Hole Merger}
-    \student{metha_prathaban}{Metha Prathaban}{PhD}
-    \begin{columns}
-        \column{0.5\textwidth}
-        \begin{block}{Performance on Real Data}
-            \begin{itemize}
-                \item \textbf{BlackJAX GPU-NS}: 207 seconds (1 GPU)
-                \item \textbf{FlowMC (GPU MCMC)}: 742 seconds (1 GPU)
-                \item \textbf{Bilby/Dynesty}: ~2 hours (400 CPUs)
-            \end{itemize}
+        \begin{block}{Key Point}
             \begin{center}
-                \textbf{Orders of magnitude speedup over CPU}\\
-                \textbf{Comparable to other GPU-native methods}
+                \textbf{GPU capabilities extend beyond ML}\\
+                Parallel compute architecture for diverse algorithms
             \end{center}
-            \vspace{5pt}
         \end{block}
-        \begin{block}{Key Achievement}
-            \begin{itemize}
-                \item Nested sampling now competitive on GPUs
-                \item Direct evidence computation included
-            \end{itemize}
-        \end{block}
-        \column{0.5\textwidth}
-        \includegraphics[width=\textwidth]{figures/gw_corner.pdf}
-        \vspace{5pt}
-        \begin{center}
-            \small{Good agreement between BlackJAX\\and FlowMC posteriors}
-        \end{center}
     \end{columns}
 \end{frame}
 
 \begin{frame}
-    \frametitle{CMB \& Cosmic Shear Analysis}
+    \frametitle{Modern Languages: Two Independent Capabilities}
+    \begin{columns}
+        \column{0.48\textwidth}
+        \begin{block}{Capability 1: Automatic Differentiation}
+            \begin{itemize}
+                \item \textbf{Gradients ``for free''}: $\nabla_\theta \log \mathcal{L}(\theta)$
+                \item Enables gradient-based MCMC (HMC, NUTS)
+                \item Forward-mode, reverse-mode AD
+                \item Essential for modern optimization
+                \item \textbf{Example}: $\mathcal{O}(1)$ gradient computation regardless of parameter dimensionality
+            \end{itemize}
+        \end{block}
+        \begin{block}{Capability 2: Massive Parallelization}
+            \begin{itemize}
+                \item \textbf{Vectorization across ensembles}
+                \item JAX: \texttt{vmap}, \texttt{pmap} primitives
+                \item PyTorch: \texttt{torch.vmap}
+                \item Julia: Native array broadcasting
+                \item \textbf{Example}: 1000 parallel chains/particles
+            \end{itemize}
+        \end{block}
+        \column{0.48\textwidth}
+        \begin{block}{Key Insight: Often Confused!}
+            \begin{center}
+                \textbf{These are completely independent!}\\
+                \vspace{5pt}
+                \textbf{People mistake one for the other}\\
+                \vspace{10pt}
+                You can use gradients on CPU\\
+                You can parallelize without gradients\\
+                \vspace{5pt}
+                \textbf{Usually you only need one}
+            \end{center}
+        \end{block}
+        \begin{block}{Traditional Physics Benefits}
+            \begin{itemize}
+                \item \textbf{Nested sampling}: Massive parallelization
+                \item \textbf{Boltzmann solvers}: Vectorized across $k$-modes
+                \item \textbf{N-body sims}: GPU acceleration
+                \item \textbf{No ML required}: Classical algorithms win
+            \end{itemize}
+        \end{block}
+    \end{columns}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Classical Algorithms on GPU Beat the ML Gold Rush}
     \student{toby_lovick}{Toby Lovick}{PhD}
     \begin{columns}
         \column{0.55\textwidth}
@@ -414,112 +182,141 @@
                 \textbf{10× speedup vs existing GPU approach}\arxiv{2405.12965}
             \end{center}
         \end{block}
-        \column{0.45\textwidth}
         \includegraphics<1>[width=\textwidth]{figures/wl_corner.pdf}%
         \includegraphics<2>[width=\textwidth]{figures/wl_scaling.pdf}
+        \vspace{10pt}
+        \begin{block}{Key Insight: Classical > ML Gold Rush}
+            \begin{itemize}
+                \item \textbf{No machine learning}: Pure nested sampling
+                \item \textbf{Statistical guarantees}: Proper uncertainties + evidence
+                \item \textbf{Factor in training costs}: ML often slower end-to-end
+                \item \textbf{Transparent algorithms}: No black boxes
+            \end{itemize}
+        \end{block}
     \end{columns}
 \end{frame}
 
 \begin{frame}
-    \frametitle{The Real AI Revolution: LLMs as the Missing Piece}
+    \frametitle{AI-Accelerated Development: The Only Way Forward}
     \begin{columns}
         \column{0.48\textwidth}
-        \begin{block}{LLMs: The GPU Code Translator}
+        \begin{block}{The GPU Porting Challenge}
             \begin{itemize}
-                \item Automated translation: Fortran/C++ $\rightarrow$ JAX/PyTorch
-                \item Bridges the gap between legacy science and modern hardware
+                \item \textbf{Massive undertaking}: Legacy CPU $\rightarrow$ GPU-native
+                \item \textbf{Algorithmic complexity}: Vectorization, memory management
+                \item \textbf{Language barriers}: Fortran/C++ $\rightarrow$ JAX/PyTorch
+                \item \textbf{Scale problem}: Decades of scientific code
             \end{itemize}
         \end{block}
-        \begin{block}{The 80/20 Rule of Scientific Work}
+        \begin{block}{AI as Development Accelerator}
             \begin{itemize}
-                \item \textbf{80\% ``boring'' tasks}: forms, papers, grants, reviews, grading, code writing\ldots
-                \item \textbf{20\% hard thinking}: Novel insights, experimental design, theory
-                \item \textbf{AI's biggest impact}: Automating the 80\%, not the 20\%
+                \item \textbf{Code generation}: Automated translation
+                \item \textbf{Debugging assistance}: Error analysis and fixes
+                \item \textbf{Optimization guidance}: Performance bottleneck identification
+                \item \textbf{Documentation}: Auto-generated comments and docs
             \end{itemize}
         \end{block}
         \column{0.48\textwidth}
-        \begin{block}{Beyond Scientific Analysis}
+        \begin{block}{Our Group's Wholehearted Embrace}
             \begin{itemize}
-                \item \textbf{Common focus}: Using LLMs for analysis
-                \item \textbf{Real transformation}: Automating workflow
-                \item \textbf{Already happening}:
-                    \begin{itemize}
-                        \item Grant writing assistance
-                        \item Paper drafting and review
-                        \item Code generation and debugging
-                        \item Literature review automation
-                    \end{itemize}
+                \item \textbf{AI-first development}: Every project uses LLM assistance
+                \item \textbf{Code review loops}: AI + human verification
+                \item \textbf{Rapid prototyping}: Ideas to GPU code in hours
+                \item \textbf{Quality control}: Human oversight remains critical
             \end{itemize}
         \end{block}
-        \begin{block}{The Productivity Explosion}
+        \begin{block}{The Productivity Reality}
             \begin{itemize}
-                \item \textbf{Quality control}: Becomes the limiting factor
-                \item \textbf{Focus shift}: writing $\rightarrow$ critical thinking
+                \item \textbf{10× development speedup}: Personal experience
+                \item \textbf{Focus shift}: Writing code $\rightarrow$ algorithm design
+                \item \textbf{Democratization}: GPU programming accessible to all
             \end{itemize}
         \end{block}
     \end{columns}
 \end{frame}
 
 \begin{frame}
-    \frametitle{Resources}
-    \begin{itemize}
-        \item \textbf{Installation}: \texttt{pip install git+https://github.com/handley-lab/blackjax}
-        \item \textbf{Documentation}: \tthref{handley-lab.co.uk/nested-sampling-book}
-    \end{itemize}
+    \frametitle{Cambridge-LMU Synergies: Enabling Cross-Correlation Science}
     \begin{columns}
         \column{0.48\textwidth}
-        \begin{block}{BlackJAX Implementation}
+        \begin{block}{Cambridge Strengths}
             \begin{itemize}
-                \item \textbf{BlackJAX}: \github{handley-lab/blackjax}
-                \item \textbf{Nested sampling}: In PR to \github{blackjax-devs/blackjax} \#755
+                \item \textbf{CMB expertise}: Planck, SO, CMB-S4
+                \item \textbf{Nested sampling}: PolyChord, BlackJAX-NS
+                \item \textbf{GPU infrastructure}: Wilkes-3, Dawn
+                \item \textbf{Bayesian inference}: Model comparison, evidence
             \end{itemize}
         \end{block}
-        \begin{block}{Theory \& Background}
+        \begin{block}{LMU Munich Strengths}
             \begin{itemize}
-                \item \textbf{Review papers}: \arxiv{2205.15570}, \arxiv{2101.09675}
-                \item \textbf{Original paper}: \citehref{https://projecteuclid.org/journals/bayesian-analysis/volume-1/issue-4/Nested-sampling-for-general-Bayesian-computation/10.1214/06-BA127.full}{}{Skilling (2006)}
+                \item \textbf{Galaxy surveys}: DESI, Euclid expertise
+                \item \textbf{Large-scale structure}: N-body simulations
+                \item \textbf{Theoretical cosmology}: World-leading group
+                \item \textbf{Cross-correlation analysis}: CMB + LSS
             \end{itemize}
         \end{block}
         \column{0.48\textwidth}
-        \begin{block}{Workshop \& Learning}
+        \begin{block}{Our GPU Framework Enables}
             \begin{itemize}
-                \item \textbf{GPU Nested Sampling Workshop}: \tthref{github.com/handley-lab/workshop}
-                \item \textbf{Interactive tutorials}: JAX, BlackJAX, GPU acceleration
+                \item \textbf{Joint CMB + galaxy analysis}: Unified inference
+                \item \textbf{Cross-correlation studies}: Real-time computation
+                \item \textbf{Parameter estimation}: High-dimensional spaces
+                \item \textbf{Model comparison}: Evidence-based selection
             \end{itemize}
+        \end{block}
+        \begin{block}{Perfect Partnership Match}
+            \begin{center}
+                \textbf{Cambridge CMB + LMU Galaxy Surveys}\\
+                \textbf{$+$ GPU-Native Inference Pipeline}\\
+                \vspace{5pt}
+                = \textbf{Next-generation cosmological constraints}
+            \end{center}
         \end{block}
     \end{columns}
 \end{frame}
 
 \begin{frame}
-    \frametitle{Conclusions}
-    \framesubtitle{\tthref{github.com/handley-lab/group}}
-    \tikz[overlay,remember picture]
-        \node[anchor=north east] (A) at ($(current page.north east)+(0,0)$) {
-        \includegraphics[width=0.09\textheight]{people/adam_ormondroyd.jpg}%
-        \includegraphics[width=0.09\textheight]{people/charlotte_priestley.jpg}%
-        \includegraphics[width=0.09\textheight]{people/david_yallup.jpg}%
-        \includegraphics[width=0.09\textheight]{people/dily_ong.jpg}%
-        \includegraphics[width=0.09\textheight]{people/harry_bevins.jpg}%
-        \includegraphics[width=0.09\textheight]{people/harvey_williams.jpg}%
-        \includegraphics[width=0.09\textheight]{people/krish_nanavati.jpg}%
-        \includegraphics[width=0.09\textheight]{people/metha_prathaban.jpg}%
-        \includegraphics[width=0.09\textheight]{people/ming_yang.jpg}%
-        \includegraphics[width=0.09\textheight]{people/namu_kroupa.jpg}%
-        \includegraphics[width=0.09\textheight]{people/sam_leeney.jpg}%
-        \includegraphics[width=0.09\textheight]{people/sinah_legner.jpg}%
-        \includegraphics[width=0.09\textheight]{people/toby_lovick.jpg}%
-        \includegraphics[width=0.09\textheight]{people/wei-ning_deng.jpg}%
-        \includegraphics[width=0.09\textheight]{people/will_handley.jpg}%
-        \includegraphics[width=0.09\textheight]{people/will_templeton.jpg}%
-    };
-    \vspace{-0.1\textheight}
-    \begin{itemize}
-        \item \textbf{Nested sampling is widely used} across physical sciences for parameter estimation and model comparison
-        \item \textbf{BlackJAX provides GPU-native implementation} with $10\times$-$100\times$ speedups
-        \item \textbf{JAX ecosystem integration} enables modern scientific workflows
-        \item \textbf{Real applications} from gravitational waves to cosmology benefit immediately
-        \item \textbf{The future is GPU-accelerated} scientific computing with AI integration
-    \end{itemize}
+    \frametitle{Collaboration Opportunities: What Becomes Possible}
+    \begin{columns}
+        \column{0.48\textwidth}
+        \begin{block}{Next-Generation Experiments}
+            \begin{itemize}
+                \item \textbf{CMB-S4}: $\mu$K-level precision CMB
+                \item \textbf{Euclid}: Billion galaxy weak lensing
+                \item \textbf{LSST}: Deep field multi-wavelength
+                \item \textbf{SO}: Intermediate-scale CMB
+            \end{itemize}
+        \end{block}
+        \begin{block}{What Our Framework Enables}
+            \begin{itemize}
+                \item \textbf{Real-time analysis}: Results during observation
+                \item \textbf{Joint constraints}: Unified multi-probe inference
+                \item \textbf{Model exploration}: Test exotic physics
+                \item \textbf{Tension resolution}: Evidence-based comparison
+            \end{itemize}
+        \end{block}
+        \column{0.48\textwidth}
+        \begin{block}{Specific Joint Projects}
+            \begin{itemize}
+                \item \textbf{Cross-correlation pipeline}: CMB × galaxy clustering
+                \item \textbf{Primordial physics}: Inflation model comparison
+                \item \textbf{Dark energy constraints}: $w(z)$ reconstruction
+                \item \textbf{Neutrino mass}: Multi-probe combination
+            \end{itemize}
+        \end{block}
+        \begin{block}{Partnership Benefits}
+            \begin{itemize}
+                \item \textbf{Student exchanges}: Cross-training opportunities
+                \item \textbf{Joint funding applications}: Stronger proposals
+                \item \textbf{Shared expertise}: Complementary strengths
+                \item \textbf{Publication pipeline}: High-impact results
+            \end{itemize}
+        \end{block}
+    \end{columns}
+    \vspace{10pt}
+    \begin{center}
+        \textbf{Next steps}: Workshop planning for 2025 + joint proposal development
+    \end{center}
 \end{frame}
 
 \end{document}
