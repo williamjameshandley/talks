@@ -64,8 +64,8 @@
         \includegraphics[height=0.18428\textwidth]{figures/telescopes/CTA.jpg}%
 
         \begin{itemize}
-            \item This ever-increasing statistical weight will mean true accuracy demands rigorous attention to systematics.
-            \item This applies to all of cosmology, astrophysics, particle physics and beyond.
+            \item This data deluge creates unprecedented computational challenges for model comparison and parameter estimation.
+            \item Primordial cosmology requires sophisticated inference to distinguish between competing theories of the early universe.
         \end{itemize}
 
     \end{columns}
@@ -75,21 +75,13 @@
     \frametitle{GPU Computing: Beyond Machine Learning}
     \begin{columns}
         \column{0.48\textwidth}
-        \begin{block}{GPU Architecture Advantages}
+        \begin{block}{GPU vs CPU for Scientific Computing}
             \begin{itemize}
-                \item \textbf{Parallel Processing}:
-                    \begin{itemize}
-                        \item 1000s of cores vs 10s on CPU
-                        \item Suitable for ensemble algorithms
-                        \item Vectorization across particles/chains
-                        \item Independent likelihood evaluations
-                    \end{itemize}
-                \item \textbf{Memory Bandwidth}:
-                    \begin{itemize}
-                        \item GPU memory: $\sim$1 TB/s
-                        \item CPU memory: $\sim$100 GB/s
-                        \item 10× advantage for data-intensive computation
-                    \end{itemize}
+                \item \textbf{CPU}: Few powerful cores (10s), complex control
+                \item \textbf{GPU}: Many simple cores (1000s), simple control
+                \item \textbf{Memory bandwidth}: GPU ~10× faster than CPU
+                \item \textbf{Perfect for}: Independent parallel tasks
+                \item \textbf{Scientific algorithms}: MCMC chains, likelihood evaluations, simulations
             \end{itemize}
         \end{block}
         \column{0.48\textwidth}
@@ -98,14 +90,12 @@
                 \item HPC transitioning to GPU-based architectures
                 \item ML adoption accelerating hardware development
                 \item Legacy CPU codes require modernization
-                \item Exascale systems: Aurora, Frontier, El Capitan
-                \item GPU accelerators becoming standard in HPC
             \end{itemize}
         \end{block}
         \begin{block}{Key Point}
             \begin{center}
-                \textbf{GPU capabilities extend beyond ML}\\
-                Parallel compute architecture for diverse algorithms
+                \textbf{GPU $\neq$ Machine Learning}\\
+                GPUs accelerate any parallel algorithm
             \end{center}
         \end{block}
     \end{columns}
