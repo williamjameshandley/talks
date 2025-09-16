@@ -103,47 +103,120 @@
 
 \begin{frame}
     \frametitle{Modern Languages: Two Independent Capabilities}
+    \begin{center}
+        \textbf{Differentiable programming languages}: JAX, PyTorch, TensorFlow, Julia, Stan, Flux.jl
+    \end{center}
+    \vspace{-5pt}
     \begin{columns}
         \column{0.48\textwidth}
-        \begin{block}{Capability 1: Automatic Differentiation}
+        \begin{block}{Capability 1: Free Gradients}
             \begin{itemize}
-                \item \textbf{Gradients ``for free''}: $\nabla_\theta \log \mathcal{L}(\theta)$
+                \item \textbf{Automatic differentiation}: $\nabla_\theta \log \mathcal{L}(\theta)$
                 \item Enables gradient-based MCMC (HMC, NUTS)
-                \item Forward-mode, reverse-mode AD
                 \item Essential for modern optimization
-                \item \textbf{Example}: $\mathcal{O}(1)$ gradient computation regardless of parameter dimensionality
             \end{itemize}
-        \end{block}
-        \begin{block}{Capability 2: Massive Parallelization}
-            \begin{itemize}
-                \item \textbf{Vectorization across ensembles}
-                \item JAX: \texttt{vmap}, \texttt{pmap} primitives
-                \item PyTorch: \texttt{torch.vmap}
-                \item Julia: Native array broadcasting
-                \item \textbf{Example}: 1000 parallel chains/particles
-            \end{itemize}
-        \end{block}
-        \column{0.48\textwidth}
-        \begin{block}{Key Insight: Often Confused!}
-            \begin{center}
-                \textbf{These are completely independent!}\\
-                \vspace{5pt}
-                \textbf{People mistake one for the other}\\
-                \vspace{10pt}
-                You can use gradients on CPU\\
-                You can parallelize without gradients\\
-                \vspace{5pt}
-                \textbf{Usually you only need one}
-            \end{center}
         \end{block}
         \begin{block}{Traditional Physics Benefits}
             \begin{itemize}
                 \item \textbf{Nested sampling}: Massive parallelization
                 \item \textbf{Boltzmann solvers}: Vectorized across $k$-modes
                 \item \textbf{N-body sims}: GPU acceleration
-                \item \textbf{No ML required}: Classical algorithms win
             \end{itemize}
         \end{block}
+        \column{0.48\textwidth}
+        \begin{block}{Capability 2: Massive Parallelization}
+            \begin{itemize}
+                \item \textbf{Vectorization across ensembles}
+                \item Run 1000s of parallel chains/particles
+                \item Evaluate likelihoods simultaneously
+            \end{itemize}
+        \end{block}
+        \begin{block}{Key Insight: Often Confused!}
+            \begin{center}
+                \textbf{These are completely independent!}\\
+                \textbf{People mistake one for the other}\\
+                You can use gradients on CPU\\
+                You can parallelize without gradients\\
+                \textbf{They serve different purposes}
+            \end{center}
+        \end{block}
+    \end{columns}
+\end{frame}
+
+\begin{frame}
+    \frametitle{BlackJAX: GPU Native Sampling}
+    \framesubtitle<1-10>{Gradient descent: inference at speed}
+    \framesubtitle<11-19>{Metropolis-Hastings: error bars}
+    \framesubtitle<20-28>{emcee: adaptive ensemble algorithms}
+    \framesubtitle<29-36>{Nested sampling: model comparison}
+    \framesubtitle<37-44>{Hamiltonian Monte Carlo: inference with gradients}
+    \student{david_yallup}{David Yallup}{Postdoc}
+    \begin{columns}
+        \column{0.48\textwidth}
+        \vspace{-10pt}
+        \begin{itemize}
+            \item Sampling traditionally CPU-bound
+            \item Different algorithms, same GPU challenge
+            \item Need unified GPU-native framework
+            \item From optimization to model comparison
+        \end{itemize}
+        \vspace{10pt}
+        \begin{itemize}
+            \item BlackJAX: Full JAX ecosystem
+            \item All algorithms GPU-accelerated
+            \item Gradient descent through nested sampling
+            \item Unified interface, maximum performance
+        \end{itemize}
+        \vspace{5pt}
+        \begin{itemize}
+            \item Framework: more like \texttt{numpy} or \texttt{scipy} than \texttt{cobaya} or \texttt{cosmosis}
+        \end{itemize}
+        \column{0.48\textwidth}
+        \vspace{10pt}
+        \includegraphics<1>[width=\textwidth,page=1]{figures/himmelblau_gradient_ascent}%
+        \includegraphics<2>[width=\textwidth,page=2]{figures/himmelblau_gradient_ascent}%
+        \includegraphics<3>[width=\textwidth,page=3]{figures/himmelblau_gradient_ascent}%
+        \includegraphics<4>[width=\textwidth,page=4]{figures/himmelblau_gradient_ascent}%
+        \includegraphics<5>[width=\textwidth,page=5]{figures/himmelblau_gradient_ascent}%
+        \includegraphics<6>[width=\textwidth,page=6]{figures/himmelblau_gradient_ascent}%
+        \includegraphics<7>[width=\textwidth,page=7]{figures/himmelblau_gradient_ascent}%
+        \includegraphics<8>[width=\textwidth,page=8]{figures/himmelblau_gradient_ascent}%
+        \includegraphics<9>[width=\textwidth,page=9]{figures/himmelblau_gradient_ascent}%
+        \includegraphics<10>[width=\textwidth,page=10]{figures/himmelblau_gradient_ascent}%
+        \includegraphics<11>[width=\textwidth,page=1]{figures/himmelblau_mcmc}%
+        \includegraphics<12>[width=\textwidth,page=2]{figures/himmelblau_mcmc}%
+        \includegraphics<13>[width=\textwidth,page=3]{figures/himmelblau_mcmc}%
+        \includegraphics<14>[width=\textwidth,page=4]{figures/himmelblau_mcmc}%
+        \includegraphics<15>[width=\textwidth,page=5]{figures/himmelblau_mcmc}%
+        \includegraphics<16>[width=\textwidth,page=6]{figures/himmelblau_mcmc}%
+        \includegraphics<17>[width=\textwidth,page=7]{figures/himmelblau_mcmc}%
+        \includegraphics<18>[width=\textwidth,page=8]{figures/himmelblau_mcmc}%
+        \includegraphics<19>[width=\textwidth,page=9]{figures/himmelblau_mcmc}%
+        \includegraphics<20>[width=\textwidth,page=1]{figures/himmelblau_emcee}%
+        \includegraphics<21>[width=\textwidth,page=2]{figures/himmelblau_emcee}%
+        \includegraphics<22>[width=\textwidth,page=3]{figures/himmelblau_emcee}%
+        \includegraphics<23>[width=\textwidth,page=4]{figures/himmelblau_emcee}%
+        \includegraphics<24>[width=\textwidth,page=5]{figures/himmelblau_emcee}%
+        \includegraphics<25>[width=\textwidth,page=6]{figures/himmelblau_emcee}%
+        \includegraphics<26>[width=\textwidth,page=7]{figures/himmelblau_emcee}%
+        \includegraphics<27>[width=\textwidth,page=8]{figures/himmelblau_emcee}%
+        \includegraphics<28>[width=\textwidth,page=9]{figures/himmelblau_emcee}%
+        \includegraphics<29>[width=\textwidth,page=1]{figures/himmelblau_ns}%
+        \includegraphics<30>[width=\textwidth,page=2]{figures/himmelblau_ns}%
+        \includegraphics<31>[width=\textwidth,page=3]{figures/himmelblau_ns}%
+        \includegraphics<32>[width=\textwidth,page=4]{figures/himmelblau_ns}%
+        \includegraphics<33>[width=\textwidth,page=5]{figures/himmelblau_ns}%
+        \includegraphics<34>[width=\textwidth,page=6]{figures/himmelblau_ns}%
+        \includegraphics<35>[width=\textwidth,page=7]{figures/himmelblau_ns}%
+        \includegraphics<36>[width=\textwidth,page=8]{figures/himmelblau_ns}%
+        \includegraphics<37>[width=\textwidth,page=1]{figures/himmelblau_hmc}%
+        \includegraphics<38>[width=\textwidth,page=2]{figures/himmelblau_hmc}%
+        \includegraphics<39>[width=\textwidth,page=3]{figures/himmelblau_hmc}%
+        \includegraphics<40>[width=\textwidth,page=4]{figures/himmelblau_hmc}%
+        \includegraphics<41>[width=\textwidth,page=5]{figures/himmelblau_hmc}%
+        \includegraphics<42>[width=\textwidth,page=6]{figures/himmelblau_hmc}%
+        \includegraphics<43>[width=\textwidth,page=7]{figures/himmelblau_hmc}%
+        \includegraphics<44>[width=\textwidth,page=8]{figures/himmelblau_hmc}%
     \end{columns}
 \end{frame}
 
@@ -151,7 +224,7 @@
     \frametitle{Classical Algorithms on GPU Beat the ML Gold Rush}
     \student{toby_lovick}{Toby Lovick}{PhD}
     \begin{columns}
-        \column{0.55\textwidth}
+        \column{0.48\textwidth}
         \begin{block}{CMB Power Spectrum (6 params)}
             \begin{itemize}
                 \item \textbf{PolyChord (CPU)}: ~1 hour
@@ -172,17 +245,18 @@
                 \textbf{10× speedup vs existing GPU approach}\arxiv{2405.12965}
             \end{center}
         \end{block}
+        \column{0.48\textwidth}
         \includegraphics<1>[width=\textwidth]{figures/wl_corner.pdf}%
         \includegraphics<2>[width=\textwidth]{figures/wl_scaling.pdf}
-        \vspace{10pt}
-        \begin{block}{Key Insight: Classical > ML Gold Rush}
-            \begin{itemize}
-                \item \textbf{No machine learning}: Pure nested sampling
-                \item \textbf{Statistical guarantees}: Proper uncertainties + evidence
-                \item \textbf{Factor in training costs}: ML often slower end-to-end
-                \item \textbf{Transparent algorithms}: No black boxes
-            \end{itemize}
-        \end{block}
+        %\vspace{10pt}
+        %\begin{block}{Key Insight: Classical > ML Gold Rush}
+        %    \begin{itemize}
+        %        \item \textbf{No machine learning}: Pure nested sampling
+        %        \item \textbf{Statistical guarantees}: Proper uncertainties + evidence
+        %        \item \textbf{Factor in training costs}: ML often slower end-to-end
+        %        \item \textbf{Transparent algorithms}: No black boxes
+        %    \end{itemize}
+        %\end{block}
     \end{columns}
 \end{frame}
 

@@ -14,9 +14,12 @@ jax.config.update("jax_enable_x64", True)
 def himmelblau(x, y):
     return (x**2 + y - 11)**2 + (x + y**2 - 7)**2
 
+# Global beta parameter for consistent scaling
+beta = 0.1
+
 def loglikelihood(params):
     x, y = params["x"], params["y"]
-    return -himmelblau(x, y)
+    return -himmelblau(x, y) * beta
 
 key = jax.random.PRNGKey(42)
 num_live = 200
@@ -49,6 +52,12 @@ with PdfPages('himmelblau_ns.pdf') as pdf:
     fig, ax = plt.subplots(1, 1, figsize=(3, 3))
     # No dead points yet, just live points
     ax.scatter(live.particles['x'], live.particles['y'], s=5, c='C0', zorder=2)
+    
+    # Add iteration count in corner
+    ax.text(0.98, 0.98, f'Iteration: 0', transform=ax.transAxes, 
+            fontsize=10, verticalalignment='top', horizontalalignment='right', bbox=dict(boxstyle='round', 
+            facecolor='white', alpha=0.8))
+    
     ax.set_xlim(-5, 5)
     ax.set_ylim(-5, 5)
     ax.set_aspect('equal')
@@ -70,9 +79,12 @@ with PdfPages('himmelblau_ns.pdf') as pdf:
         
         # Add contours for dead point likelihood thresholds
         if dead_points:
-            # Get all dead point thresholds
+            # Get all dead point log-likelihood values
             all_dead_logL = [float(dp.loglikelihood.max()) for dp in dead_points]
-            all_threshold_vals = [-logL for logL in all_dead_logL]
+            
+            # Convert back to Himmelblau function values: logL = -himmelblau * beta
+            # So himmelblau = -logL / beta
+            all_threshold_vals = [-logL / beta for logL in all_dead_logL]
             
             # Current threshold is the most recent (highest likelihood killed)
             current_threshold = all_threshold_vals[-1]
@@ -99,6 +111,12 @@ with PdfPages('himmelblau_ns.pdf') as pdf:
         
         # Plot live points in blue
         ax.scatter(live.particles['x'], live.particles['y'], s=5, c='C0', zorder=2)
+        
+        # Add iteration count in corner
+        ax.text(0.98, 0.98, f'Iteration: {i+1}', transform=ax.transAxes, 
+                fontsize=10, verticalalignment='top', horizontalalignment='right', bbox=dict(boxstyle='round', 
+                facecolor='white', alpha=0.8))
+        
         ax.set_xlim(-5, 5)
         ax.set_ylim(-5, 5)
         ax.set_aspect('equal')
