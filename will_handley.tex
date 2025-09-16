@@ -1,6 +1,7 @@
 \documentclass[aspectratio=169]{beamer}
 \usepackage{will_handley_beamer}
 \usepackage{title_page}
+\usepackage[normalem]{ulem}
 
 % Commands
 % --------
@@ -17,7 +18,7 @@
 % Talk details
 % ------------
 \title{Next-Generation Model Comparison for Primordial Cosmology}
-\date{LMU-Cambridge Partnership 2025}
+\date{16\textsuperscript{th} September 2026}
 
 \begin{document}
 
@@ -32,14 +33,14 @@
         \begin{itemize}
             \item Over our research lifetimes we will see next-generation data rates across the electromagnetic spectrum \& beyond:
                 \begin{description}
-                    \item[Radio] SKA \textit{et al}
-                    \item[Micro] SO/CMB-S4/LiteBIRD
-                    \item[IR] JWST, Roman
-                    \item[Optical] Euclid, DESI, Rubin, EELT
-                    \item[X-ray] Athena
-                    \item[Gamma-ray] e-ASTROGAM
-                    \item[Gravitational] LIGO/LVK$^+$/LISA
-                    \item[Particle] CTA, IceCube, KM3NeT
+                    \item[Radio] SKA \textit{et al}.
+                    \item[Micro] SO/CMB-S4/LiteBIRD.
+                    \item[IR] JWST, Roman.
+                    \item[Optical] Euclid, DESI, Rubin, EELT.
+                    \item[X-ray] Athena.
+                    \item[Gamma-ray] e-ASTROGAM.
+                    \item[Gravitational] LIGO/ET/LISA.
+                    \item[Particle] CTA, IceCube, KM3NeT.
                 \end{description}
         \end{itemize}
         \column{0.55\textwidth}
@@ -77,19 +78,19 @@
         \column{0.48\textwidth}
         \begin{block}{GPU vs CPU for Scientific Computing}
             \begin{itemize}
-                \item \textbf{CPU}: Few powerful cores (10s), complex control
-                \item \textbf{GPU}: Many simple cores (1000s), simple control
-                \item \textbf{Memory bandwidth}: GPU ~10× faster than CPU
-                \item \textbf{Perfect for}: Independent parallel tasks
-                \item \textbf{Scientific algorithms}: MCMC chains, likelihood evaluations, simulations
+                \item \textbf{CPU}: Few powerful cores (10s), complex control.
+                \item \textbf{GPU}: Many simple cores (1000s), simple control.
+                \item \textbf{Memory bandwidth}: GPU ~10× faster than CPU.
+                \item \textbf{Perfect for}: Independent parallel tasks.
+                \item \textbf{Scientific algorithms}: MCMC chains, likelihood evaluations, simulations.
             \end{itemize}
         \end{block}
         \column{0.48\textwidth}
         \begin{block}{HPC Landscape Evolution}
             \begin{itemize}
-                \item HPC transitioning to GPU-based architectures
-                \item ML adoption accelerating hardware development
-                \item Legacy CPU codes require modernization
+                \item HPC transitioning to GPU-based architectures.
+                \item ML adoption accelerating hardware development.
+                \item Legacy CPU codes require modernization.
             \end{itemize}
         \end{block}
         \begin{block}{Key Point}
@@ -104,47 +105,47 @@
 \begin{frame}
     \frametitle{Modern Languages: Two Independent Capabilities}
     \begin{center}
-        \textbf{Differentiable programming languages}: JAX, PyTorch, TensorFlow, Julia, Stan, Flux.jl
+        \textbf{Differentiable programming languages}: JAX, PyTorch, TensorFlow, Julia, Stan, \ldots
     \end{center}
     \vspace{-5pt}
     \begin{columns}
         \column{0.48\textwidth}
         \begin{block}{Capability 1: Free Gradients}
             \begin{itemize}
-                \item \textbf{Automatic differentiation}: $\nabla_\theta \log \mathcal{L}(\theta)$
-                \item Enables gradient-based MCMC (HMC, NUTS)
-                \item Essential for modern optimization
+                \item \textbf{Automatic differentiation}: $\nabla_\theta \log \mathcal{L}(\theta)$.
+                \item Enables gradient-based MCMC (HMC, NUTS).
+                \item Essential for modern optimization.
             \end{itemize}
         \end{block}
         \begin{block}{Traditional Physics Benefits}
             \begin{itemize}
-                \item \textbf{Nested sampling}: Massive parallelization
-                \item \textbf{Boltzmann solvers}: Vectorized across $k$-modes
-                \item \textbf{N-body sims}: GPU acceleration
+                \item \textbf{Nested sampling}: Massive parallelization.
+                \item \textbf{Boltzmann solvers}: Vectorized across $k$-modes.
+                \item \textbf{N-body sims}: GPU acceleration.
             \end{itemize}
         \end{block}
         \column{0.48\textwidth}
         \begin{block}{Capability 2: Massive Parallelization}
             \begin{itemize}
-                \item \textbf{Vectorization across ensembles}
-                \item Run 1000s of parallel chains/particles
-                \item Evaluate likelihoods simultaneously
+                \item \textbf{Vectorization across ensembles}.
+                \item Run 1000s of parallel chains/particles.
+                \item Evaluate likelihoods simultaneously.
             \end{itemize}
         \end{block}
-        \begin{block}{Key Insight: Often Confused!}
+        \begin{block}{Key Insight: Often Confused}
             \begin{center}
-                \textbf{These are completely independent!}\\
-                \textbf{People mistake one for the other}\\
-                You can use gradients on CPU\\
-                You can parallelize without gradients\\
-                \textbf{They serve different purposes}
+                \textbf{These are completely independent.}\\
+                \textbf{People mistake one for the other.}\\
+                You can use gradients on CPU.\\
+                You can parallelize without gradients.\\
+                \textbf{They serve different purposes.}
             \end{center}
         \end{block}
     \end{columns}
 \end{frame}
 
 \begin{frame}
-    \frametitle{BlackJAX: GPU Native Sampling}
+    \frametitle{BlackJAX: GPU Native Sampling \arxiv{2402.10797}}
     \framesubtitle<1-10>{Gradient descent: inference at speed}
     \framesubtitle<11-19>{Metropolis-Hastings: error bars}
     \framesubtitle<20-28>{emcee: adaptive ensemble algorithms}
@@ -155,21 +156,21 @@
         \column{0.48\textwidth}
         \vspace{-10pt}
         \begin{itemize}
-            \item Sampling traditionally CPU-bound
-            \item Different algorithms, same GPU challenge
-            \item Need unified GPU-native framework
-            \item From optimization to model comparison
+            \item Sampling traditionally CPU-bound.
+            \item Different algorithms, same GPU challenge.
+            \item Need unified GPU-native framework.
+            \item From optimization to model comparison.
         \end{itemize}
         \vspace{10pt}
         \begin{itemize}
-            \item BlackJAX: Full JAX ecosystem
-            \item All algorithms GPU-accelerated
-            \item Gradient descent through nested sampling
-            \item Unified interface, maximum performance
+            \item BlackJAX: Full JAX ecosystem.
+            \item All algorithms GPU-accelerated.
+            \item Gradient descent through nested sampling.
+            \item Unified interface, maximum performance.
         \end{itemize}
         \vspace{5pt}
         \begin{itemize}
-            \item Framework: more like \texttt{numpy} or \texttt{scipy} than \texttt{cobaya} or \texttt{cosmosis}
+            \item Framework: more like \texttt{numpy} or \texttt{scipy} than \texttt{cobaya} or \texttt{cosmosis}.
         \end{itemize}
         \column{0.48\textwidth}
         \vspace{10pt}
@@ -221,7 +222,7 @@
 \end{frame}
 
 \begin{frame}
-    \frametitle{Classical Algorithms on GPU Beat the ML Gold Rush}
+    \frametitle{Classical Algorithms on GPU}
     \student{toby_lovick}{Toby Lovick}{PhD}
     \begin{columns}
         \column{0.48\textwidth}
@@ -238,16 +239,16 @@
             \begin{itemize}
                 \item \textbf{PolyChord (48 CPUs)}: ~8 months
                 \item \textbf{NUTS (12 A100 GPUs)}: 2 days
-                \item \textbf{BlackJAX (1 A100 GPU)}: 4.5 hours
+                \item<3-> \textbf{Toby's NUTS (1 A100 GPU)}: 6 hours
+                \item \textbf{BlackJAX (1 A100 GPU)}: 11 hours
             \end{itemize}
             \begin{center}
-                \textbf{$>$1000× speedup vs CPU}\\
-                \textbf{10× speedup vs existing GPU approach}\arxiv{2405.12965}
+\textbf{Significant improvement over previous GPU methods}~\arxiv{2405.12965}
             \end{center}
         \end{block}
         \column{0.48\textwidth}
-        \includegraphics<1>[width=\textwidth]{figures/wl_corner.pdf}%
-        \includegraphics<2>[width=\textwidth]{figures/wl_scaling.pdf}
+        \includegraphics<1>[width=\textwidth]{figures/cmbscaling.pdf}%
+        \includegraphics<2-3>[width=\textwidth]{figures/jaxSHEARfull.png}
         %\vspace{10pt}
         %\begin{block}{Key Insight: Classical > ML Gold Rush}
         %    \begin{itemize}
@@ -266,122 +267,39 @@
         \column{0.48\textwidth}
         \begin{block}{The GPU Porting Challenge}
             \begin{itemize}
-                \item \textbf{Massive undertaking}: Legacy CPU $\rightarrow$ GPU-native
-                \item \textbf{Algorithmic complexity}: Vectorization, memory management
-                \item \textbf{Language barriers}: Fortran/C++ $\rightarrow$ JAX/PyTorch
-                \item \textbf{Scale problem}: Decades of scientific code
+                \item \textbf{Massive undertaking}: Legacy CPU $\rightarrow$ GPU-native.
+                \item \textbf{Algorithmic complexity}: Vectorization, memory management.
+                \item \textbf{Language barriers}: Fortran/C++ $\rightarrow$ JAX/PyTorch.
+                \item \textbf{Scale problem}: Decades of scientific code.
             \end{itemize}
         \end{block}
         \begin{block}{AI as Development Accelerator}
             \begin{itemize}
-                \item \textbf{Code generation}: Automated translation
-                \item \textbf{Debugging assistance}: Error analysis and fixes
-                \item \textbf{Optimization guidance}: Performance bottleneck identification
-                \item \textbf{Documentation}: Auto-generated comments and docs
+                \item \textbf{Code generation}: Automated translation.
+                \item \textbf{Debugging assistance}: Error analysis and fixes.
+                \item \textbf{Optimization guidance}: Performance bottleneck identification.
+                \item \textbf{Documentation}: Auto-generated comments and docs.
             \end{itemize}
         \end{block}
         \column{0.48\textwidth}
         \begin{block}{Our Group's Wholehearted Embrace}
             \begin{itemize}
-                \item \textbf{AI-first development}: Every project uses LLM assistance
-                \item \textbf{Code review loops}: AI + human verification
-                \item \textbf{Rapid prototyping}: Ideas to GPU code in hours
-                \item \textbf{Quality control}: Human oversight remains critical
+                \item \textbf{AI-first development}: Every project uses LLM assistance.
+                \item \textbf{Code review loops}: AI + human verification.
+                \item \textbf{Rapid prototyping}: Ideas to GPU code in hours.
+                \item \textbf{Quality control}: Human oversight remains critical.
             \end{itemize}
         \end{block}
         \begin{block}{The Productivity Reality}
             \begin{itemize}
-                \item \textbf{10× development speedup}: Personal experience
-                \item \textbf{Focus shift}: Writing code $\rightarrow$ algorithm design
-                \item \textbf{Democratization}: GPU programming accessible to all
+                \item \textbf{10× development speedup}: Personal experience.
+                \item \textbf{Focus shift}: Writing code $\rightarrow$ algorithm design.
+                \item \textbf{Democratization}: GPU programming accessible to all.
             \end{itemize}
         \end{block}
     \end{columns}
 \end{frame}
 
-\begin{frame}
-    \frametitle{Cambridge-LMU Synergies: Enabling Cross-Correlation Science}
-    \begin{columns}
-        \column{0.48\textwidth}
-        \begin{block}{Cambridge Strengths}
-            \begin{itemize}
-                \item \textbf{CMB expertise}: Planck, SO, CMB-S4
-                \item \textbf{Nested sampling}: PolyChord, BlackJAX-NS
-                \item \textbf{GPU infrastructure}: Wilkes-3, Dawn
-                \item \textbf{Bayesian inference}: Model comparison, evidence
-            \end{itemize}
-        \end{block}
-        \begin{block}{LMU Munich Strengths}
-            \begin{itemize}
-                \item \textbf{Galaxy surveys}: DESI, Euclid expertise
-                \item \textbf{Large-scale structure}: N-body simulations
-                \item \textbf{Theoretical cosmology}: World-leading group
-                \item \textbf{Cross-correlation analysis}: CMB + LSS
-            \end{itemize}
-        \end{block}
-        \column{0.48\textwidth}
-        \begin{block}{Our GPU Framework Enables}
-            \begin{itemize}
-                \item \textbf{Joint CMB + galaxy analysis}: Unified inference
-                \item \textbf{Cross-correlation studies}: Real-time computation
-                \item \textbf{Parameter estimation}: High-dimensional spaces
-                \item \textbf{Model comparison}: Evidence-based selection
-            \end{itemize}
-        \end{block}
-        \begin{block}{Perfect Partnership Match}
-            \begin{center}
-                \textbf{Cambridge CMB + LMU Galaxy Surveys}\\
-                \textbf{$+$ GPU-Native Inference Pipeline}\\
-                \vspace{5pt}
-                = \textbf{Next-generation cosmological constraints}
-            \end{center}
-        \end{block}
-    \end{columns}
-\end{frame}
-
-\begin{frame}
-    \frametitle{Collaboration Opportunities: What Becomes Possible}
-    \begin{columns}
-        \column{0.48\textwidth}
-        \begin{block}{Next-Generation Experiments}
-            \begin{itemize}
-                \item \textbf{CMB-S4}: $\mu$K-level precision CMB
-                \item \textbf{Euclid}: Billion galaxy weak lensing
-                \item \textbf{LSST}: Deep field multi-wavelength
-                \item \textbf{SO}: Intermediate-scale CMB
-            \end{itemize}
-        \end{block}
-        \begin{block}{What Our Framework Enables}
-            \begin{itemize}
-                \item \textbf{Real-time analysis}: Results during observation
-                \item \textbf{Joint constraints}: Unified multi-probe inference
-                \item \textbf{Model exploration}: Test exotic physics
-                \item \textbf{Tension resolution}: Evidence-based comparison
-            \end{itemize}
-        \end{block}
-        \column{0.48\textwidth}
-        \begin{block}{Specific Joint Projects}
-            \begin{itemize}
-                \item \textbf{Cross-correlation pipeline}: CMB × galaxy clustering
-                \item \textbf{Primordial physics}: Inflation model comparison
-                \item \textbf{Dark energy constraints}: $w(z)$ reconstruction
-                \item \textbf{Neutrino mass}: Multi-probe combination
-            \end{itemize}
-        \end{block}
-        \begin{block}{Partnership Benefits}
-            \begin{itemize}
-                \item \textbf{Student exchanges}: Cross-training opportunities
-                \item \textbf{Joint funding applications}: Stronger proposals
-                \item \textbf{Shared expertise}: Complementary strengths
-                \item \textbf{Publication pipeline}: High-impact results
-            \end{itemize}
-        \end{block}
-    \end{columns}
-    \vspace{10pt}
-    \begin{center}
-        \textbf{Next steps}: Workshop planning for 2025 + joint proposal development
-    \end{center}
-\end{frame}
 
 \begin{frame}
     \frametitle{Conclusions}
@@ -391,18 +309,18 @@
         \begin{enumerate}
             \item \textbf{GPU $\neq$ Machine Learning}
                 \begin{itemize}
-                    \item GPUs accelerate any parallel algorithm
-                    \item Scientific computing benefits beyond ML
+                    \item GPUs accelerate any parallel algorithm.
+                    \item Scientific computing benefits beyond ML.
                 \end{itemize}
             \item \textbf{Modern Languages: Two Independent Capabilities}
                 \begin{itemize}
-                    \item Automatic differentiation + massive parallelization
-                    \item Often confused, serve different purposes
+                    \item Automatic differentiation + massive parallelization.
+                    \item Often confused, serve different purposes.
                 \end{itemize}
             \item \textbf{Classical Algorithms Beat ML Gold Rush}
                 \begin{itemize}
-                    \item Traditional physics methods + GPU = superior performance
-                    \item AI accelerates development, not computation
+                    \item Traditional physics methods + GPU = superior performance.
+                    \item AI accelerates development, not computation.
                 \end{itemize}
         \end{enumerate}
         \column{0.3\textwidth}
