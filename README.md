@@ -1,98 +1,103 @@
 # Will Handley's academic talks
 
 ## Academic talks
-1. AI/ML Tools for Research
+1. Next-Generation Model Comparison for Primordial Cosmology
+    - Talk given at [LMU Munich](https://indico.physik.uni-muenchen.de/event/570/)
+    - [PDF](https://github.com/williamjameshandley/talks/raw/lmu_2025/will_handley_lmu_2025.pdf)  
+    - [source](https://github.com/williamjameshandley/talks/tree/lmu_2025) 
+    - _Sep 2025_
+2. AI/ML Tools for Research
     - KICC Workshop for faculty, postdocs, and PhD students
     - [PDF](https://github.com/williamjameshandley/talks/raw/kicc_ai_tools_2025/will_handley_kicc_ai_tools_2025.pdf)  
     - [source](https://github.com/williamjameshandley/talks/tree/kicc_ai_tools_2025) 
     - _Jul 2025_
-2. A Statistician's Guide to the Galaxy (Fitting Zoo)
+3. A Statistician's Guide to the Galaxy (Fitting Zoo)
     - Statistics introduction at [The Future of SED Fitting Workshop](https://www.kicc.cam.ac.uk/events/kavli-science-themed-meetings/future-sed-fitting)
     - [PDF](https://github.com/williamjameshandley/talks/raw/sed_2025/will_handley_sed_2025.pdf)  
     - [source](https://github.com/williamjameshandley/talks/tree/sed_2025) 
     - _Jul 2025_
-3. GPU Accelerated Nested Sampling
+4. GPU Accelerated Nested Sampling
     - Talk given at [Newton Institute workshop](https://www.newton.ac.uk/event/rclw03/)
     - [PDF](https://github.com/williamjameshandley/talks/raw/ini_2025/will_handley_ini_2025.pdf)  
     - [source](https://github.com/williamjameshandley/talks/tree/ini_2025) 
     - _Jun 2025_
-4. lsbi: linear simulation based inference
+5. lsbi: linear simulation based inference
     - Talk given at [EUCAIFCON 2025](https://agenda.infn.it/event/43565/contributions/2601), Sardinia
     - [PDF](https://github.com/williamjameshandley/talks/raw/sardinia_2025/will_handley_sardinia_2025.pdf)  
     - [source](https://github.com/williamjameshandley/talks/tree/sardinia_2025) 
     - _Jun 2025_
-5. GPU-native nested sampling in BlackJAX: For simulation-based inference at scale
+6. GPU-native nested sampling in BlackJAX: For simulation-based inference at scale
     - Workshop talk given at [SBI Galaxy Evolution 2025](https://sbi-galaxy-evolution-2025.github.io/), Bristol
     - [PDF](https://github.com/williamjameshandley/talks/raw/bristol_2025/will_handley_bristol_2025.pdf)  
     - [source](https://github.com/williamjameshandley/talks/tree/bristol_2025) 
     - _May 2025_
-6. Scanning for cosmological tensions across a DiRAC-enabled grid of models, datasets and samplers 
+7. Scanning for cosmological tensions across a DiRAC-enabled grid of models, datasets and samplers 
     - Invited talk given at [Cosmoverse 2025](https://agenda.infn.it/event/43058/overview)
     - [PDF](https://github.com/williamjameshandley/talks/raw/cosmoverse_2025/will_handley_cosmoverse_2025.pdf)  
     - [source](https://github.com/williamjameshandley/talks/tree/cosmoverse_2025) 
     - _May 2025_
-7. Cosmological tensions? A guide for high energy theorists
+8. Cosmological tensions? A guide for high energy theorists
     - Talk given to DAMTP HEP group Cambridge
     - [PDF](https://github.com/williamjameshandley/talks/raw/damtp_2025/will_handley_damtp_2025.pdf)  
     - [source](https://github.com/williamjameshandley/talks/tree/damtp_2025) 
     - _Jan 2025_
-8. Theory meets experiment 2025: New frontiers in particle cosmology  
+9. Theory meets experiment 2025: New frontiers in particle cosmology  
     - Invited talk given at [Rencontres du Vietnam](http://vietnam.in2p3.fr/2025/tmex/) 
     - [PDF](https://github.com/williamjameshandley/talks/raw/vietnam_2025/will_handley_vietnam_2025.pdf)  
     - [source](https://github.com/williamjameshandley/talks/tree/vietnam_2025) 
     - _Jan 2025_
-9. Next-generation statistical inference tools: Simulation-based inference, marginal statistics & accelerated nested sampling 
+10. Next-generation statistical inference tools: Simulation-based inference, marginal statistics & accelerated nested sampling 
     - Invited talk given at [Towards a realistic detection of Primordial Gravitational Wave Backgrounds](https://indico.ific.uv.es/event/7656/) 
     - [PDF](https://github.com/williamjameshandley/talks/raw/valencia_2024/will_handley_valencia_2024.pdf)  
     - [source](https://github.com/williamjameshandley/talks/tree/valencia_2024)
     - _Dec 2024_
-10. PolySwyft: a sequential simulation-based nested sampler
+11. PolySwyft: a sequential simulation-based nested sampler
     - talk given at [Global 21cm workshop 2024](https://sites.google.com/view/global-21-cm-workshop)
     - [PDF](https://github.com/williamjameshandley/talks/raw/india_2024/will_handley_india_2024.pdf)  
     - [source](https://github.com/williamjameshandley/talks/tree/india_2024) 
     - _Oct 2024_
-11. lsbi: linear simulation based inference 
+12. lsbi: linear simulation based inference 
     - Talsk given at [PhyStat: Statistics meets ML](https://indico.cern.ch/event/1407421/overview)
     - [PDF](https://github.com/williamjameshandley/talks/raw/imperial_2024/will_handley_imperial_2024.pdf)  
     - [source](https://github.com/williamjameshandley/talks/tree/imperial_2024)
     - _Sep 2024_
-12. Nested sampling: powering next-generation inference and machine learning tools for astrophysics, cosmology, particle physics and beyond  
+13. Nested sampling: powering next-generation inference and machine learning tools for astrophysics, cosmology, particle physics and beyond  
     - Colloquium given at [University of Sydney](https://sifa.sydney.edu.au/)
     - [PDF](https://github.com/williamjameshandley/talks/raw/sydney_2024/will_handley_sydney_2024.pdf)  
     - [source](https://github.com/williamjameshandley/talks/tree/sydney_2024)
     - [video](https://uni-sydney.zoom.us/rec/share/FNwIQwjswSIU5sLwrGY3thH_ZGPPmuNMzOlLsejj3fBF-cYDR6oUiNLHmYDahEfI.DRPVZ5j-v_bgiGzM)
     - _Aug 2024_
-13. Sampling methods for high energy physics & particle astrophysics
+14. Sampling methods for high energy physics & particle astrophysics
     - Invited talk given at [XVIth Quark Confinement and the Hadron Spectrum](https://indico.cern.ch/event/1293041/overview)
     - [PDF](https://github.com/williamjameshandley/talks/raw/cairns_2024/will_handley_cairns_2024.pdf)  
     - [source](https://github.com/williamjameshandley/talks/tree/cairns_2024)
     - _Aug 2024_
-14. Nested sampling: powering next-generation inference and machine learning tools for astrophysics, cosmology, particle physics and beyond  
+15. Nested sampling: powering next-generation inference and machine learning tools for astrophysics, cosmology, particle physics and beyond  
     - Colloquium given at [University of Queensland](https://www.uq.edu.au/)
     - [PDF](https://github.com/williamjameshandley/talks/raw/queensland_2024/will_handley_queensland_2024.pdf)  
     - [source](https://github.com/williamjameshandley/talks/tree/queensland_2024)
     - _Aug 2024_
-15. Nested sampling: powering next-generation inference and machine learning tools for astrophysics, cosmology, particle physics and beyond  
+16. Nested sampling: powering next-generation inference and machine learning tools for astrophysics, cosmology, particle physics and beyond  
     - Talk given at [Aachen RWTH](https://www.physik.rwth-aachen.de/cms/~mya/physik/?lidx=1)
     - [PDF](https://github.com/williamjameshandley/talks/raw/aachen_2024/will_handley_aachen_2024.pdf)  
     - [source](https://github.com/williamjameshandley/talks/tree/aachen_2024)
     - _Jul 2024_
-16. PolySwyft: a sequential simulation-based nested sampler
+17. PolySwyft: a sequential simulation-based nested sampler
     - talk given at [CosmoVerse 2024](https://indico.oa.uj.edu.pl/event/3/timetable/#all.detailed)
     - [PDF](https://github.com/williamjameshandley/talks/raw/cosmoverse_2024/will_handley_cosmoverse_2024.pdf)  
     - [source](https://github.com/williamjameshandley/talks/tree/cosmoverse_2024) 
     - _Jul 2024_
-17. The scaling frontier of nested sampling
+18. The scaling frontier of nested sampling
     - talk given at [MaxEnt 2024](https://maxent2024.ugent.be/)
     - [PDF](https://github.com/williamjameshandley/talks/raw/maxent_2024/will_handley_maxent_2024.pdf)  
     - [source](https://github.com/williamjameshandley/talks/tree/maxent_2024) 
     - _Jul 2024_
-18. Resonant or asymmetric: The status of sub-GeV dark matter
+19. Resonant or asymmetric: The status of sub-GeV dark matter
     - talk given at [Dark Matter in Astrophysical Laboratories](https://www.kicc.cam.ac.uk/events/kavli-science-themed-meetings/dark-matter-astrophysical-laboratories) KICC workshop
     - [PDF](https://github.com/williamjameshandley/talks/raw/kicc_2024/will_handley_kicc_2024.pdf)  
     - [source](https://github.com/williamjameshandley/talks/tree/kicc_2024) 
     - _Jun 2024_
-18. Next generation astrophysical inference across the interdisciplinary frontier
+20. Next generation astrophysical inference across the interdisciplinary frontier
     - remote job talk given to UCL
     - [PDF](https://github.com/williamjameshandley/talks/raw/ucl_2024/will_handley_ucl_2024.pdf)  
     - [source](https://github.com/williamjameshandley/talks/tree/ucl_2024) 
