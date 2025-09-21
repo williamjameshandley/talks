@@ -18,7 +18,8 @@ def himmelblau(x, y):
 
 def logprob(position):
     x, y = position
-    return -himmelblau(x, y) / 10.0  # Scale for better acceptance
+    beta = 0.1
+    return -himmelblau(x, y) * beta  # Scale for better acceptance
 
 key = jax.random.PRNGKey(42)
 
@@ -60,6 +61,7 @@ def trajectory_integration_with_capture(integrator, initial_state, step_size, nu
 num_steps = 30  
 hmc_path = [initial_position]
 hmc_trajectories = []  
+acceptance_info = []  # Store acceptance information
 state = initial_state
 
 for i in range(num_steps):
@@ -90,27 +92,13 @@ for i in range(num_steps):
     
     # Use BlackJAX for accept/reject
     new_state, info = step_fn(subkey, state)
+    acceptance_info.append(info.is_accepted)
     hmc_path.append(new_state.position)
     state = new_state
 
 with PdfPages('himmelblau_hmc.pdf') as pdf:
-    # Page 1: Just contours
-    fig, ax = plt.subplots(1, 1, figsize=(3, 3))
-    ax.contour(X, Y, Z, levels=np.logspace(0, 3, 20), colors='black', linewidths=1.0)
-    ax.set_xlim(-5, 5)
-    ax.set_ylim(-5, 5)
-    ax.set_aspect('equal')
-    ax.set_xticks([])
-    ax.set_yticks([])
-    for spine in ax.spines.values():
-        spine.set_edgecolor('black')
-        spine.set_linewidth(2)
-    plt.tight_layout()
-    pdf.savefig(fig)
-    plt.close()
-    
-    # Progressive HMC path visualization
-    path_steps = [1, 2, 4, 7, 12, 18, 25, 30]
+    # Progressive HMC path visualization - detailed first steps then wider spacing
+    path_steps = [0, 1, 2, 3, 4, 10, 15, 20, 30]
     
     for step_idx, steps in enumerate(path_steps):
         fig, ax = plt.subplots(1, 1, figsize=(3, 3))
@@ -123,15 +111,29 @@ with PdfPages('himmelblau_hmc.pdf') as pdf:
                 traj = hmc_trajectories[last_idx]
                 if traj is not None and len(traj) > 1:
                     # Draw the curved trajectory for the last HMC step
-                    ax.plot(traj[:, 0], traj[:, 1], 'g-', linewidth=2.0, alpha=0.8)
+                    ax.plot(traj[:, 0], traj[:, 1], 'C4', linewidth=2.0, alpha=0.8)
         
         # Draw accepted HMC points (larger)
         path_array = jnp.array(hmc_path[:steps+1])
-        ax.scatter(path_array[:-1, 0], path_array[:-1, 1], c='green', s=25, alpha=0.8, zorder=5, edgecolors='black', linewidth=0.5)
+        ax.scatter(path_array[:-1, 0], path_array[:-1, 1], c='C4', s=25, alpha=0.8, zorder=5, edgecolors='black', linewidth=0.5)
         
-        # Highlight current position
+        # Highlight current position only if the last step was accepted
         if len(path_array) > 0:
-            ax.scatter(path_array[-1, 0], path_array[-1, 1], c='green', s=50, zorder=10, edgecolors='black', linewidth=1)
+            # Show large circle only if this step was accepted
+            if steps > 0 and steps <= len(acceptance_info):
+                last_step_idx = steps - 1
+                if last_step_idx < len(acceptance_info) and acceptance_info[last_step_idx]:
+                    # Last step was accepted, show large circle
+                    ax.scatter(path_array[-1, 0], path_array[-1, 1], c='C4', s=50, zorder=10, edgecolors='black', linewidth=1)
+                # If rejected, don't show the large circle
+            else:
+                # For step 0, always show the initial position
+                ax.scatter(path_array[-1, 0], path_array[-1, 1], c='C4', s=50, zorder=10, edgecolors='black', linewidth=1)
+        
+        # Add iteration count in corner
+        ax.text(0.98, 0.98, f'Iteration: {steps}', transform=ax.transAxes, 
+                fontsize=10, verticalalignment='top', horizontalalignment='right', bbox=dict(boxstyle='round', 
+                facecolor='white', alpha=0.8))
         
         ax.set_xlim(-5, 5)
         ax.set_ylim(-5, 5)

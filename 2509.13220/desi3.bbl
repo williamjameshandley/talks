@@ -1,0 +1,356 @@
+\begin{thebibliography}{}
+\makeatletter
+\relax
+\def\mn@urlcharsother{\let\do\@makeother \do\$\do\&\do\#\do\^\do\_\do\%\do\~}
+\def\mn@doi{\begingroup\mn@urlcharsother \@ifnextchar [ {\mn@doi@}
+  {\mn@doi@[]}}
+\def\mn@doi@[#1]#2{\def\@tempa{#1}\ifx\@tempa\@empty \href
+  {http://dx.doi.org/#2} {doi:#2}\else \href {http://dx.doi.org/#2} {#1}\fi
+  \endgroup}
+\def\mn@eprint#1#2{\mn@eprint@#1:#2::\@nil}
+\def\mn@eprint@arXiv#1{\href {http://arxiv.org/abs/#1} {{\tt arXiv:#1}}}
+\def\mn@eprint@dblp#1{\href {http://dblp.uni-trier.de/rec/bibtex/#1.xml}
+  {dblp:#1}}
+\def\mn@eprint@#1:#2:#3:#4\@nil{\def\@tempa {#1}\def\@tempb {#2}\def\@tempc
+  {#3}\ifx \@tempc \@empty \let \@tempc \@tempb \let \@tempb \@tempa \fi \ifx
+  \@tempb \@empty \def\@tempb {arXiv}\fi \@ifundefined
+  {mn@eprint@\@tempb}{\@tempb:\@tempc}{\expandafter \expandafter \csname
+  mn@eprint@\@tempb\endcsname \expandafter{\@tempc}}}
+
+\bibitem[\protect\citeauthoryear{{Aslanyan}, {Price}, {Abazajian}  \&
+  {Easther}}{{Aslanyan} et~al.}{2014}]{pkknottedsky}
+{Aslanyan} G.,  {Price} L.~C.,  {Abazajian} K.~N.,   {Easther} R.,  2014,
+  \mn@doi [\jcap] {10.1088/1475-7516/2014/08/052}, \href
+  {https://ui.adsabs.harvard.edu/abs/2014JCAP...08..052A} {2014, 052}
+
+\bibitem[\protect\citeauthoryear{Bayes}{Bayes}{1763}]{bayes1763essay}
+Bayes T.,  1763, {Philosophical Transactions of the Royal Society of London},
+  53, 370
+
+\bibitem[\protect\citeauthoryear{Bradbury et~al.,}{Bradbury
+  et~al.}{2018}]{jax2018github}
+Bradbury J.,  et~al., 2018, {JAX}: composable transformations of
+  {P}ython+{N}um{P}y programs, \url {http://github.com/jax-ml/jax}
+
+\bibitem[\protect\citeauthoryear{{Brout} et~al.,}{{Brout}
+  et~al.}{2022}]{pantheonplus}
+{Brout} D.,  et~al., 2022, \mn@doi [\apj] {10.3847/1538-4357/ac8e04}, \href
+  {https://ui.adsabs.harvard.edu/abs/2022ApJ...938..110B} {938, 110}
+
+\bibitem[\protect\citeauthoryear{Cabezas, Corenflos, Lao  \& Louf}{Cabezas
+  et~al.}{2024}]{cabezas2024blackjax}
+Cabezas A.,  Corenflos A.,  Lao J.,   Louf R.,  2024, BlackJAX: Composable
+  {B}ayesian inference in {JAX} (\mn@eprint {arXiv} {2402.10797})
+
+\bibitem[\protect\citeauthoryear{Chen, Shao  \& Ibrahim}{Chen
+  et~al.}{2000}]{chen2000monte}
+Chen M.-H.,  Shao Q.-M.,   Ibrahim J.~G.,  2000, Monte Carlo Methods in
+  Bayesian Computation, 1 edn.
+Springer Series in Statistics, Springer New York, NY,
+  \mn@doi{10.1007/978-1-4612-1276-8}
+
+\bibitem[\protect\citeauthoryear{Chevallier \& Polarski}{Chevallier \&
+  Polarski}{2001}]{Chevallier:2000qy}
+Chevallier M.,  Polarski D.,  2001, \mn@doi [Int. J. Mod. Phys. D]
+  {10.1142/S0218271801000822}, 10, 213
+
+\bibitem[\protect\citeauthoryear{{DES Collaboration} et~al.,}{{DES
+  Collaboration} et~al.}{2024}]{des5y}
+{DES Collaboration} et~al., 2024, \mn@doi [\apjl] {10.3847/2041-8213/ad6f9f},
+  \href {https://ui.adsabs.harvard.edu/abs/2024ApJ...973L..14D} {973, L14}
+
+\bibitem[\protect\citeauthoryear{{DESI Collaboration} et~al.,}{{DESI
+  Collaboration} et~al.}{2024}]{desivi}
+{DESI Collaboration} et~al., 2024, \mn@doi [arXiv e-prints]
+  {10.48550/arXiv.2404.03002}, \href
+  {https://ui.adsabs.harvard.edu/abs/2024arXiv240403002D} {p. arXiv:2404.03002}
+
+\bibitem[\protect\citeauthoryear{{DESI Collaboration} et~al.,}{{DESI
+  Collaboration} et~al.}{2025a}]{desi2ii}
+{DESI Collaboration} et~al., 2025a, arXiv e-prints, \href
+  {https://ui.adsabs.harvard.edu/abs/2025arXiv250314738D} {p. arXiv:2503.14738}
+
+\bibitem[\protect\citeauthoryear{{DESI Collaboration} et~al.,}{{DESI
+  Collaboration} et~al.}{2025b}]{desi2i}
+{DESI Collaboration} et~al., 2025b, arXiv e-prints, \href
+  {https://ui.adsabs.harvard.edu/abs/2025arXiv250314739D} {p. arXiv:2503.14739}
+
+\bibitem[\protect\citeauthoryear{{DESI Collaboration} et~al.,}{{DESI
+  Collaboration} et~al.}{2025c}]{desi2de}
+{DESI Collaboration} et~al., 2025c, arXiv e-prints, \href
+  {https://ui.adsabs.harvard.edu/abs/2025arXiv250314743D} {p. arXiv:2503.14743}
+
+\bibitem[\protect\citeauthoryear{{Efstathiou}}{{Efstathiou}}{2024}]{georgedes5y}
+{Efstathiou} G.,  2024, \mn@doi [arXiv e-prints] {10.48550/arXiv.2408.07175},
+  \href {https://ui.adsabs.harvard.edu/abs/2024arXiv240807175E} {p.
+  arXiv:2408.07175}
+
+\bibitem[\protect\citeauthoryear{{Einstein}}{{Einstein}}{1917}]{einstein1917}
+{Einstein} A.,  1917, Sitzungsberichte der K\&ouml;niglich Preussischen
+  Akademie der Wissenschaften, \href
+  {https://ui.adsabs.harvard.edu/abs/1917SPAW.......142E} {pp 142--152}
+
+\bibitem[\protect\citeauthoryear{{Finelli} et~al.,}{{Finelli}
+  et~al.}{2018}]{pkcore}
+{Finelli} F.,  et~al., 2018, \mn@doi [\jcap] {10.1088/1475-7516/2018/04/016},
+  \href {https://ui.adsabs.harvard.edu/abs/2018JCAP...04..016F} {2018, 016}
+
+\bibitem[\protect\citeauthoryear{Foley et~al.,}{Foley
+  et~al.}{2017}]{foundation}
+Foley R.~J.,  et~al., 2017, \mn@doi [Monthly Notices of the Royal Astronomical
+  Society] {10.1093/mnras/stx3136}, 475, 193
+
+\bibitem[\protect\citeauthoryear{{Gronau} et~al.,}{{Gronau}
+  et~al.}{2017}]{bridgetutorial}
+{Gronau} Q.~F.,  et~al., 2017, \mn@doi [arXiv e-prints]
+  {10.48550/arXiv.1703.05984}, \href
+  {https://ui.adsabs.harvard.edu/abs/2017arXiv170305984G} {p. arXiv:1703.05984}
+
+\bibitem[\protect\citeauthoryear{{Guy} et~al.,}{{Guy} et~al.}{2007}]{salt2}
+{Guy} J.,  et~al., 2007, \mn@doi [\aap] {10.1051/0004-6361:20066930}, \href
+  {https://ui.adsabs.harvard.edu/abs/2007A&A...466...11G} {466, 11}
+
+\bibitem[\protect\citeauthoryear{Handley}{Handley}{2019}]{anesthetic}
+Handley W.,  2019, \mn@doi [The Journal of Open Source Software]
+  {10.21105/joss.01414}, 4, 1414
+
+\bibitem[\protect\citeauthoryear{{Handley} \& {Lemos}}{{Handley} \&
+  {Lemos}}{2019}]{lemos}
+{Handley} W.,  {Lemos} P.,  2019, \mn@doi [\prd] {10.1103/PhysRevD.100.043504},
+  \href {https://ui.adsabs.harvard.edu/abs/2019PhRvD.100d3504H} {100, 043504}
+
+\bibitem[\protect\citeauthoryear{{Handley}, {Hobson}  \& {Lasenby}}{{Handley}
+  et~al.}{2015a}]{polychord1}
+{Handley} W.~J.,  {Hobson} M.~P.,   {Lasenby} A.~N.,  2015a, \mn@doi [\mnras]
+  {10.1093/mnrasl/slv047}, \href
+  {https://ui.adsabs.harvard.edu/abs/2015MNRAS.450L..61H} {450, L61}
+
+\bibitem[\protect\citeauthoryear{{Handley}, {Hobson}  \& {Lasenby}}{{Handley}
+  et~al.}{2015b}]{polychord2}
+{Handley} W.~J.,  {Hobson} M.~P.,   {Lasenby} A.~N.,  2015b, \mn@doi [\mnras]
+  {10.1093/mnras/stv1911}, \href
+  {https://ui.adsabs.harvard.edu/abs/2015MNRAS.453.4384H} {453, 4384}
+
+\bibitem[\protect\citeauthoryear{{Handley}, {Lasenby}, {Peiris}  \&
+  {Hobson}}{{Handley} et~al.}{2019}]{pkhandley}
+{Handley} W.~J.,  {Lasenby} A.~N.,  {Peiris} H.~V.,   {Hobson} M.~P.,  2019,
+  \mn@doi [\prd] {10.1103/PhysRevD.100.103511}, \href
+  {https://ui.adsabs.harvard.edu/abs/2019PhRvD.100j3511H} {100, 103511}
+
+\bibitem[\protect\citeauthoryear{Harris et~al.,}{Harris et~al.}{2020}]{numpy}
+Harris C.~R.,  et~al., 2020, \mn@doi [Nature] {10.1038/s41586-020-2649-2}, 585,
+  357
+
+\bibitem[\protect\citeauthoryear{{Hee}, {Handley}, {Hobson}  \&
+  {Lasenby}}{{Hee} et~al.}{2016}]{sonke}
+{Hee} S.,  {Handley} W.~J.,  {Hobson} M.~P.,   {Lasenby} A.~N.,  2016, \mn@doi
+  [\mnras] {10.1093/mnras/stv2217}, \href
+  {https://ui.adsabs.harvard.edu/abs/2016MNRAS.455.2461H} {455, 2461}
+
+\bibitem[\protect\citeauthoryear{{Heimersheim}, {Sartorio}, {Fialkov}  \&
+  {Lorimer}}{{Heimersheim} et~al.}{2022}]{heimersheimfrb}
+{Heimersheim} S.,  {Sartorio} N.~S.,  {Fialkov} A.,   {Lorimer} D.~R.,  2022,
+  \mn@doi [\apj] {10.3847/1538-4357/ac70c9}, \href
+  {https://ui.adsabs.harvard.edu/abs/2022ApJ...933...57H} {933, 57}
+
+\bibitem[\protect\citeauthoryear{{Heimersheim}, {R{\o}nneberg}, {Linton},
+  {Pagani}  \& {Fialkov}}{{Heimersheim} et~al.}{2024}]{heimersheim21cm}
+{Heimersheim} S.,  {R{\o}nneberg} L.,  {Linton} H.,  {Pagani} F.,   {Fialkov}
+  A.,  2024, \mn@doi [\mnras] {10.1093/mnras/stad3936}, \href
+  {https://ui.adsabs.harvard.edu/abs/2024MNRAS.52711404H} {527, 11404}
+
+\bibitem[\protect\citeauthoryear{{Hergt}, {Handley}, {Hobson}  \&
+  {Lasenby}}{{Hergt} et~al.}{2021}]{hergt}
+{Hergt} L.~T.,  {Handley} W.~J.,  {Hobson} M.~P.,   {Lasenby} A.~N.,  2021,
+  \mn@doi [\prd] {10.1103/PhysRevD.103.123511}, \href
+  {https://ui.adsabs.harvard.edu/abs/2021PhRvD.103l3511H} {103, 123511}
+
+\bibitem[\protect\citeauthoryear{Hicken et~al.,}{Hicken
+  et~al.}{2009}]{Hicken2009}
+Hicken M.,  et~al., 2009, \mn@doi [The Astrophysical Journal]
+  {10.1088/0004-637X/700/1/331}, 700, 331
+
+\bibitem[\protect\citeauthoryear{Hicken et~al.,}{Hicken
+  et~al.}{2012}]{Hicken2012}
+Hicken M.,  et~al., 2012, \mn@doi [The Astrophysical Journal Supplement Series]
+  {10.1088/0067-0049/200/2/12}, 200, 12
+
+\bibitem[\protect\citeauthoryear{Hunter}{Hunter}{2007}]{matplotlib}
+Hunter J.~D.,  2007, \mn@doi [Computing in Science \& Engineering]
+  {10.1109/MCSE.2007.55}, 9, 90
+
+\bibitem[\protect\citeauthoryear{Jeffreys}{Jeffreys}{1939}]{jeffreys1939theory}
+Jeffreys H.,  1939, The Theory of Probability, second edn.
+Clarendon Press, Oxford
+
+\bibitem[\protect\citeauthoryear{Kenworthy et~al.,}{Kenworthy
+  et~al.}{2021}]{Kenworthy2021}
+Kenworthy W.~D.,  et~al., 2021, \mn@doi [The Astrophysical Journal]
+  {10.3847/1538-4357/ac30d8}, 923, 265
+
+\bibitem[\protect\citeauthoryear{Krisciunas et~al.,}{Krisciunas
+  et~al.}{2017}]{Krisciunas2017}
+Krisciunas K.,  et~al., 2017, \mn@doi [The Astronomical Journal]
+  {10.3847/1538-3881/aa9a3d}, 154, 278
+
+\bibitem[\protect\citeauthoryear{Krisciunas et~al.,}{Krisciunas
+  et~al.}{2020}]{Krisciunas2020}
+Krisciunas K.,  et~al., 2020, \mn@doi [The Astronomical Journal]
+  {10.3847/1538-3881/abc431}, 160, 289
+
+\bibitem[\protect\citeauthoryear{Li}{Li}{2023}]{smplotlib}
+Li J.,  2023, AstroJacobLi/smplotlib: v0.0.9, \mn@doi{10.5281/zenodo.8126529},
+  \url {https://doi.org/10.5281/zenodo.8126529}
+
+\bibitem[\protect\citeauthoryear{Linder}{Linder}{2003}]{Linder:2002et}
+Linder E.~V.,  2003, \mn@doi [Phys. Rev. Lett.]
+  {10.1103/PhysRevLett.90.091301}, 90, 091301
+
+\bibitem[\protect\citeauthoryear{{M}c{K}inney}{{M}c{K}inney}{2010}]{pandaspaper}
+{M}c{K}inney W.,  2010, in {S}t\'efan van~der {W}alt {J}arrod {M}illman eds,
+  {P}roceedings of the 9th {P}ython in {S}cience {C}onference. pp 56 -- 61,
+  \mn@doi{10.25080/Majora-92bf1922-00a}
+
+\bibitem[\protect\citeauthoryear{{Millea} \& {Bouchet}}{{Millea} \&
+  {Bouchet}}{2018}]{flexknotreionization}
+{Millea} M.,  {Bouchet} F.,  2018, \mn@doi [\aap]
+  {10.1051/0004-6361/201833288}, \href
+  {https://ui.adsabs.harvard.edu/abs/2018A&A...617A..96M} {617, A96}
+
+\bibitem[\protect\citeauthoryear{{Naesseth}, {Lindsten}  \&
+  {Sch{\"o}n}}{{Naesseth} et~al.}{2019}]{smc}
+{Naesseth} C.~A.,  {Lindsten} F.,   {Sch{\"o}n} T.~B.,  2019, \mn@doi [arXiv
+  e-prints] {10.48550/arXiv.1903.04797}, \href
+  {https://ui.adsabs.harvard.edu/abs/2019arXiv190304797N} {p. arXiv:1903.04797}
+
+\bibitem[\protect\citeauthoryear{{Notari}, {Redi}  \& {Tesi}}{{Notari}
+  et~al.}{2025}]{baovssnevidence}
+{Notari} A.,  {Redi} M.,   {Tesi} A.,  2025, \mn@doi [\jcap]
+  {10.1088/1475-7516/2025/04/048}, \href
+  {https://ui.adsabs.harvard.edu/abs/2025JCAP...04..048N} {2025, 048}
+
+\bibitem[\protect\citeauthoryear{{O'Raifeartaigh}, {O'Keeffe}, {Nahm}  \&
+  {Mitton}}{{O'Raifeartaigh} et~al.}{2017}]{einstein1917centenary}
+{O'Raifeartaigh} C.,  {O'Keeffe} M.,  {Nahm} W.,   {Mitton} S.,  2017, \mn@doi
+  [European Physical Journal H] {10.1140/epjh/e2017-80002-5}, \href
+  {https://ui.adsabs.harvard.edu/abs/2017EPJH...42..431O} {42}
+
+\bibitem[\protect\citeauthoryear{{Olamaie}, {Hobson}, {Feroz}, {Grainge},
+  {Lasenby}, {Perrott}, {Rumsey}  \& {Saunders}}{{Olamaie}
+  et~al.}{2018}]{flexknotclusters}
+{Olamaie} M.,  {Hobson} M.~P.,  {Feroz} F.,  {Grainge} K. J.~B.,  {Lasenby} A.,
+   {Perrott} Y.~C.,  {Rumsey} C.,   {Saunders} R. D.~E.,  2018, \mn@doi
+  [\mnras] {10.1093/mnras/sty2495}, \href
+  {https://ui.adsabs.harvard.edu/abs/2018MNRAS.481.3853O} {481, 3853}
+
+\bibitem[\protect\citeauthoryear{Ormondroyd}{Ormondroyd}{2025}]{ormondroyd_2025_15025604}
+Ormondroyd A.,  2025, {Nonparametric reconstructions of dynamical dark energy
+  using flexknots}, \mn@doi{10.5281/zenodo.15025604}, \url
+  {https://doi.org/10.5281/zenodo.15025604}
+
+\bibitem[\protect\citeauthoryear{{Ormondroyd}, {Handley}, {Hobson}  \&
+  {Lasenby}}{{Ormondroyd} et~al.}{2023}]{balancingact}
+{Ormondroyd} A.~N.,  {Handley} W.~J.,  {Hobson} M.~P.,   {Lasenby} A.~N.,
+  2023, \mn@doi [arXiv e-prints] {10.48550/arXiv.2310.08490}, \href
+  {https://ui.adsabs.harvard.edu/abs/2023arXiv231008490O} {p. arXiv:2310.08490}
+
+\bibitem[\protect\citeauthoryear{{Ormondroyd}, {Handley}, {Hobson}  \&
+  {Lasenby}}{{Ormondroyd} et~al.}{2025a}]{paper2}
+{Ormondroyd} A.~N.,  {Handley} W.~J.,  {Hobson} M.~P.,   {Lasenby} A.~N.,
+  2025a, \mn@doi [arXiv e-prints] {10.48550/arXiv.2503.17342}, \href
+  {https://ui.adsabs.harvard.edu/abs/2025arXiv250317342O} {p. arXiv:2503.17342}
+
+\bibitem[\protect\citeauthoryear{{Ormondroyd}, {Handley}, {Hobson}  \&
+  {Lasenby}}{{Ormondroyd} et~al.}{2025b}]{paper1}
+{Ormondroyd} A.~N.,  {Handley} W.~J.,  {Hobson} M.~P.,   {Lasenby} A.~N.,
+  2025b, \mn@doi [\mnras] {10.1093/mnras/staf1144}, \href
+  {https://ui.adsabs.harvard.edu/abs/2025MNRAS.541.3388O} {541, 3388}
+
+\bibitem[\protect\citeauthoryear{{Perlmutter} et~al.,}{{Perlmutter}
+  et~al.}{1999}]{SupernovaCosmologyProject:1998}
+{Perlmutter} S.,  et~al., 1999, \mn@doi [\apj] {10.1086/307221}, \href
+  {https://ui.adsabs.harvard.edu/abs/1999ApJ...517..565P} {517, 565}
+
+\bibitem[\protect\citeauthoryear{{Planck Collaboration} et~al.,}{{Planck
+  Collaboration} et~al.}{2014}]{pkplanck13}
+{Planck Collaboration} et~al., 2014, \mn@doi [\aap]
+  {10.1051/0004-6361/201321569}, \href
+  {https://ui.adsabs.harvard.edu/abs/2014A&A...571A..22P} {571, A22}
+
+\bibitem[\protect\citeauthoryear{{Planck Collaboration} et~al.,}{{Planck
+  Collaboration} et~al.}{2016a}]{planck15parameters}
+{Planck Collaboration} et~al., 2016a, \mn@doi [\aap]
+  {10.1051/0004-6361/201525830}, \href
+  {https://ui.adsabs.harvard.edu/abs/2016A&A...594A..13P} {594, A13}
+
+\bibitem[\protect\citeauthoryear{{Planck Collaboration} et~al.,}{{Planck
+  Collaboration} et~al.}{2016b}]{pkplanck15}
+{Planck Collaboration} et~al., 2016b, \mn@doi [\aap]
+  {10.1051/0004-6361/201525898}, \href
+  {https://ui.adsabs.harvard.edu/abs/2016A&A...594A..20P} {594, A20}
+
+\bibitem[\protect\citeauthoryear{{Planck Collaboration} et~al.,}{{Planck
+  Collaboration} et~al.}{2021}]{planck18vi}
+{Planck Collaboration} et~al., 2021, \mn@doi [\aap]
+  {10.1051/0004-6361/201833910e}, \href
+  {https://ui.adsabs.harvard.edu/abs/2021A&A...652C...4P} {652, C4}
+
+\bibitem[\protect\citeauthoryear{{Prathaban}, {Yallup}, {Alvey}, {Yang},
+  {Templeton}  \& {Handley}}{{Prathaban} et~al.}{2025}]{metha}
+{Prathaban} M.,  {Yallup} D.,  {Alvey} J.,  {Yang} M.,  {Templeton} W.,
+  {Handley} W.,  2025, \mn@doi [arXiv e-prints] {10.48550/arXiv.2509.04336},
+  \href {https://ui.adsabs.harvard.edu/abs/2025arXiv250904336P} {p.
+  arXiv:2509.04336}
+
+\bibitem[\protect\citeauthoryear{{Riess} et~al.,}{{Riess}
+  et~al.}{1998}]{SupernovaSearchTeam:1998}
+{Riess} A.~G.,  et~al., 1998, \mn@doi [\aj] {10.1086/300499}, \href
+  {https://ui.adsabs.harvard.edu/abs/1998AJ....116.1009R} {116, 1009}
+
+\bibitem[\protect\citeauthoryear{{Shen}, {Anstey}, {de Lera Acedo}  \&
+  {Fialkov}}{{Shen} et~al.}{2024}]{shen}
+{Shen} E.,  {Anstey} D.,  {de Lera Acedo} E.,   {Fialkov} A.,  2024, \mn@doi
+  [\mnras] {10.1093/mnras/stae614}, \href
+  {https://ui.adsabs.harvard.edu/abs/2024MNRAS.529.1642S} {529, 1642}
+
+\bibitem[\protect\citeauthoryear{Taylor et~al.,}{Taylor
+  et~al.}{2023}]{taylor2023}
+Taylor G.,  et~al., 2023, \mn@doi [Monthly Notices of the Royal Astronomical
+  Society] {10.1093/mnras/stad320}, 520, 5209
+
+\bibitem[\protect\citeauthoryear{{The pandas development team}}{{The pandas
+  development team}}{2023}]{pandaszenodo}
+{The pandas development team} 2023, pandas-dev/pandas: Pandas,
+  \mn@doi{10.5281/zenodo.8092754}, \url
+  {https://doi.org/10.5281/zenodo.8092754}
+
+\bibitem[\protect\citeauthoryear{{V{\'a}zquez}, {Bridges}, {Hobson}  \&
+  {Lasenby}}{{V{\'a}zquez} et~al.}{2012a}]{pkvazquez}
+{V{\'a}zquez} J.~A.,  {Bridges} M.,  {Hobson} M.~P.,   {Lasenby} A.~N.,  2012a,
+  \mn@doi [\jcap] {10.1088/1475-7516/2012/06/006}, \href
+  {https://ui.adsabs.harvard.edu/abs/2012JCAP...06..006V} {2012, 006}
+
+\bibitem[\protect\citeauthoryear{{V{\'a}zquez}, {Bridges}, {Hobson}  \&
+  {Lasenby}}{{V{\'a}zquez} et~al.}{2012b}]{devazquez}
+{V{\'a}zquez} J.~A.,  {Bridges} M.,  {Hobson} M.~P.,   {Lasenby} A.~N.,  2012b,
+  \mn@doi [\jcap] {10.1088/1475-7516/2012/09/020}, \href
+  {https://ui.adsabs.harvard.edu/abs/2012JCAP...09..020V} {2012, 020}
+
+\bibitem[\protect\citeauthoryear{{Vincenzi} et~al.,}{{Vincenzi}
+  et~al.}{2025}]{vincenzi}
+{Vincenzi} M.,  et~al., 2025, \mn@doi [\mnras] {10.1093/mnras/staf943}, \href
+  {https://ui.adsabs.harvard.edu/abs/2025MNRAS.541.2585V} {541, 2585}
+
+\bibitem[\protect\citeauthoryear{Virtanen et~al.,}{Virtanen
+  et~al.}{2020}]{scipy}
+Virtanen P.,  et~al., 2020, \mn@doi [Nature Methods]
+  {10.1038/s41592-019-0686-2}, \href {https://rdcu.be/b08Wh} {17, 261}
+
+\bibitem[\protect\citeauthoryear{Yallup, Kroupa  \& Handley}{Yallup
+  et~al.}{2025}]{yallup2025nested}
+Yallup D.,  Kroupa N.,   Handley W.,  2025, in Frontiers in Probabilistic
+  Inference: Learning meets Sampling. \url
+  {https://openreview.net/forum?id=ekbkMSuPo4}
+
+\makeatother
+\end{thebibliography}

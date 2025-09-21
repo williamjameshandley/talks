@@ -1,0 +1,304 @@
+\begin{thebibliography}{}
+\makeatletter
+\relax
+\def\mn@urlcharsother{\let\do\@makeother \do\$\do\&\do\#\do\^\do\_\do\%\do\~}
+\def\mn@doi{\begingroup\mn@urlcharsother \@ifnextchar [ {\mn@doi@}
+  {\mn@doi@[]}}
+\def\mn@doi@[#1]#2{\def\@tempa{#1}\ifx\@tempa\@empty \href
+  {http://dx.doi.org/#2} {doi:#2}\else \href {http://dx.doi.org/#2} {#1}\fi
+  \endgroup}
+\def\mn@eprint#1#2{\mn@eprint@#1:#2::\@nil}
+\def\mn@eprint@arXiv#1{\href {http://arxiv.org/abs/#1} {{\tt arXiv:#1}}}
+\def\mn@eprint@dblp#1{\href {http://dblp.uni-trier.de/rec/bibtex/#1.xml}
+  {dblp:#1}}
+\def\mn@eprint@#1:#2:#3:#4\@nil{\def\@tempa {#1}\def\@tempb {#2}\def\@tempc
+  {#3}\ifx \@tempc \@empty \let \@tempc \@tempb \let \@tempb \@tempa \fi \ifx
+  \@tempb \@empty \def\@tempb {arXiv}\fi \@ifundefined
+  {mn@eprint@\@tempb}{\@tempb:\@tempc}{\expandafter \expandafter \csname
+  mn@eprint@\@tempb\endcsname \expandafter{\@tempc}}}
+
+\bibitem[\protect\citeauthoryear{Anstey \& Leeney}{Anstey \&
+  Leeney}{2024}]{Anstey2023}
+Anstey D.,  Leeney S.~A.,  2024, \mn@doi [RAS Techniques and Instruments]
+  {10.1093/rasti/rzae024}, 3, 372
+
+\bibitem[\protect\citeauthoryear{{Arendse} et~al.,}{{Arendse}
+  et~al.}{2023}]{Arendse2023}
+{Arendse} N.,  et~al., 2023, arXiv e-prints, p. arXiv:2312.04621
+
+\bibitem[\protect\citeauthoryear{Ashton et~al.,}{Ashton
+  et~al.}{2022}]{ashton2022nested}
+Ashton G.,  et~al., 2022, Nature Reviews Methods Primers, 2, 39
+
+\bibitem[\protect\citeauthoryear{{Bellm} et~al.,}{{Bellm}
+  et~al.}{2019}]{Bellm2019}
+{Bellm} E.~C.,  et~al., 2019, \mn@doi [\pasp] {10.1088/1538-3873/aaecbe}, 131,
+  018002
+
+\bibitem[\protect\citeauthoryear{Buchner}{Buchner}{2023}]{buchner2023nested}
+Buchner J.,  2023, Statistic Surveys, 17, 169
+
+\bibitem[\protect\citeauthoryear{{Burns} et~al.,}{{Burns}
+  et~al.}{2011}]{Burns2011}
+{Burns} C.~R.,  et~al., 2011, \mn@doi [\aj] {10.1088/0004-6256/141/1/19}, 141,
+  19
+
+\bibitem[\protect\citeauthoryear{{Chotard} et~al.,}{{Chotard}
+  et~al.}{2011}]{Chotard2011}
+{Chotard} N.,  et~al., 2011, arXiv e-prints, p. arXiv:1103.5300
+
+\bibitem[\protect\citeauthoryear{{Dhawan}, {Thorp}, {Mandel}, {Ward},
+  {Narayan}, {Jha}  \& {Chant}}{{Dhawan} et~al.}{2022}]{Dhawan2022}
+{Dhawan} S.,  {Thorp} S.,  {Mandel} K.~S.,  {Ward} S.~M.,  {Narayan} G.,  {Jha}
+  S.~W.,   {Chant} T.,  2022, \mn@doi [\apj] {10.3847/1538-4357/ac9710}, 940,
+  189
+
+\bibitem[\protect\citeauthoryear{Do et~al.,}{Do et~al.}{2025}]{do2025hawaii}
+Do A.,  et~al., 2025, Monthly Notices of the Royal Astronomical Society, 536,
+  624
+
+\bibitem[\protect\citeauthoryear{{Foley} et~al.,}{{Foley}
+  et~al.}{2018}]{Foley2018}
+{Foley} R.~J.,  et~al., 2018, arXiv e-prints, p. arXiv:1812.00514
+
+\bibitem[\protect\citeauthoryear{{Gall}, {Izzo}, {Wojtak}  \& {Hjorth}}{{Gall}
+  et~al.}{2024}]{Gall2024}
+{Gall} C.,  {Izzo} L.,  {Wojtak} R.,   {Hjorth} J.,  2024, arXiv e-prints, p.
+  arXiv:2411.05642
+
+\bibitem[\protect\citeauthoryear{{Gonzalez-Gaitan}, {de Jaeger}, {Galbany},
+  {Mourao}, {Paulina-Afonso}  \& {Filippenko}}{{Gonzalez-Gaitan}
+  et~al.}{2020}]{Gonzalez2020}
+{Gonzalez-Gaitan} S.,  {de Jaeger} T.,  {Galbany} L.,  {Mourao} A.,
+  {Paulina-Afonso} A.,   {Filippenko} A.~V.,  2020, arXiv e-prints, p.
+  arXiv:2009.13230
+
+\bibitem[\protect\citeauthoryear{{Goobar}}{{Goobar}}{2008}]{Goobar2008}
+{Goobar} A.,  2008, arXiv e-prints, p. arXiv:0809.1094
+
+\bibitem[\protect\citeauthoryear{{Grayling} \& {Popovic}}{{Grayling} \&
+  {Popovic}}{2024}]{arXiv:2410.13747}
+{Grayling} M.,  {Popovic} B.,  2024, arXiv e-prints, p. arXiv:2410.13747
+
+\bibitem[\protect\citeauthoryear{{Guy}, {Astier}, {Nobili}, {Regnault}  \&
+  {Pain}}{{Guy} et~al.}{2005a}]{Guy2005orig}
+{Guy} J.,  {Astier} P.,  {Nobili} S.,  {Regnault} N.,   {Pain} R.,  2005a,
+  arXiv e-prints, pp arXiv:astro--ph/0506583
+
+\bibitem[\protect\citeauthoryear{{Guy}, {Astier}, {Nobili}, {Regnault}  \&
+  {Pain}}{{Guy} et~al.}{2005b}]{Guy2005}
+{Guy} J.,  {Astier} P.,  {Nobili} S.,  {Regnault} N.,   {Pain} R.,  2005b,
+  \mn@doi [\aap] {10.1051/0004-6361:20053025}, \href
+  {https://ui.adsabs.harvard.edu/abs/2005A&A...443..781G} {443, 781}
+
+\bibitem[\protect\citeauthoryear{{Guy} et~al.,}{{Guy} et~al.}{2007}]{Guy2007}
+{Guy} J.,  et~al., 2007, \mn@doi [\aap] {10.1051/0004-6361:20066930}, \href
+  {https://ui.adsabs.harvard.edu/abs/2007A&A...466...11G} {466, 11}
+
+\bibitem[\protect\citeauthoryear{{Handley}}{{Handley}}{2019}]{Handley2019}
+{Handley} W.,  2019, \mn@doi [The Journal of Open Source Software]
+  {10.21105/joss.01414}, 4, 1414
+
+\bibitem[\protect\citeauthoryear{{Hauret}, {Magain}  \& {Biernaux}}{{Hauret}
+  et~al.}{2018}]{Hauret2018}
+{Hauret} C.,  {Magain} P.,   {Biernaux} J.,  2018, arXiv e-prints, p.
+  arXiv:1806.10900
+
+\bibitem[\protect\citeauthoryear{{Hayes} et~al.,}{{Hayes}
+  et~al.}{2024}]{Hayes2024}
+{Hayes} E.~E.,  et~al., 2024, arXiv e-prints, p. arXiv:2506.04309
+
+\bibitem[\protect\citeauthoryear{{Hložek} et~al.,}{{Hložek}
+  et~al.}{2012}]{Hlozek2012}
+{Hložek} R.,  et~al., 2012, \apj, 752, 79
+
+\bibitem[\protect\citeauthoryear{{Hložek} et~al.,}{{Hložek}
+  et~al.}{2019}]{Hlozek2019}
+{Hložek} R.~A.,  et~al., 2019, arXiv e-prints, p. arXiv:1903.09324
+
+\bibitem[\protect\citeauthoryear{{Huang} et~al.,}{{Huang}
+  et~al.}{2019}]{Huang2019}
+{Huang} C.~D.,  et~al., 2019, arXiv e-prints, p. arXiv:1908.10883
+
+\bibitem[\protect\citeauthoryear{{Huang} et~al.,}{{Huang}
+  et~al.}{2024}]{arXiv:2405.03983}
+{Huang} Z.,  et~al., 2024, arXiv e-prints, p. arXiv:2405.03983
+
+\bibitem[\protect\citeauthoryear{{Ivezi{\'c}} et~al.,}{{Ivezi{\'c}}
+  et~al.}{2019a}]{Ivezic2019}
+{Ivezi{\'c}} {\v Z}.,  et~al., 2019a, \mn@doi [\apj]
+  {10.3847/1538-4357/ab042c}, \href
+  {https://ui.adsabs.harvard.edu/abs/2019ApJ...873..111I} {873, 111}
+
+\bibitem[\protect\citeauthoryear{Ivezi{\'c} et~al.,}{Ivezi{\'c}
+  et~al.}{2019b}]{ivezic2019lsst}
+Ivezi{\'c} {\v{Z}}.,  et~al., 2019b, The Astrophysical Journal, 873, 111
+
+\bibitem[\protect\citeauthoryear{{Jha}, {Maguire}  \& {Sullivan}}{{Jha}
+  et~al.}{2019}]{Jha2019}
+{Jha} S.~W.,  {Maguire} K.,   {Sullivan} M.,  2019, arXiv e-prints, p.
+  arXiv:1908.02303
+
+\bibitem[\protect\citeauthoryear{{Kenworthy} et~al.,}{{Kenworthy}
+  et~al.}{2021}]{Kenworthy2021}
+{Kenworthy} W.~D.,  et~al., 2021, \mn@doi [\apj] {10.3847/1538-4357/ac30d8},
+  \href {https://ui.adsabs.harvard.edu/abs/2021ApJ...923..265K} {923, 265}
+
+\bibitem[\protect\citeauthoryear{{LSST Dark Energy Science
+  Collaboration}}{{LSST Dark Energy Science
+  Collaboration}}{2012}]{LSST_DESC2012}
+{LSST Dark Energy Science Collaboration} 2012, arXiv e-prints, p.
+  arXiv:1211.0310
+
+\bibitem[\protect\citeauthoryear{{Lawrence} et~al.,}{{Lawrence}
+  et~al.}{2007}]{Lawrence2007}
+{Lawrence} A.,  et~al., 2007, \mn@doi [\mnras]
+  {10.1111/j.1365-2966.2007.12040.x}, 379, 1599
+
+\bibitem[\protect\citeauthoryear{Leeney}{Leeney}{2025}]{leeney2025jax}
+Leeney S. A.~K.,  2025, arXiv preprint arXiv:2504.08081
+
+\bibitem[\protect\citeauthoryear{{Leeney}, {Handley}  \& {de Lera
+  Acedo}}{{Leeney} et~al.}{2022}]{Leeney2022}
+{Leeney} S.~A.~K.,  {Handley} W.~J.,   {de Lera Acedo} E.,  2022, arXiv
+  e-prints, p. arXiv:2211.15448
+
+\bibitem[\protect\citeauthoryear{{Liang}, {Xiao}, {Liu}  \& {Zhang}}{{Liang}
+  et~al.}{2008}]{Liang2008}
+{Liang} N.,  {Xiao} W.~K.,  {Liu} Y.,   {Zhang} S.~N.,  2008, arXiv e-prints,
+  p. arXiv:0802.4262
+
+\bibitem[\protect\citeauthoryear{{MacKay}}{{MacKay}}{2003}]{MacKay2003}
+{MacKay} D.~J.~C.,  2003, {Information Theory, Inference, and Learning
+  Algorithms}.
+Cambridge University Press, Cambridge, UK
+
+\bibitem[\protect\citeauthoryear{{Mandel}, {Narayan}  \& {Kirshner}}{{Mandel}
+  et~al.}{2011}]{Mandel2011}
+{Mandel} K.~S.,  {Narayan} G.,   {Kirshner} R.~P.,  2011, \mn@doi [\apj]
+  {10.1088/0004-637X/731/2/120}, 731, 120
+
+\bibitem[\protect\citeauthoryear{{Mandel}, {Foley}  \& {Kirshner}}{{Mandel}
+  et~al.}{2014}]{Mandel2014}
+{Mandel} K.~S.,  {Foley} R.~J.,   {Kirshner} R.~P.,  2014, \mn@doi [\apj]
+  {10.1088/0004-637X/797/2/75}, 797, 75
+
+\bibitem[\protect\citeauthoryear{{Mandel}, {Scolnic}, {Shariff}, {Foley}  \&
+  {Kirshner}}{{Mandel} et~al.}{2016a}]{Mandel2016}
+{Mandel} K.~S.,  {Scolnic} D.,  {Shariff} H.,  {Foley} R.~J.,   {Kirshner}
+  R.~P.,  2016a, arXiv e-prints, p. arXiv:1609.04470
+
+\bibitem[\protect\citeauthoryear{{Mandel}, {Scolnic}, {Shariff}, {Foley}  \&
+  {Kirshner}}{{Mandel} et~al.}{2016b}]{Mandel2016_dust}
+{Mandel} K.~S.,  {Scolnic} D.,  {Shariff} H.,  {Foley} R.~J.,   {Kirshner}
+  R.~P.,  2016b, \apj, 842, 129
+
+\bibitem[\protect\citeauthoryear{{Mandel}, {Scolnic}, {Shariff}, {Foley}  \&
+  {Kirshner}}{{Mandel} et~al.}{2017}]{Mandel2017}
+{Mandel} K.~S.,  {Scolnic} D.,  {Shariff} H.,  {Foley} R.~J.,   {Kirshner}
+  R.~P.,  2017, \mn@doi [\apj] {10.3847/1538-4357/aa6038}, 842, 46
+
+\bibitem[\protect\citeauthoryear{{Mandel}, {Thorp}, {Narayan}, {Friedman}  \&
+  {Avelino}}{{Mandel} et~al.}{2020}]{Mandel2020}
+{Mandel} K.~S.,  {Thorp} S.,  {Narayan} G.,  {Friedman} A.~S.,   {Avelino} A.,
+  2020, \mn@doi [\apj] {10.3847/1538-4357/aa6038}, 842, 269
+
+\bibitem[\protect\citeauthoryear{{Mandelbaum} et~al.,}{{Mandelbaum}
+  et~al.}{2019}]{Mandelbaum2019}
+{Mandelbaum} R.,  et~al., 2019, arXiv e-prints, p. arXiv:1903.09323
+
+\bibitem[\protect\citeauthoryear{{Ménard}, {Kilbinger}  \&
+  {Scranton}}{{Ménard} et~al.}{2009}]{Menard2009}
+{Ménard} B.,  {Kilbinger} M.,   {Scranton} R.,  2009, arXiv e-prints, p.
+  arXiv:0903.4199
+
+\bibitem[\protect\citeauthoryear{{Nelder} \& {Mead}}{{Nelder} \&
+  {Mead}}{1965}]{Nelder1965}
+{Nelder} J.~A.,  {Mead} R.,  1965, \mn@doi [Computer Journal]
+  {10.1093/comjnl/7.4.308}, 7, 308
+
+\bibitem[\protect\citeauthoryear{{Ormondroyd}, {Handley}, {Hobson}  \&
+  {Lasenby}}{{Ormondroyd} et~al.}{2025}]{arXiv:2503.17342}
+{Ormondroyd} A.~N.,  {Handley} W.~J.,  {Hobson} M.~P.,   {Lasenby} A.~N.,
+  2025, arXiv e-prints, p. arXiv:2503.17342
+
+\bibitem[\protect\citeauthoryear{{Perlmutter} et~al.,}{{Perlmutter}
+  et~al.}{1999}]{Perlmutter1999}
+{Perlmutter} S.,  et~al., 1999, \mn@doi [\apj] {10.1086/307221}, \href
+  {https://ui.adsabs.harvard.edu/abs/1999ApJ...517..565P} {517, 565}
+
+\bibitem[\protect\citeauthoryear{{Popovic} et~al.,}{{Popovic}
+  et~al.}{2025}]{arXiv:2506.05471}
+{Popovic} B.,  et~al., 2025, arXiv e-prints, p. arXiv:2506.05471
+
+\bibitem[\protect\citeauthoryear{{Riess} et~al.,}{{Riess}
+  et~al.}{1998}]{Riess1998}
+{Riess} A.~G.,  et~al., 1998, \mn@doi [\aj] {10.1086/300499}, \href
+  {https://ui.adsabs.harvard.edu/abs/1998AJ....116.1009R} {116, 1009}
+
+\bibitem[\protect\citeauthoryear{{Risaliti} \& {Lusso}}{{Risaliti} \&
+  {Lusso}}{2018}]{Risaliti2018}
+{Risaliti} G.,  {Lusso} E.,  2018, arXiv e-prints, p. arXiv:1811.02590
+
+\bibitem[\protect\citeauthoryear{{Roberts}, {Lochner}, {Fonseca}, {Bassett},
+  {Lablanche}  \& {Agarwal}}{{Roberts} et~al.}{2017}]{Roberts2017}
+{Roberts} E.,  {Lochner} M.,  {Fonseca} J.,  {Bassett} B.~A.,  {Lablanche}
+  P.-Y.,   {Agarwal} S.,  2017, \mnras, 468, 4933
+
+\bibitem[\protect\citeauthoryear{{Roque} et~al.,}{{Roque}
+  et~al.}{2023}]{Roque2023}
+{Roque} I.~L.~V.,  et~al., 2023, arXiv e-prints, p. arXiv:2307.00099
+
+\bibitem[\protect\citeauthoryear{{Scolnic} et~al.,}{{Scolnic}
+  et~al.}{2022}]{Scolnic2022}
+{Scolnic} D.~M.,  et~al., 2022, \mn@doi [\apj] {10.3847/1538-4357/ac8b7a},
+  \href {https://ui.adsabs.harvard.edu/abs/2022ApJ...938..113S} {938, 113}
+
+\bibitem[\protect\citeauthoryear{{Shappee} et~al.,}{{Shappee}
+  et~al.}{2014}]{Shappee2014}
+{Shappee} B.~J.,  et~al., 2014, \mn@doi [\apj] {10.1088/0004-637X/788/1/48},
+  788, 48
+
+\bibitem[\protect\citeauthoryear{{Shariff}, {Jiao}, {Trotta}  \& {van
+  Dyk}}{{Shariff} et~al.}{2016}]{Shariff2015}
+{Shariff} H.,  {Jiao} X.,  {Trotta} R.,   {van Dyk} D.~A.,  2016, \mnras, 463,
+  4311
+
+\bibitem[\protect\citeauthoryear{{Skilling}}{{Skilling}}{2006}]{Skilling2006}
+{Skilling} J.,  2006, \mn@doi [Bayesian Analysis] {10.1214/06-BA127}, 1, 833
+
+\bibitem[\protect\citeauthoryear{{Thorp} \& {Mandel}}{{Thorp} \&
+  {Mandel}}{2022}]{Thorp2022}
+{Thorp} S.,  {Mandel} K.~S.,  2022, arXiv e-prints, p. arXiv:2209.10552
+
+\bibitem[\protect\citeauthoryear{{Thorp}, {Mandel}, {Jones}, {Ward}  \&
+  {Narayan}}{{Thorp} et~al.}{2021}]{Thorp2021}
+{Thorp} S.,  {Mandel} K.~S.,  {Jones} D.~O.,  {Ward} S.~M.,   {Narayan} G.,
+  2021, \mn@doi [\apj] {10.3847/1538-4357/ac2e06}, 923, 210
+
+\bibitem[\protect\citeauthoryear{{Tonry} et~al.,}{{Tonry}
+  et~al.}{2018}]{Tonry2018}
+{Tonry} J.~L.,  et~al., 2018, \mn@doi [\pasp] {10.1088/1538-3873/aabadf}, 130,
+  064505
+
+\bibitem[\protect\citeauthoryear{{Wojtak}, {Hjorth}  \& {Gall}}{{Wojtak}
+  et~al.}{2019}]{Wojtak2019}
+{Wojtak} R.,  {Hjorth} J.,   {Gall} C.,  2019, arXiv e-prints, p.
+  arXiv:1903.07687
+
+\bibitem[\protect\citeauthoryear{Yallup, Kroupa  \& Handley}{Yallup
+  et~al.}{2025}]{yallup2025nested}
+Yallup D.,  Kroupa N.,   Handley W.,  2025, in Frontiers in Probabilistic
+  Inference: Learning meets Sampling.
+
+\bibitem[\protect\citeauthoryear{de Lera~Acedo et~al.,}{de~Lera~Acedo
+  et~al.}{2022}]{de2022reach}
+de Lera~Acedo E.,  et~al., 2022, Nature Astronomy, 6, 984
+
+\bibitem[\protect\citeauthoryear{{Ó Colgáin}, {Pourojaghi}  \&
+  {Sheikh-Jabbari}}{{Ó Colgáin} et~al.}{2024}]{arXiv:2406.06389}
+{Ó Colgáin} E.,  {Pourojaghi} S.,   {Sheikh-Jabbari} M.~M.,  2024, arXiv
+  e-prints, p. arXiv:2406.06389
+
+\makeatother
+\end{thebibliography}

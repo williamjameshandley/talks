@@ -1,0 +1,99 @@
+\section{METHODS}
+\label{sec:methods}
+
+The Bayesian anomaly detection framework described in Section~\ref{sec:theory} is designed for modularity. The anomaly-aware likelihood modification is independent of the specific supernova model used for the light curve evaluation. While this paper implements the framework with SALT3, replacing it with an alternative model would only require substituting the function call that evaluates the model flux for a given set of parameters.
+
+The theoretical framework described in Section~\ref{sec:theory} provides a general approach for Bayesian anomaly detection. Here, we detail its practical implementation for the specific application of processing multi bandpass photometric data from Type Ia supernovae. This involves defining the full likelihood for the dataset, outlining the computational methods for evaluating the physical model, and describing the numerical techniques used to explore the resulting posterior distribution.
+
+Our dataset for a single supernova consists of multiple photometric flux
+measurements, $\{d_{ij}\}$, taken at different times and across several distinct
+bandpasses, indexed by $j$. Each measurement has an associated uncertainty,
+$\sigma_{ij}$. The full likelihood for the entire dataset, $\mathcal{D}$, given
+the SALT parameters $\theta$ and the anomaly hyperparameter $p$, is constructed
+by applying the marginalised likelihood from Equation~\eqref{eq:marginalised_likelihood}. We take the product
+over all bandpasses and all data points within each band: \begin{equation}
+\mathcal{L}(\mathcal{D}|\theta, p) = \prod_{j}^{\mathrm{bands}}
+\prod_{i}^{\mathrm{obs}} \left( \mathcal{L}_{ij}(\theta)(1-p)
++ \frac{p}{\Delta_{ij}} \right) \end{equation} The "good" likelihood for each point,
+$\mathcal{L}_{ij}(\theta)$, is a Gaussian distribution centred on the SALT model prediction:
+\begin{equation}
+\mathcal{L}_{ij}(\theta) = \frac{1}{\sqrt{2\pi\sigma_{ij}^2}} \exp\left(-\frac{(d_{ij} - f_{ij}(\theta))^2}{2\sigma_{ij}^2}\right)
+\end{equation}
+where $f_{ij}(\theta)$ is the model flux predicted by SALT for the given parameters $\theta$, $d_{ij}$ is the observed flux, and $\sigma_{ij}$ is the flux uncertainty. The "bad" model, $\frac{p}{\Delta_{ij}}$, is a broad uniform distribution covering the plausible range of flux values for that observation. The log likelihood therefore becomes:
+\begin{equation}
+\begin{split}
+\log \mathcal{L}(\mathcal{D}|\theta, p) &\approx \sum_{j}^{\mathrm{bands}} \sum_{i}^{\mathrm{obs}} \max \left\{ \log\mathcal{L}_{ij}(\theta) + \log(1-p), \right.\\
+&\left. \log p - \log\Delta_{ij} \right\}
+\end{split}
+\end{equation}
+
+A significant computational challenge lies in the evaluation of the model flux, $f_{ij}(\theta)$. The SALT model, as described by Equation~\eqref{eq:salt_flux}, provides a spectral energy distribution (SED) as a function of phase and wavelength. To compare this with a photometric observation, the model SED must be integrated over the transmission profile of the corresponding instrumental bandpass. This integration is a computationally intensive operation that must be performed for every data point at every step of the posterior sampling process, which can make comprehensive Bayesian analyses computationally challenging for large datasets.
+
+To overcome this bottleneck, we use the \texttt{JAX-bandflux} library \citep{leeney2025jax}. This package provides a fully differentiable implementation of the SALT3 model and bandpass integration routines, built upon the JAX framework for high performance numerical computing. By leveraging JAX, the entire model evaluation can be just in time compiled and executed on Graphics Processing Units (GPUs). This enables vectorisation of the bandflux calculation components, which significantly accelerates the computation. This computational efficiency is critical for making the analysis of large datasets tractable and enables the use of GPU-accelerated sampling techniques. While this work leverages GPUs via JAX for maximum performance on large datasets, the anomaly detection framework itself is hardware-agnostic and can be run on standard CPUs, making it accessible for a wide range of analysis scales.
+
+With the likelihood and its efficient computation defined, the final step is to explore the multi dimensional posterior distribution $P(\theta, p | \mathcal{D})$ to infer the model parameters. The complexity of the posterior landscape makes an analytical solution impossible, necessitating the use of a numerical sampling algorithm. To initialise the sampling process, we first obtain a maximum likelihood estimate using the Nelder-Mead simplex method \citep{Nelder1965}, which provides a robust starting point for the posterior exploration without requiring gradient information. For this work, we use GPU accelerated Nested Sampling \citep{yallup2025nested}. Nested Sampling explores the parameter space by iteratively moving through nested contours of constant likelihood. This process yields a set of weighted samples from the posterior distribution, which can be used to estimate parameters and their uncertainties. Nested Sampling also calculates the Bayesian evidence, $\mathcal{Z}$, as a primary output, which can be used for model comparison. It is important to note, however, that our framework is sampler agnostic. The core methodology of the anomaly aware likelihood is independent of the technique used to explore it, and other methods such as other Markov Chain Monte Carlo techniques could be used.
+
+\subsection{Dataset}
+
+To test and validate our framework, we use data from the Hawaii Supernova Flows (HSF) project \citep{do2025hawaii}. The photometric data for each event are heterogeneous, comprising optical light curves from public all sky surveys such as ATLAS \citep{Tonry2018}, ASAS-SN \citep{Shappee2014}, and ZTF \citep{Bellm2019}, combined with dedicated near infrared follow up photometry from UKIRT \citep{Lawrence2007}, primarily in the J band. The diversity of these data sources presents significant data quality challenges, making this dataset an ideal testbed for automated methods. The comprehensive HSF analysis employs careful manual inspection of light curves combined with statistical criteria to ensure data quality. To enable a systematic comparison with our automated framework, we develop a reproducible rule that approximates traditional filter selection approaches: we test all possible combinations of filters, calculate the $\chi^2$ goodness-of-fit for each combination, and select the combination yielding the lowest $\chi^2$ while requiring at least three distinct photometric bands.
+
+\subsection{Analysis Cases}
+\label{subsec:analysis_cases}
+
+We assess the performance of our Bayesian anomaly detection framework by comparing it against two alternative analysis schemes. This allows us to quantify the improvement over both a naive approach and the current standard practice. The three distinct analysis cases are as follows.
+
+\textit{Case A} represents a naive fit, in which a standard SALT analysis is performed using all available photometric data from all bandpasses. No data cleaning, outlier rejection, or anomaly detection is applied. This case serves as a baseline to demonstrate the impact of unmitigated data contamination on the resulting parameter estimates. \textit{Case B} represents a systematic approximation of traditional filter selection methods, inspired by the careful curation performed in \citet{do2025hawaii}. We employ the reproducible rule described above: testing all possible filter combinations and selecting the one with the best $\chi^2$ fit while requiring at least three distinct photometric bands. This approach is designed to approximate the outcome of traditional expert analyses with a systematic and reproducible rule. This provides a necessary and consistent baseline against which the performance of our fully automated framework can be quantitatively assessed. \textit{Case C} is our proposed method, where the full Bayesian anomaly detection framework is applied. The analysis uses all available photometric data, just as in \textit{Case A}, but incorporates the anomaly model described in Section~\ref{subsec:anomaly_detection}. This allows the model to probabilistically identify and downweigh individual anomalous data points in a fully automated and statistically principled manner, without discarding any data a priori.
+
+The outputs from the Nested Sampling runs for each analysis case are processed and visualised using the \texttt{anesthetic} package \citep{Handley2019}. We generate posterior probability distributions for the key supernova parameters to quantitatively compare the constraints from each method. We also produce light curve plots showing the data with the best fitting model from each case overlaid, providing a direct visual comparison of their performance.
+
+\subsection{Similarity Analysis}
+
+To validate our automated framework, we perform a similarity analysis to quantitatively compare its results to our systematic filter selection approach (Case B). This analysis tests whether the two methods produce statistically consistent parameter estimates and examines any systematic differences that emerge, particularly in cases where the automated framework preserves data that would otherwise be discarded. For each supernova in our sample, we obtained posterior samples for the four key SALT3 parameters $\boldsymbol{\theta} = \{t_0, \log x_0, x_1, c\}$, where $t_0$ is the time of maximum light, $\log x_0$ is the logarithm of the normalisation parameter, $x_1$ is the light curve shape parameter, and $c$ is the colour parameter. The systematic differences observed, particularly in the colour parameter, are explained through the contamination quantification analysis described in Sections~\ref{subsec:contamination_quantification} and \ref{subsec:population_contamination}.
+
+For each parameter $\theta_i$ and each supernova $j$, we computed the normalised difference between the two methods (Case B and Case C):
+\begin{equation}
+\Delta\theta_{i,j} = \frac{|\mu_{i,j}^{\mathrm{HSF}} - \mu_{i,j}^{\mathrm{anomaly}}|}{\sqrt{(\sigma_{i,j}^{\mathrm{HSF}})^2 + (\sigma_{i,j}^{\mathrm{anomaly}})^2}}
+\end{equation}
+where $\mu_{i,j}^{\mathrm{method}}$ is the posterior mean of parameter $i$ for supernova $j$ using the specified method, and $\sigma_{i,j}^{\mathrm{method}}$ is the corresponding posterior standard deviation. This normalised difference represents the parameter difference in units of combined standard deviations, with values $\Delta\theta_{i,j} < 1$ indicating that the methods agree within their combined uncertainty.
+
+\subsection{Contamination Quantification}
+\label{subsec:contamination_quantification}
+
+Beyond identifying anomalous data points (flux measurements), quantifying their systematic impact on parameter estimation is important for understanding potential biases in cosmological analyses. Importantly, our framework does not make binary classifications of anomalies; instead, each data point has a continuous posterior probability of being anomalous. We define several metrics that incorporate this probabilistic nature to characterise how contamination affects the inferred SALT3 parameters.
+
+For each data point $i$, the posterior probability of being anomalous is:
+\begin{equation}
+    P(\varepsilon_i = 0 | \mathcal{D}, \theta) = \frac{p/\Delta_i}{\mathcal{L}_i(\theta)(1-p) + p/\Delta_i}
+\end{equation}
+This probability is evaluated at each sample from the posterior distribution $P(\theta|\mathcal{D})$, obtained through a numerical sampling procedure. The standardised residuals for each observation are:
+\begin{equation}
+    r_i = \frac{d_i - f_i(\theta)}{\sigma_i}
+\end{equation}
+where $d_i$ is the observed flux and $f_i(\theta)$ is the SALT3 model prediction.
+
+To quantify the overall flux bias introduced by anomalous points, we define the brightness contamination:
+\begin{equation}
+    C_{\mathrm{bright}} = \frac{\sum_i P(\varepsilon_i = 0) \cdot r_i}{\sum_i P(\varepsilon_i = 0)}
+\end{equation}
+This metric incorporates the probabilistic nature of anomaly detection: each data point contributes to the contamination score weighted by its probability of being anomalous, rather than through binary classification. The resulting weighted average reveals whether the net systematic effect of probable anomalies is to push flux measurements upward (positive) or downward (negative).
+
+The wavelength dependent bias is captured by the colour contamination metric. To quantify whether anomalies preferentially affect certain wavelengths, we compute separate brightness contamination metrics for blue and red portions of the spectrum. These are calculated using the same probability-weighted average as $C_{\mathrm{bright}}$, but only including data points from blue ($\lambda < 5000$ Å, typically ZTF g, ATLAS c) or red ($\lambda > 6000$ Å, typically ZTF r, i, UKIRT J) bands. The colour contamination is then defined as the difference between red and blue contamination:
+\begin{equation}
+    C_{\mathrm{colour}} = C_{\mathrm{red}} - C_{\mathrm{blue}}
+\end{equation}
+where
+\begin{equation}
+    C_{\mathrm{blue}} = \frac{\sum_{i \in \text{blue}} P(\varepsilon_i = 0) \cdot r_i}{\sum_{i \in \text{blue}} P(\varepsilon_i = 0)}, \quad C_{\mathrm{red}} = \frac{\sum_{i \in \text{red}} P(\varepsilon_i = 0) \cdot r_i}{\sum_{i \in \text{red}} P(\varepsilon_i = 0)}
+\end{equation}
+Positive $C_{\mathrm{colour}}$ indicates that anomalous points preferentially affect red bands, potentially biasing the colour parameter $c$ upward.
+
+These metrics are computed across all posterior samples, propagating uncertainty through the full analysis.
+
+\subsection{Population-Level Contamination Analysis}
+\label{subsec:population_contamination}
+
+To assess systematic contamination patterns across the full supernova sample, we compute the contamination metrics for each supernova and examine their distribution and implications. These population level metrics retain the probabilistic nature of our anomaly detection: they represent the probability weighted net effects across all data points, not binary counts of anomalies. The brightness contamination $C_{\mathrm{bright}}$ quantifies whether the probability weighted contribution of potentially anomalous points systematically pushes flux measurements upward (positive values) or downward (negative values). Similarly, the colour contamination $C_{\mathrm{colour}}$ reveals wavelength dependent biases, with negative values indicating that the probability weighted effect preferentially affects blue bands and positive values indicating red band preference.
+
+For the population of supernovae, we examine the distribution of these contamination metrics to identify systematic patterns. The mean and standard deviation across the sample reveal whether contamination effects are consistent or vary significantly between objects. Large standard deviations would indicate heterogeneous contamination requiring object by object treatment, while consistent biases might suggest systematic instrumental or processing effects.
+
+These contamination metrics directly explain the systematic differences observed in SALT3 parameters between our anomaly detection framework and traditional methods. In particular, the colour contamination $C_{\mathrm{colour}}$ provides insight into why the colour parameter $c$ shows larger differences in the similarity analysis: systematic wavelength dependent contamination biases the inferred extinction. Understanding these biases is crucial for future cosmological analyses where they would propagate through the Tripp relation: $\mu = m_B - M + \alpha x_1 - \beta c$, directly affecting distance moduli.

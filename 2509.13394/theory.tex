@@ -1,0 +1,106 @@
+\section{Theory}
+\label{sec:theory}
+
+In this section, we outline the theoretical underpinnings of our automated data processing framework. We begin with a brief overview of Bayesian inference, before detailing the specific formulation of our Bayesian anomaly detection model. We conclude by introducing the Spectral Adaptive Lightcurve Template (SALT) model, which serves as the physical basis for our analysis.
+
+\subsection{Bayesian Inference}
+
+Bayesian inference offers a principled framework for estimating model parameters
+and comparing competing hypotheses \citep{MacKay2003}. For a given model $\mathcal{M}$ with
+parameters $\theta$ and a dataset $\mathcal{D}$, Bayes' theorem relates the
+posterior probability of the parameters, $\mathcal{P}(\theta) \equiv P(\theta
+| \mathcal{D}, \mathcal{M})$, to the likelihood of the data,
+$\mathcal{L}(\theta) \equiv P(\mathcal{D} | \theta, \mathcal{M})$, and the prior
+probability of the parameters, $\pi(\theta) \equiv P(\theta | \mathcal{M})$. The
+theorem is expressed as: \begin{equation} P(\theta | \mathcal{D}, \mathcal{M})
+= \frac{P(\mathcal{D} | \theta, \mathcal{M}) P(\theta
+| \mathcal{M})}{P(\mathcal{D} | \mathcal{M})} \quad \iff \quad
+\mathcal{P}(\theta) = \frac{\mathcal{L}(\theta) \pi(\theta)}{\mathcal{Z}}
+\end{equation} The denominator, $\mathcal{Z} \equiv P(\mathcal{D}
+| \mathcal{M})$, is the Bayesian evidence. It is obtained by integrating the
+product of the likelihood and the prior over the entire parameter space. The
+evidence serves as a normalisation constant for the posterior in parameter
+estimation problems. However, its value is paramount for model comparison, as it
+represents the probability of the data given the model as a whole, naturally
+penalising overly complex models. In most real world applications, the posterior
+distribution is too complex for an analytical solution and must be evaluated
+using numerical methods such as Nested Sampling \citep{Skilling2006, buchner2023nested, ashton2022nested} or other Markov Chain Monte Carlo techniques.
+
+\subsection{Bayesian Anomaly Detection}
+\label{subsec:anomaly_detection}
+
+The Bayesian anomaly detection methodology presented here is adapted from a framework originally developed for mitigating radio frequency interference in 21cm cosmology \citep{Leeney2022, Anstey2023, Roque2023, de2022reach}. To account for anomalous data within a Bayesian framework, we formulate the 
+problem as a model selection task at the level of individual data points. A 
+standard likelihood, which assumes all data points are drawn from a single 
+physical model, cannot handle anomalous data points. To address this, we reformulate the 
+likelihood to explicitly model the possibility that any data point may be an 
+anomaly. For each of the $N$ data points in our dataset, we introduce a binary 
+latent variable $\varepsilon_i \in \{0, 1\}$. We define $\varepsilon_i=1$ to 
+indicate the data point is "expected" and described by our physical model, and 
+$\varepsilon_i=0$ to indicate it is an "anomaly". The 
+full set of these variables forms a Boolean mask vector $\varepsilon$. Each photometric data point has its own independent probability $P(\varepsilon_i=0)$, calculated separately for each filter-epoch combination, as observations in different filters are taken at different times and thus have independent contamination probabilities.
+
+The likelihood for the entire dataset $\mathcal{D}$, conditioned on a specific mask $\varepsilon$ and model parameters $\theta$, is the product of the likelihoods for each individual data point:
+\begin{equation}
+    P(\mathcal{D} | \theta, \varepsilon) = \prod_{i=1}^{N} \left[\mathcal{L}_i(\theta)\right]^{\varepsilon_i} \left[\frac{1}{\Delta_i}\right]^{1-\varepsilon_i}
+\end{equation}
+Here, $\mathcal{L}_i(\theta)$ is the likelihood for the $i$-th data point being "good", typically a distribution (such as a Gaussian) centred on the physical model's prediction. $\frac{1}{\Delta_i}$ is the likelihood for the point being an anomaly, which we model as a broad, uninformative uniform distribution over a plausible data range $\Delta_{\mathrm{range},i}$, such that $\frac{1}{\Delta_i} = \frac{1}{\Delta_{\mathrm{range},i}}$.
+
+We do not know the true mask $\varepsilon$ a priori. We therefore infer it by ascribing a Bernoulli prior probability to each $\varepsilon_i$, governed by a single hyperparameter $p$, which represents our prior belief that any given data point is an anomaly:
+\begin{equation}
+    P(\varepsilon_i | p) = p^{1-\varepsilon_i} (1-p)^{\varepsilon_i}
+\end{equation}
+Assuming each data point's status is independent, the joint probability of the data and the mask is the product of the likelihood and the prior:
+\begin{equation}
+    P(\mathcal{D}, \varepsilon | \theta, p) = \prod_{i=1}^{N} \left[ \mathcal{L}_i(\theta)(1-p) \right]^{\varepsilon_i} \left[ \frac{p}{\Delta_i} \right]^{1-\varepsilon_i}
+\end{equation}
+To obtain a likelihood that is independent of the unknown mask $\varepsilon$, we must marginalise over all $2^N$ possible states of the mask vector:
+\begin{equation}
+    P(\mathcal{D} | \theta, p) = \sum_{\varepsilon \in \{0,1\}^N} P(\mathcal{D}, \varepsilon | \theta, p)
+\end{equation}
+Since the data points are independent, this sum can be brought inside the product, yielding the exact marginalised likelihood:
+\begin{equation}
+\label{eq:marginalised_likelihood}
+    \mathcal{L}(\mathcal{D}|\theta, p) = \prod_{i=1}^{N} \left( \mathcal{L}_i(\theta)(1-p) + \frac{p}{\Delta_i} \right)
+\end{equation}
+For large $N$, the direct evaluation of this expression is not possible. However, for a well specified model, the sum in Equation 5 is typically dominated by a single mask, $\varepsilon^\mathrm{max}$, which maximises the joint probability $P(\mathcal{D}, \varepsilon | \theta, p)$. This "dominant mask approximation" is valid provided that the probability of the most likely mask is significantly greater than that of the next most likely mask, which is typically $\varepsilon^\mathrm{max}$ with a single bit flipped:
+\begin{equation}
+    P(\mathcal{D}, \varepsilon^\mathrm{max} | \theta, p) \gg \max_{j} P(\mathcal{D}, \varepsilon^{(j)} | \theta, p)
+\end{equation}
+Under this approximation, the log likelihood becomes a sum over the contributions from each data point, where for each photometric observation we choose the more probable of the `expected' or `anomaly' hypotheses:
+\begin{equation}
+    \log \mathcal{L}(\mathcal{D}|\theta, p) \approx \sum_{i=1}^{N} \max \left\{ \log\mathcal{L}_i(\theta) + \log(1-p), \log p - \log\Delta_i \right\}
+\end{equation}
+This can be written explicitly as:
+\begin{equation}
+\begin{split}
+    \log \mathcal{L}(\mathcal{D}|\theta, p) &= \sum_{i=1}^{N} \begin{cases}
+        \log\mathcal{L}_i(\theta) + \log(1-p), & \text{if } \log\mathcal{L}_i(\theta) + \log(1-p) \\
+        & \quad > \log p - \log\Delta_i \\
+        \log p - \log\Delta_i, & \text{otherwise}
+    \end{cases}
+\end{split}
+\end{equation}
+This establishes a dynamic, model aware classification for each data point. A point is flagged as an anomaly if the likelihood of it being so, penalised by the prior probability $p$, exceeds the likelihood of it conforming to the physical model. Rearranging the condition for a point being classified as "good" reveals a connection to the logit function:
+\begin{equation}
+    \log\mathcal{L}_i(\theta) + \log\Delta_i > \log\left(\frac{p}{1-p}\right) \equiv \mathrm{logit}(p)
+\end{equation}
+This formulation effectively places a floor on the log likelihood for each data point, preventing single outliers from dominating the total likelihood and biasing parameter estimates. The hyperparameter $p$ can be treated as a free parameter and inferred from the data, allowing the framework to learn the intrinsic data quality automatically.
+
+\subsection{The SALT Model}
+\label{subsec:salt_model}
+
+The physical model underlying the "good" likelihood, $\mathcal{L}_i(\theta)$, is provided by the Spectral Adaptive Lightcurve Template (SALT) framework \citep{Guy2005, Guy2007}. SALT is a phenomenological model describing the spectral energy distribution (SED) of a Type Ia supernova as a function of phase and wavelength. The most recent public version, SALT3, benefits from a larger and more diverse training set \citep{Kenworthy2021}. The SALT model has been widely adopted in cosmological analyses and forms the foundation for modern SNe Ia distance measurements \citep{Scolnic2022, Hayes2024}.
+
+The SALT model describes the spectral flux, $F(p, \lambda)$, at phase $p$ and rest frame wavelength $\lambda$ with a set of parameters $\theta = \{x_0, x_1, c\}$. These correspond to the overall amplitude ($x_0$), a light curve shape or "stretch" parameter ($x_1$), and a colour parameter ($c$). The flux is constructed from a mean spectral surface, $M_0$, a first order variation surface, $M_1$, and a colour law, $CL(\lambda)$:
+\begin{equation}
+\label{eq:salt_flux}
+    F(p, \lambda) = x_0 \times [M_0(p, \lambda) + x_1 M_1(p, \lambda)] \times \exp(c \times CL(\lambda))
+\end{equation}
+The colour parameter $c$ is particularly important as it captures both intrinsic colour variation of the supernova and dust extinction along the line of sight. Positive $c$ values indicate redder supernovae (more extinction or intrinsically redder), while negative values indicate bluer supernovae. The colour term modifies the spectrum exponentially through $\exp(c \times CL(\lambda))$, where $CL(\lambda)$ typically increases toward bluer wavelengths.
+
+For a given photometric observation $d_i$ with uncertainty $\sigma_i$ in a specific bandpass, the model prediction is found by integrating this SED over the instrumental transmission profile. The predicted bandpass integrated flux is given by:
+\begin{equation}
+    f_i(\theta) = \int_{\lambda_{\mathrm{min}}}^{\lambda_{\mathrm{max}}} F(p, \lambda) \cdot T(\lambda) \cdot \frac{\lambda}{hc} \, d\lambda
+\end{equation}
+where $T(\lambda)$ is the transmission function of the instrumental bandpass, and $\frac{\lambda}{hc}$ converts from energy flux to photon flux. The "good" likelihood is then given by $\mathcal{L}_i(\theta) = \mathcal{N}(d_i | f_i(\theta), \sigma_i^2)$, where $f_i(\theta)$ is the predicted bandpass integrated flux. The goal of our framework is to infer the posterior distributions for the supernova parameters $\theta$ and the anomaly hyperparameter $p$.

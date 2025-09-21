@@ -1,0 +1,106 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Basic setup. Most papers should leave these options alone.
+\documentclass[fleqn,usenatbib]{mnras}
+
+% MNRAS is set in Times font
+\usepackage{newtxtext,newtxmath}
+
+% Use vector fonts, so it zooms properly in on-screen viewing software
+\usepackage[T1]{fontenc}
+
+% Allow "Thomas van Noord" and "Simon de Laguarde" and alike to be sorted by "N" and "L" etc. in the bibliography.
+\DeclareRobustCommand{\VAN}[3]{#2}
+\let\VANthebibliography\thebibliography
+\def\thebibliography{\DeclareRobustCommand{\VAN}[3]{##3}\VANthebibliography}
+
+%%%%% AUTHORS - PLACE YOUR OWN PACKAGES HERE %%%%%
+
+\usepackage{graphicx}    % Including figure files
+\usepackage{amsmath}    % Advanced maths commands
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%% AUTHORS - PLACE YOUR OWN COMMANDS HERE %%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%% TITLE PAGE %%%%%%%%%%%%%%%%%%%
+
+% Title of the paper, and the short title which is used in the headers.
+\title[Bayesian Anomaly Detection for Ia Cosmology]{Bayesian Anomaly Detection for Ia Cosmology: Automating SALT3 Data Curation}
+
+% The list of authors, and the short list which is used in the headers.
+\author[Leeney et al.]{
+S. A. K. Leeney$^{1,2}$\thanks{E-mail: sakl2@cam.ac.uk},
+W. J. Handley$^{2,3}$,
+H. T. J. Bevins$^{1,2}$
+and E. de Lera Acedo$^{1,2}$
+\\
+% List of institutions
+$^{1}$Astrophysics Group, Cavendish Laboratory, University of Cambridge, J. J. Thomson Avenue, Cambridge CB3 0HE, UK\\
+$^{2}$Kavli Institute for Cosmology in Cambridge, University of Cambridge, Madingley Road, Cambridge CB3 0HA, UK\\
+$^{3}$Institute of Astronomy, University of Cambridge, Madingley Road, Cambridge CB3 0HA, UK
+}
+
+% These dates will be filled out by the publisher
+\date{Accepted XXX. Received YYY; in original form ZZZ}
+
+% Prints the current year
+\pubyear{\the\year{}}
+
+% Don't change these lines
+\begin{document}
+\label{firstpage}
+\pagerange{\pageref{firstpage}--\pageref{lastpage}}
+\maketitle
+
+% Abstract of the paper
+\begin{abstract}
+Precision cosmology with Type Ia supernovae (SNe Ia) requires robust quality control of large, heterogeneous datasets. Current data processing often relies on manual, subjective rejection of photometric data, a practice that is not scalable for forthcoming surveys like the Vera C. Rubin Observatory's Legacy Survey of Space and Time (LSST). We present a Bayesian framework that automates this step by integrating anomaly detection directly into the light curve fitting process. While the framework is model-agnostic and compatible with any spectral energy distribution (SED) model, here we demonstrate its application with the SALT3 model, implemented fully on GPU using \texttt{JAX-bandflux} for computational efficiency. Our method models the probability of each photometric measurement being anomalous with respect to the model, simultaneously inferring the physical supernova parameters and each data point's posterior probability of being a contaminant. Applying this framework to the Hawaii Supernova Flows dataset, we demonstrate its three principal capabilities: (i) robust mitigation of isolated outliers; (ii) automated identification and rejection of entirely corrupted bandpasses; and (iii) preservation of valid data by flagging only specific anomalous points within otherwise usable filters. We also find that contaminants are systematically brighter and bluer, which if uncorrected could bias subsequent cosmological inference. 
+\end{abstract}
+
+% Select between one and six entries from the list of approved keywords.
+\begin{keywords}
+methods: data analysis -- methods: statistical -- supernovae: general -- cosmology: observations
+\end{keywords}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%% BODY OF PAPER %%%%%%%%%%%%%%%%%%
+
+\input{introduction}
+
+\input{theory}
+
+\input{methods}
+
+\input{results}
+
+\input{conclusion}
+
+
+\section*{Acknowledgements}
+This material is based upon work supported by the Google Cloud research credits program, with the award GCP397499138. This work was supported by the research environment and infrastructure of the Handley Lab at the University of Cambridge. SL is funded by the ERC through the UKRI guarantee scheme.
+
+\section*{Data Availability}
+The data underlying this article are available in the Hawaii Supernova Flows public data release \citep{do2025hawaii}. The code implementing the Bayesian anomaly detection framework is available at \url{https://github.com/samleeney/Bayesian-Anomaly-Detection}, with a permanent archive at \url{https://doi.org/10.5281/zenodo.17127169}, which provides several simple, easy to implement examples including the complete analysis pipeline used in this work.
+
+
+%%%%%%%%%%%%%%%%%%%% REFERENCES %%%%%%%%%%%%%%%%%%
+
+\bibliographystyle{mnras}
+\bibliography{references} % if your bibtex file is called references.bib
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%% APPENDICES %%%%%%%%%%%%%%%%%%%%%
+
+% \appendix
+% \section{Appendix title}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Don't change these lines
+\bsp    % typesetting comment
+\label{lastpage}
+\end{document}
