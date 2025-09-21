@@ -9,3 +9,5 @@ Our public implementation is designed not only to provide state-of-the-art perfo
 - **Theoretical Model Comparison:** Facilitating robust selection among competing astrophysical models.
 
 Furthermore, the approach naturally complements GPU-accelerated emulators, which are increasingly popular in our community for rapid approximations of complex simulations.
+
+[[PDF](https://github.com/williamjameshandley/talks/raw/caltech_2025/will_handley_caltech_2025.pdf)]
