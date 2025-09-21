@@ -266,38 +266,16 @@
     \student{sam_leeney}{Sam Leeney}{PhD}
     \begin{columns}
         \column{0.48\textwidth}
-        \begin{block}{Automated Data Curation}
-            \begin{itemize}
-                \item Replaces manual photometric rejection
-                \item Critical for LSST scalability  
-                \item GPU-accelerated with JAX-bandflux
-                \item Applied to Hawaii Supernova Flows dataset
-            \end{itemize}
-        \end{block}
-        \begin{block}{Key Capabilities}
-            \begin{itemize}
-                \item Robust outlier mitigation
-                \item Automatic corrupted bandpass rejection
-                \item Preserves valid data selectively
-                \item Identifies systematic biases
-            \end{itemize}
-        \end{block}
+        \begin{itemize}
+            \item \textbf{Problem}: Manual photometric rejection not scalable for LSST
+            \item \textbf{Solution}: Bayesian anomaly detection integrated into SALT3 fitting
+            \item \textbf{Method}: Model contamination probability per measurement
+            \item \textbf{Result}: Automatic outlier/corrupted band rejection
+            \item \textbf{Finding}: Contaminants systematically brighter/bluer
+            \item \textbf{Impact}: Essential for unbiased cosmology at scale
+        \end{itemize}
         \column{0.48\textwidth}
-        \begin{block}{Bayesian Framework}
-            \begin{itemize}
-                \item Models contamination probability per measurement
-                \item Simultaneous physical parameter inference
-                \item Posterior probability of being anomalous
-                \item Model-agnostic (works with any SED)
-            \end{itemize}
-        \end{block}
-        \begin{block}{Impact}
-            \begin{itemize}
-                \item Found contaminants systematically brighter/bluer
-                \item Uncorrected bias affects cosmology
-                \item Essential for precision cosmology at scale
-            \end{itemize}
-        \end{block}
+        \includegraphics[width=\textwidth]{2509.13394/images/normalized_difference_bars_Ia_all.png}
     \end{columns}
 \end{frame}
 
@@ -307,34 +285,16 @@
     \student{adam_ormondroyd}{Adam Ormondroyd}{PhD}
     \begin{columns}
         \column{0.48\textwidth}
-        \begin{block}{The Fundamental Question}
-            \begin{itemize}
-                \item DESI + DES show $w_0w_a$ preference
-                \item But is it real dark energy evolution?
-                \item Or unmodeled supernova systematics?
-                \item Bayesian model selection provides answer
-            \end{itemize}
-        \end{block}
-        \begin{block}{Methodology}
-            \begin{itemize}
-                \item Compare dynamic dark energy models
-                \item Against redshift-dependent SN biases
-                \item Use Bayesian evidence ratios
-                \item Account for prior sensitivity
-            \end{itemize}
-        \end{block}
+        \begin{itemize}
+            \item \textbf{Question}: DESI+DES $w_0w_a$ preference - new physics or systematics?
+            \item \textbf{Method}: Bayesian model comparison
+            \item \textbf{Models}: Dynamic DE vs redshift-dependent SN bias
+            \item \textbf{Result}: Systematics fit equally well with lower complexity
+            \item \textbf{Evidence}: Favors systematic explanation
+            \item \textbf{Lesson}: Test mundane before claiming exotic
+        \end{itemize}
         \column{0.48\textwidth}
-        \begin{block}{Key Results}
-            \begin{itemize}
-                \item Systematics model fits data equally well
-                \item Lower complexity than $w_0w_a$
-                \item Bayesian evidence favors systematics
-                \item Critical for interpreting cosmological tensions
-            \end{itemize}
-        \end{block}
-        \begin{block}{Implications}
-            Before claiming new physics, must rigorously test against mundane systematic explanations using model comparison
-        \end{block}
+        \includegraphics[width=\textwidth]{2509.13220/plots/tension.pdf}
     \end{columns}
 \end{frame}
 
@@ -344,34 +304,16 @@
     \student{metha_prathaban}{Metha Prathaban}{PhD}
     \begin{columns}
         \column{0.48\textwidth}
-        \begin{block}{Bilby-like NS on GPU}
-            \begin{itemize}
-                \item Acceptance-walk sampling in blackjax-ns
-                \item Faithful reimplementation of bilby kernel
-                \item Community-standard algorithm preserved
-                \item Clean benchmark for GPU speedup
-            \end{itemize}
-        \end{block}
-        \begin{block}{Performance Gains}
-            \begin{itemize}
-                \item \textbf{20-40× speedup} for BBH analyses
-                \item Aligned spin binary black holes
-                \item Identical posteriors and evidences
-                \item Single GPU vs CPU clusters
-            \end{itemize}
-        \end{block}
+        \begin{itemize}
+            \item \textbf{Goal}: GPU-accelerate bilby's acceptance-walk NS
+            \item \textbf{Implementation}: Faithful port to blackjax-ns
+            \item \textbf{Performance}: 20-40× speedup for BBH
+            \item \textbf{Validation}: Identical posteriors/evidences
+            \item \textbf{Hardware}: Single GPU vs CPU clusters
+            \item \textbf{Impact}: Clean baseline for future methods
+        \end{itemize}
         \column{0.48\textwidth}
-        \begin{block}{Scientific Impact}
-            \begin{itemize}
-                \item Validated community tool
-                \item Separates hardware vs algorithmic gains
-                \item Foundation for future parallel samplers
-                \item Critical for O4/O5 GW astronomy
-            \end{itemize}
-        \end{block}
-        \begin{block}{Key Innovation}
-            Demonstrates pure architectural shift benefits without algorithmic changes - vital baseline for assessing new methods
-        \end{block}
+        \includegraphics[width=\textwidth]{prathaban_handley_2509.04336/figures/walltime_speedup.pdf}
     \end{columns}
 \end{frame}
 
