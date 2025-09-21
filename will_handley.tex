@@ -18,7 +18,7 @@
 % Talk details
 % ------------
 \title{Next-Generation Model Comparison for Primordial Cosmology}
-\date{16\textsuperscript{th} September 2026}
+\date{21\textsuperscript{st} January 2025}
 
 \begin{document}
 
@@ -27,48 +27,45 @@
 \end{frame}
 
 \begin{frame}
-    \frametitle{Beginning the golden age of astronomy data}
+    \frametitle{Nested Sampling in the Global 21cm Community}
     \begin{columns}
-        \column{0.47\textwidth}
-        \begin{itemize}
-            \item Over our research lifetimes we will see next-generation data rates across the electromagnetic spectrum \& beyond:
-                \begin{description}
-                    \item[Radio] SKA \textit{et al}.
-                    \item[Micro] SO/CMB-S4/LiteBIRD.
-                    \item[IR] JWST, Roman.
-                    \item[Optical] Euclid, DESI, Rubin, EELT.
-                    \item[X-ray] Athena.
-                    \item[Gamma-ray] e-ASTROGAM.
-                    \item[Gravitational] LIGO/ET/LISA.
-                    \item[Particle] CTA, IceCube, KM3NeT.
-                \end{description}
-        \end{itemize}
-        \column{0.55\textwidth}
-
-        \includegraphics[height=0.145\textwidth]{figures/telescopes/jwst.png}%
-        \includegraphics[height=0.145\textwidth]{figures/telescopes/roman.jpg}%
-        \includegraphics[height=0.145\textwidth]{figures/telescopes/euclid.jpeg}%
-        \includegraphics[height=0.145\textwidth]{figures/telescopes/athena.jpg}%
-        \includegraphics[height=0.145\textwidth]{figures/telescopes/lisa.jpg}%
-        \includegraphics[height=0.145\textwidth]{figures/telescopes/e-ASTROGAM.pdf}%
-        \vspace{-1pt}
-
-        \includegraphics[height=0.15183\textwidth]{figures/telescopes/desi.jpg}%
-        \includegraphics[height=0.15183\textwidth]{figures/telescopes/eelt.jpg}%
-        \includegraphics[height=0.15183\textwidth]{figures/telescopes/ska.jpg}%
-        \includegraphics[height=0.15183\textwidth]{figures/telescopes/SO.jpg}%
-        \vspace{-1pt}
-
-        \includegraphics[height=0.18428\textwidth]{figures/telescopes/ligo.jpg}%
-        \includegraphics[height=0.18428\textwidth]{figures/telescopes/km3n.jpg}%
-        \includegraphics[height=0.18428\textwidth]{figures/telescopes/icecube.jpg}%
-        \includegraphics[height=0.18428\textwidth]{figures/telescopes/CTA.jpg}%
-
-        \begin{itemize}
-            \item This data deluge creates unprecedented computational challenges for model comparison and parameter estimation.
-            \item Traditional computing approaches will not scale to these next-generation data volumes and complexity.
-        \end{itemize}
-
+        \column{0.5\textwidth}
+        \begin{block}{Wide Adoption Across Experiments}
+            \begin{itemize}
+                \item \textbf{HERA}: Model selection \& parameter estimation
+                \item \textbf{REACH}: Sky-averaged signal inference
+                \item \textbf{SARAS}: Bayesian evidence computation
+                \item \textbf{EDGES}: Signal detection \& characterization
+                \item \textbf{PRIZM}: Foreground modeling
+            \end{itemize}
+        \end{block}
+        \begin{block}{Why Nested Sampling?}
+            \begin{itemize}
+                \item Multimodal posterior exploration
+                \item Direct Bayesian evidence calculation
+                \item Model comparison capabilities
+                \item Robust uncertainty quantification
+                \item Handles complex likelihood surfaces
+            \end{itemize}
+        \end{block}
+        \column{0.5\textwidth}
+        \begin{block}{Recent 21cm NS Applications}
+            \begin{itemize}
+                \item HERA emulator training \arxiv{2108.07282}
+                \item REACH simulation-based inference \arxiv{2403.14618}
+                \item PolyChord for reionization \arxiv{2203.15734}
+                \item 21cmPIE-INN inference \arxiv{2401.04174}
+                \item Global signal constraints \arxiv{1810.09572}
+            \end{itemize}
+        \end{block}
+        \begin{block}{Our Group's Contributions}
+            \begin{itemize}
+                \item \textbf{PolyChord}: Standard tool for 21cm
+                \item \textbf{GPU acceleration}: Orders of magnitude speedup
+                \item \textbf{Neural ratio estimation}: SBI for 21cm
+                \item \textbf{Evidence-driven}: Model selection focus
+            \end{itemize}
+        \end{block}
     \end{columns}
 \end{frame}
 
@@ -259,6 +256,153 @@
         %        \item \textbf{Transparent algorithms}: No black boxes
         %    \end{itemize}
         %\end{block}
+    \end{columns}
+\end{frame}
+
+\begin{frame}
+    \frametitle{GPU-Accelerated Nested Sampling for Cosmology \arxiv{2509.13307}}
+    \student{toby_lovick}{Toby Lovick}{PhD}
+    \begin{columns}
+        \column{0.48\textwidth}
+        \begin{block}{High-Dimensional Model Comparison}
+            \begin{itemize}
+                \item JAX-based neural emulators + NS
+                \item Direct Bayesian evidence calculation
+                \item 39-dimensional $\Lambda$CDM vs $w_0w_a$
+            \end{itemize}
+        \end{block}
+        \begin{block}{Performance Results}
+            \begin{itemize}
+                \item \textbf{Single A100 GPU}: 2 days
+                \item \textbf{CPU (48 cores)}: months
+                \item Produces Bayes Factors with robust errors
+                \item No accuracy loss vs CPU methods
+            \end{itemize}
+        \end{block}
+        \column{0.48\textwidth}
+        \begin{block}{Key Innovation}
+            \begin{itemize}
+                \item Nested sampling competitive with MCMC+evidence methods
+                \item Vectorized likelihood evaluations
+                \item Neural network emulators for speed
+                \item Direct model comparison capability
+            \end{itemize}
+        \end{block}
+        \begin{block}{Implications}
+            GPU acceleration puts nested sampling on equal computational footing with state-of-the-art methods, especially for rigorous model selection in cosmology
+        \end{block}
+    \end{columns}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Bayesian Anomaly Detection for Type Ia Supernovae \arxiv{2509.13394}}
+    \student{sam_leeney}{Sam Leeney}{PhD}
+    \begin{columns}
+        \column{0.48\textwidth}
+        \begin{block}{Automated Data Curation}
+            \begin{itemize}
+                \item Replaces manual photometric rejection
+                \item Critical for LSST scalability  
+                \item GPU-accelerated with JAX-bandflux
+                \item Applied to Hawaii Supernova Flows dataset
+            \end{itemize}
+        \end{block}
+        \begin{block}{Key Capabilities}
+            \begin{itemize}
+                \item Robust outlier mitigation
+                \item Automatic corrupted bandpass rejection
+                \item Preserves valid data selectively
+                \item Identifies systematic biases
+            \end{itemize}
+        \end{block}
+        \column{0.48\textwidth}
+        \begin{block}{Bayesian Framework}
+            \begin{itemize}
+                \item Models contamination probability per measurement
+                \item Simultaneous physical parameter inference
+                \item Posterior probability of being anomalous
+                \item Model-agnostic (works with any SED)
+            \end{itemize}
+        \end{block}
+        \begin{block}{Impact}
+            \begin{itemize}
+                \item Found contaminants systematically brighter/bluer
+                \item Uncorrected bias affects cosmology
+                \item Essential for precision cosmology at scale
+            \end{itemize}
+        \end{block}
+    \end{columns}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Dark Energy vs Supernova Systematics \arxiv{2509.13220}}
+    \student{adam_ormondroyd}{Adam Ormondroyd}{PhD}
+    \begin{columns}
+        \column{0.48\textwidth}
+        \begin{block}{The Fundamental Question}
+            \begin{itemize}
+                \item DESI + DES show $w_0w_a$ preference
+                \item But is it real dark energy evolution?
+                \item Or unmodeled supernova systematics?
+                \item Bayesian model selection provides answer
+            \end{itemize}
+        \end{block}
+        \begin{block}{Methodology}
+            \begin{itemize}
+                \item Compare dynamic dark energy models
+                \item Against redshift-dependent SN biases
+                \item Use Bayesian evidence ratios
+                \item Account for prior sensitivity
+            \end{itemize}
+        \end{block}
+        \column{0.48\textwidth}
+        \begin{block}{Key Results}
+            \begin{itemize}
+                \item Systematics model fits data equally well
+                \item Lower complexity than $w_0w_a$
+                \item Bayesian evidence favors systematics
+                \item Critical for interpreting cosmological tensions
+            \end{itemize}
+        \end{block}
+        \begin{block}{Implications}
+            Before claiming new physics, must rigorously test against mundane systematic explanations using model comparison
+        \end{block}
+    \end{columns}
+\end{frame}
+
+\begin{frame}
+    \frametitle{GPU Gravitational Wave Inference \arxiv{2509.04336}}
+    \student{metha_prathaban}{Metha Prathaban}{PhD}
+    \begin{columns}
+        \column{0.48\textwidth}
+        \begin{block}{Bilby-like NS on GPU}
+            \begin{itemize}
+                \item Acceptance-walk sampling in blackjax-ns
+                \item Faithful reimplementation of bilby kernel
+                \item Community-standard algorithm preserved
+                \item Clean benchmark for GPU speedup
+            \end{itemize}
+        \end{block}
+        \begin{block}{Performance Gains}
+            \begin{itemize}
+                \item \textbf{20-40× speedup} for BBH analyses
+                \item Aligned spin binary black holes
+                \item Identical posteriors and evidences
+                \item Single GPU vs CPU clusters
+            \end{itemize}
+        \end{block}
+        \column{0.48\textwidth}
+        \begin{block}{Scientific Impact}
+            \begin{itemize}
+                \item Validated community tool
+                \item Separates hardware vs algorithmic gains
+                \item Foundation for future parallel samplers
+                \item Critical for O4/O5 GW astronomy
+            \end{itemize}
+        \end{block}
+        \begin{block}{Key Innovation}
+            Demonstrates pure architectural shift benefits without algorithmic changes - vital baseline for assessing new methods
+        \end{block}
     \end{columns}
 \end{frame}
 
