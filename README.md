@@ -1,13 +1,11 @@
-# Next-Generation Model Comparison for Primordial Cosmology
+# GPU Accelerated Nested Sampling for 21-cm Cosmology
 
-## Abstract
+Nested Sampling is a powerful Monte Carlo method for robust parameter estimation and model comparison in high-dimensional, complex likelihood landscapes. Traditionally implemented on CPUs, its use in many communities—including those working on 21-cm cosmology—has sometimes been limited by legacy code structures. In this work, we reformulate Nested Sampling to fully exploit modern GPU hardware, leveraging vectorization to dramatically accelerate numerical inference while maintaining accuracy in evidence evaluation.
 
-A new paradigm is emerging in computational cosmology, shifting from legacy CPU-bound codes to unified, GPU-native ecosystems. Our work is at the forefront of this transition, aimed at one of the key challenges in the field: performing robust Bayesian model selection to test the limits of the ΛCDM model with CMB data.
+Our public implementation is designed not only to provide state-of-the-art performance improvements, but also to address key challenges in 21-cm cosmology. In this context, GPU-accelerated Nested Sampling shows particular promise for:
+- **Beam Modelling:** Optimizing the characterization and variation of instrumental beams.
+- **Hyperfine Calibration of Radiometers:** Enhancing the precision and reliability of radiometric calibration essential for 21-cm experiments.
+- **Sky Modelling:** Improving the reconstruction of foregrounds and sky signals.
+- **Theoretical Model Comparison:** Facilitating robust selection among competing astrophysical models.
 
-We have developed a complete inference pipeline in `jax`, integrating a novel Boltzmann solver with a vectorized Nested Sampling algorithm. The construction of this pipeline, a task of significant numerical complexity, was accelerated through the use of AI agentic systems for code generation in our group. By unifying the physics simulation and statistical inference on the GPU, we can efficiently explore high-dimensional parameter spaces and accurately compute the Bayesian evidence.
-
-I will present the first results from this framework, focusing on its application to key questions in primordial cosmology, such as the physics of inflation and the nature of dark energy. The performance gains demonstrated will be crucial for fully exploiting upcoming datasets from next-generation CMB experiments, and I look forward to exploring opportunities for joint projects.
-
-
- 
-[[PDF](https://github.com/williamjameshandley/talks/raw/lmu_2025/will_handley_lmu_2025.pdf)] 
+Furthermore, the approach naturally complements GPU-accelerated emulators, which are increasingly popular in our community for rapid approximations of complex simulations.
