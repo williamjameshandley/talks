@@ -27,46 +27,34 @@
 \end{frame}
 
 \begin{frame}
-    \frametitle{GPU-Accelerated Bayesian Inference for the Global 21cm Community}
+    \frametitle{Bayesian Inference Challenges in 21cm Cosmology}
     \begin{columns}
         \column{0.5\textwidth}
-        \begin{block}{Universal Challenges in 21cm}
+        \begin{block}{Computational Challenges}
             \begin{itemize}
-                \item \textbf{High-dimensional parameter spaces}
-                \item \textbf{Complex likelihood surfaces}
-                \item \textbf{Foreground-signal degeneracies}
-                \item \textbf{Systematic uncertainties}
-                \item \textbf{Model comparison needs}
-            \end{itemize}
-        \end{block}
-        \begin{block}{Why GPU Acceleration?}
-            \begin{itemize}
-                \item 10-100× speedups for MCMC/NS
-                \item Vectorized likelihood evaluations
-                \item Parallel chain evolution
-                \item Enable previously intractable analyses
-                \item Future-proof for next-gen data
+                \item High-dimensional parameter spaces (20-100+ parameters)
+                \item Complex, multimodal posteriors
+                \item Expensive likelihood evaluations
+                \item Months of computation time
+                \item Model comparison bottlenecks
             \end{itemize}
         \end{block}
         \column{0.5\textwidth}
-        \begin{block}{Bayesian Methods Across 21cm}
+        \begin{block}{Physical Challenges}
             \begin{itemize}
-                \item \textbf{HERA}: MCMC \& nested sampling
-                \item \textbf{REACH}: Simulation-based inference
-                \item \textbf{EDGES}: Signal extraction
-                \item \textbf{SARAS}: Evidence-driven detection
-                \item \textbf{PRIZM}: Hierarchical modeling
-            \end{itemize}
-        \end{block}
-        \begin{block}{BlackJAX: Universal GPU Framework}
-            \begin{itemize}
-                \item \textbf{All samplers}: HMC, NUTS, NS, ensemble
-                \item \textbf{JAX ecosystem}: Autodiff + compilation
-                \item \textbf{Plug-and-play}: Works with existing codes
-                \item \textbf{Community tool}: Open source, growing
+                \item Foreground contamination 10$^5$× stronger than signal
+                \item Instrumental systematics
+                \item Ionospheric effects
+                \item Degeneracies between astrophysics and cosmology
+                \item Need for robust uncertainty quantification
             \end{itemize}
         \end{block}
     \end{columns}
+    \vspace{10pt}
+    \begin{center}
+        \Large
+        \textbf{These challenges demand new computational approaches}
+    \end{center}
 \end{frame}
 
 \begin{frame}
