@@ -224,30 +224,17 @@
     \student{toby_lovick}{Toby Lovick}{PhD}
     \begin{columns}
         \column{0.48\textwidth}
-        \begin{block}{CMB Power Spectrum (6 params)}
-            \begin{itemize}
-                \item \textbf{PolyChord (CPU)}: ~1 hour
-                \item \textbf{BlackJAX (GPU)}: 12 seconds
-            \end{itemize}
-            \begin{center}
-                \textbf{300× speedup}
-            \end{center}
-        \end{block}
-        \begin{block}{Cosmic Shear (37 params)}
-            \begin{itemize}
-                \item \textbf{PolyChord (48 CPUs)}: ~8 months
-                \item \textbf{NUTS (12 A100 GPUs)}: 2 days
-                \item<3-> \textbf{Toby's NUTS (1 A100 GPU)}: 6 hours
-                \item \textbf{BlackJAX (1 A100 GPU)}: 11 hours
-            \end{itemize}
-            \begin{center}
-\textbf{Significant improvement over previous GPU methods}~\arxiv{2405.12965}
-            \end{center}
-        \end{block}
+        \begin{itemize}
+            \item \textbf{CMB (6 params)}: 300× speedup vs CPU PolyChord
+            \item \textbf{Cosmic Shear (37 params)}: Days vs months
+            \item \textbf{Method}: JAX neural emulators + GPU NS
+            \item \textbf{Evidence}: Direct calculation with error bars
+            \item \textbf{Models}: $\Lambda$CDM vs $w_0w_a$ comparison
+            \item \textbf{Impact}: NS competitive with MCMC+evidence methods
+        \end{itemize}
         \column{0.48\textwidth}
         \includegraphics<1>[width=\textwidth]{figures/cmbscaling.pdf}%
-        \vspace{5pt}
-        \includegraphics<2-3>[width=\textwidth]{figures/jaxSHEARfull.png}
+        \includegraphics<2>[width=\textwidth]{figures/jaxSHEARfull.png}
         %\vspace{10pt}
         %\begin{block}{Key Insight: Classical > ML Gold Rush}
         %    \begin{itemize}
