@@ -27,47 +27,47 @@
 \end{frame}
 
 \begin{frame}
-    \frametitle{Nested Sampling in the Global 21cm Community}
+    \frametitle{GPU-Accelerated Bayesian Inference for the Global 21cm Community}
     \begin{columns}
         \column{0.5\textwidth}
-        \begin{block}{Wide Adoption Across Experiments}
+        \begin{block}{Universal Challenges in 21cm}
             \begin{itemize}
-                \item \textbf{HERA}: Model selection \& parameter estimation
-                \item \textbf{REACH}: Sky-averaged signal inference
-                \item \textbf{SARAS}: Bayesian evidence computation
-                \item \textbf{EDGES}: Signal detection \& characterization
-                \item \textbf{PRIZM}: Foreground modeling
+                \item \textbf{High-dimensional parameter spaces}
+                \item \textbf{Complex likelihood surfaces}
+                \item \textbf{Foreground-signal degeneracies}
+                \item \textbf{Systematic uncertainties}
+                \item \textbf{Model comparison needs}
             \end{itemize}
         \end{block}
-        \begin{block}{Why Nested Sampling?}
+        \begin{block}{Why GPU Acceleration?}
             \begin{itemize}
-                \item Multimodal posterior exploration
-                \item Direct Bayesian evidence calculation
-                \item Model comparison capabilities
-                \item Robust uncertainty quantification
-                \item Handles complex likelihood surfaces
+                \item 10-100× speedups for MCMC/NS
+                \item Vectorized likelihood evaluations
+                \item Parallel chain evolution
+                \item Enable previously intractable analyses
+                \item Future-proof for next-gen data
             \end{itemize}
         \end{block}
         \column{0.5\textwidth}
-        \begin{block}{Recent 21cm NS Applications}
+        \begin{block}{Bayesian Methods Across 21cm}
             \begin{itemize}
-                \item HERA emulator training \arxiv{2108.07282}
-                \item REACH simulation-based inference \arxiv{2403.14618}
-                \item PolyChord for reionization \arxiv{2203.15734}
-                \item 21cmPIE-INN inference \arxiv{2401.04174}
-                \item Global signal constraints \arxiv{1810.09572}
+                \item \textbf{HERA}: MCMC \& nested sampling
+                \item \textbf{REACH}: Simulation-based inference
+                \item \textbf{EDGES}: Signal extraction
+                \item \textbf{SARAS}: Evidence-driven detection
+                \item \textbf{PRIZM}: Hierarchical modeling
             \end{itemize}
         \end{block}
-        \begin{block}{Our Group's Contributions}
+        \begin{block}{BlackJAX: Universal GPU Framework}
             \begin{itemize}
-                \item \textbf{PolyChord}: Standard tool for 21cm
-                \item \textbf{GPU acceleration}: Orders of magnitude speedup
-                \item \textbf{Neural ratio estimation}: SBI for 21cm
-                \item \textbf{Evidence-driven}: Model selection focus
+                \item \textbf{All samplers}: HMC, NUTS, NS, ensemble
+                \item \textbf{JAX ecosystem}: Autodiff + compilation
+                \item \textbf{Plug-and-play}: Works with existing codes
+                \item \textbf{Community tool}: Open source, growing
             \end{itemize}
         \end{block}
     \end{columns}
-\end{frame}
+\end{frame>
 
 \begin{frame}
     \frametitle{GPU Computing: Beyond Machine Learning}
