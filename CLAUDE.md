@@ -4,85 +4,91 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Repository Overview
 
-This is Will Handley's academic talks repository, containing LaTeX beamer presentations for conferences and seminars. The repository uses a branch-based system where each talk is developed on its own branch (e.g., `ini_2025`, `sardinia_2025`, `bristol_2025`), with the master branch containing the common template infrastructure.
+This is Will Handley's academic talks repository, containing LaTeX beamer presentations for conferences and seminars. The repository uses a **branch-based organization** where each talk is developed on its own branch (e.g., `ini_2025`, `sardinia_2025`, `bristol_2025`), with the master branch containing the common template infrastructure.
+
+**Related repository**: `~/projects/ai_presentation/lectures/` contains a simplified version of this template system for teaching lecture series.
 
 ## Development Commands
 
 ### LaTeX Build Commands
 - **Build PDF**: `pdflatex will_handley.tex` (run twice for proper references)
 - **Build with latexmk**: `latexmk -pdf will_handley.tex` (recommended - handles multiple passes automatically)
+- **Watch and auto-compile**: `latexmk -pdf -pvc will_handley.tex`
 - **Clean build files**: `latexmk -C will_handley.tex`
 
 ### Python Environment
 - **Activate virtual environment**: `source venv/bin/activate`
-- **Deactivate**: `deactivate`
-- **Install packages**: `pip install <package>` (after activating venv)
-
-The Python environment includes scientific computing packages (numpy, scipy, matplotlib, pandas) and specialized tools for Bayesian inference (anesthetic, jax, blackjax, jaxopt).
+- The Python environment includes scientific computing packages (numpy, scipy, matplotlib, pandas) and specialized tools for Bayesian inference (anesthetic, jax, blackjax, jaxopt)
 
 ## Architecture and Structure
 
 ### Main Template Files
-- **`will_handley.tex`**: Main LaTeX document template with placeholder content
-- **`will_handley_beamer.sty`**: Beamer-specific styling (colors, layout, navigation)
-- **`will_handley.sty`**: General LaTeX packages and custom commands
-- **`title_page.sty`**: Author information and institutional logos
-- **`matplotlibcolors.sty`**: Matplotlib-compatible color definitions and text color commands
-- **`codelistings.sty`**: Code syntax highlighting configuration
 
-### Key Features
-- **Color System**: Uses matplotlib default colors (C0-C9) for consistency
-- **Custom Commands**: 
-  - `\arxiv{number}` for arXiv links
-  - `\doi{doi}` for DOI links
-  - `\email{address}` for email formatting
-  - `\tthref{url}` for website links
-  - `\student{photo}{name}{detail}` for student photos
-- **Institutional Branding**: Automatically includes university and funding body logos
-- **Navigation**: Footer with email, website, and slide numbers
+The template system is modular, with styling separated into specialized `.sty` files:
+
+- **`will_handley.tex`**: Main LaTeX document template with placeholder content (`<+Title+>`, `<+subtitle+>`, `<+Date+>`, `<+Frame title+>`)
+- **`will_handley_beamer.sty`**: Beamer-specific styling
+  - Layout configuration (margins, navigation, itemize settings)
+  - Footer with email (`wh260@cam.ac.uk`), website (`willhandley.co.uk/talks`), and slide numbers
+  - Slide numbering from zero with appendix support
+  - `\student{photo}{name}{detail}` command for student acknowledgments (places photo in top-right corner)
+- **`will_handley.sty`**: General LaTeX packages and custom citation commands
+  - Package imports (amsmath, tikz, pgfplots, siunitx, etc.)
+  - Custom citation commands: `\arxiv{number}`, `\doi{doi}`, `\email{address}`, `\tthref{url}`, `\github{user/repo}`, `\xkcd{number}`
+  - Date formatting with `datetime2` package
+- **`title_page.sty`**: Author information and institutional logos (KICC, Cambridge, IoA, DAMTP, Cavendish)
+- **`matplotlibcolors.sty`**: Color definitions and text color commands
+  - Matplotlib default colors (C0-C9): `#1f77b4` (blue), `#ff7f0e` (orange), `#2ca02c` (green), `#d62728` (red), etc.
+  - Text color commands: `\redtext{}`, `\bluetext{}`, `\orangetext{}`, `\greentext{}`, `\yellowtext{}`, `\blacktext{}`
+  - Generic color command: `\C[n]{text}` (defaults to C1 if n omitted)
+- **`codelistings.sty`**: Code syntax highlighting configuration
 
 ### Directory Structure
 - **`logos/`**: Institutional and funding body logos (PDF/PNG)
-- **`people/`**: Student and collaborator photos (JPG format)
+- **`people/`**: Student and collaborator photos (JPG format) for use with `\student{}` command
+- **`figures/`**: Talk-specific figures and diagrams
 - **`venv/`**: Python virtual environment (gitignored)
-- **Build artifacts**: `.aux`, `.log`, `.pdf`, etc. (gitignored)
+- **Build artifacts**: `.aux`, `.log`, `.pdf`, `.nav`, `.out`, `.snm`, `.toc`, `.vrb` (gitignored)
 
 ## Branch Workflow
 
-Each talk is developed on its own branch named after the conference/venue and year (e.g., `ini_2025`, `sardinia_2025`). The master branch contains the common template infrastructure. When creating a new talk:
+Each talk is developed on its own branch named after the conference/venue and year (e.g., `ini_2025`, `sardinia_2025`, `bristol_2025`). The master branch contains the common template infrastructure.
 
-1. Create new branch from master
-2. Modify `will_handley.tex` with talk-specific content
-3. Update title, subtitle, and date in the template
-4. Replace placeholder content with actual slides
-5. Build and test the presentation
+### Creating a New Talk
 
-## Common Development Patterns
+1. **Create branch from master**:
+   ```bash
+   git checkout -b conference_year
+   ```
+2. **Modify `will_handley.tex`**:
+   - Replace `<+Title+>`, `<+subtitle+>`, `<+Date+>` placeholders
+   - Replace `<+Frame title+>` placeholders with actual slide content
+3. **Build and iterate**:
+   ```bash
+   latexmk -pdf -pvc will_handley.tex  # Auto-recompile on save
+   ```
 
-### Adding New Talks
-1. Update title, subtitle, and date in `will_handley.tex`
-2. Replace `<+Title+>`, `<+subtitle+>`, `<+Date+>` placeholders
-3. Replace `<+Frame title+>` and `<+Content+>` placeholders with actual content
-4. Build with `latexmk -pdf will_handley.tex`
+### Working with the Template
 
-### Working with Colors
-- Use predefined color commands: `\redtext{}`, `\bluetext{}`, `\greentext{}`, etc.
-- Access matplotlib colors directly: `\textcolor{C0}{text}`
-- Use `\C[color_number]{text}` for concise color application
+**Color usage**:
+- Predefined commands: `\redtext{}`, `\bluetext{}`, `\orangetext{}`, `\greentext{}`, `\yellowtext{}`, `\blacktext{}`
+- Direct matplotlib colors: `\textcolor{C0}{text}`, `\textcolor{C3}{text}`, etc.
+- Concise notation: `\C[0]{blue text}`, `\C[3]{red text}`
 
-### Managing Images
-- Place student/collaborator photos in `people/` directory
-- Use `\student{filename}{name}{detail}` command for student acknowledgments
-- Institutional logos are automatically included in title page
+**Custom citation commands**:
+- `\arxiv{2301.07041}` → clickable arXiv link
+- `\doi{10.1093/mnras/stab3282}` → clickable DOI link
+- `\email{wh260@cam.ac.uk}` → formatted email link
+- `\tthref{willhandley.co.uk/talks}` → clickable URL
+- `\github{williamjameshandley/anesthetic}` → GitHub link
 
-## File Management
+**Student acknowledgments**:
+- Place photos in `people/` directory (JPG format)
+- Use `\student{photo.jpg}{Student Name}{Detail}` on a slide
+- Photo appears in top-right corner with name and detail overlay
 
-### Gitignored Files
-- All LaTeX build artifacts (`.aux`, `.log`, `.pdf`, `.nav`, `.out`, `.snm`, `.toc`, `.vrb`)
-- Python virtual environment (`venv/`)
-- Python cache (`__pycache__/`)
-
-### Important Files to Track
-- Template files (`.tex`, `.sty`)
-- Images (`logos/`, `people/`)
-- Configuration files (`.gitignore`)
+**Beamer blocks and alerts**:
+- `\alert{text}` → highlighted text (red/C3)
+- `\begin{block}{Title}...\end{block}` → blue block (C0)
+- `\begin{exampleblock}{Title}...\end{exampleblock}` → green block (C2)
+- `\begin{alertblock}{Title}...\end{alertblock}` → red block (C3)
