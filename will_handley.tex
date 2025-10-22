@@ -587,32 +587,44 @@
 
 % --- SLIDE 13: GPU Computing ---
 \begin{frame}
-    \frametitle{GPU Computing: Beyond Machine Learning}
+    \frametitle{The Solution: GPU Acceleration}
+    \framesubtitle{Why the future of astronomical inference is parallel computing}
     \begin{columns}
-        \column{0.48\textwidth}
-        \begin{block}{GPU vs CPU for Scientific Computing}
+        \column{0.42\textwidth}
+        \begin{block}{The Problem}
             \begin{itemize}
-                \item \textbf{CPU}: Few powerful cores (10s), complex control.
-                \item \textbf{GPU}: Many simple cores (1000s), simple control.
-                \item \textbf{Memory bandwidth}: GPU ~10× faster than CPU.
-                \item \textbf{Perfect for}: Independent parallel tasks.
-                \item \textbf{Scientific algorithms}: MCMC chains, likelihood evaluations, simulations.
+                \item Nested sampling is powerful but \textbf{slow}
+                \item Complex parameter spaces require many likelihood evaluations
+                \item Traditional CPU approaches struggle to scale
             \end{itemize}
         \end{block}
-        \column{0.48\textwidth}
-        \begin{block}{HPC Landscape Evolution}
+
+        \begin{center}
+            \includegraphics[width=0.9\textwidth]{figures/gpu_vs_cpu.jpg}
+        \end{center}
+
+        \column{0.54\textwidth}
+        \vspace{-1em}
+        \begin{block}{CPU vs GPU: Different Approaches}
             \begin{itemize}
-                \item HPC transitioning to GPU-based architectures.
-                \item ML adoption accelerating hardware development.
-                \item Legacy CPU codes require modernization.
+                \item \textbf{CPU}: Few powerful cores ($\sim$10s), sequential tasks
+                \item \textbf{GPU}: Many simple cores ($\sim$1000s), parallel tasks
             \end{itemize}
         \end{block}
-        \begin{block}{Key Point}
-            \begin{center}
-                \textbf{GPU $\neq$ Machine Learning}\\
-                GPUs accelerate any parallel algorithm
-            \end{center}
+        \vspace{-0.5em}
+
+        \begin{block}{Perfect Match for Inference}
+            \begin{itemize}
+                \item Nested sampling = many independent live points
+                \item MCMC = parallel chains
+                \item Likelihood evaluations naturally parallel
+            \end{itemize}
         \end{block}
+        \vspace{-0.5em}
+
+        \begin{alertblock}{The Future is GPU}
+            All new HPC facilities are GPU-based. Whether we like it or not, we must adapt our codes.
+        \end{alertblock}
     \end{columns}
 \end{frame}
 
