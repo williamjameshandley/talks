@@ -749,7 +749,7 @@ results = ns.run(state, max_samples=5000)
 \end{frame}
 
 % --- SLIDE 21: The Future: AI in Scientific Code Development ---
-\begin{frame}[fragile]
+\begin{frame}
     \frametitle{The Future: AI in Scientific Code Development}
     \student{claude}{Claude Code}{AI Assistant}
     \vspace{-1em}
@@ -770,41 +770,30 @@ results = ns.run(state, max_samples=5000)
             AI's biggest immediate impact is automating and accelerating the 80\%, freeing up human time for the 20\%.
         \end{block}
     \end{columns}
-    \vspace{-0.5em}
-    \begin{exampleblock}{Concrete Example: Porting Fortran Likelihood to JAX}
-        \small
-        \begin{columns}[T]
-            \column{0.48\textwidth}
-            \textbf{Before (Fortran/Python):}
-            \tiny
-            \begin{verbatim}
-# Serial loop over data
-chi2 = 0.0
-for i in range(len(data)):
-    model = compute_model(params, x[i])
-    chi2 += ((data[i] - model) / err[i])**2
-logL = -0.5 * chi2
-            \end{verbatim}
-            \column{0.48\textwidth}
-            \textbf{After (JAX):}
-            \tiny
-            \begin{verbatim}
-# Vectorized, JIT-compiled, GPU-ready
-@jax.jit
-def logL(params):
-    model = jax.vmap(compute_model, (None, 0))(params, x)
-    chi2 = jnp.sum(((data - model) / err)**2)
-    return -0.5 * chi2
-# Result: 100x speedup + GPU acceleration
-            \end{verbatim}
-        \end{columns}
-    \end{exampleblock}
     \begin{alertblock}{Key Message}
         AI is not just a tool for analysis; it's about to fundamentally change how we develop, optimize, and deploy our science
     \end{alertblock}
 \end{frame}
 
-% --- SLIDE 22: Conclusions ---
+% --- SLIDE 22: AI-Assisted Code Development Case Studies ---
+\begin{frame}
+    \frametitle{AI-Assisted Code Development Case Studies}
+    \framesubtitle{Modernizing scientific software with LLM assistance}
+
+    \begin{block}{Rapid Development}
+        \begin{itemize}
+            \item \textbf{Sam Leeney}: JAX-bandflux \arxiv{2504.08081} -- first draft vibe-coded with Roo in 3 hours
+            \item \textbf{Toby Lovick}: 100$\times$ speedup using Claude Code to optimize existing JAX code \arxiv{2509.13307}
+            \item \textbf{Will Handley}: This talk + emcee \citehref{https://github.com/blackjax-devs/blackjax/pull}{797}{PR \#} written with LLM help. Transformational capability using Gemini and GPT-5 for interactive debugging, optimization, porting between samplers (cosmosis/cobaya/montepython), writing grants, reviewing papers, and transcribing meetings.
+        \end{itemize}
+    \end{block}
+
+    \begin{alertblock}{The Real Revolution: Interactive Development}
+        Not full automation, but enabling rapid prototyping, testing, and development for Metha Prathaban, Sinah Legner, David Yallup, Wei-Ning Deng.
+    \end{alertblock}
+\end{frame}
+
+% --- SLIDE 23: Conclusions ---
 \begin{frame}
     \frametitle{Conclusions}
     \framesubtitle{\tthref{github.com/handley-lab/group}}
