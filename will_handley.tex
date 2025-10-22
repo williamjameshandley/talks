@@ -28,31 +28,130 @@
     \titlepage
 \end{frame}
 
-% --- PEDAGOGICAL FOUNDATION (from sed_2025) ---
+% --- PEDAGOGICAL FOUNDATION ---
 
-% --- SLIDE 1: From Photons to Physics ---
+% --- SLIDE 1a: Cosmology ---
 \begin{frame}
-    \frametitle{The Goal: From Photons to Physics}
-    \framesubtitle{Why astronomical inference is a statistical problem}
+    \frametitle{Inference Across Science: Cosmology}
+    \framesubtitle{Parameter estimation and model comparison for the universe}
     \begin{columns}[T]
         \column{0.49\textwidth}
-        \begin{block}{The Data $D$}
-            We observe astronomical signals across different wavelengths, time, or frequency. This is our dataset, $D$.
-        \end{block}
-        \includegraphics[width=\textwidth]{figures/sed.png}
-        \column{0.49\textwidth}
-        \begin{block}{The Model $\theta|M$}
-            We want to infer the underlying physical properties, our parameters, $\theta$: masses, distances, cosmological parameters, astrophysical properties...
-        \end{block}
-        \begin{block}{The Challenge}
-            The parameter space is often:
+        \begin{block}{Parameter Estimation}
+            \keyterm{Goal}: Measure cosmological parameters
             \begin{itemize}
-                \item \keyterm{High-dimensional}: Many parameters to fit.
-                \item \keyterm{Degenerate}: Different combinations of parameters can produce similar observations.
-                \item \keyterm{Multimodal}: Multiple physically plausible explanations.
+                \item Hubble constant $H_0$, matter density $\Omega_m$
+                \item Dark energy equation of state $w$
             \end{itemize}
         \end{block}
+        \begin{block}{Model Comparison}
+            \keyterm{Goal}: Determine best cosmological model
+            \begin{itemize}
+                \item $\Lambda$CDM vs $w$CDM vs $w_0w_a$CDM
+                \item Is dark energy evolving?
+            \end{itemize}
+        \end{block}
+        \column{0.49\textwidth}
+        \begin{overpic}[width=\textwidth]{figures/desi.pdf}
+            \put(80,75) {\tiny \arxiv{2404.03002}}
+        \end{overpic}
     \end{columns}
+\end{frame}
+
+% --- SLIDE 1b: Gravitational Waves ---
+\begin{frame}
+    \frametitle{Inference Across Science: Gravitational Waves}
+    \framesubtitle{Parameter estimation and model comparison for transient events}
+    \begin{columns}[T]
+        \column{0.49\textwidth}
+        \begin{block}{Parameter Estimation}
+            \keyterm{Goal}: Localize the source on the sky
+            \begin{itemize}
+                \item Masses, spins, distance, sky position
+                \item Critical for electromagnetic follow-up
+            \end{itemize}
+        \end{block}
+        \begin{block}{Model Comparison}
+            \keyterm{Goal}: Determine the event type
+            \begin{itemize}
+                \item NS-NS vs NS-BH vs BH-BH
+                \item Different physical implications
+            \end{itemize}
+        \end{block}
+        \column{0.49\textwidth}
+        \includegraphics[width=\textwidth]{figures/gw_localisation.jpg}
+    \end{columns}
+\end{frame}
+
+% --- SLIDE 1c: Exoplanets ---
+\begin{frame}
+    \frametitle{Inference Across Science: Exoplanets}
+    \framesubtitle{Parameter estimation and model comparison for planetary systems}
+    \begin{columns}[T]
+        \column{0.49\textwidth}
+        \begin{block}{Parameter Estimation}
+            \keyterm{Goal}: Characterize planet properties
+            \begin{itemize}
+                \item Radius, mass, period, orbital parameters
+                \item Atmospheric composition
+            \end{itemize}
+        \end{block}
+        \begin{block}{Model Comparison}
+            \keyterm{Goal}: Determine number of planets
+            \begin{itemize}
+                \item 1 planet vs 2 planets vs 3 planets...
+                \item Avoid overfitting noise as signals
+            \end{itemize}
+        \end{block}
+        \column{0.49\textwidth}
+        \begin{overpic}[width=\textwidth]{figures/exoplanet.pdf}
+            \put(70,25) {\tiny \arxiv{1805.08211}}
+        \end{overpic}
+    \end{columns}
+\end{frame}
+
+% --- SLIDE 1d: Common Challenges ---
+\begin{frame}
+    \frametitle{The Common Challenge: Complex Parameter Spaces}
+    \framesubtitle{Why these problems are statistically hard}
+    \begin{columns}[T]
+        \column{0.32\textwidth}
+        \begin{block}{\keyterm{High-Dimensional}}
+            \textbf{Many parameters to infer}
+            \begin{itemize}
+                \item Cosmo: 6+ base parameters, nuisance/extensions
+                \item GW: 15+ parameters (masses, spins, distance, sky location)
+                \item EP: $\sim$5-10/planet
+            \end{itemize}
+            \vspace{5pt}
+            \textit{Challenge}: Volume of parameter space grows exponentially
+        \end{block}
+        \column{0.32\textwidth}
+        \begin{block}{\keyterm{Degenerate}}
+            \textbf{Parameters strongly correlated}
+            \begin{itemize}
+                \item Cosmo: $H_0$-$\Omega_m$ banana
+                \item GW: Mass-distance degeneracy
+                \item EP: Eccentricity-period correlations
+            \end{itemize}
+            \vspace{5pt}
+            \textit{Challenge}: Different parameter combinations produce similar observations
+        \end{block}
+        \column{0.32\textwidth}
+        \begin{block}{\keyterm{Multimodal}}
+            \textbf{Multiple distinct solutions}
+            \begin{itemize}
+                \item Cosmo: Data tensions create separated modes
+                \item GW: Bimodal inclination
+                \item EP: Orbital period aliases
+            \end{itemize}
+            \vspace{5pt}
+            \textit{Challenge}: Easy to miss physically plausible explanations
+        \end{block}
+    \end{columns}
+    \vspace{10pt}
+    \begin{alertblock}{Key Message}
+        These three features make inference computationally expensive and require sophisticated statistical methods
+    \end{alertblock}
 \end{frame}
 
 % --- SLIDE 2: Statistical Framework ---
@@ -418,7 +517,7 @@
 % --- SLIDE 11: Practical Guidance for Nested Sampling ---
 \begin{frame}
     \frametitle{Practical Guidance: How to Use Nested Sampling}
-    \framesubtitle{Understanding resolution and reliability parameters}
+    \framesubtitle{\tthref{github.com/williamjameshandley/talks/tree/sydney\_2024}}
     \vspace{-1em}
     \begin{columns}[T]
         \column{0.49\textwidth}
