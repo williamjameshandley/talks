@@ -20,7 +20,7 @@
 % Talk details
 % ------------
 \title{GPU Accelerated Bayesian Inference for Astronomy}
-\date{22 October 2025}
+\date{22\textsuperscript{nd} October 2025}
 
 \begin{document}
 
@@ -30,7 +30,7 @@
 
 % --- PEDAGOGICAL FOUNDATION (from sed_2025) ---
 
-% --- SLIDE 2: From Photons to Physics ---
+% --- SLIDE 1: From Photons to Physics ---
 \begin{frame}
     \frametitle{The Goal: From Photons to Physics}
     \framesubtitle{Why astronomical inference is a statistical problem}
@@ -55,33 +55,33 @@
     \end{columns}
 \end{frame}
 
-% --- SLIDE 3: Statistical Framework ---
+% --- SLIDE 2: Statistical Framework ---
 \begin{frame}
     \frametitle{The Language of Inference}
     \framesubtitle{How we quantify what we learn from data}
     \begin{columns}
         \column{0.33\textwidth}
-            \begin{block}{\C[1]{Prior}\hfill $\C[1]{\pi(\theta)}$}
+            \begin{block}{\C[0]{Posterior}\hfill $\C[0]{\mathcal{P}(\theta|D)}$}
+            What we know about the parameters \textit{after} seeing the data. It's our updated state of knowledge.
+        \end{block}
+        \vspace{2em}
+        \begin{block}{\C[1]{Prior}\hfill $\C[1]{\pi(\theta)}$}
                 What we believe about the parameters \textit{before} we see the data. Our physical assumptions.
             \end{block}
-        \vspace{2em}
-        \begin{block}{\C[3]{Evidence}\hfill $\C[3]{\mathcal{Z}(D)}$}
-            How we update our belief in the model using the data.
-        \end{block}
         \column{0.33\textwidth}
 \[\underbrace{\C[0]{\mathcal{P}(\theta|D)}}_{\C[0]{\text{Posterior}}} = \frac{\overbrace{\C[2]{\mathcal{L}(D|\theta)}}^{\C[2]{\text{Likelihood}}} \times \overbrace{\C[1]{\pi(\theta)}}^{\C[1]{\text{Prior}}}}{\underbrace{\C[3]{\mathcal{Z}(D)}}_{\C[3]{\text{Evidence}}}}\]
         \column{0.33\textwidth}
             \begin{block}{\C[2]{Likelihood}\hfill $\C[2]{\mathcal{L}(D|\theta)}$}
-                How we update our belief in the parameters using the data.
+                The probability of observing the data given the parameters. It connects our theoretical model to observations.
             \end{block}
         \vspace{2em}
-        \begin{block}{\C[0]{Posterior}\hfill $\C[0]{\mathcal{P}(\theta|D)}$}
-            What we know about the parameters \textit{after} seeing the data. It's our updated state of knowledge.
+        \begin{block}{\C[3]{Evidence}\hfill $\C[3]{\mathcal{Z}(D)}$}
+            The total probability of the data given the model. It quantifies model plausibility and enables comparisons.
         \end{block}
     \end{columns}
 \end{frame}
 
-% --- SLIDE 4: Chi-squared Maximization ---
+% --- SLIDE 3: Chi-squared Maximization ---
 \begin{frame}
     \frametitle{The Simplest Approach: Optimization (e.g., $\chi^2$ Minimization)}
     \begin{columns}[T]
@@ -132,7 +132,7 @@
 
 \end{frame}
 
-% --- SLIDE 5: Why do sampling? ---
+% --- SLIDE 4: Why do sampling? ---
 \begin{frame}
     \frametitle{Why do sampling?}
     \begin{columns}[T]
@@ -152,7 +152,7 @@
     \end{columns}
 \end{frame}
 
-% --- SLIDE 6: MCMC Sampling ---
+% --- SLIDE 5: MCMC Sampling ---
 \begin{frame}
     \frametitle{The Classic Workhorse: Markov Chain Monte Carlo (MCMC)}
     \begin{columns}[T]
@@ -197,7 +197,7 @@
     \end{columns}
 \end{frame}
 
-% --- SLIDE 7: Hamiltonian Monte Carlo (HMC) ---
+% --- SLIDE 6: Hamiltonian Monte Carlo (HMC) ---
 \begin{frame}
     \frametitle{Gradient-Guided Sampling: Hamiltonian Monte Carlo (HMC)}
     \begin{columns}[T]
@@ -242,7 +242,7 @@
     \end{columns}
 \end{frame}
 
-% --- SLIDE 8: Ensemble Sampling (emcee) ---
+% --- SLIDE 7: Ensemble Sampling (emcee) ---
 \begin{frame}
     \frametitle{A Better Way: Ensemble Sampling (e.g., \texttt{emcee})}
     \begin{columns}[T]
@@ -291,7 +291,7 @@
     \end{columns}
 \end{frame}
 
-% --- SLIDE 9: Why Evidence Calculation Matters ---
+% --- SLIDE 8: Why Evidence Calculation Matters ---
 \begin{frame}
     \frametitle{The Missing Piece: Why Evidence Calculation Matters}
     \framesubtitle{And why it's so hard to compute}
@@ -322,7 +322,7 @@
     \end{columns}
 \end{frame}
 
-% --- SLIDE 10: Nested Sampling ---
+% --- SLIDE 9: Nested Sampling ---
 \begin{frame}
     \frametitle{The State of the Art: Nested Sampling (e.g., \texttt{dynesty})}
     \begin{columns}[T]
@@ -364,7 +364,7 @@
     \end{columns}
 \end{frame}
 
-% --- SLIDE 11: How Nested Sampling Estimates Volumes ---
+% --- SLIDE 10: How Nested Sampling Estimates Volumes ---
 \begin{frame}
     \frametitle{How Nested Sampling Estimates Volumes: The Counting Trick}
     \begin{columns}[T]
@@ -415,7 +415,7 @@
     \end{columns}
 \end{frame}
 
-% --- SLIDE 12: Practical Guidance for Nested Sampling ---
+% --- SLIDE 11: Practical Guidance for Nested Sampling ---
 \begin{frame}
     \frametitle{Practical Guidance: How to Use Nested Sampling}
     \framesubtitle{Understanding resolution and reliability parameters}
@@ -452,14 +452,14 @@
     \end{alertblock}
 \end{frame}
 
-% --- SLIDE 13: Choosing Your Tool ---
+% --- SLIDE 12: Choosing Your Tool ---
 \begin{frame}
     \frametitle{Choosing Your Tool: A Summary}
     \framesubtitle{No single best method, only the right tool for the job}
     \begin{center}
         \begin{tabular}{|l|c|c|c|c|}
             \hline
-            \textbf{Method} & \textbf{Speed} & \textbf{Uncertainties?} & \textbf{Handles Multimodality?} & \textbf{Evidence?} \\
+            \textbf{Method} & \textbf{Speed} & \textbf{Uncertainties?} & \textbf{Multimodal?} & \textbf{Evidence?} \\
             \hline
             \textbf{Optimization} ($\chi^2$) & \textcolor{green!50!black}{Very Fast} & \textcolor{red}{No} & \textcolor{red}{No} & \textcolor{red}{No} \\
             \hline
@@ -486,7 +486,7 @@
 
 % --- GPU APPLICATIONS (from caltech_2025) ---
 
-% --- SLIDE 14: GPU Computing ---
+% --- SLIDE 13: GPU Computing ---
 \begin{frame}
     \frametitle{GPU Computing: Beyond Machine Learning}
     \begin{columns}
@@ -517,7 +517,7 @@
     \end{columns}
 \end{frame}
 
-% --- SLIDE 15: Modern Languages: Two Independent Capabilities ---
+% --- SLIDE 14: Modern Languages: Two Independent Capabilities ---
 \begin{frame}
     \frametitle{Modern Languages: Two Independent Capabilities}
     \begin{center}
@@ -560,50 +560,7 @@
     \end{columns}
 \end{frame}
 
-% --- BRIDGE SLIDE: Where do GPUs help in inference? ---
-\begin{frame}
-    \frametitle{Where do GPUs help in Bayesian Inference?}
-    \framesubtitle{Mapping algorithmic structure to parallel hardware}
-    \begin{columns}
-        \column{0.48\textwidth}
-        \begin{block}{Parallel Structures}
-            \begin{itemize}
-                \item \textbf{Parallel chains/particles/live points}
-                    \begin{itemize}
-                        \item MCMC ensembles (\texttt{emcee})
-                        \item SMC particle swarms
-                        \item Nested sampling live points
-                    \end{itemize}
-                \item \textbf{Vectorize likelihoods across batches}
-                    \begin{itemize}
-                        \item Evaluate hundreds of parameter sets simultaneously
-                        \item Perfect for GPU SIMD architecture
-                    \end{itemize}
-            \end{itemize}
-        \end{block}
-        \column{0.48\textwidth}
-        \begin{block}{GPU Best Practices}
-            \begin{itemize}
-                \item \textbf{JIT compilation}
-                    \begin{itemize}
-                        \item Compile once, run many times
-                        \item Avoid host-device transfers
-                    \end{itemize}
-                \item \textbf{When gradients matter}
-                    \begin{itemize}
-                        \item Essential: HMC/NUTS
-                        \item Not required: NS/ensemble/MCMC
-                    \end{itemize}
-                \item \textbf{Device RNG}
-                    \begin{itemize}
-                        \item Reproducibility requires careful seeding
-                    \end{itemize}
-            \end{itemize}
-        \end{block}
-    \end{columns}
-\end{frame}
-
-% --- SLIDE 17: BlackJAX: GPU Native Sampling ---
+% --- SLIDE 15: BlackJAX: GPU Native Sampling ---
 \begin{frame}
     \frametitle{BlackJAX: GPU Native Sampling}
     \framesubtitle{A unified framework for GPU-accelerated inference}
@@ -626,15 +583,16 @@
                         \item MCMC (Metropolis-Hastings)
                         \item HMC/NUTS (gradient-guided)
                         \item SMC (particle methods)
-                    \end{itemize}
-                \item Coming soon (PRs in progress):
-                    \begin{itemize}
-                        \item Ensemble (emcee) \tthref{github.com/blackjax-devs/blackjax/pull/797}
-                        \item Nested sampling \tthref{github.com/blackjax-devs/blackjax/pull/755}
+                        \item Ensemble (emcee) \citehref{https://github.com/blackjax-devs/blackjax/pull}{797}{PR \#}
+                        \item Nested sampling \citehref{https://github.com/blackjax-devs/blackjax/pull}{755}{PR \#}
                     \end{itemize}
             \end{itemize}
         \end{block}
         \column{0.43\textwidth}
+        \vspace{10pt}
+        \begin{center}
+            \includegraphics[width=\textwidth]{figures/blackjax_screenshot.png}
+        \end{center}
         \begin{block}{Framework Design}
             \begin{itemize}
                 \item Like \texttt{numpy}/\texttt{scipy}
@@ -643,14 +601,10 @@
                 \item Maximum flexibility
             \end{itemize}
         \end{block}
-        \vspace{10pt}
-        \begin{center}
-            \includegraphics[width=\textwidth,page=8]{figures/himmelblau_ns.pdf}
-        \end{center}
     \end{columns}
 \end{frame}
 
-% --- SLIDE 18: Case Study 1: CMB and Cosmic Shear ---
+% --- SLIDE 16: Case Study 1: CMB and Cosmic Shear ---
 \begin{frame}
     \frametitle{Recent GPU-Accelerated Applications}
     \framesubtitle{Case study 1/4: CMB and Cosmic Shear \arxiv{2509.13307}}
@@ -672,7 +626,7 @@
     \end{columns}
 \end{frame}
 
-% --- SLIDE 19: Case Study 2: Bayesian Anomaly Detection for SNe ---
+% --- SLIDE 17: Case Study 2: Bayesian Anomaly Detection for SNe ---
 \begin{frame}
     \frametitle{Recent GPU-Accelerated Applications}
     \framesubtitle{Case study 2/4: Bayesian Anomaly Detection for Type Ia Supernovae \arxiv{2509.13394}}
@@ -694,7 +648,7 @@
     \end{columns}
 \end{frame}
 
-% --- SLIDE 20: Case Study 3: Dark Energy vs Systematics ---
+% --- SLIDE 18: Case Study 3: Dark Energy vs Systematics ---
 \begin{frame}
     \frametitle{Recent GPU-Accelerated Applications}
     \framesubtitle{Case study 3/4: Dark Energy vs Supernova Systematics \arxiv{2509.13220}}
@@ -716,7 +670,7 @@
     \end{columns}
 \end{frame}
 
-% --- SLIDE 21: Case Study 4: Gravitational Waves ---
+% --- SLIDE 19: Case Study 4: Gravitational Waves ---
 \begin{frame}
     \frametitle{Recent GPU-Accelerated Applications}
     \framesubtitle{Case study 4/4: Gravitational Wave Inference \arxiv{2509.04336}}
@@ -737,7 +691,7 @@
     \end{columns}
 \end{frame}
 
-% --- SLIDE 22: Getting Started with BlackJAX ---
+% --- SLIDE 20: Getting Started with BlackJAX ---
 \begin{frame}[fragile]
     \frametitle{Getting Started with BlackJAX}
     \framesubtitle{Practical steps to GPU-accelerated inference}
@@ -794,7 +748,7 @@ results = ns.run(state, max_samples=5000)
     \end{columns}
 \end{frame}
 
-% --- SLIDE 23: The Future: AI in Scientific Code Development ---
+% --- SLIDE 21: The Future: AI in Scientific Code Development ---
 \begin{frame}[fragile]
     \frametitle{The Future: AI in Scientific Code Development}
     \student{claude}{Claude Code}{AI Assistant}
@@ -850,7 +804,7 @@ def logL(params):
     \end{alertblock}
 \end{frame}
 
-% --- SLIDE 24: Conclusions ---
+% --- SLIDE 22: Conclusions ---
 \begin{frame}
     \frametitle{Conclusions}
     \framesubtitle{\tthref{github.com/handley-lab/group}}
