@@ -1,0 +1,3 @@
+- 30-40 minute presentation
+- Masters, PhD, Postdocs and faculty in attendance
+    - it may be worth going through some pdeagagical material on what sampling is and why it is important for astronomy

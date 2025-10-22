@@ -19,45 +19,44 @@
 
 % Talk details
 % ------------
-\title{GPU Accelerated Bayesian Inference for Astronomy}
-\date{TBD 2025}
+\title{A Statistician's Guide to the Galaxy (Fitting Zoo)}
+\subtitle{An Introduction to the Statistical Foundations of SED Fitting}
+\date{8 July 2025}
 
 \begin{document}
 
+% --- SLIDE 0: Title Slide ---
 \begin{frame}
     \titlepage
 \end{frame}
 
-% --- PEDAGOGICAL FOUNDATION (from sed_2025) ---
-
-% --- SLIDE 2: From Photons to Physics ---
+% --- SLIDE 1: SED Fitting Setup (2 minutes) ---
 \begin{frame}
     \frametitle{The Goal: From Photons to Physics}
-    \framesubtitle{Why astronomical inference is a statistical problem}
+    \framesubtitle{Why SED fitting is a statistical inference problem}
     \begin{columns}[T]
         \column{0.49\textwidth}
         \begin{block}{The Data $D$}
-            We observe astronomical signals across different wavelengths, time, or frequency. This is our dataset, $D$.
+            We observe a galaxy's light (photometry or spectra) across different wavelengths. This is our dataset, $D$.
         \end{block}
         \includegraphics[width=\textwidth]{figures/sed.png}
         \column{0.49\textwidth}
         \begin{block}{The Model $\theta|M$}
-            We want to infer the underlying physical properties, our parameters, $\theta$: masses, distances, cosmological parameters, astrophysical properties...
+            We want to infer the underlying physical properties, our parameters, $\theta$: Stellar Mass ($M_*$), Star Formation History (SFH), Dust content ($A_V$), Metallicity ($Z$), ...
         \end{block}
         \begin{block}{The Challenge}
             The parameter space is often:
             \begin{itemize}
                 \item \keyterm{High-dimensional}: Many parameters to fit.
-                \item \keyterm{Degenerate}: Different combinations of parameters can produce similar observations.
-                \item \keyterm{Multimodal}: Multiple physically plausible explanations.
+                \item \keyterm{Degenerate}: Different combinations of parameters can produce similar SEDs.
             \end{itemize}
         \end{block}
     \end{columns}
 \end{frame}
 
-% --- SLIDE 3: Statistical Framework ---
+% --- SLIDE 2: Statistical Framework (2 minutes) ---
 \begin{frame}
-    \frametitle{The Language of Inference}
+    \frametitle{The Language of Inference: }
     \framesubtitle{How we quantify what we learn from data}
     \begin{columns}
         \column{0.33\textwidth}
@@ -81,7 +80,7 @@
     \end{columns}
 \end{frame}
 
-% --- SLIDE 4: Chi-squared Maximization ---
+% --- SLIDE 3: Chi-squared Maximization (3 minutes) ---
 \begin{frame}
     \frametitle{The Simplest Approach: Optimization (e.g., $\chi^2$ Minimization)}
     \begin{columns}[T]
@@ -129,10 +128,10 @@
             \includegraphics<10>[width=\textwidth,page=10]{figures/himmelblau_gradient_ascent.pdf}%
         \end{center}
     \end{columns}
-
+    
 \end{frame}
 
-% --- SLIDE 5: Why do sampling? ---
+% --- SLIDE 4: Why do sampling? (3 minutes) ---
 \begin{frame}
     \frametitle{Why do sampling?}
     \begin{columns}[T]
@@ -152,7 +151,7 @@
     \end{columns}
 \end{frame}
 
-% --- SLIDE 6: MCMC Sampling ---
+% --- SLIDE 5: MCMC Sampling (4 minutes) ---
 \begin{frame}
     \frametitle{The Classic Workhorse: Markov Chain Monte Carlo (MCMC)}
     \begin{columns}[T]
@@ -178,7 +177,7 @@
             \end{itemize}
         \end{block}
         \begin{alertblock}{Key Message}
-            MCMC is a foundational sampling method, but its simple ``random walk'' can be inefficient in the complex parameter spaces of astronomical inference.
+            MCMC is a foundational sampling method, but its simple ``random walk'' can be inefficient in the complex parameter spaces of SED fitting.
         \end{alertblock}
         }
         \column{0.5\textwidth}
@@ -197,7 +196,7 @@
     \end{columns}
 \end{frame}
 
-% --- SLIDE 7: Ensemble Sampling (emcee) ---
+% --- SLIDE 6: Ensemble Sampling (emcee) (4 minutes) ---
 \begin{frame}
     \frametitle{A Better Way: Ensemble Sampling (e.g., \texttt{emcee})}
     \begin{columns}[T]
@@ -246,7 +245,7 @@
     \end{columns}
 \end{frame}
 
-% --- SLIDE 8: Why Evidence Calculation Matters ---
+% --- SLIDE 7: Why Evidence Calculation Matters (3 minutes) ---
 \begin{frame}
     \frametitle{The Missing Piece: Why Evidence Calculation Matters}
     \framesubtitle{And why it's so hard to compute}
@@ -256,7 +255,7 @@
             \begin{itemize}
                 \item \textbf{Model Comparison}: Bayes model theorem:
             \[\mathcal{P}(M|D) \propto \mathcal{Z}(D|M) \mathcal{P}(M)\]
-            For astronomy: Which physical model best explains the observations?
+            For SED fitting: Which stellar population model best explains the galaxy photometry?
         \item  \textbf{Occam's Razor}: Automatic complexity penalty
             \[\log \mathcal{Z} = \langle \log \mathcal{L} \rangle_{\mathcal{P}} - \mathcal{D}_{\text{KL}}(\mathcal{P}||\pi)\]
         \item \textbf{Bayesian Model Averaging}: Weighted model combinations
@@ -277,7 +276,7 @@
     \end{columns}
 \end{frame}
 
-% --- SLIDE 9: Nested Sampling ---
+% --- SLIDE 8: Nested Sampling (5 minutes) ---
 \begin{frame}
     \frametitle{The State of the Art: Nested Sampling (e.g., \texttt{dynesty})}
     \begin{columns}[T]
@@ -319,7 +318,7 @@
     \end{columns}
 \end{frame}
 
-% --- SLIDE 10: How Nested Sampling Estimates Volumes ---
+% --- SLIDE 9: How Nested Sampling Estimates Volumes (2 minutes) ---
 \begin{frame}
     \frametitle{How Nested Sampling Estimates Volumes: The Counting Trick}
     \begin{columns}[T]
@@ -329,14 +328,14 @@
             \[V_{i+1} = V_i \times \frac{n_{\text{inside}}}{n_{\text{total}}}\]
             indep.\ of dimensionality, geometry or topology
         \end{block}
-
+        
         \begin{columns}[T]
             \column{0.45\textwidth}
             \begin{block}{Evidence}
                 The evidence is computed as:
                 \[\mathcal{Z} = \sum \mathcal{L}_i \Delta V_i\]
             \end{block}
-
+            
             \column{0.45\textwidth}
             \begin{block}{Posterior}
                 Each sample gets importance weight:
@@ -370,258 +369,83 @@
     \end{columns}
 \end{frame}
 
-% --- GPU APPLICATIONS (from caltech_2025) ---
-
-% --- SLIDE 11: GPU Computing ---
+% --- SLIDE 10: Practical Guidance for Nested Sampling (2 minutes) ---
 \begin{frame}
-    \frametitle{GPU Computing: Beyond Machine Learning}
-    \begin{columns}
-        \column{0.48\textwidth}
-        \begin{block}{GPU vs CPU for Scientific Computing}
+    \frametitle{Practical Guidance: How to Use Nested Sampling}
+    \framesubtitle{Understanding resolution and reliability parameters}
+    \vspace{-1em}
+    \begin{columns}[T]
+        \column{0.49\textwidth}
+        \begin{block}{Rejection Samplers}
             \begin{itemize}
-                \item \textbf{CPU}: Few powerful cores (10s), complex control.
-                \item \textbf{GPU}: Many simple cores (1000s), simple control.
-                \item \textbf{Memory bandwidth}: GPU ~10× faster than CPU.
-                \item \textbf{Perfect for}: Independent parallel tasks.
-                \item \textbf{Scientific algorithms}: MCMC chains, likelihood evaluations, simulations.
+                \item e.g. \texttt{MultiNest}, \texttt{UltraNest}, \texttt{nessai}
+                \item Construct bounding regions, reject invalid points
+                \item Efficient in low dimensions ($d \lesssim 10$)
+                \item Exponentially inefficient in high dimensions
             \end{itemize}
         \end{block}
-        \column{0.48\textwidth}
-        \begin{block}{HPC Landscape Evolution}
+        \column{0.49\textwidth}
+        \begin{block}{Chain-based Samplers}
             \begin{itemize}
-                \item HPC transitioning to GPU-based architectures.
-                \item ML adoption accelerating hardware development.
-                \item Legacy CPU codes require modernization.
+                \item e.g. \texttt{PolyChord}, \texttt{dynesty}, \texttt{blackjax}
+                \item Run Markov chains from live points
+                \item Linear $\sim\mathcal{O}(d)$ scaling penalty
+                \item Better for high-dimensional problems
             \end{itemize}
-        \end{block}
-        \begin{block}{Key Point}
-            \begin{center}
-                \textbf{GPU $\neq$ Machine Learning}\\
-                GPUs accelerate any parallel algorithm
-            \end{center}
         \end{block}
     \end{columns}
+    \vspace{5pt}
+    \begin{alertblock}{Key Parameters}
+        \begin{itemize}
+            \item \textbf{Resolution parameter} $n_{\text{live}}$: Improves results as $\sim\mathcal{O}(n_{\text{live}}^{-1/2})$
+            \item \textbf{Reliability parameters}: Don't improve results if set arbitrarily high, but introduce systematic errors if set too low
+                \begin{itemize}
+                    \item \texttt{MultiNest} efficiency \texttt{eff}, \texttt{PolyChord} chain length \texttt{n\_repeats}, \texttt{dynesty} \texttt{slices}
+                \end{itemize}
+        \end{itemize}
+    \end{alertblock}
 \end{frame}
 
-% --- SLIDE 12: Modern Languages: Two Independent Capabilities ---
+% --- SLIDE 11: Method Comparison (2 minutes) ---
 \begin{frame}
-    \frametitle{Modern Languages: Two Independent Capabilities}
+    \frametitle{Choosing Your Tool: A Summary}
+    \framesubtitle{No single best method, only the right tool for the job}
     \begin{center}
-        \textbf{Differentiable programming languages}: JAX, PyTorch, TensorFlow, Julia, Stan, \ldots
+        \begin{tabular}{|l|c|c|c|c|}
+            \hline
+            \textbf{Method} & \textbf{Speed} & \textbf{Uncertainties?} & \textbf{Handles Multimodality?} & \textbf{Evidence?} \\
+            \hline
+            \textbf{Optimization} ($\chi^2$) & \textcolor{green!50!black}{Very Fast} & \textcolor{red}{No} & \textcolor{red}{No} & \textcolor{red}{No} \\
+            \hline
+            \textbf{MCMC} (\texttt{pymc} etc) & \textcolor{orange}{Medium} & \textcolor{green!50!black}{Yes} & \textcolor{orange}{Poorly} & \textcolor{red}{No} \\
+            \hline
+            \textbf{Ensemble} (\texttt{emcee}) & \textcolor{orange}{Medium} & \textcolor{green!50!black}{Yes} & \textcolor{orange}{Okay} & \textcolor{red}{No} \\
+            \hline
+            \textbf{Nested} (\texttt{dynesty}) & \textcolor{red}{Slower} & \textcolor{green!50!black}{Yes} & \textcolor{green!50!black}{Excellently} & \textcolor{green!50!black}{Yes!} \\
+            \hline
+        \end{tabular}
     \end{center}
-    \vspace{-5pt}
-    \begin{columns}
-        \column{0.48\textwidth}
-        \begin{block}{Capability 1: Free Gradients}
-            \begin{itemize}
-                \item \textbf{Automatic differentiation}: $\nabla_\theta \log \mathcal{L}(\theta)$.
-                \item Enables gradient-based MCMC (HMC, NUTS).
-                \item Essential for modern optimization.
-            \end{itemize}
-        \end{block}
-        \begin{block}{Traditional Physics Benefits}
-            \begin{itemize}
-                \item \textbf{Nested sampling}: Massive parallelization.
-                \item \textbf{21cm signals}: Vectorized across frequency/time/angle.
-                \item \textbf{N-body sims}: GPU acceleration.
-            \end{itemize}
-        \end{block}
-        \column{0.48\textwidth}
-        \begin{block}{Capability 2: GPU Parallelization}
-            \begin{itemize}
-                \item \textbf{Vectorization across ensembles}.
-                \item Run 1000s of parallel chains/particles.
-                \item Evaluate likelihoods simultaneously.
-            \end{itemize}
-        \end{block}
-        \begin{block}{Key Insight: Often Confused}
-            \begin{center}
-                \textbf{These are completely independent.}\\
-                \textbf{People mistake one for the other.}\\
-                You can use gradients on CPU.\\
-                You can GPU parallelize without gradients.\\
-                \textbf{They serve different purposes.}
-            \end{center}
-        \end{block}
-    \end{columns}
+    \begin{block}{Practical Guidance}
+        \begin{itemize}
+            \item \textbf{Quick exploration / Sanity check?} $\rightarrow$ Use Optimization.
+            \item \textbf{Simple, well-behaved posterior?} $\rightarrow$ \texttt{emcee} is a great choice.
+            \item \textbf{Complex, possibly multimodal posterior?} $\rightarrow$ Use \texttt{dynesty}.
+            \item \textbf{Need to compare different physical models?} $\rightarrow$ You \textit{must} use Nested Sampling.
+        \end{itemize}
+    \end{block}
 \end{frame}
 
-% --- SLIDE 13: BlackJAX: GPU Native Sampling ---
-\begin{frame}
-    \frametitle{BlackJAX: GPU Native Sampling}
-    \framesubtitle<1-10>{Gradient descent: inference at speed}
-    \framesubtitle<11-19>{Metropolis-Hastings: error bars}
-    \framesubtitle<20-28>{emcee: adaptive ensemble algorithms}
-    \framesubtitle<29-36>{Nested sampling: model comparison}
-    \framesubtitle<37-44>{Hamiltonian Monte Carlo: inference with gradients}
-    \student{david_yallup}{David Yallup}{Postdoc}
-    \begin{columns}
-        \column{0.48\textwidth}
-        \vspace{-10pt}
-        \begin{itemize}
-            \item Sampling traditionally CPU-bound.
-            \item Different algorithms, same GPU challenge.
-            \item Need unified GPU-native framework.
-            \item From optimization to model comparison.
-        \end{itemize}
-        \vspace{10pt}
-        \begin{itemize}
-            \item BlackJAX: Full JAX ecosystem.
-            \item All algorithms GPU-accelerated.
-            \item Gradient descent through nested sampling.
-            \item Unified interface, maximum performance.
-        \end{itemize}
-        \vspace{5pt}
-        \begin{itemize}
-            \item Framework: more like \texttt{numpy} or \texttt{scipy} than \texttt{cobaya} or \texttt{cosmosis}.
-        \end{itemize}
-        \column{0.48\textwidth}
-        \vspace{10pt}
-        \includegraphics<1>[width=\textwidth,page=1]{figures/himmelblau_gradient_ascent}%
-        \includegraphics<2>[width=\textwidth,page=2]{figures/himmelblau_gradient_ascent}%
-        \includegraphics<3>[width=\textwidth,page=3]{figures/himmelblau_gradient_ascent}%
-        \includegraphics<4>[width=\textwidth,page=4]{figures/himmelblau_gradient_ascent}%
-        \includegraphics<5>[width=\textwidth,page=5]{figures/himmelblau_gradient_ascent}%
-        \includegraphics<6>[width=\textwidth,page=6]{figures/himmelblau_gradient_ascent}%
-        \includegraphics<7>[width=\textwidth,page=7]{figures/himmelblau_gradient_ascent}%
-        \includegraphics<8>[width=\textwidth,page=8]{figures/himmelblau_gradient_ascent}%
-        \includegraphics<9>[width=\textwidth,page=9]{figures/himmelblau_gradient_ascent}%
-        \includegraphics<10>[width=\textwidth,page=10]{figures/himmelblau_gradient_ascent}%
-        \includegraphics<11>[width=\textwidth,page=1]{figures/himmelblau_mcmc}%
-        \includegraphics<12>[width=\textwidth,page=2]{figures/himmelblau_mcmc}%
-        \includegraphics<13>[width=\textwidth,page=3]{figures/himmelblau_mcmc}%
-        \includegraphics<14>[width=\textwidth,page=4]{figures/himmelblau_mcmc}%
-        \includegraphics<15>[width=\textwidth,page=5]{figures/himmelblau_mcmc}%
-        \includegraphics<16>[width=\textwidth,page=6]{figures/himmelblau_mcmc}%
-        \includegraphics<17>[width=\textwidth,page=7]{figures/himmelblau_mcmc}%
-        \includegraphics<18>[width=\textwidth,page=8]{figures/himmelblau_mcmc}%
-        \includegraphics<19>[width=\textwidth,page=9]{figures/himmelblau_mcmc}%
-        \includegraphics<20>[width=\textwidth,page=1]{figures/himmelblau_emcee}%
-        \includegraphics<21>[width=\textwidth,page=2]{figures/himmelblau_emcee}%
-        \includegraphics<22>[width=\textwidth,page=3]{figures/himmelblau_emcee}%
-        \includegraphics<23>[width=\textwidth,page=4]{figures/himmelblau_emcee}%
-        \includegraphics<24>[width=\textwidth,page=5]{figures/himmelblau_emcee}%
-        \includegraphics<25>[width=\textwidth,page=6]{figures/himmelblau_emcee}%
-        \includegraphics<26>[width=\textwidth,page=7]{figures/himmelblau_emcee}%
-        \includegraphics<27>[width=\textwidth,page=8]{figures/himmelblau_emcee}%
-        \includegraphics<28>[width=\textwidth,page=9]{figures/himmelblau_emcee}%
-        \includegraphics<29>[width=\textwidth,page=1]{figures/himmelblau_ns}%
-        \includegraphics<30>[width=\textwidth,page=2]{figures/himmelblau_ns}%
-        \includegraphics<31>[width=\textwidth,page=3]{figures/himmelblau_ns}%
-        \includegraphics<32>[width=\textwidth,page=4]{figures/himmelblau_ns}%
-        \includegraphics<33>[width=\textwidth,page=5]{figures/himmelblau_ns}%
-        \includegraphics<34>[width=\textwidth,page=6]{figures/himmelblau_ns}%
-        \includegraphics<35>[width=\textwidth,page=7]{figures/himmelblau_ns}%
-        \includegraphics<36>[width=\textwidth,page=8]{figures/himmelblau_ns}%
-        \includegraphics<37>[width=\textwidth,page=1]{figures/himmelblau_hmc}%
-        \includegraphics<38>[width=\textwidth,page=2]{figures/himmelblau_hmc}%
-        \includegraphics<39>[width=\textwidth,page=3]{figures/himmelblau_hmc}%
-        \includegraphics<40>[width=\textwidth,page=4]{figures/himmelblau_hmc}%
-        \includegraphics<41>[width=\textwidth,page=5]{figures/himmelblau_hmc}%
-        \includegraphics<42>[width=\textwidth,page=6]{figures/himmelblau_hmc}%
-        \includegraphics<43>[width=\textwidth,page=7]{figures/himmelblau_hmc}%
-        \includegraphics<44>[width=\textwidth,page=8]{figures/himmelblau_hmc}%
-    \end{columns}
-\end{frame}
-
-% --- SLIDE 14: Case Study 1: CMB and Cosmic Shear ---
-\begin{frame}
-    \frametitle{Recent GPU-Accelerated Applications}
-    \framesubtitle{Case study 1/4: CMB and Cosmic Shear \arxiv{2509.13307}}
-    \student{toby_lovick}{Toby Lovick}{PhD}
-    \begin{columns}
-        \column{0.48\textwidth}
-        \begin{itemize}
-            \item \textbf{CMB (6 params)}: 300× speedup vs CPU PolyChord
-            \item \textbf{Cosmic Shear (37 params)}: Days vs months
-            \item \textbf{Method}: JAX neural emulators + GPU NS
-            \item \textbf{Evidence}: Direct calculation with error bars
-            \item \textbf{Models}: $\Lambda$CDM vs $w_0w_a$ comparison
-            \item \textbf{Impact}: NS competitive with MCMC+evidence methods
-        \end{itemize}
-        \column{0.48\textwidth}
-        \includegraphics<1>[width=\textwidth]{figures/cmbscaling.pdf}%
-        \vspace{5pt}
-        \includegraphics<2>[width=\textwidth]{figures/jaxSHEARfull.png}
-    \end{columns}
-\end{frame}
-
-% --- SLIDE 15: Case Study 2: Bayesian Anomaly Detection for SNe ---
-\begin{frame}
-    \frametitle{Recent GPU-Accelerated Applications}
-    \framesubtitle{Case study 2/4: Bayesian Anomaly Detection for Type Ia Supernovae \arxiv{2509.13394}}
-    \student{sam_leeney}{Sam Leeney}{PhD}
-    \begin{columns}
-        \column{0.48\textwidth}
-        \begin{itemize}
-            \item \textbf{Problem}: Manual photometric rejection not scalable for LSST
-            \item \textbf{Solution}: Bayesian anomaly detection integrated into SALT3 fitting
-            \item \textbf{Method}: Model contamination probability per measurement
-            \item \textbf{Result}: Automatic outlier/corrupted band rejection
-            \item \textbf{Finding}: Contaminants systematically brighter/bluer
-            \item \textbf{Impact}: Essential for unbiased cosmology at scale
-        \end{itemize}
-        \column{0.48\textwidth}
-        \vspace{10pt}
-        \includegraphics<1>[width=\textwidth]{2509.13394/images/19ekb_light_curves_all_paper.png}%
-        \includegraphics<2>[width=\textwidth]{2509.13394/images/recreated_contamination_plot.png}
-    \end{columns}
-\end{frame}
-
-% --- SLIDE 16: Case Study 3: Dark Energy vs Systematics ---
-\begin{frame}
-    \frametitle{Recent GPU-Accelerated Applications}
-    \framesubtitle{Case study 3/4: Dark Energy vs Supernova Systematics \arxiv{2509.13220}}
-    \student{adam_ormondroyd}{Adam Ormondroyd}{PhD}
-    \begin{columns}
-        \column{0.65\textwidth}
-        \begin{itemize}
-            \item \textbf{Question}: DESI+DES $w_0w_a$ preference - new physics or systematics?
-            \item \textbf{Method}: Bayesian model comparison
-            \item \textbf{Models}: Dynamic DE vs redshift-dependent SN bias
-            \item \textbf{Result}: Systematics fit equally well with lower complexity
-            \item \textbf{Evidence}: Favors systematic explanation
-            \item \textbf{Lesson}: Test mundane before claiming exotic
-        \end{itemize}
-        \column{0.35\textwidth}
-        \vspace{10pt}
-        \includegraphics<1>[width=\textwidth]{2509.13220/plots/desidr2_des5yoffset_20_wa.pdf}%
-        \includegraphics<2>[width=\textwidth]{2509.13220/plots/des5yoffset_20_wa.pdf}
-    \end{columns}
-\end{frame}
-
-% --- SLIDE 17: Case Study 4: Gravitational Waves ---
-\begin{frame}
-    \frametitle{Recent GPU-Accelerated Applications}
-    \framesubtitle{Case study 4/4: Gravitational Wave Inference \arxiv{2509.04336}}
-    \student{metha_prathaban}{Metha Prathaban}{PhD}
-    \begin{columns}
-        \column{0.48\textwidth}
-        \begin{itemize}
-            \item \textbf{Goal}: GPU-accelerate bilby's acceptance-walk NS
-            \item \textbf{Implementation}: Faithful port to blackjax-ns
-            \item \textbf{Performance}: 20-40× speedup for BBH
-            \item \textbf{Validation}: Identical posteriors/evidences
-            \item \textbf{Hardware}: Single GPU vs CPU clusters
-            \item \textbf{Impact}: Clean baseline for future methods
-        \end{itemize}
-        \column{0.48\textwidth}
-        \includegraphics<1>[width=\textwidth]{prathaban_handley_2509.04336/figures/8s_corner_comparison.pdf}%
-        \includegraphics<2>[width=\textwidth]{prathaban_handley_2509.04336/figures/walltime_speedup.pdf}
-    \end{columns}
-\end{frame}
-
-% --- SLIDE 18: The Future: AI in Scientific Code Development ---
+% --- SLIDE 12: AI in Scientific Code Development (2 minutes) ---
 \begin{frame}
     \frametitle{The Future: AI in Scientific Code Development}
-    \student{claude}{Claude Code}{AI Assistant}
+    \framesubtitle{How these tools themselves are evolving}
     \vspace{-1em}
     \begin{columns}[T]
         \column{0.49\textwidth}
         \begin{block}{The Real AI Revolution: LLMs}
             The biggest impact of AI will not be in analyzing data, but in helping us write the code to do it.
             \begin{itemize}
-                \item \textbf{Automated code translation}: LLMs can help port legacy Fortran/C++ models to modern, GPU-friendly \& differentiable frameworks like JAX or PyTorch.
+                \item \keyterm{Automated code translation}: LLMs can help port legacy Fortran/C++ models to modern, GPU-friendly \& differentiable frameworks like JAX or PyTorch.
             \end{itemize}
         \end{block}
         \column{0.49\textwidth}
@@ -638,39 +462,10 @@
     \end{alertblock}
 \end{frame}
 
-% --- SLIDE 19: Conclusions ---
+% --- SLIDE 13: Conclusions (1 minute) ---
 \begin{frame}
-    \frametitle{Conclusions}
+    \frametitle{Conclusions \& What's Next}
     \framesubtitle{\tthref{github.com/handley-lab/group}}
-        \begin{enumerate}
-            \item \textbf{Statistical Foundations Matter}
-                \begin{itemize}
-                    \item From optimization to sampling to model comparison
-                    \item Nested sampling uniquely computes evidence
-                \end{itemize}
-            \item \textbf{GPU $\neq$ Machine Learning: Two Independent Capabilities}
-                \begin{itemize}
-                    \item GPUs accelerate any parallel algorithm.
-                    \item Automatic differentiation + massive parallelization.
-                    \item Often confused, serve different purposes.
-                \end{itemize}
-            \item \textbf{Classical Algorithms on GPU Competitive with ML State of the Art}
-                \begin{itemize}
-                    \item Traditional physics methods + GPU = superior performance.
-                    \item 300× speedup for CMB, 20-40× for gravitational waves
-                \end{itemize}
-            \item \textbf{AI Accelerates Development as well as Computation}
-                \begin{itemize}
-                    \item LLMs solve the GPU porting challenge at scale.
-                    \item 10× development speedup enables widespread adoption.
-                \end{itemize}
-        \end{enumerate}
-        \vfill
-        \begin{alertblock}{Get Started with GPU-Accelerated Sampling}
-            \centering
-            \Large
-            \tthref{handley-lab.co.uk/nested-sampling-book}
-        \end{alertblock}
     \tikz[overlay,remember picture]
         \node[anchor=north east] (A) at ($(current page.north east)+(0,0)$) {
         \includegraphics[width=0.06\textheight]{people/adam_ormondroyd.jpg}%
@@ -691,6 +486,64 @@
         \includegraphics[width=0.06\textheight]{people/will_handley.jpg}%
         \includegraphics[width=0.06\textheight]{people/will_templeton.jpg}%
     };
+    \begin{block}{Key Takeaways}
+        \begin{itemize}
+            \item SED fitting is a problem of \keyterm{statistical inference}, not just optimization.
+            \item The goal is the full \keyterm{posterior distribution}, which gives us parameters \textit{and} their uncertainties.
+            \item \keyterm{Sampling} methods are the tools we use to map out the posterior.
+            \item The choice of sampler—from MCMC to Ensemble to Nested—depends on the complexity of your problem and whether you need to do \keyterm{model comparison}.
+        \end{itemize}
+    \end{block}
+    \begin{alertblock}{Next Up: David Yallup on ``GPU Accelerated Nested Sampling''}
+        Now that we know \textit{why} nested sampling is so powerful, we'll hear about how to make it \textit{fast}!
+    \end{alertblock}
+\end{frame}
+
+% --- APPENDIX: HMC Sampling ---
+\appendix
+
+\begin{frame}
+    \frametitle{Appendix: Hamiltonian Monte Carlo (HMC)}
+    \begin{columns}[T]
+        \column{0.5\textwidth}
+        \only<1-5>{
+        \begin{block}{How it Works}
+            Uses gradients to guide exploration more efficiently than random walks.
+            \begin{enumerate}
+                \item Treat parameters as ``particles'' with position and momentum.
+                \item Use gradient of log-likelihood as ``force'' to guide movement.
+                \item Propose coherent moves along gradient directions.
+                \item Accept/reject using Metropolis criterion.
+            \end{enumerate}
+        \end{block}
+        }
+        \only<6-9>{
+        \begin{block}{Advantages \& Requirements}
+            \begin{itemize}
+                \item Much more efficient than random walk for smooth posteriors.
+                \item Requires gradients of the likelihood function.
+                \item Can traverse parameter space much faster.
+                \item Less likely to get stuck in local regions.
+            \end{itemize}
+        \end{block}
+        \begin{alertblock}{Key Message}
+            HMC leverages gradient information for efficient sampling, but requires differentiable models.
+        \end{alertblock}
+        }
+        \column{0.5\textwidth}
+        \vspace{-1.8em}
+        \begin{center}
+            \includegraphics<1>[width=\textwidth,page=1]{figures/himmelblau_hmc.pdf}%
+            \includegraphics<2>[width=\textwidth,page=2]{figures/himmelblau_hmc.pdf}%
+            \includegraphics<3>[width=\textwidth,page=3]{figures/himmelblau_hmc.pdf}%
+            \includegraphics<4>[width=\textwidth,page=4]{figures/himmelblau_hmc.pdf}%
+            \includegraphics<5>[width=\textwidth,page=5]{figures/himmelblau_hmc.pdf}%
+            \includegraphics<6>[width=\textwidth,page=6]{figures/himmelblau_hmc.pdf}%
+            \includegraphics<7>[width=\textwidth,page=7]{figures/himmelblau_hmc.pdf}%
+            \includegraphics<8>[width=\textwidth,page=8]{figures/himmelblau_hmc.pdf}%
+            \includegraphics<9>[width=\textwidth,page=9]{figures/himmelblau_hmc.pdf}%
+        \end{center}
+    \end{columns}
 \end{frame}
 
 \end{document}
