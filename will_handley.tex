@@ -17,8 +17,8 @@
 % Talk details
 % ------------
 \title{AI/ML Tools for Research}
-\subtitle{KICC Workshop}
-\date{23rd July 2025}
+\subtitle{GAMBIT LLMBit Workshop}
+\date{11th December 2025}
 
 \begin{document}
 
@@ -68,24 +68,27 @@
 
 \begin{frame}
     \frametitle{First things first}
-    If you've been busy, the past six months have seen a couple of inflection points
+    If you've been busy, the landscape has shifted massively in late 2025.
     \vspace{0.5cm}
     \begin{itemize}
-        \item \textbf{February 2025}: Models acquired many of the capabilities we prize in our PhD students
+        \item \textbf{February 2025}: Models acquired PhD-student capabilities (o3, Gemini 2.5, Claude 3.5).
+        \item \textbf{May 2025}: Agentic systems (Claude Code, Cursor) moved us from ``chatting'' to ``doing.''
+        \item \textbf{November 2025}: The heavyweights arrived.
             \begin{itemize}
-                \item Models: o3 series, Gemini 2.5, Claude 3.5 Sonnet.
-                \item Capabilities: Code development, mathematical reasoning, literature review, paper \& grant drafting.
+                \item \textbf{Gemini 3, GPT-5.1, Claude 4.5 Opus}.
+                \item Massive context windows and ``slow thinking'' defaults.
             \end{itemize}
-        \item \textbf{May 2025}: Agentic systems launched commercially
+        \item \textbf{December 2025}:
             \begin{itemize}
-                \item Tools: Claude Code, Cursor agent mode, Deep Research.
-                \item Capabilities: Writing test suites, assembling pip-installable codes, synthesising handwritten notes and TeX files, write/run/debug code in languages you don't know.
+                \item \textbf{GPT-5.2}: OpenAI's counter to Gemini 3.
+                \item \textbf{Codex returns}: Re-launched as a dedicated agentic coding model.
             \end{itemize}
-        \item \textbf{The performance gap}: Free models lag significantly behind paid versions
+        \item \textbf{The new performance gap}:
+            \begin{itemize}
+                \item \textit{Chat:} The gap has closed. Free models are now excellent.
+                \item \textit{Agents:} ``You get what you pay for.'' Free agents loop; paid agents finish.
+            \end{itemize}
     \end{itemize}
-    
-    \vspace{0.5cm}
-    If your lived experience is typing a research question into free ChatGPT at the start of the year and finding it was rubbish, things have moved on
 \end{frame}
 
 \begin{frame}
@@ -116,33 +119,34 @@
 \end{frame}
 
 \begin{frame}
-    \frametitle{The AI landscape}
+    \frametitle{The AI landscape (Dec 2025)}
     \centering
     \begin{tabular}{l|c|c|c|}
-        \visible<3->{Under the hood} & 
-        \visible<3->{\includegraphics[valign=m, width=0.2\textwidth]{logos/microsoft}} & 
-        \visible<3->{\includegraphics[valign=m, width=0.2\textwidth]{logos/amazon}} & 
+        \visible<3->{Under the hood} &
+        \visible<3->{\includegraphics[valign=m, width=0.2\textwidth]{logos/microsoft}} &
+        \visible<3->{\includegraphics[valign=m, width=0.2\textwidth]{logos/amazon}} &
         \visible<3->{\includegraphics[valign=m, width=0.2\textwidth]{logos/google}} \\[0.5cm]
-        
-        \visible<2->{Companies} & 
-        \visible<2->{\includegraphics[valign=m, width=0.2\textwidth]{logos/openai}} & 
-        \visible<2->{\includegraphics[valign=m, width=0.2\textwidth]{logos/anthropic}} & 
+
+        \visible<2->{Companies} &
+        \visible<2->{\includegraphics[valign=m, width=0.2\textwidth]{logos/openai}} &
+        \visible<2->{\includegraphics[valign=m, width=0.2\textwidth]{logos/anthropic}} &
         \visible<2->{\includegraphics[valign=m, width=0.2\textwidth]{logos/deepmind}} \\[0.5cm]
-        
-        \visible<1->{Models} & 
-        \visible<1->{\includegraphics[valign=m, width=0.2\textwidth]{figures/chatgpt.png}} & 
-        \visible<1->{\includegraphics[valign=m, width=0.2\textwidth]{figures/claude.pdf}} & 
-        \visible<1->{\includegraphics[valign=m, width=0.2\textwidth]{figures/gemini.pdf}}
+
+        \visible<1->{Current SOTA} &
+        \textbf{GPT-5.2} &
+        \textbf{Claude 4.5 Opus} &
+        \textbf{Gemini 3}
     \end{tabular}
-    
+
     \vspace{1cm}
     \visible<4->{
-        \textbf{Others exist:} Perplexity, Poe, Character.ai, You.com, Cohere, xAI, Llama...
+        \textbf{The Agent Layer:}
+        Claude Code, Gemini CLI, GitHub Copilot (now powered by \textbf{Codex}).
     }
-    
+
     \vspace{0.5cm}
     \visible<5->{
-        \textbf{But these are the three main pillars (July 2025).}
+        \textbf{Others exist:} Perplexity, xAI (Grok), Llama, Mistral...
     }
 \end{frame}
 
@@ -348,21 +352,21 @@
 
 \begin{frame}
     \frametitle{Layer 3: Agentic Systems}
-    \framesubtitle{Autonomous task completion - transformative but complex}
-    
+    \framesubtitle{Autonomous task completion}
+
     \begin{columns}
         \column{0.6\textwidth}
         \begin{itemize}
-            \item Emerged commercially in April 2025.
-            \item If you get too skilled at chat-based AI, your job ends up being a copy-paste-run-debug monkey.
-            \item Agentic systems are what happens if you let ChatGPT edit files, run commands, and inspect the behaviour.
-            \item This closes the scientific loop.
-            \item Agentic systems are (partially) grounded in reality. Correctly guided, they can reduce hallucinations by testing their hypotheses.
-            \item Claude Code (CLI), Cursor Agent mode, Gemini CLI.
-            \item Deep research also falls into this category.
-            \item Goal-based vs task-based.
+            \item \textbf{The paradigm shift:} Don't ask for code; ask for the pull request.
+            \item Agentic systems edit files, run commands, and inspect behaviour.
+            \item This closes the scientific loop---they can test their hypotheses.
+            \item \textbf{Claude Code:} Gold standard for Python/Linux environments.
+            \item \textbf{Gemini CLI:} Major competitor. Integrated with Google Cloud/Colab.
+            \item \textbf{GitHub Copilot:} Now powered by \textbf{Codex} for full agentic capabilities.
+            \item Deep Research also falls into this category.
+            \item \textbf{Warning:} These tools consume tokens rapidly.
         \end{itemize}
-        
+
         \column{0.4\textwidth}
         \includegraphics<1>[width=\textwidth]{figures/agentic_demo.png}%
         \includegraphics<2>[width=\textwidth]{figures/agentic_demo2.png}%
@@ -370,43 +374,44 @@
 \end{frame}
 
 \begin{frame}
-    \frametitle{Layer 3: Agentic Systems Cost}
-    \framesubtitle{More expensive but potentially more valuable}
-    
+    \frametitle{The Economics of Agents}
+    \framesubtitle{``You get what you pay for''}
+
     \begin{itemize}
-        \item Significantly more expensive than chat-based AI.
-        \item Can consume hundreds of API calls per task.
-        \item For agentic systems, subscriptions \emph{are} cheaper than pay-per-token.
-        \item I was spending \$40/day on Claude Code with API tokens.
-        \item Subscription gives you about 2hr coding session per day for \$20/month/user.
-        \item Gemini CLI is ``free'' but risks going over free tier limit, and is less stable.
-        \item In July 2025, Claude Code best in class.
+        \item \textbf{Chat is cheap, action is expensive.}
+        \item While Gemini 3 and GPT-5.1 have free tiers for chat, their \emph{agentic} capabilities are severely throttled.
+        \item \textbf{Why pay?}
+            \begin{itemize}
+                \item \textbf{Context:} Agents need to read your whole repo (100k+ tokens) every prompt.
+                \item \textbf{Rate limits:} Free tiers hit limits after 5--10 agent steps. Complex refactors need 50+.
+                \item \textbf{Reliability:} Paid models (Opus 4.5/Codex) self-correct. Free models get stuck in loops.
+            \end{itemize}
+        \item \textbf{Recommendation:} If you are using agents, you need the \$20/mo subscription or an API budget.
         \item There are many further unknown costs of shifting your research toward ``hands-free coding''.
     \end{itemize}
 \end{frame}
 
 \begin{frame}
     \frametitle{Conclusions and Getting Started}
-    
+
     \begin{columns}
         \column{0.5\textwidth}
         \begin{itemize}
-            \item Use developer-level tools, not consumer interfaces.
-            \item API access typically cheaper for research use.
-            \item Capturing and owning content is critical -- use Otter for transcription.
+            \item The ``intelligence gap'' is gone---free models are smart enough.
+            \item The ``action gap'' is real---paying buys you automation.
+            \item API access remains the professional standard.
+            \item Data ownership is still paramount---use Otter for transcription.
             \item Export conversations and notes in formats that can be fed to LLMs.
-            \item Get into the habit of recording information in exportable forms.
-            \item Agentic systems are transformative but carry additional risks requiring careful consideration.
+            \item Agentic systems are transformative but carry additional risks.
         \end{itemize}
-        
+
         \column{0.5\textwidth}
-        \begin{block}{To-do}
+        \begin{block}{To-do (Dec 2025)}
             \begin{itemize}
-                \item Set up GitHub Copilot Pro (takes a couple of days to approve).
-                \item Try AI Studio rather than ChatGPT.
-                \item Get your PI to set up some tokens for your group to use (you only need ~O(\$10) to try it out).
-                \item Try Google Gemini's Deep Research \textbf{button}.
-                \item Test Claude Code/Gemini CLI for a month.
+                \item \textbf{Upgrade:} Ensure Copilot is using the new \textbf{Codex} backend.
+                \item \textbf{Compare:} Run your hardest problem through \textbf{Claude 4.5 Opus} vs \textbf{GPT-5.2}.
+                \item \textbf{Install:} \texttt{pip install gemini-cli} or \texttt{claude}.
+                \item \textbf{Budget:} Ask PI for \$50 in API credits to test agentic workflows.
             \end{itemize}
         \end{block}
     \end{columns}
