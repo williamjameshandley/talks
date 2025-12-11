@@ -28,19 +28,19 @@
 
 \begin{frame}
     \frametitle{Overview}
-    
+
     \begin{columns}
         \column{0.5\textwidth}
         \begin{itemize}
-            \item Follow-up to successful Part II/III training.
+            \item Just in case: catching everybody up to the world of LLMs.
+            \item Most will have tried ChatGPT for coding by now.
             \item Focus on ``doing'' not ``explaining''.
             \item Three layers of AI tools framework.
             \item Interactive demonstrations.
-            \item 90 minutes then tea.
         \end{itemize}
-        
+
         \vspace{0.3cm}
-        
+
         \textbf{Common questions:}
         \begin{itemize}
             \item ``Which model should I use?''
@@ -48,22 +48,17 @@
             \item ``How do I get started?''
             \item ``Is this worth the investment?''
         \end{itemize}
-        
+
         \column{0.5\textwidth}
-        \begin{block}{Previous session covered:}
+        \begin{block}{What this talk covers:}
             \begin{itemize}
-                \item Academic practice and Cambridge policies.
-                \item How LLMs work and their limitations.
-                \item Bias, hallucinations, and mitigation.
-                \item Privacy and intellectual property.
-                \item Model landscape and responsible usage.
+                \item Current AI model landscape (Dec 2025).
+                \item Three layers: autocomplete, chat, agents.
+                \item Cost considerations.
+                \item Practical recommendations.
             \end{itemize}
         \end{block}
     \end{columns}
-    
-    \vfill
-    \centering
-    \footnotesize{Previous slides: \tthref{docs.google.com/presentation/d/1rnbk7WZUjMIAGBzkN6i8v0tEe1imiHprvL1ZOjs2B20}}
 \end{frame}
 
 \begin{frame}
@@ -73,20 +68,15 @@
     \begin{itemize}
         \item \textbf{February 2025}: Models acquired PhD-student capabilities (o3, Gemini 2.5, Claude 3.5).
         \item \textbf{May 2025}: Agentic systems (Claude Code, Cursor) moved us from ``chatting'' to ``doing.''
-        \item \textbf{November 2025}: The heavyweights arrived.
+        \item \textbf{November--December 2025}: The heavyweights arrived.
             \begin{itemize}
-                \item \textbf{Gemini 3, GPT-5.1, Claude 4.5 Opus}.
+                \item \textbf{Gemini 3, GPT-5.1/5.2, Claude 4.5 Opus}.
                 \item Massive context windows and ``slow thinking'' defaults.
             \end{itemize}
-        \item \textbf{December 2025}:
+        \item \textbf{Free vs paid}:
             \begin{itemize}
-                \item \textbf{GPT-5.2}: OpenAI's counter to Gemini 3.
-                \item \textbf{Codex returns}: Re-launched as a dedicated agentic coding model.
-            \end{itemize}
-        \item \textbf{The new performance gap}:
-            \begin{itemize}
-                \item \textit{Chat:} The gap has closed. Free models are now excellent.
-                \item \textit{Agents:} ``You get what you pay for.'' Free agents loop; paid agents finish.
+                \item \textit{Chat:} Free models are now excellent.
+                \item \textit{Agents:} You need a subscription, usually starting at \$20/month.
             \end{itemize}
     \end{itemize}
 \end{frame}
@@ -132,20 +122,19 @@
         \visible<2->{\includegraphics[valign=m, width=0.2\textwidth]{logos/anthropic}} &
         \visible<2->{\includegraphics[valign=m, width=0.2\textwidth]{logos/deepmind}} \\[0.5cm]
 
-        \visible<1->{Current SOTA} &
-        \textbf{GPT-5.2} &
-        \textbf{Claude 4.5 Opus} &
-        \textbf{Gemini 3}
+        \visible<1->{Chat} &
+        \visible<1->{\includegraphics[valign=m, width=0.2\textwidth]{figures/chatgpt.png}} &
+        \visible<1->{\includegraphics[valign=m, width=0.2\textwidth]{figures/claude.pdf}} &
+        \visible<1->{\includegraphics[valign=m, width=0.2\textwidth]{figures/gemini.pdf}} \\[0.5cm]
+
+        \visible<1->{Agents} &
+        \textbf{Codex} &
+        \textbf{Claude Code} &
+        \textbf{Gemini CLI}
     \end{tabular}
 
     \vspace{1cm}
     \visible<4->{
-        \textbf{The Agent Layer:}
-        Claude Code, Gemini CLI, GitHub Copilot (now powered by \textbf{Codex}).
-    }
-
-    \vspace{0.5cm}
-    \visible<5->{
         \textbf{Others exist:} Perplexity, xAI (Grok), Llama, Mistral...
     }
 \end{frame}
@@ -267,41 +256,6 @@
 \end{frame}
 
 \begin{frame}
-    \frametitle{Layer 2: Developer versions}
-    \framesubtitle{Use their developer level tools}
-    
-    \begin{columns}
-        \column{0.3\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{figures/chatgpt_dev_screenshot.png}
-        
-        OpenAI Playground
-        
-        \url{platform.openai.com/playground}
-        
-        \column{0.3\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{figures/claude_dev_screenshot.png}
-        
-        Claude Workbench
-        
-        \url{console.anthropic.com/workbench}
-        
-        \column{0.3\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{figures/gemini_dev_screenshot.png}
-        
-        Google AI Studio
-        
-        \url{aistudio.google.com}
-    \end{columns}
-    
-    \vspace{0.3cm}
-    
-    \textbf{These should be your default as a scientist} -- if you're happy using a command line, you shouldn't be satisfied by an interface that looks like a child's toy.
-\end{frame}
-
-\begin{frame}
     \frametitle{Layer 2: Chat-based AI}
     \framesubtitle{Use AI to improve AI}
     \begin{columns}
@@ -336,11 +290,10 @@
                     \item Only pay for what you actually use.
                 \end{itemize}
             \item Never buy yearly subscriptions - AI evolves too rapidly.
-            \item My group's preference: pay for API access via tokens.
+            \item My group's preference: Claude Code subscriptions + API access.
                 \begin{itemize}
-                    \item Pay for what you use.
-                    \item Allows you to try out the latest models.
-                    \item API keys allow you to do all kinds of tricks at the command line.
+                    \item Subscriptions for agentic work.
+                    \item API tokens for chat and developer tricks.
                 \end{itemize}
         \end{itemize}
         
@@ -357,7 +310,6 @@
     \begin{columns}
         \column{0.6\textwidth}
         \begin{itemize}
-            \item \textbf{The paradigm shift:} Don't ask for code; ask for the pull request.
             \item Agentic systems edit files, run commands, and inspect behaviour.
             \item This closes the scientific loop---they can test their hypotheses.
             \item \textbf{Claude Code:} Gold standard for Python/Linux environments.
@@ -379,14 +331,14 @@
 
     \begin{itemize}
         \item \textbf{Chat is cheap, action is expensive.}
-        \item While Gemini 3 and GPT-5.1 have free tiers for chat, their \emph{agentic} capabilities are severely throttled.
+        \item While Gemini 3 and GPT-5.1 have free tiers for chat, you can't use agents for free.
         \item \textbf{Why pay?}
             \begin{itemize}
                 \item \textbf{Context:} Agents need to read your whole repo (100k+ tokens) every prompt.
                 \item \textbf{Rate limits:} Free tiers hit limits after 5--10 agent steps. Complex refactors need 50+.
                 \item \textbf{Reliability:} Paid models (Opus 4.5/Codex) self-correct. Free models get stuck in loops.
             \end{itemize}
-        \item \textbf{Recommendation:} If you are using agents, you need the \$20/mo subscription or an API budget.
+        \item \textbf{Recommendation:} If you are using agents, you need a \$20/mo subscription.
         \item There are many further unknown costs of shifting your research toward ``hands-free coding''.
     \end{itemize}
 \end{frame}
@@ -397,8 +349,8 @@
     \begin{columns}
         \column{0.5\textwidth}
         \begin{itemize}
-            \item The ``intelligence gap'' is gone---free models are smart enough.
-            \item The ``action gap'' is real---paying buys you automation.
+            \item Free models are smart enough for chat.
+            \item Paying buys you automation (agents).
             \item API access remains the professional standard.
             \item Data ownership is still paramount---use Otter for transcription.
             \item Export conversations and notes in formats that can be fed to LLMs.
@@ -408,9 +360,9 @@
         \column{0.5\textwidth}
         \begin{block}{To-do (Dec 2025)}
             \begin{itemize}
-                \item \textbf{Upgrade:} Ensure Copilot is using the new \textbf{Codex} backend.
-                \item \textbf{Compare:} Run your hardest problem through \textbf{Claude 4.5 Opus} vs \textbf{GPT-5.2}.
-                \item \textbf{Install:} \texttt{pip install gemini-cli} or \texttt{claude}.
+                \item \textbf{Install:} Copilot if you haven't already.
+                \item \textbf{Compare:} Run your hardest problem through \textbf{GPT-5.2} vs \textbf{Gemini 3}.
+                \item \textbf{Try:} Claude Code: \url{claude.ai/install.sh}
                 \item \textbf{Budget:} Ask PI for \$50 in API credits to test agentic workflows.
             \end{itemize}
         \end{block}
