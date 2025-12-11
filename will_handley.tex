@@ -33,7 +33,6 @@
         \column{0.5\textwidth}
         \begin{itemize}
             \item Just in case: catching everybody up to the world of LLMs.
-            \item Most will have tried ChatGPT for coding by now.
             \item Focus on ``doing'' not ``explaining''.
             \item Three layers of AI tools framework.
             \item Interactive demonstrations.
@@ -67,7 +66,13 @@
     \vspace{0.5cm}
     \begin{itemize}
         \item \textbf{February 2025}: Models acquired PhD-student capabilities (o3, Gemini 2.5, Claude 3.5).
+            \begin{itemize}
+                \item Code development, mathematical reasoning, literature review, paper \& grant drafting.
+            \end{itemize}
         \item \textbf{May 2025}: Agentic systems (Claude Code, Cursor) moved us from ``chatting'' to ``doing.''
+            \begin{itemize}
+                \item Writing and running test suites, assembling pip-installable codes, submitting grants.
+            \end{itemize}
         \item \textbf{November--December 2025}: The heavyweights arrived.
             \begin{itemize}
                 \item \textbf{Gemini 3, GPT-5.1/5.2, Claude 4.5 Opus}.
@@ -310,11 +315,12 @@
     \begin{columns}
         \column{0.6\textwidth}
         \begin{itemize}
+            \item If you get too skilled at chat-based AI, you become a copy-paste-run-debug monkey.
             \item Agentic systems edit files, run commands, and inspect behaviour.
             \item This closes the scientific loop---they can test their hypotheses.
-            \item \textbf{Claude Code:} Gold standard for Python/Linux environments.
-            \item \textbf{Gemini CLI:} Major competitor. Integrated with Google Cloud/Colab.
-            \item \textbf{GitHub Copilot:} Now powered by \textbf{Codex} for full agentic capabilities.
+            \item Agentic systems are (partially) grounded in reality. Correctly guided, they reduce hallucinations.
+            \item \textbf{Claude Code:} Best in class.
+            \item Competitors: Gemini CLI, Codex.
             \item Deep Research also falls into this category.
             \item \textbf{Warning:} These tools consume tokens rapidly.
         \end{itemize}
@@ -344,6 +350,31 @@
 \end{frame}
 
 \begin{frame}
+    \frametitle{Prompt Engineering $\to$ Context Engineering}
+    \framesubtitle{The dominant discussion moving into 2026}
+
+    \begin{itemize}
+        \item \textbf{Definition:} The systematic curation of the documents, rules, and constraints provided to an AI agent's working memory.
+        \item \textbf{Why it matters for research:}
+            \begin{itemize}
+                \item Models like Gemini 3 and Claude 4.5 have massive context windows (2M+ tokens).
+                \item The bottleneck is no longer intelligence, but \emph{information}.
+                \item If the agent doesn't ``know'' your specific notation or library version, it will revert to generic (wrong) training data.
+            \end{itemize}
+    \end{itemize}
+
+    \vspace{0.3cm}
+
+    \begin{block}{Practical Implementation: The Context File}
+        \begin{itemize}
+            \item \textbf{Create a file} (e.g., \texttt{CLAUDE.md}) in your repo root.
+            \item \textbf{Include:} Project goals, mathematical conventions, citation keys, and ``forbidden'' libraries.
+            \item \textbf{Effect:} Agents read this automatically before every task, maintaining consistency across weeks of work.
+        \end{itemize}
+    \end{block}
+\end{frame}
+
+\begin{frame}
     \frametitle{Conclusions and Getting Started}
 
     \begin{columns}
@@ -354,6 +385,7 @@
             \item API access remains the professional standard.
             \item Data ownership is still paramount---use Otter for transcription.
             \item Export conversations and notes in formats that can be fed to LLMs.
+            \item Get into the habit of recording information in exportable forms.
             \item Agentic systems are transformative but carry additional risks.
         \end{itemize}
 
