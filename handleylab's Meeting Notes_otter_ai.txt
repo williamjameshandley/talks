@@ -1,0 +1,670 @@
+Unknown Speaker  1:21  
+Testing, Testing. But
+
+Unknown Speaker  1:40  
+what you do is testing, Testing 123,
+
+Unknown Speaker  1:59  
+hit me through What you
+
+Unknown Speaker  3:19  
+Testing, testing, 123, 123, what's this?
+
+Speaker 1  3:27  
+One? Is it? It's making little, okay, cool. That looks like it's working.
+
+Speaker 2  3:37  
+I think which one's Connect? Is it this or this the tyrant,
+
+Unknown Speaker  3:43  
+I think it should be this one. You shadow. It
+
+Unknown Speaker  3:56  
+doesn't work.
+
+Unknown Speaker  4:02  
+Where's Anders, oh, it says Testing, testing.
+
+Speaker 3  4:04  
+Well, yeah, but it's not big, so it usually would pick up everything. It's now not really picking up anything at
+
+Unknown Speaker  4:11  
+all, all right, so schedule.
+
+Speaker 2  4:14  
+How does the microphone usually work? Sorry, how does the microphone usually work? Looking to and
+
+Speaker 4  4:23  
+you said Martin correctly in the past, right? Yes. So, I mean, it is working. Should be working currently, or so it's should be this one, and it should be, I mean, it seems to be registering.
+
+Unknown Speaker  4:36  
+It's retrieving something. Yeah,
+
+Speaker 4  4:39  
+Are you skeptical it's doesn't work with your note taker thing, yeah, but it's okay.
+
+Unknown Speaker  4:47  
+I mean, we can try to do
+
+Unknown Speaker  4:53  
+maybe because I haven't clicked. Okay?
+
+Unknown Speaker  5:02  
+Blah, blah, blah, still, nothing. Okay.
+
+Speaker 4  5:09  
+I mean, I can try to switch to the microphone on the Mac, testing, testing, 123, but where should it? I mean, where should it? Where should you see whether it's the note takers, yeah,
+
+Unknown Speaker  5:28  
+okay, it's not possible for this, right? It's not very doing well,
+
+Speaker 3  5:39  
+okay, this is interactive, so I'll be showing them some stuff. It's because if you can't see the screen, like, that's probably a bit small. Can we make it bigger so it's
+
+Speaker 4  5:51  
+full screen? You can. And I mean, people can also join the Zoom meeting right to actually see it on their screens.
+
+Unknown Speaker  6:01  
+I my eyes challenge. That readable.
+
+Unknown Speaker  6:18  
+Yeah, okay, this is good, all right,
+
+Speaker 3  6:24  
+I don't have to want to do. I could just show you some of my AI, or I can go through a short sort of set of slides that I presented this year a few different times.
+
+Speaker 4  6:34  
+What you both obviously, but so what do you prefer? I mean, what do you think is Who here
+
+Speaker 3  6:43  
+has used ChatGPT in the past month to solve a coding problem
+
+Unknown Speaker  6:50  
+in the past hour?
+
+Speaker 3  6:56  
+Who here uses agentic coding systems like Claude code or Gemini or something like that. Use Claud code?
+
+Speaker 4  7:04  
+Yes, I've started using it in the last couple of months, right?
+
+Speaker 3  7:07  
+Other people haven't necessarily. Okay, good. This will be useful, yeah, so I will cut the presentation actually, because it's the wrong time of the day. I'm not going to sort of bother doing that, but we're right. I'm giving it. It's a bit about basically the most part, a lot of this presentation is trying to convince people that this has happened. Because you find that a lot of ultra conservative members the department who have not even touched ChatGPT, and you to show them, though, this is what's now actually capable. My main data point is that last summer I got, oh, three to take the exams for third year Cambridge astronomy. These are hard exams. They're like, they are sort of like one of these ones where there's kind of no maximum mark because it's too difficult. You could never answer it all in a certain amount of time. And it's very, very difficult. And I did it properly in that we never uploaded anything to the internet before the exam, or certainly not outside any of our local service. And I got oh three to take the exam at the same time as the students, so they had never uploaded to the internet. And then I got one of my PhD students to transcribe that onto exam paper that we then slipped into the pack and we marched blind next the rest of the student. Students. So we didn't know which one was aI students, and it was the best student we've had in 25 years, by some margin. And this shows you these things aren't sort of next token predictors in any wheels. So that was a new exam with new questions that never been seen before. And we do spend we're sufficiently up ourselves at Caius. We like to think we're actually something really hard. We spent a good year crafting this question. This is not trivial stuff. Again, if you missed it, this year was a really big year. I knew the results of this, as in, I knew what was going to happen, because I'd been using it for work for long before that. But around February, models like recently models like oh three and deep sea car one, we're showing PhD student level capabilities. That doesn't mean they're as good as a PhD student, but it means the kind of things that we, like our PhD students do, in terms of coding and in terms of being able to read and review documents and provide details like that, they are as good at that. And of course, the real thing is that now our PhD students have access to those tools that's very interesting and complicated.
+
+William Handley  9:23  
+In May this year, Agentic systems, namely Claude code that that Anders mentioned that I'm going to be doing today, and things like cursor moved us along again. So there were two significant shifts. The first was reasoning models that were sufficiently capable to do a lot of the things that we are interested in as scientists, not everything, but a lot. And then Agentic systems that substantially accelerate this loop. And if you're not using Agentic systems now, and you do one thing after this, it is trying to get access in some way to these tools.
+
+Speaker 3  9:54  
+Okay, I got sort of this general framework of there being three layers of AI tools. The first is auto complete. Who here has GitHub, Copilot in there, either vim or VS code that you should do that today as well. That's definitely worth doing. This is a very good use of AI. Is the kind of thing where it just knows all the map, those map commands and things like that, and you can never bother to look up them. It's under your fingers, in a way. That's that the feedback loop is very tight. You learn from that, in a way that you don't from Agentic systems. The second layer is chat based AI, this is what most people have interacted with. And the third layer is Agentic systems, which this new regime as of May. So you are already slightly behind if you haven't been using these tools. Autocomplete chat based AI. So the key point about certainly, here's my chat based AI that's worth bearing in mind. In case you don't know this pro gamer, move here was my starting prompt, where it says, if you just about read that and you're a first class, part two astronomy students to study using your Cambridge you're taking your exams. Here's siblings for the course. Insert servers here, here's the question. Is that question here? Notice I'm using back ticks that can help here a little bit. You then put that in quotation marks and say, How can I improve this prompt? And it does that this is then much better. That bootstrapping technique is very standard for sort of taking here's what I want and then asking it to refine the prompt and do that. So when I, for example, have a task that I want to do 70,000 times, I will iterate on this kind of prompt quite a few times with AI to improve its product. Making. This is also very may 2025, as a, as a, as a tool. Many people have moved on from this with the advent of Claude code. Costing is less important. I can talk about that. Can talk about that later. So Agentic systems, and this is the first point here. After a few months of using this, if you get too good at chat based AI, you'll, for example, ask Claude, ask ChatGPT to say I would like to solve this coding task. It will produce some code for you. You'll try running that code and it won't work. So you will either debug it yourself or Norway you then paste the error back into ChatGPT and say, Oh yes, I made this mistake and fix it. But that just turns you into a copy, paste, run debug monkey, which is not really what we're good at. That's not a good use of our time. And therefore, Agentic systems is what happens if you're sufficiently mad to say ChatGPT, there is nothing in principle stopping you from editing that file yourself, rather than me copying and pasting your edits into it. And there's nothing in principle stopping you from running Python at the terminal or running git commit or git push or git pull GitHub, pull request edit and things like that. So it's basically what happens when you give ChatGPT a terminal to work with. For example, you read that. This is GAMBIT. I just fresh clone, nothing different. I'll start Claude, which opens. This is Claude code you start. It's always good idea in any repository, press init. This is where Claude then goes and reads through the GAMBIT repository. So it's going to analyze the code base, and we'll see what it does here as it fills up here. So it first searches through various things. It looks for README and other things that code bases typically have. It finds a README, it finds markdown files. It finds CMake file. It finds view CMake lists. We lost sure what happened?
+
+Unknown Speaker  13:31  
+It's actually lesser.
+
+Speaker 3  13:36  
+Again, Yep, there you can see it's now it's searching through the front ends and the gum directory to find more about the test infrastructure that exists, and then generally looking through this file role called So here all it's doing. These are its tools, which allows it to read files in a directory on my computer. So if I were on the computer, I could be opening up the S code or something else and reading these files. And it's doing that in practice in an extremely similar way. So healthy deals. You don't read the whole file, you look for key sort of patterns and sort of read that at the same time. And the end says, Now I have enough information to create the clang dot empty file. This is just a file that it then stores that it will mean that it doesn't need to do this every time it opens up GAMBIT, because it's got that sort of thing work that it's done a few things. You can see here what it's done. It's used tokens in order to do this. Do people know what a token is in large language world? What's token?
+
+Speaker 5  14:30  
+Roughly oriental information?
+
+Speaker 3  14:33  
+Yeah, it's about 1.3 words. So some tokens are some words are more than one token. Some tokens are more and it's going to produce a markdown file that looks like this. So this file provides guidance to claw code when we're working with codebase repository. What is GAMBIT? GAMBIT is a C hasn't looked any of this up. It's got it just from this codebase. There's no internet access here. So far it's worked out. And this is the bit where, again, from my memories of the Cambridge workshop where we had a whole install in GAMBIT section, we can now say something like, Please compile. Okay. This is on an Arch Linux system. This is not an easy thing to do at all. It takes me an hour to do it when I could have every time. First, it's, the first thing is, it's what it says. It does the normal stuff. Says, Okay, make a build directory. And then hopefully. The trouble with this, of course, is it's like working with animals and children in general. They'll, they'll fail in front of other people. So the first thing it tries, because it seems before, is running like now, this is where it's doing something new. Says, I want to run, not make directory, but this rather complicated bash command, which is changing to the build directory and run CMAKE. Ditch dark bit collider, bit CosmoBit Fly bit Pro. So ditching all those and this, that's something in principle that you might know to do, but only if you've been using GAMBIT for a while, right? And this has not it's only seen the repository and everything that's in there. Each time you get three options, yes, no, and tell me what to differently, or yes, and don't ask me again. Okay, that failed, right? But in the same way, in that copy paste running Berkeley, it saw that failure, and can see there was an issue with the CMAKE policy version minimum 3.5 to try doing that, because I'm using some stupidly bleeding edge distribution, which means that now it does this and says, I'm going to have a look around and try and see how I can fix this and all this kind of rubbishing rubbish, rummaging around in the directory to Try and work it out, or sort of email in people say, How do I get this compile? All this stuff is very straightforward, and it's seen all this before. It's also got stuff here. I found Eigen three, but couldn't determine its version. Let me check the Eigen three installation five include part explicitly. It's now looking for these various things, where it's now rummaging around in my system to work out what's wrong with Eigen or large analytics. Ah, it's Eigen five. It's the problem, rather than Eigen three. So the trouble, the issue is that GAMBIT's Fine. Eigen three is having trouble to take this version. Let me try editing the Eigen three include directory. It's this, and again, it gets more errors, as you do whenever you're trying to do this. But because in this copy paste environment debug loop, it reads those errors and says the issue is GAMBIT's Find IGEN three Cmake Module Context IGEN 5x version properly. Let me check the Cmake module to see how to serve as the version with the macros file. It's like this,
+
+Speaker 6  17:31  
+okay, so this is all just changing your system 's not editing the GAMBIT code cmakefile. Is that right?
+
+Speaker 3  17:39  
+It will if it needs to. Because, in fact, if we need to have again five to work, we should probably put make a poor request for this, right? But for now, so here's the big one says I would like to edit the file Cmake, slash five, neither three to Cmake, and it's going to remove this line in red and put these lines here in green, right? Then we'll try it again.
+
+Speaker 4  18:03  
+And now we also allowed us to do sort of similar edits, so it won't stop on every edit,
+
+Unknown Speaker  18:10  
+although I'll turn that back on actually, so then, so that we can see what's doing.
+
+Speaker 3  18:18  
+So now the Cmake dash, Cmake dash, Cmake policy. So pretty home. Look at what's actually doing that Cmake is now working. So this hopefully should be something, you know, because I'm pretty sure everyone here can combine on GAMBIT. So you guys know the small, the small dopamine you've released you get when you get to it actually sort of getting to a Cmake. But notice how little, I
+
+Unknown Speaker  18:40  
+mean, you should have seen the question yesterday, and it wasn't the end of
+
+Speaker 3  18:48  
+the GAMBIT. So again, other things to comment on this, this is not instant, right? These things aren't these magic machines that work at sort of some billion Times' speed to how humans work. And to be clear, this is not free, right? This, this actually takes money and tokens and energy to do these calculations, but this is the kind of acceleration that is now available to us. So it's now making scanners. Now it knows from README, which very few people have agreed if they're a starting GAMBIT user, necessarily
+
+Speaker 7  19:17  
+making those Can you say something about the cost
+
+Speaker 3  19:21  
+for you to get access to this at this level, $20 a month.
+
+Unknown Speaker  19:27  
+So that's that's what I'm paying for. There are
+
+Speaker 3  19:32  
+more complicated answers to that, because you can work out what it would actually cost, and it's a lot more than $20 Yeah, but at the moment, you should rinse the VC 's for all they're worth knowing that, in general, costs was falling for recipients.
+
+Unknown Speaker  19:47  
+But get it while we can still say, Yeah, this
+
+Speaker 3  19:49  
+stuff wasn't still super, super cheap, and know that these there's an enormous market pressure to make this cheaper, and that market pressure is happening. We've watched tokens fall by a badge of 300 since that year.
+
+Speaker 6  20:02  
+Yeah, So he gave an error message that previously about not having access to GitHub, so does this have download. It's the ability to download learn it use caches into that
+
+Speaker 3  20:15  
+is built. Let's re run to re run CMA. So, it decides to build diver and skip deal scanners that are having. issues for now because with work out. Again this is.
+
+Unknown Speaker  20:26  
+Yeah, exactly. That's exactly what we thought, yeah.
+
+Speaker 3  32:20  
+Old narrows into this one of this world where I'm in and there's a level which That's a bit weird, but it's also what you're describing. There is flow, and many people spend a lot of time trying to achieve flow. And these, these have a similar kind of 's. There we go. It's going to run git commit. My commit messages has never been so detailed, and I decided to accept the fact that it puts in emoji, because it makes it clear that it's not necessarily me and tired. You
+
+Speaker 6  32:48  
+told this to make a poor report. It's about not just to push it commit good.
+
+Speaker 3  32:52  
+So it's just committing, yeah, and the committee is fix, CMake, message, Verity, voice 'em uses without thinking. So that's it, committing. Then it will hopefully push. In this instance, it will push, because I think I'm pushing the public
+
+Speaker 6  33:07  
+repository here. Yeah, and it made a new branch for that that's
+
+Speaker 3  33:11  
+been on streaming. I would also say that my clawed code is ludicrously guardrailless, and I've taken those guardrails off because I'm a busy person and I don't care, whereas most people would not allow it to run, you know, get push and things like that without confirmation. I've told it, you can push without me. I'm willing to do so.
+
+Unknown Speaker  33:28  
+If something breaks on the gambit repo, it's probably gonna
+
+Speaker 3  33:32  
+be you. You want to adjust your betters to when somebody accidentally revealed the whole gambit repo. So here now it uses the ghp 'c create command, dash, dash, title. And then here's the thing for the markdown that it creates to do that.
+
+Speaker 4  33:50  
+Okay, so there's an example of something that I've never tried doing. I mean, on my on the reports I've been testing this on, sort of like, smaller projects, etc. It does git commits locally, right? But I've always been the one that sort of pushes it to the remote and sort of that whole interaction with GitHub has always been me, but, but it's been making vouchers and making commits and commit messages, etc.
+
+Speaker 1  34:22  
+Good solutions. Is very detailed ones carrying users.
+
+Speaker 3  34:36  
+Emily, yeah, right. This is a very easy section. I'll let you decide what to do with this. You can get you can delete otherwise.
+
+Unknown Speaker  34:48  
+But, I mean, I don't know why I delete it, because most of those are fine, fine,
+
+Speaker 4  34:52  
+yeah, but we want to actually, that was one I
+
+Speaker 3  35:02  
+had at this it this week. Things that are absolutely mission critical to doing this, everything must be in a git repository, because things run wild. Yeah, so do never run this, not in a git repository, because you there's nothing more frustrating than having, like, two hours of work and then what should you just go? You've just deleted all of that, yeah, because you, you know,
+
+Speaker 4  35:26  
+you or made so many changes that you'll be able to revert. That's right, yeah.
+
+Speaker 3  35:30  
+So, so there are structures that you do to try and keep things, these things, sort of in line. And that comes from a you guys actually knowing how to run a computer already. So my main fear is, how on earth do I teach new PhD students how to use these tools? Because they will never have done it the hard way and and also just practice and having a couple of things. The funniest thing for me was where it swore back at me, where I said, it's a kit reset. Have you just lost fit the last half hours' work, but quit, and it responded with, oh, shit, you're right. I did just delete everything you've just done. Sorry.
+
+Speaker 3  36:22  
+So that's Claude code, and I would say that is probably the main thing you want to be aware of, but it sits in a more general scenario of Agentic tools.
+
+Speaker 4  36:32  
+Sorry, I keep interrupting, but so some so sort of my experience so far as I've tested this on sort of some private Python reports where I'm just experimenting with stuff, and it has allowed me on those projects. It has allowed me to move very quickly from sort of rough idea to prototype, to test if the idea is potentially useful, right, and then move on to the next potential idea. So sort of quick prototyping and on those repos, I'm sort of, I haven't felt too bad about just letting it do large edits, etc. But a couple of days ago, I decided, okay, there's ''first time I'm running Claude on, on gambits, on my local copy of gambits and and I'll just ask it to sort of okay, look for small bugs, essentially, essentially in like, the core part of the code, I found some bugs, something that we had there for 10 years. For instance, I touch and fixed the other day. But also, like, okay, look for easy optimizations, right to do on the gambit code. But one thing I then did, which I found useful, in that case, was to ask it to actually not do the code edits itself, but actually just in a particular file, put all your suggested changes as commented out code with a particular tag, as I said, Clau edit, right? So that afterwards I would manually go through that file, find all the suggestions, so that I was reading the suggestion and I was either deleting the comments, or I was implementing it, or in some cases, I was implementing it, but in slightly different way, right? And just that effect of sort of forcing myself to implement those changes meant it felt much more like these are mighty. It had 'jund just happened.
+
+Speaker 3  38:23  
+Then I like that as well. It's also using, it's enabling tool, right? Okay, so if that that thing, do this quite wide, sweeping edits of, yeah, I'm able to then sort
+
+Speaker 4  38:31  
+of fine grained, and, I mean, and that was super useful, because these were, some of these problems were in files that we haven't touched in 10 years, right? And I would never typically open them, but suddenly there was an A that was supposed to be in a B, and that was actually a small bug in our dark matter contrib there for 10 years. It wasn't that important, but 's been there so, but I think we can use it in ways where we've done lose our connection to the core parts of the code.
+
+Speaker 3  39:06  
+I mean another thing that I'll point out that's less relevant for students, but I actually use Claude code most for not code. There's a lot of things this can do that is extremely useful. I um, let me demo that in a way that's probably relevant here. So if I go to the wiki, this is the advantage of having the wiki Cloneable locally, right? Go, then it'll read through the gambit wiki to see what's in there. And we can say, Can you fix the links, any links here that are broken, or add links that are not there already. Can you look for formatting that is not consistent within its own say, scan a bit pillar and fix that formatting. Can you look for insults across the separate groups where they're solving, where they've mentioned similar problems in their minutes? Okay, so this is the kind of thing which Anders could use now that we have a gambit wiki that's clonable locally, right? And this forms more generally what's going on further through next year. So one of the key words, certainly last year and this year, was prompt engineering, this idea of making sure your prompt is accurate that's now less true when you can see it's writing these prompts for itself. Now it's, it's got that multi stage done to a T weight. If Claude code is prompting other things to do other things, then it will. Is the gambit? Wiki, public. It's not as if, no, no, is it?
+
+Speaker 6  40:41  
+I don't know if it's that's legitimate. In there, that's problematic, right?
+
+Speaker 4  40:47  
+But, I mean, it shouldn't be public. I think because we, we keep all sort of internal meeting notes and ideas and stuff like that. So, so that's supposed to be part,
+
+Speaker 3  40:56  
+which is, then the question to this, is it now? Well, I mean, it's on, being on GitHub, right? So, yeah, if you don't think they've been training all that stuff, then your stuff's already been there, and anybody will be using these tools. Or if you use an auto computer nowadays, or VS code a lot, that stuff's AI power without knowing about it anyway, there's very few things that don't have this on by default. But yes, I think there's also these tools are extremely subversive, partly because the way that they've been rolled out to speak with one of the largest IP land grabs in history, and partly because, actually the idea of mechanized idea collidation and engineering actually changes a lot of things about IP, because it doesn't when these tools are even this powerful, let alone how powerful they're going to get next year or the year after. If you're, say, a small software company saying, I can do this, if you've said I can do this, because you're trying to sell that service somebody else, so there's, well, now we can. We'll just do that ourselves and sets all agents right in that relatively basic web development code that you decided you do as a company.
+
+Speaker 7  42:06  
+So this is like some years ago, people were following all sorts of fora online to see the mention of T shirt. Because if somebody had a great idea for a T shirt, they would just steal it and make the t shirt and sell it from China right away. Now, people will just steal ideas and give it to Clark and make the thing and we'll sell it.
+
+Speaker 3  42:28  
+So for example, that voice typing day, that's something that I put on my public repository, but I remember struggling with that for hours earlier in the year, failing to get Linux two voice typing, because the most up to date thing, which is called nerd dictation, just rubbish and also really hard. It's much easier on Mac that they're much better at this, but it generally is generally much harder on on Linux, because it's how Linux are designed. But Claude code written that in under 15 minutes, and I feel like Tony Stark every day, but talking to my competitor and saying, No, don't do that and really do something different. So So yeah, that kind of thing here, where there's lots of things where you're really limited. I feel not in everything, but in certainly the boring bits of tooling that don't require hard physics to think about. I feel that I'm limited only by my imagination, not by what I can in principle code. There are limitations these things don't actually understand physics. They and unfortunately, they often think they do. So the skill of actually doing this craft new things is about being very specific at the start, or giving it very strong guardrails to say you're going to need to get this to match that, and then it will kind of work it out on its way. But there's, there are some things where you look, where you will watch it do something absolutely mindful that I can't believe that's possible. And they'll ask it to do something that you think is very easy, and it just won't get it to 'will just be actually incapable of understanding this, what we would use quite a basic idea. So these things as a specific example. So this was in the context of I was solving a chemistry problem, and I was asking it to write a something that took what's called A Z matrix, which is a way of specifying molecule, and turn it into a 'cartes in quarts, that molecule, and do that in jacks. So that's, in principle, a very straightforward geometry problem, and it could not do it like every time the molecule was wrong and I say, No, your angles were all wrong. Fix it just And fundamentally, these things don't understand 'd And they actually really struggle with that basic stuff. But if I when I then said, Okay, get this open source code, read that code and turn that into chats, it did that immediately. So there are some tools when so writing something new from scratch requires skill, and they can't do it on their own. I often do write a lot of stuff from from scratch with these tools, but it's not I never expect them from from experience. They don't expect them to one shot these things. But if it's source code translation, for example, take this existing library and put it in here, which is the standard Backends and problem that is very slow code.
+
+Speaker 4  45:18  
+So I mean, this is one of the things in GAMBIT's context. I mean, how much longer will we need boss scripting Gambit, right? I mean, this is not obvious that that's something we want to spend a lot of time maintaining, but let's see, right? Because it's doing a very specific thing, but, but I went one other example of something that it took me a little while until I realized that it could do it. But when it, when I realized it was super useful, is that I've been using this, for instance, to work on like, okay, the gambit plotting scripts, right? The Gambit plotting tools scripts, these things can read images, right? So, so you can have it help, you generate the plotting script, and then it can check the output itself by just analyzing the image, the PNG file and things like that, right? I mean, I got an output that was sort of clearly, oh, this is too patchy, or you sort of messed up this, and it sort of okay, sure, I see that now. So you can use output of that form, which we would naturally think are more like things that we need to check, yeah, some pretty useful loops or so testing
+
+Unknown Speaker  46:29  
+moves, how to spell Hedwig 's name,
+
+Speaker 4  46:32  
+presentation, H, E, D, I, G, I,
+
+Speaker 6  46:49  
+Hmm, how is, how is Claude accessing your email right now?
+
+Speaker 3  46:52  
+This is my madness. Yeah, okay, I still run my pipeline, and that means that with enough, this is much rather than Alpine, yeah. Okay, and if you want to ask, how on earth do you get outlook into much? The answer is with, with extreme difficulty, and I do it without. So again, if you're if you want to get something of the vibes of this, I am not a lightweight computer user. I use ancillex, I use venv, and I do my emails from the command line. Okay,
+
+Speaker 3  47:33  
+visual settings. That's why I did it. But you know, it took days before I just before I got pretty bad. Interestingly, if you now just cloned my MCP handling lab, it would show you basically how to help to get set up yourself. But it's okay, so here it's red. I asked Hedvig to send me her presentation, partly for this.
+
+Speaker 4  47:56  
+Yeah, I mean, so they sent the presentation me and I don't we will share it with everyone. That was the PDF. I asked her for the ' Alright, yeah, I've got
+
+Unknown Speaker  48:07  
+it the latex here, yeah, pictures
+
+Speaker 3  48:13  
+and synthesize that into a latex document. Now this obviously is, this obviously is a bit silly. Okay, because here we're actually doing nothing that's not in that presentation already. But for example, one of the tools that I would use to do is, if I'm at if I've got a visitor, I'll often have a long conversation where that conversation is transcribed. It'll be transcribing about I share with both of us. I take photos of the whiteboard and the transcription, feed that to Gemini and say, Make me a latex summary of this, of this meeting. And it does, and it's actually very good. It is not as good as the job I would do if I then, if I did that myself, where I carefully wrote that document and sort of did that, because that synthesis process is actually really important. But I not in some naive world where I do that after every meeting. I don't do that at all. I don't have time to do that. Whereas now I transcribe every meeting I have, with the idea being that if, if a meeting is not worth transcribing, a meeting is not worth having, I have 500 recorded meetings from the past year. And one thing I'm doing over the Christmas is building tools that can then look for insights, things that I might have missed across those meeting, things that are connected between students and ideally linked between the whiteboards that I've also snapshot it each time with smartphone and nothing else.
+
+Speaker 6  49:39  
+So when you're when you're when you're providing a prompt, right? You're using a certain number of tokens. How large is kind of the 's' or whatever, how large to those tend to be in terms of the max limit, right? Because Are you going to accidentally? Is there much of a danger of accidentally using far more tokens than you intended to use?
+
+Speaker 3  50:00  
+So these things are, these things are trained to not overflow that. But in general, if a conversation gets too long, does get to that maximum, and then it's it's trick is then to take the whole conversation, summarize it as best it can, and restart. And that's called compaction.
+
+Speaker 6  50:16  
+So you're not, you don't usually have a concern of, oh, no, I accidentally cost myself 50,000 tokens for something that I meant I was a small task that I wasn't
+
+Speaker 3  50:26  
+thinking about. So in this case, here you do, but
+
+Speaker 6  50:32  
+for example, presumably in your account there's limits of those, so you can enforce them.
+
+Speaker 3  50:36  
+Here's the usage for clause, right, but it resets at six, and I'm 41 sent through. I am the kind of person who's because I have grants that pay for this kind of stuff. I'm on the max, max plan, so I use a lot of this. But this is still the kind of thing where you can gage how close you are. And you find that if you get into this the first time you're you end up structuring your day around those refresh periods the time again, when I was in full on Blaze mode and basically unable to do anything else on just write code, because it's amazing where I would wake up. You know, normally at six, the first thing I do is say hello to start that timer, so that it would so that the next the next phrase was just 11. So
+
+Speaker 4  51:18  
+some of the cheapest subscription, you're not noticing much, right? Sorry, how often do you hit the I actually, quite often it's hit the limit, but, but it's then often been okay, so, okay, it resets in an hour or so, and probably by that time, it was good for me to take a break from listening. Because, I mean, I have also experienced just to sort of, I mean, I think this is, I mean, obviously I think I think it's super powerful, and already find it quite useful, even with my sort of limited experience with other but I have also found that for the project where I've sort of used this sort of aggressively right to sort of okay, from scratch, write me a demo of this blah, blah, blah, then I've also found myself end up using it for small tasks that I normally would just do myself, right? And but, but because it's not, it's actually not my code. There's some, some little part of my brain that's I can't be bothered reading the code. I'll just ask it, and if the output is okay, it probably works, right? And that's sort of, it's useful to experience that, because, in a sense, that's kind of danger territory, that's, that's, that's exactly the territory I hope we will we want to get to in Gambit, right? Because that's kind of scary.
+
+Unknown Speaker  52:40  
+Making a lot of plots she's
+
+Speaker 3  52:41  
+showing, yeah, but it wrote code to make these plots. I mean, that's very good.
+
+Speaker 6  52:45  
+If you just want to, I want to change the color of that plot and put it in my talk.
+
+Speaker 3  52:49  
+So for example, I updated this and again, in tone, start style, I updated this being presentation by talking to it. Okay, so it's one of these weird worlds where, because I I use command line tools like command line email and beamer to write 'em presentations. That's a world where Claude code brings supreme so it can go and edit the late tech and like that. So
+
+Speaker 6  53:14  
+that's cool. So you have your university cover your account, presumably, yes, and presumably most like this is not something that most people can get their university to cover yet, because we have ChatGPT Like we have university ChatGPT accounts, right?
+
+Speaker 3  53:34  
+And whenever I do, whenever I've been in any conversation in the university and higher up in Cambridge, mystery has been, do not buy everybody ChatGPT, because that's just the wrong message and the wrong steer. In a world where this moves quickly, you should be never buying yearly subscriptions to anything, right? It will offer 10 months the price of 12. Do not do that.
+
+Speaker 4  53:54  
+It's yeah. But I guess maybe what you're referring to is also the UIL GPT. Is it? Yeah, yeah. So I mean running
+
+Speaker 7  54:01  
+it locally, yeah, so, which is also the reason
+
+Speaker 4  54:06  
+why, I mean, I haven't, since I've just been testing this, I've just currently been paying 20 bucks a month out of my own pocket, right? But I have been thinking that I'm mainly using this will work. It's mainly research, so, but I haven't actually looked into the details of whether, could I convince the university to pay this for me? And because I think the answer is probably no, because they would say you can use these services. So yeah, so I
+
+Unknown Speaker  54:33  
+would never locally was the problem,
+
+Speaker 3  54:36  
+and indeed, this is one of the things. My project for next year is both conflicts engineering and guessing this 'ofl, because I am there is some this is very impressive, but this is also a very bubbly market, very clear. These things are wildly of abandoned for me. My take is that even if this is all we get, this changes everything. So if I can do this locally, and that cost me 50,000 pounds for a GPU that sits in the department, and I'm running an open source model on and that's good enough. So what that's one of my goals for this year, is to is to get that and the rest of department, because they get this from me most of the time, rather than just this one off sort of session, are on board with that, because they do seem capable of doing
+
+Speaker 6  55:23  
+if you had, like, a $50,000 GPU to run this, but you're also said that this is running locally on your laptop. Says, Is this computationally light enough to run on your laptop, or you running it on a server
+
+Speaker 3  55:39  
+to get it so yeah, this goes yeah, service, which is why Andrew is correct. A lot of people are very uncomfortable about this. When you start talking about how these things work, because you are sending
+
+Speaker 6  55:54  
+a lot of data with the service. Yes, I guess the university wouldn't want you emailing about finances, for example, and they're not being emailed to continually generating new data
+
+Speaker 3  56:06  
+for it. But your point is still true. They've definitely trained on that data already,
+
+Speaker 6  56:10  
+yeah, by Microsoft, because you're still generating data that they want, or they'll have some
+
+Speaker 3  56:15  
+weasel worded way of getting out of it in five years' time when you discover 'em. But there's no way that this is too valuable for them in both stock market thing and general market capture for them to and to risk when they know everybody else's doing it too. So don't just and as I said, it is one of the most significant IP land grabs. And I would say it's as significant as when the printing press arrived, and there would be a lot of pissed off monks about the fact that everyone can now read books, right? And I think they'll, in 50 years' time, people say there'll be a lot of pissed off authors, right? And the market's not ready for a world where where you can't own an idea in that way, which is true, but it doesn't change the fact that this is what's happened, because it's there in the open source models, let alone the ones that are owned by these others. I can download the weights and DIRS from Kimi k2 or from llama three, or from deep sea car two, and run that locally, and that's got Heidi as being a time and most of Reddit inventory, terrifyingly, only about 100 gigabytes. That's what it takes to compress language space. And what you should read from that is that language space is extremely simple. And I think, again, one of my other hot takes, given that's apparently what's turned into, is that I think Silicon Valley have wildly misunderstood the physics here, because they're chasing AGI and self driving cars and things like that, in the same way, and they've misunderstood the amount of energy it takes to train that, because whilst all of human language space fits, apparently, into 100 gigs, self driving cars generate that every journey, and the amount of energy that trained this to think on roads is very different To the amount of energy they spend to train GPT, or this has geological timescales of energy training.
+
+Speaker 3  58:12  
+So I don't think AGI is just around the corner. Either it's here already in the sense they mean it, because this is pretty genuinely fucking intelligent like or if they HDF like this, they know not to this culture scale. Well, they
+
+Speaker 6  58:25  
+probably have to change the entire model, like they're training drastically, right?
+
+Speaker 3  58:31  
+Energy problem, right? The amount of energy would take to tune the weights to this level. Think of sunlight on Earth, steering network, network weights and biological networks. That's what trains these brains, our brain of hot dogs with fractions of a civilization that barely uses nuclear fusion, nuclear
+
+Speaker 3  59:00  
+fission, but it's very much in their interests for you to believe that AGI is unpalatable.
+
+Speaker 6  59:06  
+So one thing I've heard with absolutely no knowledge about how real it is, is that they're not making a profit right now. They've got a lot of these companies.
+
+Speaker 3  59:17  
+I mean, OpenAI 's that's a profitable company. Obviously, Google's making a profit. And, no, I think the model makers are definitely making profits the things that people but you have to bear in mind that I think Uber's still profitable. Yeah, so that doesn't mean that people don't invest money in these things. No, no. But I think officially, OpenAI does some graphene does make
+
+Speaker 6  59:44  
+profit, but it's more about the question of how likely they are. Is the pricing model going to like? How is the pricing model going to change over time? Is it going to be actually get much, much cheaper over time, which is great stay flat, or once they've kept once some company has captured the market, then they're going to start seeing how much they can charge people for it.
+
+Speaker 3  1:00:07  
+So it is true that over this year, token costs have fallen precipitously by a manufacturer of 300 and there is market pressure to do that. The thing that I remember when I when I actually tracked how much my claw code of use in that in that phase where I was basically using a 24/7 and I was paying $20 a month, but basically was running as much as I could, and tracked how much over the month I would have spent on the tokens as this kind of ultra heavy user, the answer was $3,000 at that moment 's time. I thought, Jesus, there's no way I pay that. And then I thought, no, hang on, that is the cost of a postdoc. And then I thought, and I think what I've accomplished over the past month compared to what I and a postdoc would have accomplished this not there's, there's quite a chasm difference. So I looked there, thought, Well, that just means, in future grants, if this is the way things go, I would price that in and expect that, you know, humans and tokens probably come 5050, yeah. To be clear, humans, still, you get a lot of people, and a lot of people, even in my close vicinity, who are all about automation, which is about sort of, hey, AI can write papers. They're shit papers, but they're paper 's surely this will just get better. Surely a good paper. Then that's that. That's the moment that I that I care. What I mentioned is more acceleration, rather than automation. And I think humans add something to this loop in a meaningful way that I think can have a strong interest in it being true, is irreducible for the time being, where the time being is all right? Yeah.
+
+Speaker 4  1:01:45  
+I have the same feeling that I have after also sometimes the same feeling I have after using this, which is this 5050, mix of being terrified and being super fascinated and loving it. So I can't shake that feeling. It's it's simultaneously really, really fascinating and fun and useful and also slightly terrific. Yeah.
+
+Speaker 3  1:02:08  
+I mean, this is a big deal, and it's happened timeframe like chat GPT was three years ago, November 2022 even the large language models they were using that they only knew about that in 2016 that's when Google was sort of was, sort of was pressing this, and they were, they were playing with something GPT equivalent in 2020 and then they were horrified that OpenAI just unleashed that box of the world. But, but the advent of mechanized reasoning in language space is Ace, a hugely influential technology, and should think about it more like electricity than the internet. This is a our generation's emerging general purpose technology. So when electricity came online and people were like and people initially could imagine certain things, but they certainly didn't imagine, you know, data centers and delivery drivers and things like that, they were just thinking about 'em. Hey, the lights in the house go on. So this is the same one here where, at the moment, the things we're playing with are just small things, then that will come to define our lifetime.
+
+Speaker 4  1:03:26  
+I guess I'm bringing it a bit down to earth again. And yeah, back to the gambit context. I mean so for 567, years now, I mean in every Gambit meeting, we have been discussing the core group is not big enough, right? We are not keeping up with even the tasks that we know how to fix. We've been struggling to fix so sort of, I mean, there's an obvious use case there, but that's, but it's not really an argument for not having more people involved in core work, because, because, again, right? It would be bad if it was, if the core group turned into one person running cloud code a lot, and in the end, no one actually knew what Gambit was doing. I mean, I am honestly kind of terrified about that, because I've, because I've sort of experienced it in my own small testing projects, right? That sure, this not allowed as my project and my idea, but, but when I actually sit down and read the code, it's like you only understand your own project at the qualitative level, but, but then when you dig down deep into it, you're sort of have to understand I'm learning something, or it's like reading. And of course, a big codebase like Gambit will always be, to some extent, reading someone else's code. So that's but you
+
+Unknown Speaker  1:04:54  
+didn't review the code.
+
+Speaker 4  1:04:58  
+Yeah, yeah. So this was when I sort of almost as an experiment, right? I used it very aggressively, and I was, sort of, I was just giving it ideas, and sort of like, and throwing ideas back and forth, right? And I said, I have this vague idea for an algorithm that can do this, and this, can you suggest concrete ways in which it could work? And we tried three or four different alternatives, and it implemented the third one, right? And I just kept going like that, like always at the sort of ideas level. And then after a couple of days of doing that, and then actually starting to read the code, right, I mean, I, of course, I recognized the various building blocks, right, but it was very sort of real, this sense of technological depth, that even if we can solve a Git issue issue quickly over time, I mean, eventually, hopefully, some human needs to understand in detail what we have done here, right again.
+
+Speaker 3  1:05:58  
+Bring it down to the micro level, one of the things that I do with a lot of my project is actually in the backend of a lot of my clawed sort of like 'em are like the markdowns, yeah, is always having to push back on it's saying, No, you're a scientist. Do not catch that exception and just solve it by setting it to zero. I want to see that error and let the errors complicated upwards, yeah. So tight things, yeah, defensively program. This needs to be accurate. It doesn't need to work,
+
+Unknown Speaker  1:06:26  
+yeah. So
+
+Speaker 2  1:06:28  
+learn your preferences of the ones that you actually tell it to. You know, if there's permission, you know that is it aware of what you like to see, in
+
+Speaker 3  1:06:36  
+principle, but badly so, and it's one of the big bugbears that people have is that, you know, it's very clearly in your Claude 'd Don't defensively program. I've told you this 50 times, and still it's very, very hard. So you again, for precision science, this is not something you can Word of the Year by 'code, okay, but for some things you can, and for some things, it's incredible to me. So if ever you want to make a website for yourself, my God, like you watch it that. That's a one shot thing where you say, make me an academic website editor. It looks brilliant. And because it's also able to read all the other things, like CV 's that you put in all your papers and things like that, it's a really up to date website. Because that code, the web development code, it's not science, right? That's that's just, it just needs to work, which is where, unfortunately, a lot of its coding has been trained, and a lot, and that's both at Core Model level, in terms of it's been trained on most of the internet, and at reinforcement learning level. I this here is forming part of it's feedback loop for where everybody using Claude code is informing how Claude code is generally used.
+
+Speaker 6  1:07:58  
+These messages is telling these phrases something by default, like, we've all been like, it's using very non proper English. What gives a lot of things, like, just to give me Clang,
+
+Speaker 3  1:08:12  
+this is something that someone in ANTHROPIC said it didn't learn
+
+Unknown Speaker  1:08:17  
+this from you saying, use this term instead. I
+
+Speaker 4  1:08:21  
+suspect it's a lot of in jokes. Yeah, exactly No. So, I mean, I mean, it's sort of obvious, for the sort of bug fixing 'em 'more type, how many core people are here. Yeah, and that means that is the core group, effectively. I mean, the other, the other people who are regularly come to the core meeting are Pat, who's no longer in academia, and Patrick, who's no longer in academia, right? So, I mean, for several years now, half of the core group has been doing it on a hobby basis, right? And Thomas, obviously, but he's also no longer in academia. So, I mean, yeah, the core has been running us 50% as a hobby project for several years, which is we've been repeatedly saying it's really not sustainable, right in the long run, do you
+
+Speaker 2  1:09:12  
+want to buy an experiment? If I buy you a closed code license, you can see what you can do?
+
+Speaker 6  1:09:17  
+I mean, I would love that. But even just do I only have to use it for Gambit, or can use it for fun on weekends,
+
+Speaker 5  1:09:23  
+I weekends? I don't care. But as I put on, there's an idea of,
+
+Speaker 6  1:09:27  
+you know, oh yeah, have a dedicated see how much poor and how good it is for poor stuff in a sec period, say, a month. I mean, I wouldn't say no, because I'm buying some but, I mean, if it's not,
+
+Speaker 3  1:09:39  
+so obviously it's, it's best if you can ask, you know, your supervisor or pi to pay. Well, he's
+
+Unknown Speaker  1:09:46  
+just shook his head really strongly when the idea of something else paying.
+
+Speaker 7  1:09:49  
+It's not that I don't want to spend the money. I would be happy to spend a lot of money doing it, but I'm not allowed to. So that would immediately mean trouble with the university. Yeah.
+
+Speaker 3  1:09:58  
+So, so fortunately, at Cambridge, it's very easy, so I'm happy to pay for that 's Gambit contribution.
+
+Speaker 6  1:10:07  
+Sorry, how much was it? Again, this doesn't say about 20. It's not really very much for me to just for, if it's only for one month. Out of curiosity, if you wanted
+
+Speaker 3  1:10:16  
+to, it'd be a longer. Okay, in the bear in mind, I buy Clau codes, licenses for all my students, which is now nine, and my postdocs, which is five.
+
+Speaker 2  1:10:27  
+So I have, I have mine for AI in my grant. And this is the kind of project which I like to watch and see how one it does. So if core people want a free core code license,
+
+Speaker 4  1:10:36  
+I mean, that would be super useful. I mean, just to one more thing about that. I mean, obviously, I think so currently, right where we're experimenting a bit. I mean, our code is on GitHub. It's been on GitHub for years. And, I mean, these models are trained on Gambit as well, but, but, I mean, this is probably a thing for the gambit board to actually have a proper discussion about, right and then, because if we are sort of aggressively using this, it should be something that the collaboration actually agrees on at that level. Because I can sort of obviously see that US actively doing core work. I mean, we will be the people who sort of feel like, oh yes, finally, where we're taking off all these issues, right? But, but if a significant part of the collaboration is, oh, actually, we're super, super skeptical about this, then then it wouldn't be right for us working in the core to just go ahead and do it, right? So just mention that
+
+Speaker 3  1:11:42  
+yeah, I've been impressed by watching you do this, by the way, because I knew that it could do it, but because these things aren't deterministic, I was interested to see if it would come to the same solution. This is a bizarre thing on Archer 's, where you for the YAML linking library you need to do this with this kind of DCMAKE flags are dynamic in order to do it. So yeah, doesn't work, yeah. And it's worked that out again and again. The way that it does it is by using these commands that I know because I've used in the past when I've gone to Stack Exchange, to look things up, you know, to find these, these link libraries. But it knows Stack Exchange, so
+
+Unknown Speaker  1:12:21  
+the number of times I've seen that bad conversion.
+
+Speaker 4  1:12:30  
+Yes, I mean, I'm, I mean, not necessarily right now, but I think it would be really useful to get people's feelings, also those who may not be super happy or optimistic about this, but of course, I would also encourage people to actually try it.
+
+Unknown Speaker  1:12:51  
+I think I'm like in the next few weeks, yeah, I'll be,
+
+Speaker 5  1:13:01  
+yeah since last in this month, at least Copilot can, like, doesn't do this, of course, but you can just tell you're Hey, you should run this in your terminal and just click a button inside the chat run it for you.
+
+Speaker 2  1:13:16  
+So the reason why in Claude code appeals to me so much is, I mean, this is way better. Like, well, it's not just better. It's also running in my own environment.
+
+Speaker 3  1:13:25  
+And it takes a it's, it's a threshold to cross to let something else in. But because it's in your own environment, you can then just get straight back in that loop. It's not sitting on some server, yeah, that you don't have control over out of some sort of security, like, some well meaning security guarantees they're trying to build. It's sitting here on your metal that you know and trust and and see other things it's great doing. So you've bought a new so installing Archer libs has never been so easy, because any system where, you know, it's all config file related, it just does it all, but also all the kind of weird hardware stuff is, you know, it's very good at saying, 's how you fix that. So lots of things like that.
+
+Unknown Speaker  1:14:07  
+Yeah, I can't reach tomorrow, so Alright.
+
+Unknown Speaker  1:14:12  
+Thank you. Thanks
+
+Unknown Speaker  1:14:16  
+so much for returning. Super interesting. Yeah, pilot, you can ask for your reasons as a
+
+Speaker 4  1:14:23  
+university member, all right, so that's one of those things I've never tried actually,
+
+Unknown Speaker  1:14:32  
+in the independent system,
+
+Unknown Speaker  1:14:34  
+yeah, and
+
+Speaker 3  1:14:38  
+I will say to the more senior Members this idea of Claude code for things beyond coding is actually quite useful. For example, writing grants and submitting grants, which are usually through some god, awful wedding web interface. Clau code can operate a browser, and there's nothing funnier than watching it click, if I am not a robot button.
+
+Speaker 8  1:15:03  
+But you know, can they find the pictures with the zebra cross? I never can then, you know, we're in this loop of AI
+
+Unknown Speaker  1:15:15  
+training on AI. Is this in your work browser? It's been built in work value.
+
+Speaker 3  1:15:21  
+Is this in your work degree, it opens a chrome instance that's slightly isolated.
+
+Unknown Speaker  1:15:28  
+And what does the most
+
+Unknown Speaker  1:15:32  
+I can show you across the screen, you could want to
+
+Speaker 2  1:15:37  
+look for so it's look it's one of those things where it's often quite hard. I Well, yeah,
+
+Speaker 3  1:16:10  
+to be clear, this is not how you should use it. You should be using the GitHub command line tool to operate it, but just so you can see it working open to browser, and then it says, here I've opened the handle ID. Have organized page. I can see the blackjack spot. Let me click on it in order to navigate there. Click something.
+
+Unknown Speaker  1:16:32  
+So what does this playwright think this?
+
+Speaker 3  1:16:36  
+Oh, so this is the next level, after Claude code. This is what's called an MCP, which is a model context protocol. This is so when you see it doing things like here, opening a browser or it's reading files and writing files and running bash commands, that's it using a tool that ANTHROPIC have, in principle, given it. But that tooling system is something that you can write. You can write your own tools, which says, Here is a well defined interface for a tool using large language model, in principle, to use. And you basically saying so, for example, one of the MCP, I reckon I'd say, use,
+
+Speaker 3  1:17:37  
+yeah. Use the archive MCP to download latest papers by will.
+
+William Handley  1:17:52  
+So I have written a Python script that allows it to now say, I'm going to use archive search MCP to query this. And that's a tool that says I know or not I know. It says I am told by the documentation of that tool that if I put an AU handling Mac results 20, sort by sense, date, it will give me some responses. It then runs a Python script under the hood that queries it via the archive API and then returns that in a form that the Clau can read. So it does that, and that's the, this is the JSON that returns for plug to read, and then it's able to then say, I found several recent things. Let me download the most recent ones and see where it's prime of the author using the download MCP that downloads all of those. And you can use this again. Now it gets the tech files for you to read. In principle, downloading that.
+
+Unknown Speaker  1:18:40  
+Yeah, cool. Should we care?
+
+Speaker 3  1:18:51  
+Of course, when I say I wrote MCP to do this,
+
+Unknown Speaker  1:18:58  
+yeah, I'm spelling that with
+
+Speaker 3  1:19:03  
+an A that. Different self. Because what you start to notice with all this I talked about the copy, paste, run, debug, loop. What Clau code does is it closes that feedback and again, here where you start using AI to write AI tools, it forms another feedback loop. Greg, and that's where you start to see at that moment, things accelerated very quickly and just gonna run away once you're able to sort of remove a human from a small portion. To be clear, I have no desire to know how it's written, that MCP tool. I just need to know it works, that it's in principle not, yeah, I could go and look at it, at the hundreds of 1000s of lines of code I've written for this kind of stuff, but 's
+
+Speaker 6  1:19:45  
+so you sounds like you've played with this a lot and made extra like tools or widgets that make use of this. Is there anything you you is next on your like out of interest? You want to try you haven't
+
+Speaker 3  1:19:59  
+so the thing that I've building is the tool that I've said at the moment, my biggest point of friction is, again, getting this point of copying and pasting various things into a directory and then saying, Now, take all take the past three grants that I've written, and then this, and then these transcripts of conversations that I've had with colleagues about this grant, and this whiteboard conversation I had there, and then my rough notes that I just dictated to you, and turn that into a grant to give you the rubric up there. That involves a lot of me manually bringing that into a into a directory. And that's not a job. That's good, that it's appropriate for me to do. I would like it's to do that. And this is where the next stage of 2026, in context engineering becomes key. So the thing that I'm building now is context engineering. I these things can't read every every grant I've ever written. That's too much. They can't read every transcript I've ever had with it for the past month, because that's too much. The skill becomes making giving these things tools that allow them to get enough understanding of context to pull things in so that when I say, Oh, can you get the last five conversations I've had with metal, I think we had, we talked about beta flows at some point over there, and it will get that 'em say, you said this great, that paper silly. And again, me speaking to it in that way is what I meant. So context engineering is the two answer to send two word answers to one times to your question.
+
+Speaker 6  1:21:28  
+What do you need to make it more like Java C is you need these message you need a text to speech to be turned on for it so much, which I mean, should be actually not very different to do that. But if
+
+Speaker 3  1:21:40  
+it doesn't already exist. The other project that I want to do, as a example of local AI, where it's running locally, is to buy a border of 300 quid GPU and switch out the Alexa's in my house for these things so and then it will be weird that my house learns and understands me, but at least it's not some third party company. It's the GPU that sits in my roof that's doing that.
+
+Speaker 7  1:22:11  
+So that's the other one. Somebody steals it's gonna miss it,
+
+Speaker 3  1:22:16  
+just like if someone burnt down your house, you'd miss it too. So oh no, no. So if you want to know what, what terrifies me is the fact that a lot of people think of these things as friends or therapists. I think that's absolutely terrifying. A that humans do that on mass. Like most ChatGPT users aren't using it to like Gambit. They're using it as a friend. What does that say about our current civilization, that that's what a people think is a friend and B that they need that? Yeah, I'd
+
+Unknown Speaker  1:22:50  
+call 'em Jeeves.
+
+Speaker 4  1:22:57  
+I mean, seriously, this is super interesting.
+
+Speaker 8  1:23:02  
+You said a lot
+
+Speaker 4  1:23:06  
+of mill won't be sending them. They'll always send you the text that you can you can modify the scripts,
+
+Speaker 3  1:23:20  
+changes the forms. That's why I quite wanted to transcript to work. Yeah, I see again with
+
+Speaker 7  1:23:28  
+this sort of yeah, really funny to send her the PDF afterwards, changing like the colors and stuff,
+
+Speaker 4  1:23:40  
+like your presentation, but it didn't actually like your cold scheme,
+
+Speaker 3  1:23:47  
+so it did transcribe actually, we're all right, I'll send you that and
+
+Unknown Speaker  1:23:53  
+the slides. Thank you. Yeah. Thanks so much. Super
+
+Speaker 3  1:23:56  
+interesting. I've only recently started using it to send email, though, because, well, because it just didn't sound like me. I would ask it anyway, just sound like some awful American.
+
+Speaker 3  1:24:12  
+So I I carefully selected a gigantic volume of relatively safe emails, and then fed all of that into into a sequence of large language models that then produced a prompt that allowed it to to speak like me. And when I read that prompt, I felt seen,
+
+Unknown Speaker  1:24:34  
+yeah, it's like exactly our second.
+
+Unknown Speaker  1:24:42  
+Neither. It's just weird.
+
+Unknown Speaker  1:24:43  
+Can understand, yeah,
+
+Unknown Speaker  1:24:48  
+I would be freaked out on Sunday. World in mind, yeah.
+
+Speaker 3  1:24:53  
+The other thing that's also fascinating when you transcribe everything is you learn not to read the transcripts like, yeah, yeah, mine and in general, everybody's turn of phrase is extremely Trumpian. Often don't finish sentences, don't close parentheses, sort of drift off things like and it just shows you how much of how much of human conversation, just vibes, precisely, just trying to coax ideas into your head. You're not actually processing the whole thing like a full sequence of letters. You read that now again, it sounds much cooler when I say it, or when you read
+
+Speaker 4  1:25:29  
+it. It's weird. We have a very practical decision to make. We can't use cold Well, we could, but we don't have to, and that's the question of dinner tonight. I mean, do we want to go for a I mean, for a joint dinner? Think I would be happy at least. I don't know. I thought about a pizza place that's near this hotel where Greg and will lives. I've never been there. Auth says it's good pizza, I'm sure, but it's good pizza, and at least when I checked earlier today, we could get there was information for everyone. Double check now, no, oh, really,
+
+Speaker 7  1:26:18  
+we have to ' Okay, but then you get six. Why I was checking out is we had six people at 730, or all of us at eight.
+
+Speaker 4  1:26:31  
+So I guess it's a function of who's interested in joining. And I mean, no, no pressure, but very low, that's more.
+
+Unknown Speaker  1:26:41  
+Is that more is that more than six?
+
+Speaker 7  1:26:43  
+Yeah, that's eight, right?
+
+Unknown Speaker  1:26:48  
+Yeah, eight or exactly six.
+
+Unknown Speaker  1:26:53  
+So Should I, should I book eight for eight?
+
+Speaker 4  1:26:58  
+Yes, and eight was the maximum we could get them,
+
+Speaker 7  1:27:01  
+yeah, no, we can get more, but I think it needs to be ''clock.
+
+Speaker 4  1:27:05  
+So, yeah, yeah. I was just wondering what there are some people not here, like Alex Young Hang has probably gone home, I'm not sure. Is Isn't it hard to book for people? Yeah, I know. So probably just look for eight at eight, yeah.
+
+Unknown Speaker  1:27:32  
+Then we leave here, 730
+
+Unknown Speaker  1:27:34  
+Excellent. Should we talk about
+
+Speaker 4  1:27:40  
+Yeah? Okay, now let's do it tomorrow. Perfect. Yeah, the celebratory meals are working. Yeah, I'd be happy to have a celebratory No, a small one. How long
+
+Unknown Speaker  1:27:59  
+does it take to Friday? How long
+
+Unknown Speaker  1:28:02  
+to get public transport
+
+Speaker 4  1:28:05  
+not too long. I mean, the train from the central station is 19 minutes and to the central station from here, like from the university or from your hotel, from here by Metro 10 between, well, 15 minutes, is there a direct traffic? Yeah. So, I mean, so there are two metro lines going past University, four and five. They will go to the central station.
+
+Speaker 3  1:28:30  
+Oh, so, I reckon I could two people, people get here at 10, don't they not mind? Yeah. I think if my flights are 12, I'd probably have to leave here at about 10, yeah. But which time zone is that? That is an important question.
+
+Speaker 4  1:28:47  
+I mean, that would probably be the most productive thing we can use. Well, these things would be to sort of take our time zones for Gambit. There's actually
+
+Speaker 3  1:28:57  
+very good at organizing meetings. Yeah. Night. Bearish list of constraints. You might find something. It'll either just do it or write the script to brute force. It's my point's 'mod All right. So I could definitely come for an hour.
+
+Speaker 4  1:29:15  
+I mean, I will probably be 'er 'ton tomorrow, so, I mean, no pressure, but just
+
+Speaker 3  1:29:24  
+something about, I could be here, notice, yeah, so, but it would have to be, I think
+
+Speaker 4  1:29:35  
+That's okay. I mean, I think chats. So what were we saying at 'em?
+
+Speaker 2  1:29:46  
+Yeah, so if I if we want to free basketball, but are you able to 'em?
+
+Unknown Speaker  1:29:50  
+Yeah, just not today,
+
+Unknown Speaker  1:29:55  
+for reasons.
+
+Speaker 4  1:29:58  
+It's actually your fault. And business, yeah, so why don't we do that? Because there's two hours. Yeah, that'd be that'd be great.
+
+Speaker 6  1:30:08  
+All right, I might not join for dinner, actually, I'll be sleepy, but I'll also be here
+
+Speaker 1  1:30:21  
+sometime tomorrow to let me to bollyeow, future Colliders. Yeah.
+
+Transcribed by https://otter.ai
