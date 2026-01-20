@@ -11,3 +11,10 @@ Much of the narrative around AI in science focuses on foundation models or fully
 [[PDF](https://github.com/williamjameshandley/talks/raw/imperial_2026/will_handley_imperial_2026.pdf)]
 [[source](https://github.com/williamjameshandley/talks/tree/imperial_2026)]
 _Jan 2026_
+
+## Supplementary: Recent Work
+
+Short slides on `unimpeded` (public nested sampling database) and `PolySwyft` (simulation-based nested sampling), presented at Alan Heavens' group meeting.
+
+[[PDF](https://github.com/williamjameshandley/talks/raw/imperial_2026/imperial.pdf)]
+[[source](https://github.com/williamjameshandley/talks/blob/imperial_2026/imperial.tex)]
