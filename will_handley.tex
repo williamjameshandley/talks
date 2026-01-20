@@ -96,42 +96,45 @@
 \end{frame}
 
 \begin{frame}
-    %@claude -- this is poorly aligned -- check screenshot 2026-01-20_10-17-18.png
     \frametitle{The Common Challenge: Complex Parameter Spaces}
     \framesubtitle{Why these problems are statistically hard}
+    \newlength{\challengeheight}\setlength{\challengeheight}{4.2cm}
     \begin{columns}[T]
         \column{0.32\textwidth}
         \begin{block}{\keyterm{High-Dimensional}}
+            \parbox[t][\challengeheight][t]{\linewidth}{%
             \textbf{Many parameters to infer}
             \begin{itemize}
-                \item Cosmo: 6+ base parameters, nuisance/extensions
-                \item GW: 15+ parameters (masses, spins, distance, sky location)
-                \item EP: $\sim$5-10/planet
+                \item Cosmo: 6+ params + nuisance
+                \item GW: 15+ parameters
+                \item EP: $\sim$5--10/planet
             \end{itemize}
             \vspace{5pt}
-            \textit{Challenge}: Volume of parameter space grows exponentially
+            \textit{Challenge}: Volume grows exponentially with dimension}
         \end{block}
         \column{0.32\textwidth}
         \begin{block}{\keyterm{Degenerate}}
+            \parbox[t][\challengeheight][t]{\linewidth}{%
             \textbf{Parameters strongly correlated}
             \begin{itemize}
-                \item Cosmo: $H_0$-$\Omega_m$ banana
+                \item Cosmo: $H_0$--$\Omega_m$ banana
                 \item GW: Mass-distance degeneracy
-                \item EP: Eccentricity-period correlations
+                \item EP: Eccentricity-period
             \end{itemize}
             \vspace{5pt}
-            \textit{Challenge}: Different parameter combinations produce similar observations
+            \textit{Challenge}: Different parameters produce similar observations}
         \end{block}
         \column{0.32\textwidth}
         \begin{block}{\keyterm{Multimodal}}
+            \parbox[t][\challengeheight][t]{\linewidth}{%
             \textbf{Multiple distinct solutions}
             \begin{itemize}
-                \item Cosmo: Data tensions create separated modes
+                \item Cosmo: Tensions $\to$ separated modes
                 \item GW: Bimodal inclination
                 \item EP: Orbital period aliases
             \end{itemize}
             \vspace{5pt}
-            \textit{Challenge}: Easy to miss physically plausible explanations
+            \textit{Challenge}: Easy to miss plausible explanations}
         \end{block}
     \end{columns}
     \vspace{10pt}
