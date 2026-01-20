@@ -1,9 +1,13 @@
-# GPU Accelerated Bayesian Inference for Astronomy
+# Two Revolutions: GPUs for Science, AI for Scientists
 
-GPU computing has revolutionized machine learning, but its potential for accelerating classical statistical methods in astronomy remains largely untapped. Extracting physical parameters from observations and testing competing theoretical models are cornerstone elements of modern astronomical research, yet the computational tools we use for these tasks have largely remained CPU-bound and legacy-focused.
+## Abstract
 
-In this talk, I will demonstrate that modern differentiable programming frameworks (JAX, PyTorch) offer two independent capabilities often mistakenly conflated: automatic differentiation for gradient-based methods, and massive GPU parallelization for ensemble-based algorithms. The BlackJAX framework provides one GPU-native option implementing a range of inference algorithms—from gradient descent through nested sampling—and I will showcase recent applications across diverse astronomical contexts.  These include: 300× speedup for CMB cosmology and cosmic shear analysis; Bayesian anomaly detection for Type Ia supernovae scalable to LSST; model comparison distinguishing dark energy from systematic effects in DESI+DES; and 20-40× acceleration of gravitational wave parameter estimation.
+Modern GPUs and large language models represent two distinct but concurrent shifts in how science is done. I will explore both, and suggest they may be more separable than current discourse implies.
 
-Complementing these performance gains, I will discuss how AI coding assistants are set to fundamentally change scientific software development, removing the prohibitive friction that has prevented the translation of legacy codes to modern GPU frameworks. I will illustrate this transition with case studies from my group at Cambridge, combining classical algorithms, GPU hardware, and AI-assisted development to offer a powerful alternative to the current rush toward purely machine learning-based approaches, while maintaining interpretability and rigorous uncertainty quantification. As we enter astronomy's golden age of data with next-generation time-domain surveys like Rubin and SKA, these computational advances will be essential for extracting reliable science from the coming flood of observations.
+GPU hardware—developed for machine learning—can accelerate classical statistical methods such as nested sampling by factors of 100–1000×, enabling rigorous Bayesian inference at previously impractical scales. I will present recent work from my group applying GPU-native nested sampling to CMB cosmology, cosmic shear, Type Ia supernovae, and gravitational wave parameter estimation.
 
-[[PDF](https://github.com/williamjameshandley/talks/raw/birmingham_2025/will_handley_birmingham_2025.pdf)]
+Much of the narrative around AI in science focuses on foundation models or fully autonomous agents generating research end-to-end. I will present an alternative view: that large language models are most effective at reducing the technical and administrative overhead that consumes researcher time, rather than automating the science itself. I will reflect on how "context engineering"—organising what information AI systems can access—may be emerging as a key capability, and whether the boundary between these two revolutions will hold as the tools mature.
+
+[[PDF](https://github.com/williamjameshandley/talks/raw/imperial_2026/will_handley_imperial_2026.pdf)]
+[[source](https://github.com/williamjameshandley/talks/tree/imperial_2026)]
+_Jan 2026_
