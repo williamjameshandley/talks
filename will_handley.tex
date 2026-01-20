@@ -429,11 +429,11 @@
 \end{frame}
 
 \begin{frame}
-    \frametitle{GPU-Accelerated Applications: Supernovae \& Gravitational Waves}
-    \begin{columns}[T]
-        \column{0.48\textwidth}
-        \student{sam_leeney}{Sam Leeney}{PhD}
-        \begin{block}{Type Ia Supernovae \arxiv{2509.13394}}
+    \frametitle{GPU-Accelerated Applications: Type Ia Supernovae}
+    \student{sam_leeney}{Sam Leeney}{PhD}
+    \begin{columns}[c]
+        \column{0.55\textwidth}
+        \begin{block}{Bayesian Anomaly Detection \arxiv{2509.13394}}
             \begin{itemize}
                 \item \textbf{Problem}: Manual photometric rejection doesn't scale for LSST
                 \item \textbf{Solution}: Bayesian anomaly detection integrated into SALT3 fitting
@@ -441,22 +441,28 @@
                 \item \textbf{Finding}: Contaminants systematically brighter/bluer
             \end{itemize}
         \end{block}
-        \vspace{5pt}
+        \column{0.4\textwidth}
         \centering
-        \includegraphics[width=0.8\textwidth]{figures/2509.13394_19ekb_light_curves_all_paper.png}
-        \column{0.48\textwidth}
-        \student{metha_prathaban}{Metha Prathaban}{PhD}
-        \begin{block}{Gravitational Waves \arxiv{2509.04336}}
+        \includegraphics[width=\textwidth]{figures/2509.13394_19ekb_light_curves_all_paper.png}
+    \end{columns}
+\end{frame}
+
+\begin{frame}
+    \frametitle{GPU-Accelerated Applications: Gravitational Waves}
+    \student{metha_prathaban}{Metha Prathaban}{PhD}
+    \begin{columns}[c]
+        \column{0.55\textwidth}
+        \begin{block}{GPU-Native Nested Sampling \arxiv{2509.04336}}
             \begin{itemize}
                 \item \textbf{Goal}: GPU-accelerate bilby's acceptance-walk NS
-                \item \textbf{Performance}: 20-40$\times$ speedup for BBH
+                \item \textbf{Performance}: 20--40$\times$ speedup for BBH
                 \item \textbf{Validation}: Identical posteriors/evidences
-                \item \textbf{Hardware}: Single GPU vs CPU clusters
+                \item \textbf{Hardware}: Single GPU replaces CPU cluster
             \end{itemize}
         \end{block}
-        \vspace{5pt}
+        \column{0.4\textwidth}
         \centering
-        \includegraphics[width=0.8\textwidth]{figures/2509.04336_walltime_speedup.pdf}
+        \includegraphics[width=\textwidth]{figures/2509.04336_walltime_speedup.pdf}
     \end{columns}
 \end{frame}
 
