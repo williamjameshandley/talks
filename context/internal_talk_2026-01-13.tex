@@ -1,0 +1,431 @@
+\documentclass[aspectratio=169]{beamer}
+\usepackage{handley-lab-beamer}
+
+% Recommended packages
+\usepackage{amsmath}
+\usepackage{tikz}
+\usepackage[percent]{overpic}
+
+% Talk details
+\title{AI in 2026}
+\subtitle{From Prompt Engineering to Context Engineering}
+\date{January 2026}
+\renewcommand{\footeremail}{\email{wh260@cam.ac.uk}}
+\renewcommand{\footerwebsite}{\tthref{github.com/handley-lab/internal-talks}}
+
+\author[Handley]{%
+    Will Handley\\
+    \small{\footeremail}
+}
+
+\begin{document}
+
+\begin{frame}
+    \titlepage
+\end{frame}
+
+% =============================================================================
+% SECTION: Three Approaches
+% =============================================================================
+
+\begin{frame}
+    \frametitle{Three ways to use AI in research}
+    \begin{columns}[c]
+        \begin{column}{0.55\textwidth}
+            \begin{enumerate}
+                \item \textbf{Foundation models}: Ask questions, get answers
+                    \begin{itemize}
+                        \item Good for brainstorming
+                        \item Limited for complex tasks
+                    \end{itemize}
+                \item \textbf{Autonomous agents}: Let it run unsupervised
+                    \begin{itemize}
+                        \item Generates volume, not quality
+                        \item No accountability
+                    \end{itemize}
+                \item \textbf{Supervised execution}: Human directs, AI executes
+                    \begin{itemize}
+                        \item You provide intent and verify output
+                        \item AI builds tools and infrastructure
+                    \end{itemize}
+            \end{enumerate}
+        \end{column}
+        \begin{column}{0.4\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{figures/three-ways.jpg}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+% =============================================================================
+% SECTION: 2025 AI Landscape
+% =============================================================================
+
+\begin{frame}
+    \frametitle{What changed in 2025}
+    \framesubtitle{Capabilities that matter for research}
+    \begin{columns}[c]
+        \begin{column}{0.55\textwidth}
+            \begin{itemize}
+                \item Tool use across files (navigate and modify codebases)
+                \item Sustained work over hours
+                \item Long context windows (200k+ tokens)
+                \item Strong enough to build internal tools
+            \end{itemize}
+            \vspace{0.5em}
+            \small{Models: Claude Opus 4.5, GPT-5.2, Gemini 3.0}
+        \end{column}
+        \begin{column}{0.4\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{figures/what-changed.jpg}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+\begin{frame}
+    \frametitle{What AI does well (and doesn't)}
+    \begin{columns}[c]
+        \begin{column}{0.55\textwidth}
+            \begin{itemize}
+                \item \textbf{Generation}: AI is good at this
+                    \begin{itemize}
+                        \item Tools, GUIs, infrastructure --- fast and cheap
+                    \end{itemize}
+                \item \textbf{Selection}: Still needs humans
+                    \begin{itemize}
+                        \item Knowing what's correct
+                        \item Taking responsibility for output
+                    \end{itemize}
+                \item \textbf{Propagation}: Mixed
+                    \begin{itemize}
+                        \item AI: documentation, formatting
+                        \item Human: relationships, institutional knowledge
+                    \end{itemize}
+            \end{itemize}
+        \end{column}
+        \begin{column}{0.4\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{figures/generation-selection.jpg}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+% =============================================================================
+% SECTION: Context Engineering
+% =============================================================================
+
+\begin{frame}
+    \frametitle{Skills vs MCPs}
+    \framesubtitle{Two ways to extend what the model knows}
+    \begin{columns}[t]
+        \begin{column}{0.48\textwidth}
+            \textbf{Skills (read-only)}
+            \begin{itemize}
+                \item \small{Text files loaded into context}
+                \item \small{Best practices, physics, style guides}
+                \item \small{Example: \texttt{cobaya.md}}
+            \end{itemize}
+        \end{column}
+        \begin{column}{0.48\textwidth}
+            \textbf{MCPs (read-write)}
+            \begin{itemize}
+                \item \small{Tools that execute actions}
+                \item \small{Email, files, calendar}
+                \item \small{Example: GTD task manager}
+            \end{itemize}
+        \end{column}
+    \end{columns}
+    \vspace{1em}
+    \centering
+    Knowledge $\to$ skill. Actions $\to$ MCP.\\
+    \vspace{0.5em}
+    \small{MCPs: \tthref{github.com/handley-lab/mcp-handley-lab}}\\
+    \small{New: Word \& Excel MCPs, upgraded LLM interface}\\
+    \small{Skills marketplace: \tthref{github.com/fundamental-physics/marketplace} (David \& Sam)}
+\end{frame}
+
+\begin{frame}
+    \frametitle{What is GTD?}
+    \framesubtitle{David Allen's Getting Things Done}
+    \begin{columns}[c]
+        \begin{column}{0.55\textwidth}
+            \begin{itemize}
+                \item Core principle: get everything out of your head
+                \item Five phases:
+                    \begin{enumerate}
+                        \item \textbf{Capture}: collect what has your attention
+                        \item \textbf{Clarify}: what is it? is it actionable?
+                        \item \textbf{Organise}: put it where it belongs
+                        \item \textbf{Reflect}: review regularly
+                        \item \textbf{Engage}: do the work
+                    \end{enumerate}
+                \item Frees your mind for thinking, not remembering
+            \end{itemize}
+        \end{column}
+        \begin{column}{0.4\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{figures/gtd-what.jpg}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+\begin{frame}
+    \frametitle{GTD as external memory}
+    \framesubtitle{Solving the stateless problem}
+    \begin{columns}[c]
+        \begin{column}{0.55\textwidth}
+            \begin{itemize}
+                \item Problem: LLMs forget when the context fills
+                \item Solution: Store state externally
+                    \begin{itemize}
+                        \item Project: the goal
+                        \item Next action: what to do now
+                        \item Review: where you check progress
+                    \end{itemize}
+                \item Keeps a record of what was decided and why
+            \end{itemize}
+        \end{column}
+        \begin{column}{0.4\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{figures/gtd-memory.jpg}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+% =============================================================================
+% SECTION: Case Studies
+% =============================================================================
+
+\begin{frame}
+    \frametitle{Case study: Cosmosis to Cobaya}
+    \framesubtitle{Building a verified likelihood tool}
+    \begin{columns}[c]
+        \begin{column}{0.55\textwidth}
+            \begin{itemize}
+                \item Goal: build a reusable likelihood for Cobaya
+                \item AI drafts the code; human defines the tests
+                    \begin{itemize}
+                        \item Must match to floating-point precision
+                        \item 5 decimal places won't do
+                    \end{itemize}
+                \item The tool works because the tests are strict
+            \end{itemize}
+        \end{column}
+        \begin{column}{0.4\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{figures/cosmosis-cobaya.jpg}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Case study: jim-emulators}
+    \framesubtitle{Building a tool for faster inference}
+    \begin{columns}[c]
+        \begin{column}{0.55\textwidth}
+            \begin{itemize}
+                \item Goal: emulator to accelerate GW parameter estimation
+                \item AI built the JAX infrastructure
+                \item Skills enforced best practices
+                \item Meeting transcripts captured design decisions
+                \item \tthref{github.com/handley-lab/jim-emulators}
+            \end{itemize}
+        \end{column}
+        \begin{column}{0.4\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{figures/jim-emulators.png}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Case study: Building MCP systems}
+    \begin{columns}[c]
+        \begin{column}{0.55\textwidth}
+            \begin{itemize}
+                \item GTD system: Rust backend, MCP integration
+                    \begin{itemize}
+                        \item Built with Claude Opus 4.5
+                        \item Wouldn't have attempted without frontier models
+                    \end{itemize}
+                \item Word MCP: Direct XML manipulation
+                    \begin{itemize}
+                        \item Preserves formatting
+                        \item The underlying format is well-designed
+                    \end{itemize}
+            \end{itemize}
+        \end{column}
+        \begin{column}{0.4\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{figures/mcp-systems.jpg}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+% TODO: Add artifact to align with thesis
+\begin{frame}
+    \frametitle{Case study: Fixing my computer}
+    \framesubtitle{Hardware troubleshooting}
+    \begin{columns}[c]
+        \begin{column}{0.55\textwidth}
+            \begin{itemize}
+                \item Water damage --- multiple component failures
+                \item Used Claude Code to diagnose systematically
+                \item Pattern:
+                    \begin{enumerate}
+                        \item AI proposes tests
+                        \item Human reports observations
+                        \item Together: identify what's broken
+                    \end{enumerate}
+            \end{itemize}
+        \end{column}
+        \begin{column}{0.4\textwidth}
+            \centering
+            \includegraphics[width=0.9\textwidth]{figures/laptop-repair.jpeg}\\
+            \vspace{0.3em}
+            \includegraphics[width=0.9\textwidth]{figures/laptop-repair-2.jpeg}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+% =============================================================================
+% SECTION: Context Engineering
+% =============================================================================
+
+\begin{frame}
+    \frametitle{Context engineering}
+    \framesubtitle{What matters now}
+    \begin{columns}[c]
+        \begin{column}{0.55\textwidth}
+            \begin{itemize}
+                \item Prompting: one-shot text
+                \item Context engineering: organising what the model sees
+                \item The bottleneck shifted:
+                    \begin{itemize}
+                        \item Not ``how to ask''
+                        \item But ``what information to provide''
+                    \end{itemize}
+                \item What works:
+                    \begin{itemize}
+                        \item Folder structure
+                        \item Skills for reusable instructions
+                        \item MCPs for actions
+                    \end{itemize}
+            \end{itemize}
+        \end{column}
+        \begin{column}{0.4\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{figures/context-engineering.jpg}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+% =============================================================================
+% SECTION: Actionable Takeaways
+% =============================================================================
+
+\begin{frame}
+    \frametitle{Try this now}
+    \begin{columns}[c]
+        \begin{column}{0.55\textwidth}
+            \begin{itemize}
+                \item Voice typing
+                    \begin{itemize}
+                        \item Otter.ai for meetings
+                        \item System dictation for drafts
+                        \item Faster than typing
+                    \end{itemize}
+                \item GTD system
+                    \begin{itemize}
+                        \item Will be openly available
+                        \item Break work into specific tasks
+                        \item Keep a record of decisions
+                    \end{itemize}
+            \end{itemize}
+        \end{column}
+        \begin{column}{0.4\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{figures/try-this.jpg}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+% =============================================================================
+% SECTION: Looking Ahead
+% =============================================================================
+
+\begin{frame}
+    \frametitle{Vision: colloquium preview}
+    \begin{columns}[c]
+        \begin{column}{0.55\textwidth}
+            \begin{itemize}
+                \item What the group does:
+                    \begin{itemize}
+                        \item Cool science with GPUs --- not AI
+                        \item AI --- not cool science
+                        \item Sophisticated autocomplete
+                    \end{itemize}
+                \item Cosmology is riven with code debt
+                    \begin{itemize}
+                        \item Hard for PhDs to do anything profound
+                        \item Skills as language-agnostic descriptions
+                    \end{itemize}
+                \item Scientists should define AI for science
+                    \begin{itemize}
+                        \item Not what big tech gives us
+                    \end{itemize}
+            \end{itemize}
+        \end{column}
+        \begin{column}{0.4\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{figures/vision.jpg}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+\begin{frame}
+    \frametitle{What comes next}
+    \framesubtitle{2027 and beyond}
+    \begin{columns}[c]
+        \begin{column}{0.55\textwidth}
+            \begin{itemize}
+                \item Context engineering: what information?
+                \item Decision engineering: what choices and why?
+                \item GTD as a substrate for recording decisions
+                \item Shareable: skills, benchmarks, decision records
+            \end{itemize}
+        \end{column}
+        \begin{column}{0.4\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{figures/what-next.jpg}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Summary}
+    \begin{columns}[c]
+        \begin{column}{0.55\textwidth}
+            \begin{itemize}
+                \item Build tools, not papers
+                    \begin{itemize}
+                        \item GUIs, MCPs, infrastructure
+                    \end{itemize}
+                \item Context management
+                    \begin{itemize}
+                        \item Skills encode practices; GTD tracks decisions
+                    \end{itemize}
+                \item The science stays with you
+                \item Share what works: skills and tools
+            \end{itemize}
+            \vspace{1em}
+            Let AI build the tools. You do the science.
+        \end{column}
+        \begin{column}{0.4\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{figures/summary.jpg}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+\end{document}
