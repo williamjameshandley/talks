@@ -375,7 +375,6 @@
 % PART 2: GPU REVOLUTION - CASE STUDIES
 % =============================================================================
 
-%@claude -- should also include a slide on where we're going with this. This is with lawrence berry. You can find an email in my inbox with his picture, which you should add to this repo [and to the master branch -- commit any changes before switichng to adjust master]. Lawrence berry is currently working with myself, oli hahn and nils schoenberg to build a full GPU boltzmann solver [DISCO-DJ → DISCO-CL -- do some research.
 \begin{frame}
     \frametitle{GPU-Accelerated Applications: Cosmology}
     \framesubtitle{CMB and Cosmic Shear \arxiv{2509.13307}}
@@ -394,6 +393,36 @@
         \includegraphics<1>[width=\textwidth]{figures/cmbscaling.pdf}%
         \vspace{5pt}
         \includegraphics<2>[width=\textwidth]{figures/jaxSHEARfull.png}
+    \end{columns}
+\end{frame}
+
+\begin{frame}
+    \frametitle{The Vision: Full GPU Pipeline}
+    \framesubtitle{DISCO-DJ $\to$ DISCO-CL \arxiv{2311.03291}}
+    \student{lawrence_berry}{Lawrence Berry}{PhD}
+    \begin{columns}[c]
+        \column{0.55\textwidth}
+        \begin{block}{The Goal}
+            Full CMB analysis that never leaves the GPU:
+            \begin{enumerate}
+                \item Einstein-Boltzmann solver $\to$ $C_\ell$
+                \item CMB/LSS likelihoods
+                \item GPU nested sampling
+            \end{enumerate}
+        \end{block}
+        \begin{block}{DISCO-DJ/EB (Hahn+ 2024)}
+            \begin{itemize}
+                \item Differentiable Einstein-Boltzmann in JAX
+                \item Agrees with CLASS/CAMB at per-mille level
+                \item Vectorised over cosmological parameters
+            \end{itemize}
+        \end{block}
+        \begin{alertblock}{Current Work}
+            Extending to CMB-ready $C_\ell$ calculations with Oli Hahn \& Nils Schöneberg
+        \end{alertblock}
+        \column{0.4\textwidth}
+        \centering
+        \textit{[DISCO-CL figure placeholder]}
     \end{columns}
 \end{frame}
 
