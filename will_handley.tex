@@ -66,6 +66,13 @@
     \frametitle{Inference Across Astrophysics}
     \framesubtitle{Parameter estimation and model comparison}
     \newlength{\figheight}\setlength{\figheight}{3.5cm}
+    \vspace{-5pt}
+    \begin{alertblock}{}
+        $\displaystyle\C[0]{\mathcal{P}(\theta|D)} = \frac{\C[2]{\mathcal{L}(D|\theta)}\C[1]{\pi(\theta)}}{\C[3]{\mathcal{Z}}}$ \hfill
+        \textbf{Estimate}: Compute \C[0]{posterior} $\C[0]{\mathcal{P}(\theta|D)}$ \hfill
+        \textbf{Compare}: \C[3]{evidences} $\C[3]{\mathcal{Z}_1/\mathcal{Z}_2}$
+    \end{alertblock}
+    \vspace{-10pt}
     \begin{columns}[T]
         \column{0.32\textwidth}
         \begin{block}{Cosmology}
@@ -89,6 +96,7 @@
 \end{frame}
 
 \begin{frame}
+    %@claude -- this is poorly aligned -- check screenshot 2026-01-20_10-17-18.png
     \frametitle{The Common Challenge: Complex Parameter Spaces}
     \framesubtitle{Why these problems are statistically hard}
     \begin{columns}[T]
@@ -133,31 +141,6 @@
 \end{frame}
 
 \begin{frame}
-    \frametitle{The Language of Inference}
-    \framesubtitle{How we quantify what we learn from data}
-    \begin{columns}
-        \column{0.33\textwidth}
-            \begin{block}{\C[0]{Posterior}\hfill $\C[0]{\mathcal{P}(\theta|D)}$}
-            What we know about the parameters \textit{after} seeing the data. It's our updated state of knowledge.
-        \end{block}
-        \vspace{2em}
-        \begin{block}{\C[1]{Prior}\hfill $\C[1]{\pi(\theta)}$}
-                What we believe about the parameters \textit{before} we see the data. Our physical assumptions.
-            \end{block}
-        \column{0.33\textwidth}
-\[\underbrace{\C[0]{\mathcal{P}(\theta|D)}}_{\C[0]{\text{Posterior}}} = \frac{\overbrace{\C[2]{\mathcal{L}(D|\theta)}}^{\C[2]{\text{Likelihood}}} \times \overbrace{\C[1]{\pi(\theta)}}^{\C[1]{\text{Prior}}}}{\underbrace{\C[3]{\mathcal{Z}(D)}}_{\C[3]{\text{Evidence}}}}\]
-        \column{0.33\textwidth}
-            \begin{block}{\C[2]{Likelihood}\hfill $\C[2]{\mathcal{L}(D|\theta)}$}
-                The probability of observing the data given the parameters. It connects our theoretical model to observations.
-            \end{block}
-        \vspace{2em}
-        \begin{block}{\C[3]{Evidence}\hfill $\C[3]{\mathcal{Z}(D)}$}
-            The total probability of the data given the model. It quantifies model plausibility and enables comparisons.
-        \end{block}
-    \end{columns}
-\end{frame}
-
-\begin{frame}
     \frametitle{Why do sampling?}
     \begin{columns}[T]
         \column{0.5\textwidth}
@@ -178,6 +161,7 @@
 
 \begin{frame}
     \frametitle{Sampling Methods: A Brief Tour}
+    %@claude -- some llm-isms have crept in here -- the tone should be slightly more sober -- 'no evidence calculation' repeated is too on-the-nose [check previous presentations for how this is phrased -- there is a david mackay quote that is relevant, that you should be able to find with an appropriate git search through will_handley.tex across branches].
     \begin{columns}[T]
         \column{0.48\textwidth}
         \begin{block}{MCMC (e.g. \texttt{emcee})}
@@ -214,8 +198,10 @@
 \begin{frame}
     \frametitle{Nested Sampling}
     \framesubtitle{Exploring from the outside-in}
+    %@claude -- again 'go-to' method too on-the-nose, remove key message, and get some material about volume/DKL estimation, again check through past presentations for similar material
     \begin{columns}[T]
         \column{0.5\textwidth}
+        \vspace{-10pt}
         \only<1-8>{
         \begin{block}{A Radically Different Approach}
             Instead of random walking, nested sampling attacks the problem from the outside-in.
@@ -238,7 +224,7 @@
             Nested sampling excels at exploring complex, multimodal posteriors and is the go-to method for Bayesian model comparison.
         \end{alertblock}
         }
-        \column{0.5\textwidth}
+        \column{0.49\textwidth}
         \vspace{-1.8em}
         \begin{center}
             \includegraphics<1>[width=\textwidth,page=1]{figures/himmelblau_ns.pdf}%
@@ -260,6 +246,7 @@
 \begin{frame}
     \frametitle{The Computational Bottleneck}
     \framesubtitle{Why the future of astronomical inference is parallel computing}
+    %@claude -- MCMC == parallel chains isn't quite right here -- this can only in principle parallesise up to 8, so we shouldn't be saying this! talk about emcee instead, and point out that traditional algos like HMC or MCMC can't exploit this
     \begin{columns}
         \column{0.42\textwidth}
         \begin{block}{The Problem}
@@ -389,6 +376,7 @@
 % PART 2: GPU REVOLUTION - CASE STUDIES
 % =============================================================================
 
+%@claude -- should also include a slide on where we're going with this. This is with lawrence berry. You can find an email in my inbox with his picture, which you should add to this repo [and to the master branch -- commit any changes before switichng to adjust master]. Lawrence berry is currently working with myself, oli hahn and nils schoenberg to build a full GPU boltzmann solver [DISCO-DJ → DISCO-CL -- do some research.
 \begin{frame}
     \frametitle{GPU-Accelerated Applications: Cosmology}
     \framesubtitle{CMB and Cosmic Shear \arxiv{2509.13307}}
@@ -582,6 +570,8 @@
         \includegraphics[width=\textwidth]{figures/jim-emulators.png}
     \end{columns}
 \end{frame}
+
+    %@claude -- I've been reminded of another case study, where I vibe coded emcee into blackjax in 15 minutes for a talk. We should mention this. The framework was that I was giving a talk where I wanted an equivalent plot for emcee as I did for nested sampling, but it was challenging. I therefore gave claude code the tex of the talk, the tex of the emcee paper, the github emcee repository, the blackjax emcee repository, and asked it to put emcee into blackjax. There is a pull request on blackjax-devs/blackjax which should include that that you can refer to on this extra slide. This was with opus 4.2 [I think -- it would have been the time I was giving the sed fitting talk -- you can get the date from the github repo]
 
 \begin{frame}
     \frametitle{The Vision: Solving ``Code Debt''}
