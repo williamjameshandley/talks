@@ -378,20 +378,19 @@
 % =============================================================================
 
 \begin{frame}
-    \frametitle{GPU-Accelerated Applications: Cosmology}
-    \framesubtitle{CMB and Cosmic Shear \arxiv{2509.13307}}
+    \frametitle{Cosmology}
+    \framesubtitle{GPU-Accelerated Applications: CMB and Cosmic Shear \arxiv{2509.13307}}
     \student{toby_lovick}{Toby Lovick}{PhD}
     \begin{columns}
-        \column{0.48\textwidth}
+        \column{0.45\textwidth}
         \begin{itemize}
             \item \textbf{CMB (6 params)}: 300$\times$ speedup vs CPU PolyChord
             \item \textbf{Cosmic Shear (37 params)}: Days vs months ($>$1000$\times$ vs CPU; 10$\times$ vs GPU NUTS)
             \item \textbf{Method}: JAX neural emulators + GPU NS
             \item \textbf{Evidence}: Direct calculation with error bars
             \item \textbf{Models}: $\Lambda$CDM vs $w_0w_a$ comparison
-            \item \textbf{Impact}: NS competitive with MCMC+evidence methods
         \end{itemize}
-        \column{0.48\textwidth}
+        \column{0.52\textwidth}
         \includegraphics<1>[width=\textwidth]{figures/cmbscaling.pdf}%
         \vspace{5pt}
         \includegraphics<2>[width=\textwidth]{figures/jaxSHEARfull.png}
@@ -429,38 +428,36 @@
 \end{frame}
 
 \begin{frame}
-    \frametitle{GPU-Accelerated Applications: Type Ia Supernovae}
+    \frametitle{Type Ia Supernovae}
+    \framesubtitle{GPU-Accelerated Applications: Bayesian Anomaly Detection \arxiv{2509.13394}}
     \student{sam_leeney}{Sam Leeney}{PhD}
     \begin{columns}[c]
-        \column{0.55\textwidth}
-        \begin{block}{Bayesian Anomaly Detection \arxiv{2509.13394}}
-            \begin{itemize}
-                \item \textbf{Problem}: Manual photometric rejection doesn't scale for LSST
-                \item \textbf{Solution}: Bayesian anomaly detection integrated into SALT3 fitting
-                \item \textbf{Result}: Automatic outlier rejection
-                \item \textbf{Finding}: Contaminants systematically brighter/bluer
-            \end{itemize}
-        \end{block}
-        \column{0.4\textwidth}
+        \column{0.45\textwidth}
+        \begin{itemize}
+            \item \textbf{Problem}: Manual photometric rejection doesn't scale for LSST
+            \item \textbf{Solution}: Bayesian anomaly detection integrated into SALT3 fitting
+            \item \textbf{Result}: Automatic outlier rejection
+            \item \textbf{Finding}: Contaminants systematically brighter/bluer
+        \end{itemize}
+        \column{0.52\textwidth}
         \centering
         \includegraphics[width=\textwidth]{figures/2509.13394_19ekb_light_curves_all_paper.png}
     \end{columns}
 \end{frame}
 
 \begin{frame}
-    \frametitle{GPU-Accelerated Applications: Gravitational Waves}
+    \frametitle{Gravitational Waves}
+    \framesubtitle{GPU-Accelerated Applications: GPU-Native Nested Sampling \arxiv{2509.04336}}
     \student{metha_prathaban}{Metha Prathaban}{PhD}
     \begin{columns}[c]
-        \column{0.55\textwidth}
-        \begin{block}{GPU-Native Nested Sampling \arxiv{2509.04336}}
-            \begin{itemize}
-                \item \textbf{Goal}: GPU-accelerate bilby's acceptance-walk NS
-                \item \textbf{Performance}: 20--40$\times$ speedup for BBH
-                \item \textbf{Validation}: Identical posteriors/evidences
-                \item \textbf{Hardware}: Single GPU replaces CPU cluster
-            \end{itemize}
-        \end{block}
-        \column{0.4\textwidth}
+        \column{0.45\textwidth}
+        \begin{itemize}
+            \item \textbf{Goal}: GPU-accelerate bilby's acceptance-walk NS
+            \item \textbf{Performance}: 20--40$\times$ speedup for BBH
+            \item \textbf{Validation}: Identical posteriors/evidences
+            \item \textbf{Hardware}: Single GPU replaces CPU cluster
+        \end{itemize}
+        \column{0.52\textwidth}
         \centering
         \includegraphics[width=\textwidth]{figures/2509.04336_walltime_speedup.pdf}
     \end{columns}
@@ -631,7 +628,7 @@
         \end{alertblock}
         \column{0.4\textwidth}
         \centering
-        \textit{[emcee animation placeholder]}
+        \includegraphics[width=\textwidth,page=9]{figures/himmelblau_emcee.pdf}
     \end{columns}
 \end{frame}
 
@@ -889,54 +886,6 @@
             \includegraphics<7>[width=\textwidth,page=7]{figures/himmelblau_hmc.pdf}%
             \includegraphics<8>[width=\textwidth,page=8]{figures/himmelblau_hmc.pdf}%
             \includegraphics<9>[width=\textwidth,page=9]{figures/himmelblau_hmc.pdf}%
-        \end{center}
-    \end{columns}
-\end{frame}
-
-\begin{frame}
-    \frametitle{A Better Way: Ensemble Sampling (e.g., \texttt{emcee})}
-    \begin{columns}[T]
-        \column{0.5\textwidth}
-        \only<1-5>{
-        \begin{block}{How it Works}
-            Instead of one walker, we use an \keyterm{ensemble} of hundreds of walkers.
-            \begin{itemize}
-                \item The walkers don't move completely randomly.
-                \item They propose new steps based on the positions of \textit{other} walkers in the ensemble.
-                \item This allows the whole group to learn about the shape of the posterior (e.g., its correlations) and explore it more efficiently.
-            \end{itemize}
-        \end{block}
-        }
-        \only<6-9>{
-        \vspace{-1em}
-        \begin{block}{Advantages}
-            \begin{itemize}
-                \item Much better at exploring correlated, ``banana-shaped'' parameter spaces.
-                \item More efficient ``mixing'' than a single chain.
-                \item Easy to parallelize (one walker per CPU).
-            \end{itemize}
-        \end{block}
-        \begin{block}{Limitation}
-            \begin{itemize}
-                \item Ensemble can still get trapped in one mode if other modes are very far away.
-            \end{itemize}
-        \end{block}
-        \begin{alertblock}{Key Message}
-            Ensemble samplers like \texttt{emcee} are a major improvement for many problems, especially those with parameter degeneracies.
-        \end{alertblock}
-        }
-        \column{0.5\textwidth}
-        \vspace{-1.8em}
-        \begin{center}
-            \includegraphics<1>[width=\textwidth,page=1]{figures/himmelblau_emcee.pdf}%
-            \includegraphics<2>[width=\textwidth,page=2]{figures/himmelblau_emcee.pdf}%
-            \includegraphics<3>[width=\textwidth,page=3]{figures/himmelblau_emcee.pdf}%
-            \includegraphics<4>[width=\textwidth,page=4]{figures/himmelblau_emcee.pdf}%
-            \includegraphics<5>[width=\textwidth,page=5]{figures/himmelblau_emcee.pdf}%
-            \includegraphics<6>[width=\textwidth,page=6]{figures/himmelblau_emcee.pdf}%
-            \includegraphics<7>[width=\textwidth,page=7]{figures/himmelblau_emcee.pdf}%
-            \includegraphics<8>[width=\textwidth,page=8]{figures/himmelblau_emcee.pdf}%
-            \includegraphics<9>[width=\textwidth,page=9]{figures/himmelblau_emcee.pdf}%
         \end{center}
     \end{columns}
 \end{frame}
