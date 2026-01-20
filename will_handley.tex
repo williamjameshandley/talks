@@ -164,7 +164,6 @@
 
 \begin{frame}
     \frametitle{Sampling Methods: A Brief Tour}
-    %@claude -- some llm-isms have crept in here -- the tone should be slightly more sober -- 'no evidence calculation' repeated is too on-the-nose [check previous presentations for how this is phrased -- there is a david mackay quote that is relevant, that you should be able to find with an appropriate git search through will_handley.tex across branches].
     \begin{columns}[T]
         \column{0.48\textwidth}
         \begin{block}{MCMC (e.g. \texttt{emcee})}
@@ -172,7 +171,7 @@
                 \item Random walk explores posterior
                 \item Good for simple, well-behaved posteriors
                 \item Can get stuck in local modes
-                \item \textcolor{red}{No evidence calculation}
+                \item Posterior samples only
             \end{itemize}
         \end{block}
         \begin{block}{HMC/NUTS (e.g. \texttt{stan}, \texttt{numpyro})}
@@ -180,7 +179,7 @@
                 \item Uses gradients to guide exploration
                 \item Much more efficient for smooth posteriors
                 \item Requires differentiable likelihoods
-                \item \textcolor{red}{No evidence calculation}
+                \item Posterior samples only
             \end{itemize}
         \end{block}
         \column{0.48\textwidth}
@@ -192,8 +191,8 @@
                 \item Essential for model comparison (i.e. science)
             \end{itemize}
         \end{block}
-        \begin{alertblock}{Key Message}
-            If you need to compare physical models, you \textit{must} compute the evidence. Nested sampling is the go-to method.
+        \begin{alertblock}{}
+            \textit{``The evidence $\mathcal{Z}$ is often the single most important number in the problem and I think every effort should be devoted to calculating it.''} \hfill --- MacKay (2003)
         \end{alertblock}
     \end{columns}
 \end{frame}
