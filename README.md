@@ -18,3 +18,12 @@ Short slides on `unimpeded` (public nested sampling database) and `PolySwyft` (s
 
 [[PDF](https://github.com/williamjameshandley/talks/raw/imperial_2026/imperial.pdf)]
 [[source](https://github.com/williamjameshandley/talks/blob/imperial_2026/imperial.tex)]
+
+**Meta-note:** This 6-slide presentation was created live during the group meeting in ~5 minutes using [Claude Code](https://claude.ai/code) with human direction. The workflow:
+1. Fetched arxiv source for both papers
+2. Extracted key figures and generated the NSNRE flowchart from TikZ
+3. Iterated on slide layout via PNG previews
+4. Added student photos
+5. Emailed to Alan directly from the session
+
+A practical demonstration of "context engineering" from the main talk.
