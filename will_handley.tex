@@ -615,18 +615,17 @@
 \begin{frame}
     \frametitle{Case Study: Vibe Coding \texttt{emcee} into BlackJAX}
     \framesubtitle{15 minutes to a PR}
-    \begin{columns}[c]
+    \begin{columns}[T]
         \column{0.55\textwidth}
         \begin{block}{The Problem}
-            Preparing a talk, needed an \texttt{emcee} animation equivalent to my nested sampling one. No GPU implementation existed.
+            Needed an \texttt{emcee} animation equivalent to my nested sampling one. No GPU implementation existed.
         \end{block}
         \begin{block}{The Solution}
             Gave Claude Code:
             \begin{itemize}
                 \item The \LaTeX{} of my talk
                 \item The \texttt{emcee} paper (\arxiv{1202.3665})
-                \item The \texttt{emcee} GitHub repository
-                \item The BlackJAX repository
+                \item The \texttt{emcee} and BlackJAX repositories
             \end{itemize}
             Asked it to implement \texttt{emcee} in BlackJAX.
         \end{block}
@@ -635,16 +634,18 @@
             \small{\tthref{github.com/blackjax-devs/blackjax/pull/797}}
         \end{alertblock}
         \column{0.4\textwidth}
-        \centering
-        \includegraphics<1>[width=\textwidth,page=1]{figures/himmelblau_emcee.pdf}%
-        \includegraphics<2>[width=\textwidth,page=2]{figures/himmelblau_emcee.pdf}%
-        \includegraphics<3>[width=\textwidth,page=3]{figures/himmelblau_emcee.pdf}%
-        \includegraphics<4>[width=\textwidth,page=4]{figures/himmelblau_emcee.pdf}%
-        \includegraphics<5>[width=\textwidth,page=5]{figures/himmelblau_emcee.pdf}%
-        \includegraphics<6>[width=\textwidth,page=6]{figures/himmelblau_emcee.pdf}%
-        \includegraphics<7>[width=\textwidth,page=7]{figures/himmelblau_emcee.pdf}%
-        \includegraphics<8>[width=\textwidth,page=8]{figures/himmelblau_emcee.pdf}%
-        \includegraphics<9>[width=\textwidth,page=9]{figures/himmelblau_emcee.pdf}%
+        \vspace{-1.8em}
+        \begin{center}
+            \includegraphics<1>[width=\textwidth,page=1]{figures/himmelblau_emcee.pdf}%
+            \includegraphics<2>[width=\textwidth,page=2]{figures/himmelblau_emcee.pdf}%
+            \includegraphics<3>[width=\textwidth,page=3]{figures/himmelblau_emcee.pdf}%
+            \includegraphics<4>[width=\textwidth,page=4]{figures/himmelblau_emcee.pdf}%
+            \includegraphics<5>[width=\textwidth,page=5]{figures/himmelblau_emcee.pdf}%
+            \includegraphics<6>[width=\textwidth,page=6]{figures/himmelblau_emcee.pdf}%
+            \includegraphics<7>[width=\textwidth,page=7]{figures/himmelblau_emcee.pdf}%
+            \includegraphics<8>[width=\textwidth,page=8]{figures/himmelblau_emcee.pdf}%
+            \includegraphics<9>[width=\textwidth,page=9]{figures/himmelblau_emcee.pdf}%
+        \end{center}
     \end{columns}
 \end{frame}
 
