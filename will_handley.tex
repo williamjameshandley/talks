@@ -246,7 +246,6 @@
 \begin{frame}
     \frametitle{The Computational Bottleneck}
     \framesubtitle{Why the future of astronomical inference is parallel computing}
-    %@claude -- MCMC == parallel chains isn't quite right here -- this can only in principle parallesise up to 8, so we shouldn't be saying this! talk about emcee instead, and point out that traditional algos like HMC or MCMC can't exploit this
     \begin{columns}
         \column{0.42\textwidth}
         \begin{block}{The Problem}
@@ -271,17 +270,17 @@
         \end{block}
         \vspace{-0.5em}
 
-        \begin{block}{Perfect Match for Inference}
+        \begin{block}{Which Algorithms Can Exploit This?}
             \begin{itemize}
-                \item Nested sampling = many independent live points
-                \item MCMC = parallel chains
-                \item Likelihood evaluations naturally parallel
+                \item Traditional MCMC/HMC: single walker $\to$ \textcolor{red}{no}
+                \item \texttt{emcee}: ensemble of walkers $\to$ \textcolor{green!50!black}{yes}
+                \item Nested sampling: many live points $\to$ \textcolor{green!50!black}{yes}
             \end{itemize}
         \end{block}
         \vspace{-0.5em}
 
         \begin{alertblock}{The Future is GPU}
-            All new HPC facilities are GPU-based. Whether we like it or not, we must adapt our codes.
+            All new HPC facilities are GPU-based. We must adapt our codes.
         \end{alertblock}
     \end{columns}
 \end{frame}
