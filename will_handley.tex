@@ -599,7 +599,33 @@
     \end{columns}
 \end{frame}
 
-    %@claude -- I've been reminded of another case study, where I vibe coded emcee into blackjax in 15 minutes for a talk. We should mention this. The framework was that I was giving a talk where I wanted an equivalent plot for emcee as I did for nested sampling, but it was challenging. I therefore gave claude code the tex of the talk, the tex of the emcee paper, the github emcee repository, the blackjax emcee repository, and asked it to put emcee into blackjax. There is a pull request on blackjax-devs/blackjax which should include that that you can refer to on this extra slide. This was with opus 4.2 [I think -- it would have been the time I was giving the sed fitting talk -- you can get the date from the github repo]
+\begin{frame}
+    \frametitle{Case Study: Vibe Coding \texttt{emcee} into BlackJAX}
+    \framesubtitle{15 minutes to a PR}
+    \begin{columns}[c]
+        \column{0.55\textwidth}
+        \begin{block}{The Problem}
+            Preparing a talk, needed an \texttt{emcee} animation equivalent to my nested sampling one. No GPU implementation existed.
+        \end{block}
+        \begin{block}{The Solution}
+            Gave Claude Code:
+            \begin{itemize}
+                \item The \LaTeX{} of my talk
+                \item The \texttt{emcee} paper (\arxiv{1202.3665})
+                \item The \texttt{emcee} GitHub repository
+                \item The BlackJAX repository
+            \end{itemize}
+            Asked it to implement \texttt{emcee} in BlackJAX.
+        \end{block}
+        \begin{alertblock}{Result}
+            Working PR in 15 minutes. Now under review.\\
+            \small{\tthref{github.com/blackjax-devs/blackjax/pull/797}}
+        \end{alertblock}
+        \column{0.4\textwidth}
+        \centering
+        \textit{[emcee animation placeholder]}
+    \end{columns}
+\end{frame}
 
 \begin{frame}
     \frametitle{The Vision: Solving ``Code Debt''}
