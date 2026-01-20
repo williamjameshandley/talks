@@ -53,7 +53,6 @@
             \end{itemize}
         \end{block}
     \end{columns}
-    \vspace{1em}
     \begin{alertblock}{The Argument}
         These are distinct. One accelerates the \textit{calculation}; the other accelerates the \textit{researcher}. They may be more separable than current discourse implies.
     \end{alertblock}
@@ -65,40 +64,26 @@
 
 \begin{frame}
     \frametitle{Inference Across Astrophysics}
-    \framesubtitle{The same mathematical problem in different guises}
+    \framesubtitle{Parameter estimation and model comparison}
+    \newlength{\figheight}\setlength{\figheight}{3.5cm}
     \begin{columns}[T]
         \column{0.32\textwidth}
         \begin{block}{Cosmology}
-            \textbf{Parameters}: $H_0$, $\Omega_m$, $w$
-            \begin{itemize}
-                \item $\Lambda$CDM vs $w$CDM?
-                \item Is dark energy evolving?
-            \end{itemize}
-            \vspace{5pt}
-            \centering
-            \includegraphics[width=0.9\textwidth]{figures/desi.pdf}
+            \textbf{Estimate}: $H_0$, $\Omega_m$, $w$\\
+            \textbf{Compare}: $\Lambda$CDM vs $w$CDM?\\[0.5em]
+            {\centering\parbox[c][\figheight][c]{0.9\textwidth}{\centering\includegraphics[width=\linewidth,height=\figheight,keepaspectratio]{figures/desi.pdf}}\par}
         \end{block}
         \column{0.32\textwidth}
         \begin{block}{Gravitational Waves}
-            \textbf{Parameters}: masses, spins, sky position
-            \begin{itemize}
-                \item NS-NS vs BH-BH?
-                \item EM follow-up needs localisation
-            \end{itemize}
-            \vspace{5pt}
-            \centering
-            \includegraphics[width=0.9\textwidth]{figures/gw_localisation.jpg}
+            \textbf{Estimate}: $m$, $\chi$, $\theta$, $\phi$\\
+            \textbf{Compare}: NS-NS vs BH-BH?\\[0.5em]
+            {\centering\parbox[c][\figheight][c]{0.9\textwidth}{\centering\includegraphics[width=\linewidth,height=\figheight,keepaspectratio]{figures/gw_localisation.jpg}}\par}
         \end{block}
         \column{0.32\textwidth}
         \begin{block}{Exoplanets}
-            \textbf{Parameters}: period, radius, inclination
-            \begin{itemize}
-                \item How many planets?
-                \item Avoid overfitting noise
-            \end{itemize}
-            \vspace{5pt}
-            \centering
-            \includegraphics[width=0.9\textwidth]{figures/exoplanet.pdf}
+            \textbf{Estimate}: $P$, $R$, $i$\\
+            \textbf{Compare}: $N_\mathrm{planets}$?\\[0.5em]
+            {\centering\parbox[c][\figheight][c]{0.9\textwidth}{\centering\includegraphics[width=\linewidth,height=\figheight,keepaspectratio]{figures/exoplanet.pdf}}\par}
         \end{block}
     \end{columns}
 \end{frame}
@@ -220,7 +205,6 @@
                 \item Essential for model comparison (i.e. science)
             \end{itemize}
         \end{block}
-        \vspace{1em}
         \begin{alertblock}{Key Message}
             If you need to compare physical models, you \textit{must} compute the evidence. Nested sampling is the go-to method.
         \end{alertblock}
@@ -505,7 +489,6 @@
                     \item AI builds tools and infrastructure
                 \end{itemize}
         \end{enumerate}
-        \vspace{1em}
         \begin{alertblock}{The Sweet Spot}
             Supervised execution: Human provides \textbf{intent} + \textbf{verification}. AI provides \textbf{implementation}.
         \end{alertblock}
@@ -564,7 +547,6 @@
                     \item \textbf{MCPs}: Tools that allow AI to read/write files, run code, query databases
                 \end{itemize}
         \end{itemize}
-        \vspace{0.5em}
         \small{Knowledge $\to$ skill. Actions $\to$ MCP.}
         \column{0.4\textwidth}
         \centering
@@ -617,7 +599,6 @@
                     \item Smaller, modular scripts generated on-demand
                 \end{itemize}
         \end{itemize}
-        \vspace{0.5em}
         \begin{alertblock}{Key Message}
             Scientists should define AI for science --- not what big tech gives us
         \end{alertblock}
@@ -652,7 +633,6 @@
                     \end{itemize}
             \end{itemize}
         \end{block}
-        \vspace{0.5em}
         \begin{alertblock}{The Argument (Revisited)}
             These revolutions may be more separable than current discourse implies. Whether that boundary holds remains to be seen.
         \end{alertblock}
