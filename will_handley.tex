@@ -219,10 +219,11 @@
         \begin{block}{Why This Works}
             \begin{itemize}
                 \item Naturally handles \keyterm{multimodality}: the shrinking cloud finds all modes simultaneously.
-                \item Estimates \keyterm{volume} probabilistically --- the only way in high dimensions.
+                \item Estimates \keyterm{volume} probabilistically:
+                    \[\frac{\C[1]{V_\mathrm{after}}}{\C[0]{V_\mathrm{before}}} \approx \frac{\C[1]{n_\mathrm{in}}}{\C[0]{n_\mathrm{out}}+\C[1]{n_\mathrm{in}}}\]
                 \item Computes \C[3]{evidence $\mathcal{Z}$} and \keyterm{information} $\mathcal{D}_\mathrm{KL}$:
+                    \[\C[3]{\log\mathcal{Z}} = \av[{\C[0]{\mathcal{P}}}]{\C[2]{\log\mathcal{L}}} - \mathcal{D}_\text{KL}\]
             \end{itemize}
-            \[\C[3]{\log\mathcal{Z}} = \av[{\C[0]{\mathcal{P}}}]{\C[2]{\log\mathcal{L}}} - \mathcal{D}_\text{KL} \sim \log\frac{\text{\C[1]{Prior volume}}}{\text{\C[0]{Posterior volume}}}\]
         \end{block}
         }
         \column{0.49\textwidth}
