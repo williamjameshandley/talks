@@ -438,7 +438,7 @@
 \end{frame}
 
 \begin{frame}
-    \frametitle{Simulations at scale and the dust law bug}
+    \frametitle{Simulations at scale}
     \framesubtitle{Example 3: Supernovae as standard candles}
     \student{matt_grayling.jpg}{Matt Grayling}{Postdoc}
     \begin{columns}
@@ -448,12 +448,6 @@
                 \item Full SN light-curve simulation pipeline rewritten in JAX.
                 \item CPU legacy code: hundreds of sims/sec. GPU: \textbf{10,000/sec}.
                 \item Validated against DES Y5 to $< 1$ millimag.
-            \end{itemize}
-        \end{block}
-        \begin{block}{The dust law bug}
-            \begin{itemize}
-                \item Validating the JAX rewrite against legacy DES Y5 code revealed a bug: $R_V$ hardcoded to 3.1 in the dust law.
-                \item \textit{Rewriting for GPU forces rigorous validation, which catches errors.}
             \end{itemize}
         \end{block}
         \column{0.46\textwidth}
@@ -468,22 +462,21 @@
     \student{toby_lovick.jpg}{Toby Lovick}{PhD Student}
     \begin{columns}
         \column{0.49\textwidth}
-        \begin{block}{Laplace Approximation + Optimisation}
+        \begin{block}{Laplace Approximation Optimisation}
             \begin{itemize}
-                \item SNe have 100s of latent variables per object (beyond SALT2's 2).
-                \item LAO: optimise to mode, auto-diff the Hessian, marginalise exactly.
-                \item \textbf{25,602-D} likelihood in \textbf{11 minutes}.
+                \item SALT2 standardises with 2 parameters per SN. A physical model could use 100s of measurements per object.
+                \item \textbf{25,602-D} likelihood in \textbf{11 minutes}. NS: $D^3$ $\to$ a decade of H200 time.
             \end{itemize}
         \end{block}
-        \begin{block}{Why this matters}
+        \begin{block}{Autodiff for marginalisation \arxiv{2406.08703}}
             \begin{itemize}
-                \item Nested Sampling at this scale: $D^3$ $\to$ a decade of H200 time.
-                \item Planck needed manual per-parameter derivations. LAO just auto-diffs the forward model.
+                \item Optimise to mode, auto-diff the Hessian, marginalise exactly. Parallelised across objects on GPU.
+                \item No manual derivations --- auto-diffs the forward model. Change the physics, re-run.
             \end{itemize}
         \end{block}
         \column{0.49\textwidth}
-        \includegraphics<1>[width=\textwidth]{figures/toby-lao-scaling.pdf}
-        \includegraphics<2>[width=\textwidth]{figures/toby-lao-colloquium.pdf}
+        \includegraphics<1>[width=\textwidth]{figures/toby-lao-scaling-a.pdf}
+        \includegraphics<2>[width=\textwidth]{figures/toby-lao-scaling-b.pdf}
     \end{columns}
 \end{frame}
 
@@ -491,8 +484,7 @@
 
 \begin{frame}
     \frametitle{21cm Radio Astronomy}
-    \framesubtitle{Sublinear scaling enables new science \arxiv{2509.13394}}
-    \student{sam_leeney.jpg}{Sam Leeney}{PhD Student}
+    \framesubtitle{Sublinear scaling enables new science \arxiv{2210.07409}}
     \begin{columns}
         \column{0.49\textwidth}
         \begin{block}{REACH GPU Pipeline}
@@ -508,7 +500,8 @@
             \end{itemize}
         \end{block}
         \column{0.49\textwidth}
-        \includegraphics[width=\textwidth]{figures/sam-reach-throughput.pdf}
+        \includegraphics<1>[width=\textwidth]{figures/REACH.jpg}
+        \includegraphics<2>[width=\textwidth]{figures/REACH_2.jpeg}
     \end{columns}
 \end{frame}
 
