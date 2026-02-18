@@ -131,20 +131,28 @@
 
 \begin{frame}
     \frametitle{Outline}
-    \framesubtitle{}
-    \begin{enumerate}
-        \item \textbf{GPUs for science}
-            \begin{itemize}
-                \item Four examples: Gravitational Waves, Dark Energy, Supernovae, Radio.
-                \item The method transfers across the department.
-            \end{itemize}
-        \item \textbf{LLMs for scientists}
-            \begin{itemize}
-                \item How we built this in months, not years.
-                \item Verification, legacy code, and new workflows.
-            \end{itemize}
-        \item \textbf{Live Demo \& Closing}
-    \end{enumerate}
+    \begin{columns}[T]
+        \column{0.55\textwidth}
+        \begin{enumerate}
+            \item \textbf{\C[0]{GPUs for science}}
+                \begin{itemize}
+                    \item Gravitational Waves, Dark Energy, Supernovae, Radio
+                    \item The method transfers across the department
+                \end{itemize}
+            \item \textbf{\C[3]{LLMs for scientists}}
+                \begin{itemize}
+                    \item How we built this in months, not years
+                    \item Verification, legacy code, and new workflows
+                \end{itemize}
+            \item \textbf{Live Demo \& Closing}
+        \end{enumerate}
+        \column{0.43\textwidth}
+        \vspace{-0.5em}
+        \includegraphics[width=0.48\textwidth]{figures/gw170817-skymap.jpg}\hfill
+        \includegraphics[width=0.48\textwidth]{figures/desi.pdf}\\[0.3em]
+        \includegraphics[width=0.48\textwidth]{figures/charlotte-starlink.jpg}\hfill
+        \includegraphics[width=0.48\textwidth]{figures/corner.pdf}
+    \end{columns}
 \end{frame}
 
 \begin{frame}
@@ -332,15 +340,16 @@
 \end{frame}
 
 \begin{frame}
-    \frametitle{Verification: JAX-SNANA vs DES Y5}
-    \framesubtitle{The dust law bug}
+    \frametitle{JAX-bandflux and the dust law bug}
+    \framesubtitle{Verification through rewriting}
+    \student{sam_leeney.jpg}{Sam Leeney}{PhD Student}
     \begin{columns}
         \column{0.5\textwidth}
         \begin{itemize}
-            \item \textbf{Scale}: 10,000 light curve sims/sec on A100 (vs hundreds on CPU).
+            \item \textbf{JAX-bandflux}: 123$\times$ speedup over existing SN photometry tools. \arxiv{2504.08081}
+            \item \textbf{JAX-SNANA}: 10,000 light curve sims/sec on A100 (vs hundreds on CPU).
             \item \textbf{Rigour}: Validating JAX rewrite against legacy DES Y5 code ($\Delta < 1$ millimag).
-            \item \textbf{Discovery}: Found a bug in legacy code (hardcoded $R_V=3.1$ in dust law).
-            \item The rewrite forced us to validate carefully, which is how we found the dust-law bug.
+            \item \textbf{Discovery}: Found a bug in legacy code (hardcoded $R_V=3.1$ in dust law). The rewrite forced careful validation.
         \end{itemize}
         \column{0.5\textwidth}
         \includegraphics[width=\textwidth]{figures/matt-jax-snana-benchmark.pdf}
@@ -375,7 +384,7 @@
 % --- MONTAGE ---
 
 \begin{frame}
-    \frametitle{Montage: Satellites}
+    \frametitle{Satellites}
     \framesubtitle{JAX-SGP4, 34$\times$ speedup}
     \student{charlotte_priestley.jpg}{Charlotte Priestley}{PhD Student}
     \begin{center}
@@ -387,7 +396,7 @@
 \end{frame}
 
 \begin{frame}
-    \frametitle{Montage: Quasar Time Delays}
+    \frametitle{Quasar Time Delays}
     \framesubtitle{Robust inference via flexible Gaussian Processes}
     \student{namu_kroupa.jpg}{Namu Kroupa}{PhD Student}
     \begin{center}
@@ -399,7 +408,7 @@
 \end{frame}
 
 \begin{frame}
-    \frametitle{Montage: Instrumentation}
+    \frametitle{Instrumentation}
     \framesubtitle{Fibre allocation for WEAVE}
     \student{farah_wallauer.jpg}{Farah Wallauer}{MPhil Student}
     \begin{center}
@@ -411,7 +420,7 @@
 \end{frame}
 
 \begin{frame}
-    \frametitle{Montage: CMB}
+    \frametitle{CMB}
     \framesubtitle{End-to-end differentiable pipeline}
     \student{lawrence_berry.jpg}{Lawrence Berry}{PhD Student}
     \begin{center}
@@ -423,7 +432,7 @@
 \end{frame}
 
 \begin{frame}
-    \frametitle{Montage: Galaxies}
+    \frametitle{Galaxies}
     \framesubtitle{GPU-accelerated SED generation}
     \student{chris_lovell.jpg}{Chris Lovell}{Postdoc}
     \begin{center}
@@ -435,6 +444,15 @@
 \end{frame}
 
 % --- PART B: LLM REVOLUTION ---
+
+\begin{frame}
+    \begin{center}
+        \vspace{2em}
+        {\Large \C[0]{Part 1: GPUs for science} \hspace{1em} \checkmark}\\[2em]
+        {\Large \C[3]{Part 2: LLMs for scientists}}\\[1em]
+        {\normalsize How we built all of this in months, not years}
+    \end{center}
+\end{frame}
 
 \begin{frame}
     \frametitle{LLMs in practice}
