@@ -158,8 +158,8 @@
         \begin{block}{The Result \arxiv{2509.04336}}
             \begin{itemize}
                 \item GPU Nested Sampling (\texttt{BlackJAX}):
-                \item \textbf{1 GPU} for \textbf{16 seconds}
-                \item Consistent posteriors (KS-test validated)
+                \item \textbf{1 GH200 GPU} for \textbf{$\sim$30 seconds}
+                \item 4\,s of real LIGO data (GW150914), full 15-D parameter space.
             \end{itemize}
         \end{block}
         \column{0.5\textwidth}
@@ -171,9 +171,9 @@
     \frametitle{The Science Win: Low Latency}
     \framesubtitle{Why 16 seconds matters}
     \begin{itemize}
-        \item \textbf{Standard}: 2 hours on a cluster $\to$ Too late for prompt EM follow-up.
-        \item \textbf{GPU}: 16 seconds on one card $\to$ Alerts sent while the event is physically interesting.
-        \item \textbf{Real-time astronomy}: Localisation fast enough for telescopes to catch the afterglow.
+        \item \textbf{Standard}: 60 CPUs for 2 hours $\to$ Too late for prompt EM follow-up.
+        \item \textbf{GPU}: $\sim$30 seconds on one GH200 $\to$ Alerts while the event is physically interesting.
+        \item \textbf{Target}: Sub-4\,s for BBH (with compression). Real-time for BNS signals.
     \end{itemize}
     \vspace{1em}
     \begin{center}
@@ -190,8 +190,8 @@
         \begin{block}{The Bottleneck}
             \begin{itemize}
                 \item \textbf{Intuition}: Waveform generation (physics) is slow.
-                \item \textbf{Reality}: Memory bandwidth for extrinsic parameters (engineering) is the bottleneck on GPU.
-                \item \textbf{Fix}: 32-bit precision for extrinsics, 64-bit for waveforms.
+                \item \textbf{Reality}: Memory bandwidth for extrinsic parameters is the GPU bottleneck.
+                \item \textbf{Key}: Dual-axis parallelisation --- over sampling particles \textit{and} frequencies in the likelihood. Opens a different scaling relation for next-gen detectors.
             \end{itemize}
         \end{block}
         \begin{alertblock}{Myth Check}
@@ -211,17 +211,18 @@
     \begin{columns}
         \column{0.4\textwidth}
         \begin{block}{The Claim}
-            DESI DR1 reported preferences for evolving dark energy ($w_0 w_a$CDM).
+            DESI reported $3.1\sigma$ preference for evolving dark energy ($w_0 w_a$CDM).
         \end{block}
-        \begin{block}{The Reanalysis \arxiv{2511.04661}}
+        \begin{block}{Bayesian Reanalysis \arxiv{2511.04661}}
             \begin{itemize}
                 \item 248 model/dataset combinations
-                \item Full Bayesian model comparison
-                \item \textbf{Result}: Signal is weaker than reported; $\Lambda$CDM preferred when combined with CMB.
+                \item Bayesian Ockham's razor: weaker or opposite preferences vs frequentist.
+                \item \textbf{Result}: $\Lambda$CDM still favoured with CMB. The apparent DE signal is driven by \alert{inter-dataset tensions} (DESI vs DES-Y5 $\sim 3\sigma$).
             \end{itemize}
         \end{block}
         \column{0.6\textwidth}
-        \includegraphics[width=\textwidth]{figures/dily-tension-heatmap.pdf}
+        \only<1>{\includegraphics[width=\textwidth]{figures/dily-tension-heatmap.pdf}}
+        \only<2>{\includegraphics[width=\textwidth]{figures/dily-tension-sigma.pdf}}
     \end{columns}
 \end{frame}
 
@@ -244,24 +245,25 @@
 
 \begin{frame}
     \frametitle{What Speed Bought Us}
-    \framesubtitle{Exploring the posterior geometry}
+    \framesubtitle{Marginalising latent variables at scale}
     \student{toby_lovick.jpg}{Toby Lovick}{PhD Student}
     \begin{columns}
         \column{0.5\textwidth}
-        \begin{block}{Flexnot Parametrisation}
+        \begin{block}{Laplace Approximation + Optimisation}
             \begin{itemize}
-                \item Beyond standard $w_0/w_a$.
-                \item Allows us to find ``kinks'' in the dark energy evolution that simpler models miss.
-                \item Only feasible because GPU nested sampling makes the computation practical.
+                \item SNe have 100s of latent variables per object (beyond SALT2's 2).
+                \item LAO: optimise to mode, auto-diff the Hessian, marginalise exactly.
+                \item \textbf{25,602-D} likelihood in \textbf{11 minutes}.
             \end{itemize}
         \end{block}
-        \begin{block}{The Enabler}
+        \begin{block}{Why This Matters}
             \begin{itemize}
-                \item Toby's GPU Nested Sampling (300$\times$ faster than CPU PolyChord).
+                \item Nested Sampling at this scale: $D^3$ $\to$ a decade of H200 time.
+                \item Planck needed manual per-parameter derivations. LAO just auto-diffs the forward model.
             \end{itemize}
         \end{block}
         \column{0.5\textwidth}
-        \includegraphics[width=\textwidth]{figures/adam-flexnot-posterior.pdf}
+        \includegraphics[width=\textwidth]{figures/toby-lao-scaling.pdf}
     \end{columns}
 \end{frame}
 
@@ -308,23 +310,22 @@
 
 \begin{frame}
     \frametitle{Vignette 4: 21cm Radio Astronomy}
-    \framesubtitle{The pipeline that was ``fast enough'' becomes transformative}
+    \framesubtitle{Sublinear scaling enables new science}
     \student{sam_leeney.jpg}{Sam Leeney}{PhD Student}
     \begin{columns}
         \column{0.5\textwidth}
-        \begin{block}{REACH Pipeline}
+        \begin{block}{REACH GPU Pipeline}
             \begin{itemize}
-                \item \textbf{5000$\times$ Speedup}
-                \item One year of data processed in one hour.
+                \item $\mathcal{O}(N^{0.13})$ scaling for likelihood evaluations.
+                \item $\sim$0.15\,ms per likelihood call for a full year of data ($\sim 10^5$ observations).
             \end{itemize}
         \end{block}
-        \begin{block}{FRB Analysis}
+        \begin{block}{Bayesian Anomaly Detection}
             \begin{itemize}
-                \item 8 days $\to$ 10 minutes.
+                \item Full year of real REACH data: $\sim$1 hour on one GPU.
+                \item Anomalies correlate with LST, time of night, season --- fully automatic, no manual flagging.
             \end{itemize}
         \end{block}
-        \vspace{1em}
-        The difference is qualitative: from ``wait for the run'' to ``iterate the science''.
         \column{0.5\textwidth}
         \includegraphics[width=\textwidth]{figures/sam-reach-throughput.pdf}
     \end{columns}
@@ -345,38 +346,26 @@
 \end{frame}
 
 \begin{frame}
-    \frametitle{Montage: Materials}
-    \framesubtitle{GPU nested sampling beyond astronomy}
+    \frametitle{Montage: Quasar Time Delays}
+    \framesubtitle{Robust inference via flexible Gaussian Processes}
     \student{namu_kroupa.jpg}{Namu Kroupa}{PhD Student}
     \begin{center}
         \includegraphics[height=0.7\textheight,keepaspectratio]{figures/namu-atoms.png}
     \end{center}
     \begin{center}
-        \textbf{Lennard-Jones}: 1000-atom phase transitions via GPU nested sampling.
-    \end{center}
-\end{frame}
-
-\begin{frame}
-    \frametitle{Montage: Quasars}
-    \framesubtitle{150$\times$ speedup for GP inference}
-    \student{alex_drane.jpg}{Alex Drane}{PhD Student}
-    \begin{center}
-        \includegraphics[height=0.7\textheight,keepaspectratio]{figures/alex-quasar.pdf}
-    \end{center}
-    \begin{center}
-        \textbf{Time Delays}: 150$\times$ speedup on T4 GPUs for Gaussian Process inference.
+        Marginalising over GP kernels with nested sampling makes time-delay inference robust to modelling assumptions. \textit{(with Alex Drane: 150$\times$ GPU speedup.)}
     \end{center}
 \end{frame}
 
 \begin{frame}
     \frametitle{Montage: Instrumentation}
-    \framesubtitle{GPU geometric optimisation}
+    \framesubtitle{Fibre allocation for WEAVE}
     \student{farah_wallauer.jpg}{Farah Wallauer}{MPhil Student}
     \begin{center}
         \includegraphics[height=0.7\textheight,keepaspectratio]{figures/farah-weave.pdf}
     \end{center}
     \begin{center}
-        \textbf{WEAVE}: Geometric collision optimisation on GPU to maximise survey efficiency.
+        \textbf{WEAVE}: 168 retractors, $\sim$1000 fibres --- collision-free assignment to maximise survey efficiency.
     \end{center}
 \end{frame}
 
@@ -388,7 +377,7 @@
         \includegraphics[height=0.7\textheight,keepaspectratio]{figures/lawrence-cmb-field.png}
     \end{center}
     \begin{center}
-        \textbf{End-to-End}: Differentiable Boltzmann solver + likelihood. No approximations.
+        \textbf{DISCO}: GPU-based, auto-differentiable CMB power spectrum --- as accurate as CAMB, enabling gradient-accelerated inference.
     \end{center}
 \end{frame}
 
@@ -400,7 +389,7 @@
         \includegraphics[height=0.7\textheight,keepaspectratio]{figures/chris-synthesizer.pdf}
     \end{center}
     \begin{center}
-        \textbf{Synthesizer}: GPU-accelerated SED generation for simulation-based inference.
+        \textbf{Synthesizer}: Forward modelling galaxy emission. \textbf{Synference}: SBI for SED fitting --- orders of magnitude faster, full posteriors, applications for Euclid.
     \end{center}
 \end{frame}
 
@@ -450,14 +439,15 @@
 
 \begin{frame}
     \frametitle{LLMs as Quality Assurance}
-    \framesubtitle{Navigating the unmanageable}
+    \framesubtitle{Navigating legacy codebases}
     \student{sinah_legner.jpg}{Sinah Legner}{PhD Student}
     \begin{columns}
-        \column{0.6\textwidth}
-        \begin{block}{Sinah: Poincaré Gauge Theory in CAMB}
+        \column{0.55\textwidth}
+        \begin{block}{Sinah: Torsion Condensation in CAMB \arxiv{2507.09228}}
             \begin{itemize}
-                \item Modify background evolution for torsional gravity in legacy Fortran.
-                \item LLMs enabled navigation of a codebase she didn't write.
+                \item LLM as ``interactive documentation'' for CAMB: mapping connections between files and underlying physics.
+                \item Found $N_\mathrm{eff}$ double-counting bug (modifying effective neutrinos would double-count TorC's dark energy contribution).
+                \item Identified missing massive neutrino evolution when results looked inconsistent.
             \end{itemize}
         \end{block}
         \begin{block}{Will: CosmoSIS $\to$ Cobaya}
@@ -465,8 +455,9 @@
                 \item Porting DES Y3/Y6 likelihoods between two large, unfamiliar frameworks.
             \end{itemize}
         \end{block}
-        \column{0.4\textwidth}
-        \includegraphics[width=\textwidth]{figures/sinah-code-diff.pdf}
+        \column{0.45\textwidth}
+        \only<1>{\includegraphics[width=\textwidth]{figures/sinah-before-claude.pdf}}
+        \only<2>{\includegraphics[width=\textwidth]{figures/sinah-code-diff.pdf}}
     \end{columns}
 \end{frame}
 
@@ -528,8 +519,8 @@
         \student{natalie_hogg.jpg}{Natalie Hogg}{Postdoc}
         \begin{block}{Optimisation (Natalie Hogg)}
             \begin{itemize}
-                \item Covariance matrix: 2 days $\to$ 1 minute.
-                \item LLM suggested a fundamentally different algorithm (Quasi-Monte Carlo + Numba JIT).
+                \item Covariance matrix: 24 hours $\to$ 1--2 minutes.
+                \item Claude identified vectorisation, JIT-compilation, and quasi-Monte Carlo integration opportunities.
             \end{itemize}
         \end{block}
         \begin{block}{Archive Grabber (Toby Lovick)}
@@ -547,7 +538,7 @@
         \end{block}
         \begin{block}{Portability (Sam Leeney)}
             \begin{itemize}
-                \item REACH anomaly detection ported to ZTF Supernovae in hours.
+                \item REACH anomaly detection $\to$ ZTF Supernovae via JAX-bandflux (123$\times$ speedup). \arxiv{2504.08081}
             \end{itemize}
         \end{block}
     \end{columns}
