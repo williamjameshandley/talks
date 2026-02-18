@@ -233,7 +233,6 @@
 \begin{frame}
     \frametitle{Where the speed comes from}
     \framesubtitle{Memory bandwidth, not waveform generation}
-    \student{david_yallup.jpg}{David Yallup}{Postdoc}
     \begin{columns}
         \column{0.55\textwidth}
         \begin{block}{The Bottleneck}
@@ -243,9 +242,6 @@
                 \item \textbf{Key}: Dual-axis parallelisation --- over sampling particles \textit{and} frequencies in the likelihood. Opens a different scaling relation for next-gen detectors.
             \end{itemize}
         \end{block}
-        \begin{alertblock}{Empirical comparison \arxiv{2511.15196}}
-            In Lattice Field Theory benchmarks, classical SMC on GPU matches or beats Flow-Matching neural samplers in wall-time for the same accuracy --- and estimates the partition function.
-        \end{alertblock}
         \column{0.45\textwidth}
         \includegraphics[width=\textwidth]{figures/metha-precision-scaling.pdf}
     \end{columns}
@@ -277,18 +273,18 @@
 
 \begin{frame}
     \frametitle{JAX reimplementation of the Boltzmann pipeline}
-    \framesubtitle{Days to minutes}
+    \framesubtitle{DESI DR2 + DES-5Y: $w(a)$ reconstruction}
     \student{adam_ormondroyd.jpg}{Adam Ormondroyd}{PhD Student}
     \begin{columns}
         \column{0.5\textwidth}
         \begin{itemize}
             \item \textbf{Bottleneck}: Standard Boltzmann codes (CAMB/CLASS) + CPU samplers take days for one model.
-            \item \textbf{Solution}: Reimplemented pipeline in JAX.
+            \item \textbf{Solution}: Reimplemented pipeline in JAX (Dovekie).
             \item \textbf{Speedup}: Analysis days $\to$ minutes.
-            \item \textbf{Consequence}: Can run hundreds of robustness checks (priors, parameterisations) that were previously impossible.
+            \item \textbf{Consequence}: Can run 20 model complexities $\times$ multiple dataset combinations --- previously impossible.
         \end{itemize}
         \column{0.5\textwidth}
-        \includegraphics[width=\textwidth]{figures/adam-jax-speedup.pdf}
+        \includegraphics[width=\textwidth]{figures/bijector_20_wa.pdf}
     \end{columns}
 \end{frame}
 
@@ -443,6 +439,22 @@
     \end{center}
 \end{frame}
 
+\begin{frame}
+    \frametitle{Lattice Field Theory}
+    \framesubtitle{Classical samplers on GPU vs neural samplers \arxiv{2511.15196}}
+    \student{david_yallup.jpg}{David Yallup}{Postdoc}
+    \begin{columns}
+        \column{0.55\textwidth}
+        \begin{itemize}
+            \item Sequential Monte Carlo on GPU matches or beats Flow-Matching neural samplers in wall-time for the same accuracy.
+            \item Also estimates the partition function (the normalising constant).
+            \item The same nested sampling / SMC machinery transfers to a very different domain.
+        \end{itemize}
+        \column{0.45\textwidth}
+        % TODO: David's lattice figure
+    \end{columns}
+\end{frame}
+
 % --- PART B: LLM REVOLUTION ---
 
 \begin{frame}
@@ -566,7 +578,7 @@
     \end{columns}
     \vspace{1em}
     \begin{center}
-        \textit{``Matt's dust law bug was found because rewriting for GPU forces rigorous validation.''}
+        \textit{``The dust law bug was found because Sam's GPU rewrite forced rigorous validation.''}
     \end{center}
 \end{frame}
 
@@ -646,7 +658,7 @@
         \column{0.5\textwidth}
         \begin{alertblock}{Our Experience}
             \begin{itemize}
-                \item Matt's dust law bug: found \textit{because} rewriting for GPU forced rigorous validation.
+                \item The dust law bug: found \textit{because} Sam's GPU rewrite forced rigorous validation.
                 \item LLMs make wrong code easy. Testing makes it detectable.
                 \item The scientific method applied to software.
             \end{itemize}
