@@ -508,12 +508,16 @@
 % --- MONTAGE ---
 
 \begin{frame}
-    \frametitle{Satellites}
+    \frametitle{Satellites [GLITTER]}
     \framesubtitle{JAX-SGP4: GPU-accelerated orbit propagation}
     \student{charlotte_priestley.jpg}{Charlotte Priestley}{PhD Student}
-    \begin{center}
-        \includegraphics[height=0.65\textheight,keepaspectratio]{figures/charlotte-scaling.pdf}
-    \end{center}
+    \vspace{-0.5em}
+    \begin{columns}[T]
+        \column{0.38\textwidth}
+        \includegraphics[width=\textwidth]{figures/charlotte-starlink-trajectories.png}
+        \column{0.58\textwidth}
+        \includegraphics[width=\textwidth]{figures/charlotte-heatmap.pdf}
+    \end{columns}
     \begin{center}
         \textbf{JAX-SGP4}: Propagating 9,550 Starlink satellites in 0.5\,ms. \alert{1550$\times$ speedup} on A100.
     \end{center}
@@ -524,7 +528,7 @@
     \framesubtitle{Robust inference via flexible Gaussian Processes}
     \student{namu_kroupa.jpg}{Namu Kroupa}{PhD Student}
     \begin{center}
-        \includegraphics[height=0.7\textheight,keepaspectratio]{figures/namu-atoms.png}
+        \includegraphics[height=0.6\textheight,keepaspectratio]{figures/namu-atoms.png}
     \end{center}
     \begin{center}
         Marginalising over GP kernels with nested sampling makes time-delay inference robust to modelling assumptions. \textit{(with Alex Drane: 150$\times$ GPU speedup.)}
@@ -536,7 +540,7 @@
     \framesubtitle{Fibre allocation for WEAVE}
     \student{farah_wallauer.jpg}{Farah Wallauer}{MPhil Student}
     \begin{center}
-        \includegraphics[height=0.7\textheight,keepaspectratio]{figures/farah-weave.pdf}
+        \includegraphics[height=0.6\textheight,keepaspectratio]{figures/farah-weave.pdf}
     \end{center}
     \begin{center}
         \textbf{WEAVE}: 168 retractors, $\sim$1000 fibres --- collision-free assignment via JAX on GPU. \alert{60$\times$ speedup} over C++ simulated annealing.
@@ -553,22 +557,6 @@
     \begin{center}
         \textbf{Synthesizer}: Forward modelling galaxy emission. \textbf{Synference}: SBI for SED fitting --- orders of magnitude faster, full posteriors, applications for Euclid.
     \end{center}
-\end{frame}
-
-\begin{frame}
-    \frametitle{Lattice Field Theory}
-    \framesubtitle{Classical samplers on GPU vs neural samplers \arxiv{2511.15196}}
-    \student{david_yallup.jpg}{David Yallup}{Postdoc}
-    \begin{columns}
-        \column{0.54\textwidth}
-        \begin{itemize}
-            \item Sequential Monte Carlo on GPU matches or beats Flow-Matching neural samplers in wall-time for the same accuracy.
-            \item Also estimates the partition function (the normalising constant).
-            \item The same nested sampling / SMC machinery transfers to a very different domain.
-        \end{itemize}
-        \column{0.44\textwidth}
-        % TODO: David's lattice figure
-    \end{columns}
 \end{frame}
 
 % --- PART B: LLM REVOLUTION ---
@@ -668,7 +656,7 @@
             \end{itemize}
         \end{block}
         \column{0.40\textwidth}
-        \includegraphics[width=\textwidth]{figures/weining-cmb-diff.pdf}
+        \includegraphics[width=\textwidth]{figures/weining-cylinder.pdf}
     \end{columns}
 \end{frame}
 
@@ -821,15 +809,6 @@
     \begin{center}
         \tthref{handley-lab.co.uk/nested-sampling-book} \hfill \github{handley-lab/group}
     \end{center}
-\end{frame}
-
-\begin{frame}
-    \frametitle{Outlook}
-    \framesubtitle{CCDs enabled large digital surveys. GPUs make the inference pipeline fast enough to run routinely.}
-    \begin{center}
-        \includegraphics[height=0.85\textheight,keepaspectratio]{figures/charlotte-starlink.png}
-    \end{center}
-    \student{charlotte_priestley.jpg}{Charlotte Priestley}{PhD Student}
 \end{frame}
 
 \end{document}
