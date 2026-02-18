@@ -19,18 +19,48 @@
 
 % Talk details
 % ------------
-\title{Two Revolutions: GPUs for Science, AI for Scientists}
-\date{20\textsuperscript{th} January 2026}
+\title{The New Scientific Method}
+\date{19\textsuperscript{th} February 2026}
 
 \begin{document}
+
+% --- TITLE ---
 
 \begin{frame}
     \titlepage
 \end{frame}
 
-% =============================================================================
-% PART 1: THE TWO REVOLUTIONS
-% =============================================================================
+% --- OPENING ---
+
+\begin{frame}
+    \frametitle{The CCD Analogy}
+    \framesubtitle{A change in how we capture data $\to$ a change in how we analyse it}
+    \begin{columns}
+        \column{0.48\textwidth}
+        \begin{block}{1990s: Observation}
+            \begin{itemize}
+                \item \keyterm{Photographic Plates} $\to$ \keyterm{CCDs}
+                \item Digital sky surveys (SDSS)
+                \item Precision photometry
+                \item Multi-object spectroscopy
+            \end{itemize}
+        \end{block}
+        \column{0.48\textwidth}
+        \begin{block}{2020s: Analysis}
+            \begin{itemize}
+                \item \keyterm{CPUs} $\to$ \keyterm{GPUs}
+                \item \keyterm{Manual Coding} $\to$ \keyterm{LLM-Assisted}
+                \item Comparing hundreds of models
+                \item Marginalising over systematics
+                \item Real-time inference
+            \end{itemize}
+        \end{block}
+    \end{columns}
+    \vspace{1em}
+    \begin{center}
+        \textit{We are currently treating GPUs like faster CPUs.\\We need to treat them like a new instrument.}
+    \end{center}
+\end{frame}
 
 \begin{frame}
     \frametitle{Two Revolutions}
@@ -40,670 +70,553 @@
         \begin{block}{\C[0]{Revolution 1: GPUs for Science}}
             \begin{itemize}
                 \item GPU hardware (developed for ML) accelerates \textit{classical} statistical methods
-                \item Nested sampling speedups of 100--1000$\times$
+                \item Speedups of $100\times$--$5000\times$
                 \item Rigorous Bayesian inference at previously impractical scales
             \end{itemize}
         \end{block}
         \column{0.48\textwidth}
-        \begin{block}{\C[3]{Revolution 2: AI for Scientists}}
+        \begin{block}{\C[3]{Revolution 2: LLMs for Scientists}}
             \begin{itemize}
-                \item LLMs change how we write code and manage research
+                \item Large Language Models change how we write code and manage research
                 \item Not automating the science itself
-                \item Reducing the technical overhead that consumes researcher time
+                \item Reducing the technical overhead (verification is the new bottleneck)
             \end{itemize}
         \end{block}
     \end{columns}
     \begin{alertblock}{The Argument}
-        These are distinct. One accelerates the \textit{calculation}; the other accelerates the \textit{researcher}. They may be more separable than current discourse implies.
-    \end{alertblock}
-\end{frame}
-
-% =============================================================================
-% PART 2: GPU REVOLUTION - THE INFERENCE PROBLEM
-% =============================================================================
-
-\begin{frame}
-    \frametitle{Inference Across Astrophysics}
-    \framesubtitle{Parameter estimation and model comparison}
-    \newlength{\figheight}\setlength{\figheight}{3.5cm}
-    \vspace{-5pt}
-    \begin{alertblock}{}
-        $\displaystyle\C[0]{\mathcal{P}(\theta|D)} = \frac{\C[2]{\mathcal{L}(D|\theta)}\C[1]{\pi(\theta)}}{\C[3]{\mathcal{Z}}}$ \hfill
-        \textbf{Estimate}: Compute \C[0]{posterior} $\C[0]{\mathcal{P}(\theta|D)}$ \hfill
-        \textbf{Compare}: \C[3]{evidences} $\C[3]{\mathcal{Z}_1/\mathcal{Z}_2}$
-    \end{alertblock}
-    \vspace{-10pt}
-    \begin{columns}[T]
-        \column{0.32\textwidth}
-        \begin{block}{Cosmology}
-            \textbf{Estimate}: $H_0$, $\Omega_m$, $w$\\
-            \textbf{Compare}: $\Lambda$CDM vs $w$CDM?\\[0.5em]
-            {\centering\parbox[c][\figheight][c]{0.9\textwidth}{\centering\includegraphics[width=\linewidth,height=\figheight,keepaspectratio]{figures/desi.pdf}}\par}
-        \end{block}
-        \column{0.32\textwidth}
-        \begin{block}{Gravitational Waves}
-            \textbf{Estimate}: $m$, $\chi$, $\theta$, $\phi$\\
-            \textbf{Compare}: NS-NS vs BH-BH?\\[0.5em]
-            {\centering\parbox[c][\figheight][c]{0.9\textwidth}{\centering\includegraphics[width=\linewidth,height=\figheight,keepaspectratio]{figures/gw_localisation.jpg}}\par}
-        \end{block}
-        \column{0.32\textwidth}
-        \begin{block}{Exoplanets}
-            \textbf{Estimate}: $P$, $R$, $i$\\
-            \textbf{Compare}: $N_\mathrm{planets}$?\\[0.5em]
-            {\centering\parbox[c][\figheight][c]{0.9\textwidth}{\centering\includegraphics[width=\linewidth,height=\figheight,keepaspectratio]{figures/exoplanet.pdf}}\par}
-        \end{block}
-    \end{columns}
-\end{frame}
-
-\begin{frame}
-    \frametitle{The Common Challenge: Complex Parameter Spaces}
-    \framesubtitle{Why these problems are statistically hard}
-    \vspace{-5pt}
-    \newlength{\challengeheight}\setlength{\challengeheight}{3.8cm}
-    \begin{columns}[T]
-        \column{0.31\textwidth}
-        \begin{block}{\keyterm{High-Dimensional}}
-            \parbox[t][\challengeheight][t]{\linewidth}{%
-            \textbf{Many parameters to infer}
-            \begin{itemize}
-                \item Cosmo: 6+ params + nuisance
-                \item GW: 15+ parameters
-                \item EP: $\sim$5--10/planet
-            \end{itemize}
-            \vspace{3pt}
-            \textit{Challenge}: Volume grows exponentially with dimension}
-        \end{block}
-        \column{0.35\textwidth}
-        \begin{block}{\keyterm{Degenerate}}
-            \parbox[t][\challengeheight][t]{\linewidth}{%
-            \textbf{Parameters strongly correlated}%
-            \begin{itemize}
-                \item Cosmo: $H_0$--$\Omega_m$ banana
-                \item GW: Mass-distance degeneracy
-                \item EP: Eccentricity-period
-            \end{itemize}
-            \vspace{3pt}
-            \textit{Challenge}: Correlated directions hard to explore}
-        \end{block}
-        \column{0.31\textwidth}
-        \begin{block}{\keyterm{Multimodal}}
-            \parbox[t][\challengeheight][t]{\linewidth}{%
-            \textbf{Multiple distinct solutions}
-            \begin{itemize}
-                \item Cosmo: Tensions $\to$ separated modes
-                \item GW: Bimodal inclination
-                \item EP: Orbital period aliases
-            \end{itemize}
-            \vspace{3pt}
-            \textit{Challenge}: Easy to miss plausible explanations}
-        \end{block}
-    \end{columns}
-    \vspace{-3pt}
-    \begin{alertblock}{Key Message}
-        These three features make inference computationally expensive and require sophisticated statistical methods [MCMC, HMC, SMC, Nested Sampling]
+        Classical methods on GPUs are scientifically profound. LLMs are what make building them possible.
     \end{alertblock}
 \end{frame}
 
 \begin{frame}
-    \frametitle{Why do sampling?}
-    \begin{columns}[T]
-        \column{0.5\textwidth}
-        \begin{itemize}
-            \item The cornerstone of numerical Bayesian inference is working with \textbf{samples}.
-            \item Generate a set of representative parameters drawn in proportion to the posterior $\theta\sim\mathcal{P}$.
-            \item The magic of marginalisation $\Rightarrow$ perform usual analysis on each sample in turn.
-            \item The golden rule is \textbf{stay in samples} until the last moment before computing summary statistics/triangle plots because \[\boxed{f(\:\av{X}\:)\ne \av{\:f(X)\:}}\]
-            \item Generally need $\sim\mathcal{O}(12)$ independent samples to compute a value and error bar.
-        \end{itemize}
-        \column{0.5\textwidth}
-        \vspace{-1.8em}
-        \begin{center}
-            \includegraphics[width=\textwidth]{figures/himmelblau_samples.pdf}
-        \end{center}
-    \end{columns}
-\end{frame}
-
-\begin{frame}
-    \frametitle{Sampling Methods: A Brief Tour}
-    \begin{columns}[T]
-        \column{0.48\textwidth}
-        \begin{block}{MCMC (e.g. \texttt{emcee})}
-            \begin{itemize}
-                \item Random walk explores posterior
-                \item Good for simple, well-behaved posteriors
-                \item Can get stuck in local modes
-                \item Posterior samples only
-            \end{itemize}
-        \end{block}
-        \begin{block}{HMC/NUTS (e.g. \texttt{stan}, \texttt{numpyro})}
-            \begin{itemize}
-                \item Uses gradients to guide exploration
-                \item Much more efficient for smooth posteriors
-                \item Requires differentiable likelihoods
-                \item Posterior samples only
-            \end{itemize}
-        \end{block}
-        \column{0.48\textwidth}
-        \begin{block}{Nested Sampling (e.g. \texttt{dynesty})}
-            \begin{itemize}
-                \item Explores from outside-in
-                \item Naturally handles multimodality
-                \item \textcolor{green!50!black}{Computes Bayesian Evidence}
-                \item Essential for model comparison (i.e. science)
-            \end{itemize}
-        \end{block}
-        \begin{alertblock}{}
-            \textit{``The evidence $\mathcal{Z}$ is often the single most important number in the problem and I think every effort should be devoted to calculating it.''} \hfill --- MacKay (2003)
-        \end{alertblock}
-    \end{columns}
-\end{frame}
-
-\begin{frame}
-    \frametitle{Nested Sampling}
-    \framesubtitle{Exploring from the outside-in}
-    \begin{columns}[T]
-        \column{0.5\textwidth}
-        \vspace{-10pt}
-        \only<1-8>{
-        \begin{block}{A Radically Different Approach}
-            Instead of random walking, nested sampling attacks the problem from the outside-in.
-            \begin{enumerate}
-                \item Start with a set of ``live points'' scattered across the entire \keyterm{prior}.
-                \item At each step: find the point with the \textit{worst} likelihood and discard it.
-                \item Replace it with a new point drawn from the prior, but with a likelihood \textit{better} than the point you just discarded.
-                \item This forces the set of live points to continuously ``shrink'' into regions of higher and higher likelihood.
-            \end{enumerate}
-        \end{block}
-        }
-        \only<9>{
-        \begin{block}{Why This Works}
-            \begin{itemize}
-                \item Naturally handles \keyterm{multimodality}: the shrinking cloud finds all modes simultaneously.
-                \item Estimates \keyterm{volume} probabilistically:
-                    \[\frac{\C[1]{V_\mathrm{after}}}{\C[0]{V_\mathrm{before}}} \approx \frac{\C[1]{n_\mathrm{in}}}{\C[0]{n_\mathrm{out}}+\C[1]{n_\mathrm{in}}}\]
-                \item Computes \C[3]{evidence $\mathcal{Z}$} and \keyterm{information} $\mathcal{D}_\mathrm{KL}$:
-                    \[\C[3]{\log\mathcal{Z}} = \av[{\C[0]{\mathcal{P}}}]{\C[2]{\log\mathcal{L}}} - \mathcal{D}_\text{KL}\]
-            \end{itemize}
-        \end{block}
-        }
-        \column{0.49\textwidth}
-        \vspace{-1.8em}
-        \begin{center}
-            \includegraphics<1>[width=\textwidth,page=1]{figures/himmelblau_ns.pdf}%
-            \includegraphics<2>[width=\textwidth,page=2]{figures/himmelblau_ns.pdf}%
-            \includegraphics<3>[width=\textwidth,page=3]{figures/himmelblau_ns.pdf}%
-            \includegraphics<4>[width=\textwidth,page=4]{figures/himmelblau_ns.pdf}%
-            \includegraphics<5>[width=\textwidth,page=5]{figures/himmelblau_ns.pdf}%
-            \includegraphics<6>[width=\textwidth,page=6]{figures/himmelblau_ns.pdf}%
-            \includegraphics<7>[width=\textwidth,page=7]{figures/himmelblau_ns.pdf}%
-            \includegraphics<8->[width=\textwidth,page=8]{figures/himmelblau_ns.pdf}%
-        \end{center}
-    \end{columns}
-\end{frame}
-
-% =============================================================================
-% PART 2: GPU REVOLUTION - THE SOLUTION
-% =============================================================================
-
-\begin{frame}
-    \frametitle{The Computational Bottleneck}
-    \framesubtitle{Why the future of astronomical inference is parallel computing}
-    \begin{columns}
-        \column{0.42\textwidth}
-        \begin{block}{The Problem}
-            \begin{itemize}
-                \item Nested sampling is powerful but \textbf{slow}
-                \item Complex parameter spaces require many likelihood evaluations
-                \item Traditional CPU approaches struggle to scale
-            \end{itemize}
-        \end{block}
-
-        \begin{center}
-            \includegraphics[width=0.9\textwidth]{figures/gpu_vs_cpu.jpg}
-        \end{center}
-
-        \column{0.54\textwidth}
-        \vspace{-1em}
-        \begin{block}{CPU vs GPU: Different Approaches}
-            \begin{itemize}
-                \item \textbf{CPU}: Few powerful cores ($\sim$10s), sequential tasks
-                \item \textbf{GPU}: Many simple cores ($\sim$1000s), parallel tasks
-            \end{itemize}
-        \end{block}
-        \vspace{-0.5em}
-
-        \begin{block}{Which Algorithms Can Exploit This?}
-            \begin{itemize}
-                \item Traditional MCMC/HMC: single walker $\to$ \textcolor{red}{no}
-                \item \texttt{emcee}: ensemble of walkers $\to$ \textcolor{green!50!black}{yes}
-                \item Nested sampling: many live points $\to$ \textcolor{green!50!black}{yes}
-            \end{itemize}
-        \end{block}
-        \vspace{-0.5em}
-
-        \begin{alertblock}{The Future is GPU}
-            All new HPC facilities are GPU-based. We must adapt our codes.
-        \end{alertblock}
-    \end{columns}
-\end{frame}
-
-\begin{frame}
-    \frametitle{Two Independent Capabilities}
-    \framesubtitle{A common misconception in scientific computing}
+    \frametitle{The North Star}
+    \framesubtitle{Why speed is scientifically profound}
     \begin{center}
-        \textbf{Differentiable programming languages}: JAX, PyTorch, TensorFlow, Julia, Stan, \ldots
+        \Large
+        \keyterm{Speed} $\longrightarrow$ \keyterm{Systematics} $\longrightarrow$ \keyterm{Evidence} $\longrightarrow$ \keyterm{Reproducibility}
     \end{center}
-    \vspace{-5pt}
-    \begin{columns}
-        \column{0.48\textwidth}
-        \begin{block}{Capability 1: Free Gradients}
-            \begin{itemize}
-                \item \textbf{Automatic differentiation}: $\nabla_\theta \log \mathcal{L}(\theta)$.
-                \item Enables gradient-based MCMC (HMC, NUTS).
-                \item Essential for modern optimization.
-            \end{itemize}
-        \end{block}
-        \begin{block}{Traditional Physics Benefits}
-            \begin{itemize}
-                \item \textbf{Nested sampling}: Massive parallelization.
-                \item \textbf{21cm signals}: Vectorized across frequency/time/angle.
-                \item \textbf{N-body sims}: GPU acceleration.
-            \end{itemize}
-        \end{block}
-        \column{0.48\textwidth}
-        \begin{block}{Capability 2: GPU Parallelization}
-            \begin{itemize}
-                \item \textbf{Vectorization across ensembles}.
-                \item Run 1000s of parallel chains/particles.
-                \item Evaluate likelihoods simultaneously.
-            \end{itemize}
-        \end{block}
-        \begin{block}{Key Insight: Often Confused}
-            \begin{center}
-                \textbf{These are completely independent.}\\
-                \textbf{People mistake one for the other.}\\
-                You can use gradients on CPU.\\
-                You can GPU parallelize without gradients.\\
-                \textbf{They serve different purposes.}
-            \end{center}
-        \end{block}
-    \end{columns}
+    \vspace{1em}
+    \begin{itemize}
+        \item \textbf{Speed}: If your likelihood takes 1s, you can do parameter estimation. If it takes 1ms, you can do \dots
+        \item \textbf{Systematics}: Marginalise over 100+ nuisance parameters rather than fixing them.
+        \item \textbf{Model Comparison}: Full Bayesian model comparison ($\mathcal{Z}$) between non-nested models.
+        \item \textbf{Reproducibility}: If an analysis takes 10 minutes, everyone can run it. If it takes 6 months, it becomes dogma.
+    \end{itemize}
 \end{frame}
 
 \begin{frame}
-    \frametitle{BlackJAX: GPU Native Sampling}
-    \framesubtitle{A unified framework for GPU-accelerated inference}
-    \student{david_yallup}{David Yallup}{Postdoc}
+    \frametitle{The Roadmap}
+    \framesubtitle{Two parts, four vignettes, one conclusion}
+    \begin{enumerate}
+        \item \textbf{Part A: The Science (GPU Revolution)}
+            \begin{itemize}
+                \item Four Vignettes: Gravitational Waves, Dark Energy, Supernovae, Radio.
+                \item Montage: The method transfers across the department.
+            \end{itemize}
+        \item \textbf{Part B: The Method (LLM Revolution)}
+            \begin{itemize}
+                \item How we built this in months, not years.
+                \item Verification, legacy code, and new workflows.
+            \end{itemize}
+        \item \textbf{Live Demo \& Closing}
+    \end{enumerate}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Definitions}
+    \framesubtitle{What do we mean by ``Classical Methods''?}
+    \begin{block}{Classical Inference}
+        Algorithms that converge mathematically to the true posterior (MCMC, Nested Sampling, HMC). They produce triangle plots, error bars, and \textbf{full Bayesian model comparisons}.
+    \end{block}
+    \vspace{1em}
+    \begin{block}{The Flagship Challenge}
+        \begin{itemize}
+            \item \textbf{JWST/Euclid/LSST}: Unprecedented data volume requires automated, robust systematics handling.
+            \item \textbf{SKA/LIGO}: Real-time requirements ($<1$ minute) for transient localization.
+            \item \textbf{The Gap}: We have the instruments. We typically lack the inference speed to exploit them fully without resorting to ``black box'' approximations.
+        \end{itemize}
+    \end{block}
+\end{frame}
+
+% --- PART A: GPU REVOLUTION ---
+
+% --- Vignette 1: Gravitational Waves ---
+
+\begin{frame}
+    \frametitle{Vignette 1: Gravitational Waves}
+    \framesubtitle{Can we do parameter estimation fast enough for follow-up?}
+    \student{metha_prathaban.jpg}{Metha Prathaban}{PhD Student}
     \begin{columns}
-        \column{0.55\textwidth}
+        \column{0.5\textwidth}
         \begin{block}{The Challenge}
             \begin{itemize}
-                \item Sampling traditionally CPU-bound
-                \item Different algorithms, same GPU challenge
-                \item Need unified GPU-native framework
+                \item Binary Black Hole merger (GW150914)
+                \item Standard CPU analysis (\texttt{bilby}):
+                \item \textbf{60 CPUs} for \textbf{2 hours}
             \end{itemize}
         \end{block}
-        \begin{block}{BlackJAX Solution}
+        \begin{block}{The Result \arxiv{2509.04336}}
             \begin{itemize}
-                \item Full JAX ecosystem integration
-                \item All core algorithms GPU-accelerated:
-                    \begin{itemize}
-                        \item Optimization (gradient descent)
-                        \item MCMC (Metropolis-Hastings)
-                        \item HMC/NUTS (gradient-guided)
-                        \item SMC (particle methods)
-                        \item Ensemble (emcee) \citehref{https://github.com/blackjax-devs/blackjax/pull}{797}{PR \#}
-                        \item Nested sampling \citehref{https://github.com/blackjax-devs/blackjax/pull}{755}{PR \#}
-                    \end{itemize}
+                \item GPU Nested Sampling (\texttt{BlackJAX}):
+                \item \textbf{1 GPU} for \textbf{16 seconds}
+                \item Consistent posteriors (KS-test validated)
             \end{itemize}
         \end{block}
-        \column{0.43\textwidth}
-        \vspace{10pt}
-        \begin{center}
-            \includegraphics[width=\textwidth]{figures/blackjax_screenshot.png}
-        \end{center}
-        \begin{block}{Framework Design}
-            \begin{itemize}
-                \item Like \texttt{numpy}/\texttt{scipy}
-                \item Not like \texttt{cobaya}/\texttt{cosmosis}
-                \item Composable building blocks
-                \item Maximum flexibility
-            \end{itemize}
-        \end{block}
+        \column{0.5\textwidth}
+        \includegraphics[width=\textwidth]{figures/metha-gw-pe-walltime.pdf}
     \end{columns}
 \end{frame}
 
-% =============================================================================
-% PART 2: GPU REVOLUTION - CASE STUDIES
-% =============================================================================
+\begin{frame}
+    \frametitle{The Science Win: Low Latency}
+    \framesubtitle{Why 16 seconds matters}
+    \begin{itemize}
+        \item \textbf{Standard}: 2 hours on a cluster $\to$ Too late for prompt EM follow-up.
+        \item \textbf{GPU}: 16 seconds on one card $\to$ Alerts sent while the event is physically interesting.
+        \item \textbf{Population Inference}: We can re-analyse the entire GW catalogue in an afternoon to test a new population-level hypothesis.
+    \end{itemize}
+    \vspace{1em}
+    \begin{center}
+        \textit{Speed changes the question from ``can we fit this event?'' to ``what does the population tell us?''}
+    \end{center}
+\end{frame}
 
 \begin{frame}
-    \frametitle{Cosmology}
-    \framesubtitle{GPU-Accelerated Applications: CMB and Cosmic Shear \arxiv{2509.13307}}
-    \student{toby_lovick}{Toby Lovick}{PhD}
+    \frametitle{The Insight: Physics vs Engineering}
+    \framesubtitle{Where the speed actually comes from}
+    \student{david_yallup.jpg}{David Yallup}{Postdoc}
     \begin{columns}
-        \column{0.48\textwidth}
-        \begin{itemize}
-            \item \textbf{CMB (6 params)}: 300$\times$ speedup vs CPU PolyChord
-            \item \textbf{Cosmic Shear (37 params)}: Days vs months ($>$1000$\times$ vs CPU; 10$\times$ vs GPU NUTS)
-            \item \textbf{Method}: JAX neural emulators + GPU NS
-            \item \textbf{Evidence}: Direct calculation with error bars
-            \item \textbf{Models}: $\Lambda$CDM vs $w_0w_a$ comparison
-        \end{itemize}
-        \column{0.48\textwidth}
-        \includegraphics<1>[width=\textwidth]{figures/cmbscaling.pdf}%
-        \vspace{5pt}
-        \includegraphics<2>[width=\textwidth]{figures/jaxSHEARfull.png}
+        \column{0.55\textwidth}
+        \begin{block}{The Bottleneck}
+            \begin{itemize}
+                \item \textbf{Intuition}: Waveform generation (physics) is slow.
+                \item \textbf{Reality}: Memory bandwidth for extrinsic parameters (engineering) is the bottleneck on GPU.
+                \item \textbf{Fix}: 32-bit precision for extrinsics, 64-bit for waveforms.
+            \end{itemize}
+        \end{block}
+        \begin{alertblock}{Myth Check}
+            In Lattice Field Theory benchmarks, classical SMC on GPU beats generative AI (Flow-Matching) in wall-time for the same accuracy. You often don't need a Neural Net; you just need a GPU.
+        \end{alertblock}
+        \column{0.45\textwidth}
+        \includegraphics[width=\textwidth]{figures/metha-precision-scaling.pdf}
+    \end{columns}
+\end{frame}
+
+% --- Vignette 2: Dark Energy ---
+
+\begin{frame}
+    \frametitle{Vignette 2: Dark Energy}
+    \framesubtitle{Is dark energy evolving? (The DESI Tension)}
+    \student{dily_ong.jpg}{Dily Ong}{PhD Student}
+    \begin{columns}
+        \column{0.4\textwidth}
+        \begin{block}{The Claim}
+            DESI DR1 reported preferences for evolving dark energy ($w_0 w_a$CDM).
+        \end{block}
+        \begin{block}{The Reanalysis \arxiv{2511.04661}}
+            \begin{itemize}
+                \item 248 model/dataset combinations
+                \item Full Bayesian model comparison
+                \item \textbf{Result}: Signal is weaker than reported; $\Lambda$CDM preferred when combined with CMB.
+            \end{itemize}
+        \end{block}
+        \column{0.6\textwidth}
+        \includegraphics[width=\textwidth]{figures/dily-tension-heatmap.pdf}
     \end{columns}
 \end{frame}
 
 \begin{frame}
-    \frametitle{The Vision: Full GPU Pipeline}
-    \framesubtitle{DISCO-DJ $\to$ DISCO-CL \arxiv{2311.03291}}
-    \student{lawrence_berry}{Lawrence Berry}{PhD}
-    \begin{columns}[c]
-        \column{0.55\textwidth}
-        \begin{block}{The Goal}
-            Full CMB analysis that never leaves the GPU:
-            \begin{enumerate}
-                \item Einstein-Boltzmann solver $\to$ $C_\ell$
-                \item CMB/LSS likelihoods
-                \item GPU nested sampling
-            \end{enumerate}
-        \end{block}
-        \begin{block}{DISCO-DJ/EB (Hahn+ 2024)}
+    \frametitle{How: Speed enables Rigour}
+    \framesubtitle{Reimplementing the pipeline in JAX}
+    \student{adam_ormondroyd.jpg}{Adam Ormondroyd}{PhD Student}
+    \begin{columns}
+        \column{0.5\textwidth}
+        \begin{itemize}
+            \item \textbf{Bottleneck}: Standard Boltzmann codes (CAMB/CLASS) + CPU samplers take days for one model.
+            \item \textbf{Solution}: Reimplemented pipeline in JAX.
+            \item \textbf{Speedup}: Analysis days $\to$ minutes.
+            \item \textbf{Consequence}: Can run hundreds of robustness checks (priors, parameterisations) that were previously impossible.
+        \end{itemize}
+        \column{0.5\textwidth}
+        \includegraphics[width=\textwidth]{figures/adam-jax-speedup.pdf}
+    \end{columns}
+\end{frame}
+
+\begin{frame}
+    \frametitle{What Speed Bought Us}
+    \framesubtitle{Exploring the posterior geometry}
+    \student{toby_lovick.jpg}{Toby Lovick}{PhD Student}
+    \begin{columns}
+        \column{0.5\textwidth}
+        \begin{block}{Flexnot Parametrisation}
             \begin{itemize}
-                \item Differentiable Einstein-Boltzmann in JAX
-                \item Agrees with CLASS/CAMB at per-mille level
-                \item Vectorised over cosmological parameters
+                \item Beyond standard $w_0/w_a$.
+                \item Allows us to find ``kinks'' in the dark energy evolution that simpler models miss.
+                \item Reveals double-peaked posterior structures hidden by approximate methods.
+            \end{itemize}
+        \end{block}
+        \begin{block}{The Enabler}
+            \begin{itemize}
+                \item GPU Nested Sampling (300$\times$ faster).
+                \item Drastically reduced effective dimension via internal optimisation.
+            \end{itemize}
+        \end{block}
+        \column{0.5\textwidth}
+        \includegraphics[width=\textwidth]{figures/adam-flexnot-posterior.pdf}
+    \end{columns}
+\end{frame}
+
+% --- Vignette 3: Supernovae ---
+
+\begin{frame}
+    \frametitle{Vignette 3: Supernovae}
+    \framesubtitle{What standardises Type Ia supernovae?}
+    \student{matt_grayling.jpg}{Matt Grayling}{Postdoc}
+    \begin{columns}
+        \column{0.5\textwidth}
+        \begin{block}{The ``Mass Step'' Problem}
+            SNe in high-mass galaxies appear brighter. A nuisance parameter step-function is usually fitted.
+        \end{block}
+        \begin{block}{Physics-Based Standardisation}
+            \begin{itemize}
+                \item Standardise on Nickel mass / Ejecta mass.
+                \item \textbf{Result}: The mass step disappears.
+                \item Systematics removed by better physics, not more nuisance parameters.
+            \end{itemize}
+        \end{block}
+        \column{0.5\textwidth}
+        \includegraphics[width=\textwidth]{figures/matt-mass-step.pdf}
+    \end{columns}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Scale and Verification}
+    \framesubtitle{JAX-SNANA and the Dust Law Bug}
+    \begin{columns}
+        \column{0.5\textwidth}
+        \begin{itemize}
+            \item \textbf{Scale}: 10,000 light curve sims/sec on A100 (vs hundreds on CPU).
+            \item \textbf{Rigour}: Validating JAX rewrite against legacy DES Y5 code ($\Delta < 1$ millimag).
+            \item \textbf{Discovery}: Found a bug in legacy code (hardcoded $R_V=3.1$ in dust law).
+            \item \keyterm{Rewrite $\to$ Validation $\to$ Error Detection.}
+        \end{itemize}
+        \column{0.5\textwidth}
+        \includegraphics[width=\textwidth]{figures/matt-jax-snana-benchmark.pdf}
+    \end{columns}
+\end{frame}
+
+% --- Vignette 4: 21cm Radio ---
+
+\begin{frame}
+    \frametitle{Vignette 4: 21cm Radio Astronomy}
+    \framesubtitle{The pipeline that was ``fast enough'' becomes transformative}
+    \student{sam_leeney.jpg}{Sam Leeney}{PhD Student}
+    \begin{columns}
+        \column{0.5\textwidth}
+        \begin{block}{REACH Pipeline}
+            \begin{itemize}
+                \item \textbf{5000$\times$ Speedup}
+                \item One year of data processed in one hour.
+            \end{itemize}
+        \end{block}
+        \begin{block}{FRB Analysis}
+            \begin{itemize}
+                \item 8 days $\to$ 10 minutes.
+            \end{itemize}
+        \end{block}
+        \vspace{1em}
+        The difference is qualitative: from ``wait for the run'' to ``iterate the science''.
+        \column{0.5\textwidth}
+        \includegraphics[width=\textwidth]{figures/sam-reach-throughput.pdf}
+    \end{columns}
+\end{frame}
+
+% --- MONTAGE ---
+
+\begin{frame}
+    \frametitle{Montage: Satellites}
+    \framesubtitle{Visualising the Megaconstellation}
+    \student{charlotte_priestley.jpg}{Charlotte Priestley}{PhD Student}
+    \begin{center}
+        \includegraphics[height=0.7\textheight,keepaspectratio]{figures/charlotte-starlink.jpg}
+    \end{center}
+    \begin{center}
+        \textbf{JAX-SGP4}: Propagating the full Starlink catalogue ($>$6000 objects) in real-time. 34$\times$ speedup.
+    \end{center}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Montage: Materials}
+    \framesubtitle{Phase transitions in 1000 atoms}
+    \student{namu_kroupa.jpg}{Namu Kroupa}{PhD Student}
+    \begin{center}
+        \includegraphics[height=0.7\textheight,keepaspectratio]{figures/namu-atoms.png}
+    \end{center}
+    \begin{center}
+        \textbf{Lennard-Jones}: Observing crystal nucleation directly via GPU nested sampling.
+    \end{center}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Montage: Quasars}
+    \framesubtitle{Needle in a haystack}
+    \student{alex_drane.jpg}{Alex Drane}{PhD Student}
+    \begin{center}
+        \includegraphics[height=0.7\textheight,keepaspectratio]{figures/alex-quasar.pdf}
+    \end{center}
+    \begin{center}
+        \textbf{Time Delays}: 150$\times$ speedup on T4 GPUs for Gaussian Process inference.
+    \end{center}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Montage: Instrumentation}
+    \framesubtitle{Fibre allocation geometry}
+    \student{farah_wallauer.jpg}{Farah Wallauer}{MPhil Student}
+    \begin{center}
+        \includegraphics[height=0.7\textheight,keepaspectratio]{figures/farah-weave.pdf}
+    \end{center}
+    \begin{center}
+        \textbf{WEAVE}: Geometric collision optimisation on GPU to maximise survey efficiency.
+    \end{center}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Montage: CMB}
+    \framesubtitle{Differentiable Universe}
+    \student{lawrence_berry.jpg}{Lawrence Berry}{PhD Student}
+    \begin{center}
+        \includegraphics[height=0.7\textheight,keepaspectratio]{figures/lawrence-cmb-field.png}
+    \end{center}
+    \begin{center}
+        \textbf{End-to-End}: Differentiable Boltzmann solver + likelihood. No approximations.
+    \end{center}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Montage: Galaxies}
+    \framesubtitle{Forward Modelling SEDs}
+    \student{chris_lovell.jpg}{Chris Lovell}{Postdoc}
+    \begin{center}
+        \includegraphics[height=0.7\textheight,keepaspectratio]{figures/chris-synthesizer.pdf}
+    \end{center}
+    \begin{center}
+        \textbf{Synthesizer}: GPU-accelerated SED generation for simulation-based inference.
+    \end{center}
+\end{frame}
+
+% --- PART B: LLM REVOLUTION ---
+
+\begin{frame}
+    \frametitle{Part B: The LLM Revolution}
+    \framesubtitle{The Economics of Code}
+    \begin{columns}
+        \column{0.6\textwidth}
+        \begin{block}{The Thesis}
+            \begin{itemize}
+                \item LLMs didn't change the statistics.
+                \item They changed the \keyterm{marginal cost} of writing and maintaining code.
+                \item When code is cheap, verification becomes the bottleneck.
             \end{itemize}
         \end{block}
         \column{0.4\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{figures/planck_power_spectrum.jpg}
-        \begin{alertblock}{Current Work}
-            Extending to CMB-ready $C_\ell$ with Oli Hahn \& Nils Schöneberg
-        \end{alertblock}
-    \end{columns}
-\end{frame}
-
-\begin{frame}
-    \frametitle{Type Ia Supernovae}
-    \framesubtitle{GPU-Accelerated Applications: Bayesian Anomaly Detection \arxiv{2509.13394}}
-    \student{sam_leeney}{Sam Leeney}{PhD}
-    \begin{columns}[c]
-        \column{0.48\textwidth}
-        \begin{itemize}
-            \item \textbf{Problem}: Manual photometric rejection doesn't scale for LSST
-            \item \textbf{Solution}: Bayesian anomaly detection integrated into SALT3 fitting
-            \item \textbf{Method}: Model contamination probability per measurement
-            \item \textbf{Result}: Automatic outlier/corrupted band rejection
-            \item \textbf{Finding}: Contaminants systematically brighter/bluer
-            \item \textbf{Impact}: Essential for unbiased cosmology at scale
-        \end{itemize}
-        \column{0.48\textwidth}
-        \includegraphics<1>[width=\textwidth]{figures/2509.13394_19ekb_light_curves_all_paper.png}%
-        \includegraphics<2>[width=\textwidth]{figures/2509.13394_recreated_contamination_plot.png}
-    \end{columns}
-\end{frame}
-
-\begin{frame}
-    \frametitle{Gravitational Waves}
-    \framesubtitle{GPU-Accelerated Applications: GPU-Native Nested Sampling \arxiv{2509.04336}}
-    \student{metha_prathaban}{Metha Prathaban}{PhD}
-    \begin{columns}[c]
-        \column{0.48\textwidth}
-        \begin{itemize}
-            \item \textbf{Goal}: GPU-accelerate bilby's acceptance-walk NS
-            \item \textbf{Implementation}: Faithful port to blackjax-ns
-            \item \textbf{Performance}: 20--40$\times$ speedup for BBH
-            \item \textbf{Validation}: Identical posteriors/evidences
-            \item \textbf{Hardware}: Single GPU replaces CPU cluster
-            \item \textbf{Impact}: Clean baseline for future methods
-        \end{itemize}
-        \column{0.48\textwidth}
-        \includegraphics<1>[width=\textwidth]{figures/2509.04336_8s_corner_comparison.pdf}%
-        \includegraphics<2>[width=\textwidth]{figures/2509.04336_walltime_speedup.pdf}
-    \end{columns}
-\end{frame}
-
-% =============================================================================
-% PART 3: AI REVOLUTION
-% =============================================================================
-
-\begin{frame}
-    \frametitle{The Second Revolution: AI for Scientists}
-    \framesubtitle{Shifting gears: How did we build this code?}
-    \begin{columns}[c]
-        \column{0.55\textwidth}
-        \begin{itemize}
-            \item Writing high-performance GPU code (CUDA, JAX) is historically difficult
-            \item The ``80/20'' rule of scientific work:
-                \begin{itemize}
-                    \item 20\% ``hard thinking'' (physics, algorithms)
-                    \item 80\% ``boring tasks'' (boilerplate, plotting, formatting)
-                \end{itemize}
-            \item LLMs are not about ``automating science'' (the 20\%)
-            \item They collapse the 80\% overhead, letting us focus on what matters
-            \item BlackJAX NS: core algorithm hand-coded; matplotlib, tests, docs vibe-coded
-        \end{itemize}
-        \column{0.4\textwidth}
-        \centering
         \includegraphics[width=\textwidth]{figures/second-revolution-v2.png}
     \end{columns}
 \end{frame}
 
 \begin{frame}
-    \frametitle{Three Ways to Use AI in Research}
-    \begin{columns}[c]
-        \column{0.55\textwidth}
-        \begin{enumerate}
-            \item \textbf{Foundation models}: Ask questions, get answers
-                \begin{itemize}
-                    \item Good for brainstorming
-                    \item Limited for complex tasks
-                \end{itemize}
-            \item \textbf{Autonomous agents}: Let it run unsupervised
-                \begin{itemize}
-                    \item Generates volume, not quality
-                    \item No accountability
-                \end{itemize}
-            \item \textbf{Supervised execution}: Human directs, AI executes
-                \begin{itemize}
-                    \item You provide intent and verify output
-                    \item AI builds tools and infrastructure
-                \end{itemize}
-        \end{enumerate}
-        \begin{alertblock}{What Works}
-            Human provides \textbf{intent} + \textbf{verification}. AI provides \textbf{implementation}.
-        \end{alertblock}
-        \column{0.4\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{figures/generation-selection.jpg}
-    \end{columns}
-\end{frame}
-
-\begin{frame}
-    \frametitle{From Prompt Engineering to Context Engineering}
-    \framesubtitle{The skill of 2026}
-    \begin{columns}[c]
-        \column{0.55\textwidth}
-        \begin{itemize}
-            \item 2024/25: ``Prompt Engineering'' (how to ask the question)
-            \item 2026: ``Context Engineering'' (organising what the model knows)
-            \item The bottleneck shifted:
-                \begin{itemize}
-                    \item Not ``how to ask''
-                    \item But ``what information to provide''
-                \end{itemize}
-            \item What works:
-                \begin{itemize}
-                    \item \textbf{Skills}: Read-only text files defining best practices (e.g. \texttt{cobaya.md})
-                    \item \textbf{MCPs}: Tools that allow AI to read/write files, run code, query databases
-                \end{itemize}
-        \end{itemize}
-        \small{Knowledge $\to$ skill. Actions $\to$ MCP.}
-        \column{0.4\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{figures/context-engineering-v2.png}
-    \end{columns}
-\end{frame}
-
-\begin{frame}
-    \frametitle{Case Study: Vibe Coding \texttt{emcee} into BlackJAX}
-    \framesubtitle{15 minutes to a PR}
-    \begin{columns}[T]
+    \frametitle{The Pace of Change}
+    \framesubtitle{From Chatbots to Orchestration}
+    \begin{columns}
         \column{0.5\textwidth}
-        \begin{block}{The Problem}
-            Needed an \texttt{emcee} animation equivalent to my nested sampling one. No BlackJAX implementation existed.
-        \end{block}
-        \begin{block}{The Solution}
-            Gave Claude Code:
-            \begin{itemize}
-                \item The \LaTeX{} of my talk
-                \item The \texttt{emcee} paper \arxiv{1202.3665}
-                \item The \texttt{emcee} and BlackJAX repositories
-            \end{itemize}
-            Asked it to implement \texttt{emcee} in BlackJAX.\\
-            \small{\tthref{github.com/blackjax-devs/blackjax/pull/797}}
-        \end{block}
-        \column{0.49\textwidth}
-        \vspace{-1.8em}
+        \begin{itemize}
+            \item \textbf{2024}: Chatting. ``How do I write a loop?''
+            \item \textbf{2026}: Orchestrating. ``Here is my repo. Refactor this module and add tests.''
+            \item \textbf{Capabilities Overhang}: The models can do more than we currently ask of them.
+        \end{itemize}
+        \column{0.5\textwidth}
         \begin{center}
-            \includegraphics<1>[width=\textwidth,page=1]{figures/himmelblau_emcee.pdf}%
-            \includegraphics<2>[width=\textwidth,page=2]{figures/himmelblau_emcee.pdf}%
-            \includegraphics<3>[width=\textwidth,page=3]{figures/himmelblau_emcee.pdf}%
-            \includegraphics<4>[width=\textwidth,page=4]{figures/himmelblau_emcee.pdf}%
-            \includegraphics<5>[width=\textwidth,page=5]{figures/himmelblau_emcee.pdf}%
-            \includegraphics<6>[width=\textwidth,page=6]{figures/himmelblau_emcee.pdf}%
-            \includegraphics<7>[width=\textwidth,page=7]{figures/himmelblau_emcee.pdf}%
-            \includegraphics<8>[width=\textwidth,page=8]{figures/himmelblau_emcee.pdf}%
-            \includegraphics<9>[width=\textwidth,page=9]{figures/himmelblau_emcee.pdf}%
+            \begin{tikzpicture}
+                \node[draw, rectangle] (A) {Human Intent};
+                \node[draw, rectangle, below of=A] (B) {Agent Swarm};
+                \node[draw, rectangle, below left of=B] (C) {Code};
+                \node[draw, rectangle, below right of=B] (D) {Tests};
+                \draw[->] (A) -- (B);
+                \draw[->] (B) -- (C);
+                \draw[->] (B) -- (D);
+            \end{tikzpicture}
         \end{center}
     \end{columns}
 \end{frame}
 
 \begin{frame}
-    \frametitle{Cosmosis to Cobaya}
-    \framesubtitle{Case Study: AI-Assisted Development}
-    \begin{columns}[c]
-        \column{0.66\textwidth}
-        \begin{itemize}
-            \item \textbf{Task}: Port the DES Y3 likelihood to Cobaya
-            \item State-of-the-art, but locked into Cosmosis
-            \item Need it in Cobaya to combine consistently with CMB
-            \item AI drafts the code; human defines the tests
-            \item ``Must match to floating-point precision''
-            \item The tool works because the tests are strict
-        \end{itemize}
-        \column{0.33\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{figures/cosmosis_screenshot.png}\\
-        \vspace{3pt}
-        $\downarrow$\\
-        \vspace{3pt}
-        \includegraphics[width=0.8\textwidth]{logos/cobaya.png}
-    \end{columns}
-\end{frame}
-
-\begin{frame}
-    \frametitle{jim-emulators}
-    \framesubtitle{Case Study: AI-Assisted Development (with James Alvey)}
-    \begin{columns}[c]
-        \column{0.45\textwidth}
-        \begin{itemize}
-            \item \textbf{Goal}: JAX emulator infrastructure for GW
-            \item Started at 9am with nothing
-            \item By 6pm: fully working, documented, tested package
-            \item We didn't feel tired. We felt invigorated.
-        \end{itemize}
-        \vspace{0.5em}
-        \small{\tthref{github.com/handley-lab/jim-emulators}}
-        \column{0.52\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{figures/jim-emulators.png}
-    \end{columns}
-\end{frame}
-
-\begin{frame}
-    \frametitle{The Vision: Solving ``Code Debt''}
-    \framesubtitle{Cosmology is riven with technical debt}
-    \begin{columns}[c]
-        \column{0.55\textwidth}
-        \begin{itemize}
-            \item PhD students spend years learning to wrestle with \texttt{Cobaya}, \texttt{Cosmosis}, or \texttt{MontePython}
-            \item These are massive, complex codes
-            \item Hard for PhDs to do anything profound when the entry barrier is so high
-            \item The future:
-                \begin{itemize}
-                    \item Skills (text descriptions of physics) become the source of truth
-                    \item Not the Fortran code written in 1998
-                    \item Smaller, modular scripts generated on-demand
-                \end{itemize}
-        \end{itemize}
-        \vspace{0.5em}
-        \small{Skills marketplace: \tthref{github.com/fundamental-physics/marketplace}}
+    \frametitle{LLMs as Quality Assurance}
+    \framesubtitle{Navigating the unmanageable}
+    \student{sinah_legner.jpg}{Sinah Legner}{PhD Student}
+    \begin{columns}
+        \column{0.6\textwidth}
+        \begin{block}{Poincaré Gauge Theory in CAMB}
+            \begin{itemize}
+                \item Task: Modify background evolution for torsional gravity in legacy Fortran.
+                \item LLMs enabled navigation of a massive codebase she didn't write.
+                \item \textbf{Verification}: Comparison against analytic results for specific limiting cases.
+            \end{itemize}
+        \end{block}
         \column{0.4\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{figures/summary.jpg}
+        \includegraphics[width=\textwidth]{figures/sinah-code-diff.png}
     \end{columns}
 \end{frame}
 
-% =============================================================================
-% PART 4: CONCLUSIONS
-% =============================================================================
+\begin{frame}
+    \frametitle{Navigating Legacy Theory}
+    \framesubtitle{Discrete curvature in CLASS}
+    \student{wei-ning_deng.jpg}{Wei Ning Deng}{PhD Student}
+    \begin{columns}
+        \column{0.6\textwidth}
+        \begin{block}{The Challenge}
+            \begin{itemize}
+                \item Implementing discrete spatial curvature ($k$ quantization) into the CLASS Boltzmann solver.
+                \item Requires deep changes to the integration logic in C.
+            \end{itemize}
+        \end{block}
+        \begin{block}{The Workflow}
+            \begin{itemize}
+                \item LLM reads the C repo $\to$ identifies variable dependencies $\to$ suggests modifications.
+                \item Human verifies the physics output against theoretical predictions.
+            \end{itemize}
+        \end{block}
+        \column{0.4\textwidth}
+        \includegraphics[width=\textwidth]{figures/weining-quantization.pdf}
+    \end{columns}
+\end{frame}
+
+\begin{frame}
+    \frametitle{The Verification Pattern}
+    \framesubtitle{The Scientific Method applied to Code}
+    \begin{itemize}
+        \item LLMs make it easy to write code. They also make it easy to write \textit{wrong} code.
+        \item \textbf{The New Core Competency}:
+    \end{itemize}
+    \begin{columns}
+        \column{0.33\textwidth}
+        \begin{block}{Golden Datasets}
+            Match legacy code to floating-point precision.
+        \end{block}
+        \column{0.33\textwidth}
+        \begin{block}{Posterior Overlays}
+            KS-tests on samples (SBC).
+        \end{block}
+        \column{0.33\textwidth}
+        \begin{block}{Adversarial Review}
+            Agent A writes code. Agent B writes tests.
+        \end{block}
+    \end{columns}
+    \vspace{1em}
+    \begin{center}
+        \textit{``Matt's dust law bug was found because rewriting for GPU forces rigorous validation.''}
+    \end{center}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Workflow Examples}
+    \framesubtitle{Fundamental shifts in how work is done}
+    \begin{columns}
+        \column{0.5\textwidth}
+        \student{natalie_hogg.jpg}{Natalie Hogg}{Postdoc}
+        \begin{block}{Optimisation (Natalie Hogg)}
+            \begin{itemize}
+                \item Covariance matrix calculation: 2 days $\to$ 1 minute.
+                \item LLM suggested algorithmic change (Quasi-Monte Carlo) + Numba JIT.
+            \end{itemize}
+        \end{block}
+        \begin{block}{Portability (Sam Leeney)}
+            \begin{itemize}
+                \item Radio anomaly detection ported to ZTF Supernovae in hours.
+            \end{itemize}
+        \end{block}
+        \column{0.5\textwidth}
+        \begin{block}{Vibe Coding vs Manual}
+            \begin{itemize}
+                \item \textbf{Task}: Implement \texttt{emcee} (affine invariant sampler) in BlackJAX.
+                \item \textbf{Justin Alsing}: 2 months (manual implementation).
+                \item \textbf{Will (with LLM)}: 15 minutes to a working PR.
+            \end{itemize}
+        \end{block}
+    \end{columns}
+\end{frame}
+
+\begin{frame}
+    \frametitle{The Big Picture}
+    \framesubtitle{Jevons Paradox \& The Future of Academia}
+    \begin{columns}
+        \column{0.5\textwidth}
+        \begin{block}{Jevons Paradox}
+            \begin{itemize}
+                \item LLMs will not save you time.
+                \item They increase the \keyterm{scope} and \keyterm{density} of work.
+                \item A consortium-level paper becomes a PhD chapter.
+            \end{itemize}
+        \end{block}
+        \column{0.5\textwidth}
+        \begin{block}{Trotta vs Hogg}
+            \begin{itemize}
+                \item \textbf{The Fear}: AI undermines understanding (Trotta 2602.10165).
+                \item \textbf{The Reality}: LLMs enforce higher rigour via verification (Hogg 2602.10181).
+                \item We verify the \textit{physics}, not the syntax.
+            \end{itemize}
+        \end{block}
+    \end{columns}
+\end{frame}
+
+\begin{frame}
+    \frametitle{What should the IoA do on Monday?}
+    \begin{enumerate}
+        \item \textbf{Make likelihoods vectorisable}: Benchmark classical inference on GPUs before reaching for amortised Neural Networks.
+        \item \textbf{Invest in Verification}: Test harnesses and CI are the new bottleneck, not coding speed.
+        \item \textbf{Context Engineering}: Curate ``Skills'' files (physics knowledge) for your group's LLMs.
+    \end{enumerate}
+\end{frame}
+
+% --- DEMO ---
+
+\begin{frame}
+    \frametitle{Live Demo}
+    \begin{center}
+        \Huge
+        [Claude Code Demo]
+    \end{center}
+    \vspace{2em}
+    \textit{Fallback: 60-second recording available}
+\end{frame}
+
+% --- CLOSE ---
 
 \begin{frame}
     \frametitle{Summary}
-    \framesubtitle{\tthref{github.com/handley-lab/group}}
-        \begin{enumerate}
-            \item \textbf{GPU $\neq$ Machine Learning: Two Independent Capabilities}
-                \begin{itemize}
-                    \item GPUs accelerate any parallel algorithm
-                    \item Automatic differentiation + massive parallelization --- often confused, serve different purposes
-                \end{itemize}
-            \item \textbf{Classical Algorithms on GPU Competitive with ML State of the Art}
-                \begin{itemize}
-                    \item Traditional physics methods + GPU = superior performance
-                    \item 300$\times$ speedup for CMB, 20-40$\times$ for gravitational waves
-                \end{itemize}
-            \item \textbf{AI Accelerates Development as well as Computation}
-                \begin{itemize}
-                    \item LLMs solve the GPU porting challenge at scale
-                    \item Context engineering is the emerging skill
-                \end{itemize}
-        \end{enumerate}
-        \vfill
-        \begin{alertblock}{Get Started with GPU-Accelerated Sampling}
-            \centering
-            \Large
-            \tthref{handley-lab.co.uk/nested-sampling-book}
-        \end{alertblock}
-    \tikz[overlay,remember picture]
-        \node[anchor=north east] (A) at ($(current page.north east)+(0,0)$) {
-        \includegraphics[width=0.06\textheight]{people/adam_ormondroyd.jpg}%
-        \includegraphics[width=0.06\textheight]{people/charlotte_priestley.jpg}%
-        \includegraphics[width=0.06\textheight]{people/claude.jpg}%
-        \includegraphics[width=0.06\textheight]{people/david_yallup.jpg}%
-        \includegraphics[width=0.06\textheight]{people/dily_ong.jpg}%
-        \includegraphics[width=0.06\textheight]{people/gemini.jpg}%
-        \includegraphics[width=0.06\textheight]{people/harry_bevins.jpg}%
-        \includegraphics[width=0.06\textheight]{people/metha_prathaban.jpg}%
-        \includegraphics[width=0.06\textheight]{people/ming_yang.jpg}%
-        \includegraphics[width=0.06\textheight]{people/namu_kroupa.jpg}%
-        \includegraphics[width=0.06\textheight]{people/openai.jpg}%
-        \includegraphics[width=0.06\textheight]{people/sam_leeney.jpg}%
-        \includegraphics[width=0.06\textheight]{people/sinah_legner.jpg}%
-        \includegraphics[width=0.06\textheight]{people/toby_lovick.jpg}%
-        \includegraphics[width=0.06\textheight]{people/wei-ning_deng.jpg}%
-        \includegraphics[width=0.06\textheight]{people/will_handley.jpg}%
-        \includegraphics[width=0.06\textheight]{people/will_templeton.jpg}%
-    };
+    \begin{enumerate}
+        \item \textbf{Classical Methods on GPUs}: Often outperform neural networks. 100$\times$--5000$\times$ speedups for rigorous Bayesian model comparison.
+        \item \textbf{LLM-Assisted Development}: Changes the economics of coding. Verification is the new bottleneck.
+        \item \textbf{The Result}: We can tackle systematics and model complexity that were previously impossible.
+    \end{enumerate}
+    \vspace{1em}
+    \begin{center}
+        \textit{This is the start of a new scientific method.}
+    \end{center}
+    \vspace{1em}
+    \begin{center}
+        \tthref{handley-lab.co.uk/nested-sampling-book} \hfill \github{handley-lab/group}
+    \end{center}
 \end{frame}
 
-% =============================================================================
-% APPENDIX: SAMPLING METHODS IN DETAIL
-% =============================================================================
+\begin{frame}
+    \frametitle{The New Sky}
+    \framesubtitle{CCDs let us image the sky. GPUs let us track everything in it.}
+    \begin{center}
+        \includegraphics[height=0.85\textheight,keepaspectratio]{figures/charlotte-starlink.jpg}
+    \end{center}
+    \student{charlotte_priestley.jpg}{Charlotte Priestley}{PhD Student}
+\end{frame}
+
 \appendix
 
 \begin{frame}
