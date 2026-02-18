@@ -62,36 +62,45 @@
 \begin{frame}
     \frametitle{The CCD Analogy}
     \framesubtitle{A change in how we capture data $\to$ a change in how we analyse it}
-    \begin{columns}
+    \vspace{-0.5em}
+    \begin{columns}[T]
         \column{0.48\textwidth}
-        \begin{block}{1990s: Observation}
+        \begin{columns}
+            \column{0.49\textwidth}
+            \includegraphics[width=\textwidth,height=2.5cm,keepaspectratio]{figures/apm-ioa.jpg}
+            \column{0.49\textwidth}
+            \includegraphics[width=\textwidth,height=2.5cm,keepaspectratio]{figures/lsst-focal-plane.jpg}
+        \end{columns}
+        \vspace{0.3em}
+        \begin{block}{1980s--2000s: Observation}
             \begin{itemize}
                 \item \keyterm{Photographic Plates} $\to$ \keyterm{CCDs}
-                \item Digital sky surveys (SDSS)
-                \item Precision photometry
-                \item Multi-object spectroscopy
+                \item Digital sky surveys (SDSS $\to$ Rubin/LSST)
+                \item Quantitative, survey-scale astronomy
             \end{itemize}
         \end{block}
         \column{0.48\textwidth}
+        \begin{columns}
+            \column{0.49\textwidth}
+            \includegraphics[width=\textwidth,height=2.5cm,keepaspectratio]{figures/pentium4.jpg}
+            \column{0.49\textwidth}
+            \includegraphics[width=\textwidth,height=2.5cm,keepaspectratio]{figures/gpu-server.jpg}
+        \end{columns}
+        \vspace{0.3em}
         \begin{block}{2020s: Analysis}
             \begin{itemize}
                 \item \keyterm{CPUs} $\to$ \keyterm{GPUs}
-                \item \keyterm{Manual Coding} $\to$ \keyterm{LLM-Assisted}
-                \item Comparing hundreds of models
-                \item Marginalising over systematics
+                \item \keyterm{Manual Coding} $\to$ \keyterm{LLM-Accelerated}
                 \item Real-time inference
             \end{itemize}
         \end{block}
     \end{columns}
-    \vspace{1em}
-    \begin{center}
-        \textit{GPU hardware and large language models are driving\\a comparable shift in how we analyse data.}
-    \end{center}
 \end{frame}
 
 \begin{frame}
     \frametitle{Two Revolutions}
     \framesubtitle{Distinct shifts, often conflated}
+    \vspace{-1em}
     \begin{columns}[T]
         \column{0.48\textwidth}
         \begin{block}{\C[0]{GPUs for inference}}
@@ -104,14 +113,15 @@
         \column{0.48\textwidth}
         \begin{block}{\C[3]{LLMs for development}}
             \begin{itemize}
-                \item Large Language Models change how we write code and manage research
-                \item Not automating the science itself
-                \item Reducing the technical overhead (verification is the new bottleneck)
+                \item Delegate to competency many tasks that traditionally bottleneck astronomy
+                \item Code generation, testing, documentation, refactoring
+                \item Expanding the scope of what a small group can tackle
             \end{itemize}
         \end{block}
     \end{columns}
+    \vfill
     \begin{alertblock}{}
-        GPUs make full Bayesian workflows feasible at scale. LLMs reduce the development time, but verification remains the limiting step.
+        GPUs make full Bayesian workflows feasible at scale. LLMs let us delegate the data science overhead, expanding the scope of what's possible.
     \end{alertblock}
 \end{frame}
 
