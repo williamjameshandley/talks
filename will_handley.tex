@@ -243,8 +243,8 @@
                 \item \textbf{Key}: Dual-axis parallelisation --- over sampling particles \textit{and} frequencies in the likelihood. Opens a different scaling relation for next-gen detectors.
             \end{itemize}
         \end{block}
-        \begin{alertblock}{Empirical comparison}
-            In Lattice Field Theory benchmarks, classical SMC on GPU beats generative AI (Flow-Matching) in wall-time for the same accuracy. In several cases classical GPU implementations are competitive with or faster than NN surrogates.
+        \begin{alertblock}{Empirical comparison \arxiv{2511.15196}}
+            In Lattice Field Theory benchmarks, classical SMC on GPU matches or beats Flow-Matching neural samplers in wall-time for the same accuracy --- and estimates the partition function.
         \end{alertblock}
         \column{0.45\textwidth}
         \includegraphics[width=\textwidth]{figures/metha-precision-scaling.pdf}
@@ -258,20 +258,20 @@
     \framesubtitle{Is dark energy evolving? (The DESI tension)}
     \student{dily_ong.jpg}{Dily Ong}{PhD Student}
     \begin{columns}
-        \column{0.4\textwidth}
+        \column{0.35\textwidth}
         \begin{block}{The Claim}
             DESI reported $3.1\sigma$ preference for evolving dark energy ($w_0 w_a$CDM).
         \end{block}
         \begin{block}{Bayesian Reanalysis \arxiv{2511.04661}}
             \begin{itemize}
                 \item 248 model/dataset combinations
-                \item Bayesian Ockham's razor: weaker or opposite preferences vs frequentist.
-                \item \textbf{Result}: $\Lambda$CDM still favoured with CMB. The apparent DE signal is driven by \alert{inter-dataset tensions} (DESI vs DES-Y5 $\sim 3\sigma$).
+                \item Bayesian Ockham's razor: weaker or opposite preferences
+                \item $\Lambda$CDM still favoured with CMB --- driven by \alert{inter-dataset tensions}
             \end{itemize}
         \end{block}
-        \column{0.6\textwidth}
-        \only<1>{\includegraphics[width=\textwidth]{figures/dily-tension-heatmap.pdf}}
-        \only<2>{\includegraphics[width=\textwidth]{figures/dily-tension-sigma.pdf}}
+        \column{0.63\textwidth}
+        \only<1>{\includegraphics[width=\textwidth,height=0.75\textheight,keepaspectratio]{figures/dily-tension-heatmap.pdf}}
+        \only<2>{\includegraphics[width=\textwidth,height=0.75\textheight,keepaspectratio]{figures/dily-tension-sigma.pdf}}
     \end{columns}
 \end{frame}
 
