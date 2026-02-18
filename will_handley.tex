@@ -605,7 +605,7 @@
     \end{columns}
     \vfill
     \begin{center}
-        \includegraphics[height=2.5cm,keepaspectratio]{figures/three-ways.jpg}
+        \textit{``Silicon Valley thinks a scientist is something that takes in coffee and produces fusion reactors. It's not.''}
     \end{center}
 \end{frame}
 
@@ -630,7 +630,33 @@
     \end{columns}
 \end{frame}
 
-% Slide 2.3: Navigating legacy code (Sinah)
+% Slide 2.3: Context engineering (the mechanism)
+\begin{frame}
+    \frametitle{The mechanism: context engineering}
+    \framesubtitle{From ``prompting'' to ``orchestration''}
+    \vspace{-0.5em}
+    \begin{columns}
+        \column{0.55\textwidth}
+        \begin{block}{2025: Prompt engineering}
+            \begin{itemize}
+                \item \textit{``Write me a Python loop.''}
+                \item Limited by user memory and syntax knowledge.
+                \item Useful for snippets, bad for systems.
+            \end{itemize}
+        \end{block}
+        \begin{block}{2026: Context engineering}
+            \begin{itemize}
+                \item \textit{``Here is the CAMB repo. Find the neutrino integration logic.''}
+                \item LLMs acting on the \textbf{full context} of the project.
+                \item The bottleneck is no longer generating code, but \keyterm{evaluating} it.
+            \end{itemize}
+        \end{block}
+        \column{0.43\textwidth}
+        \includegraphics[width=\textwidth]{figures/context-engineering-v2.png}
+    \end{columns}
+\end{frame}
+
+% Slide 2.4: Navigating legacy code (Sinah/Will)
 \begin{frame}
     \frametitle{LLMs as interactive documentation}
     \framesubtitle{Navigating and excavating legacy codebases}
@@ -656,7 +682,7 @@
     \end{columns}
 \end{frame}
 
-% Slide 2.4: Deep modifications (Wei-Ning)
+% Slide 2.5: Deep modifications (Wei-Ning)
 \begin{frame}
     \frametitle{Deep modifications: discrete curvature in CLASS}
     \framesubtitle{Human specifies the physics, AI implements the patch}
@@ -681,42 +707,31 @@
     \end{columns}
 \end{frame}
 
-% Slide 2.5: Development time collapsed
+% Slide 2.6: Development time collapsed
 \begin{frame}
     \frametitle{Development time collapsed}
     \framesubtitle{The work didn't disappear --- it moved to verification}
     \vspace{-0.5em}
     \begin{columns}[T]
         \column{0.55\textwidth}
-        \begin{block}{Implementation}
-            \begin{description}[\texttt{emcee} in BlackJAX:]
-                \item[\texttt{emcee} in BlackJAX:] 2 months (manual) $\to$ \textbf{15 minutes} (LLM).
-            \end{description}
-        \end{block}
-        \begin{block}{Optimisation}
-            \begin{description}[Natalie Hogg:]
-                \item[Natalie Hogg:] Covariance matrix 24\,h $\to$ \textbf{1--2 minutes}. Vectorisation, JIT, quasi-Monte Carlo --- all suggested by the LLM, benchmarked by the scientist.
-            \end{description}
-        \end{block}
-        \begin{block}{Portability}
-            \begin{description}[Sam Leeney:]
-                \item[Sam Leeney:] REACH radio anomaly detection $\to$ supernova cosmology in hours via \texttt{jax-bandflux}. \arxiv{2504.08081}
-            \end{description}
-        \end{block}
+        \begin{description}[Portability]
+            \item[Implementation] \texttt{emcee} in BlackJAX: 2 months (manual) $\to$ \textbf{15 minutes} (LLM).
+            \item[Optimisation] Natalie Hogg: covariance matrix 24\,h $\to$ \textbf{1--2 min}. Vectorisation, JIT, quasi-Monte Carlo.
+            \item[Portability] Sam Leeney: REACH anomaly detection $\to$ supernova cosmology in hours. \arxiv{2504.08081}
+            \item[New science] GW emulator with James Alvey: nothing $\to$ working package in \textbf{8 hours}.
+        \end{description}
         \column{0.43\textwidth}
-        \begin{block}{New science from scratch}
-            \begin{description}[GW emulator:]
-                \item[GW emulator:] Nothing $\to$ working package in \textbf{8 hours} (with James Alvey). ``We spent all our time reasoning about physics.''
-            \end{description}
-        \end{block}
-        \vspace{0.5em}
+        \vspace{1em}
         \begin{alertblock}{The insight}
-            I mistook \textit{mental athleticism} --- typing speed, syntax memory --- for scientific strength. With AI, \keyterm{creative drive} becomes the differentiator.
+            I mistook \textit{mental athleticism} --- typing speed, syntax memory --- for scientific strength.\\[0.5em]
+            With AI, \keyterm{creative drive} becomes the differentiator.
         \end{alertblock}
+        \vspace{1em}
+        \textit{``We didn't feel tired --- we were spending all our time reasoning about physics.''}
     \end{columns}
 \end{frame}
 
-% Slide 2.6: Verification is the new lab bench
+% Slide 2.7: Verification is the new lab bench
 \begin{frame}
     \frametitle{Verification is the new lab bench}
     \framesubtitle{LLMs make wrong code easy. Testing makes it detectable.}
@@ -745,7 +760,7 @@
     \end{center}
 \end{frame}
 
-% Slide 2.7: Trotta & Hogg (tension + resolution)
+% Slide 2.8: Trotta & Hogg (tension + resolution)
 \begin{frame}
     \frametitle{Two serious arguments}
     \framesubtitle{The trust loop vs the accessibility argument}
@@ -780,9 +795,10 @@
 
 % --- DEMO ---
 
-% Slide 2.8: Live Demo
+% Slide 2.9: Live Demo
 \begin{frame}
     \frametitle{Live Demo}
+    \framesubtitle{The generate $\to$ test $\to$ iterate loop, not one-shot codegen}
     \begin{center}
         \Huge
         [Claude Code Demo]
@@ -793,7 +809,7 @@
 
 % --- CLOSE ---
 
-% Slide 2.9: Summary
+% Slide 2.10: Summary
 \begin{frame}
     \frametitle{Summary: The New Scientific Method}
     \vspace{-0.5em}
