@@ -33,6 +33,35 @@
 % --- OPENING ---
 
 \begin{frame}
+    \frametitle{Inference Across Astronomy}
+    \framesubtitle{Three examples of Bayesian parameter estimation and model comparison}
+    \begin{columns}[T]
+        \column{0.32\textwidth}
+        \begin{center}
+            \includegraphics[width=\textwidth]{figures/desi.pdf}\\
+            \vspace{0.5em}
+            {\small \textbf{Cosmology}: Is dark energy evolving?\\$\Lambda$CDM vs $w_0w_a$CDM}
+        \end{center}
+        \column{0.34\textwidth}
+        \begin{center}
+            \includegraphics[width=\textwidth]{figures/gw170817-skymap.jpg}\\
+            \vspace{0.5em}
+            {\small \textbf{Gravitational Waves}: Where on the sky?\\Masses, spins, distance}
+        \end{center}
+        \column{0.32\textwidth}
+        \begin{center}
+            \includegraphics[width=\textwidth]{figures/exoplanet.pdf}\\
+            \vspace{0.5em}
+            {\small \textbf{Exoplanets}: What's in the atmosphere?\\How many planets?}
+        \end{center}
+    \end{columns}
+    \vspace{1em}
+    \begin{center}
+        \textit{These all require the same statistical machinery:\\posterior inference, model comparison, error propagation.}
+    \end{center}
+\end{frame}
+
+\begin{frame}
     \frametitle{The CCD Analogy}
     \framesubtitle{A change in how we capture data $\to$ a change in how we analyse it}
     \begin{columns}
@@ -67,7 +96,7 @@
     \framesubtitle{Distinct shifts, often conflated}
     \begin{columns}[T]
         \column{0.48\textwidth}
-        \begin{block}{\C[0]{Revolution 1: GPUs for Science}}
+        \begin{block}{\C[0]{GPUs for inference}}
             \begin{itemize}
                 \item GPU hardware (developed for ML) accelerates \textit{classical} statistical methods
                 \item Speedups of $100\times$--$5000\times$
@@ -75,7 +104,7 @@
             \end{itemize}
         \end{block}
         \column{0.48\textwidth}
-        \begin{block}{\C[3]{Revolution 2: LLMs for Scientists}}
+        \begin{block}{\C[3]{LLMs for development}}
             \begin{itemize}
                 \item Large Language Models change how we write code and manage research
                 \item Not automating the science itself
@@ -83,37 +112,33 @@
             \end{itemize}
         \end{block}
     \end{columns}
-    \begin{alertblock}{The Argument}
-        Classical methods on GPUs are scientifically profound. LLMs are what make building them possible.
+    \begin{alertblock}{}
+        GPUs make full Bayesian workflows feasible at scale. LLMs reduce the development time, but verification remains the limiting step.
     \end{alertblock}
 \end{frame}
 
 \begin{frame}
-    \frametitle{The North Star}
-    \framesubtitle{Why speed is scientifically profound}
-    \begin{center}
-        \Large
-        \keyterm{Speed} $\longrightarrow$ \keyterm{Systematics} $\longrightarrow$ \keyterm{Evidence} $\longrightarrow$ \keyterm{Reproducibility}
-    \end{center}
-    \vspace{1em}
+    \frametitle{Why Speed Matters}
+    \framesubtitle{The scientific consequences of fast inference}
+    \vspace{0.5em}
     \begin{itemize}
         \item \textbf{Speed}: If your likelihood takes 1s, you can do parameter estimation. If it takes 1ms, you can do \dots
         \item \textbf{Systematics}: Marginalise over 100+ nuisance parameters rather than fixing them.
         \item \textbf{Model Comparison}: Full Bayesian model comparison ($\mathcal{Z}$) between non-nested models.
-        \item \textbf{Reproducibility}: If an analysis takes 10 minutes, everyone can run it. If it takes 6 months, it becomes dogma.
+        \item \textbf{Reproducibility}: If an analysis takes 10 minutes, everyone can rerun it. If it takes months, errors persist longer.
     \end{itemize}
 \end{frame}
 
 \begin{frame}
-    \frametitle{The Roadmap}
-    \framesubtitle{Two parts, four vignettes, one conclusion}
+    \frametitle{Outline}
+    \framesubtitle{}
     \begin{enumerate}
-        \item \textbf{Part A: The Science (GPU Revolution)}
+        \item \textbf{GPUs for science}
             \begin{itemize}
-                \item Four Vignettes: Gravitational Waves, Dark Energy, Supernovae, Radio.
-                \item Montage: The method transfers across the department.
+                \item Four examples: Gravitational Waves, Dark Energy, Supernovae, Radio.
+                \item The method transfers across the department.
             \end{itemize}
-        \item \textbf{Part B: The Method (LLM Revolution)}
+        \item \textbf{LLMs for scientists}
             \begin{itemize}
                 \item How we built this in months, not years.
                 \item Verification, legacy code, and new workflows.
@@ -123,19 +148,25 @@
 \end{frame}
 
 \begin{frame}
-    \frametitle{Definitions}
-    \framesubtitle{What do we mean by ``Classical Methods''?}
-    \begin{block}{Classical Inference}
-        Algorithms that converge mathematically to the true posterior (MCMC, Nested Sampling, HMC). They produce triangle plots, error bars, and \textbf{full Bayesian model comparisons}.
-    \end{block}
-    \vspace{1em}
-    \begin{block}{The Flagship Challenge}
+    \frametitle{What I mean by ``classical inference''}
+    \framesubtitle{Triangle plots, error bars, and Bayesian model comparison}
+    \begin{columns}
+        \column{0.55\textwidth}
         \begin{itemize}
-            \item \textbf{JWST/Euclid/LSST}: Unprecedented data volume requires automated, robust systematics handling.
-            \item \textbf{SKA/LIGO}: Real-time requirements ($<1$ minute) for transient localization.
-            \item \textbf{The Gap}: We have the instruments. Classical methods on GPU hardware can match or outperform neural network approaches --- and they're interpretable.
+            \item Algorithms that converge to the true posterior: MCMC, Nested Sampling, HMC
+            \item \textbf{LIGO}: localising GW sources on the sky \arxiv{1710.05833}
+            \item \textbf{JWST}: K2-18b atmospheric biosignatures \arxiv{2309.05566}
+            \item \textbf{DESI/DES}: dark energy and tensions between datasets
         \end{itemize}
-    \end{block}
+        \vspace{0.5em}
+        \begin{itemize}
+            \item The instruments exist. The statistical methods exist.
+            \item The bottleneck is \alert{compute}: running them fast enough at scale.
+        \end{itemize}
+        \column{0.45\textwidth}
+        \includegraphics[width=\textwidth]{figures/corner.pdf}\\
+        {\small A posterior ``triangle plot''}
+    \end{columns}
 \end{frame}
 
 % --- PART A: GPU REVOLUTION ---
@@ -143,23 +174,47 @@
 % --- Vignette 1: Gravitational Waves ---
 
 \begin{frame}
-    \frametitle{Vignette 1: Gravitational Waves}
-    \framesubtitle{Can we do parameter estimation fast enough for follow-up?}
+    \frametitle{Gravitational Waves}
+    \framesubtitle{Sky localisation and electromagnetic follow-up}
     \student{metha_prathaban.jpg}{Metha Prathaban}{PhD Student}
     \begin{columns}
         \column{0.5\textwidth}
-        \begin{block}{The Challenge}
+        \begin{block}{GW170817: the multi-messenger event}
             \begin{itemize}
-                \item Binary Black Hole merger (GW150914)
-                \item Standard CPU analysis (\texttt{bilby}):
-                \item \textbf{60 CPUs} for \textbf{2 hours}
+                \item Binary neutron star merger detected by LIGO/Virgo
+                \item EM follow-up required fast sky localisation
+                \item Triggered $>$70 observatories worldwide
             \end{itemize}
         \end{block}
-        \begin{block}{The Result \arxiv{2509.04336}}
+        \begin{block}{The bottleneck}
             \begin{itemize}
-                \item GPU Nested Sampling (\texttt{BlackJAX}):
+                \item Full parameter estimation (\texttt{bilby}): \textbf{60 CPUs, 2 hours}
+                \item Too slow for prompt follow-up of short-lived transients
+            \end{itemize}
+        \end{block}
+        \column{0.5\textwidth}
+        \includegraphics[width=\textwidth]{figures/gw170817-skymap.jpg}\\
+        {\tiny LIGO/Virgo/NASA/Leo Singer}
+    \end{columns}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Real-time gravitational wave PE}
+    \framesubtitle{30 seconds on one GPU}
+    \begin{columns}
+        \column{0.5\textwidth}
+        \begin{block}{GPU nested sampling \arxiv{2509.04336}}
+            \begin{itemize}
                 \item \textbf{1 GH200 GPU} for \textbf{$\sim$30 seconds}
-                \item 4\,s of real LIGO data (GW150914), full 15-D parameter space.
+                \item 4\,s of real LIGO data (GW150914), full 15-D parameter space
+                \item Standard CPU: 60 CPUs $\times$ 2 hours
+            \end{itemize}
+        \end{block}
+        \begin{block}{What near-real-time means}
+            \begin{itemize}
+                \item A 16-second BBH signal, analysed in 30 seconds
+                \item Close enough to scan the time stream continuously
+                \item EM alerts while the event is still physically interesting
             \end{itemize}
         \end{block}
         \column{0.5\textwidth}
@@ -168,22 +223,8 @@
 \end{frame}
 
 \begin{frame}
-    \frametitle{The Science Win: Low Latency}
-    \framesubtitle{Why 16 seconds matters}
-    \begin{itemize}
-        \item \textbf{Standard}: 60 CPUs for 2 hours $\to$ Too late for prompt EM follow-up.
-        \item \textbf{GPU}: $\sim$30 seconds on one GH200 $\to$ Alerts while the event is physically interesting.
-        \item \textbf{Target}: Sub-4\,s for BBH (with compression). Real-time for BNS signals.
-    \end{itemize}
-    \vspace{1em}
-    \begin{center}
-        \textit{Speed turns parameter estimation from a post-hoc analysis into a real-time tool.}
-    \end{center}
-\end{frame}
-
-\begin{frame}
-    \frametitle{The Insight: Physics vs Engineering}
-    \framesubtitle{Where the speed actually comes from}
+    \frametitle{Where the speed comes from}
+    \framesubtitle{Memory bandwidth, not waveform generation}
     \student{david_yallup.jpg}{David Yallup}{Postdoc}
     \begin{columns}
         \column{0.55\textwidth}
@@ -194,8 +235,8 @@
                 \item \textbf{Key}: Dual-axis parallelisation --- over sampling particles \textit{and} frequencies in the likelihood. Opens a different scaling relation for next-gen detectors.
             \end{itemize}
         \end{block}
-        \begin{alertblock}{Myth Check}
-            In Lattice Field Theory benchmarks, classical SMC on GPU beats generative AI (Flow-Matching) in wall-time for the same accuracy. You often don't need a Neural Net; you just need a GPU.
+        \begin{alertblock}{Empirical comparison}
+            In Lattice Field Theory benchmarks, classical SMC on GPU beats generative AI (Flow-Matching) in wall-time for the same accuracy. In several cases classical GPU implementations are competitive with or faster than NN surrogates.
         \end{alertblock}
         \column{0.45\textwidth}
         \includegraphics[width=\textwidth]{figures/metha-precision-scaling.pdf}
@@ -205,8 +246,8 @@
 % --- Vignette 2: Dark Energy ---
 
 \begin{frame}
-    \frametitle{Vignette 2: Dark Energy}
-    \framesubtitle{Is dark energy evolving? (The DESI Tension)}
+    \frametitle{Dark Energy}
+    \framesubtitle{Is dark energy evolving? (The DESI tension)}
     \student{dily_ong.jpg}{Dily Ong}{PhD Student}
     \begin{columns}
         \column{0.4\textwidth}
@@ -227,8 +268,8 @@
 \end{frame}
 
 \begin{frame}
-    \frametitle{How: Speed enables Rigour}
-    \framesubtitle{Reimplementing the pipeline in JAX}
+    \frametitle{JAX reimplementation of the Boltzmann pipeline}
+    \framesubtitle{Days to minutes}
     \student{adam_ormondroyd.jpg}{Adam Ormondroyd}{PhD Student}
     \begin{columns}
         \column{0.5\textwidth}
@@ -244,8 +285,8 @@
 \end{frame}
 
 \begin{frame}
-    \frametitle{What Speed Bought Us}
-    \framesubtitle{Marginalising latent variables at scale}
+    \frametitle{Marginalising latent variables at scale}
+    \framesubtitle{Laplace approximation + auto-differentiation}
     \student{toby_lovick.jpg}{Toby Lovick}{PhD Student}
     \begin{columns}
         \column{0.5\textwidth}
@@ -270,7 +311,7 @@
 % --- Vignette 3: Supernovae ---
 
 \begin{frame}
-    \frametitle{Vignette 3: Supernovae}
+    \frametitle{Supernovae}
     \framesubtitle{What standardises Type Ia supernovae?}
     \student{matt_grayling.jpg}{Matt Grayling}{Postdoc}
     \begin{columns}
@@ -291,15 +332,15 @@
 \end{frame}
 
 \begin{frame}
-    \frametitle{Scale and Verification}
-    \framesubtitle{JAX-SNANA and the Dust Law Bug}
+    \frametitle{Verification: JAX-SNANA vs DES Y5}
+    \framesubtitle{The dust law bug}
     \begin{columns}
         \column{0.5\textwidth}
         \begin{itemize}
             \item \textbf{Scale}: 10,000 light curve sims/sec on A100 (vs hundreds on CPU).
             \item \textbf{Rigour}: Validating JAX rewrite against legacy DES Y5 code ($\Delta < 1$ millimag).
             \item \textbf{Discovery}: Found a bug in legacy code (hardcoded $R_V=3.1$ in dust law).
-            \item \keyterm{Rewrite $\to$ Validation $\to$ Error Detection.}
+            \item The rewrite forced us to validate carefully, which is how we found the dust-law bug.
         \end{itemize}
         \column{0.5\textwidth}
         \includegraphics[width=\textwidth]{figures/matt-jax-snana-benchmark.pdf}
@@ -309,7 +350,7 @@
 % --- Vignette 4: 21cm Radio ---
 
 \begin{frame}
-    \frametitle{Vignette 4: 21cm Radio Astronomy}
+    \frametitle{21cm Radio Astronomy}
     \framesubtitle{Sublinear scaling enables new science}
     \student{sam_leeney.jpg}{Sam Leeney}{PhD Student}
     \begin{columns}
@@ -365,7 +406,7 @@
         \includegraphics[height=0.7\textheight,keepaspectratio]{figures/farah-weave.pdf}
     \end{center}
     \begin{center}
-        \textbf{WEAVE}: 168 retractors, $\sim$1000 fibres --- collision-free assignment to maximise survey efficiency.
+        \textbf{WEAVE}: 168 retractors, $\sim$1000 fibres --- collision-free assignment via JAX on GPU. \alert{60$\times$ speedup} over C++ simulated annealing.
     \end{center}
 \end{frame}
 
@@ -396,11 +437,11 @@
 % --- PART B: LLM REVOLUTION ---
 
 \begin{frame}
-    \frametitle{Part B: The LLM Revolution}
-    \framesubtitle{The Economics of Code}
+    \frametitle{LLMs in practice}
+    \framesubtitle{Development time vs verification time}
     \begin{columns}
         \column{0.6\textwidth}
-        \begin{block}{The Thesis}
+        \begin{block}{}
             \begin{itemize}
                 \item LLMs didn't change the statistics.
                 \item They collapsed the \keyterm{development overhead}.
@@ -413,14 +454,14 @@
 \end{frame}
 
 \begin{frame}
-    \frametitle{The Pace of Change}
-    \framesubtitle{From Chatbots to Orchestration}
+    \frametitle{How people are using LLMs now}
+    \framesubtitle{From autocomplete to repo-scale editing}
     \begin{columns}
         \column{0.5\textwidth}
         \begin{itemize}
             \item \textbf{2024}: Chatting. ``How do I write a loop?''
             \item \textbf{2026}: Orchestrating. ``Here is my repo. Refactor this module and add tests.''
-            \item \textbf{Capabilities Overhang}: The models can do more than we currently ask of them.
+            \item In practice we are under-using them; the limiting factor is evaluation and verification.
         \end{itemize}
         \column{0.5\textwidth}
         \begin{center}
@@ -438,14 +479,14 @@
 \end{frame}
 
 \begin{frame}
-    \frametitle{LLMs as Quality Assurance}
-    \framesubtitle{Navigating legacy codebases}
+    \frametitle{Using LLMs to navigate legacy code}
+    \framesubtitle{Interactive documentation for unfamiliar codebases}
     \student{sinah_legner.jpg}{Sinah Legner}{PhD Student}
     \begin{columns}
         \column{0.55\textwidth}
         \begin{block}{Sinah: Torsion Condensation in CAMB \arxiv{2507.09228}}
             \begin{itemize}
-                \item LLM as ``interactive documentation'' for CAMB: mapping connections between files and underlying physics.
+                \item Used an LLM to query and trace dependencies across CAMB's Fortran codebase.
                 \item Found $N_\mathrm{eff}$ double-counting bug (modifying effective neutrinos would double-count TorC's dark energy contribution).
                 \item Identified missing massive neutrino evolution when results looked inconsistent.
             \end{itemize}
@@ -462,8 +503,8 @@
 \end{frame}
 
 \begin{frame}
-    \frametitle{Navigating Legacy Theory}
-    \framesubtitle{Discrete curvature in CLASS}
+    \frametitle{Implementing discrete curvature in CLASS}
+    \framesubtitle{Modifying a large C Boltzmann solver}
     \student{wei-ning_deng.jpg}{Wei Ning Deng}{PhD Student}
     \begin{columns}
         \column{0.6\textwidth}
@@ -475,7 +516,7 @@
         \end{block}
         \begin{block}{The Workflow}
             \begin{itemize}
-                \item LLM reads the C repo $\to$ identifies variable dependencies $\to$ suggests modifications.
+                \item Used an LLM to trace dependencies across the codebase and propose patches.
                 \item Human verifies the physics output against theoretical predictions.
             \end{itemize}
         \end{block}
@@ -485,24 +526,24 @@
 \end{frame}
 
 \begin{frame}
-    \frametitle{The Verification Pattern}
-    \framesubtitle{The Scientific Method applied to Code}
+    \frametitle{Verification and testing}
+    \framesubtitle{Applying standard scientific validation to code}
     \begin{itemize}
         \item LLMs make it easy to write code. They also make it easy to write \textit{wrong} code.
-        \item \textbf{The New Core Competency}:
+        \item \textbf{What matters most now}:
     \end{itemize}
     \begin{columns}
         \column{0.33\textwidth}
-        \begin{block}{Golden Datasets}
+        \begin{block}{Reference outputs}
             Match legacy code to floating-point precision.
         \end{block}
         \column{0.33\textwidth}
-        \begin{block}{Posterior Overlays}
+        \begin{block}{Simulation-based calibration}
             KS-tests on samples (SBC).
         \end{block}
         \column{0.33\textwidth}
-        \begin{block}{Adversarial Review}
-            Agent A writes code. Agent B writes tests.
+        \begin{block}{Independent testing}
+            One person implements, another writes tests.
         \end{block}
     \end{columns}
     \vspace{1em}
@@ -512,24 +553,24 @@
 \end{frame}
 
 \begin{frame}
-    \frametitle{Workflow Examples}
-    \framesubtitle{Fundamental shifts in how work is done}
+    \frametitle{Examples from the group}
+    \framesubtitle{Concrete uses of LLMs in research}
     \begin{columns}
         \column{0.5\textwidth}
         \student{natalie_hogg.jpg}{Natalie Hogg}{Postdoc}
         \begin{block}{Optimisation (Natalie Hogg)}
             \begin{itemize}
                 \item Covariance matrix: 24 hours $\to$ 1--2 minutes.
-                \item Claude identified vectorisation, JIT-compilation, and quasi-Monte Carlo integration opportunities.
+                \item Used Claude to suggest vectorisation, JIT-compilation, and quasi-Monte Carlo changes; benchmarked the speedup.
             \end{itemize}
         \end{block}
         \begin{block}{Archive Grabber (Toby Lovick)}
             \begin{itemize}
-                \item LLM reads arXiv paper $\to$ extracts priors $\to$ writes inference code $\to$ runs it.
+                \item Tool that parses model/priors from arXiv papers and scaffolds inference scripts. Still needs human checking.
             \end{itemize}
         \end{block}
         \column{0.5\textwidth}
-        \begin{block}{Rapid Prototyping}
+        \begin{block}{Implementation speed}
             \begin{itemize}
                 \item \textbf{Task}: Implement \texttt{emcee} in BlackJAX.
                 \item \textbf{Justin Alsing}: 2 months (manual).
@@ -545,23 +586,23 @@
 \end{frame}
 
 \begin{frame}
-    \frametitle{The Big Picture}
-    \framesubtitle{Jevons Paradox \& Code Debt}
+    \frametitle{Two implications}
+    \framesubtitle{Rebound effects and maintenance burden}
     \begin{columns}
         \column{0.5\textwidth}
         \begin{block}{Jevons Paradox}
             \begin{itemize}
-                \item LLMs will not save you time.
-                \item They increase the \keyterm{scope} and \keyterm{density} of work.
-                \item A consortium-level paper becomes a PhD chapter.
+                \item In our experience LLMs don't reduce total time.
+                \item They let you attempt larger analyses and iterate more.
+                \item Tasks that used to require large teams become feasible for small projects --- provided verification is solid.
             \end{itemize}
         \end{block}
         \column{0.5\textwidth}
         \begin{block}{Code Debt}
             \begin{itemize}
                 \item PhD students spend years wrestling with legacy Fortran monoliths.
-                \item Future: physics knowledge is the source of truth, not the 1998 codebase.
-                \item Smaller, modular scripts generated on demand.
+                \item Long-term, the physics specification and tests should be primary, not inherited behaviour from old code.
+                \item More modular implementations with strong regression tests.
             \end{itemize}
         \end{block}
     \end{columns}
@@ -596,11 +637,11 @@
 \end{frame}
 
 \begin{frame}
-    \frametitle{What should the IoA do on Monday?}
+    \frametitle{Practical suggestions}
     \begin{enumerate}
         \item \textbf{Make likelihoods vectorisable}: Benchmark classical inference on GPUs before reaching for amortised Neural Networks.
-        \item \textbf{Invest in Verification}: Test harnesses and CI are the new bottleneck, not coding speed.
-        \item \textbf{Context Engineering}: Curate ``Skills'' files (physics knowledge) for your group's LLMs.
+        \item \textbf{Prioritise verification}: Regression tests and CI matter more now than raw coding speed.
+        \item \textbf{Curate reference material}: Maintain version-controlled model/assumption notes and reference outputs that you can feed into tools.
     \end{enumerate}
 \end{frame}
 
@@ -621,13 +662,13 @@
 \begin{frame}
     \frametitle{Summary}
     \begin{enumerate}
-        \item \textbf{Classical Methods on GPUs}: Often outperform neural networks. 100$\times$--5000$\times$ speedups for rigorous Bayesian model comparison.
-        \item \textbf{LLM-Assisted Development}: Changes the economics of coding. Verification is the new bottleneck.
-        \item \textbf{The Result}: We can tackle systematics and model complexity that were previously impossible.
+        \item \textbf{Classical methods on GPUs}: Often outperform neural networks. 100$\times$--5000$\times$ speedups for rigorous Bayesian model comparison.
+        \item \textbf{LLM-assisted development}: Shortens implementation time. We spend more effort on testing and validation.
+        \item This makes larger robustness studies practical: more systematics, more models, more datasets.
     \end{enumerate}
     \vspace{1em}
     \begin{center}
-        \textit{This is the start of a new scientific method.}
+        \textit{This pushes us toward more automated, test-driven, fully Bayesian analyses.}
     \end{center}
     \vspace{1em}
     \begin{center}
@@ -636,8 +677,8 @@
 \end{frame}
 
 \begin{frame}
-    \frametitle{The New Sky}
-    \framesubtitle{CCDs let us image the sky. GPUs let us track everything in it.}
+    \frametitle{Outlook}
+    \framesubtitle{CCDs enabled large digital surveys. GPUs make the inference pipeline fast enough to run routinely.}
     \begin{center}
         \includegraphics[height=0.85\textheight,keepaspectratio]{figures/charlotte-starlink.jpg}
     \end{center}
