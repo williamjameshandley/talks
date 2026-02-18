@@ -561,61 +561,79 @@
 
 % --- PART B: LLM REVOLUTION ---
 
+% Slide 2.0: Transition
 \begin{frame}
     \begin{center}
         \vspace{2em}
-        {\Large \C[0]{Part 1: GPUs for science} \hspace{1em} \checkmark}\\[2em]
-        {\Large \C[3]{Part 2: LLMs for scientists}}\\[1em]
-        {\normalsize How we built all of this in months, not years}
+        {\Large \C[0]{Part 1: GPUs for science} \hspace{1em} \checkmark}\\[0.5em]
+        {\small \textit{Classical statistics, rigorous, 1000$\times$ faster}}\\[2em]
+        {\Large \C[3]{Part 2: LLMs for scientists}}\\[0.5em]
+        {\small \textit{How we built all of this in months, not years}}
     \end{center}
 \end{frame}
 
+% Slide 2.1: Three ways AI meets science
 \begin{frame}
-    \frametitle{LLMs in practice}
-    \framesubtitle{Development time vs verification time}
-    \vspace{-1em}
-    \begin{columns}
-        \column{0.58\textwidth}
-        \begin{block}{}
+    \frametitle{Three ways AI meets science}
+    \framesubtitle{Only one matches what science actually is}
+    \vspace{-0.5em}
+    \begin{columns}[T]
+        \column{0.31\textwidth}
+        \begin{block}{Foundation Models}
             \begin{itemize}
-                \item LLMs didn't change the statistics.
-                \item They collapsed the \keyterm{development overhead}.
-                \item When code is cheap, verification becomes the bottleneck.
+                \item ``Train a model on all astronomical data.''
+                \item Expensive, opaque, unclear payoff.
+                \item Physics is about \textit{compression}, not prediction.
             \end{itemize}
         \end{block}
-        \column{0.40\textwidth}
+        \column{0.31\textwidth}
+        \begin{block}{Autonomous Agents}
+            \begin{itemize}
+                \item ``Click a button, generate a paper.''
+                \item Produces ``science-like'' content without understanding.
+                \item Science is a human culture of critique --- not a pipeline.
+            \end{itemize}
+        \end{block}
+        \column{0.31\textwidth}
+        \begin{exampleblock}{Augmented Humans}
+            \begin{itemize}
+                \item The centaur model.
+                \item Humans define the physics and verification; AI handles the syntax.
+                \item \textbf{Our approach.}
+            \end{itemize}
+        \end{exampleblock}
+    \end{columns}
+    \vfill
+    \begin{center}
+        \includegraphics[height=2.5cm,keepaspectratio]{figures/three-ways.jpg}
+    \end{center}
+\end{frame}
+
+% Slide 2.2: The code debt problem
+\begin{frame}
+    \frametitle{The code debt problem}
+    \framesubtitle{Why PhD students spend years operating frameworks instead of doing physics}
+    \vspace{-0.5em}
+    \begin{columns}
+        \column{0.55\textwidth}
+        \begin{itemize}
+            \item Our fields are riven with \keyterm{code debt}.
+            \item Students end up \textit{operating} CAMB, CLASS, Cobaya --- not implementing their own ideas.
+            \item We mistake ``ability to debug legacy Fortran'' for ``scientific aptitude.''
+        \end{itemize}
+        \vspace{0.5em}
+        \begin{exampleblock}{The shift}
+            LLMs are autocomplete on steroids --- our route out of the spiral. We move from \keyterm{maintaining code} to \keyterm{specifying physics}.
+        \end{exampleblock}
+        \column{0.43\textwidth}
         \includegraphics[width=\textwidth]{figures/second-revolution-v2.png}
     \end{columns}
 \end{frame}
 
+% Slide 2.3: Navigating legacy code (Sinah)
 \begin{frame}
-    \frametitle{How people are using LLMs now}
-    \framesubtitle{From autocomplete to repo-scale editing}
-    \begin{columns}
-        \column{0.49\textwidth}
-        \begin{itemize}
-            \item \textbf{2024}: Chatting. ``How do I write a loop?''
-            \item \textbf{2026}: Orchestrating. ``Here is my repo. Refactor this module and add tests.''
-            \item In practice we are under-using them; the limiting factor is evaluation and verification.
-        \end{itemize}
-        \column{0.49\textwidth}
-        \begin{center}
-            \begin{tikzpicture}
-                \node[draw, rectangle] (A) {Human Intent};
-                \node[draw, rectangle, below of=A] (B) {Verification Loop};
-                \node[draw, rectangle, below left of=B] (C) {Code};
-                \node[draw, rectangle, below right of=B] (D) {Tests};
-                \draw[->] (A) -- (B);
-                \draw[->] (B) -- (C);
-                \draw[->] (B) -- (D);
-            \end{tikzpicture}
-        \end{center}
-    \end{columns}
-\end{frame}
-
-\begin{frame}
-    \frametitle{Using LLMs to navigate legacy code}
-    \framesubtitle{Interactive documentation for unfamiliar codebases}
+    \frametitle{LLMs as interactive documentation}
+    \framesubtitle{Navigating and excavating legacy codebases}
     \student{sinah_legner.jpg}{Sinah Legner}{PhD Student}
     \begin{columns}
         \column{0.54\textwidth}
@@ -629,6 +647,7 @@
         \begin{block}{Will: CosmoSIS $\to$ Cobaya}
             \begin{itemize}
                 \item Porting DES Y3/Y6 likelihoods between two large, unfamiliar frameworks.
+                \item \textbf{Adversarial review}: one LLM writes code, another critiques it against the documentation.
             \end{itemize}
         \end{block}
         \column{0.44\textwidth}
@@ -637,151 +656,131 @@
     \end{columns}
 \end{frame}
 
+% Slide 2.4: Deep modifications (Wei-Ning)
 \begin{frame}
-    \frametitle{Implementing discrete curvature in CLASS}
-    \framesubtitle{Modifying a large C Boltzmann solver}
+    \frametitle{Deep modifications: discrete curvature in CLASS}
+    \framesubtitle{Human specifies the physics, AI implements the patch}
     \student{wei-ning_deng.jpg}{Wei Ning Deng}{PhD Student}
     \begin{columns}
-        \column{0.58\textwidth}
+        \column{0.56\textwidth}
         \begin{block}{The Challenge}
             \begin{itemize}
-                \item Implementing discrete spatial curvature ($k$ quantization) into the CLASS Boltzmann solver.
-                \item Requires deep changes to the integration logic in C.
+                \item Implementing discrete spatial curvature ($k$ quantisation) into the CLASS Boltzmann solver.
+                \item Deep changes to the integration logic in C.
             \end{itemize}
         \end{block}
         \begin{block}{The Workflow}
             \begin{itemize}
-                \item Used an LLM to trace dependencies across the codebase and propose patches.
-                \item Human verifies the physics output against theoretical predictions.
+                \item LLM traces dependencies across the codebase and proposes patches.
+                \item Wei-Ning verifies the physics output against theoretical predictions.
+                \item The work that matters --- the \textit{science} --- stays with the human.
             \end{itemize}
         \end{block}
-        \column{0.40\textwidth}
+        \column{0.42\textwidth}
         \includegraphics[width=\textwidth]{figures/weining-cylinder.pdf}
     \end{columns}
 \end{frame}
 
+% Slide 2.5: Development time collapsed
 \begin{frame}
-    \frametitle{Verification and testing}
-    \framesubtitle{Applying standard scientific validation to code}
-    \begin{itemize}
-        \item LLMs make it easy to write code. They also make it easy to write \textit{wrong} code.
-        \item \textbf{What matters most now}:
-    \end{itemize}
-    \begin{columns}
-        \column{0.33\textwidth}
-        \begin{block}{Reference outputs}
-            Match legacy code to floating-point precision.
+    \frametitle{Development time collapsed}
+    \framesubtitle{The work didn't disappear --- it moved to verification}
+    \vspace{-0.5em}
+    \begin{columns}[T]
+        \column{0.55\textwidth}
+        \begin{block}{Implementation}
+            \begin{description}[\texttt{emcee} in BlackJAX:]
+                \item[\texttt{emcee} in BlackJAX:] 2 months (manual) $\to$ \textbf{15 minutes} (LLM).
+            \end{description}
         \end{block}
-        \column{0.33\textwidth}
-        \begin{block}{Simulation-based calibration}
-            KS-tests on samples (SBC).
+        \begin{block}{Optimisation}
+            \begin{description}[Natalie Hogg:]
+                \item[Natalie Hogg:] Covariance matrix 24\,h $\to$ \textbf{1--2 minutes}. Vectorisation, JIT, quasi-Monte Carlo --- all suggested by the LLM, benchmarked by the scientist.
+            \end{description}
         \end{block}
-        \column{0.33\textwidth}
-        \begin{block}{Independent testing}
-            One person implements, another writes tests.
+        \begin{block}{Portability}
+            \begin{description}[Sam Leeney:]
+                \item[Sam Leeney:] REACH radio anomaly detection $\to$ supernova cosmology in hours via \texttt{jax-bandflux}. \arxiv{2504.08081}
+            \end{description}
         \end{block}
-    \end{columns}
-    \vspace{1em}
-    \begin{center}
-        \textit{``The dust law bug was found because Matt's GPU rewrite forced rigorous validation.''}
-    \end{center}
-\end{frame}
-
-\begin{frame}
-    \frametitle{Examples from the group}
-    \framesubtitle{Concrete uses of LLMs in research}
-    \begin{columns}
-        \column{0.49\textwidth}
-        \student{natalie_hogg.jpg}{Natalie Hogg}{Postdoc}
-        \begin{block}{Optimisation (Natalie Hogg)}
-            \begin{itemize}
-                \item Covariance matrix: 24 hours $\to$ 1--2 minutes.
-                \item Used Claude to suggest vectorisation, JIT-compilation, and quasi-Monte Carlo changes; benchmarked the speedup.
-            \end{itemize}
+        \column{0.43\textwidth}
+        \begin{block}{New science from scratch}
+            \begin{description}[GW emulator:]
+                \item[GW emulator:] Nothing $\to$ working package in \textbf{8 hours} (with James Alvey). ``We spent all our time reasoning about physics.''
+            \end{description}
         \end{block}
-        \begin{block}{Archive Grabber (Toby Lovick)}
-            \begin{itemize}
-                \item Tool that parses model/priors from arXiv papers and scaffolds inference scripts. Still needs human checking.
-            \end{itemize}
-        \end{block}
-        \column{0.49\textwidth}
-        \begin{block}{Implementation speed}
-            \begin{itemize}
-                \item \textbf{Task}: Implement \texttt{emcee} in BlackJAX.
-                \item \textbf{Justin Alsing}: 2 months (manual).
-                \item \textbf{Will (with LLM)}: 15 minutes to a working PR.
-            \end{itemize}
-        \end{block}
-        \begin{block}{Portability (Sam Leeney)}
-            \begin{itemize}
-                \item REACH anomaly detection $\to$ ZTF Supernovae via JAX-bandflux (123$\times$ speedup). \arxiv{2504.08081}
-            \end{itemize}
-        \end{block}
-    \end{columns}
-\end{frame}
-
-\begin{frame}
-    \frametitle{Two implications}
-    \framesubtitle{Rebound effects and maintenance burden}
-    \begin{columns}
-        \column{0.49\textwidth}
-        \begin{block}{Jevons Paradox}
-            \begin{itemize}
-                \item In our experience LLMs don't reduce total time.
-                \item They let you attempt larger analyses and iterate more.
-                \item Tasks that used to require large teams become feasible for small projects --- provided verification is solid.
-            \end{itemize}
-        \end{block}
-        \column{0.49\textwidth}
-        \begin{block}{Code Debt}
-            \begin{itemize}
-                \item PhD students spend years wrestling with legacy Fortran monoliths.
-                \item Long-term, the physics specification and tests should be primary, not inherited behaviour from old code.
-                \item More modular implementations with strong regression tests.
-            \end{itemize}
-        \end{block}
-    \end{columns}
-\end{frame}
-
-\begin{frame}
-    \frametitle{Trotta \& Hogg}
-    \framesubtitle{Two serious arguments about AI in academia}
-    \begin{columns}
-        \column{0.49\textwidth}
-        \begin{block}{Trotta \arxiv{2602.10165}}
-            \begin{itemize}
-                \item AI risks breaking the trust loop between student and understanding.
-                \item If students generate code they don't understand, the verification chain fails.
-            \end{itemize}
-        \end{block}
-        \begin{block}{Hogg \arxiv{2602.10181}}
-            \begin{itemize}
-                \item AI makes research more accessible and rigorous, not less.
-                \item The bottleneck shifts to verification, which is a scientific skill.
-            \end{itemize}
-        \end{block}
-        \column{0.49\textwidth}
-        \begin{alertblock}{Our Experience}
-            \begin{itemize}
-                \item The dust law bug: found \textit{because} Sam's GPU rewrite forced rigorous validation.
-                \item LLMs make wrong code easy. Testing makes it detectable.
-                \item The scientific method applied to software.
-            \end{itemize}
+        \vspace{0.5em}
+        \begin{alertblock}{The insight}
+            I mistook \textit{mental athleticism} --- typing speed, syntax memory --- for scientific strength. With AI, \keyterm{creative drive} becomes the differentiator.
         \end{alertblock}
     \end{columns}
 \end{frame}
 
+% Slide 2.6: Verification is the new lab bench
 \begin{frame}
-    \frametitle{Practical suggestions}
-    \begin{enumerate}
-        \item \textbf{Make likelihoods vectorisable}: Benchmark classical inference on GPUs before reaching for amortised Neural Networks.
-        \item \textbf{Prioritise verification}: Regression tests and CI matter more now than raw coding speed.
-        \item \textbf{Curate reference material}: Maintain version-controlled model/assumption notes and reference outputs that you can feed into tools.
-    \end{enumerate}
+    \frametitle{Verification is the new lab bench}
+    \framesubtitle{LLMs make wrong code easy. Testing makes it detectable.}
+    \vspace{-0.5em}
+    \begin{columns}[T]
+        \column{0.31\textwidth}
+        \begin{block}{Reference outputs}
+            Match legacy code to floating-point precision. Regression to known-good results.
+        \end{block}
+        \column{0.31\textwidth}
+        \begin{block}{Simulation-based calibration}
+            KS-tests on samples (SBC). Statistical validation of the full pipeline.
+        \end{block}
+        \column{0.31\textwidth}
+        \begin{block}{Independent testing}
+            One person implements, another writes tests. Adversarial review: one LLM writes, another critiques.
+        \end{block}
+    \end{columns}
+    \vspace{0.5em}
+    \begin{exampleblock}{Evidence}
+        The dust law bug was found \textit{because} Matt's GPU rewrite forced rigorous comparison against legacy outputs. The rewrite \textit{created} the conditions for discovery.
+    \end{exampleblock}
+    \vfill
+    \begin{center}
+        \textit{``We are no longer limited by how fast we write code --- we are limited by how fast we verify it.''}
+    \end{center}
+\end{frame}
+
+% Slide 2.7: Trotta & Hogg (tension + resolution)
+\begin{frame}
+    \frametitle{Two serious arguments}
+    \framesubtitle{The trust loop vs the accessibility argument}
+    \vspace{-0.5em}
+    \begin{columns}[T]
+        \column{0.48\textwidth}
+        \begin{alertblock}{The risk (Trotta \arxiv{2602.10165})}
+            \begin{itemize}
+                \item The ``trust loop'' between student and code is broken.
+                \item If you generate code you don't understand, you cannot do science.
+                \item ``Science becomes a button-pushing exercise.''
+            \end{itemize}
+        \end{alertblock}
+        \column{0.48\textwidth}
+        \begin{block}{The opportunity (Hogg \arxiv{2602.10181})}
+            \begin{itemize}
+                \item The bottleneck shifts from \textit{writing} to \textit{verifying}.
+                \item Verification is a higher-order scientific skill.
+                \item AI makes research more accessible and rigorous, not less.
+            \end{itemize}
+        \end{block}
+    \end{columns}
+    \vspace{0.5em}
+    \begin{exampleblock}{Our synthesis}
+        Both are right. The answer is rigorous verification as method. The dust law bug was found \textit{because of} --- not \textit{despite} --- the LLM-accelerated rewrite.
+    \end{exampleblock}
+    \vfill
+    \begin{center}
+        \textit{Code is cheap. Truth is expensive.}
+    \end{center}
 \end{frame}
 
 % --- DEMO ---
 
+% Slide 2.8: Live Demo
 \begin{frame}
     \frametitle{Live Demo}
     \begin{center}
@@ -794,20 +793,33 @@
 
 % --- CLOSE ---
 
+% Slide 2.9: Summary
 \begin{frame}
-    \frametitle{Summary}
+    \frametitle{Summary: The New Scientific Method}
+    \vspace{-0.5em}
     \begin{enumerate}
-        \item \textbf{Classical methods on GPUs}: Often outperform neural networks. 100$\times$--5000$\times$ speedups for rigorous Bayesian model comparison.
-        \item \textbf{LLM-assisted development}: Shortens implementation time. We spend more effort on testing and validation.
-        \item This makes larger robustness studies practical: more systematics, more models, more datasets.
+        \item \textbf{\C[0]{Hardware revolution (GPUs)}}:
+        \begin{itemize}
+            \item Classical Bayesian inference at scale. 100$\times$--5000$\times$ speedups without sacrificing rigour.
+        \end{itemize}
+        \item \textbf{\C[3]{Software revolution (LLMs)}}:
+        \begin{itemize}
+            \item We are no longer limited by the speed at which we \textit{write} code.
+            \item We are limited by the speed at which we \textit{verify} it.
+        \end{itemize}
+        \item \textbf{The result}:
+        \begin{itemize}
+            \item A shift from code maintenance to \keyterm{physics specification}.
+            \item More models, more systematics, more datasets become routine.
+        \end{itemize}
     \end{enumerate}
-    \vspace{1em}
+    \vfill
     \begin{center}
-        \textit{This pushes us toward more automated, test-driven, fully Bayesian analyses.}
+        \includegraphics[height=2.5cm,keepaspectratio]{figures/summary.jpg}
     \end{center}
-    \vspace{1em}
+    \vspace{0.5em}
     \begin{center}
-        \tthref{handley-lab.co.uk/nested-sampling-book} \hfill \github{handley-lab/group}
+        \tthref{handley-lab.co.uk} \hfill \github{handley-lab/group}
     \end{center}
 \end{frame}
 
