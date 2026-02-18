@@ -58,7 +58,7 @@
     \end{columns}
     \vspace{1em}
     \begin{center}
-        \textit{We are currently treating GPUs like faster CPUs.\\We need to treat them like a new instrument.}
+        \textit{GPU hardware and large language models are driving\\a comparable shift in how we analyse data.}
     \end{center}
 \end{frame}
 
@@ -133,7 +133,7 @@
         \begin{itemize}
             \item \textbf{JWST/Euclid/LSST}: Unprecedented data volume requires automated, robust systematics handling.
             \item \textbf{SKA/LIGO}: Real-time requirements ($<1$ minute) for transient localization.
-            \item \textbf{The Gap}: We have the instruments. We typically lack the inference speed to exploit them fully without resorting to ``black box'' approximations.
+            \item \textbf{The Gap}: We have the instruments. Classical methods on GPU hardware can match or outperform neural network approaches --- and they're interpretable.
         \end{itemize}
     \end{block}
 \end{frame}
@@ -173,11 +173,11 @@
     \begin{itemize}
         \item \textbf{Standard}: 2 hours on a cluster $\to$ Too late for prompt EM follow-up.
         \item \textbf{GPU}: 16 seconds on one card $\to$ Alerts sent while the event is physically interesting.
-        \item \textbf{Population Inference}: We can re-analyse the entire GW catalogue in an afternoon to test a new population-level hypothesis.
+        \item \textbf{Real-time astronomy}: Localisation fast enough for telescopes to catch the afterglow.
     \end{itemize}
     \vspace{1em}
     \begin{center}
-        \textit{Speed changes the question from ``can we fit this event?'' to ``what does the population tell us?''}
+        \textit{Speed turns parameter estimation from a post-hoc analysis into a real-time tool.}
     \end{center}
 \end{frame}
 
@@ -252,13 +252,12 @@
             \begin{itemize}
                 \item Beyond standard $w_0/w_a$.
                 \item Allows us to find ``kinks'' in the dark energy evolution that simpler models miss.
-                \item Reveals double-peaked posterior structures hidden by approximate methods.
+                \item Only feasible because GPU nested sampling makes the computation practical.
             \end{itemize}
         \end{block}
         \begin{block}{The Enabler}
             \begin{itemize}
-                \item GPU Nested Sampling (300$\times$ faster).
-                \item Drastically reduced effective dimension via internal optimisation.
+                \item Toby's GPU Nested Sampling (300$\times$ faster than CPU PolyChord).
             \end{itemize}
         \end{block}
         \column{0.5\textwidth}
@@ -335,7 +334,7 @@
 
 \begin{frame}
     \frametitle{Montage: Satellites}
-    \framesubtitle{Visualising the Megaconstellation}
+    \framesubtitle{JAX-SGP4, 34$\times$ speedup}
     \student{charlotte_priestley.jpg}{Charlotte Priestley}{PhD Student}
     \begin{center}
         \includegraphics[height=0.7\textheight,keepaspectratio]{figures/charlotte-starlink.jpg}
@@ -347,19 +346,19 @@
 
 \begin{frame}
     \frametitle{Montage: Materials}
-    \framesubtitle{Phase transitions in 1000 atoms}
+    \framesubtitle{GPU nested sampling beyond astronomy}
     \student{namu_kroupa.jpg}{Namu Kroupa}{PhD Student}
     \begin{center}
         \includegraphics[height=0.7\textheight,keepaspectratio]{figures/namu-atoms.png}
     \end{center}
     \begin{center}
-        \textbf{Lennard-Jones}: Observing crystal nucleation directly via GPU nested sampling.
+        \textbf{Lennard-Jones}: 1000-atom phase transitions via GPU nested sampling.
     \end{center}
 \end{frame}
 
 \begin{frame}
     \frametitle{Montage: Quasars}
-    \framesubtitle{Needle in a haystack}
+    \framesubtitle{150$\times$ speedup for GP inference}
     \student{alex_drane.jpg}{Alex Drane}{PhD Student}
     \begin{center}
         \includegraphics[height=0.7\textheight,keepaspectratio]{figures/alex-quasar.pdf}
@@ -371,7 +370,7 @@
 
 \begin{frame}
     \frametitle{Montage: Instrumentation}
-    \framesubtitle{Fibre allocation geometry}
+    \framesubtitle{GPU geometric optimisation}
     \student{farah_wallauer.jpg}{Farah Wallauer}{MPhil Student}
     \begin{center}
         \includegraphics[height=0.7\textheight,keepaspectratio]{figures/farah-weave.pdf}
@@ -383,7 +382,7 @@
 
 \begin{frame}
     \frametitle{Montage: CMB}
-    \framesubtitle{Differentiable Universe}
+    \framesubtitle{End-to-end differentiable pipeline}
     \student{lawrence_berry.jpg}{Lawrence Berry}{PhD Student}
     \begin{center}
         \includegraphics[height=0.7\textheight,keepaspectratio]{figures/lawrence-cmb-field.png}
@@ -395,7 +394,7 @@
 
 \begin{frame}
     \frametitle{Montage: Galaxies}
-    \framesubtitle{Forward Modelling SEDs}
+    \framesubtitle{GPU-accelerated SED generation}
     \student{chris_lovell.jpg}{Chris Lovell}{Postdoc}
     \begin{center}
         \includegraphics[height=0.7\textheight,keepaspectratio]{figures/chris-synthesizer.pdf}
@@ -415,7 +414,7 @@
         \begin{block}{The Thesis}
             \begin{itemize}
                 \item LLMs didn't change the statistics.
-                \item They changed the \keyterm{marginal cost} of writing and maintaining code.
+                \item They collapsed the \keyterm{development overhead}.
                 \item When code is cheap, verification becomes the bottleneck.
             \end{itemize}
         \end{block}
@@ -438,7 +437,7 @@
         \begin{center}
             \begin{tikzpicture}
                 \node[draw, rectangle] (A) {Human Intent};
-                \node[draw, rectangle, below of=A] (B) {Agent Swarm};
+                \node[draw, rectangle, below of=A] (B) {Verification Loop};
                 \node[draw, rectangle, below left of=B] (C) {Code};
                 \node[draw, rectangle, below right of=B] (D) {Tests};
                 \draw[->] (A) -- (B);
@@ -455,11 +454,15 @@
     \student{sinah_legner.jpg}{Sinah Legner}{PhD Student}
     \begin{columns}
         \column{0.6\textwidth}
-        \begin{block}{Poincaré Gauge Theory in CAMB}
+        \begin{block}{Sinah: Poincaré Gauge Theory in CAMB}
             \begin{itemize}
-                \item Task: Modify background evolution for torsional gravity in legacy Fortran.
-                \item LLMs enabled navigation of a massive codebase she didn't write.
-                \item \textbf{Verification}: Comparison against analytic results for specific limiting cases.
+                \item Modify background evolution for torsional gravity in legacy Fortran.
+                \item LLMs enabled navigation of a codebase she didn't write.
+            \end{itemize}
+        \end{block}
+        \begin{block}{Will: CosmoSIS $\to$ Cobaya}
+            \begin{itemize}
+                \item Porting DES Y3/Y6 likelihoods between two large, unfamiliar frameworks.
             \end{itemize}
         \end{block}
         \column{0.4\textwidth}
@@ -525,21 +528,26 @@
         \student{natalie_hogg.jpg}{Natalie Hogg}{Postdoc}
         \begin{block}{Optimisation (Natalie Hogg)}
             \begin{itemize}
-                \item Covariance matrix calculation: 2 days $\to$ 1 minute.
-                \item LLM suggested algorithmic change (Quasi-Monte Carlo) + Numba JIT.
+                \item Covariance matrix: 2 days $\to$ 1 minute.
+                \item LLM suggested a fundamentally different algorithm (Quasi-Monte Carlo + Numba JIT).
+            \end{itemize}
+        \end{block}
+        \begin{block}{Archive Grabber (Toby Lovick)}
+            \begin{itemize}
+                \item LLM reads arXiv paper $\to$ extracts priors $\to$ writes inference code $\to$ runs it.
+            \end{itemize}
+        \end{block}
+        \column{0.5\textwidth}
+        \begin{block}{Rapid Prototyping}
+            \begin{itemize}
+                \item \textbf{Task}: Implement \texttt{emcee} in BlackJAX.
+                \item \textbf{Justin Alsing}: 2 months (manual).
+                \item \textbf{Will (with LLM)}: 15 minutes to a working PR.
             \end{itemize}
         \end{block}
         \begin{block}{Portability (Sam Leeney)}
             \begin{itemize}
-                \item Radio anomaly detection ported to ZTF Supernovae in hours.
-            \end{itemize}
-        \end{block}
-        \column{0.5\textwidth}
-        \begin{block}{Vibe Coding vs Manual}
-            \begin{itemize}
-                \item \textbf{Task}: Implement \texttt{emcee} (affine invariant sampler) in BlackJAX.
-                \item \textbf{Justin Alsing}: 2 months (manual implementation).
-                \item \textbf{Will (with LLM)}: 15 minutes to a working PR.
+                \item REACH anomaly detection ported to ZTF Supernovae in hours.
             \end{itemize}
         \end{block}
     \end{columns}
@@ -547,7 +555,7 @@
 
 \begin{frame}
     \frametitle{The Big Picture}
-    \framesubtitle{Jevons Paradox \& The Future of Academia}
+    \framesubtitle{Jevons Paradox \& Code Debt}
     \begin{columns}
         \column{0.5\textwidth}
         \begin{block}{Jevons Paradox}
@@ -558,13 +566,41 @@
             \end{itemize}
         \end{block}
         \column{0.5\textwidth}
-        \begin{block}{Trotta vs Hogg}
+        \begin{block}{Code Debt}
             \begin{itemize}
-                \item \textbf{The Fear}: AI undermines understanding (Trotta 2602.10165).
-                \item \textbf{The Reality}: LLMs enforce higher rigour via verification (Hogg 2602.10181).
-                \item We verify the \textit{physics}, not the syntax.
+                \item PhD students spend years wrestling with legacy Fortran monoliths.
+                \item Future: physics knowledge is the source of truth, not the 1998 codebase.
+                \item Smaller, modular scripts generated on demand.
             \end{itemize}
         \end{block}
+    \end{columns}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Trotta \& Hogg}
+    \framesubtitle{Two serious arguments about AI in academia}
+    \begin{columns}
+        \column{0.5\textwidth}
+        \begin{block}{Trotta \arxiv{2602.10165}}
+            \begin{itemize}
+                \item AI risks breaking the trust loop between student and understanding.
+                \item If students generate code they don't understand, the verification chain fails.
+            \end{itemize}
+        \end{block}
+        \begin{block}{Hogg \arxiv{2602.10181}}
+            \begin{itemize}
+                \item AI makes research more accessible and rigorous, not less.
+                \item The bottleneck shifts to verification, which is a scientific skill.
+            \end{itemize}
+        \end{block}
+        \column{0.5\textwidth}
+        \begin{alertblock}{Our Experience}
+            \begin{itemize}
+                \item Matt's dust law bug: found \textit{because} rewriting for GPU forced rigorous validation.
+                \item LLMs make wrong code easy. Testing makes it detectable.
+                \item The scientific method applied to software.
+            \end{itemize}
+        \end{alertblock}
     \end{columns}
 \end{frame}
 
