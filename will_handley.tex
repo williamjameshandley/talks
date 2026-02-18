@@ -413,40 +413,52 @@
 % --- Vignette 3: Supernovae ---
 
 \begin{frame}
-    \frametitle{What standardises Type Ia supernovae?}
+    \frametitle{GPU-accelerated supernova photometry}
     \framesubtitle{Example 3: Supernovae as standard candles}
-    \student{matt_grayling.jpg}{Matt Grayling}{Postdoc}
-    \begin{columns}
-        \column{0.49\textwidth}
-        \begin{block}{The ``Mass Step'' Problem}
-            SNe in high-mass galaxies appear brighter. A nuisance parameter step-function is usually fitted.
-        \end{block}
-        \begin{block}{Physics-Based Standardisation}
+    \student{sam_leeney.jpg}{Sam Leeney}{PhD Student}
+    \vspace{-0.5em}
+    \begin{columns}[T]
+        \column{0.60\textwidth}
+        \begin{block}{\texttt{jax-bandflux}: SN photometry on GPU \arxiv{2504.08081}}
             \begin{itemize}
-                \item Standardise on Nickel mass / Ejecta mass.
-                \item \textbf{Result}: The mass step disappears.
-                \item Systematics removed by better physics, not more nuisance parameters.
+                \item JAX SALT3 bandflux integration $\Rightarrow$ $\sim$\textbf{100$\times$ speedup}, fully differentiable.
             \end{itemize}
         \end{block}
-        \column{0.49\textwidth}
-        \includegraphics[width=\textwidth]{figures/matt-mass-step.pdf}
+        \begin{block}{Bayesian anomaly detection \arxiv{2509.13394}}
+            \begin{itemize}
+                \item Each data point gets a latent anomaly probability, fitted jointly with SALT3 parameters.
+                \item Automates outlier flagging, filter rejection, \emph{and} data preservation within partially contaminated bands.
+                \item 98\% of parameters match manual analysis --- but fully automated for LSST.
+            \end{itemize}
+        \end{block}
+        \column{0.38\textwidth}
+        \includegraphics[width=\textwidth]{figures/sam-anomaly-detection-19ekb.png}
+        \includegraphics[width=\textwidth]{figures/sam-anomaly-detection-normdiff.png}
     \end{columns}
 \end{frame}
 
 \begin{frame}
-    \frametitle{JAX-bandflux and the dust law bug}
+    \frametitle{Simulations at scale and the dust law bug}
     \framesubtitle{Example 3: Supernovae as standard candles}
-    \student{sam_leeney.jpg}{Sam Leeney}{PhD Student}
+    \student{matt_grayling.jpg}{Matt Grayling}{Postdoc}
     \begin{columns}
         \column{0.52\textwidth}
-        \begin{itemize}
-            \item \textbf{JAX-bandflux}: 123$\times$ speedup over existing SN photometry tools. \arxiv{2504.08081}
-            \item \textbf{JAX-SNANA}: 10,000 light curve sims/sec on A100 (vs hundreds on CPU).
-            \item \textbf{Rigour}: Validating JAX rewrite against legacy DES Y5 code ($\Delta < 1$ millimag).
-            \item \textbf{Discovery}: Found a bug in legacy code (hardcoded $R_V=3.1$ in dust law). The rewrite forced careful validation.
-        \end{itemize}
+        \begin{block}{JAX-SNANA: 10,000 sims/sec on A100}
+            \begin{itemize}
+                \item Full SN light-curve simulation pipeline rewritten in JAX.
+                \item CPU legacy code: hundreds of sims/sec. GPU: \textbf{10,000/sec}.
+                \item Validated against DES Y5 to $< 1$ millimag.
+            \end{itemize}
+        \end{block}
+        \begin{block}{The dust law bug}
+            \begin{itemize}
+                \item Validating the JAX rewrite against legacy DES Y5 code revealed a bug: $R_V$ hardcoded to 3.1 in the dust law.
+                \item \textit{Rewriting for GPU forces rigorous validation, which catches errors.}
+            \end{itemize}
+        \end{block}
         \column{0.46\textwidth}
-        \includegraphics[width=\textwidth]{figures/matt-jax-snana-benchmark.pdf}
+        % TODO: awaiting figure from Matt
+        \includegraphics[width=\textwidth]{example-image}
     \end{columns}
 \end{frame}
 
@@ -470,7 +482,8 @@
             \end{itemize}
         \end{block}
         \column{0.49\textwidth}
-        \includegraphics[width=\textwidth]{figures/toby-lao-scaling.pdf}
+        \includegraphics<1>[width=\textwidth]{figures/toby-lao-scaling.pdf}
+        \includegraphics<2>[width=\textwidth]{figures/toby-lao-colloquium.pdf}
     \end{columns}
 \end{frame}
 
@@ -689,7 +702,7 @@
     \end{columns}
     \vspace{1em}
     \begin{center}
-        \textit{``The dust law bug was found because Sam's GPU rewrite forced rigorous validation.''}
+        \textit{``The dust law bug was found because Matt's GPU rewrite forced rigorous validation.''}
     \end{center}
 \end{frame}
 
