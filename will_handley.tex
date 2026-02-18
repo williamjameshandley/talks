@@ -35,27 +35,25 @@
 \begin{frame}
     \frametitle{Inference Across Astronomy}
     \framesubtitle{Three examples of Bayesian parameter estimation and model comparison}
+    \vspace{-1.5em}
     \begin{columns}[T]
         \column{0.32\textwidth}
         \begin{center}
-            \includegraphics[width=\textwidth]{figures/desi.pdf}\\
-            \vspace{0.5em}
+            \includegraphics[width=\textwidth]{figures/desi.pdf}\\[0.3em]
             {\small \textbf{Cosmology}: Is dark energy evolving?\\$\Lambda$CDM vs $w_0w_a$CDM}
         \end{center}
         \column{0.34\textwidth}
         \begin{center}
-            \includegraphics[width=\textwidth]{figures/gw170817-skymap.jpg}\\
-            \vspace{0.5em}
+            \includegraphics[width=\textwidth]{figures/gw170817-skymap.jpg}\\[0.3em]
             {\small \textbf{Gravitational Waves}: Where on the sky?\\Masses, spins, distance}
         \end{center}
         \column{0.32\textwidth}
         \begin{center}
-            \includegraphics[width=\textwidth]{figures/exoplanet.pdf}\\
-            \vspace{0.5em}
+            \includegraphics[width=\textwidth]{figures/exoplanet.pdf}\\[0.3em]
             {\small \textbf{Exoplanets}: What's in the atmosphere?\\How many planets?}
         \end{center}
     \end{columns}
-    \vspace{1em}
+    \vfill
     \begin{center}
         \textit{These all require the same statistical machinery:\\posterior inference, model comparison, error propagation.}
     \end{center}
@@ -159,7 +157,7 @@
     \frametitle{What I mean by ``classical inference''}
     \framesubtitle{Triangle plots, error bars, and Bayesian model comparison}
     \begin{columns}
-        \column{0.55\textwidth}
+        \column{0.53\textwidth}
         \begin{itemize}
             \item Algorithms that converge to the true posterior: MCMC, Nested Sampling, HMC
             \item \textbf{LIGO}: localising GW sources on the sky \arxiv{1710.05833}
@@ -171,7 +169,7 @@
             \item The instruments exist. The statistical methods exist.
             \item The bottleneck is \alert{compute}: running them fast enough at scale.
         \end{itemize}
-        \column{0.45\textwidth}
+        \column{0.43\textwidth}
         \includegraphics[width=\textwidth]{figures/corner.pdf}\\
         {\small A posterior ``triangle plot''}
     \end{columns}
@@ -186,7 +184,7 @@
     \framesubtitle{Sky localisation and electromagnetic follow-up}
     \student{metha_prathaban.jpg}{Metha Prathaban}{PhD Student}
     \begin{columns}
-        \column{0.5\textwidth}
+        \column{0.49\textwidth}
         \begin{block}{GW170817: the multi-messenger event}
             \begin{itemize}
                 \item Binary neutron star merger detected by LIGO/Virgo
@@ -200,7 +198,7 @@
                 \item Too slow for prompt follow-up of short-lived transients
             \end{itemize}
         \end{block}
-        \column{0.5\textwidth}
+        \column{0.49\textwidth}
         \includegraphics[width=\textwidth]{figures/gw170817-skymap.jpg}\\
         {\tiny LIGO/Virgo/NASA/Leo Singer}
     \end{columns}
@@ -210,7 +208,7 @@
     \frametitle{Real-time gravitational wave PE}
     \framesubtitle{30 seconds on one GPU}
     \begin{columns}
-        \column{0.5\textwidth}
+        \column{0.49\textwidth}
         \begin{block}{GPU nested sampling \arxiv{2509.04336}}
             \begin{itemize}
                 \item \textbf{1 GH200 GPU} for \textbf{$\sim$30 seconds}
@@ -225,7 +223,7 @@
                 \item EM alerts while the event is still physically interesting
             \end{itemize}
         \end{block}
-        \column{0.5\textwidth}
+        \column{0.49\textwidth}
         \includegraphics[width=\textwidth]{figures/metha-gw-pe-walltime.pdf}
     \end{columns}
 \end{frame}
@@ -234,7 +232,7 @@
     \frametitle{Where the speed comes from}
     \framesubtitle{Memory bandwidth, not waveform generation}
     \begin{columns}
-        \column{0.55\textwidth}
+        \column{0.54\textwidth}
         \begin{block}{The Bottleneck}
             \begin{itemize}
                 \item \textbf{Intuition}: Waveform generation (physics) is slow.
@@ -242,7 +240,7 @@
                 \item \textbf{Key}: Dual-axis parallelisation --- over sampling particles \textit{and} frequencies in the likelihood. Opens a different scaling relation for next-gen detectors.
             \end{itemize}
         \end{block}
-        \column{0.45\textwidth}
+        \column{0.44\textwidth}
         \includegraphics[width=\textwidth]{figures/metha-precision-scaling.pdf}
     \end{columns}
 \end{frame}
@@ -276,14 +274,14 @@
     \framesubtitle{DESI DR2 + DES-5Y: $w(a)$ reconstruction}
     \student{adam_ormondroyd.jpg}{Adam Ormondroyd}{PhD Student}
     \begin{columns}
-        \column{0.5\textwidth}
+        \column{0.52\textwidth}
         \begin{itemize}
             \item \textbf{Bottleneck}: Standard Boltzmann codes (CAMB/CLASS) + CPU samplers take days for one model.
             \item \textbf{Solution}: Reimplemented pipeline in JAX (Dovekie).
             \item \textbf{Speedup}: Analysis days $\to$ minutes.
             \item \textbf{Consequence}: Can run 20 model complexities $\times$ multiple dataset combinations --- previously impossible.
         \end{itemize}
-        \column{0.5\textwidth}
+        \column{0.46\textwidth}
         \includegraphics[width=\textwidth]{figures/bijector_20_wa.pdf}
     \end{columns}
 \end{frame}
@@ -293,7 +291,7 @@
     \framesubtitle{DISCO: as accurate as CAMB, auto-differentiable}
     \student{lawrence_berry.jpg}{Lawrence Berry}{PhD Student}
     \begin{columns}
-        \column{0.55\textwidth}
+        \column{0.54\textwidth}
         \begin{block}{The problem}
             \begin{itemize}
                 \item CAMB/CLASS: legacy Fortran/C, not differentiable, hard to modify.
@@ -308,7 +306,7 @@
                 \item $\sim$5\,s per model on H100; vmaps across cosmologies.
             \end{itemize}
         \end{block}
-        \column{0.45\textwidth}
+        \column{0.44\textwidth}
         \includegraphics[width=\textwidth]{figures/lawrence-cmb-field.png}
     \end{columns}
 \end{frame}
@@ -318,7 +316,7 @@
     \framesubtitle{Laplace approximation + auto-differentiation}
     \student{toby_lovick.jpg}{Toby Lovick}{PhD Student}
     \begin{columns}
-        \column{0.5\textwidth}
+        \column{0.49\textwidth}
         \begin{block}{Laplace Approximation + Optimisation}
             \begin{itemize}
                 \item SNe have 100s of latent variables per object (beyond SALT2's 2).
@@ -332,7 +330,7 @@
                 \item Planck needed manual per-parameter derivations. LAO just auto-diffs the forward model.
             \end{itemize}
         \end{block}
-        \column{0.5\textwidth}
+        \column{0.49\textwidth}
         \includegraphics[width=\textwidth]{figures/toby-lao-scaling.pdf}
     \end{columns}
 \end{frame}
@@ -344,7 +342,7 @@
     \framesubtitle{What standardises Type Ia supernovae?}
     \student{matt_grayling.jpg}{Matt Grayling}{Postdoc}
     \begin{columns}
-        \column{0.5\textwidth}
+        \column{0.49\textwidth}
         \begin{block}{The ``Mass Step'' Problem}
             SNe in high-mass galaxies appear brighter. A nuisance parameter step-function is usually fitted.
         \end{block}
@@ -355,7 +353,7 @@
                 \item Systematics removed by better physics, not more nuisance parameters.
             \end{itemize}
         \end{block}
-        \column{0.5\textwidth}
+        \column{0.49\textwidth}
         \includegraphics[width=\textwidth]{figures/matt-mass-step.pdf}
     \end{columns}
 \end{frame}
@@ -365,14 +363,14 @@
     \framesubtitle{Verification through rewriting}
     \student{sam_leeney.jpg}{Sam Leeney}{PhD Student}
     \begin{columns}
-        \column{0.5\textwidth}
+        \column{0.52\textwidth}
         \begin{itemize}
             \item \textbf{JAX-bandflux}: 123$\times$ speedup over existing SN photometry tools. \arxiv{2504.08081}
             \item \textbf{JAX-SNANA}: 10,000 light curve sims/sec on A100 (vs hundreds on CPU).
             \item \textbf{Rigour}: Validating JAX rewrite against legacy DES Y5 code ($\Delta < 1$ millimag).
             \item \textbf{Discovery}: Found a bug in legacy code (hardcoded $R_V=3.1$ in dust law). The rewrite forced careful validation.
         \end{itemize}
-        \column{0.5\textwidth}
+        \column{0.46\textwidth}
         \includegraphics[width=\textwidth]{figures/matt-jax-snana-benchmark.pdf}
     \end{columns}
 \end{frame}
@@ -384,7 +382,7 @@
     \framesubtitle{Sublinear scaling enables new science \arxiv{2509.13394}}
     \student{sam_leeney.jpg}{Sam Leeney}{PhD Student}
     \begin{columns}
-        \column{0.5\textwidth}
+        \column{0.49\textwidth}
         \begin{block}{REACH GPU Pipeline}
             \begin{itemize}
                 \item $\mathcal{O}(N^{0.13})$ scaling for likelihood evaluations.
@@ -397,7 +395,7 @@
                 \item Anomalies correlate with LST, time of night, season --- fully automatic, no manual flagging.
             \end{itemize}
         \end{block}
-        \column{0.5\textwidth}
+        \column{0.49\textwidth}
         \includegraphics[width=\textwidth]{figures/sam-reach-throughput.pdf}
     \end{columns}
 \end{frame}
@@ -457,13 +455,13 @@
     \framesubtitle{Classical samplers on GPU vs neural samplers \arxiv{2511.15196}}
     \student{david_yallup.jpg}{David Yallup}{Postdoc}
     \begin{columns}
-        \column{0.55\textwidth}
+        \column{0.54\textwidth}
         \begin{itemize}
             \item Sequential Monte Carlo on GPU matches or beats Flow-Matching neural samplers in wall-time for the same accuracy.
             \item Also estimates the partition function (the normalising constant).
             \item The same nested sampling / SMC machinery transfers to a very different domain.
         \end{itemize}
-        \column{0.45\textwidth}
+        \column{0.44\textwidth}
         % TODO: David's lattice figure
     \end{columns}
 \end{frame}
@@ -482,8 +480,9 @@
 \begin{frame}
     \frametitle{LLMs in practice}
     \framesubtitle{Development time vs verification time}
+    \vspace{-1em}
     \begin{columns}
-        \column{0.6\textwidth}
+        \column{0.58\textwidth}
         \begin{block}{}
             \begin{itemize}
                 \item LLMs didn't change the statistics.
@@ -491,7 +490,7 @@
                 \item When code is cheap, verification becomes the bottleneck.
             \end{itemize}
         \end{block}
-        \column{0.4\textwidth}
+        \column{0.40\textwidth}
         \includegraphics[width=\textwidth]{figures/second-revolution-v2.png}
     \end{columns}
 \end{frame}
@@ -500,13 +499,13 @@
     \frametitle{How people are using LLMs now}
     \framesubtitle{From autocomplete to repo-scale editing}
     \begin{columns}
-        \column{0.5\textwidth}
+        \column{0.49\textwidth}
         \begin{itemize}
             \item \textbf{2024}: Chatting. ``How do I write a loop?''
             \item \textbf{2026}: Orchestrating. ``Here is my repo. Refactor this module and add tests.''
             \item In practice we are under-using them; the limiting factor is evaluation and verification.
         \end{itemize}
-        \column{0.5\textwidth}
+        \column{0.49\textwidth}
         \begin{center}
             \begin{tikzpicture}
                 \node[draw, rectangle] (A) {Human Intent};
@@ -526,7 +525,7 @@
     \framesubtitle{Interactive documentation for unfamiliar codebases}
     \student{sinah_legner.jpg}{Sinah Legner}{PhD Student}
     \begin{columns}
-        \column{0.55\textwidth}
+        \column{0.54\textwidth}
         \begin{block}{Sinah: Torsion Condensation in CAMB \arxiv{2507.09228}}
             \begin{itemize}
                 \item Used an LLM to query and trace dependencies across CAMB's Fortran codebase.
@@ -539,7 +538,7 @@
                 \item Porting DES Y3/Y6 likelihoods between two large, unfamiliar frameworks.
             \end{itemize}
         \end{block}
-        \column{0.45\textwidth}
+        \column{0.44\textwidth}
         \only<1>{\includegraphics[width=\textwidth]{figures/sinah-before-claude.pdf}}
         \only<2>{\includegraphics[width=\textwidth]{figures/sinah-code-diff.pdf}}
     \end{columns}
@@ -550,7 +549,7 @@
     \framesubtitle{Modifying a large C Boltzmann solver}
     \student{wei-ning_deng.jpg}{Wei Ning Deng}{PhD Student}
     \begin{columns}
-        \column{0.6\textwidth}
+        \column{0.58\textwidth}
         \begin{block}{The Challenge}
             \begin{itemize}
                 \item Implementing discrete spatial curvature ($k$ quantization) into the CLASS Boltzmann solver.
@@ -563,7 +562,7 @@
                 \item Human verifies the physics output against theoretical predictions.
             \end{itemize}
         \end{block}
-        \column{0.4\textwidth}
+        \column{0.40\textwidth}
         \includegraphics[width=\textwidth]{figures/weining-quantization.pdf}
     \end{columns}
 \end{frame}
@@ -599,7 +598,7 @@
     \frametitle{Examples from the group}
     \framesubtitle{Concrete uses of LLMs in research}
     \begin{columns}
-        \column{0.5\textwidth}
+        \column{0.49\textwidth}
         \student{natalie_hogg.jpg}{Natalie Hogg}{Postdoc}
         \begin{block}{Optimisation (Natalie Hogg)}
             \begin{itemize}
@@ -612,7 +611,7 @@
                 \item Tool that parses model/priors from arXiv papers and scaffolds inference scripts. Still needs human checking.
             \end{itemize}
         \end{block}
-        \column{0.5\textwidth}
+        \column{0.49\textwidth}
         \begin{block}{Implementation speed}
             \begin{itemize}
                 \item \textbf{Task}: Implement \texttt{emcee} in BlackJAX.
@@ -632,7 +631,7 @@
     \frametitle{Two implications}
     \framesubtitle{Rebound effects and maintenance burden}
     \begin{columns}
-        \column{0.5\textwidth}
+        \column{0.49\textwidth}
         \begin{block}{Jevons Paradox}
             \begin{itemize}
                 \item In our experience LLMs don't reduce total time.
@@ -640,7 +639,7 @@
                 \item Tasks that used to require large teams become feasible for small projects --- provided verification is solid.
             \end{itemize}
         \end{block}
-        \column{0.5\textwidth}
+        \column{0.49\textwidth}
         \begin{block}{Code Debt}
             \begin{itemize}
                 \item PhD students spend years wrestling with legacy Fortran monoliths.
@@ -655,7 +654,7 @@
     \frametitle{Trotta \& Hogg}
     \framesubtitle{Two serious arguments about AI in academia}
     \begin{columns}
-        \column{0.5\textwidth}
+        \column{0.49\textwidth}
         \begin{block}{Trotta \arxiv{2602.10165}}
             \begin{itemize}
                 \item AI risks breaking the trust loop between student and understanding.
@@ -668,7 +667,7 @@
                 \item The bottleneck shifts to verification, which is a scientific skill.
             \end{itemize}
         \end{block}
-        \column{0.5\textwidth}
+        \column{0.49\textwidth}
         \begin{alertblock}{Our Experience}
             \begin{itemize}
                 \item The dust law bug: found \textit{because} Sam's GPU rewrite forced rigorous validation.
