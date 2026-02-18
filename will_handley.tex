@@ -32,32 +32,32 @@
 
 % --- OPENING ---
 
-\begin{frame}
-    \frametitle{Inference Across Astronomy}
-    \framesubtitle{Three examples of Bayesian parameter estimation and model comparison}
-    \vspace{-1.5em}
-    \begin{columns}[T]
-        \column{0.32\textwidth}
-        \begin{center}
-            \includegraphics[width=\textwidth]{figures/desi.pdf}\\[0.3em]
-            {\small \textbf{Cosmology}: Is dark energy evolving?\\$\Lambda$CDM vs $w_0w_a$CDM}
-        \end{center}
-        \column{0.34\textwidth}
-        \begin{center}
-            \includegraphics[width=\textwidth]{figures/gw170817-skymap.jpg}\\[0.3em]
-            {\small \textbf{Gravitational Waves}: Where on the sky?\\Masses, spins, distance}
-        \end{center}
-        \column{0.32\textwidth}
-        \begin{center}
-            \includegraphics[width=\textwidth]{figures/exoplanet.pdf}\\[0.3em]
-            {\small \textbf{Exoplanets}: What's in the atmosphere?\\How many planets?}
-        \end{center}
-    \end{columns}
-    \vfill
-    \begin{center}
-        \textit{These all require the same statistical machinery:\\posterior inference, model comparison, error propagation.}
-    \end{center}
-\end{frame}
+% \begin{frame}
+%     \frametitle{Inference Across Astronomy}
+%     \framesubtitle{Three examples of Bayesian parameter estimation and model comparison}
+%     \vspace{-1.5em}
+%     \begin{columns}[T]
+%         \column{0.32\textwidth}
+%         \begin{center}
+%             \includegraphics[width=\textwidth]{figures/desi.pdf}\\[0.3em]
+%             {\small \textbf{Cosmology}: Is dark energy evolving?\\$\Lambda$CDM vs $w_0w_a$CDM}
+%         \end{center}
+%         \column{0.34\textwidth}
+%         \begin{center}
+%             \includegraphics[width=\textwidth]{figures/gw170817-skymap.jpg}\\[0.3em]
+%             {\small \textbf{Gravitational Waves}: Where on the sky?\\Masses, spins, distance}
+%         \end{center}
+%         \column{0.32\textwidth}
+%         \begin{center}
+%             \includegraphics[width=\textwidth]{figures/exoplanet.pdf}\\[0.3em]
+%             {\small \textbf{Exoplanets}: What's in the atmosphere?\\How many planets?}
+%         \end{center}
+%     \end{columns}
+%     \vfill
+%     \begin{center}
+%         \textit{These all require the same statistical machinery:\\posterior inference, model comparison, error propagation.}
+%     \end{center}
+% \end{frame}
 
 \begin{frame}
     \frametitle{The CCD Analogy}
@@ -126,18 +126,6 @@
 \end{frame}
 
 \begin{frame}
-    \frametitle{Why Speed Matters}
-    \framesubtitle{The scientific consequences of fast inference}
-    \vspace{0.5em}
-    \begin{itemize}
-        \item \textbf{Speed}: If your likelihood takes 1s, you can do parameter estimation. If it takes 1ms, you can do \dots
-        \item \textbf{Systematics}: Marginalise over 100+ nuisance parameters rather than fixing them.
-        \item \textbf{Model Comparison}: Full Bayesian model comparison ($\mathcal{Z}$) between non-nested models.
-        \item \textbf{Reproducibility}: If an analysis takes 10 minutes, everyone can rerun it. If it takes months, errors persist longer.
-    \end{itemize}
-\end{frame}
-
-\begin{frame}
     \frametitle{Outline}
     \begin{columns}[T]
         \column{0.55\textwidth}
@@ -167,21 +155,63 @@
     \frametitle{What I mean by ``classical inference''}
     \framesubtitle{Triangle plots, error bars, and Bayesian model comparison}
     \begin{columns}
-        \column{0.53\textwidth}
+        \column{0.58\textwidth}
         \begin{itemize}
             \item Algorithms that converge to the true posterior: MCMC, Nested Sampling, HMC
-            \item \textbf{LIGO}: localising GW sources on the sky \arxiv{1710.05833}
             \item \textbf{JWST}: K2-18b atmospheric biosignatures \arxiv{2309.05566}
-            \item \textbf{DESI/DES}: dark energy and tensions between datasets
+            \item \textbf{LIGO}: localising GW sources on the sky \arxiv{1710.05833}
+            \item \textbf{DESI \& DES}: dark energy and cosmic shear \arxiv{2503.14738} \arxiv{2601.14559}
         \end{itemize}
         \vspace{0.5em}
         \begin{itemize}
             \item The instruments exist. The statistical methods exist.
             \item The bottleneck is \alert{compute}: running them fast enough at scale.
         \end{itemize}
+        \column{0.38\textwidth}
+        \includegraphics[width=\textwidth]{figures/k2-18b_posteriors_2023.pdf}\\[0.3em]
+        \includegraphics[height=0.3\textheight,keepaspectratio]{figures/ligo_2_masses.pdf}\hfill
+        \includegraphics[height=0.3\textheight,keepaspectratio]{figures/desi_w0wa.pdf}
+    \end{columns}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Bayesian model comparison at scale}
+    \framesubtitle{\texttt{unimpeded}: 248 dataset--model combinations via nested sampling}
+    \student{dily_ong.jpg}{Dily Ong}{PhD Student}
+    \begin{columns}[T]
+        \column{0.52\textwidth}
+        \begin{itemize}
+            \item 248 pairwise dataset--model combinations: full Bayesian evidences and tension statistics
+            \item Planck, DESI, DES, Pantheon, ACT, SPT, SH0ES, \ldots
+            \item DESI ``evolving dark energy'' claim is weaker under full Bayesian analysis
+        \end{itemize}
+        \begin{description}[\arxiv{2511.05470}]
+            \item[\arxiv{2511.05470}] Nested sampling database
+            \item[\arxiv{2511.04661}] Model comparison \& tension grid
+            \item[\arxiv{2511.10631}] Bayesian evidence for evolving DE
+        \end{description}
+        \column{0.41\textwidth}
+        \only<1>{\includegraphics[width=\textwidth]{figures/dily-prior-posterior.pdf}}
+        \only<2>{\includegraphics[width=\textwidth,height=0.75\textheight,keepaspectratio]{figures/dily-tension-heatmap.pdf}}
+        \only<3>{\includegraphics[width=\textwidth,height=0.75\textheight,keepaspectratio]{figures/dily-tension-sigma.pdf}}
+    \end{columns}
+\end{frame}
+
+\begin{frame}
+    \frametitle{The frontier of inference}
+    \framesubtitle{What becomes possible with massive parallelisation}
+    \vspace{-0.5em}
+    \begin{columns}[T]
+        \column{0.55\textwidth}
+        \begin{itemize}
+            \item These analyses work, but they're slow. If we can speed them up, new science becomes possible:
+            \begin{description}[Model Comparison]
+                \item[Systematics] Marginalise over 100+ nuisance parameters rather than fixing them.
+                \item[Model Comparison] Full Bayesian model comparison ($\mathcal{Z}$) between non-nested models.
+                \item[Reproducibility] If an analysis takes 10 minutes, everyone can rerun it. If it takes months, errors persist longer.
+            \end{description}
+        \end{itemize}
         \column{0.43\textwidth}
-        \includegraphics[width=\textwidth]{figures/corner.pdf}\\
-        {\small A posterior ``triangle plot''}
     \end{columns}
 \end{frame}
 
@@ -215,7 +245,7 @@
 \end{frame}
 
 \begin{frame}
-    \frametitle{Real-time gravitational wave PE}
+    \frametitle{Real-time gravitational wave parameter estimation}
     \framesubtitle{30 seconds on one GPU}
     \begin{columns}
         \column{0.49\textwidth}
@@ -256,28 +286,6 @@
 \end{frame}
 
 % --- Vignette 2: Dark Energy ---
-
-\begin{frame}
-    \frametitle{Dark Energy}
-    \framesubtitle{Is dark energy evolving? (The DESI tension)}
-    \student{dily_ong.jpg}{Dily Ong}{PhD Student}
-    \begin{columns}
-        \column{0.35\textwidth}
-        \begin{block}{The Claim}
-            DESI reported $3.1\sigma$ preference for evolving dark energy ($w_0 w_a$CDM).
-        \end{block}
-        \begin{block}{Bayesian Reanalysis \arxiv{2511.04661}}
-            \begin{itemize}
-                \item 248 model/dataset combinations
-                \item Bayesian Ockham's razor: weaker or opposite preferences
-                \item $\Lambda$CDM still favoured with CMB --- driven by \alert{inter-dataset tensions}
-            \end{itemize}
-        \end{block}
-        \column{0.63\textwidth}
-        \only<1>{\includegraphics[width=\textwidth,height=0.75\textheight,keepaspectratio]{figures/dily-tension-heatmap.pdf}}
-        \only<2>{\includegraphics[width=\textwidth,height=0.75\textheight,keepaspectratio]{figures/dily-tension-sigma.pdf}}
-    \end{columns}
-\end{frame}
 
 \begin{frame}
     \frametitle{JAX reimplementation of the Boltzmann pipeline}
@@ -414,13 +422,13 @@
 
 \begin{frame}
     \frametitle{Satellites}
-    \framesubtitle{JAX-SGP4, 34$\times$ speedup}
+    \framesubtitle{JAX-SGP4: GPU-accelerated orbit propagation}
     \student{charlotte_priestley.jpg}{Charlotte Priestley}{PhD Student}
     \begin{center}
-        \includegraphics[height=0.7\textheight,keepaspectratio]{figures/charlotte-starlink.jpg}
+        \includegraphics[height=0.65\textheight,keepaspectratio]{figures/charlotte-scaling.pdf}
     \end{center}
     \begin{center}
-        \textbf{JAX-SGP4}: Propagating the full Starlink catalogue ($>$6000 objects) in real-time. 34$\times$ speedup.
+        \textbf{JAX-SGP4}: Propagating 9,550 Starlink satellites in 0.5\,ms. \alert{1550$\times$ speedup} on A100.
     \end{center}
 \end{frame}
 
@@ -573,7 +581,7 @@
             \end{itemize}
         \end{block}
         \column{0.40\textwidth}
-        \includegraphics[width=\textwidth]{figures/weining-quantization.pdf}
+        \includegraphics[width=\textwidth]{figures/weining-cmb-diff.pdf}
     \end{columns}
 \end{frame}
 
@@ -732,7 +740,7 @@
     \frametitle{Outlook}
     \framesubtitle{CCDs enabled large digital surveys. GPUs make the inference pipeline fast enough to run routinely.}
     \begin{center}
-        \includegraphics[height=0.85\textheight,keepaspectratio]{figures/charlotte-starlink.jpg}
+        \includegraphics[height=0.85\textheight,keepaspectratio]{figures/charlotte-starlink.png}
     \end{center}
     \student{charlotte_priestley.jpg}{Charlotte Priestley}{PhD Student}
 \end{frame}
