@@ -152,12 +152,13 @@
     \frametitle{Bayesian model comparison at scale}
     \framesubtitle{\texttt{unimpeded}: 248 dataset--model combinations via nested sampling}
     \student{dily_ong.jpg}{Dily Ong}{PhD Student}
-    \begin{columns}[T]
+    \begin{columns}
         \column{0.52\textwidth}
         \begin{itemize}
+            \item Classical inference ``at scale'' --- without GPUs
             \item 248 pairwise dataset--model combinations: full Bayesian evidences and tension statistics
+            \item 10s of thousands of CPU-hours via DiRAC grants
             \item Planck, DESI, DES, Pantheon, ACT, SPT, SH0ES, \ldots
-            \item DESI ``evolving dark energy'' claim is weaker under full Bayesian analysis
         \end{itemize}
         \begin{description}[\arxiv{2511.05470}]
             \item[\arxiv{2511.05470}] Nested sampling database
@@ -173,19 +174,28 @@
 
 \begin{frame}
     \frametitle{The frontier of inference}
-    \framesubtitle{What becomes possible with massive parallelisation}
+    \framesubtitle{What becomes possible with GPU acceleration}
+    \student{david_yallup.jpg}{David Yallup}{Postdoc}
     \vspace{-0.5em}
     \begin{columns}[T]
-        \column{0.55\textwidth}
+        \column{0.38\textwidth}
         \begin{itemize}
             \item These analyses work, but they're slow. If we can speed them up, new science becomes possible:
-            \begin{description}[Model Comparison]
-                \item[Systematics] Marginalise over 100+ nuisance parameters rather than fixing them.
-                \item[Model Comparison] Full Bayesian model comparison ($\mathcal{Z}$) between non-nested models.
-                \item[Reproducibility] If an analysis takes 10 minutes, everyone can rerun it. If it takes months, errors persist longer.
+            \begin{description}[Discovery at scale]
+                \item[Robustness] Marginalise over 100+ nuisance parameters rather than fixing them.
+                \item[Discovery at scale] Definitive Bayesian evidence for new physics across grids of models and datasets.
+                \item[Low latency] Inference fast enough for triggers, scheduling, and real-time follow-up.
             \end{description}
         \end{itemize}
-        \column{0.43\textwidth}
+        \column{0.58\textwidth}
+        \includegraphics[width=\textwidth]{figures/blackjax_screenshot.png}
+        \vspace{0.3em}
+        \begin{itemize}
+            \item Nested Sampling on a GPU \arxiv{2601.23252}
+            \item Alongside MCMC, HMC, SMC \arxiv{2402.10797}
+            \item In Google's premier GPU language
+            \item \textit{No gradients required.}
+        \end{itemize}
     \end{columns}
 \end{frame}
 
@@ -194,12 +204,12 @@
 % --- Vignette 1: Gravitational Waves ---
 
 \begin{frame}
-    \frametitle{Gravitational Waves}
-    \framesubtitle{Sky localisation and electromagnetic follow-up}
+    \frametitle{GW170817: the multi-messenger event}
+    \framesubtitle{Example 1: Real-time gravitational wave parameter estimation}
     \student{metha_prathaban.jpg}{Metha Prathaban}{PhD Student}
     \begin{columns}
         \column{0.49\textwidth}
-        \begin{block}{GW170817: the multi-messenger event}
+        \begin{block}{Sky localisation and EM follow-up \arxiv{1710.05833}}
             \begin{itemize}
                 \item Binary neutron star merger detected by LIGO/Virgo
                 \item EM follow-up required fast sky localisation
@@ -219,8 +229,9 @@
 \end{frame}
 
 \begin{frame}
-    \frametitle{Real-time gravitational wave parameter estimation}
-    \framesubtitle{30 seconds on one GPU}
+    \frametitle{30 seconds on one GPU}
+    \framesubtitle{Example 1: Real-time gravitational wave parameter estimation}
+    \student{metha_prathaban.jpg}{Metha Prathaban}{PhD Student}
     \begin{columns}
         \column{0.49\textwidth}
         \begin{block}{GPU nested sampling \arxiv{2509.04336}}
@@ -238,13 +249,15 @@
             \end{itemize}
         \end{block}
         \column{0.49\textwidth}
-        \includegraphics[width=\textwidth]{figures/metha-gw-pe-walltime.pdf}
+        \only<1>{\includegraphics[width=\textwidth]{figures/metha-gw-pe-walltime.pdf}}
+        \only<2>{\includegraphics[width=\textwidth]{figures/metha-likelihood-scaling.pdf}}
     \end{columns}
 \end{frame}
 
 \begin{frame}
-    \frametitle{Where the speed comes from}
-    \framesubtitle{Memory bandwidth, not waveform generation}
+    \frametitle{Where does the speed come from?}
+    \framesubtitle{Example 1: Real-time gravitational wave parameter estimation}
+    \student{metha_prathaban.jpg}{Metha Prathaban}{PhD Student}
     \begin{columns}
         \column{0.54\textwidth}
         \begin{block}{The Bottleneck}
@@ -255,46 +268,140 @@
             \end{itemize}
         \end{block}
         \column{0.44\textwidth}
-        \includegraphics[width=\textwidth]{figures/metha-precision-scaling.pdf}
+        \centering
+        {\small \textbf{Inter-likelihood}: parallelise over particles}\\[0.3em]
+        \begin{tikzpicture}[scale=0.9,
+            dot/.style={C0, fill=C0}
+        ]
+            \def\numdots{50} \def\walksteps{6}
+            \def\numoutermost{20}
+            \def\xmax{3.75} \def\ymax{3.75}
+            \def\cx{2} \def\cy{2}
+            \pgfmathsetseed{\number\pdfrandomseed}
+            \foreach \i in {1,...,\numdots} {
+                \pgfmathsetmacro{\randx}{2 + (\xmax - 2) * rand}
+                \pgfmathsetmacro{\randy}{2 + (\ymax - 2) * rand}
+                \fill[dot] (\randx, \randy) circle (1.5pt);
+                \pgfmathsetmacro{\distsq}{((\randx-\cx)*(\randx-\cx) + (\randy-\cy)*(\randy-\cy))}
+                \expandafter\xdef\csname qx\i\endcsname{\randx}
+                \expandafter\xdef\csname qy\i\endcsname{\randy}
+                \expandafter\xdef\csname distsq\i\endcsname{\distsq}
+            }
+            \foreach \j in {1,...,\numoutermost} {
+                \xdef\currentmaxdistsq{-1} \xdef\currentmaxidx{0}
+                \foreach \i in {1,...,\numdots} {
+                    \ifdim\csname distsq\i\endcsname pt > \currentmaxdistsq pt
+                        \xdef\currentmaxdistsq{\csname distsq\i\endcsname}
+                        \xdef\currentmaxidx{\i}
+                    \fi
+                }
+                \expandafter\xdef\csname finaloutermost\j\endcsname{\currentmaxidx}
+                \expandafter\xdef\csname distsq\currentmaxidx\endcsname{-1}
+            }
+            \foreach \j in {1,...,\numoutermost} {
+                \pgfmathsetmacro{\startindex}{int(\csname finaloutermost\j\endcsname)}
+                \edef\coordx{\csname qx\startindex\endcsname}
+                \edef\coordy{\csname qy\startindex\endcsname}
+                \draw[C3, thin] (\coordx, \coordy) circle (5pt);
+            }
+            \def\stepsize{0.6}
+            \foreach \j in {1,...,\numoutermost} {
+                \pgfmathsetmacro{\startindex}{int(\csname finaloutermost\j\endcsname)}
+                \xdef\currentx{\csname qx\startindex\endcsname}
+                \xdef\currenty{\csname qy\startindex\endcsname}
+                \foreach \i in {1,...,\walksteps} {
+                    \pgfmathsetmacro{\nextxpotential}{\currentx + \stepsize * cos(random(0,360))}
+                    \pgfmathsetmacro{\nextypotential}{\currenty + \stepsize * sin(random(0,360))}
+                    \pgfmathsetmacro{\nextx}{max(0.1, min(\xmax - 0.2, \nextxpotential))}
+                    \pgfmathsetmacro{\nexty}{max(0.1, min(\ymax - 0.2, \nextypotential))}
+                    \draw[C3] (\currentx, \currenty) -- (\nextx, \nexty);
+                    \xdef\currentx{\nextx}
+                    \xdef\currenty{\nexty}
+                }
+                \fill[C3!40!white] (\currentx, \currenty) circle (2pt);
+            }
+        \end{tikzpicture}
+        \\[0.5em]
+        {\small \textbf{Intra-likelihood}: parallelise over frequencies}\\[0.3em]
+        \begin{tikzpicture}[scale=0.9,
+            dot/.style={fill=black}
+        ]
+            \def\waveformplot{plot[domain=0.5:5.2, samples=200, smooth] (\x, {0.2 * \x^0.8 * sin(\x*\x*100)})}
+            \draw[C0, line width=0.8pt] \waveformplot;
+            \foreach \xpos in {0.6, 0.8, 1, 1.2, 1.4, 1.6, 1.8, 2, 2.2, 2.4, 2.6, 2.8, 3, 3.2, 3.4, 3.6, 3.8, 4.0, 4.2, 4.4, 4.6, 4.8, 5, 5.2} {
+                \pgfmathsetmacro{\ypos}{0.2 * \xpos^0.8 * sin(\xpos*\xpos*100)}
+                \fill[dot] (\xpos, \ypos) circle (1.2pt);
+            }
+        \end{tikzpicture}
+
     \end{columns}
+    \vfill
+    \hfill{\tiny \github{mrosep/talks}}
 \end{frame}
 
 % --- Vignette 2: Dark Energy ---
 
 \begin{frame}
-    \frametitle{JAX reimplementation of the Boltzmann pipeline}
-    \framesubtitle{DESI DR2 + DES-5Y: $w(a)$ reconstruction}
-    \student{adam_ormondroyd.jpg}{Adam Ormondroyd}{PhD Student}
+    \frametitle{Is dark energy evolving?}
+    \framesubtitle{Example 2: Dark energy with DESI and DES}
+    \student{dily_ong.jpg}{Dily Ong}{PhD Student}
     \begin{columns}
         \column{0.52\textwidth}
-        \begin{itemize}
-            \item \textbf{Bottleneck}: Standard Boltzmann codes (CAMB/CLASS) + CPU samplers take days for one model.
-            \item \textbf{Solution}: Reimplemented pipeline in JAX (Dovekie).
-            \item \textbf{Speedup}: Analysis days $\to$ minutes.
-            \item \textbf{Consequence}: Can run 20 model complexities $\times$ multiple dataset combinations --- previously impossible.
-        \end{itemize}
+        \begin{block}{The DESI claim \arxiv{2503.14738}}
+            \begin{itemize}
+                \item DESI DR2: evidence for evolving dark energy ($w_0 w_a$CDM preferred over $\Lambda$CDM).
+                \item Frequentist $\Delta\chi^2$ with only 7 BAO data points.
+            \end{itemize}
+        \end{block}
+        \begin{block}{Bayesian reanalysis \arxiv{2511.10631}}
+            \begin{itemize}
+                \item Dily: 248 model--dataset combinations with full Bayesian evidences.
+                \item The evolving DE signal is \alert{significantly weaker} than reported.
+                \item Data prefers $\Lambda$CDM when combined with CMB.
+            \end{itemize}
+        \end{block}
         \column{0.46\textwidth}
-        \includegraphics[width=\textwidth]{figures/bijector_20_wa.pdf}
+        \includegraphics[width=\textwidth]{figures/desi_w0wa.pdf}
     \end{columns}
 \end{frame}
 
 \begin{frame}
-    \frametitle{GPU-native CMB power spectrum}
-    \framesubtitle{DISCO: as accurate as CAMB, auto-differentiable}
+    \frametitle{Beyond $w_0 w_a$: flexible dark energy on GPU}
+    \framesubtitle{Example 2: Dark energy with DESI and DES}
+    \student{adam_ormondroyd.jpg}{Adam Ormondroyd}{PhD Student}
+    \begin{columns}
+        \column{0.64\textwidth}
+        \begin{block}{Flexknot $w(a)$ reconstruction \arxiv{2503.08658} \arxiv{2509.13220}}
+            \begin{itemize}
+                \item $w_0 w_a$ is too restrictive --- flexknots let the data speak.
+                \item W-shaped structure in $w(a)$; DESI and DES-5Y are in \alert{tension}.
+                \item A magnitude offset $\Delta m_B$ between low-$z$ and DES SNe beats flexknot DE in Bayesian evidence.
+            \end{itemize}
+        \end{block}
+        \vspace{0.3em}
+        \textit{20 model complexities $\times$ multiple datasets --- only feasible because the pipeline is in JAX: \textbf{days $\to$ minutes}.}
+        \column{0.34\textwidth}
+        \vspace{0.3em}
+        \includegraphics[width=\textwidth]{figures/adam-dovekieoffset-20-wa.pdf}
+    \end{columns}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Extending to the CMB}
+    \framesubtitle{Example 2: Dark energy with DESI and DES}
     \student{lawrence_berry.jpg}{Lawrence Berry}{PhD Student}
     \begin{columns}
         \column{0.54\textwidth}
-        \begin{block}{The problem}
+        \begin{block}{The missing component}
             \begin{itemize}
-                \item CAMB/CLASS: legacy Fortran/C, not differentiable, hard to modify.
-                \item Adam wraps them in JAX; Lawrence rebuilds from scratch.
+                \item BAO and SNe are in JAX. The CMB is not --- CAMB/CLASS are legacy Fortran/C.
+                \item To fold in Planck/ACT properly, we need a GPU-native Boltzmann solver.
             \end{itemize}
         \end{block}
-        \begin{block}{DISCO}
+        \begin{block}{DISCO: GPU-native Boltzmann solver}
             \begin{itemize}
-                \item Full Boltzmann solver in JAX, GPU-native.
+                \item Full Boltzmann solver in JAX, GPU-native, auto-differentiable.
                 \item Sub-percent agreement with CAMB ($0.7\%$ mean residual).
-                \item FFT-log method for line-of-sight integration --- orders of magnitude faster than direct Bessel.
                 \item $\sim$5\,s per model on H100; vmaps across cosmologies.
             \end{itemize}
         \end{block}
@@ -303,35 +410,11 @@
     \end{columns}
 \end{frame}
 
-\begin{frame}
-    \frametitle{Marginalising latent variables at scale}
-    \framesubtitle{Laplace approximation + auto-differentiation}
-    \student{toby_lovick.jpg}{Toby Lovick}{PhD Student}
-    \begin{columns}
-        \column{0.49\textwidth}
-        \begin{block}{Laplace Approximation + Optimisation}
-            \begin{itemize}
-                \item SNe have 100s of latent variables per object (beyond SALT2's 2).
-                \item LAO: optimise to mode, auto-diff the Hessian, marginalise exactly.
-                \item \textbf{25,602-D} likelihood in \textbf{11 minutes}.
-            \end{itemize}
-        \end{block}
-        \begin{block}{Why This Matters}
-            \begin{itemize}
-                \item Nested Sampling at this scale: $D^3$ $\to$ a decade of H200 time.
-                \item Planck needed manual per-parameter derivations. LAO just auto-diffs the forward model.
-            \end{itemize}
-        \end{block}
-        \column{0.49\textwidth}
-        \includegraphics[width=\textwidth]{figures/toby-lao-scaling.pdf}
-    \end{columns}
-\end{frame}
-
 % --- Vignette 3: Supernovae ---
 
 \begin{frame}
-    \frametitle{Supernovae}
-    \framesubtitle{What standardises Type Ia supernovae?}
+    \frametitle{What standardises Type Ia supernovae?}
+    \framesubtitle{Example 3: Supernovae as standard candles}
     \student{matt_grayling.jpg}{Matt Grayling}{Postdoc}
     \begin{columns}
         \column{0.49\textwidth}
@@ -352,7 +435,7 @@
 
 \begin{frame}
     \frametitle{JAX-bandflux and the dust law bug}
-    \framesubtitle{Verification through rewriting}
+    \framesubtitle{Example 3: Supernovae as standard candles}
     \student{sam_leeney.jpg}{Sam Leeney}{PhD Student}
     \begin{columns}
         \column{0.52\textwidth}
@@ -364,6 +447,30 @@
         \end{itemize}
         \column{0.46\textwidth}
         \includegraphics[width=\textwidth]{figures/matt-jax-snana-benchmark.pdf}
+    \end{columns}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Marginalising latent variables at scale}
+    \framesubtitle{Example 3: Supernovae as standard candles}
+    \student{toby_lovick.jpg}{Toby Lovick}{PhD Student}
+    \begin{columns}
+        \column{0.49\textwidth}
+        \begin{block}{Laplace Approximation + Optimisation}
+            \begin{itemize}
+                \item SNe have 100s of latent variables per object (beyond SALT2's 2).
+                \item LAO: optimise to mode, auto-diff the Hessian, marginalise exactly.
+                \item \textbf{25,602-D} likelihood in \textbf{11 minutes}.
+            \end{itemize}
+        \end{block}
+        \begin{block}{Why this matters}
+            \begin{itemize}
+                \item Nested Sampling at this scale: $D^3$ $\to$ a decade of H200 time.
+                \item Planck needed manual per-parameter derivations. LAO just auto-diffs the forward model.
+            \end{itemize}
+        \end{block}
+        \column{0.49\textwidth}
+        \includegraphics[width=\textwidth]{figures/toby-lao-scaling.pdf}
     \end{columns}
 \end{frame}
 
