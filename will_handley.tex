@@ -289,6 +289,31 @@
 \end{frame}
 
 \begin{frame}
+    \frametitle{GPU-native CMB power spectrum}
+    \framesubtitle{DISCO: as accurate as CAMB, auto-differentiable}
+    \student{lawrence_berry.jpg}{Lawrence Berry}{PhD Student}
+    \begin{columns}
+        \column{0.55\textwidth}
+        \begin{block}{The problem}
+            \begin{itemize}
+                \item CAMB/CLASS: legacy Fortran/C, not differentiable, hard to modify.
+                \item Adam wraps them in JAX; Lawrence rebuilds from scratch.
+            \end{itemize}
+        \end{block}
+        \begin{block}{DISCO}
+            \begin{itemize}
+                \item Full Boltzmann solver in JAX, GPU-native.
+                \item Sub-percent agreement with CAMB ($0.7\%$ mean residual).
+                \item FFT-log method for line-of-sight integration --- orders of magnitude faster than direct Bessel.
+                \item $\sim$5\,s per model on H100; vmaps across cosmologies.
+            \end{itemize}
+        \end{block}
+        \column{0.45\textwidth}
+        \includegraphics[width=\textwidth]{figures/lawrence-cmb-field.png}
+    \end{columns}
+\end{frame}
+
+\begin{frame}
     \frametitle{Marginalising latent variables at scale}
     \framesubtitle{Laplace approximation + auto-differentiation}
     \student{toby_lovick.jpg}{Toby Lovick}{PhD Student}
@@ -412,18 +437,6 @@
     \end{center}
     \begin{center}
         \textbf{WEAVE}: 168 retractors, $\sim$1000 fibres --- collision-free assignment via JAX on GPU. \alert{60$\times$ speedup} over C++ simulated annealing.
-    \end{center}
-\end{frame}
-
-\begin{frame}
-    \frametitle{CMB}
-    \framesubtitle{End-to-end differentiable pipeline}
-    \student{lawrence_berry.jpg}{Lawrence Berry}{PhD Student}
-    \begin{center}
-        \includegraphics[height=0.7\textheight,keepaspectratio]{figures/lawrence-cmb-field.png}
-    \end{center}
-    \begin{center}
-        \textbf{DISCO}: GPU-based, auto-differentiable CMB power spectrum --- as accurate as CAMB, enabling gradient-accelerated inference.
     \end{center}
 \end{frame}
 
