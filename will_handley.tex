@@ -243,9 +243,9 @@
         \end{block}
         \begin{block}{What near-real-time means}
             \begin{itemize}
-                \item A 16-second BBH signal, analysed in 30 seconds
                 \item Close enough to scan the time stream continuously
                 \item EM alerts while the event is still physically interesting
+                \item No more cheap template banks --- full waveform models \alert{find more candidates}
             \end{itemize}
         \end{block}
         \column{0.49\textwidth}
@@ -261,9 +261,9 @@
         \column{0.54\textwidth}
         \begin{block}{The Bottleneck \arxiv{2509.04336} \arxiv{2509.24949}}
             \begin{itemize}
-                \item \textbf{Intuition}: Waveform generation (physics) is slow.
-                \item \textbf{Reality}: Memory bandwidth for extrinsic parameters is the GPU bottleneck.
-                \item \textbf{Key}: Dual-axis parallelisation --- over sampling particles \textit{and} frequencies in the likelihood. Opens a different scaling relation for next-gen detectors.
+                \item Waveform generation (physics) is \textit{not} the bottleneck --- memory bandwidth for extrinsic parameters is.
+                \item Dual-axis parallelisation: over sampling particles \textit{and} frequencies in the likelihood.
+                \item Most codes use a tiny fraction of GPU --- this opens a different scaling relation for next-gen detectors.
             \end{itemize}
         \end{block}
         \column{0.44\textwidth}
@@ -400,7 +400,7 @@
             \begin{itemize}
                 \item Full Boltzmann solver in JAX, GPU-native, auto-differentiable.
                 \item Sub-percent agreement with CAMB ($0.7\%$ mean residual).
-                \item $\sim$5\,s per model on H100; vmaps across cosmologies.
+                \item $\sim$5\,s per model on H100 and falling; saturates well on a GPU.
             \end{itemize}
         \end{block}
         \column{0.44\textwidth}
@@ -509,12 +509,11 @@
     \frametitle{Satellites [GLITTER]}
     \framesubtitle{JAX-SGP4: GPU-accelerated orbit propagation}
     \student{charlotte_priestley.jpg}{Charlotte Priestley}{PhD Student}
-    \vspace{-0.5em}
     \begin{columns}[T]
         \column{0.38\textwidth}
-        \includegraphics[width=0.9\textwidth]{figures/charlotte-starlink-trajectories.png}
+        \includegraphics[width=0.9\textwidth,height=0.6\textheight,keepaspectratio]{figures/charlotte-starlink-trajectories.png}
         \column{0.58\textwidth}
-        \includegraphics[width=0.9\textwidth]{figures/charlotte-heatmap.pdf}
+        \includegraphics[width=0.9\textwidth,height=0.6\textheight,keepaspectratio]{figures/charlotte-heatmap.pdf}
     \end{columns}
     \begin{center}
         \textbf{JAX-SGP4}: Propagating 9,550 Starlink satellites in 0.5\,ms. \alert{1550$\times$ speedup} on A100.
@@ -551,7 +550,7 @@
     \student{chris_lovell.jpg}{Chris Lovell}{Postdoc}
     \student{rose_luo.jpg}{Rose Luo}{Part III Student}
     \begin{center}
-        \includegraphics[height=0.7\textheight,keepaspectratio]{figures/chris-synthesizer.pdf}
+        \includegraphics[height=0.58\textheight,keepaspectratio]{figures/chris-synthesizer.pdf}
     \end{center}
     \begin{center}
         \textbf{Synthesizer}: Forward modelling galaxy emission. \textbf{Synference}: SBI for SED fitting --- orders of magnitude faster, full posteriors, applications for Euclid.
