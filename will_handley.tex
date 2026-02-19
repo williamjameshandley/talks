@@ -440,17 +440,16 @@
     \framesubtitle{Example 3: Supernovae as standard candles}
     \student{matt_grayling.jpg}{Matt Grayling}{Postdoc}
     \begin{columns}
-        \column{0.52\textwidth}
+        \column{0.33\textwidth}
         \begin{block}{JAX-SNANA: 10,000 sims/sec on A100}
             \begin{itemize}
                 \item Full SN light-curve simulation pipeline rewritten in JAX.
-                \item CPU legacy code: hundreds of sims/sec. GPU: \textbf{10,000/sec}.
-                \item Validated against DES Y5 to $< 1$ millimag.
+                \item $\sim$200 sims/sec (CPU) $\to$ \textbf{$>$10,000/sec} (GPU): \alert{50$\times$ speedup}.
+                \item Validated against DES Y5 to $< 1$ millimag. Essential for SBI at LSST scale.
             \end{itemize}
         \end{block}
-        \column{0.46\textwidth}
-        % TODO: awaiting figure from Matt
-        \includegraphics[width=\textwidth]{example-image}
+        \column{0.64\textwidth}
+        \includegraphics[width=\textwidth,height=0.7\textheight,keepaspectratio]{figures/matt-jax-snana.pdf}
     \end{columns}
 \end{frame}
 
