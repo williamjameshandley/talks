@@ -904,10 +904,41 @@
     \begin{center}
         \textit{If producing code and text were \keyterm{virtually free}, what would you do differently as a scientist?}
     \end{center}
-    \vspace{0.5em}
-    \begin{center}
+    \tikz[overlay,remember picture]
+        \node[anchor=north east] (A) at ($(current page.north east)+(0,0)$) {
+        \includegraphics[width=0.075\textheight]{people/adam_ormondroyd.jpg}%
+        \includegraphics[width=0.075\textheight]{people/charlotte_priestley.jpg}%
+        \includegraphics[width=0.075\textheight]{people/chris_lovell.jpg}%
+        \includegraphics[width=0.075\textheight]{people/david_yallup.jpg}%
+        \includegraphics[width=0.075\textheight]{people/dily_ong.jpg}%
+        \includegraphics[width=0.075\textheight]{people/farah_wallauer.jpg}%
+        \includegraphics[width=0.075\textheight]{people/harry_bevins.jpg}%
+        \includegraphics[width=0.075\textheight]{people/james_alvey.jpg}%
+        \includegraphics[width=0.075\textheight]{people/lawrence_berry.jpg}%
+        \includegraphics[width=0.075\textheight]{people/matt_grayling.jpg}%
+        \includegraphics[width=0.075\textheight]{people/metha_prathaban.jpg}%
+        \includegraphics[width=0.075\textheight]{people/namu_kroupa.jpg}%
+        \includegraphics[width=0.075\textheight]{people/natalie_hogg.jpg}%
+        \includegraphics[width=0.075\textheight]{people/rose_luo.jpg}%
+        \includegraphics[width=0.075\textheight]{people/sam_leeney.jpg}%
+        \includegraphics[width=0.075\textheight]{people/sinah_legner.jpg}%
+        \includegraphics[width=0.075\textheight]{people/toby_lovick.jpg}%
+        \includegraphics[width=0.075\textheight]{people/wei-ning_deng.jpg}%
+        \includegraphics[width=0.075\textheight]{people/will_handley.jpg}%
+    };
+    \tikz[overlay,remember picture]
+        \node[anchor=south west] at ($(current page.south west)+(0.3cm,0.4cm)$) {
         \tthref{handley-lab.co.uk} \hfill \github{handley-lab}
-    \end{center}
+    };
+    \tikz[overlay,remember picture]
+        \node[anchor=south east] at ($(current page.south east)+(0,0.4cm)$) {
+        \includegraphics[width=0.075\textheight]{people/claude.jpg}%
+        \includegraphics[width=0.075\textheight]{people/gemini.jpg}%
+        \includegraphics[width=0.075\textheight]{people/groq.jpg}%
+        \includegraphics[width=0.075\textheight]{people/mistral.jpg}%
+        \includegraphics[width=0.075\textheight]{people/openai.jpg}%
+        \includegraphics[width=0.075\textheight]{people/otter.jpg}%
+    };
 \end{frame}
 
 \end{document}
