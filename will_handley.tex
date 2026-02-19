@@ -534,7 +534,7 @@
 \begin{frame}
     \frametitle{Instrumentation}
     \framesubtitle{Fibre allocation for WEAVE}
-    \student{farah_wallauer.jpg}{Farah Wallauer}{MPhil Student}
+    \student{farah_wallauer.jpg}{Farah Wallauer}{Part III Student}
     \begin{center}
         \includegraphics[height=0.6\textheight,keepaspectratio]{figures/farah-weave.pdf}
     \end{center}
@@ -718,26 +718,25 @@
     \framesubtitle{Solving boundary value problems with AI assistance}
     \student{wei-ning_deng.jpg}{Wei Ning Deng}{PhD Student}
     \begin{columns}
-        \column{0.56\textwidth}
-        \begin{block}{The physics: discrete $k$-quantisation}
+        \column{0.48\textwidth}
+        \begin{block}{Discrete $k$-quantisation in CLASS}
             \begin{itemize}
-                \item Enforcing discrete $k$-modes in CLASS (closed universe topology).
-                \item Matching boundary conditions at the Big Bang \textit{and} the Future Conformal Boundary.
+                \item Enforcing discrete $k$-modes for closed universe topology.
+                \item Matching boundary conditions at the Big Bang \textit{and} Future Conformal Boundary.
             \end{itemize}
         \end{block}
-        \begin{block}{The workflow: \texttt{code2prompt} $\to$ Gemini}
+        \begin{block}{\texttt{code2prompt} $\to$ Gemini workflow}
             \begin{itemize}
-                \item LLM mapped the integration logic in C to find injection points.
-                \item Matching failed at recombination. LLM proposed a transformation matrix approach to debugging.
-                \item Wei-Ning diagnosed the root cause: a missing sign in the analytic FCB Taylor expansion.
+                \item LLM mapped integration logic in C to find injection points.
+                \item Wei-Ning diagnosed root cause: missing sign in analytic FCB Taylor expansion.
             \end{itemize}
         \end{block}
-        \column{0.38\textwidth}
+        \column{0.48\textwidth}
         \vspace{0.5em}
-        \only<1>{\includegraphics[width=\textwidth]{figures/weining-perturbations.pdf}
-        \vspace{0.3em}
-        \includegraphics[width=0.7\textwidth]{figures/weining-quantization.pdf}}
-        \only<2>{\includegraphics[width=\textwidth]{figures/weining-cylinder.png}}
+        \begin{center}
+        \only<1>{\includegraphics[width=\textwidth]{figures/weining-quantization.pdf}}
+        \only<2>{\includegraphics[width=0.7\textwidth]{figures/weining-cylinder.png}}
+        \end{center}
     \end{columns}
 \end{frame}
 
