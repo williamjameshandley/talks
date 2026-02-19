@@ -890,16 +890,26 @@
 \begin{frame}
     \frametitle{Conclusions}
     \vspace{-0.5em}
-    \begin{block}{Principles}
-        \begin{enumerate}
-            \item \textbf{Capture content.} Transcribe meetings. Photograph whiteboards. Archive emails, paper \LaTeX{}, and grants.
-            \item \textbf{Engineer your context.} The model is only as good as what it can see. Build your knowledge base.
-            \item \textbf{Specify the physics, not the code.} Describe what you want; verify what you get.
-            \item \textbf{Verify rigorously.} Reference outputs, simulation-based calibration, adversarial review.
-            \item \textbf{Use multiple models.} One implements, another critiques. Never trust a single output.
-            \item \textbf{Stay the scientist.} You define the questions, choose the methods, judge the answers.
-        \end{enumerate}
-    \end{block}
+    \begin{columns}[T]
+        \column{0.48\textwidth}
+        \begin{block}{\C[0]{GPUs $\neq$ AI}}
+            \begin{itemize}
+                \item Classical statistics on GPU is competitive with ML --- and \alert{interpretable}.
+                \item GW PE: 2\,h $\to$ 30\,s. Dark energy: days $\to$ minutes. Supernovae: 50$\times$. The method transfers across astronomy.
+            \end{itemize}
+        \end{block}
+        \column{0.48\textwidth}
+        \begin{exampleblock}{LLMs $\neq$ science}
+            \begin{itemize}
+                \item LLMs don't replace scientists --- they make code and text virtually free.
+                \item The bottleneck shifts from \textit{writing} to \textit{verifying}. Verification is a higher-order scientific skill.
+            \end{itemize}
+        \end{exampleblock}
+    \end{columns}
+    \vfill
+    \begin{alertblock}{Seize the opportunity}
+        Those who combine rigorous inference with LLM-accelerated development will lead the next decade of astronomy. Capture content. Engineer context. Stay the scientist.
+    \end{alertblock}
     \vfill
     \begin{center}
         \textit{If producing code and text were \keyterm{virtually free}, what would you do differently as a scientist?}
