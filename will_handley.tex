@@ -133,7 +133,7 @@
         \begin{itemize}
             \item Algorithms that converge to the true posterior: MCMC, Nested Sampling, HMC
             \item \textbf{JWST}: K2-18b atmospheric biosignatures \arxiv{2309.05566}
-            \item \textbf{LIGO}: localising GW sources on the sky \arxiv{1710.05833}
+            \item \textbf{LIGO}: gravitational wave detection \arxiv{1602.03837}
             \item \textbf{DESI \& DES}: dark energy and cosmic shear \arxiv{2503.14738} \arxiv{2601.14559}
         \end{itemize}
         \vspace{0.5em}
@@ -157,7 +157,7 @@
         \begin{itemize}
             \item Classical inference ``at scale'' --- without GPUs
             \item 248 pairwise dataset--model combinations: full Bayesian evidences and tension statistics
-            \item 10s of thousands of CPU-hours via DiRAC grants
+            \item Tens of millions of CPU-hours via DiRAC grants
             \item Planck, DESI, DES, Pantheon, ACT, SPT, SH0ES, \ldots
         \end{itemize}
         \begin{description}[\arxiv{2511.05470}]
@@ -166,7 +166,7 @@
             \item[\arxiv{2511.10631}] Bayesian evidence for evolving DE
         \end{description}
         \column{0.41\textwidth}
-        \only<1>{\includegraphics[width=\textwidth]{figures/dily-prior-posterior.pdf}}
+        \only<1>{\includegraphics[width=\textwidth,height=0.7\textheight,keepaspectratio]{figures/dily-prior-posterior.pdf}}
         \only<2>{\includegraphics[width=\textwidth,height=0.75\textheight,keepaspectratio]{figures/dily-tension-heatmap.pdf}}
         \only<3>{\includegraphics[width=\textwidth,height=0.75\textheight,keepaspectratio]{figures/dily-tension-sigma.pdf}}
     \end{columns}
@@ -178,7 +178,7 @@
     \student{david_yallup.jpg}{David Yallup}{Postdoc}
     \vspace{-0.5em}
     \begin{columns}[T]
-        \column{0.38\textwidth}
+        \column{0.48\textwidth}
         \begin{itemize}
             \item These analyses work, but they're slow. If we can speed them up, new science becomes possible:
             \begin{description}[Discovery at scale]
@@ -187,8 +187,8 @@
                 \item[Low latency] Inference fast enough for triggers, scheduling, and real-time follow-up.
             \end{description}
         \end{itemize}
-        \column{0.58\textwidth}
-        \includegraphics[width=\textwidth]{figures/blackjax_screenshot.png}
+        \column{0.48\textwidth}
+        \includegraphics[width=\textwidth,height=0.4\textheight,keepaspectratio]{figures/blackjax_screenshot.png}
         \vspace{0.3em}
         \begin{itemize}
             \item Nested Sampling on a GPU \arxiv{2601.23252}
@@ -249,8 +249,7 @@
             \end{itemize}
         \end{block}
         \column{0.49\textwidth}
-        \only<1>{\includegraphics[width=\textwidth]{figures/metha-gw-pe-walltime.pdf}}
-        \only<2>{\includegraphics[width=\textwidth]{figures/metha-likelihood-scaling.pdf}}
+        \includegraphics[width=\textwidth]{figures/metha-gw-pe-walltime.pdf}
     \end{columns}
 \end{frame}
 
@@ -260,7 +259,7 @@
     \student{metha_prathaban.jpg}{Metha Prathaban}{PhD Student}
     \begin{columns}
         \column{0.54\textwidth}
-        \begin{block}{The Bottleneck}
+        \begin{block}{The Bottleneck \arxiv{2509.04336} \arxiv{2509.24949}}
             \begin{itemize}
                 \item \textbf{Intuition}: Waveform generation (physics) is slow.
                 \item \textbf{Reality}: Memory bandwidth for extrinsic parameters is the GPU bottleneck.
@@ -349,15 +348,14 @@
         \column{0.52\textwidth}
         \begin{block}{The DESI claim \arxiv{2503.14738}}
             \begin{itemize}
-                \item DESI DR2: evidence for evolving dark energy ($w_0 w_a$CDM preferred over $\Lambda$CDM).
+                \item DESI DR2: $w_0 w_a$CDM preferred over $\Lambda$CDM at \alert{3.1$\sigma$} (BAO+CMB), up to \alert{4.2$\sigma$} with SNe.
                 \item Frequentist $\Delta\chi^2$ with only 7 BAO data points.
             \end{itemize}
         \end{block}
         \begin{block}{Bayesian reanalysis \arxiv{2511.10631}}
             \begin{itemize}
-                \item Dily: 248 model--dataset combinations with full Bayesian evidences.
-                \item The evolving DE signal is \alert{significantly weaker} than reported.
-                \item Data prefers $\Lambda$CDM when combined with CMB.
+                \item BAO+CMB alone: $\Lambda$CDM \alert{modestly favoured} ($\ln B = -0.57 \pm 0.26$).
+                \item Only reaches $\sim$3$\sigma$ \textit{with} DES-Y5 SNe --- driven by \alert{inter-dataset tension}, not DE evolution.
             \end{itemize}
         \end{block}
         \column{0.46\textwidth}
