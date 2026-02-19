@@ -514,9 +514,9 @@
     \vspace{-0.5em}
     \begin{columns}[T]
         \column{0.38\textwidth}
-        \includegraphics[width=\textwidth]{figures/charlotte-starlink-trajectories.png}
+        \includegraphics[width=0.9\textwidth]{figures/charlotte-starlink-trajectories.png}
         \column{0.58\textwidth}
-        \includegraphics[width=\textwidth]{figures/charlotte-heatmap.pdf}
+        \includegraphics[width=0.9\textwidth]{figures/charlotte-heatmap.pdf}
     \end{columns}
     \begin{center}
         \textbf{JAX-SGP4}: Propagating 9,550 Starlink satellites in 0.5\,ms. \alert{1550$\times$ speedup} on A100.
@@ -551,6 +551,7 @@
     \frametitle{Galaxies}
     \framesubtitle{GPU-accelerated SED generation}
     \student{chris_lovell.jpg}{Chris Lovell}{Postdoc}
+    \student{rose_luo.jpg}{Rose Luo}{Part III Student}
     \begin{center}
         \includegraphics[height=0.7\textheight,keepaspectratio]{figures/chris-synthesizer.pdf}
     \end{center}
@@ -697,18 +698,19 @@
         \column{0.54\textwidth}
         \begin{block}{Sinah: Torsion Condensation in CAMB \arxiv{2507.09228}}
             \begin{itemize}
-                \item Used an LLM to query and trace dependencies across CAMB's Fortran codebase.
-                \item Found $N_\mathrm{eff}$ double-counting bug (modifying effective neutrinos would double-count TorC's dark energy contribution).
-                \item Identified missing massive neutrino evolution when results looked inconsistent.
+                \item LLM traces dependencies across CAMB's Fortran codebase.
+                \item Found $N_\mathrm{eff}$ double-counting bug.
+                \item Diagnosed missing massive neutrino evolution.
             \end{itemize}
         \end{block}
         \begin{block}{Will: CosmoSIS $\to$ Cobaya}
             \begin{itemize}
-                \item Porting DES Y3/Y6 likelihoods between two large, unfamiliar frameworks.
-                \item \textbf{Adversarial review}: one LLM writes code, another critiques it against the documentation.
+                \item Porting DES Y3/Y6 likelihoods between frameworks.
+                \item Adversarial review: one LLM writes, another critiques.
             \end{itemize}
         \end{block}
         \column{0.44\textwidth}
+        \vspace{1em}
         \only<1>{\includegraphics[width=\textwidth]{figures/sinah-before-claude.pdf}}
         \only<2>{\includegraphics[width=\textwidth]{figures/sinah-code-diff.pdf}}
     \end{columns}
@@ -716,26 +718,30 @@
 
 % Slide 2.5: Deep modifications (Wei-Ning)
 \begin{frame}
-    \frametitle{Deep modifications: discrete curvature in CLASS}
-    \framesubtitle{Human specifies the physics, AI implements the patch}
+    \frametitle{Deep surgery on C code: CLASS \& curvature}
+    \framesubtitle{Solving boundary value problems with AI assistance}
     \student{wei-ning_deng.jpg}{Wei Ning Deng}{PhD Student}
     \begin{columns}
         \column{0.56\textwidth}
-        \begin{block}{The Challenge}
+        \begin{block}{The physics: discrete $k$-quantisation}
             \begin{itemize}
-                \item Implementing discrete spatial curvature ($k$ quantisation) into the CLASS Boltzmann solver.
-                \item Deep changes to the integration logic in C.
+                \item Enforcing discrete $k$-modes in CLASS (closed universe topology).
+                \item Matching boundary conditions at the Big Bang \textit{and} the Future Conformal Boundary.
             \end{itemize}
         \end{block}
-        \begin{block}{The Workflow}
+        \begin{block}{The workflow: \texttt{code2prompt} $\to$ Gemini}
             \begin{itemize}
-                \item LLM traces dependencies across the codebase and proposes patches.
-                \item Wei-Ning verifies the physics output against theoretical predictions.
-                \item The work that matters --- the \textit{science} --- stays with the human.
+                \item LLM mapped the integration logic in C to find injection points.
+                \item Matching failed at recombination. LLM proposed a transformation matrix approach to debugging.
+                \item Wei-Ning diagnosed the root cause: a missing sign in the analytic FCB Taylor expansion.
             \end{itemize}
         \end{block}
-        \column{0.42\textwidth}
-        \includegraphics[width=\textwidth]{figures/weining-cylinder.pdf}
+        \column{0.38\textwidth}
+        \vspace{0.5em}
+        \only<1>{\includegraphics[width=\textwidth]{figures/weining-perturbations.pdf}
+        \vspace{0.3em}
+        \includegraphics[width=0.7\textwidth]{figures/weining-quantization.pdf}}
+        \only<2>{\includegraphics[width=\textwidth]{figures/weining-cylinder.png}}
     \end{columns}
 \end{frame}
 
@@ -743,6 +749,8 @@
 \begin{frame}
     \frametitle{Development time collapsed}
     \framesubtitle{The work didn't disappear --- it moved to verification}
+    \student{natalie_hogg.jpg}{Natalie Hogg}{Postdoc}
+    \student{james_alvey.jpg}{James Alvey}{KICC Fellow}
     \vspace{-0.5em}
     \begin{columns}[T]
         \column{0.55\textwidth}
@@ -755,8 +763,8 @@
         \column{0.43\textwidth}
         \vspace{1em}
         \begin{alertblock}{The insight}
-            I mistook \textit{mental athleticism} --- typing speed, syntax memory --- for scientific strength.\\[0.5em]
-            With AI, \keyterm{creative drive} becomes the differentiator.
+            I mistook \textit{mental athleticism} --- typing speed, syntax memory, algebraic calculation --- for scientific strength.\\[0.5em]
+            With AI, \keyterm{scientific principles} and \keyterm{creative drive} become the differentiators.
         \end{alertblock}
         \vspace{1em}
         \textit{``We didn't feel tired --- we were spending all our time reasoning about physics.''}
@@ -788,7 +796,7 @@
     \end{exampleblock}
     \vfill
     \begin{center}
-        \textit{``We are no longer limited by how fast we write code --- we are limited by how fast we verify it.''}
+        \textit{``We are no longer limited by how fast we write code --- we are limited by how rigorously we verify it.''}
     \end{center}
 \end{frame}
 
@@ -836,7 +844,7 @@
                 \item \textbf{Voice}: Otter.ai transcription $\to$ notes
                 \item \textbf{Loop runner}: Claude Code (Opus 4.6)
                 \item \textbf{Reviewers}: Gemini 3 and GPT-5.2 as independent critics
-                \item \textbf{Knowledge base}: 450 meeting transcripts via GTD
+                \item \textbf{Knowledge base}: 1 year of 450 transcripts, whiteboard photos, emails, \LaTeX{} of papers and grants --- in a context management system
                 \item \textbf{Email}: 14 personalised figure requests, sent and tracked
                 \item \textbf{Web}: Playwright, arXiv, Wikimedia Commons
                 \item \textbf{Drafting}: Gemini (1M context) for slides from source material
@@ -869,39 +877,31 @@
         \Huge
         [Claude Code Demo]
     \end{center}
-    \vspace{2em}
-    \textit{Fallback: 60-second recording available}
 \end{frame}
 
 % --- CLOSE ---
 
-% Slide 2.11: Summary
+% Slide 2.11: Conclusions
 \begin{frame}
-    \frametitle{Summary: The New Scientific Method}
+    \frametitle{Conclusions}
     \vspace{-0.5em}
-    \begin{enumerate}
-        \item \textbf{\C[0]{Hardware revolution (GPUs)}}:
-        \begin{itemize}
-            \item Classical Bayesian inference at scale. 100$\times$--5000$\times$ speedups without sacrificing rigour.
-        \end{itemize}
-        \item \textbf{\C[3]{Software revolution (LLMs)}}:
-        \begin{itemize}
-            \item We are no longer limited by the speed at which we \textit{write} code.
-            \item We are limited by the speed at which we \textit{verify} it.
-        \end{itemize}
-        \item \textbf{The result}:
-        \begin{itemize}
-            \item A shift from code maintenance to \keyterm{physics specification}.
-            \item More models, more systematics, more datasets become routine.
-        \end{itemize}
-    \end{enumerate}
+    \begin{block}{Principles}
+        \begin{enumerate}
+            \item \textbf{Capture content.} Transcribe meetings. Photograph whiteboards. Archive emails, paper \LaTeX{}, and grants.
+            \item \textbf{Engineer your context.} The model is only as good as what it can see. Build your knowledge base.
+            \item \textbf{Specify the physics, not the code.} Describe what you want; verify what you get.
+            \item \textbf{Verify rigorously.} Reference outputs, simulation-based calibration, adversarial review.
+            \item \textbf{Use multiple models.} One implements, another critiques. Never trust a single output.
+            \item \textbf{Stay the scientist.} You define the questions, choose the methods, judge the answers.
+        \end{enumerate}
+    \end{block}
     \vfill
     \begin{center}
-        \includegraphics[height=2.5cm,keepaspectratio]{figures/summary.jpg}
+        \textit{If producing code and text were \keyterm{virtually free}, what would you do differently as a scientist?}
     \end{center}
     \vspace{0.5em}
     \begin{center}
-        \tthref{handley-lab.co.uk} \hfill \github{handley-lab/group}
+        \tthref{handley-lab.co.uk} \hfill \github{handley-lab}
     \end{center}
 \end{frame}
 
