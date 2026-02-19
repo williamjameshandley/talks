@@ -715,7 +715,7 @@
 % Slide 2.5: Deep modifications (Wei-Ning)
 \begin{frame}
     \frametitle{Deep surgery on C code: CLASS \& curvature}
-    \framesubtitle{Solving boundary value problems with AI assistance}
+    \framesubtitle{Solving boundary value problems with AI assistance \arxiv{2407.18225} \arxiv{2509.10379}}
     \student{wei-ning_deng.jpg}{Wei Ning Deng}{PhD Student}
     \begin{columns}
         \column{0.48\textwidth}
@@ -725,10 +725,10 @@
                 \item Matching boundary conditions at the Big Bang \textit{and} Future Conformal Boundary.
             \end{itemize}
         \end{block}
-        \begin{block}{\texttt{code2prompt} $\to$ Gemini workflow}
+        \begin{block}{LLM role: debugging \& code navigation}
             \begin{itemize}
-                \item LLM mapped integration logic in C to find injection points.
-                \item Wei-Ning diagnosed root cause: missing sign in analytic FCB Taylor expansion.
+                \item Claude Code for testing, catching numerical errors, modifying C code.
+                \item Core physics from reading the papers --- LLM accelerates the engineering, not the science.
             \end{itemize}
         \end{block}
         \column{0.48\textwidth}
@@ -785,10 +785,6 @@
             One person implements, another writes tests. Adversarial review: one LLM writes, another critiques.
         \end{block}
     \end{columns}
-    \vspace{0.5em}
-    \begin{exampleblock}{Evidence}
-        The dust law bug was found \textit{because} Matt's GPU rewrite forced rigorous comparison against legacy outputs. The rewrite \textit{created} the conditions for discovery.
-    \end{exampleblock}
     \vfill
     \begin{center}
         \textit{``We are no longer limited by how fast we write code --- we are limited by how rigorously we verify it.''}
@@ -798,7 +794,7 @@
 % Slide 2.8: Trotta & Hogg (tension + resolution)
 \begin{frame}
     \frametitle{Two serious arguments}
-    \framesubtitle{The trust loop vs the accessibility argument}
+    \framesubtitle{Both from February 2026}
     \vspace{-0.5em}
     \only<1>{%
     \begin{columns}[T]
@@ -811,30 +807,26 @@
     \only<2>{%
     \begin{columns}[T]
         \column{0.48\textwidth}
-        \begin{alertblock}{The risk (Trotta \arxiv{2602.10165})}
+        \begin{alertblock}{Trotta \arxiv{2602.10165}}
             \begin{itemize}
-                \item The ``trust loop'' between student and code is broken.
-                \item If you generate code you don't understand, you cannot do science.
-                \item ``Science becomes a button-pushing exercise.''
+                \item LLM reliance causes measurable cognitive decline (Kosmyna et al.\ 2025).
+                \item Scientific coding requires understanding the models --- outsourcing this undermines science.
+                \item Students risk becoming ``little more than prompt engineers.''
             \end{itemize}
         \end{alertblock}
         \column{0.48\textwidth}
-        \begin{block}{The opportunity (Hogg \arxiv{2602.10181})}
+        \begin{alertblock}{Hogg \arxiv{2602.10181}}
             \begin{itemize}
-                \item The bottleneck shifts from \textit{writing} to \textit{verifying}.
-                \item Verification is a higher-order scientific skill.
-                \item AI makes research more accessible and rigorous, not less.
+                \item Students are ends, not means --- ``better than a grad student'' is a dangerous framing.
+                \item LLMs cannot take responsibility or be authors.
+                \item Neither ``let them cook'' nor ``ban and punish'' works --- no clear middle way.
             \end{itemize}
-        \end{block}
+        \end{alertblock}
     \end{columns}
     \vspace{0.5em}
-    \begin{exampleblock}{Our synthesis}
-        Both are right. The answer is rigorous verification as method. The dust law bug was found \textit{because of} --- not \textit{despite} --- the LLM-accelerated rewrite.
+    \begin{exampleblock}{My response}
+        I agree with both. Use LLMs for overhead, not for the science. Verify rigorously.
     \end{exampleblock}
-    \vfill
-    \begin{center}
-        \textit{Code is cheap. Truth is expensive.}
-    \end{center}
     }
 \end{frame}
 

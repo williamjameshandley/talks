@@ -1,52 +1,13 @@
-# Two Revolutions: GPUs for Science, AI for Scientists
+# The New Scientific Method
 
 ## Abstract
 
-Modern GPUs and large language models represent two distinct but concurrent shifts in how science is done. I will explore both, and suggest they may be more separable than current discourse implies.
+In the 1990s, CCDs replaced photographic plates and transformed observational astronomy. Today, GPU hardware and large language models are driving a comparable shift in how we analyse data. Astronomy has invested enormously in the current generation of instruments such as JWST, DESI, Euclid, LSST and the SKA, and many of the analyses needed to fully exploit them have, until now, been computationally prohibitive.
 
-GPU hardware—developed for machine learning—can accelerate classical statistical methods such as nested sampling by factors of 100–1000×, enabling rigorous Bayesian inference at previously impractical scales. I will present recent work from my group applying GPU-native nested sampling to CMB cosmology, cosmic shear, Type Ia supernovae, and gravitational wave parameter estimation.
+This is often framed as a job for neural networks. In fact, classical, interpretable statistical methods on the same GPU hardware can match or outperform neural network approaches, and the consequences go beyond speed. It marks a shift from fitting a single model to comparing hundreds, from ignoring systematics to marginalising over them, and from waiting days to acting in real time.
 
-Much of the narrative around AI in science focuses on foundation models or fully autonomous agents generating research end-to-end. I will present an alternative view: that large language models are most effective at reducing the technical and administrative overhead that consumes researcher time, rather than automating the science itself. I will reflect on how "context engineering"—organising what information AI systems can access—may be emerging as a key capability, and whether the boundary between these two revolutions will hold as the tools mature.
+Large language models are driving a separate revolution, not replacing the scientist but transforming how researchers work: building and verifying complex analyses, interrogating legacy codebases, and synthesising research across large teams. In this talk I will illustrate both through results from our group, including new results on dark energy from DESI, Type Ia supernova standardisation, real-time gravitational-wave follow-up and 21-cm radio astronomy, and argue that rigorous analysis made routine, combined with LLM-assisted development under robust verification, is the start of a new scientific method.
 
-[[PDF](https://github.com/williamjameshandley/talks/raw/imperial_2026/will_handley_imperial_2026.pdf)]
-[[source](https://github.com/williamjameshandley/talks/tree/imperial_2026)]
-_Jan 2026_
-
-## Supplementary: Recent Work
-
-Short slides on `unimpeded` (public nested sampling database) and `PolySwyft` (simulation-based nested sampling), presented at Alan Heavens' group meeting.
-
-[[PDF](https://github.com/williamjameshandley/talks/raw/imperial_2026/imperial.pdf)]
-[[source](https://github.com/williamjameshandley/talks/blob/imperial_2026/imperial.tex)]
-
-**Meta-note:** This 6-slide presentation was created live during the group meeting in ~5 minutes using [Claude Code](https://claude.ai/code) with human direction. The workflow:
-1. Fetched arxiv source for both papers
-2. Extracted key figures and generated the NSNRE flowchart from TikZ
-3. Iterated on slide layout via PNG previews
-4. Added student photos
-5. Emailed to Alan directly from the session
-
-Human prompts (verbatim):
-> check my latest papers on arxiv, and let's have a think about what I could possibly talk about.
->
-> get the unimpeded and polyswyft papers from arxiv (src). Then create a new imperial.tex beamer presentation [minimal, one slide for each].
->
-> unimpeded should have the plot showing the model comparison and tension quantification results. New slides.
->
-> put unimpeded first.
->
-> That tension quantification is good, could you rotate it 90 degrees the other way. Can we have a model comparison slide?
->
-> rotation was good -- it's the too much whitespace that I dislike.
->
-> model comparison is rubbish -- can't see anything. Put it the correct way round, and make sure it fits in. Add a column of explanation.
->
-> There is a flowchart in the polyswyft paper. probably better than the current plot.
->
-> Polyswyft is excellent -- can we have an extra slide with the flowchart from the polyswyft paper?
->
-> Excellent. Can we have a picture of Dily and Kilian?
->
-> send that pdf to alan heavens.
-
-A practical demonstration of "context engineering" from the main talk.
+[[PDF](https://github.com/williamjameshandley/talks/raw/ioa_2026/will_handley_ioa_2026.pdf)]
+[[source](https://github.com/williamjameshandley/talks/tree/ioa_2026)]
+_Feb 2026, IoA Colloquium, Institute of Astronomy, Cambridge_
