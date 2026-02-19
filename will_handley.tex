@@ -565,14 +565,47 @@
 \begin{frame}
     \begin{center}
         \vspace{2em}
-        {\Large \C[0]{Part 1: GPUs for science} \hspace{1em} \checkmark}\\[0.5em]
-        {\small \textit{Classical statistics, rigorous, 1000$\times$ faster}}\\[2em]
-        {\Large \C[3]{Part 2: LLMs for scientists}}\\[0.5em]
-        {\small \textit{How we built all of this in months, not years}}
+        {\Large \C[0]{Part 1: GPUs for science} \hspace{1em} \checkmark}\\[2em]
+        {\Large \C[3]{Part 2: LLMs for scientists}}\\[1em]
+        {\normalsize How we built all of this in months, not years}
     \end{center}
 \end{frame}
 
-% Slide 2.1: Three ways AI meets science
+% Slide 2.1: A brief history
+\begin{frame}
+    \frametitle{A brief history}
+    \framesubtitle{How we got here, fast}
+    \vspace{-0.5em}
+    \begin{columns}[T]
+        \column{0.48\textwidth}
+        \begin{description}[Nov 2022]
+            \item[2019] Tabnine --- deep learning code completion
+            \item[Jun 2021] GitHub Copilot --- AI pair programming
+            \item[Nov 2022] ChatGPT (GPT-3.5) --- ``the moment''
+            \item[Mar 2023] GPT-4 --- qualitative leap
+            \item[Dec 2023] Gemini 1.0 --- Google enters the race
+            \item[Jun 2024] Claude 3.5 Sonnet --- the coding model
+            \item[Sep 2024] OpenAI o1 --- reasoning models
+            \item[Oct 2024] Cursor --- agentic IDE
+        \end{description}
+        \column{0.48\textwidth}
+        \begin{description}[Nov 2022]
+            \item[Jan 2025] DeepSeek R1 --- open-source reasoning
+            \item[May 2025] Claude Code --- agentic coding CLI
+            \item[Aug 2025] GPT-5 --- unified model
+            \item[Nov 2025] Gemini 3, Opus 4.5
+            \item[Dec 2025] GPT-5.2
+            \item[2025--] Qwen, Kimi, GPT-OSS --- open source catches up
+            \item[Feb 2026] Opus 4.6 --- \textit{this talk}
+        \end{description}
+    \end{columns}
+    \vfill
+    \begin{center}
+        \textit{18 months from ``interesting toy'' to ``I can't work without it.''}
+    \end{center}
+\end{frame}
+
+% Slide 2.2: Three ways AI meets science
 \begin{frame}
     \frametitle{Three ways AI meets science}
     \framesubtitle{Only one matches what science actually is}
@@ -597,7 +630,7 @@
         \column{0.31\textwidth}
         \begin{exampleblock}{Augmented Humans}
             \begin{itemize}
-                \item The centaur model.
+                \item Humans accelerated, not replaced.
                 \item Humans define the physics and verification; AI handles the syntax.
                 \item \textbf{Our approach.}
             \end{itemize}
@@ -626,7 +659,7 @@
             LLMs are autocomplete on steroids --- our route out of the spiral. We move from \keyterm{maintaining code} to \keyterm{specifying physics}.
         \end{exampleblock}
         \column{0.43\textwidth}
-        \includegraphics[width=\textwidth]{figures/second-revolution-v2.png}
+        \includegraphics[width=\textwidth]{figures/code-debt-wordcloud.png}
     \end{columns}
 \end{frame}
 
@@ -635,8 +668,8 @@
     \frametitle{The mechanism: context engineering}
     \framesubtitle{From ``prompting'' to ``orchestration''}
     \vspace{-0.5em}
-    \begin{columns}
-        \column{0.55\textwidth}
+    \begin{columns}[T]
+        \column{0.48\textwidth}
         \begin{block}{2025: Prompt engineering}
             \begin{itemize}
                 \item \textit{``Write me a Python loop.''}
@@ -644,6 +677,7 @@
                 \item Useful for snippets, bad for systems.
             \end{itemize}
         \end{block}
+        \column{0.48\textwidth}
         \begin{block}{2026: Context engineering}
             \begin{itemize}
                 \item \textit{``Here is the CAMB repo. Find the neutrino integration logic.''}
@@ -651,8 +685,6 @@
                 \item The bottleneck is no longer generating code, but \keyterm{evaluating} it.
             \end{itemize}
         \end{block}
-        \column{0.43\textwidth}
-        \includegraphics[width=\textwidth]{figures/context-engineering-v2.png}
     \end{columns}
 \end{frame}
 
@@ -793,9 +825,43 @@
     \end{center}
 \end{frame}
 
+% Slide 2.9: This talk
+\begin{frame}
+    \frametitle{I wrote this talk without typing}
+    \vspace{-0.5em}
+    \begin{columns}[T]
+        \column{0.55\textwidth}
+        \begin{block}{What I used}
+            \begin{itemize}
+                \item \textbf{Voice}: Otter.ai transcription $\to$ notes
+                \item \textbf{Loop runner}: Claude Code (Opus 4.6)
+                \item \textbf{Reviewers}: Gemini 3 and GPT-5.2 as independent critics
+                \item \textbf{Knowledge base}: 450 meeting transcripts via GTD
+                \item \textbf{Email}: 14 personalised figure requests, sent and tracked
+                \item \textbf{Web}: Playwright, arXiv, Wikimedia Commons
+                \item \textbf{Drafting}: Gemini (1M context) for slides from source material
+            \end{itemize}
+        \end{block}
+        \column{0.43\textwidth}
+        \begin{exampleblock}{What I did}
+            \begin{itemize}
+                \item Talked about the science
+                \item Chose the figures
+                \item Edited the emails
+                \item Said ``no'' a lot
+                \item Verified the physics
+            \end{itemize}
+        \end{exampleblock}
+        \vspace{0.5em}
+        \begin{alertblock}{What I didn't do}
+            Type. Read Fortran. Manually search 450 transcripts. Write 14 emails from scratch. Make a single \LaTeX{} file by hand.
+        \end{alertblock}
+    \end{columns}
+\end{frame}
+
 % --- DEMO ---
 
-% Slide 2.9: Live Demo
+% Slide 2.10: Live Demo
 \begin{frame}
     \frametitle{Live Demo}
     \framesubtitle{The generate $\to$ test $\to$ iterate loop, not one-shot codegen}
@@ -809,7 +875,7 @@
 
 % --- CLOSE ---
 
-% Slide 2.10: Summary
+% Slide 2.11: Summary
 \begin{frame}
     \frametitle{Summary: The New Scientific Method}
     \vspace{-0.5em}
