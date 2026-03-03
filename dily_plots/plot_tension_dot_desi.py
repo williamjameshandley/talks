@@ -4,6 +4,8 @@ import os
 import numpy as np
 import pandas as pd
 import scipy as sp
+import matplotlib
+matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 from anesthetic import read_chains
 from collections import OrderedDict
@@ -270,10 +272,9 @@ ax.legend(loc='upper right', fontsize=8, framealpha=0.95, ncol=1,
 fig.tight_layout()
 
 # Save
-os.makedirs('paper_fig', exist_ok=True)
-output_path = os.path.join('paper_fig', 'tension_dot_sigma_desi.pdf')
+os.makedirs('../figures', exist_ok=True)
+output_path = os.path.join('..', 'figures', 'tension_dot_sigma_desi.pdf')
 fig.savefig(output_path, bbox_inches='tight', dpi=300)
 print(f"Figure saved to '{output_path}'")
-plt.show()
 plt.close(fig)
 # %%

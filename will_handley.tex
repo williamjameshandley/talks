@@ -34,11 +34,12 @@
 % --- OPENING ---
 
 \begin{frame}
-    \frametitle{DESI DR2: $4.2\sigma$ evolving dark energy?}
+    \frametitle{DESI DR2: evolving dark energy?}
     \begin{columns}
         \column{0.52\textwidth}
         \begin{itemize}
-            \item DESI DR2: frequentist analysis reports up to \alert{$4.2\sigma$} preference for $w_0 w_a$CDM over $\Lambda$CDM \arxiv{2503.14738}.
+            \item DESI DR2: frequentist analysis reports \alert{$4.2\sigma$} preference for $w_0 w_a$CDM over $\Lambda$CDM \arxiv{2503.14738}.
+            \item DES-Dovekie recalibration \arxiv{2511.07517} \arxiv{2506.05471}: reduces to \alert{$3.2\sigma$}.
             \item We ran a comprehensive Bayesian reanalysis: 248 dataset--model combinations via nested sampling.
             \item The signal is driven by \alert{inter-dataset tension}, not coherent dark-energy evolution.
         \end{itemize}
@@ -51,10 +52,38 @@
 
 % --- PART 1a: DESI REANALYSIS ---
 
-% TODO: slides on unimpeded
-% - what unimpeded is (public nested sampling database)
-% - what's in it (datasets, models, derived products)
-% - how to use it (pip install, API, anesthetic integration)
+\begin{frame}
+    \frametitle{Why $4.2\sigma$ doesn't settle it}
+    \framesubtitle{The Jeffreys--Lindley paradox}
+    \begin{columns}[T]
+        \column{0.48\textwidth}
+        \begin{block}{Frequentist ($\Delta\chi^2$)}
+            \begin{itemize}
+                \item Rejects the null ($w=-1$) when the best fit deviates \textit{at all}.
+                \item With enough data, \textit{any} exact null is rejected --- $p \to 0$.
+                \item $4.2\sigma$: ``the data are unlikely under $\Lambda$CDM.''
+            \end{itemize}
+        \end{block}
+        \column{0.48\textwidth}
+        \begin{exampleblock}{Bayesian (Bayes factor)}
+            \begin{itemize}
+                \item Compares full models: $\Lambda$CDM ($N$ params) vs $w_0 w_a$CDM ($N{+}2$).
+                \item Extra parameters pay an Occam penalty --- prior volume wasted on bad regions.
+                \item Unless the data \textit{concentrate} away from $w=-1$, $\Lambda$CDM wins.
+            \end{itemize}
+        \end{exampleblock}
+    \end{columns}
+    \vfill
+    \begin{alertblock}{The paradox}
+        As data grow, the two frameworks \alert{diverge}: arbitrarily significant $p$-values coexist with Bayes factors favouring the null. DESI's $3.2$--$4.2\sigma$ is exactly this regime.
+    \end{alertblock}
+\end{frame}
+
+% TODO: unimpeded — cosmology at your fingertips
+% - what it is: public, version-controlled database of nested sampling chains
+% - what's in it: 248 dataset × model combinations, full posteriors + evidences
+% - how to use it: pip install unimpeded, anesthetic integration, 3-line script
+% - visual: terminal screenshot or code snippet
 
 \begin{frame}
     \frametitle{\texttt{unimpeded}: the reanalysis infrastructure}
@@ -79,10 +108,12 @@
     \end{columns}
 \end{frame}
 
-% TODO: slides on tension quantification and model comparison
-% - Bayesian model comparison formalism (evidences, Bayes factors, model posteriors)
-% - tension metrics (suspiciousness, dimensionality, information ratio, log R, log S)
-% - look-elsewhere effect / significance threshold
+% TODO: Bayesian toolkit & look-elsewhere effect
+% - model comparison: ln B automatically penalises prior volume
+% - tension metrics: suspiciousness (log S) isolates likelihood conflict from prior;
+%   dimensionality (d_G) counts constrained parameters
+% - look-elsewhere effect: N=200 tests → threshold 2.88σ
+% - pre-empts the objection "aren't you just finding 3σ by chance?"
 
 \begin{frame}
     \frametitle{Is dark energy evolving?}
@@ -93,13 +124,14 @@
         \begin{block}{The DESI claim \arxiv{2503.14738}}
             \begin{itemize}
                 \item DESI DR2: $w_0 w_a$CDM preferred over $\Lambda$CDM at \alert{3.1$\sigma$} (BAO+CMB), up to \alert{4.2$\sigma$} with SNe.
-                \item Frequentist $\Delta\chi^2$ with only 7 BAO data points.
+                \item Frequentist $\Delta\chi^2$ on a 13-component compressed data vector.
             \end{itemize}
         \end{block}
         \begin{block}{Bayesian reanalysis \arxiv{2511.10631}}
             \begin{itemize}
                 \item BAO+CMB alone: $\Lambda$CDM \alert{modestly favoured} ($\ln B = -0.57 \pm 0.26$).
                 \item Only reaches $\sim$3$\sigma$ \textit{with} DES-Y5 SNe --- driven by \alert{inter-dataset tension}, not DE evolution.
+                \item Independently corroborated by Efstathiou's geometric analysis \arxiv{2503.12412}.
             \end{itemize}
         \end{block}
         Ong, Yallup \& Handley, in prep.
@@ -109,20 +141,68 @@
 \end{frame}
 
 \begin{frame}
-    \frametitle{Model posteriors across datasets}
-    \framesubtitle{$\ln B$ relative to $\Lambda$CDM for 8 models across all dataset combinations}
+    \frametitle{The Bayesian--frequentist discrepancy}
+    \framesubtitle{$\ln B$ vs $\Delta\chi^2_\mathrm{MAP}$ across all dataset combinations}
     \student{dily_ong.jpg}{Dily Ong}{PhD Student}
     \begin{columns}
         \column{0.35\textwidth}
         \begin{itemize}
-            \item DESI alone: $w_0 w_a$CDM \alert{disfavoured}.
-            \item Planck CMB: extensions mildly preferred.
-            \item Triplets with DES-Y5: $w_0 w_a$CDM preferred ($\ln B \approx +3.3$, $\sim 3\sigma$).
-            \item With Pantheon$^+$: $\Lambda$CDM preferred ($\ln B \approx -1.7$).
-            \item The supernova catalogue choice determines the result.
+            \item Bayesian Occam's razor penalises the $w_0 w_a$CDM prior volume; $\Delta\chi^2$ does not.
+            \item Agreement on direction only emerges with DES-Y5; magnitude always differs.
+            \item The compressed DESI BAO data vector has only \alert{13 components} --- asymptotic formulae (Wilks' theorem) may inflate frequentist significances.
         \end{itemize}
         \column{0.63\textwidth}
         \includegraphics[width=\textwidth,height=0.85\textheight,keepaspectratio]{figures/bayes_factor_dot_desi.pdf}
+    \end{columns}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Model posteriors: individual probes}
+    \framesubtitle{$\log P(\mathcal{M}_i | D)$ for 8 models across individual datasets}
+    \student{dily_ong.jpg}{Dily Ong}{PhD Student}
+    \begin{columns}
+        \column{0.35\textwidth}
+        \begin{itemize}
+            \item DESI BAO penalises dynamic DE; $m_\nu\Lambda$CDM remains competitive.
+            \item Planck CMB mildly prefers extensions ($\Delta \ln P \approx +1$ for $w_0 w_a$CDM).
+            \item Supernovae alone lack discriminatory power.
+            \item Opposing single-probe preferences set up the dataset combination story.
+        \end{itemize}
+        \column{0.63\textwidth}
+        \includegraphics[width=\textwidth,height=0.85\textheight,keepaspectratio]{figures/model_comparison_single_sorted_by_dkl_desi.pdf}
+    \end{columns}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Model posteriors: pairwise combinations}
+    \framesubtitle{$\log P(\mathcal{M}_i | D)$ for 8 models across pairwise datasets}
+    \student{dily_ong.jpg}{Dily Ong}{PhD Student}
+    \begin{columns}
+        \column{0.35\textwidth}
+        \begin{itemize}
+            \item BAO + CMB: $w_0 w_a$CDM suppressed ($\ln P = -1.22$), $\Lambda$CDM preferred.
+            \item BAO + DES-Y5: preference shifts to dynamic DE.
+            \item BAO + Pantheon$^+$: $\Lambda$CDM locked in.
+            \item The SN catalogue choice is decisive.
+        \end{itemize}
+        \column{0.63\textwidth}
+        \includegraphics[width=\textwidth,height=0.85\textheight,keepaspectratio]{figures/model_comparison_combo_sorted_by_dkl_desi.pdf}
+    \end{columns}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Model posteriors: triplet combinations}
+    \framesubtitle{$\log P(\mathcal{M}_i | D)$ for 8 models across BAO+CMB+SN}
+    \student{dily_ong.jpg}{Dily Ong}{PhD Student}
+    \begin{columns}
+        \column{0.35\textwidth}
+        \begin{itemize}
+            \item BAO + CMB + DES-Y5: $w_0 w_a$CDM strongly preferred ($\Delta \ln P \approx +3.3$, $\sim 3\sigma$).
+            \item BAO + CMB + Pantheon$^+$: $\Lambda$CDM holds ($\ln P = -0.38$ vs $-2.06$).
+            \item The claim for new physics is entirely contingent on a single SN catalogue.
+        \end{itemize}
+        \column{0.63\textwidth}
+        \includegraphics[width=\textwidth,height=0.85\textheight,keepaspectratio]{figures/model_comparison_triplet_sorted_by_dkl_desi.pdf}
     \end{columns}
 \end{frame}
 
@@ -139,7 +219,23 @@
             \item Look-elsewhere threshold for $N=200$ tests: $\sigma > 2.88$.
         \end{itemize}
         \column{0.63\textwidth}
-        \includegraphics[width=\textwidth,height=0.85\textheight,keepaspectratio]{figures/tension_stats_sigma_sorted_by_sigma_desi.pdf}
+        \includegraphics{figures/tension_sigma_pairs.pdf}
+    \end{columns}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Where does the signal come from?}
+    \framesubtitle{Triplet tension significance ($\sigma$): BAO vs CMB+lensing vs SN}
+    \student{dily_ong.jpg}{Dily Ong}{PhD Student}
+    \begin{columns}
+        \column{0.35\textwidth}
+        \begin{itemize}
+            \item Full triplet: DESI + Plik+lens + DES-Y5 at \alert{$\geq 3.0\,\sigma$} in $\Lambda$CDM (4 of 8 models).
+            \item With Pantheon$^+$: drops to $\sim 2\,\sigma$.
+            \item $w$CDM and $w_0 w_a$CDM reduce tension across all SN catalogues.
+        \end{itemize}
+        \column{0.63\textwidth}
+        \includegraphics{figures/tension_sigma_triplets.pdf}
     \end{columns}
 \end{frame}
 
@@ -158,8 +254,9 @@
         \uncover<2>{%
         \begin{block}{Bayesian dimensionality ($d_G$)}
             \begin{itemize}
-                \item DESI vs DES-Y5: $d_G = 0.99 \pm 0.07$.
-                \item A single parameter direction, not a broad failure of $\Lambda$CDM.
+                \item DESI vs DES-Y5: $d_G = 0.99 \pm 0.07$ --- a single parameter direction.
+                \item Add Planck: $d_G > 3$. The conflict becomes systemic across the parameter space.
+                \item $w_0 w_a$CDM absorbs this collision; it doesn't model coherent DE evolution.
             \end{itemize}
         \end{block}
         }
@@ -169,10 +266,8 @@
     \end{columns}
 \end{frame}
 
-% --- PART 1b: GPU TOOLS ---
-
 \begin{frame}
-    \frametitle{Beyond $w_0 w_a$: flexible dark energy on GPU}
+    \frametitle{Beyond $w_0 w_a$: flexible dark energy}
     \framesubtitle{Independent confirmation from flexknot reconstruction}
     \student{adam_ormondroyd.jpg}{Adam Ormondroyd}{PhD Student}
     \begin{columns}
@@ -191,6 +286,8 @@
         \includegraphics[width=\textwidth]{figures/adam-dovekieoffset-20-wa.pdf}
     \end{columns}
 \end{frame}
+
+% --- PART 1b: GPU TOOLS ---
 
 \begin{frame}
     \frametitle{The frontier of inference}
@@ -267,6 +364,10 @@
 \end{frame}
 
 % --- Supernovae ---
+% NOTE: frame these as the solution to the DES-Y5 problem just exposed:
+% - Sam: "SNe drive the tension → need better outlier control, so we put SALT3 on GPU"
+% - Matt: "need massive SBI to check for DES-Y5 systematics → accelerated SNANA 50×"
+% - Toby: "physical SN models need marginalising 1000s of latent variables → Laplace on GPU"
 
 \begin{frame}
     \frametitle{GPU-accelerated supernova photometry}
