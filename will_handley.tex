@@ -49,70 +49,23 @@
     \end{columns}
 \end{frame}
 
-\begin{frame}
-    \frametitle{Outline: Two revolutions}
-    \framesubtitle{Distinct shifts, often conflated}
-    \vspace{-0.5em}
-    \begin{columns}[T]
-        \column{0.48\textwidth}
-        \begin{block}{1. \C[0]{GPUs for analysis}}
-            \begin{itemize}
-                \item GPU hardware accelerates \textit{classical} statistical methods
-                \item Gravitational Waves, Dark Energy, Supernovae, Radio
-                \item The method transfers across the department
-            \end{itemize}
-        \end{block}
-        \column{0.48\textwidth}
-        \begin{exampleblock}{2. LLMs for development}
-            \begin{itemize}
-                \item How we built this in months, not years --- and we're just getting started
-                \item Verification, legacy code, and new workflows
-                \item Expanding the scope of what a small group can tackle
-            \end{itemize}
-        \end{exampleblock}
-    \end{columns}
-    \vfill
-    \begin{alertblock}{3. Live Demo \& Closing}
-        Loop running in front of an audience: the most dangerous game.
-    \end{alertblock}
-\end{frame}
-
-\begin{frame}
-    \frametitle{What I mean by ``classical inference''}
-    \framesubtitle{Triangle plots, error bars, and Bayesian model comparison}
-    \begin{columns}
-        \column{0.58\textwidth}
-        \begin{itemize}
-            \item Algorithms that converge to the true posterior: MCMC, Nested Sampling, HMC
-            \item \textbf{JWST}: K2-18b atmospheric biosignatures \arxiv{2309.05566}
-            \item \textbf{LIGO}: gravitational wave detection \arxiv{1602.03837}
-            \item \textbf{DESI \& DES}: dark energy and cosmic shear \arxiv{2503.14738} \arxiv{2601.14559}
-        \end{itemize}
-        \vspace{0.5em}
-        \begin{itemize}
-            \item The instruments exist. The statistical methods exist.
-            \item The bottleneck is \alert{compute}: running them fast enough at scale.
-        \end{itemize}
-        \column{0.38\textwidth}
-        \includegraphics[width=\textwidth]{figures/k2-18b_posteriors_2023.pdf}\\[0.3em]
-        \includegraphics[height=0.3\textheight,keepaspectratio]{figures/ligo_2_masses.pdf}\hfill
-        \includegraphics[height=0.3\textheight,keepaspectratio]{figures/desi_w0wa.pdf}
-    \end{columns}
-\end{frame}
-
 % --- PART 1a: DESI REANALYSIS ---
 
+% TODO: slides on unimpeded
+% - what unimpeded is (public nested sampling database)
+% - what's in it (datasets, models, derived products)
+% - how to use it (pip install, API, anesthetic integration)
+
 \begin{frame}
-    \frametitle{Bayesian model comparison at scale}
-    \framesubtitle{\texttt{unimpeded}: 248 dataset--model combinations via nested sampling}
+    \frametitle{\texttt{unimpeded}: the reanalysis infrastructure}
+    \framesubtitle{248 nested-sampling runs across 8 models and 11 datasets}
     \student{dily_ong.jpg}{Dily Ong}{PhD Student}
     \begin{columns}
         \column{0.52\textwidth}
         \begin{itemize}
-            \item Classical inference ``at scale'' --- without GPUs
-            \item 248 pairwise dataset--model combinations: full Bayesian evidences and tension statistics
-            \item Tens of millions of CPU-hours via DiRAC grants
-            \item Planck, DESI, DES, Pantheon, ACT, SPT, SH0ES, \ldots
+            \item To test the DESI claim properly: run every combination of dataset and model with full nested sampling.
+            \item 248 runs: Planck, DESI DR1/DR2, DES, Pantheon$^+$, Union3, ACT, SPT, SH0ES $\times$ $\Lambda$CDM, $w$CDM, $w_0 w_a$CDM, $m_\nu$, $\Omega_k$, $r$, $A_L$, $n_\mathrm{run}$.
+            \item Tens of millions of CPU-hours on DiRAC.
         \end{itemize}
         \begin{description}[\arxiv{2511.05470}]
             \item[\arxiv{2511.05470}] Nested sampling database
@@ -125,6 +78,11 @@
         \only<3>{\includegraphics[width=\textwidth,height=0.75\textheight,keepaspectratio]{figures/dily-tension-sigma.pdf}}
     \end{columns}
 \end{frame}
+
+% TODO: slides on tension quantification and model comparison
+% - Bayesian model comparison formalism (evidences, Bayes factors, model posteriors)
+% - tension metrics (suspiciousness, dimensionality, information ratio, log R, log S)
+% - look-elsewhere effect / significance threshold
 
 \begin{frame}
     \frametitle{Is dark energy evolving?}
@@ -379,14 +337,33 @@
 
 % --- PART 2: LLM REVOLUTION ---
 
-% Transition
+% Transition / Outline
 \begin{frame}
-    \begin{center}
-        \vspace{2em}
-        {\Large \C[0]{Part 1: GPUs for science} \hspace{1em} \checkmark}\\[2em]
-        {\Large \C[3]{Part 2: LLMs for scientists}}\\[1em]
-        {\normalsize How we built all of this in months, not years}
-    \end{center}
+    \frametitle{Outline: Two revolutions}
+    \framesubtitle{Distinct shifts, often conflated}
+    \vspace{-0.5em}
+    \begin{columns}[T]
+        \column{0.48\textwidth}
+        \begin{block}{1. \C[0]{GPUs for analysis} \checkmark}
+            \begin{itemize}
+                \item GPU hardware accelerates \textit{classical} statistical methods
+                \item Gravitational Waves, Dark Energy, Supernovae, Radio
+                \item The method transfers across the department
+            \end{itemize}
+        \end{block}
+        \column{0.48\textwidth}
+        \begin{exampleblock}{2. LLMs for development}
+            \begin{itemize}
+                \item How we built this in months, not years --- and we're just getting started
+                \item Verification, legacy code, and new workflows
+                \item Expanding the scope of what a small group can tackle
+            \end{itemize}
+        \end{exampleblock}
+    \end{columns}
+    \vfill
+    \begin{alertblock}{3. Live Demo \& Closing}
+        Loop running in front of an audience: the most dangerous game.
+    \end{alertblock}
 \end{frame}
 
 % Three ways AI meets science
