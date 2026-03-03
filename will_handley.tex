@@ -53,67 +53,85 @@
 % --- PART 1a: DESI REANALYSIS ---
 
 \begin{frame}
-    \frametitle{Why $4.2\sigma$ doesn't settle it}
-    \framesubtitle{The Jeffreys--Lindley paradox}
-    \begin{columns}[T]
-        \column{0.48\textwidth}
-        \begin{block}{Frequentist ($\Delta\chi^2$)}
-            \begin{itemize}
-                \item Rejects the null ($w=-1$) when the best fit deviates \textit{at all}.
-                \item With enough data, \textit{any} exact null is rejected --- $p \to 0$.
-                \item $4.2\sigma$: ``the data are unlikely under $\Lambda$CDM.''
-            \end{itemize}
+    \frametitle{The three pillars of (Bayesian) inference}
+    \begin{columns}[t]
+        \column{0.33\textwidth}
+        \begin{block}{Parameter estimation}
+            What do the data tell us about the parameters of a model?\\
+            {\textit{e.g. the size or age of a $\Lambda$CDM universe}}%
+            \[ \hspace{-4pt}\C[0]{P(\theta|D,M)} = \frac{\C[2]{P(D|\theta,M)} \C[1]{P(\theta|M)}}{\C[3]{P(D|M)}} \]
+            \[ \C[0]{\mathcal{P}} = \frac{\C[2]{\mathcal{L}} \times\C[1]{\pi}}{\C[3]{\mathcal{Z}}}\]
+            \[ \C[0]{\text{Posterior}} = \frac{\C[2]{\text{Likelihood}} \times\C[1]{\text{Prior}}}{\C[3]{\text{Evidence}}}\]
         \end{block}
-        \column{0.48\textwidth}
-        \begin{exampleblock}{Bayesian (Bayes factor)}
-            \begin{itemize}
-                \item Compares full models: $\Lambda$CDM ($N$ params) vs $w_0 w_a$CDM ($N{+}2$).
-                \item Extra parameters pay an Occam penalty --- prior volume wasted on bad regions.
-                \item Unless the data \textit{concentrate} away from $w=-1$, $\Lambda$CDM wins.
-            \end{itemize}
-        \end{exampleblock}
+        \column{0.3\textwidth}
+        \begin{block}{Model comparison}
+            How much does the data support a particular model?\\
+            {\textit{e.g. $\Lambda$CDM vs a dynamic dark energy cosmology}}%
+            \[ \C[5]{P(M|D)} = \frac{\C[3]{P(D|M)} \C[6]{P(M)}}{\C[7]{P(D)}} \vspace{-7pt}\]
+            \[ \frac{\C[3]{\mathcal{Z}_{M}} \C[6]{\Pi_{M}}}{\C[7]{\sum_m Z_m \Pi_m}} \]
+            \[ \C[5]{\text{Posterior}} = \frac{\C[3]{\text{Evidence}} \times\C[6]{\text{Prior}}}{\C[7]{\text{Normalisation}}}\]
+        \end{block}
+        \column{0.33\textwidth}
+        \begin{block}{Tension quantification}
+            Do different datasets make consistent predictions from the same model?
+            {\textit{\textit{e.g. CMB vs Type IA supernovae data}}}%
+            \[ \mathcal{R} = \frac{\C[3]{\mathcal{Z}}_{AB}}{\C[3]{\mathcal{Z}}_A\C[3]{\mathcal{Z}}_\mathcal{B}}\]
+            \[
+                \begin{aligned} \log\mathcal{S} = \av[{\C[0]{\mathcal{P}}_{AB}}]{\C[2]{\log\mathcal{L}}_{AB}}&\\
+                    -\av[{\C[0]{\mathcal{P}}_{A}}]{\C[2]{\log\mathcal{L}}_{A}}&\\
+                    -\av[{\C[0]{\mathcal{P}}_{B}}]{\C[2]{\log\mathcal{L}}_{B}}&
+                \end{aligned}
+            \]
+        \end{block}
     \end{columns}
-    \vfill
-    \begin{alertblock}{The paradox}
-        As data grow, the two frameworks \alert{diverge}: arbitrarily significant $p$-values coexist with Bayes factors favouring the null. DESI's $3.2$--$4.2\sigma$ is exactly this regime.
-    \end{alertblock}
 \end{frame}
 
-% TODO: unimpeded — cosmology at your fingertips
-% - what it is: public, version-controlled database of nested sampling chains
-% - what's in it: 248 dataset × model combinations, full posteriors + evidences
-% - how to use it: pip install unimpeded, anesthetic integration, 3-line script
-% - visual: terminal screenshot or code snippet
+\begin{frame}
+    \frametitle{\texttt{unimpeded}: PLA for the next generation}
+    \begin{columns}
+        \column{0.5\textwidth}
+        \begin{itemize}
+            \item DiRAC allocations: 30M + 20M CPU-hours (DP192, DP264).
+            \item Main goal: Planck Legacy Archive equivalent:
+            \begin{description}[Planck]
+                \item[Param.\ est.] $\to$ Model comparison
+                \item[MCMC] $\to$ Nested sampling
+                \item[Planck] $\to$ $\{\text{Planck}, \text{DES}, \text{DESI}, \text{BAO}, \ldots \}$
+            \end{description}
+            \item All pairwise and triplet combinations.
+            \item Python library: download, cache, analyse with \texttt{anesthetic}. \arxiv{1905.04768}
+        \end{itemize}
+        \tthref{github.com/handley-lab/unimpeded}
+        \column{0.48\textwidth}
+        \centering
+        \includegraphics[width=0.5\textwidth]{logos/pla.png}\\[0.5em]
+        \includegraphics[width=0.5\textwidth]{logos/dirac.png}\\[0.5em]
+        \includegraphics[width=0.4\textwidth]{logos/cobaya_clear.png}\hfill
+        \includegraphics[width=0.5\textwidth]{logos/polychord.png}
+    \end{columns}
+\end{frame}
 
 \begin{frame}
-    \frametitle{\texttt{unimpeded}: the reanalysis infrastructure}
+    \frametitle{\texttt{unimpeded}: DESI DR2 reanalysis}
     \framesubtitle{248 nested-sampling runs across 8 models and 11 datasets}
     \student{dily_ong.jpg}{Dily Ong}{PhD Student}
     \begin{columns}
         \column{0.52\textwidth}
         \begin{itemize}
-            \item To test the DESI claim properly: run every combination of dataset and model with full nested sampling.
-            \item 248 runs: Planck, DESI DR1/DR2, DES, Pantheon$^+$, Union3, ACT, SPT, SH0ES $\times$ $\Lambda$CDM, $w$CDM, $w_0 w_a$CDM, $m_\nu$, $\Omega_k$, $r$, $A_L$, $n_\mathrm{run}$.
-            \item Tens of millions of CPU-hours on DiRAC.
+            \item 248 runs: 11 datasets $\times$ 8 models, plus all pairwise and triplet combinations.
+            \item Datasets: Planck, DESI DR1/DR2, DES-Y5, Pantheon$^+$, Union3, ACT, SPT, SH0ES.
+            \item Models: $\Lambda$CDM, $w$CDM, $w_0 w_a$CDM, $m_\nu$, $\Omega_k$, $r$, $A_L$, $n_\mathrm{run}$.
         \end{itemize}
         \begin{description}[\arxiv{2511.05470}]
             \item[\arxiv{2511.05470}] Nested sampling database
             \item[\arxiv{2511.04661}] Model comparison \& tension grid
             \item[\arxiv{2511.10631}] Bayesian evidence for evolving DE
+            \item[Ong, Yallup \& Handley] Full DESI DR2 reanalysis (coming soon)
         \end{description}
         \column{0.41\textwidth}
-        \only<1>{\includegraphics[width=\textwidth,height=0.7\textheight,keepaspectratio]{figures/dily-prior-posterior.pdf}}
-        \only<2>{\includegraphics[width=\textwidth,height=0.75\textheight,keepaspectratio]{figures/dily-tension-heatmap.pdf}}
-        \only<3>{\includegraphics[width=\textwidth,height=0.75\textheight,keepaspectratio]{figures/dily-tension-sigma.pdf}}
+        \includegraphics[width=\textwidth,height=0.75\textheight,keepaspectratio]{figures/dily-prior-posterior.pdf}
     \end{columns}
 \end{frame}
-
-% TODO: Bayesian toolkit & look-elsewhere effect
-% - model comparison: ln B automatically penalises prior volume
-% - tension metrics: suspiciousness (log S) isolates likelihood conflict from prior;
-%   dimensionality (d_G) counts constrained parameters
-% - look-elsewhere effect: N=200 tests → threshold 2.88σ
-% - pre-empts the objection "aren't you just finding 3σ by chance?"
 
 \begin{frame}
     \frametitle{Is dark energy evolving?}
@@ -161,15 +179,15 @@
     \framesubtitle{$\log P(\mathcal{M}_i | D)$ for 8 models across individual datasets}
     \student{dily_ong.jpg}{Dily Ong}{PhD Student}
     \begin{columns}
-        \column{0.35\textwidth}
+        \column{0.28\textwidth}
         \begin{itemize}
             \item DESI BAO penalises dynamic DE; $m_\nu\Lambda$CDM remains competitive.
             \item Planck CMB mildly prefers extensions ($\Delta \ln P \approx +1$ for $w_0 w_a$CDM).
             \item Supernovae alone lack discriminatory power.
             \item Opposing single-probe preferences set up the dataset combination story.
         \end{itemize}
-        \column{0.63\textwidth}
-        \includegraphics[width=\textwidth,height=0.85\textheight,keepaspectratio]{figures/model_comparison_single_sorted_by_dkl_desi.pdf}
+        \column{0.70\textwidth}
+        \includegraphics{figures/bayes_factor_singles.pdf}
     \end{columns}
 \end{frame}
 
@@ -178,15 +196,15 @@
     \framesubtitle{$\log P(\mathcal{M}_i | D)$ for 8 models across pairwise datasets}
     \student{dily_ong.jpg}{Dily Ong}{PhD Student}
     \begin{columns}
-        \column{0.35\textwidth}
+        \column{0.28\textwidth}
         \begin{itemize}
             \item BAO + CMB: $w_0 w_a$CDM suppressed ($\ln P = -1.22$), $\Lambda$CDM preferred.
             \item BAO + DES-Y5: preference shifts to dynamic DE.
             \item BAO + Pantheon$^+$: $\Lambda$CDM locked in.
             \item The SN catalogue choice is decisive.
         \end{itemize}
-        \column{0.63\textwidth}
-        \includegraphics[width=\textwidth,height=0.85\textheight,keepaspectratio]{figures/model_comparison_combo_sorted_by_dkl_desi.pdf}
+        \column{0.70\textwidth}
+        \includegraphics{figures/bayes_factor_pairs.pdf}
     \end{columns}
 \end{frame}
 
@@ -195,14 +213,14 @@
     \framesubtitle{$\log P(\mathcal{M}_i | D)$ for 8 models across BAO+CMB+SN}
     \student{dily_ong.jpg}{Dily Ong}{PhD Student}
     \begin{columns}
-        \column{0.35\textwidth}
+        \column{0.28\textwidth}
         \begin{itemize}
             \item BAO + CMB + DES-Y5: $w_0 w_a$CDM strongly preferred ($\Delta \ln P \approx +3.3$, $\sim 3\sigma$).
             \item BAO + CMB + Pantheon$^+$: $\Lambda$CDM holds ($\ln P = -0.38$ vs $-2.06$).
             \item The claim for new physics is entirely contingent on a single SN catalogue.
         \end{itemize}
-        \column{0.63\textwidth}
-        \includegraphics[width=\textwidth,height=0.85\textheight,keepaspectratio]{figures/model_comparison_triplet_sorted_by_dkl_desi.pdf}
+        \column{0.70\textwidth}
+        \includegraphics{figures/bayes_factor_triplets.pdf}
     \end{columns}
 \end{frame}
 
@@ -240,33 +258,6 @@
 \end{frame}
 
 \begin{frame}
-    \frametitle{Characterising the tension}
-    \framesubtitle{Suspiciousness and Bayesian dimensionality}
-    \student{dily_ong.jpg}{Dily Ong}{PhD Student}
-    \begin{columns}
-        \column{0.40\textwidth}
-        \begin{block}{Suspiciousness ($\log S$)}
-            \begin{itemize}
-                \item Prior-independent: isolates direct likelihood conflict from prior volume effects.
-                \item Consistently negative for DESI vs DES-Y5 --- genuine data-level disagreement.
-            \end{itemize}
-        \end{block}
-        \uncover<2>{%
-        \begin{block}{Bayesian dimensionality ($d_G$)}
-            \begin{itemize}
-                \item DESI vs DES-Y5: $d_G = 0.99 \pm 0.07$ --- a single parameter direction.
-                \item Add Planck: $d_G > 3$. The conflict becomes systemic across the parameter space.
-                \item $w_0 w_a$CDM absorbs this collision; it doesn't model coherent DE evolution.
-            \end{itemize}
-        \end{block}
-        }
-        \column{0.58\textwidth}
-        \only<1>{\includegraphics[width=\textwidth,height=0.85\textheight,keepaspectratio]{figures/tension_stats_logS_sorted_by_logS_desi.pdf}}
-        \only<2>{\includegraphics[width=\textwidth,height=0.85\textheight,keepaspectratio]{figures/tension_stats_d_G_sorted_by_d_G_desi.pdf}}
-    \end{columns}
-\end{frame}
-
-\begin{frame}
     \frametitle{Beyond $w_0 w_a$: flexible dark energy}
     \framesubtitle{Independent confirmation from flexknot reconstruction}
     \student{adam_ormondroyd.jpg}{Adam Ormondroyd}{PhD Student}
@@ -285,6 +276,33 @@
         \vspace{0.3em}
         \includegraphics[width=\textwidth]{figures/adam-dovekieoffset-20-wa.pdf}
     \end{columns}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Why $4.2\sigma$ doesn't settle it}
+    \framesubtitle{The Jeffreys--Lindley paradox}
+    \begin{columns}[T]
+        \column{0.48\textwidth}
+        \begin{block}{Frequentist ($\Delta\chi^2$)}
+            \begin{itemize}
+                \item Rejects the null ($w=-1$) when the best fit deviates \textit{at all}.
+                \item With enough data, \textit{any} exact null is rejected --- $p \to 0$.
+                \item $4.2\sigma$: ``the data are unlikely under $\Lambda$CDM.''
+            \end{itemize}
+        \end{block}
+        \column{0.48\textwidth}
+        \begin{exampleblock}{Bayesian (Bayes factor)}
+            \begin{itemize}
+                \item Compares full models: $\Lambda$CDM ($N$ params) vs $w_0 w_a$CDM ($N{+}2$).
+                \item Extra parameters pay an Occam penalty --- prior volume wasted on bad regions.
+                \item Unless the data \textit{concentrate} away from $w=-1$, $\Lambda$CDM wins.
+            \end{itemize}
+        \end{exampleblock}
+    \end{columns}
+    \vfill
+    \begin{alertblock}{The paradox}
+        As data grow, the two frameworks \alert{diverge}: arbitrarily significant $p$-values coexist with Bayes factors favouring the null. DESI's $3.2$--$4.2\sigma$ is exactly this regime.
+    \end{alertblock}
 \end{frame}
 
 % --- PART 1b: GPU TOOLS ---

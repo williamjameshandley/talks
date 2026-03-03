@@ -1,6 +1,6 @@
 #%%
 # Slide-friendly landscape Bayes factor dot plots
-# Split into: singles (individual datasets) and pairs (two-dataset combos)
+# Split into: singles, pairs, and triplets
 import os
 import numpy as np
 import pandas as pd
@@ -32,11 +32,11 @@ labels_dataset_short = {
     'sn.pantheonplus': r'Pantheon$^+$',
     'sn.union3': 'Union3',
     'des_y1.joint': 'DES Y1',
-    'planck_2018_CamSpec': 'CamSpec+lens',
-    'planck_2018_CamSpec_nolens': 'CamSpec',
+    'planck_2018_CamSpec': 'CamSpec',
+    'planck_2018_CamSpec_nolens': 'CamSpec (no lens)',
     'planck_2018_lensing': 'CMB lensing',
-    'planck_2018_plik': 'Plik+lens',
-    'planck_2018_plik_nolens': 'Plik',
+    'planck_2018_plik': 'Plik',
+    'planck_2018_plik_nolens': 'Plik (no lens)',
 }
 
 
@@ -87,12 +87,6 @@ singles_groups = OrderedDict([
 ])
 
 pairs_groups = OrderedDict([
-    (r'\textbf{BAO + CMB}', [
-        "bao.desi_dr2+planck_2018_plik",
-        "bao.desi_2024_bao_all+planck_2018_plik",
-        "bao.desi_dr2+planck_2018_CamSpec",
-        "bao.desi_2024_bao_all+planck_2018_CamSpec",
-    ]),
     (r'\textbf{BAO + SN}', [
         "bao.desi_dr2+sn.desy5",
         "bao.desi_2024_bao_all+sn.desy5",
@@ -101,16 +95,33 @@ pairs_groups = OrderedDict([
         "bao.desi_dr2+sn.union3",
         "bao.desi_2024_bao_all+sn.union3",
     ]),
-    (r'\textbf{BAO + CMB lensing}', [
-        "bao.desi_dr2+planck_2018_lensing",
-        "bao.desi_2024_bao_all+planck_2018_lensing",
-    ]),
     (r'\textbf{BAO + galaxy survey}', [
         "bao.desi_dr2+des_y1.joint",
         "bao.desi_2024_bao_all+des_y1.joint",
     ]),
+    (r'\textbf{BAO + CMB lensing}', [
+        "bao.desi_dr2+planck_2018_lensing",
+        "bao.desi_2024_bao_all+planck_2018_lensing",
+    ]),
+    (r'\textbf{BAO + CMB}', [
+        "bao.desi_dr2+planck_2018_plik",
+        "bao.desi_2024_bao_all+planck_2018_plik",
+        "bao.desi_dr2+planck_2018_CamSpec",
+        "bao.desi_2024_bao_all+planck_2018_CamSpec",
+    ]),
     (r'\textbf{CMB + SN}', [
         "planck_2018_plik+sn.pantheonplus",
+    ]),
+])
+
+triplets_groups = OrderedDict([
+    (r'\textbf{BAO + CMB + SN}', [
+        "bao.desi_dr2+planck_2018_plik+sn.desy5",
+        "bao.desi_dr2+planck_2018_plik+sn.pantheonplus",
+        "bao.desi_dr2+planck_2018_plik+sn.union3",
+        "bao.desi_dr2+planck_2018_CamSpec+sn.desy5",
+        "bao.desi_dr2+planck_2018_CamSpec+sn.pantheonplus",
+        "bao.desi_dr2+planck_2018_CamSpec+sn.union3",
     ]),
 ])
 
@@ -167,8 +178,8 @@ def compute_ln_B(groups):
 # --- PLOTTING ---
 
 def plot_landscape(groups, ln_B_mean, ln_B_err, output_path,
-                   fig_width=3.9):
-    """fig_width in inches: 3.9 for 0.63 beamer column, 6.0 for full-width."""
+                   axes_width=3.0, left_margin=1.0, legend_loc='lower left'):
+    """axes_width: plot area width in inches. left_margin: space for y labels."""
     # Build layout
     y_data = []
     y_bands = []
@@ -190,12 +201,20 @@ def plot_landscape(groups, ln_B_mean, ln_B_err, output_path,
     total_y = current_y
     n_rows = len(y_data)
 
-    # Physical size: width from argument, height fills column (~3.2" usable)
+    # Physical size: fixed axes width, figure width adjusts for labels
+    right_margin = 0.15
+    bottom_margin = 0.35
+    top_margin = 0.05
+    fig_width = left_margin + axes_width + right_margin
     fig_height = max(n_rows * 0.25 + len(groups) * 0.2, 1.5)
-    fig_height = min(fig_height, 2.8)
+    fig_height = min(fig_height, 2.7)
     fig, ax = plt.subplots(figsize=(fig_width, fig_height))
+    fig.subplots_adjust(left=left_margin/fig_width,
+                        right=1 - right_margin/fig_width,
+                        bottom=bottom_margin/fig_height,
+                        top=1 - top_margin/fig_height)
 
-    x_min, x_max = -6, 4
+    x_min, x_max = -6, 6
 
     # Jeffreys scale background
     green_alphas = [0.06, 0.12, 0.20, 0.30]
@@ -213,8 +232,8 @@ def plot_landscape(groups, ln_B_mean, ln_B_err, output_path,
     for y_top, y_bot, name in y_bands:
         ax.axhspan(y_top, y_bot, facecolor='#DCDCDC', edgecolor='#A0A0A0',
                    linewidth=0.5, zorder=1)
-        ax.text((x_min + x_max) / 2, (y_top + y_bot) / 2, name,
-                ha='center', va='center', fontsize=8, zorder=3)
+        ax.text(x_min + 0.3, (y_top + y_bot) / 2, name,
+                ha='left', va='center', fontsize=8, zorder=3)
 
     for x_val in range(int(x_min), int(x_max) + 1):
         if x_val != 0:
@@ -250,13 +269,12 @@ def plot_landscape(groups, ln_B_mean, ln_B_err, output_path,
                   fontsize=8)
     ax.tick_params(axis='x', labelsize=7)
 
-    ax.legend(loc='upper right', fontsize=6, framealpha=0.95, ncol=1,
-              title=r'\textbf{Model}', title_fontsize=7,
-              edgecolor='black', fancybox=False)
+    if legend_loc is not None:
+        ax.legend(loc=legend_loc, fontsize=6, framealpha=0.95, ncol=1,
+                  edgecolor='black', fancybox=False)
 
-    fig.tight_layout()
     os.makedirs(os.path.dirname(output_path), exist_ok=True)
-    fig.savefig(output_path, bbox_inches='tight')
+    fig.savefig(output_path)
     print(f"Saved: {output_path}")
     plt.close(fig)
 
@@ -266,8 +284,14 @@ def plot_landscape(groups, ln_B_mean, ln_B_err, output_path,
 
 ln_B_mean_s, ln_B_err_s = compute_ln_B(singles_groups)
 ln_B_mean_p, ln_B_err_p = compute_ln_B(pairs_groups)
+ln_B_mean_t, ln_B_err_t = compute_ln_B(triplets_groups)
 
 plot_landscape(singles_groups, ln_B_mean_s, ln_B_err_s,
-               '../figures/bayes_factor_singles.pdf')
+               '../figures/bayes_factor_singles.pdf',
+               axes_width=2.5, left_margin=0.85, legend_loc='lower right')
 plot_landscape(pairs_groups, ln_B_mean_p, ln_B_err_p,
-               '../figures/bayes_factor_pairs.pdf')
+               '../figures/bayes_factor_pairs.pdf',
+               axes_width=2.3, left_margin=1.05, legend_loc='lower right')
+plot_landscape(triplets_groups, ln_B_mean_t, ln_B_err_t,
+               '../figures/bayes_factor_triplets.pdf',
+               axes_width=2.1, left_margin=1.25, legend_loc='lower right')
