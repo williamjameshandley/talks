@@ -1,13 +1,9 @@
-# The New Scientific Method
+# Classical inference at scale: dark energy, tensions, and the GPU revolution
 
 ## Abstract
 
-In the 1990s, CCDs replaced photographic plates and transformed observational astronomy. Today, GPU hardware and large language models are driving a comparable shift in how we analyse data. Astronomy has invested enormously in the current generation of instruments such as JWST, DESI, Euclid, LSST and the SKA, and many of the analyses needed to fully exploit them have, until now, been computationally prohibitive.
+The DESI DR2 claim of evolving dark energy rests on a frequentist analysis of seven BAO data points in a two-parameter model. I will present a comprehensive Bayesian reanalysis using the unimpeded nested sampling database -- 248 dataset-model combinations spanning Planck, DESI, DES, Pantheon, ACT, SPT and SH0ES -- showing that the evidence for dynamical dark energy is weaker than advertised and largely driven by inter-dataset tension rather than genuine evolution. Moving beyond w0wa, I will show flexible dark energy reconstructions using transdimensional flexknot models in JAX on GPU, where the data themselves select the model complexity, and argue that a supernova magnitude offset provides a better fit than exotic dark energy. More broadly, I will make the case that GPU-accelerated classical statistical methods -- nested sampling, HMC, Laplace approximation -- are competitive with neural network approaches across astronomy, from gravitational waves to 21-cm cosmology, and that large language models are transforming how we build and verify these analyses without replacing the science itself.
 
-This is often framed as a job for neural networks. In fact, classical, interpretable statistical methods on the same GPU hardware can match or outperform neural network approaches, and the consequences go beyond speed. It marks a shift from fitting a single model to comparing hundreds, from ignoring systematics to marginalising over them, and from waiting days to acting in real time.
-
-Large language models are driving a separate revolution, not replacing the scientist but transforming how researchers work: building and verifying complex analyses, interrogating legacy codebases, and synthesising research across large teams. In this talk I will illustrate both through results from our group, including new results on dark energy from DESI, Type Ia supernova standardisation, real-time gravitational-wave follow-up and 21-cm radio astronomy, and argue that rigorous analysis made routine, combined with LLM-assisted development under robust verification, is the start of a new scientific method.
-
-[[PDF](https://github.com/williamjameshandley/talks/raw/ioa_2026/will_handley_ioa_2026.pdf)]
-[[source](https://github.com/williamjameshandley/talks/tree/ioa_2026)]
-_Feb 2026, IoA Colloquium, Institute of Astronomy, Cambridge_
+[[PDF](https://github.com/williamjameshandley/talks/raw/cosmoverse_2026/will_handley_cosmoverse_2026.pdf)]
+[[source](https://github.com/williamjameshandley/talks/tree/cosmoverse_2026)]
+_Mar 2026, CosmoVerse Seminar (online)_

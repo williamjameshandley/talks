@@ -19,8 +19,9 @@
 
 % Talk details
 % ------------
-\title{The New Scientific Method}
-\date{19\textsuperscript{th} February 2026}
+\title{Classical inference at scale}
+\subtitle{dark energy, tensions, and the GPU revolution}
+\date{4\textsuperscript{th} March 2026}
 
 \begin{document}
 
@@ -32,68 +33,19 @@
 
 % --- OPENING ---
 
-% \begin{frame}
-%     \frametitle{Inference Across Astronomy}
-%     \framesubtitle{Three examples of Bayesian parameter estimation and model comparison}
-%     \vspace{-1.5em}
-%     \begin{columns}[T]
-%         \column{0.32\textwidth}
-%         \begin{center}
-%             \includegraphics[width=\textwidth]{figures/desi.pdf}\\[0.3em]
-%             {\small \textbf{Cosmology}: Is dark energy evolving?\\$\Lambda$CDM vs $w_0w_a$CDM}
-%         \end{center}
-%         \column{0.34\textwidth}
-%         \begin{center}
-%             \includegraphics[width=\textwidth]{figures/gw170817-skymap.jpg}\\[0.3em]
-%             {\small \textbf{Gravitational Waves}: Where on the sky?\\Masses, spins, distance}
-%         \end{center}
-%         \column{0.32\textwidth}
-%         \begin{center}
-%             \includegraphics[width=\textwidth]{figures/exoplanet.pdf}\\[0.3em]
-%             {\small \textbf{Exoplanets}: What's in the atmosphere?\\How many planets?}
-%         \end{center}
-%     \end{columns}
-%     \vfill
-%     \begin{center}
-%         \textit{These all require the same statistical machinery:\\posterior inference, model comparison, error propagation.}
-%     \end{center}
-% \end{frame}
-
 \begin{frame}
-    \frametitle{The CCD Analogy}
-    \framesubtitle{A change in how we capture data $\to$ a change in how we analyse it}
-    \vspace{-0.5em}
-    \begin{columns}[T]
-        \column{0.48\textwidth}
-        \begin{columns}
-            \column{0.49\textwidth}
-            \includegraphics[width=\textwidth,height=2.5cm,keepaspectratio]{figures/apm-ioa.jpg}
-            \column{0.49\textwidth}
-            \includegraphics[width=\textwidth,height=2.5cm,keepaspectratio]{figures/lsst-focal-plane.jpg}
-        \end{columns}
-        \vspace{0.3em}
-        \begin{block}{1980s--2000s: Observation}
-            \begin{itemize}
-                \item \keyterm{Photographic Plates} $\to$ \keyterm{CCDs}
-                \item Digital sky surveys (SDSS $\to$ Rubin/LSST)
-                \item Quantitative, survey-scale astronomy
-            \end{itemize}
-        \end{block}
-        \column{0.48\textwidth}
-        \begin{columns}
-            \column{0.49\textwidth}
-            \includegraphics[width=\textwidth,height=2.5cm,keepaspectratio]{figures/pentium4.jpg}
-            \column{0.49\textwidth}
-            \includegraphics[width=\textwidth,height=2.5cm,keepaspectratio]{figures/gpu-server.jpg}
-        \end{columns}
-        \vspace{0.3em}
-        \begin{block}{2020s: Analysis}
-            \begin{itemize}
-                \item \keyterm{CPUs} $\to$ \keyterm{GPUs}
-                \item \keyterm{Manual Coding} $\to$ \keyterm{LLM-Accelerated}
-                \item Real-time inference
-            \end{itemize}
-        \end{block}
+    \frametitle{DESI DR2: $4.2\sigma$ evolving dark energy?}
+    \begin{columns}
+        \column{0.52\textwidth}
+        \begin{itemize}
+            \item DESI DR2: frequentist analysis reports up to \alert{$4.2\sigma$} preference for $w_0 w_a$CDM over $\Lambda$CDM \arxiv{2503.14738}.
+            \item We ran a comprehensive Bayesian reanalysis: 248 dataset--model combinations via nested sampling.
+            \item The signal is driven by \alert{inter-dataset tension}, not coherent dark-energy evolution.
+        \end{itemize}
+        \vspace{0.5em}
+        \textit{This talk: the evidence, the GPU tools that make it feasible, and how we built them fast.}
+        \column{0.46\textwidth}
+        \includegraphics[width=\textwidth]{figures/desi_w0wa.pdf}
     \end{columns}
 \end{frame}
 
@@ -148,6 +100,8 @@
     \end{columns}
 \end{frame}
 
+% --- PART 1a: DESI REANALYSIS ---
+
 \begin{frame}
     \frametitle{Bayesian model comparison at scale}
     \framesubtitle{\texttt{unimpeded}: 248 dataset--model combinations via nested sampling}
@@ -169,6 +123,114 @@
         \only<1>{\includegraphics[width=\textwidth,height=0.7\textheight,keepaspectratio]{figures/dily-prior-posterior.pdf}}
         \only<2>{\includegraphics[width=\textwidth,height=0.75\textheight,keepaspectratio]{figures/dily-tension-heatmap.pdf}}
         \only<3>{\includegraphics[width=\textwidth,height=0.75\textheight,keepaspectratio]{figures/dily-tension-sigma.pdf}}
+    \end{columns}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Is dark energy evolving?}
+    \framesubtitle{DESI DR2 with DESI and DES}
+    \student{dily_ong.jpg}{Dily Ong}{PhD Student}
+    \begin{columns}
+        \column{0.52\textwidth}
+        \begin{block}{The DESI claim \arxiv{2503.14738}}
+            \begin{itemize}
+                \item DESI DR2: $w_0 w_a$CDM preferred over $\Lambda$CDM at \alert{3.1$\sigma$} (BAO+CMB), up to \alert{4.2$\sigma$} with SNe.
+                \item Frequentist $\Delta\chi^2$ with only 7 BAO data points.
+            \end{itemize}
+        \end{block}
+        \begin{block}{Bayesian reanalysis \arxiv{2511.10631}}
+            \begin{itemize}
+                \item BAO+CMB alone: $\Lambda$CDM \alert{modestly favoured} ($\ln B = -0.57 \pm 0.26$).
+                \item Only reaches $\sim$3$\sigma$ \textit{with} DES-Y5 SNe --- driven by \alert{inter-dataset tension}, not DE evolution.
+            \end{itemize}
+        \end{block}
+        Ong, Yallup \& Handley, in prep.
+        \column{0.46\textwidth}
+        \includegraphics[width=\textwidth]{figures/desi_w0wa.pdf}
+    \end{columns}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Model posteriors across datasets}
+    \framesubtitle{$\ln B$ relative to $\Lambda$CDM for 8 models across all dataset combinations}
+    \student{dily_ong.jpg}{Dily Ong}{PhD Student}
+    \begin{columns}
+        \column{0.35\textwidth}
+        \begin{itemize}
+            \item DESI alone: $w_0 w_a$CDM \alert{disfavoured}.
+            \item Planck CMB: extensions mildly preferred.
+            \item Triplets with DES-Y5: $w_0 w_a$CDM preferred ($\ln B \approx +3.3$, $\sim 3\sigma$).
+            \item With Pantheon$^+$: $\Lambda$CDM preferred ($\ln B \approx -1.7$).
+            \item The supernova catalogue choice determines the result.
+        \end{itemize}
+        \column{0.63\textwidth}
+        \includegraphics[width=\textwidth,height=0.85\textheight,keepaspectratio]{figures/bayes_factor_dot_desi.pdf}
+    \end{columns}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Where does the signal come from?}
+    \framesubtitle{Pairwise tension significance ($\sigma$) across 8 models}
+    \student{dily_ong.jpg}{Dily Ong}{PhD Student}
+    \begin{columns}
+        \column{0.35\textwidth}
+        \begin{itemize}
+            \item DESI DR2 vs DES-Y5 in $\Lambda$CDM: \alert{$2.95 \pm 0.04\,\sigma$}.
+            \item In $w$CDM: $0.33\,\sigma$. In $w_0 w_a$CDM: $1.56\,\sigma$.
+            \item Extended models \textit{resolve} the tension rather than detect new physics.
+            \item Look-elsewhere threshold for $N=200$ tests: $\sigma > 2.88$.
+        \end{itemize}
+        \column{0.63\textwidth}
+        \includegraphics[width=\textwidth,height=0.85\textheight,keepaspectratio]{figures/tension_stats_sigma_sorted_by_sigma_desi.pdf}
+    \end{columns}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Characterising the tension}
+    \framesubtitle{Suspiciousness and Bayesian dimensionality}
+    \student{dily_ong.jpg}{Dily Ong}{PhD Student}
+    \begin{columns}
+        \column{0.40\textwidth}
+        \begin{block}{Suspiciousness ($\log S$)}
+            \begin{itemize}
+                \item Prior-independent: isolates direct likelihood conflict from prior volume effects.
+                \item Consistently negative for DESI vs DES-Y5 --- genuine data-level disagreement.
+            \end{itemize}
+        \end{block}
+        \uncover<2>{%
+        \begin{block}{Bayesian dimensionality ($d_G$)}
+            \begin{itemize}
+                \item DESI vs DES-Y5: $d_G = 0.99 \pm 0.07$.
+                \item A single parameter direction, not a broad failure of $\Lambda$CDM.
+            \end{itemize}
+        \end{block}
+        }
+        \column{0.58\textwidth}
+        \only<1>{\includegraphics[width=\textwidth,height=0.85\textheight,keepaspectratio]{figures/tension_stats_logS_sorted_by_logS_desi.pdf}}
+        \only<2>{\includegraphics[width=\textwidth,height=0.85\textheight,keepaspectratio]{figures/tension_stats_d_G_sorted_by_d_G_desi.pdf}}
+    \end{columns}
+\end{frame}
+
+% --- PART 1b: GPU TOOLS ---
+
+\begin{frame}
+    \frametitle{Beyond $w_0 w_a$: flexible dark energy on GPU}
+    \framesubtitle{Independent confirmation from flexknot reconstruction}
+    \student{adam_ormondroyd.jpg}{Adam Ormondroyd}{PhD Student}
+    \begin{columns}
+        \column{0.64\textwidth}
+        \begin{block}{Flexknot $w(a)$ reconstruction \arxiv{2503.08658} \arxiv{2509.13220}}
+            \begin{itemize}
+                \item $w_0 w_a$ is too restrictive --- flexknots let the data speak.
+                \item W-shaped structure in $w(a)$; DESI and DES-5Y are in \alert{tension}.
+                \item A magnitude offset $\Delta m_B$ between low-$z$ and DES SNe beats flexknot DE in Bayesian evidence.
+            \end{itemize}
+        \end{block}
+        \vspace{0.3em}
+        \textit{20 model complexities $\times$ multiple datasets --- only feasible because the pipeline is in JAX: \textbf{days $\to$ minutes}.}
+        \column{0.34\textwidth}
+        \vspace{0.3em}
+        \includegraphics[width=\textwidth]{figures/adam-dovekieoffset-20-wa.pdf}
     \end{columns}
 \end{frame}
 
@@ -199,53 +261,22 @@
     \end{columns}
 \end{frame}
 
-% --- PART A: GPU REVOLUTION ---
-
-% --- Vignette 1: Gravitational Waves ---
-
 \begin{frame}
-    \frametitle{GW170817: the multi-messenger event}
-    \framesubtitle{Example 1: Real-time gravitational wave parameter estimation}
+    \frametitle{Real-time gravitational wave PE}
+    \framesubtitle{From 2 hours on 60 CPUs to 30 seconds on one GPU}
     \student{metha_prathaban.jpg}{Metha Prathaban}{PhD Student}
     \begin{columns}
         \column{0.49\textwidth}
-        \begin{block}{Sky localisation and EM follow-up \arxiv{1710.05833}}
+        \begin{block}{The problem \arxiv{1710.05833}}
             \begin{itemize}
-                \item Binary neutron star merger detected by LIGO/Virgo
-                \item EM follow-up required fast sky localisation
-                \item Triggered $>$70 observatories worldwide
+                \item GW170817: binary neutron star merger. EM follow-up needed fast sky localisation.
+                \item Full parameter estimation (\texttt{bilby}): \textbf{60 CPUs, 2 hours}. Too slow for transients.
             \end{itemize}
         \end{block}
-        \begin{block}{The bottleneck}
-            \begin{itemize}
-                \item Full parameter estimation (\texttt{bilby}): \textbf{60 CPUs, 2 hours}
-                \item Too slow for prompt follow-up of short-lived transients
-            \end{itemize}
-        \end{block}
-        \column{0.49\textwidth}
-        \includegraphics[width=\textwidth]{figures/gw170817-skymap.jpg}\\
-        {\tiny LIGO/Virgo/NASA/Leo Singer}
-    \end{columns}
-\end{frame}
-
-\begin{frame}
-    \frametitle{30 seconds on one GPU}
-    \framesubtitle{Example 1: Real-time gravitational wave parameter estimation}
-    \student{metha_prathaban.jpg}{Metha Prathaban}{PhD Student}
-    \begin{columns}
-        \column{0.49\textwidth}
         \begin{block}{GPU nested sampling \arxiv{2509.04336}}
             \begin{itemize}
-                \item \textbf{1 GH200 GPU} for \textbf{$\sim$30 seconds}
-                \item 4\,s of real LIGO data (GW150914), full 15-D parameter space
-                \item Standard CPU: 60 CPUs $\times$ 2 hours
-            \end{itemize}
-        \end{block}
-        \begin{block}{What near-real-time means}
-            \begin{itemize}
-                \item Close enough to scan the time stream continuously
-                \item EM alerts while the event is still physically interesting
-                \item No more cheap template banks --- full waveform models \alert{find more candidates}
+                \item \textbf{1 GH200 GPU}, \textbf{$\sim$30 seconds}. 4\,s of real LIGO data (GW150914), full 15-D parameter space.
+                \item Near-real-time: EM alerts while the event is still physically interesting.
             \end{itemize}
         \end{block}
         \column{0.49\textwidth}
@@ -254,139 +285,8 @@
 \end{frame}
 
 \begin{frame}
-    \frametitle{Where does the speed come from?}
-    \framesubtitle{Example 1: Real-time gravitational wave parameter estimation}
-    \student{metha_prathaban.jpg}{Metha Prathaban}{PhD Student}
-    \begin{columns}
-        \column{0.54\textwidth}
-        \begin{block}{The Bottleneck \arxiv{2509.04336} \arxiv{2509.24949}}
-            \begin{itemize}
-                \item Waveform generation (physics) is \textit{not} the bottleneck --- memory bandwidth for extrinsic parameters is.
-                \item Dual-axis parallelisation: over sampling particles \textit{and} frequencies in the likelihood.
-                \item Most codes use a tiny fraction of GPU --- this opens a different scaling relation for next-gen detectors.
-            \end{itemize}
-        \end{block}
-        \column{0.44\textwidth}
-        \centering
-        {\small \textbf{Inter-likelihood}: parallelise over particles}\\[0.3em]
-        \begin{tikzpicture}[scale=0.9,
-            dot/.style={C0, fill=C0}
-        ]
-            \def\numdots{50} \def\walksteps{6}
-            \def\numoutermost{20}
-            \def\xmax{3.75} \def\ymax{3.75}
-            \def\cx{2} \def\cy{2}
-            \pgfmathsetseed{\number\pdfrandomseed}
-            \foreach \i in {1,...,\numdots} {
-                \pgfmathsetmacro{\randx}{2 + (\xmax - 2) * rand}
-                \pgfmathsetmacro{\randy}{2 + (\ymax - 2) * rand}
-                \fill[dot] (\randx, \randy) circle (1.5pt);
-                \pgfmathsetmacro{\distsq}{((\randx-\cx)*(\randx-\cx) + (\randy-\cy)*(\randy-\cy))}
-                \expandafter\xdef\csname qx\i\endcsname{\randx}
-                \expandafter\xdef\csname qy\i\endcsname{\randy}
-                \expandafter\xdef\csname distsq\i\endcsname{\distsq}
-            }
-            \foreach \j in {1,...,\numoutermost} {
-                \xdef\currentmaxdistsq{-1} \xdef\currentmaxidx{0}
-                \foreach \i in {1,...,\numdots} {
-                    \ifdim\csname distsq\i\endcsname pt > \currentmaxdistsq pt
-                        \xdef\currentmaxdistsq{\csname distsq\i\endcsname}
-                        \xdef\currentmaxidx{\i}
-                    \fi
-                }
-                \expandafter\xdef\csname finaloutermost\j\endcsname{\currentmaxidx}
-                \expandafter\xdef\csname distsq\currentmaxidx\endcsname{-1}
-            }
-            \foreach \j in {1,...,\numoutermost} {
-                \pgfmathsetmacro{\startindex}{int(\csname finaloutermost\j\endcsname)}
-                \edef\coordx{\csname qx\startindex\endcsname}
-                \edef\coordy{\csname qy\startindex\endcsname}
-                \draw[C3, thin] (\coordx, \coordy) circle (5pt);
-            }
-            \def\stepsize{0.6}
-            \foreach \j in {1,...,\numoutermost} {
-                \pgfmathsetmacro{\startindex}{int(\csname finaloutermost\j\endcsname)}
-                \xdef\currentx{\csname qx\startindex\endcsname}
-                \xdef\currenty{\csname qy\startindex\endcsname}
-                \foreach \i in {1,...,\walksteps} {
-                    \pgfmathsetmacro{\nextxpotential}{\currentx + \stepsize * cos(random(0,360))}
-                    \pgfmathsetmacro{\nextypotential}{\currenty + \stepsize * sin(random(0,360))}
-                    \pgfmathsetmacro{\nextx}{max(0.1, min(\xmax - 0.2, \nextxpotential))}
-                    \pgfmathsetmacro{\nexty}{max(0.1, min(\ymax - 0.2, \nextypotential))}
-                    \draw[C3] (\currentx, \currenty) -- (\nextx, \nexty);
-                    \xdef\currentx{\nextx}
-                    \xdef\currenty{\nexty}
-                }
-                \fill[C3!40!white] (\currentx, \currenty) circle (2pt);
-            }
-        \end{tikzpicture}
-        \\[0.5em]
-        {\small \textbf{Intra-likelihood}: parallelise over frequencies}\\[0.3em]
-        \begin{tikzpicture}[scale=0.9,
-            dot/.style={fill=black}
-        ]
-            \def\waveformplot{plot[domain=0.5:5.2, samples=200, smooth] (\x, {0.2 * \x^0.8 * sin(\x*\x*100)})}
-            \draw[C0, line width=0.8pt] \waveformplot;
-            \foreach \xpos in {0.6, 0.8, 1, 1.2, 1.4, 1.6, 1.8, 2, 2.2, 2.4, 2.6, 2.8, 3, 3.2, 3.4, 3.6, 3.8, 4.0, 4.2, 4.4, 4.6, 4.8, 5, 5.2} {
-                \pgfmathsetmacro{\ypos}{0.2 * \xpos^0.8 * sin(\xpos*\xpos*100)}
-                \fill[dot] (\xpos, \ypos) circle (1.2pt);
-            }
-        \end{tikzpicture}
-
-    \end{columns}
-    \vfill
-    \hfill{\tiny \github{mrosep/talks}}
-\end{frame}
-
-% --- Vignette 2: Dark Energy ---
-
-\begin{frame}
-    \frametitle{Is dark energy evolving?}
-    \framesubtitle{Example 2: Dark energy with DESI and DES}
-    \student{dily_ong.jpg}{Dily Ong}{PhD Student}
-    \begin{columns}
-        \column{0.52\textwidth}
-        \begin{block}{The DESI claim \arxiv{2503.14738}}
-            \begin{itemize}
-                \item DESI DR2: $w_0 w_a$CDM preferred over $\Lambda$CDM at \alert{3.1$\sigma$} (BAO+CMB), up to \alert{4.2$\sigma$} with SNe.
-                \item Frequentist $\Delta\chi^2$ with only 7 BAO data points.
-            \end{itemize}
-        \end{block}
-        \begin{block}{Bayesian reanalysis \arxiv{2511.10631}}
-            \begin{itemize}
-                \item BAO+CMB alone: $\Lambda$CDM \alert{modestly favoured} ($\ln B = -0.57 \pm 0.26$).
-                \item Only reaches $\sim$3$\sigma$ \textit{with} DES-Y5 SNe --- driven by \alert{inter-dataset tension}, not DE evolution.
-            \end{itemize}
-        \end{block}
-        \column{0.46\textwidth}
-        \includegraphics[width=\textwidth]{figures/desi_w0wa.pdf}
-    \end{columns}
-\end{frame}
-
-\begin{frame}
-    \frametitle{Beyond $w_0 w_a$: flexible dark energy on GPU}
-    \framesubtitle{Example 2: Dark energy with DESI and DES}
-    \student{adam_ormondroyd.jpg}{Adam Ormondroyd}{PhD Student}
-    \begin{columns}
-        \column{0.64\textwidth}
-        \begin{block}{Flexknot $w(a)$ reconstruction \arxiv{2503.08658} \arxiv{2509.13220}}
-            \begin{itemize}
-                \item $w_0 w_a$ is too restrictive --- flexknots let the data speak.
-                \item W-shaped structure in $w(a)$; DESI and DES-5Y are in \alert{tension}.
-                \item A magnitude offset $\Delta m_B$ between low-$z$ and DES SNe beats flexknot DE in Bayesian evidence.
-            \end{itemize}
-        \end{block}
-        \vspace{0.3em}
-        \textit{20 model complexities $\times$ multiple datasets --- only feasible because the pipeline is in JAX: \textbf{days $\to$ minutes}.}
-        \column{0.34\textwidth}
-        \vspace{0.3em}
-        \includegraphics[width=\textwidth]{figures/adam-dovekieoffset-20-wa.pdf}
-    \end{columns}
-\end{frame}
-
-\begin{frame}
     \frametitle{Extending to the CMB}
-    \framesubtitle{Example 2: Dark energy with DESI and DES}
+    \framesubtitle{The missing piece for GPU-native cosmological inference}
     \student{lawrence_berry.jpg}{Lawrence Berry}{PhD Student}
     \begin{columns}
         \column{0.54\textwidth}
@@ -408,11 +308,11 @@
     \end{columns}
 \end{frame}
 
-% --- Vignette 3: Supernovae ---
+% --- Supernovae ---
 
 \begin{frame}
     \frametitle{GPU-accelerated supernova photometry}
-    \framesubtitle{Example 3: Supernovae as standard candles}
+    \framesubtitle{Supernovae as standard candles}
     \student{sam_leeney.jpg}{Sam Leeney}{PhD Student}
     \vspace{-0.5em}
     \begin{columns}[T]
@@ -437,7 +337,7 @@
 
 \begin{frame}
     \frametitle{Simulations at scale}
-    \framesubtitle{Example 3: Supernovae as standard candles}
+    \framesubtitle{Supernovae as standard candles}
     \student{matt_grayling.jpg}{Matt Grayling}{Postdoc}
     \begin{columns}
         \column{0.33\textwidth}
@@ -455,7 +355,7 @@
 
 \begin{frame}
     \frametitle{Marginalising latent variables at scale}
-    \framesubtitle{Example 3: Supernovae as standard candles}
+    \framesubtitle{Supernovae as standard candles}
     \student{toby_lovick.jpg}{Toby Lovick}{PhD Student}
     \begin{columns}
         \column{0.49\textwidth}
@@ -477,88 +377,9 @@
     \end{columns}
 \end{frame}
 
-% --- Vignette 4: 21cm Radio ---
+% --- PART 2: LLM REVOLUTION ---
 
-\begin{frame}
-    \frametitle{21cm Radio Astronomy}
-    \framesubtitle{Sublinear scaling enables new science \arxiv{2210.07409}}
-    \begin{columns}
-        \column{0.49\textwidth}
-        \begin{block}{REACH GPU Pipeline}
-            \begin{itemize}
-                \item $\mathcal{O}(N^{0.13})$ scaling for likelihood evaluations.
-                \item $\sim$0.15\,ms per likelihood call for a full year of data ($\sim 10^5$ observations).
-            \end{itemize}
-        \end{block}
-        \begin{block}{Bayesian Anomaly Detection}
-            \begin{itemize}
-                \item Full year of real REACH data: $\sim$1 hour on one GPU.
-                \item Anomalies correlate with LST, time of night, season --- fully automatic, no manual flagging.
-            \end{itemize}
-        \end{block}
-        \column{0.49\textwidth}
-        \includegraphics<1>[width=\textwidth]{figures/REACH.jpg}
-        \includegraphics<2>[width=\textwidth]{figures/REACH_2.jpeg}
-    \end{columns}
-\end{frame}
-
-% --- MONTAGE ---
-
-\begin{frame}
-    \frametitle{Satellites [GLITTER]}
-    \framesubtitle{JAX-SGP4: GPU-accelerated orbit propagation}
-    \student{charlotte_priestley.jpg}{Charlotte Priestley}{PhD Student}
-    \begin{columns}[T]
-        \column{0.38\textwidth}
-        \includegraphics[width=0.9\textwidth,height=0.6\textheight,keepaspectratio]{figures/charlotte-starlink-trajectories.png}
-        \column{0.58\textwidth}
-        \includegraphics[width=0.9\textwidth,height=0.6\textheight,keepaspectratio]{figures/charlotte-heatmap.pdf}
-    \end{columns}
-    \begin{center}
-        \textbf{JAX-SGP4}: Propagating 9,550 Starlink satellites in 0.5\,ms. \alert{1550$\times$ speedup} on A100.
-    \end{center}
-\end{frame}
-
-\begin{frame}
-    \frametitle{Quasar Time Delays}
-    \framesubtitle{Robust inference via flexible Gaussian Processes}
-    \student{namu_kroupa.jpg}{Namu Kroupa}{PhD Student}
-    \begin{center}
-        \includegraphics[height=0.6\textheight,keepaspectratio]{figures/namu-atoms.png}
-    \end{center}
-    \begin{center}
-        Marginalising over GP kernels with nested sampling makes time-delay inference robust to modelling assumptions. \textit{(with Alex Drane: 150$\times$ GPU speedup.)}
-    \end{center}
-\end{frame}
-
-\begin{frame}
-    \frametitle{Instrumentation}
-    \framesubtitle{Fibre allocation for WEAVE}
-    \student{farah_wallauer.jpg}{Farah Wallauer}{Part III Student}
-    \begin{center}
-        \includegraphics[height=0.6\textheight,keepaspectratio]{figures/farah-weave.pdf}
-    \end{center}
-    \begin{center}
-        \textbf{WEAVE}: 168 retractors, $\sim$1000 fibres --- collision-free assignment via JAX on GPU. \alert{60$\times$ speedup} over C++ simulated annealing.
-    \end{center}
-\end{frame}
-
-\begin{frame}
-    \frametitle{Galaxies}
-    \framesubtitle{GPU-accelerated SED generation}
-    \student{chris_lovell.jpg}{Chris Lovell}{Postdoc}
-    \student{rose_luo.jpg}{Rose Luo}{Part III Student}
-    \begin{center}
-        \includegraphics[height=0.58\textheight,keepaspectratio]{figures/chris-synthesizer.pdf}
-    \end{center}
-    \begin{center}
-        \textbf{Synthesizer}: Forward modelling galaxy emission. \textbf{Synference}: SBI for SED fitting --- orders of magnitude faster, full posteriors, applications for Euclid.
-    \end{center}
-\end{frame}
-
-% --- PART B: LLM REVOLUTION ---
-
-% Slide 2.0: Transition
+% Transition
 \begin{frame}
     \begin{center}
         \vspace{2em}
@@ -568,41 +389,7 @@
     \end{center}
 \end{frame}
 
-% Slide 2.1: A brief history
-\begin{frame}
-    \frametitle{A brief history}
-    \framesubtitle{How we got here, fast}
-    \vspace{-0.5em}
-    \begin{columns}[T]
-        \column{0.48\textwidth}
-        \begin{description}[Nov 2022]
-            \item[2019] Tabnine --- deep learning code completion
-            \item[Jun 2021] GitHub Copilot --- AI pair programming
-            \item[Nov 2022] ChatGPT (GPT-3.5) --- ``the moment''
-            \item[Mar 2023] GPT-4 --- qualitative leap
-            \item[Dec 2023] Gemini 1.0 --- Google enters the race
-            \item[Jun 2024] Claude 3.5 Sonnet --- the coding model
-            \item[Sep 2024] OpenAI o1 --- reasoning models
-            \item[Oct 2024] Cursor --- agentic IDE
-        \end{description}
-        \column{0.48\textwidth}
-        \begin{description}[Nov 2022]
-            \item[Jan 2025] DeepSeek R1 --- open-source reasoning
-            \item[May 2025] Claude Code --- agentic coding CLI
-            \item[Aug 2025] GPT-5 --- unified model
-            \item[Nov 2025] Gemini 3, Opus 4.5
-            \item[Dec 2025] GPT-5.2
-            \item[2025--] Qwen, Kimi, GPT-OSS --- open source catches up
-            \item[Feb 2026] Opus 4.6 --- \textit{this talk}
-        \end{description}
-    \end{columns}
-    \vfill
-    \begin{center}
-        \textit{18 months from ``interesting toy'' to ``I can't work without it.''}
-    \end{center}
-\end{frame}
-
-% Slide 2.2: Three ways AI meets science
+% Three ways AI meets science
 \begin{frame}
     \frametitle{Three ways AI meets science}
     \framesubtitle{Only one matches what science actually is}
@@ -639,7 +426,7 @@
     \end{center}
 \end{frame}
 
-% Slide 2.2: The code debt problem
+% The code debt problem
 \begin{frame}
     \frametitle{The code debt problem}
     \framesubtitle{Why PhD students spend years operating frameworks instead of doing physics}
@@ -660,7 +447,7 @@
     \end{columns}
 \end{frame}
 
-% Slide 2.3: Context engineering (the mechanism)
+% Context engineering (the mechanism)
 \begin{frame}
     \frametitle{The mechanism: context engineering}
     \framesubtitle{From ``prompting'' to ``orchestration''}
@@ -685,62 +472,7 @@
     \end{columns}
 \end{frame}
 
-% Slide 2.4: Navigating legacy code (Sinah/Will)
-\begin{frame}
-    \frametitle{LLMs as interactive documentation}
-    \framesubtitle{Navigating and excavating legacy codebases}
-    \student{sinah_legner.jpg}{Sinah Legner}{PhD Student}
-    \begin{columns}
-        \column{0.54\textwidth}
-        \begin{block}{Sinah: Torsion Condensation in CAMB \arxiv{2507.09228}}
-            \begin{itemize}
-                \item LLM traces dependencies across CAMB's Fortran codebase.
-                \item Found $N_\mathrm{eff}$ double-counting bug.
-                \item Diagnosed missing massive neutrino evolution.
-            \end{itemize}
-        \end{block}
-        \begin{block}{Will: CosmoSIS $\to$ Cobaya}
-            \begin{itemize}
-                \item Porting DES Y3/Y6 likelihoods between frameworks.
-                \item Adversarial review: one LLM writes, another critiques.
-            \end{itemize}
-        \end{block}
-        \column{0.44\textwidth}
-        \vspace{1em}
-        \only<1>{\includegraphics[width=\textwidth]{figures/sinah-before-claude.pdf}}
-        \only<2>{\includegraphics[width=\textwidth]{figures/sinah-code-diff.pdf}}
-    \end{columns}
-\end{frame}
-
-% Slide 2.5: Deep modifications (Wei-Ning)
-\begin{frame}
-    \frametitle{Deep surgery on C code: CLASS \& curvature}
-    \framesubtitle{Solving boundary value problems with AI assistance \arxiv{2407.18225} \arxiv{2509.10379}}
-    \student{wei-ning_deng.jpg}{Wei Ning Deng}{PhD Student}
-    \begin{columns}
-        \column{0.48\textwidth}
-        \begin{block}{Discrete $k$-quantisation in CLASS}
-            \begin{itemize}
-                \item Enforcing discrete $k$-modes for closed universe topology.
-                \item Matching boundary conditions at the Big Bang \textit{and} Future Conformal Boundary.
-            \end{itemize}
-        \end{block}
-        \begin{block}{LLM role: debugging \& code navigation}
-            \begin{itemize}
-                \item Claude Code for testing, catching numerical errors, modifying C code.
-                \item Core physics from reading the papers --- LLM accelerates the engineering, not the science.
-            \end{itemize}
-        \end{block}
-        \column{0.48\textwidth}
-        \vspace{0.5em}
-        \begin{center}
-        \only<1>{\includegraphics[width=\textwidth]{figures/weining-quantization.pdf}}
-        \only<2>{\includegraphics[width=0.7\textwidth]{figures/weining-cylinder.png}}
-        \end{center}
-    \end{columns}
-\end{frame}
-
-% Slide 2.6: Development time collapsed
+% Development time collapsed
 \begin{frame}
     \frametitle{Development time collapsed}
     \framesubtitle{The work didn't disappear --- it moved to verification}
@@ -766,7 +498,7 @@
     \end{columns}
 \end{frame}
 
-% Slide 2.7: Verification is the new lab bench
+% Verification is the new lab bench
 \begin{frame}
     \frametitle{Verification is the new lab bench}
     \framesubtitle{LLMs make wrong code easy. Testing makes it detectable.}
@@ -791,7 +523,7 @@
     \end{center}
 \end{frame}
 
-% Slide 2.8: Trotta & Hogg (tension + resolution)
+% Trotta & Hogg (tension + resolution)
 \begin{frame}
     \frametitle{Two serious arguments}
     \framesubtitle{Both from February 2026}
@@ -830,7 +562,9 @@
     }
 \end{frame}
 
-% Slide 2.9: This talk
+% --- CLOSING ---
+
+% This talk
 \begin{frame}
     \frametitle{I wrote this talk without typing}
     \vspace{-0.5em}
@@ -866,7 +600,7 @@
 
 % --- DEMO ---
 
-% Slide 2.10: Live Demo
+% Live Demo
 \begin{frame}
     \frametitle{Live Demo}
     \framesubtitle{The generate $\to$ test $\to$ iterate loop, not one-shot codegen}
@@ -876,9 +610,8 @@
     \end{center}
 \end{frame}
 
-% --- CLOSE ---
+% --- CONCLUSIONS ---
 
-% Slide 2.11: Conclusions
 \begin{frame}
     \frametitle{Conclusions}
     \vspace{-0.5em}
@@ -909,23 +642,15 @@
     \tikz[overlay,remember picture]
         \node[anchor=north east] (A) at ($(current page.north east)+(0,0)$) {
         \includegraphics[width=0.075\textheight]{people/adam_ormondroyd.jpg}%
-        \includegraphics[width=0.075\textheight]{people/charlotte_priestley.jpg}%
-        \includegraphics[width=0.075\textheight]{people/chris_lovell.jpg}%
         \includegraphics[width=0.075\textheight]{people/david_yallup.jpg}%
         \includegraphics[width=0.075\textheight]{people/dily_ong.jpg}%
-        \includegraphics[width=0.075\textheight]{people/farah_wallauer.jpg}%
-        \includegraphics[width=0.075\textheight]{people/harry_bevins.jpg}%
         \includegraphics[width=0.075\textheight]{people/james_alvey.jpg}%
         \includegraphics[width=0.075\textheight]{people/lawrence_berry.jpg}%
         \includegraphics[width=0.075\textheight]{people/matt_grayling.jpg}%
         \includegraphics[width=0.075\textheight]{people/metha_prathaban.jpg}%
-        \includegraphics[width=0.075\textheight]{people/namu_kroupa.jpg}%
         \includegraphics[width=0.075\textheight]{people/natalie_hogg.jpg}%
-        \includegraphics[width=0.075\textheight]{people/rose_luo.jpg}%
         \includegraphics[width=0.075\textheight]{people/sam_leeney.jpg}%
-        \includegraphics[width=0.075\textheight]{people/sinah_legner.jpg}%
         \includegraphics[width=0.075\textheight]{people/toby_lovick.jpg}%
-        \includegraphics[width=0.075\textheight]{people/wei-ning_deng.jpg}%
         \includegraphics[width=0.075\textheight]{people/will_handley.jpg}%
     };
     \tikz[overlay,remember picture]
