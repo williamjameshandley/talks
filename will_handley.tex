@@ -134,31 +134,6 @@
 \end{frame}
 
 \begin{frame}
-    \frametitle{Is dark energy evolving?}
-    \framesubtitle{DESI DR2 with DESI and DES}
-    \student{dily_ong.jpg}{Dily Ong}{PhD Student}
-    \begin{columns}
-        \column{0.52\textwidth}
-        \begin{block}{The DESI claim \arxiv{2503.14738}}
-            \begin{itemize}
-                \item DESI DR2: $w_0 w_a$CDM preferred over $\Lambda$CDM at \alert{3.1$\sigma$} (BAO+CMB), up to \alert{4.2$\sigma$} with SNe.
-                \item Frequentist $\Delta\chi^2$ on a 13-component compressed data vector.
-            \end{itemize}
-        \end{block}
-        \begin{block}{Bayesian reanalysis \arxiv{2511.10631}}
-            \begin{itemize}
-                \item BAO+CMB alone: $\Lambda$CDM \alert{modestly favoured} ($\ln B = -0.57 \pm 0.26$).
-                \item Only reaches $\sim$3$\sigma$ \textit{with} DES-Y5 SNe --- driven by \alert{inter-dataset tension}, not DE evolution.
-                \item Independently corroborated by Efstathiou's geometric analysis \arxiv{2503.12412}.
-            \end{itemize}
-        \end{block}
-        Ong, Yallup \& Handley, in prep.
-        \column{0.46\textwidth}
-        \includegraphics[width=\textwidth]{figures/desi_w0wa.pdf}
-    \end{columns}
-\end{frame}
-
-\begin{frame}
     \frametitle{The Bayesian--frequentist discrepancy}
     \framesubtitle{$\ln B$ vs $\Delta\chi^2_\mathrm{MAP}$ across all dataset combinations}
     \student{dily_ong.jpg}{Dily Ong}{PhD Student}
@@ -258,27 +233,6 @@
 \end{frame}
 
 \begin{frame}
-    \frametitle{Beyond $w_0 w_a$: flexible dark energy}
-    \framesubtitle{Independent confirmation from flexknot reconstruction}
-    \student{adam_ormondroyd.jpg}{Adam Ormondroyd}{PhD Student}
-    \begin{columns}
-        \column{0.64\textwidth}
-        \begin{block}{Flexknot $w(a)$ reconstruction \arxiv{2503.08658} \arxiv{2509.13220}}
-            \begin{itemize}
-                \item $w_0 w_a$ is too restrictive --- flexknots let the data speak.
-                \item W-shaped structure in $w(a)$; DESI and DES-5Y are in \alert{tension}.
-                \item A magnitude offset $\Delta m_B$ between low-$z$ and DES SNe beats flexknot DE in Bayesian evidence.
-            \end{itemize}
-        \end{block}
-        \vspace{0.3em}
-        \textit{20 model complexities $\times$ multiple datasets --- only feasible because the pipeline is in JAX: \textbf{days $\to$ minutes}.}
-        \column{0.34\textwidth}
-        \vspace{0.3em}
-        \includegraphics[width=\textwidth]{figures/adam-dovekieoffset-20-wa.pdf}
-    \end{columns}
-\end{frame}
-
-\begin{frame}
     \frametitle{Why $4.2\sigma$ doesn't settle it}
     \framesubtitle{The Jeffreys--Lindley paradox}
     \begin{columns}[T]
@@ -302,6 +256,55 @@
     \vfill
     \begin{alertblock}{The paradox}
         As data grow, the two frameworks \alert{diverge}: arbitrarily significant $p$-values coexist with Bayes factors favouring the null. DESI's $3.2$--$4.2\sigma$ is exactly this regime.
+    \end{alertblock}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Beyond $w_0 w_a$: flexible dark energy}
+    \framesubtitle{Independent confirmation from flexknot reconstruction}
+    \student{adam_ormondroyd.jpg}{Adam Ormondroyd}{PhD Student}
+    \begin{columns}
+        \column{0.64\textwidth}
+        \begin{block}{Flexknot $w(a)$ reconstruction \arxiv{2503.08658} \arxiv{2509.13220}}
+            \begin{itemize}
+                \item $w_0 w_a$ is too restrictive --- flexknots let the data speak.
+                \item W-shaped structure in $w(a)$; DESI and DES-5Y are in \alert{tension}.
+                \item A magnitude offset $\Delta m_B$ between low-$z$ and DES SNe beats flexknot DE in Bayesian evidence.
+            \end{itemize}
+        \end{block}
+        \vspace{0.3em}
+        \textit{20 model complexities $\times$ multiple datasets --- only feasible because the pipeline is in JAX: \textbf{days $\to$ minutes}.}
+        \column{0.34\textwidth}
+        \vspace{0.3em}
+        \includegraphics[width=\textwidth]{figures/adam-dovekieoffset-20-wa.pdf}
+    \end{columns}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Two revolutions}
+    \framesubtitle{Distinct shifts, often conflated}
+    \vspace{-0.5em}
+    \begin{columns}[T]
+        \column{0.48\textwidth}
+        \begin{block}{1. \C[0]{GPUs for analysis}}
+            \begin{itemize}
+                \item GPU hardware accelerates \textit{classical} statistical methods
+                \item Gravitational Waves, Dark Energy, Supernovae, Radio
+                \item The method transfers across astronomy
+            \end{itemize}
+        \end{block}
+        \column{0.48\textwidth}
+        \begin{exampleblock}{2. LLMs for development}
+            \begin{itemize}
+                \item How we built this in months, not years --- and we're just getting started
+                \item Verification, legacy code, and new workflows
+                \item Expanding the scope of what a small group can tackle
+            \end{itemize}
+        \end{exampleblock}
+    \end{columns}
+    \vfill
+    \begin{alertblock}{3. Live Demo \& Closing}
+        Loop running in front of an audience: the most dangerous game.
     \end{alertblock}
 \end{frame}
 
@@ -455,35 +458,6 @@
 \end{frame}
 
 % --- PART 2: LLM REVOLUTION ---
-
-% Transition / Outline
-\begin{frame}
-    \frametitle{Outline: Two revolutions}
-    \framesubtitle{Distinct shifts, often conflated}
-    \vspace{-0.5em}
-    \begin{columns}[T]
-        \column{0.48\textwidth}
-        \begin{block}{1. \C[0]{GPUs for analysis} \checkmark}
-            \begin{itemize}
-                \item GPU hardware accelerates \textit{classical} statistical methods
-                \item Gravitational Waves, Dark Energy, Supernovae, Radio
-                \item The method transfers across the department
-            \end{itemize}
-        \end{block}
-        \column{0.48\textwidth}
-        \begin{exampleblock}{2. LLMs for development}
-            \begin{itemize}
-                \item How we built this in months, not years --- and we're just getting started
-                \item Verification, legacy code, and new workflows
-                \item Expanding the scope of what a small group can tackle
-            \end{itemize}
-        \end{exampleblock}
-    \end{columns}
-    \vfill
-    \begin{alertblock}{3. Live Demo \& Closing}
-        Loop running in front of an audience: the most dangerous game.
-    \end{alertblock}
-\end{frame}
 
 % Three ways AI meets science
 \begin{frame}
