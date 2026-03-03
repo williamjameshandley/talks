@@ -10,5 +10,6 @@ Large language models are driving a separate revolution, not replacing the scien
 
 [[PDF](https://github.com/williamjameshandley/talks/raw/ioa_2026/will_handley_ioa_2026.pdf)]
 [[source](https://github.com/williamjameshandley/talks/tree/ioa_2026)]
+[[recording](https://www.youtube.com/watch?v=3ehwkYVJ72U)]
 [[transcript](https://otter.ai/u/PXJjQx_4-Qc2QznSkZ1FxqZyurA)]
 _Feb 2026, IoA Colloquium, Institute of Astronomy, Cambridge_
