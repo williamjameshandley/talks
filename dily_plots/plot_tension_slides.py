@@ -32,11 +32,11 @@ labels_dataset_short = {
     'sn.pantheonplus': r'Pantheon$^+$',
     'sn.union3': 'Union3',
     'des_y1.joint': 'DES Y1',
-    'planck_2018_CamSpec': 'CamSpec+lens',
-    'planck_2018_CamSpec_nolens': 'CamSpec',
+    'planck_2018_CamSpec': 'CamSpec',
+    'planck_2018_CamSpec_nolens': 'CamSpec (no lens)',
     'planck_2018_lensing': 'CMB lensing',
-    'planck_2018_plik': 'Plik+lens',
-    'planck_2018_plik_nolens': 'Plik',
+    'planck_2018_plik': 'Plik',
+    'planck_2018_plik_nolens': 'Plik (no lens)',
 }
 
 
@@ -64,17 +64,7 @@ model_styles = OrderedDict([
 ])
 
 pairs_groups = OrderedDict([
-    (r'\textbf{BAO vs CMB lensing}', [
-        "bao.desi_2024_bao_all+planck_2018_lensing",
-        "bao.desi_dr2+planck_2018_lensing",
-    ]),
     (r'\textbf{BAO vs CMB}', [
-        "bao.desi_2024_bao_all+planck_2018_plik_nolens",
-        "bao.desi_2024_bao_all+planck_2018_CamSpec_nolens",
-        "bao.desi_dr2+planck_2018_plik_nolens",
-        "bao.desi_dr2+planck_2018_CamSpec_nolens",
-    ]),
-    (r'\textbf{BAO vs CMB + lensing}', [
         "bao.desi_2024_bao_all+planck_2018_plik",
         "bao.desi_2024_bao_all+planck_2018_CamSpec",
         "bao.desi_dr2+planck_2018_plik",
@@ -92,13 +82,10 @@ pairs_groups = OrderedDict([
         "bao.desi_2024_bao_all+des_y1.joint",
         "bao.desi_dr2+des_y1.joint",
     ]),
-    (r'\textbf{CMB + lensing vs SN}', [
-        "planck_2018_plik+sn.pantheonplus",
-    ]),
 ])
 
 triplets_groups = OrderedDict([
-    (r'\textbf{BAO vs CMB + lensing vs SN}', [
+    (r'\textbf{BAO vs CMB vs SN}', [
         "bao.desi_dr2+planck_2018_plik+sn.desy5",
         "bao.desi_dr2+planck_2018_plik+sn.pantheonplus",
         "bao.desi_dr2+planck_2018_plik+sn.union3",
@@ -176,12 +163,12 @@ sigma_std = dfs['sigma'][('sigma', 'std')].unstack(level='model').apply(pd.to_nu
 # --- PLOTTING ---
 
 def plot_column(groups, sigma_mean, sigma_std, output_path,
-                fig_width=3.9):
-    """fig_width in inches: 3.9 for 0.63 beamer column."""
+                axes_width=2.3, left_margin=1.05, legend_loc='above'):
+    """axes_width: plot area width in inches. left_margin: space for y labels."""
     y_data = []
     y_bands = []
     current_y = 0.0
-    HEADER_HEIGHT = 0.7
+    HEADER_HEIGHT = 0.9
     GAP_AFTER_HEADER = 0.3
     ROW_SPACING = 1.0
     GAP_BETWEEN_GROUPS = 0.5
@@ -198,9 +185,13 @@ def plot_column(groups, sigma_mean, sigma_std, output_path,
     total_y = current_y
     n_rows = len(y_data)
 
+    right_margin = 0.15
+    fig_width = left_margin + axes_width + right_margin
     fig_height = max(n_rows * 0.25 + len(groups) * 0.2, 1.5)
-    fig_height = min(fig_height, 2.8)
+    fig_height = min(fig_height, 2.4)
     fig, ax = plt.subplots(figsize=(fig_width, fig_height))
+    fig.subplots_adjust(left=left_margin/fig_width,
+                        right=1 - right_margin/fig_width)
 
     x_min, x_max = -0.3, 4.0
 
@@ -244,11 +235,14 @@ def plot_column(groups, sigma_mean, sigma_std, output_path,
     ax.set_xlabel(r'Tension ($p$-value $\sigma$)', fontsize=8)
     ax.tick_params(axis='x', labelsize=7)
 
-    ax.legend(loc='upper right', fontsize=6, framealpha=0.95, ncol=1,
-              title=r'\textbf{Model}', title_fontsize=7,
-              edgecolor='black', fancybox=False)
+    if legend_loc == 'above':
+        ax.legend(loc='lower right', bbox_to_anchor=(1, 1.02),
+                  fontsize=5, framealpha=0.95, ncol=4,
+                  edgecolor='black', fancybox=False)
+    elif legend_loc is not None:
+        ax.legend(loc=legend_loc, fontsize=6, framealpha=0.95, ncol=1,
+                  edgecolor='black', fancybox=False)
 
-    fig.tight_layout()
     os.makedirs(os.path.dirname(output_path), exist_ok=True)
     fig.savefig(output_path, bbox_inches='tight')
     print(f"Saved: {output_path}")
@@ -259,6 +253,8 @@ def plot_column(groups, sigma_mean, sigma_std, output_path,
 # --- GENERATE ---
 
 plot_column(pairs_groups, sigma_mean, sigma_std,
-           '../figures/tension_sigma_pairs.pdf')
+           '../figures/tension_sigma_pairs.pdf',
+           axes_width=2.3, left_margin=1.05)
 plot_column(triplets_groups, sigma_mean, sigma_std,
-           '../figures/tension_sigma_triplets.pdf')
+           '../figures/tension_sigma_triplets.pdf',
+           axes_width=2.1, left_margin=1.25)

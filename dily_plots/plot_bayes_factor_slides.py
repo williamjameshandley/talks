@@ -184,7 +184,7 @@ def plot_landscape(groups, ln_B_mean, ln_B_err, output_path,
     y_data = []
     y_bands = []
     current_y = 0.0
-    HEADER_HEIGHT = 0.7
+    HEADER_HEIGHT = 0.9
     GAP_AFTER_HEADER = 0.3
     ROW_SPACING = 1.0
     GAP_BETWEEN_GROUPS = 0.5
@@ -203,18 +203,14 @@ def plot_landscape(groups, ln_B_mean, ln_B_err, output_path,
 
     # Physical size: fixed axes width, figure width adjusts for labels
     right_margin = 0.15
-    bottom_margin = 0.35
-    top_margin = 0.05
     fig_width = left_margin + axes_width + right_margin
     fig_height = max(n_rows * 0.25 + len(groups) * 0.2, 1.5)
-    fig_height = min(fig_height, 2.7)
+    fig_height = min(fig_height, 2.4)
     fig, ax = plt.subplots(figsize=(fig_width, fig_height))
     fig.subplots_adjust(left=left_margin/fig_width,
-                        right=1 - right_margin/fig_width,
-                        bottom=bottom_margin/fig_height,
-                        top=1 - top_margin/fig_height)
+                        right=1 - right_margin/fig_width)
 
-    x_min, x_max = -6, 6
+    x_min, x_max = -6, 4
 
     # Jeffreys scale background
     green_alphas = [0.06, 0.12, 0.20, 0.30]
@@ -232,8 +228,8 @@ def plot_landscape(groups, ln_B_mean, ln_B_err, output_path,
     for y_top, y_bot, name in y_bands:
         ax.axhspan(y_top, y_bot, facecolor='#DCDCDC', edgecolor='#A0A0A0',
                    linewidth=0.5, zorder=1)
-        ax.text(x_min + 0.3, (y_top + y_bot) / 2, name,
-                ha='left', va='center', fontsize=8, zorder=3)
+        ax.text((x_min + x_max) / 2, (y_top + y_bot) / 2, name,
+                ha='center', va='center', fontsize=8, zorder=3)
 
     for x_val in range(int(x_min), int(x_max) + 1):
         if x_val != 0:
@@ -269,12 +265,16 @@ def plot_landscape(groups, ln_B_mean, ln_B_err, output_path,
                   fontsize=8)
     ax.tick_params(axis='x', labelsize=7)
 
-    if legend_loc is not None:
+    if legend_loc == 'below':
+        ax.legend(loc='lower right', bbox_to_anchor=(1, 1.02),
+                  fontsize=5, framealpha=0.95, ncol=4,
+                  edgecolor='black', fancybox=False)
+    elif legend_loc is not None:
         ax.legend(loc=legend_loc, fontsize=6, framealpha=0.95, ncol=1,
                   edgecolor='black', fancybox=False)
 
     os.makedirs(os.path.dirname(output_path), exist_ok=True)
-    fig.savefig(output_path)
+    fig.savefig(output_path, bbox_inches='tight')
     print(f"Saved: {output_path}")
     plt.close(fig)
 
@@ -288,10 +288,10 @@ ln_B_mean_t, ln_B_err_t = compute_ln_B(triplets_groups)
 
 plot_landscape(singles_groups, ln_B_mean_s, ln_B_err_s,
                '../figures/bayes_factor_singles.pdf',
-               axes_width=2.5, left_margin=0.85, legend_loc='lower right')
+               axes_width=2.5, left_margin=0.85, legend_loc='below')
 plot_landscape(pairs_groups, ln_B_mean_p, ln_B_err_p,
                '../figures/bayes_factor_pairs.pdf',
-               axes_width=2.3, left_margin=1.05, legend_loc='lower right')
+               axes_width=2.3, left_margin=1.05, legend_loc='below')
 plot_landscape(triplets_groups, ln_B_mean_t, ln_B_err_t,
                '../figures/bayes_factor_triplets.pdf',
-               axes_width=2.1, left_margin=1.25, legend_loc='lower right')
+               axes_width=2.1, left_margin=1.25, legend_loc='below')
