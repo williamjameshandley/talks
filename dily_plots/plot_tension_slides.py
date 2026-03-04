@@ -304,6 +304,13 @@ dovekie_pre_groups = OrderedDict([
         "bao.desi_dr2+sn.pantheonplus",
         "bao.desi_dr2+sn.union3",
     ]),
+    (r'\textbf{BAO vs CMB}', [
+        "bao.desi_dr2+planck_2018_plik",
+        "bao.desi_dr2+planck_2018_CamSpec",
+    ]),
+    (r'\textbf{CMB vs SN}', [
+        "planck_2018_plik+sn.pantheonplus",
+    ]),
 ])
 
 dovekie_post_groups = OrderedDict([
@@ -314,6 +321,13 @@ dovekie_post_groups = OrderedDict([
     (r'\textbf{BAO vs other SN}', [
         "bao.desi_dr2+sn.pantheonplus",
         "bao.desi_dr2+sn.union3",
+    ]),
+    (r'\textbf{BAO vs CMB}', [
+        "bao.desi_dr2+planck_2018_plik",
+        "bao.desi_dr2+planck_2018_CamSpec",
+    ]),
+    (r'\textbf{CMB vs SN}', [
+        "planck_2018_plik+sn.pantheonplus",
     ]),
 ])
 
