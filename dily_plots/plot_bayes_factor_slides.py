@@ -283,8 +283,10 @@ def plot_landscape(groups, ln_B_mean, ln_B_err, output_path,
         sn_ys = [y for y, ds in y_data if 'desy5' in ds or 'desdovekie' in ds]
         if len(sn_ys) >= 2:
             title_y = np.mean(sn_ys)
-        elif sn_ys and len(y_data) >= 2:
-            title_y = (y_data[0][0] + y_data[1][0]) / 2
+        elif sn_ys:
+            sn_y = sn_ys[0]
+            next_ys = [y for y, ds in y_data if y > sn_y]
+            title_y = (sn_y + min(next_ys)) / 2 if next_ys else sn_y
         else:
             title_y = y_data[0][0] if y_data else 0
         ax.text(x_max - 0.1, title_y, title,
