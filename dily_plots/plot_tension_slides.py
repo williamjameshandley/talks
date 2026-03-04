@@ -29,6 +29,7 @@ labels_dataset_short = {
     'bao.desi_2024_bao_all': 'DESI DR1',
     'bao.desi_dr2': 'DESI DR2',
     'sn.desy5': 'DES Y5',
+    'sn.desdovekie': 'DES-SN5YR',
     'sn.pantheonplus': r'Pantheon$^+$',
     'sn.union3': 'Union3',
     'des_y1.joint': 'DES Y1',
@@ -38,6 +39,16 @@ labels_dataset_short = {
     'planck_2018_plik': 'Plik',
     'planck_2018_plik_nolens': 'Plik (no lens)',
 }
+
+# Common label for dovekie overlays (matched y-axis width)
+labels_dovekie = dict(labels_dataset_short)
+labels_dovekie['sn.desy5'] = 'DES SN'
+labels_dovekie['sn.desdovekie'] = 'DES SN'
+
+
+def get_dovekie_label(dataset_name):
+    parts = dataset_name.split('+')
+    return ' vs '.join(labels_dovekie.get(p, p) for p in parts)
 
 
 def get_dataset_label(dataset_name):
@@ -92,6 +103,8 @@ triplets_groups = OrderedDict([
         "bao.desi_dr2+planck_2018_CamSpec+sn.desy5",
         "bao.desi_dr2+planck_2018_CamSpec+sn.pantheonplus",
         "bao.desi_dr2+planck_2018_CamSpec+sn.union3",
+        "bao.desi_2024_bao_all+planck_2018_plik+sn.desdovekie",
+        "bao.desi_dr2+planck_2018_CamSpec+sn.desdovekie",
     ]),
 ])
 
@@ -107,18 +120,22 @@ combo_datasets = [
     "bao.desi_2024_bao_all+des_y1.joint", "bao.desi_2024_bao_all+planck_2018_CamSpec",
     "bao.desi_2024_bao_all+planck_2018_CamSpec_nolens", "bao.desi_2024_bao_all+planck_2018_lensing",
     "bao.desi_2024_bao_all+planck_2018_plik", "bao.desi_2024_bao_all+planck_2018_plik_nolens",
-    "bao.desi_2024_bao_all+sn.desy5", "bao.desi_2024_bao_all+sn.pantheonplus",
+    "bao.desi_2024_bao_all+sn.desy5", "bao.desi_2024_bao_all+sn.desdovekie",
+    "bao.desi_2024_bao_all+sn.pantheonplus",
     "bao.desi_2024_bao_all+sn.union3", "bao.desi_dr2+des_y1.joint",
     "bao.desi_dr2+planck_2018_CamSpec", "bao.desi_dr2+planck_2018_CamSpec_nolens",
     "bao.desi_dr2+planck_2018_lensing", "bao.desi_dr2+planck_2018_plik",
     "bao.desi_dr2+planck_2018_plik_nolens", "bao.desi_dr2+sn.desy5",
+    "bao.desi_dr2+sn.desdovekie",
     "bao.desi_dr2+sn.pantheonplus", "bao.desi_dr2+sn.union3",
     "planck_2018_plik+sn.pantheonplus"
 ]
 triplet_datasets = [
     "bao.desi_dr2+planck_2018_CamSpec+sn.desy5", "bao.desi_dr2+planck_2018_CamSpec+sn.pantheonplus",
     "bao.desi_dr2+planck_2018_CamSpec+sn.union3", "bao.desi_dr2+planck_2018_plik+sn.desy5",
-    "bao.desi_dr2+planck_2018_plik+sn.pantheonplus", "bao.desi_dr2+planck_2018_plik+sn.union3"
+    "bao.desi_dr2+planck_2018_plik+sn.pantheonplus", "bao.desi_dr2+planck_2018_plik+sn.union3",
+    "bao.desi_2024_bao_all+planck_2018_plik+sn.desdovekie",
+    "bao.desi_dr2+planck_2018_CamSpec+sn.desdovekie",
 ]
 all_combinations = sorted(combo_datasets + triplet_datasets)
 
@@ -163,8 +180,11 @@ sigma_std = dfs['sigma'][('sigma', 'std')].unstack(level='model').apply(pd.to_nu
 # --- PLOTTING ---
 
 def plot_column(groups, sigma_mean, sigma_std, output_path,
-                axes_width=2.3, left_margin=1.05, legend_loc='above'):
+                axes_width=2.3, left_margin=1.05, legend_loc='above',
+                title=None, label_func=None):
     """axes_width: plot area width in inches. left_margin: space for y labels."""
+    if label_func is None:
+        label_func = get_dataset_label
     y_data = []
     y_bands = []
     current_y = 0.0
@@ -225,7 +245,7 @@ def plot_column(groups, sigma_mean, sigma_std, output_path,
                    s=30, linewidths=0.8, label=labels_model[model], zorder=2)
 
     ax.set_yticks([y for y, _ in y_data])
-    ax.set_yticklabels([get_dataset_label(ds) for _, ds in y_data], fontsize=7)
+    ax.set_yticklabels([label_func(ds) for _, ds in y_data], fontsize=7)
     ax.tick_params(axis='y', length=0)
     ax.set_xlim(x_min, x_max)
     ax.set_ylim(total_y, 0)
@@ -243,6 +263,17 @@ def plot_column(groups, sigma_mean, sigma_std, output_path,
         ax.legend(loc=legend_loc, fontsize=6, framealpha=0.95, ncol=1,
                   edgecolor='black', fancybox=False)
 
+    if title is not None:
+        sn_ys = [y for y, ds in y_data if 'desy5' in ds or 'desdovekie' in ds]
+        if len(sn_ys) >= 2:
+            title_y = np.mean(sn_ys)
+        elif sn_ys and len(y_data) >= 2:
+            title_y = (y_data[0][0] + y_data[1][0]) / 2
+        else:
+            title_y = y_data[0][0] if y_data else 0
+        ax.text(x_max - 0.1, title_y, title,
+                ha='right', va='center', fontsize=8)
+
     os.makedirs(os.path.dirname(output_path), exist_ok=True)
     fig.savefig(output_path, bbox_inches='tight')
     print(f"Saved: {output_path}")
@@ -258,3 +289,65 @@ plot_column(pairs_groups, sigma_mean, sigma_std,
 plot_column(triplets_groups, sigma_mean, sigma_std,
            '../figures/tension_sigma_triplets.pdf',
            axes_width=2.1, left_margin=1.25)
+
+#%%
+# --- DOVEKIE OVERLAY ---
+
+dovekie_pre_groups = OrderedDict([
+    (r'\textbf{BAO vs DES SN}', [
+        "bao.desi_dr2+sn.desy5",
+        "bao.desi_2024_bao_all+sn.desy5",
+    ]),
+    (r'\textbf{BAO vs other SN}', [
+        "bao.desi_dr2+sn.pantheonplus",
+        "bao.desi_dr2+sn.union3",
+    ]),
+])
+
+dovekie_post_groups = OrderedDict([
+    (r'\textbf{BAO vs DES SN}', [
+        "bao.desi_dr2+sn.desdovekie",
+        "bao.desi_2024_bao_all+sn.desdovekie",
+    ]),
+    (r'\textbf{BAO vs other SN}', [
+        "bao.desi_dr2+sn.pantheonplus",
+        "bao.desi_dr2+sn.union3",
+    ]),
+])
+
+plot_column(dovekie_pre_groups, sigma_mean, sigma_std,
+           '../figures/tension_sigma_predovekie.pdf',
+           axes_width=2.3, left_margin=1.05,
+           title=r'\textbf{Before Dovekie}', label_func=get_dovekie_label)
+plot_column(dovekie_post_groups, sigma_mean, sigma_std,
+           '../figures/tension_sigma_postdovekie.pdf',
+           axes_width=2.3, left_margin=1.05,
+           title=r'\textbf{After Dovekie}', label_func=get_dovekie_label)
+
+#%%
+# --- DOVEKIE TRIPLET OVERLAY ---
+
+dovekie_pre_triplets_groups = OrderedDict([
+    (r'\textbf{BAO vs CMB vs SN}', [
+        "bao.desi_dr2+planck_2018_CamSpec+sn.desy5",
+        "bao.desi_dr2+planck_2018_CamSpec+sn.pantheonplus",
+        "bao.desi_dr2+planck_2018_CamSpec+sn.union3",
+    ]),
+])
+
+dovekie_post_triplets_groups = OrderedDict([
+    (r'\textbf{BAO vs CMB vs SN}', [
+        "bao.desi_dr2+planck_2018_CamSpec+sn.desdovekie",
+        "bao.desi_dr2+planck_2018_CamSpec+sn.pantheonplus",
+        "bao.desi_dr2+planck_2018_CamSpec+sn.union3",
+    ]),
+])
+
+plot_column(dovekie_pre_triplets_groups, sigma_mean, sigma_std,
+           '../figures/tension_sigma_triplets_predovekie.pdf',
+           axes_width=2.1, left_margin=1.25,
+           title=r'\textbf{Before Dovekie}', label_func=get_dovekie_label)
+plot_column(dovekie_post_triplets_groups, sigma_mean, sigma_std,
+           '../figures/tension_sigma_triplets_postdovekie.pdf',
+           axes_width=2.1, left_margin=1.25,
+           title=r'\textbf{After Dovekie}', label_func=get_dovekie_label)

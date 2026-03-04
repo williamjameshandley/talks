@@ -29,6 +29,7 @@ labels_dataset_short = {
     'bao.desi_2024_bao_all': 'DESI DR1',
     'bao.desi_dr2': 'DESI DR2',
     'sn.desy5': 'DES Y5',
+    'sn.desdovekie': 'DES-SN5YR',
     'sn.pantheonplus': r'Pantheon$^+$',
     'sn.union3': 'Union3',
     'des_y1.joint': 'DES Y1',
@@ -122,6 +123,8 @@ triplets_groups = OrderedDict([
         "bao.desi_dr2+planck_2018_CamSpec+sn.desy5",
         "bao.desi_dr2+planck_2018_CamSpec+sn.pantheonplus",
         "bao.desi_dr2+planck_2018_CamSpec+sn.union3",
+        "bao.desi_2024_bao_all+planck_2018_plik+sn.desdovekie",
+        "bao.desi_dr2+planck_2018_CamSpec+sn.desdovekie",
     ]),
 ])
 
@@ -178,8 +181,11 @@ def compute_ln_B(groups):
 # --- PLOTTING ---
 
 def plot_landscape(groups, ln_B_mean, ln_B_err, output_path,
-                   axes_width=3.0, left_margin=1.0, legend_loc='lower left'):
+                   axes_width=3.0, left_margin=1.0, legend_loc='lower left',
+                   title=None, label_func=None):
     """axes_width: plot area width in inches. left_margin: space for y labels."""
+    if label_func is None:
+        label_func = get_dataset_label
     # Build layout
     y_data = []
     y_bands = []
@@ -257,7 +263,7 @@ def plot_landscape(groups, ln_B_mean, ln_B_err, output_path,
                    s=30, linewidths=0.8, label=labels_model[model], zorder=2)
 
     ax.set_yticks([y for y, _ in y_data])
-    ax.set_yticklabels([get_dataset_label(ds) for _, ds in y_data], fontsize=7)
+    ax.set_yticklabels([label_func(ds) for _, ds in y_data], fontsize=7)
     ax.tick_params(axis='y', length=0)
     ax.set_xlim(x_min, x_max)
     ax.set_ylim(total_y, 0)
@@ -272,6 +278,17 @@ def plot_landscape(groups, ln_B_mean, ln_B_err, output_path,
     elif legend_loc is not None:
         ax.legend(loc=legend_loc, fontsize=6, framealpha=0.95, ncol=1,
                   edgecolor='black', fancybox=False)
+
+    if title is not None:
+        sn_ys = [y for y, ds in y_data if 'desy5' in ds or 'desdovekie' in ds]
+        if len(sn_ys) >= 2:
+            title_y = np.mean(sn_ys)
+        elif sn_ys and len(y_data) >= 2:
+            title_y = (y_data[0][0] + y_data[1][0]) / 2
+        else:
+            title_y = y_data[0][0] if y_data else 0
+        ax.text(x_max - 0.1, title_y, title,
+                ha='right', va='center', fontsize=8)
 
     os.makedirs(os.path.dirname(output_path), exist_ok=True)
     fig.savefig(output_path, bbox_inches='tight')
@@ -295,3 +312,143 @@ plot_landscape(pairs_groups, ln_B_mean_p, ln_B_err_p,
 plot_landscape(triplets_groups, ln_B_mean_t, ln_B_err_t,
                '../figures/bayes_factor_triplets.pdf',
                axes_width=2.1, left_margin=1.25, legend_loc='below')
+
+#%%
+# --- DOVEKIE OVERLAY ---
+# Matched pre/post figures for beamer \only<1>/\only<2>
+
+# Use a common label mapping so both overlays have identical y-axis width
+labels_dovekie = dict(labels_dataset_short)
+labels_dovekie['sn.desy5'] = 'DES SN'
+labels_dovekie['sn.desdovekie'] = 'DES SN'
+
+
+def get_dovekie_label(dataset_name):
+    parts = dataset_name.split('+')
+    return ' + '.join(labels_dovekie.get(p, p) for p in parts)
+
+
+dovekie_pre_singles_groups = OrderedDict([
+    (r'\textbf{BAO only}', [
+        "bao.desi_dr2",
+        "bao.desi_2024_bao_all",
+    ]),
+    (r'\textbf{CMB only}', [
+        "planck_2018_plik",
+        "planck_2018_plik_nolens",
+        "planck_2018_CamSpec",
+        "planck_2018_CamSpec_nolens",
+    ]),
+    (r'\textbf{CMB lensing only}', [
+        "planck_2018_lensing",
+    ]),
+    (r'\textbf{SN only}', [
+        "sn.desy5",
+        "sn.pantheonplus",
+        "sn.union3",
+    ]),
+    (r'\textbf{Galaxy survey only}', [
+        "des_y1.joint",
+    ]),
+])
+
+dovekie_post_singles_groups = OrderedDict([
+    (r'\textbf{BAO only}', [
+        "bao.desi_dr2",
+        "bao.desi_2024_bao_all",
+    ]),
+    (r'\textbf{CMB only}', [
+        "planck_2018_plik",
+        "planck_2018_plik_nolens",
+        "planck_2018_CamSpec",
+        "planck_2018_CamSpec_nolens",
+    ]),
+    (r'\textbf{CMB lensing only}', [
+        "planck_2018_lensing",
+    ]),
+    (r'\textbf{SN only}', [
+        "sn.desdovekie",
+        "sn.pantheonplus",
+        "sn.union3",
+    ]),
+    (r'\textbf{Galaxy survey only}', [
+        "des_y1.joint",
+    ]),
+])
+
+dovekie_predovekie_groups = OrderedDict([
+    (r'\textbf{BAO + DES SN}', [
+        "bao.desi_dr2+sn.desy5",
+        "bao.desi_2024_bao_all+sn.desy5",
+    ]),
+    (r'\textbf{BAO + other SN}', [
+        "bao.desi_dr2+sn.pantheonplus",
+        "bao.desi_dr2+sn.union3",
+    ]),
+])
+
+dovekie_postdovekie_groups = OrderedDict([
+    (r'\textbf{BAO + DES SN}', [
+        "bao.desi_dr2+sn.desdovekie",
+        "bao.desi_2024_bao_all+sn.desdovekie",
+    ]),
+    (r'\textbf{BAO + other SN}', [
+        "bao.desi_dr2+sn.pantheonplus",
+        "bao.desi_dr2+sn.union3",
+    ]),
+])
+
+ln_B_mean_pre_s, ln_B_err_pre_s = compute_ln_B(dovekie_pre_singles_groups)
+ln_B_mean_post_s, ln_B_err_post_s = compute_ln_B(dovekie_post_singles_groups)
+
+plot_landscape(dovekie_pre_singles_groups, ln_B_mean_pre_s, ln_B_err_pre_s,
+               '../figures/bayes_factor_singles_predovekie.pdf',
+               axes_width=2.5, left_margin=0.85, legend_loc='below',
+               title=r'\textbf{Before Dovekie}', label_func=get_dovekie_label)
+plot_landscape(dovekie_post_singles_groups, ln_B_mean_post_s, ln_B_err_post_s,
+               '../figures/bayes_factor_singles_postdovekie.pdf',
+               axes_width=2.5, left_margin=0.85, legend_loc='below',
+               title=r'\textbf{After Dovekie}', label_func=get_dovekie_label)
+
+ln_B_mean_pre, ln_B_err_pre = compute_ln_B(dovekie_predovekie_groups)
+ln_B_mean_post, ln_B_err_post = compute_ln_B(dovekie_postdovekie_groups)
+
+plot_landscape(dovekie_predovekie_groups, ln_B_mean_pre, ln_B_err_pre,
+               '../figures/bayes_factor_predovekie.pdf',
+               axes_width=2.3, left_margin=1.05, legend_loc='below',
+               title=r'\textbf{Before Dovekie}', label_func=get_dovekie_label)
+plot_landscape(dovekie_postdovekie_groups, ln_B_mean_post, ln_B_err_post,
+               '../figures/bayes_factor_postdovekie.pdf',
+               axes_width=2.3, left_margin=1.05, legend_loc='below',
+               title=r'\textbf{After Dovekie}', label_func=get_dovekie_label)
+
+#%%
+# --- DOVEKIE TRIPLET OVERLAY ---
+
+dovekie_pre_triplets_groups = OrderedDict([
+    (r'\textbf{BAO + CMB + SN}', [
+        "bao.desi_dr2+planck_2018_CamSpec+sn.desy5",
+        "bao.desi_dr2+planck_2018_CamSpec+sn.pantheonplus",
+        "bao.desi_dr2+planck_2018_CamSpec+sn.union3",
+    ]),
+])
+
+dovekie_post_triplets_groups = OrderedDict([
+    (r'\textbf{BAO + CMB + SN}', [
+        "bao.desi_dr2+planck_2018_CamSpec+sn.desdovekie",
+        "bao.desi_dr2+planck_2018_CamSpec+sn.pantheonplus",
+        "bao.desi_dr2+planck_2018_CamSpec+sn.union3",
+    ]),
+])
+
+ln_B_mean_pre_t, ln_B_err_pre_t = compute_ln_B(dovekie_pre_triplets_groups)
+ln_B_mean_post_t, ln_B_err_post_t = compute_ln_B(dovekie_post_triplets_groups)
+
+plot_landscape(dovekie_pre_triplets_groups, ln_B_mean_pre_t, ln_B_err_pre_t,
+               '../figures/bayes_factor_triplets_predovekie.pdf',
+               axes_width=2.1, left_margin=1.25, legend_loc='below',
+               title=r'\textbf{Before Dovekie}', label_func=get_dovekie_label)
+plot_landscape(dovekie_post_triplets_groups, ln_B_mean_post_t, ln_B_err_post_t,
+               '../figures/bayes_factor_triplets_postdovekie.pdf',
+               axes_width=2.1, left_margin=1.25, legend_loc='below',
+               title=r'\textbf{After Dovekie}', label_func=get_dovekie_label)

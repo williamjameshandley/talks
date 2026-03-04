@@ -54,6 +54,7 @@
 
 \begin{frame}
     \frametitle{The three pillars of (Bayesian) inference}
+    \vspace{-0.5em}
     \begin{columns}[t]
         \column{0.33\textwidth}
         \begin{block}{Parameter estimation}
@@ -75,7 +76,6 @@
         \begin{block}{Tension quantification}
             Do different datasets make consistent predictions from the same model?
             {\textit{\textit{e.g. CMB vs Type IA supernovae data}}}%
-            \arxiv{1902.04029} \arxiv{1903.06682} \arxiv{1910.07820}
             \[ \mathcal{R} = \frac{\C[3]{\mathcal{Z}}_{AB}}{\C[3]{\mathcal{Z}}_A\C[3]{\mathcal{Z}}_\mathcal{B}}\]
             \[
                 \begin{aligned} \log\mathcal{S} = \av[{\C[0]{\mathcal{P}}_{AB}}]{\C[2]{\log\mathcal{L}}_{AB}}&\\
@@ -85,6 +85,7 @@
             \]
         \end{block}
     \end{columns}
+    \arxiv{1902.04029} \arxiv{1903.06682} \arxiv{1910.07820}
 \end{frame}
 
 \begin{frame}
@@ -143,7 +144,7 @@
         \column{0.33\textwidth}
         \begin{itemize}
             \item DESI BAO penalises dynamic DE; $m_\nu\Lambda$CDM remains competitive.
-            \item Planck CMB mildly prefers extensions ($\Delta \ln P \approx +1$ for $w_0 w_a$CDM).
+            \item Planck CMB mildly prefers extensions ($\Delta \ln B \approx +1$ for $w_0 w_a$CDM).
             \item Supernovae alone lack discriminatory power.
             \item Opposing single-probe preferences set up the dataset combination story.
         \end{itemize}
@@ -178,12 +179,13 @@
     \begin{columns}
         \column{0.26\textwidth}
         \begin{itemize}
-            \item BAO + CMB + DES-Y5: $w_0 w_a$CDM strongly preferred ($\Delta \ln P \approx +3.3$, $\sim 3\sigma$).
+            \item BAO + CMB + DES-Y5: $w_0 w_a$CDM strongly preferred ($\Delta \ln B \approx +3.3$, $\sim 3\sigma$).
             \item BAO + CMB + Pantheon$^+$: $\Lambda$CDM holds ($\ln P = -0.38$ vs $-2.06$).
             \item The claim for new physics is entirely contingent on a single SN catalogue.
         \end{itemize}
         \column{0.72\textwidth}
-        \includegraphics{figures/bayes_factor_triplets.pdf}
+        \only<1>{\includegraphics{figures/bayes_factor_triplets_predovekie.pdf}}%
+        \only<2>{\includegraphics{figures/bayes_factor_triplets_postdovekie.pdf}}%
     \end{columns}
 \end{frame}
 
@@ -217,7 +219,8 @@
             \item $w_0 w_a$CDM reduces tension across all SN catalogues.
         \end{itemize}
         \column{0.63\textwidth}
-        \includegraphics{figures/tension_sigma_triplets.pdf}
+        \only<1>{\includegraphics{figures/tension_sigma_triplets_predovekie.pdf}}%
+        \only<2>{\includegraphics{figures/tension_sigma_triplets_postdovekie.pdf}}%
     \end{columns}
 \end{frame}
 
