@@ -75,6 +75,7 @@
         \begin{block}{Tension quantification}
             Do different datasets make consistent predictions from the same model?
             {\textit{\textit{e.g. CMB vs Type IA supernovae data}}}%
+            \arxiv{1902.04029} \arxiv{1903.06682} \arxiv{1910.07820}
             \[ \mathcal{R} = \frac{\C[3]{\mathcal{Z}}_{AB}}{\C[3]{\mathcal{Z}}_A\C[3]{\mathcal{Z}}_\mathcal{B}}\]
             \[
                 \begin{aligned} \log\mathcal{S} = \av[{\C[0]{\mathcal{P}}_{AB}}]{\C[2]{\log\mathcal{L}}_{AB}}&\\
@@ -107,7 +108,8 @@
         \includegraphics[width=0.5\textwidth]{logos/pla.png}\\[0.5em]
         \includegraphics[width=0.5\textwidth]{logos/dirac.png}\\[0.5em]
         \includegraphics[width=0.4\textwidth]{logos/cobaya_clear.png}\hfill
-        \includegraphics[width=0.5\textwidth]{logos/polychord.png}
+        \includegraphics[width=0.5\textwidth]{logos/polychord.png}\\[0.3em]
+        PolyChord: \arxiv{1502.01856} \arxiv{1506.00171}
     \end{columns}
 \end{frame}
 
@@ -146,7 +148,8 @@
             \item Opposing single-probe preferences set up the dataset combination story.
         \end{itemize}
         \column{0.65\textwidth}
-        \includegraphics{figures/bayes_factor_singles.pdf}
+        \only<1>{\includegraphics{figures/bayes_factor_singles_predovekie.pdf}}%
+        \only<2>{\includegraphics{figures/bayes_factor_singles_postdovekie.pdf}}%
     \end{columns}
 \end{frame}
 
@@ -163,7 +166,8 @@
             \item The SN catalogue choice is decisive.
         \end{itemize}
         \column{0.67\textwidth}
-        \includegraphics{figures/bayes_factor_pairs.pdf}
+        \only<1>{\includegraphics{figures/bayes_factor_predovekie.pdf}}%
+        \only<2>{\includegraphics{figures/bayes_factor_postdovekie.pdf}}%
     \end{columns}
 \end{frame}
 
@@ -196,7 +200,8 @@
             \item Look-elsewhere threshold for $N=200$ tests: $\sigma > 2.88$.
         \end{itemize}
         \column{0.63\textwidth}
-        \includegraphics{figures/tension_sigma_pairs.pdf}
+        \only<1>{\includegraphics{figures/tension_sigma_predovekie.pdf}}%
+        \only<2>{\includegraphics{figures/tension_sigma_postdovekie.pdf}}%
     \end{columns}
 \end{frame}
 
@@ -249,7 +254,7 @@
     \student{adam_ormondroyd.jpg}{Adam Ormondroyd}{PhD Student}
     \begin{columns}
         \column{0.64\textwidth}
-        \begin{block}{Flexknot $w(a)$ reconstruction \arxiv{2503.08658} \arxiv{2509.13220}}
+        \begin{block}{Flexknot $w(a)$ reconstruction \arxiv{2503.17342} \arxiv{2503.08658} \arxiv{2509.13220}}
             \begin{itemize}
                 \item $w_0 w_a$ is too restrictive --- flexknots let the data speak.
                 \item W-shaped structure in $w(a)$; DESI and DES-5Y are in \alert{tension}.
@@ -333,7 +338,7 @@
                 \item Full parameter estimation (\texttt{bilby}): \textbf{60 CPUs, 2 hours}. Too slow for transients.
             \end{itemize}
         \end{block}
-        \begin{block}{GPU nested sampling \arxiv{2509.04336}}
+        \begin{block}{GPU nested sampling \arxiv{2509.04336} \arxiv{2509.24949} \arxiv{2601.21630}}
             \begin{itemize}
                 \item \textbf{1 GH200 GPU}, \textbf{$\sim$30 seconds}. 4\,s of real LIGO data (GW150914), full 15-D parameter space.
                 \item Near-real-time: EM alerts while the event is still physically interesting.
@@ -429,7 +434,7 @@
                 \item \textbf{25,602-D} likelihood in \textbf{11 minutes}. NS: $D^3$ $\to$ a decade of H200 time.
             \end{itemize}
         \end{block}
-        \begin{block}{Autodiff for marginalisation \arxiv{2406.08703}}
+        \begin{block}{Autodiff for marginalisation \arxiv{2509.13307}}
             \begin{itemize}
                 \item Optimise to mode, auto-diff the Hessian, marginalise exactly. Parallelised across objects on GPU.
                 \item No manual derivations --- auto-diffs the forward model. Change the physics, re-run.
