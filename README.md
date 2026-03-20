@@ -6,4 +6,5 @@ The DESI DR2 claim of evolving dark energy rests on a frequentist analysis of se
 
 [[PDF](https://github.com/williamjameshandley/talks/raw/cosmoverse_2026/will_handley_cosmoverse_2026.pdf)]
 [[source](https://github.com/williamjameshandley/talks/tree/cosmoverse_2026)]
+[[video](https://youtu.be/_gQVHEbSKQk)]
 _Mar 2026, CosmoVerse Seminar (online)_
