@@ -5,16 +5,20 @@
     - Invited talk at [CosmoVerse 2026](https://cosmoverse.web.cern.ch/)
     - [PDF](https://github.com/williamjameshandley/talks/raw/cosmoverse_2026/will_handley_cosmoverse_2026.pdf)
     - [source](https://github.com/williamjameshandley/talks/tree/cosmoverse_2026)
+    - [video](https://youtu.be/_gQVHEbSKQk)
     - _Mar 2026_
 2. The New Scientific Method
     - IoA Colloquium, Institute of Astronomy, Cambridge
     - [PDF](https://github.com/williamjameshandley/talks/raw/ioa_2026/will_handley_ioa_2026.pdf)
     - [source](https://github.com/williamjameshandley/talks/tree/ioa_2026)
+    - [recording](https://www.youtube.com/watch?v=3ehwkYVJ72U)
+    - [transcript](https://otter.ai/u/PXJjQx_4-Qc2QznSkZ1FxqZyurA)
     - _Feb 2026_
 3. Two Revolutions: GPUs for Science, AI for Scientists
     - Seminar at Imperial College London
     - [PDF](https://github.com/williamjameshandley/talks/raw/imperial_2026/will_handley_imperial_2026.pdf)
     - [source](https://github.com/williamjameshandley/talks/tree/imperial_2026)
+    - [demo PDF](https://github.com/williamjameshandley/talks/raw/imperial_2026/imperial.pdf)
     - _Jan 2026_
 4. AI/ML Tools for Research
     - GAMBIT LLMBit Workshop, Oslo
@@ -38,8 +42,10 @@
     - _Sep 2025_
 8. AI/ML Tools for Research
     - KICC Workshop for faculty, postdocs, and PhD students
-    - [PDF](https://github.com/williamjameshandley/talks/raw/kicc_ai_tools_2025/will_handley_kicc_ai_tools_2025.pdf)  
-    - [source](https://github.com/williamjameshandley/talks/tree/kicc_ai_tools_2025) 
+    - [PDF](https://github.com/williamjameshandley/talks/raw/kicc_ai_tools_2025/will_handley_kicc_ai_tools_2025.pdf)
+    - [source](https://github.com/williamjameshandley/talks/tree/kicc_ai_tools_2025)
+    - [transcript](https://otter.ai/u/_vjee8a8H54IoUtQOYQrX9kjiTI)
+    - [previous slides](https://docs.google.com/presentation/d/1rnbk7WZUjMIAGBzkN6i8v0tEe1imiHprvL1ZOjs2B20)
     - _Jul 2025_
 9. A Statistician's Guide to the Galaxy (Fitting Zoo)
     - Statistics introduction at [The Future of SED Fitting Workshop](https://www.kicc.cam.ac.uk/events/kavli-science-themed-meetings/future-sed-fitting)
