@@ -2,23 +2,14 @@
 \usepackage{will_handley_beamer}
 \usepackage{title_page}
 
-% Commands
-% --------
-% - \arxiv{arxiv number}
-% - \arxiv{<number>}            arxiv.org/abs/<number>
-% - \oldarxiv{<arxiv number>}   arxiv.org/<number>
-% - \doi{<doi>}                 doi.org/<doi>
-% - \xkcd{<number>}             xkcd.com/<number>
-% - \email{<email>}             <<email>>
-% - \tthref{<website>}          <website>
-% - \av[dist]{<quantity>}       <quantity>_{dist}
-% - \student{<name>}{<detail>}{<photo>}
+% A simple command for highlighting key terms
+\newcommand{\keyterm}[1]{\textbf{\textcolor{C0}{#1}}}
 
 % Talk details
 % ------------
-\title{<+Title+>}
-\subtitle{<+subtitle+>}
-\date{<+Date+>}
+\title{Bayesian Techniques for GNSS-R}
+\subtitle{From Inverse Problems to GPU-Accelerated Inference}
+\date{15 April 2026}
 
 \begin{document}
 
@@ -26,11 +17,515 @@
     \titlepage
 \end{frame}
 
+% =========================================================================
+% PART 1: INVERSE PROBLEMS & BAYESIAN INFERENCE (~20 min)
+% =========================================================================
+
+% --- Slide 1: The Inverse Problem ---
 \begin{frame}
-    \frametitle{<+Frame title+>}
-    <+Content+>
+    \frametitle{The Inverse Problem}
+    \framesubtitle{You already know what this is}
+    \begin{columns}[T]
+        \column{0.49\textwidth}
+        \begin{block}{The Forward Model}
+            Parameters $\theta$ $\longrightarrow$ Observables $D$
+            \begin{itemize}
+                \item Orbital elements $\longrightarrow$ satellite positions
+                \item Soil properties $\longrightarrow$ reflected signal
+                \item You know how to do this.
+            \end{itemize}
+        \end{block}
+        \begin{block}{The Inverse Problem}
+            Observables $D$ $\longrightarrow$ Parameters $\theta$
+            \begin{itemize}
+                \item This is what you \textit{want} to do.
+                \item But it's \keyterm{ill-posed}: many $\theta$ can produce the same $D$.
+            \end{itemize}
+        \end{block}
+        \column{0.49\textwidth}
+        \begin{block}{The Challenge}
+            The parameter space is often:
+            \begin{itemize}
+                \item \keyterm{High-dimensional}: Many parameters to fit.
+                \item \keyterm{Degenerate}: Different combinations of parameters can produce similar signals.
+                \item \keyterm{Non-linear}: Small changes in $\theta$ can cause large changes in $D$.
+            \end{itemize}
+        \end{block}
+        \begin{alertblock}{This Talk}
+            Bayesian inference is a principled framework for solving inverse problems with rigorous uncertainty quantification.
+        \end{alertblock}
+    \end{columns}
 \end{frame}
 
+% --- Slide 2: Bayes' Theorem ---
+\begin{frame}
+    \frametitle{The Language of Inference}
+    \framesubtitle{Translating ``Inverse Problems'' into mathematics}
+    \begin{columns}
+        \column{0.33\textwidth}
+            \begin{block}{\C[1]{Prior}\hfill $\C[1]{\pi(\theta)}$}
+                What we believe about the parameters \textit{before} we see the data. Our physical constraints.
+            \end{block}
+        \vspace{2em}
+        \begin{block}{\C[3]{Evidence}\hfill $\C[3]{\mathcal{Z}(D)}$}
+            How well the model as a whole explains the data. The key to model comparison.
+        \end{block}
+        \column{0.33\textwidth}
+\[\underbrace{\C[0]{\mathcal{P}(\theta|D)}}_{\C[0]{\text{Posterior}}} = \frac{\overbrace{\C[2]{\mathcal{L}(D|\theta)}}^{\C[2]{\text{Likelihood}}} \times \overbrace{\C[1]{\pi(\theta)}}^{\C[1]{\text{Prior}}}}{\underbrace{\C[3]{\mathcal{Z}(D)}}_{\C[3]{\text{Evidence}}}}\]
+        \column{0.33\textwidth}
+            \begin{block}{\C[2]{Likelihood}\hfill $\C[2]{\mathcal{L}(D|\theta)}$}
+                Your forward model + noise model. How well a specific $\theta$ fits the data.
+            \end{block}
+        \vspace{2em}
+        \begin{block}{\C[0]{Posterior}\hfill $\C[0]{\mathcal{P}(\theta|D)}$}
+            The solution to the inverse problem: parameters \textit{with error bars}.
+        \end{block}
+    \end{columns}
+\end{frame}
+
+% --- Slide 3: Optimization ---
+\begin{frame}
+    \frametitle{The Simplest Approach: Optimization (Least Squares)}
+    \begin{columns}[T]
+        \column{0.5\textwidth}
+        \only<1-6>{
+        \begin{block}{How it Works: Gradient Descent}
+            Imagine the parameter space is a landscape where lower cost is ``downhill''.
+            \begin{itemize}
+                \item Start somewhere.
+                \item Follow the steepest gradient downhill.
+                \item Stop when you reach the bottom of a valley.
+            \end{itemize}
+        \end{block}
+        \begin{block}{Advantages}
+            \begin{itemize}
+                \item \keyterm{Fast} and computationally cheap.
+                \item Good for a quick first look.
+            \end{itemize}
+        \end{block}
+        }
+        \only<7-10>{
+        \begin{block}{Limitations}
+            \begin{itemize}
+                \item Only gives a single \keyterm{point estimate} (the ``best fit'').
+                \item \textbf{No uncertainty quantification!} Where are the error bars?
+                \item Can easily get stuck in a \keyterm{local minimum}.
+            \end{itemize}
+        \end{block}
+        \begin{alertblock}{Key Message}
+            Optimization is fast but gives an incomplete and potentially misleading picture. Science needs error bars.
+        \end{alertblock}
+        }
+        \column{0.5\textwidth}
+        \vspace{-1.8em}
+        \begin{center}
+            \includegraphics<1>[width=\textwidth,page=1]{figures/himmelblau_gradient_ascent.pdf}%
+            \includegraphics<2>[width=\textwidth,page=2]{figures/himmelblau_gradient_ascent.pdf}%
+            \includegraphics<3>[width=\textwidth,page=3]{figures/himmelblau_gradient_ascent.pdf}%
+            \includegraphics<4>[width=\textwidth,page=4]{figures/himmelblau_gradient_ascent.pdf}%
+            \includegraphics<5>[width=\textwidth,page=5]{figures/himmelblau_gradient_ascent.pdf}%
+            \includegraphics<6>[width=\textwidth,page=6]{figures/himmelblau_gradient_ascent.pdf}%
+            \includegraphics<7>[width=\textwidth,page=7]{figures/himmelblau_gradient_ascent.pdf}%
+            \includegraphics<8>[width=\textwidth,page=8]{figures/himmelblau_gradient_ascent.pdf}%
+            \includegraphics<9>[width=\textwidth,page=9]{figures/himmelblau_gradient_ascent.pdf}%
+            \includegraphics<10>[width=\textwidth,page=10]{figures/himmelblau_gradient_ascent.pdf}%
+        \end{center}
+    \end{columns}
+\end{frame}
+
+% --- Slide 4: Why Sampling? ---
+\begin{frame}
+    \frametitle{Why do sampling?}
+    \begin{columns}[T]
+        \column{0.5\textwidth}
+        \begin{itemize}
+            \item The cornerstone of numerical Bayesian inference is working with \textbf{samples}.
+            \item Generate a set of representative parameters drawn in proportion to the posterior $\theta\sim\mathcal{P}$.
+            \item The magic of marginalisation $\Rightarrow$ perform usual analysis on each sample in turn.
+            \item The golden rule is \textbf{stay in samples} until the last moment before computing summary statistics because \[\boxed{f(\:\av{X}\:)\ne \av{\:f(X)\:}}\]
+            \item Generally need $\sim\mathcal{O}(12)$ independent samples to compute a value and error bar.
+        \end{itemize}
+        \column{0.5\textwidth}
+        \vspace{-1.8em}
+        \begin{center}
+            \includegraphics[width=\textwidth]{figures/himmelblau_samples.pdf}
+        \end{center}
+    \end{columns}
+\end{frame}
+
+% --- Slide 5: MCMC ---
+\begin{frame}
+    \frametitle{Markov Chain Monte Carlo (MCMC)}
+    \begin{columns}[T]
+        \column{0.5\textwidth}
+        \only<1-5>{
+        \begin{block}{How it Works (Metropolis-Hastings)}
+            A ``walker'' exploring the parameter landscape.
+            \begin{enumerate}
+                \item Take a random step to a new position.
+                \item If the new spot is ``higher'' (better fit), move there.
+                \item If it's ``lower'', maybe move there anyway (with probability proportional to how much lower it is).
+                \item Repeat millions of times. The path traces the posterior distribution.
+            \end{enumerate}
+        \end{block}
+        }
+        \only<6-9>{
+            \vspace{-1em}
+        \begin{block}{Advantages \& Limitations}
+            \begin{itemize}
+                \item Explores the full posterior and gives uncertainties.
+                \item \textcolor{red}{Limitation:} The walker can get ``stuck'' in a local mode.
+                \item \textcolor{red}{Limitation:} Slow to explore correlated parameters.
+            \end{itemize}
+        \end{block}
+        \begin{alertblock}{Key Message}
+            MCMC is foundational, but its random walk can be inefficient in the complex parameter spaces of remote sensing.
+        \end{alertblock}
+        }
+        \column{0.5\textwidth}
+        \vspace{-1.8em}
+        \begin{center}
+            \includegraphics<1>[page=1]{figures/himmelblau_mcmc.pdf}%
+            \includegraphics<2>[page=2]{figures/himmelblau_mcmc.pdf}%
+            \includegraphics<3>[page=3]{figures/himmelblau_mcmc.pdf}%
+            \includegraphics<4>[page=4]{figures/himmelblau_mcmc.pdf}%
+            \includegraphics<5>[page=5]{figures/himmelblau_mcmc.pdf}%
+            \includegraphics<6>[page=6]{figures/himmelblau_mcmc.pdf}%
+            \includegraphics<7>[page=7]{figures/himmelblau_mcmc.pdf}%
+            \includegraphics<8>[page=8]{figures/himmelblau_mcmc.pdf}%
+            \includegraphics<9>[page=9]{figures/himmelblau_mcmc.pdf}%
+        \end{center}
+    \end{columns}
+\end{frame}
+
+% --- Slide 6: Evidence ---
+\begin{frame}
+    \frametitle{The Missing Piece: Why Evidence Calculation Matters}
+    \framesubtitle{And why it's so hard to compute}
+    \begin{columns}[T]
+        \column{0.49\textwidth}
+        \begin{block}{Why Evidence is Important}
+            \begin{itemize}
+                \item \textbf{Model Comparison}: Which model best explains the data?
+            \[\mathcal{P}(M|D) \propto \mathcal{Z}(D|M) \mathcal{P}(M)\]
+            e.g.\ Which drag model best explains the orbit? Is the reflection coherent or incoherent?
+        \item  \textbf{Occam's Razor}: Automatic complexity penalty
+            \[\log \mathcal{Z} = \langle \log \mathcal{L} \rangle_{\mathcal{P}} - \mathcal{D}_{\text{KL}}(\mathcal{P}||\pi)\]
+            \end{itemize}
+        \end{block}
+        \column{0.49\textwidth}
+        \begin{block}{Why Evidence is Hard}
+            \begin{itemize}
+                \item The high-dimensional evidence integral:
+            \[\mathcal{Z} = \int \mathcal{L}(\theta) \pi(\theta) d\theta\]
+            \pause
+        \item The difficulty is not that most of parameter space has $\mathcal{L} \approx 0$...
+            \pause
+        \item The difficulty is that we can't estimate \textbf{volume} $d\theta$ in high dimensions!
+            \end{itemize}
+        \end{block}
+    \end{columns}
+\end{frame}
+
+% --- Slide 7: Nested Sampling ---
+\begin{frame}
+    \frametitle{Nested Sampling}
+    \begin{columns}[T]
+        \column{0.5\textwidth}
+        \only<1-4>{
+        \begin{block}{A Radically Different Approach}
+            Instead of random walking, attack the problem from the outside-in.
+            \begin{enumerate}
+                \item Start with ``live points'' scattered across the entire \keyterm{prior}.
+                \item Find the point with the \textit{worst} likelihood and discard it.
+                \item Replace it with a new point with a \textit{better} likelihood.
+                \item The live points continuously ``shrink'' into regions of higher likelihood.
+            \end{enumerate}
+        \end{block}
+        }
+        \only<5-8>{
+        \begin{block}{Key Advantages}
+            \begin{itemize}
+                \item Naturally handles \keyterm{multimodality}.
+                \item Calculates the \keyterm{Bayesian Evidence} ($\C[3]{\mathcal{Z}}$) as a primary output.
+                \item Gives posteriors \textit{and} evidence simultaneously.
+            \end{itemize}
+        \end{block}
+        \begin{alertblock}{Key Message}
+            Nested sampling excels at complex, multimodal inverse problems and is the method of choice for Bayesian model comparison.
+        \end{alertblock}
+        }
+        \column{0.5\textwidth}
+        \vspace{-1.8em}
+        \begin{center}
+            \includegraphics<1>[width=\textwidth,page=1]{figures/himmelblau_ns.pdf}%
+            \includegraphics<2>[width=\textwidth,page=2]{figures/himmelblau_ns.pdf}%
+            \includegraphics<3>[width=\textwidth,page=3]{figures/himmelblau_ns.pdf}%
+            \includegraphics<4>[width=\textwidth,page=4]{figures/himmelblau_ns.pdf}%
+            \includegraphics<5>[width=\textwidth,page=5]{figures/himmelblau_ns.pdf}%
+            \includegraphics<6>[width=\textwidth,page=6]{figures/himmelblau_ns.pdf}%
+            \includegraphics<7>[width=\textwidth,page=7]{figures/himmelblau_ns.pdf}%
+            \includegraphics<8>[width=\textwidth,page=8]{figures/himmelblau_ns.pdf}%
+        \end{center}
+    \end{columns}
+\end{frame}
+
+% =========================================================================
+% PART 2: AI-AUGMENTED SCIENTIFIC WORKFLOWS (~20 min)
+% =========================================================================
+
+% --- Slide 8: Three ways AI meets science ---
+\begin{frame}
+    \frametitle{Three ways AI meets science}
+    \framesubtitle{Only one matches what research actually is}
+    \vspace{-0.5em}
+    \begin{columns}[T]
+        \column{0.31\textwidth}
+        \begin{block}{Foundation Models}
+            \begin{itemize}
+                \item ``Train a model on all the data.''
+                \item Expensive, opaque, unclear payoff.
+                \item Science is about \textit{compression}, not prediction.
+            \end{itemize}
+        \end{block}
+        \column{0.31\textwidth}
+        \begin{block}{Autonomous Agents}
+            \begin{itemize}
+                \item ``Click a button, generate a paper.''
+                \item Produces ``science-like'' content without understanding.
+                \item Science is a human culture of critique --- not a pipeline.
+            \end{itemize}
+        \end{block}
+        \column{0.31\textwidth}
+        \begin{exampleblock}{Augmented Humans}
+            \begin{itemize}
+                \item Humans accelerated, not replaced.
+                \item You define the physics and verification; AI handles the syntax.
+                \item \textbf{Our approach.}
+            \end{itemize}
+        \end{exampleblock}
+    \end{columns}
+    \vfill
+    \begin{center}
+        \textit{``Silicon Valley thinks a scientist is something that takes in coffee and produces fusion reactors. It's not.''}
+    \end{center}
+\end{frame}
+
+% --- Slide 9: The 80/20 Rule ---
+\begin{frame}
+    \frametitle{The 80/20 Rule of Scientific Work}
+    \begin{columns}[T]
+        \column{0.49\textwidth}
+        \begin{block}{The Real AI Revolution: LLMs}
+            The biggest impact of AI is not in analysing data, but in helping us write the code to do it.
+            \begin{itemize}
+                \item \keyterm{Automated code translation}: LLMs help port legacy codes to modern, GPU-friendly frameworks like JAX.
+            \end{itemize}
+        \end{block}
+        \column{0.49\textwidth}
+        \begin{block}{The 80/20 Rule}
+            \begin{itemize}
+                \item \textbf{80\% ``boring'' tasks}: Writing code, debugging, formatting data, drafting papers...
+                \item \textbf{20\% ``hard thinking''}: The actual scientific insight.
+            \end{itemize}
+            AI's biggest immediate impact is automating the 80\%, freeing up human time for the 20\%.
+        \end{block}
+    \end{columns}
+    \begin{alertblock}{For you as PhD students}
+        Your value is in understanding the GNSS-R physics, not memorising Python syntax. AI lets you focus on the science.
+    \end{alertblock}
+\end{frame}
+
+% --- Slide 10: Context Engineering ---
+\begin{frame}
+    \frametitle{The mechanism: context engineering}
+    \framesubtitle{From ``prompting'' to ``orchestration''}
+    \vspace{-0.5em}
+    \begin{columns}[T]
+        \column{0.48\textwidth}
+        \begin{block}{2025: Prompt engineering}
+            \begin{itemize}
+                \item \textit{``Write me a Python loop.''}
+                \item Limited by user memory and syntax knowledge.
+                \item Useful for snippets, bad for systems.
+            \end{itemize}
+        \end{block}
+        \column{0.48\textwidth}
+        \begin{block}{2026: Context engineering}
+            \begin{itemize}
+                \item \textit{``Here is the SGP4 spec. Implement it in JAX.''}
+                \item LLMs acting on the \textbf{full context} of the project.
+                \item The bottleneck is no longer generating code, but \keyterm{evaluating} it.
+            \end{itemize}
+        \end{block}
+    \end{columns}
+    \vfill
+    \begin{center}
+        \includegraphics[width=0.8\textwidth]{figures/context-engineering-v2.png}
+    \end{center}
+\end{frame}
+
+% --- Slide 11: I built this with AI ---
+\begin{frame}
+    \frametitle{I built this workshop with AI}
+    \vspace{-0.5em}
+    \begin{columns}[T]
+        \column{0.55\textwidth}
+        \begin{block}{What I used}
+            \begin{itemize}
+                \item \textbf{Claude Code}: Assembled these slides from my previous talks
+                \item \textbf{Gemini}: Analysed 6 talks to recommend the best slides
+                \item \textbf{BlackJAX workshop notebook}: Built by AI from Charlotte's \texttt{jaxsgp4} code
+            \end{itemize}
+        \end{block}
+        \begin{block}{What I didn't do}
+            \begin{itemize}
+                \item Type \LaTeX{} by hand
+                \item Manually search through old talks
+                \item Write boilerplate Python
+            \end{itemize}
+        \end{block}
+        \column{0.43\textwidth}
+        \begin{exampleblock}{What I \textit{did} do}
+            \begin{itemize}
+                \item Decided the structure (3 parts)
+                \item Chose the examples (jaxsgp4)
+                \item Verified the physics
+                \item Had lunch with colleagues to think about framing
+            \end{itemize}
+        \end{exampleblock}
+        \vspace{0.5em}
+        \begin{alertblock}{For the workshop}
+            Use AI to help you write code today. Focus on understanding the inference, not fighting Python errors.
+        \end{alertblock}
+    \end{columns}
+\end{frame}
+
+% =========================================================================
+% PART 3: NESTED SAMPLING & BLACKJAX (~20 min)
+% =========================================================================
+
+% --- Slide 12: JAX's Two Capabilities ---
+\begin{frame}
+    \frametitle{JAX: Two Independent Capabilities}
+    \framesubtitle{A common misconception in scientific computing}
+    \begin{columns}[T]
+        \column{0.48\textwidth}
+        \begin{block}{Capability 1: Free Gradients}
+            \begin{itemize}
+                \item Automatic differentiation
+                \item Exact derivatives of any Python function
+                \item Enables gradient-based optimisation and HMC sampling
+                \item \texttt{jax.grad(f)(x)}
+            \end{itemize}
+        \end{block}
+        \column{0.48\textwidth}
+        \begin{block}{Capability 2: GPU Parallelisation}
+            \begin{itemize}
+                \item Just-in-time compilation to GPU/TPU
+                \item Vectorise over satellites, time steps, or both
+                \item $100$--$1000\times$ speedups over CPU
+                \item \texttt{jax.jit(jax.vmap(f))(xs)}
+            \end{itemize}
+        \end{block}
+    \end{columns}
+    \vspace{1em}
+    \begin{block}{Key Insight: Often Confused}
+        \begin{center}
+            \textbf{These are completely independent.}\\
+            You can use gradients on CPU.\\
+            You can GPU-parallelise without gradients.\\
+            JAX is not just for neural networks --- it's a compiler for fast physics simulations.
+        \end{center}
+    \end{block}
+\end{frame}
+
+% --- Slide 13: BlackJAX ---
+\begin{frame}
+    \frametitle{BlackJAX: GPU-Native Sampling}
+    \framesubtitle{A unified framework for GPU-accelerated inference}
+    \student{david_yallup.jpg}{David Yallup}{Postdoc}
+    \begin{columns}[T]
+        \column{0.48\textwidth}
+        \begin{block}{The Problem}
+            \begin{itemize}
+                \item Fragmented ecosystem: MultiNest, PolyChord, dynesty, UltraNest, nautilus...
+                \item All CPU-bound, mostly legacy code
+            \end{itemize}
+        \end{block}
+        \begin{block}{The BlackJAX Solution}
+            \begin{itemize}
+                \item Community JAX codebase
+                \item Fair benchmarking between algorithms
+                \item Composable with the JAX ecosystem
+                \item GPU-native nested slice sampling
+            \end{itemize}
+        \end{block}
+        \column{0.48\textwidth}
+        \includegraphics[width=\textwidth]{figures/blackjax_screenshot.png}
+        \vspace{0.5em}
+        \begin{exampleblock}{Performance}
+            \begin{itemize}
+                \item CMB cosmology: $300\times$ speedup
+                \item Gravitational waves: $20$--$40\times$
+                \item Cosmic shear: $>1000\times$ vs CPU
+            \end{itemize}
+        \end{exampleblock}
+    \end{columns}
+\end{frame}
+
+% --- Slide 14: jaxsgp4 ---
+\begin{frame}
+    \frametitle{Satellites [GLITTER]}
+    \framesubtitle{JAX-SGP4: GPU-accelerated orbit propagation}
+    \student{charlotte_priestley.jpg}{Charlotte Priestley}{PhD Student}
+    \begin{columns}[T]
+        \column{0.38\textwidth}
+        \includegraphics[width=0.9\textwidth,height=0.6\textheight,keepaspectratio]{figures/charlotte-starlink-trajectories.png}
+        \column{0.58\textwidth}
+        \includegraphics[width=0.9\textwidth,height=0.6\textheight,keepaspectratio]{figures/charlotte-heatmap.pdf}
+    \end{columns}
+    \begin{center}
+        \textbf{JAX-SGP4}: Propagating 9,550 Starlink satellites in 0.5\,ms. \alert{1550$\times$ speedup} on A100.
+    \end{center}
+    \vspace{-0.5em}
+    \begin{block}{}
+        Differentiable SGP4 in pure JAX $\Rightarrow$ \texttt{jax.grad} of satellite position w.r.t.\ orbital elements.\\
+        This is your forward model for Bayesian orbit determination. \arxiv{2603.27830}
+    \end{block}
+\end{frame}
+
+% --- Slide 15: Workshop Goals ---
+\begin{frame}
+    \frametitle{Workshop: Bayesian Orbit Determination}
+    \framesubtitle{Hands-on with BlackJAX and jaxsgp4}
+    \begin{columns}[T]
+        \column{0.5\textwidth}
+        \begin{block}{What we'll do}
+            \begin{enumerate}
+                \item Define a forward model: \texttt{jaxsgp4.sgp4()}
+                \item Generate synthetic satellite observations
+                \item Set up priors and likelihood
+                \item Run nested sampling with \texttt{blackjax.nss()}
+                \item Visualise posteriors with \texttt{anesthetic}
+            \end{enumerate}
+        \end{block}
+        \begin{alertblock}{Remember}
+            Use AI to help you write code today! Focus on understanding the inference, not fighting Python errors.
+        \end{alertblock}
+        \column{0.5\textwidth}
+        \begin{block}{Resources}
+            \begin{itemize}
+                \item jaxsgp4: \github{cmpriestley/jaxsgp4}
+                \item BlackJAX: \github{handley-lab/blackjax}
+                \item Nested Sampling Book:\\ \tthref{handley-lab.co.uk/nested-sampling-book}
+                \item Workshop materials:\\ \github{handley-lab/workshop-glitter}
+            \end{itemize}
+        \end{block}
+    \end{columns}
+\end{frame}
+
+% --- Conclusions ---
 \begin{frame}
     \frametitle{Conclusions}
     \framesubtitle{\tthref{handley-lab.co.uk}}
@@ -65,6 +560,164 @@
         \includegraphics[width=0.075\textheight]{people/openai.jpg}%
         \includegraphics[width=0.075\textheight]{people/otter.jpg}%
     };
+\end{frame}
+
+% =========================================================================
+% APPENDIX
+% =========================================================================
+\appendix
+
+% --- Appendix: Ensemble Sampling ---
+\begin{frame}
+    \frametitle{Ensemble Sampling (e.g.\ \texttt{emcee})}
+    \begin{columns}[T]
+        \column{0.5\textwidth}
+        \only<1-5>{
+        \begin{block}{How it Works}
+            Instead of one walker, use an \keyterm{ensemble} of hundreds.
+            \begin{itemize}
+                \item Walkers propose steps based on positions of \textit{other} walkers.
+                \item The group learns the shape of the posterior.
+                \item Much better at exploring correlations.
+            \end{itemize}
+        \end{block}
+        }
+        \only<6-9>{
+        \vspace{-1em}
+        \begin{block}{Advantages}
+            \begin{itemize}
+                \item Handles correlated parameters (e.g.\ roughness vs.\ dielectric constant).
+                \item Easy to parallelise.
+            \end{itemize}
+        \end{block}
+        \begin{block}{Limitation}
+            Can still get trapped if modes are very far apart.
+        \end{block}
+        }
+        \column{0.5\textwidth}
+        \vspace{-1.8em}
+        \begin{center}
+            \includegraphics<1>[width=\textwidth,page=1]{figures/himmelblau_emcee.pdf}%
+            \includegraphics<2>[width=\textwidth,page=2]{figures/himmelblau_emcee.pdf}%
+            \includegraphics<3>[width=\textwidth,page=3]{figures/himmelblau_emcee.pdf}%
+            \includegraphics<4>[width=\textwidth,page=4]{figures/himmelblau_emcee.pdf}%
+            \includegraphics<5>[width=\textwidth,page=5]{figures/himmelblau_emcee.pdf}%
+            \includegraphics<6>[width=\textwidth,page=6]{figures/himmelblau_emcee.pdf}%
+            \includegraphics<7>[width=\textwidth,page=7]{figures/himmelblau_emcee.pdf}%
+            \includegraphics<8>[width=\textwidth,page=8]{figures/himmelblau_emcee.pdf}%
+            \includegraphics<9>[width=\textwidth,page=9]{figures/himmelblau_emcee.pdf}%
+        \end{center}
+    \end{columns}
+\end{frame}
+
+% --- Appendix: Volume Estimation ---
+\begin{frame}
+    \frametitle{How Nested Sampling Estimates Volumes: The Counting Trick}
+    \begin{columns}[T]
+        \column{0.5\textwidth}
+        \begin{block}{Volume Contraction}
+            At each step, the volume contracts predictably:
+            \[V_{i+1} = V_i \times \frac{n_{\text{inside}}}{n_{\text{total}}}\]
+            indep.\ of dimensionality, geometry or topology
+        \end{block}
+
+        \begin{columns}[T]
+            \column{0.45\textwidth}
+            \begin{block}{Evidence}
+                \[\mathcal{Z} = \sum \mathcal{L}_i \Delta V_i\]
+            \end{block}
+
+            \column{0.45\textwidth}
+            \begin{block}{Posterior}
+                \[w_i = \mathcal{L}_i \times \Delta V_i\]
+            \end{block}
+        \end{columns}
+        \column{0.5\textwidth}
+        \vspace{-1.8em}
+        \begin{center}
+            \includegraphics<1>[width=\textwidth,page=1]{figures/himmelblau_ns_counting_trick.pdf}
+            \includegraphics<2>[width=\textwidth,page=2]{figures/himmelblau_ns_counting_trick.pdf}
+            \includegraphics<3>[width=\textwidth,page=3]{figures/himmelblau_ns_counting_trick.pdf}
+            \includegraphics<4>[width=\textwidth,page=4]{figures/himmelblau_ns_counting_trick.pdf}
+            \includegraphics<5>[width=\textwidth,page=5]{figures/himmelblau_ns_counting_trick.pdf}
+            \includegraphics<6>[width=\textwidth,page=6]{figures/himmelblau_ns_counting_trick.pdf}
+            \includegraphics<7>[width=\textwidth,page=7]{figures/himmelblau_ns_counting_trick.pdf}
+            \includegraphics<8>[width=\textwidth,page=8]{figures/himmelblau_ns_counting_trick.pdf}
+            \includegraphics<9>[width=\textwidth,page=9]{figures/himmelblau_ns_counting_trick.pdf}
+        \end{center}
+    \end{columns}
+\end{frame}
+
+% --- Appendix: HMC ---
+\begin{frame}
+    \frametitle{Hamiltonian Monte Carlo (HMC)}
+    \begin{columns}[T]
+        \column{0.5\textwidth}
+        \only<1-5>{
+        \begin{block}{How it Works}
+            Uses gradients to guide exploration.
+            \begin{enumerate}
+                \item Treat parameters as ``particles'' with position and momentum.
+                \item Use gradient of log-likelihood as ``force''.
+                \item Propose coherent moves along gradient directions.
+                \item Accept/reject using Metropolis criterion.
+            \end{enumerate}
+        \end{block}
+        }
+        \only<6-9>{
+        \begin{block}{Advantages \& Requirements}
+            \begin{itemize}
+                \item Much more efficient than random walk for smooth posteriors.
+                \item Requires gradients of the likelihood --- \texttt{jax.grad}!
+                \item Can traverse parameter space much faster.
+            \end{itemize}
+        \end{block}
+        \begin{alertblock}{Key Message}
+            HMC leverages gradient information. With JAX, you get gradients for free.
+        \end{alertblock}
+        }
+        \column{0.5\textwidth}
+        \vspace{-1.8em}
+        \begin{center}
+            \includegraphics<1>[width=\textwidth,page=1]{figures/himmelblau_hmc.pdf}%
+            \includegraphics<2>[width=\textwidth,page=2]{figures/himmelblau_hmc.pdf}%
+            \includegraphics<3>[width=\textwidth,page=3]{figures/himmelblau_hmc.pdf}%
+            \includegraphics<4>[width=\textwidth,page=4]{figures/himmelblau_hmc.pdf}%
+            \includegraphics<5>[width=\textwidth,page=5]{figures/himmelblau_hmc.pdf}%
+            \includegraphics<6>[width=\textwidth,page=6]{figures/himmelblau_hmc.pdf}%
+            \includegraphics<7>[width=\textwidth,page=7]{figures/himmelblau_hmc.pdf}%
+            \includegraphics<8>[width=\textwidth,page=8]{figures/himmelblau_hmc.pdf}%
+            \includegraphics<9>[width=\textwidth,page=9]{figures/himmelblau_hmc.pdf}%
+        \end{center}
+    \end{columns}
+\end{frame}
+
+% --- Appendix: Method Comparison ---
+\begin{frame}
+    \frametitle{Choosing Your Tool: A Summary}
+    \begin{center}
+        \begin{tabular}{|l|c|c|c|c|}
+            \hline
+            \textbf{Method} & \textbf{Speed} & \textbf{Uncertainties?} & \textbf{Multimodal?} & \textbf{Evidence?} \\
+            \hline
+            \textbf{Optimization} & \textcolor{green!50!black}{Very Fast} & \textcolor{red}{No} & \textcolor{red}{No} & \textcolor{red}{No} \\
+            \hline
+            \textbf{MCMC} & \textcolor{orange}{Medium} & \textcolor{green!50!black}{Yes} & \textcolor{orange}{Poorly} & \textcolor{red}{No} \\
+            \hline
+            \textbf{Ensemble} & \textcolor{orange}{Medium} & \textcolor{green!50!black}{Yes} & \textcolor{orange}{Okay} & \textcolor{red}{No} \\
+            \hline
+            \textbf{Nested Sampling} & \textcolor{red}{Slower} & \textcolor{green!50!black}{Yes} & \textcolor{green!50!black}{Excellent} & \textcolor{green!50!black}{Yes!} \\
+            \hline
+        \end{tabular}
+    \end{center}
+    \begin{block}{Practical Guidance}
+        \begin{itemize}
+            \item \textbf{Quick exploration?} $\rightarrow$ Use Optimisation.
+            \item \textbf{Simple, well-behaved posterior?} $\rightarrow$ Ensemble sampling or HMC.
+            \item \textbf{Complex, possibly multimodal?} $\rightarrow$ Nested Sampling.
+            \item \textbf{Need to compare models?} $\rightarrow$ You \textit{must} use Nested Sampling.
+        \end{itemize}
+    \end{block}
 \end{frame}
 
 \end{document}
