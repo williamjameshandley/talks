@@ -57,7 +57,172 @@
     \end{columns}
 \end{frame}
 
-% --- Slide 2: Bayes' Theorem ---
+% --- Slide 2: Motivating Example ---
+\begin{frame}
+    \frametitle{Motivating example}
+    \framesubtitle{Fitting lines to data}
+    \begin{columns}[T]
+        \column{0.55\textwidth}
+        \includegraphics[width=\textwidth]{figures/data_points.pdf}
+        \column{0.45\textwidth}
+        \begin{itemize}
+            \item We have noisy data $D$
+            \item We wish to fit a model $M$
+            \item Functional form $y=f_M(x;\theta)$
+            \item e.g:
+                \begin{align}
+                     f_\text{linear}(x;\theta)&=a x + b       \nonumber\\
+                     f_\text{quadratic}(x;\theta)&=a x^2 + b  \nonumber
+                \end{align}
+            \item Model parameters $\theta= (a,b)$
+        \end{itemize}
+    \end{columns}
+\end{frame}
+
+% --- Slide 3: Chi-squared ---
+\begin{frame}
+    \frametitle{$\chi^2$ best-fit}
+    \framesubtitle{Fitting lines to data}
+    \begin{columns}[T]
+        \column{0.55\textwidth}
+        \includegraphics[width=\textwidth]{figures/data_diff.pdf}
+        \column{0.45\textwidth}
+        \begin{itemize}
+            \item For each parameter set $\theta$:
+                \[
+                    \chi^2(\theta) = \sum_i \left|y_i - f(x_i;\theta)\right|^2
+                \]
+            \item Minimise $\chi^2$ wrt $\theta$
+        \end{itemize}
+    \end{columns}
+\end{frame}
+
+% --- Slide 4: Non-uniform errors ---
+\begin{frame}
+    \frametitle{$\chi^2$ with non-uniform data errors}
+    \framesubtitle{Fitting lines to data}
+    \begin{columns}[T]
+        \column{0.55\textwidth}
+        \includegraphics[width=\textwidth]{figures/data.pdf}
+        \column{0.45\textwidth}
+        \begin{itemize}
+            \item If data have non-uniform errors:
+                \[
+                    \chi^2(\theta) = \sum_i \frac{\left|y_i - f(x_i;\theta)\right|^2}{\sigma_i^2}
+                \]
+        \end{itemize}
+    \end{columns}
+\end{frame}
+
+% --- Slide 5: Problems with chi-squared ---
+\begin{frame}
+    \frametitle{Problems with $\chi^2$}
+    \framesubtitle{Fitting lines to data}
+    \begin{columns}[T]
+        \column{0.55\textwidth}
+        \includegraphics[width=\textwidth]{figures/data_diff_2.pdf}
+        \column{0.45\textwidth}
+        \begin{itemize}
+            \item How do we differentiate between models?
+            \item Why square the errors? --- could take absolute:
+                \[
+                    \psi^2(\theta) = \sum_i \frac{\left|y_i - f(x_i;\theta)\right|}{\sigma_i}
+                \]
+            \item Where does this even come from?
+        \end{itemize}
+    \end{columns}
+\end{frame}
+
+% --- Slide 6: From chi-squared to likelihood ---
+\begin{frame}
+    \frametitle{Probability distributions}
+    \framesubtitle{Fitting lines to data}
+    \begin{columns}[T]
+        \column{0.55\textwidth}
+        \includegraphics[width=\textwidth]{figures/data_diff_1.pdf}
+        \column{0.45\textwidth}
+        \begin{itemize}
+            \item The probability of observing a single datum
+                for a Gaussian error distribution
+                \[
+                    P(y_i | \theta,M) = \frac{1}{\sqrt{2\pi}\sigma_i}\exp\!\left({-\frac{|y_i-f(x_i;\theta)|^2}{2\sigma_i^2}}\right)
+                \]
+            \item The probability of observing the dataset:
+                \begin{align}
+                    P(D | \theta,M) &\propto e^{-\chi^2(\theta)/2}
+                    \nonumber
+                \end{align}
+        \end{itemize}
+    \end{columns}
+\end{frame}
+
+% --- Slide 7: Maximum likelihood ---
+\begin{frame}
+    \frametitle{Maximum likelihood}
+    \framesubtitle{Fitting lines to data}
+    \begin{columns}[T]
+        \column{0.45\textwidth}
+        \includegraphics[width=\textwidth]{figures/data_diff.pdf}
+        \column{0.55\textwidth}
+        \begin{itemize}
+            \item Minimising $\chi^2(\theta)$ is equivalent to maximising $P(D|\theta,M) \propto e^{-\chi^2(\theta)/2}$
+            \item ``Least squares'' $\equiv$ ``maximum likelihood'' \\(if data are Gaussian).
+            \item However, one can go much further than least squares\ldots
+        \end{itemize}
+    \end{columns}
+    \begin{alertblock}{}
+        You already do Bayesian inference --- you just call it something else. Now let's do it properly.
+    \end{alertblock}
+\end{frame}
+
+% --- Parameter Estimation ---
+\begin{frame}
+    \frametitle{Parameter estimation}
+    \framesubtitle{Fitting lines to data}
+    \begin{columns}[T]
+        \column{0.45\textwidth}
+        \includegraphics[width=\textwidth]{figures/parameters.pdf}
+        \column{0.55\textwidth}
+        \begin{itemize}
+            \item We may use $P(\theta|D,M)$ to inspect whether a model looks reasonable
+        \end{itemize}
+        \includegraphics[width=\textwidth]{figures/data.pdf}
+    \end{columns}
+\end{frame}
+
+% --- Predictive Posterior ---
+\begin{frame}
+    \frametitle{Predictive posterior}
+    \framesubtitle{Fitting lines to data}
+    \begin{columns}[T]
+        \column{0.55\textwidth}
+        \includegraphics[width=\textwidth]{figures/fgivenx.pdf}
+        \column{0.45\textwidth}
+        \begin{itemize}
+            \item More useful to plot $P(y|x)$
+            \item Not just ``best fit $\pm$ error bar''
+            \item The full probability distribution over predictions
+        \end{itemize}
+    \end{columns}
+\end{frame}
+
+% --- Model Comparison ---
+\begin{frame}
+    \frametitle{Model comparison}
+    \framesubtitle{Fitting lines to data}
+    \begin{columns}[T]
+        \column{0.55\textwidth}
+        \includegraphics[width=\textwidth]{figures/evidences_lin.pdf}
+        \column{0.45\textwidth}
+        \begin{itemize}
+            \item We may use $P(M|D)$ to determine whether a model is reasonable
+            \item Evidences represent betting odds of a set of models
+            \item Automatic Occam's razor: simpler models preferred unless data demand complexity
+        \end{itemize}
+    \end{columns}
+\end{frame}
+
+% --- Bayes' Theorem ---
 \begin{frame}
     \frametitle{The Language of Inference}
     \framesubtitle{Translating ``Inverse Problems'' into mathematics}
@@ -268,6 +433,56 @@
             \includegraphics<8>[width=\textwidth,page=8]{figures/himmelblau_ns.pdf}%
         \end{center}
     \end{columns}
+\end{frame}
+
+% --- Slide: LIGO Example ---
+\begin{frame}
+    \frametitle{A real example: Gravitational Waves}
+    \framesubtitle{From line fitting to 15-dimensional inference}
+    \centering\includegraphics[width=0.6\textwidth]{figures/ligo_schematic.png}
+    \begin{itemize}
+        \item Binary merger signal depends on: masses $m_1, m_2$, spins, distance, sky location, inclination\ldots
+        \item 15 parameters --- the same inverse problem, just harder
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Posterior: masses}
+    \framesubtitle{Example: LIGO}
+    \begin{columns}[T]
+        \column{0.55\textwidth}
+        \centering\includegraphics[height=0.7\textheight]{figures/ligo_m1_m2.pdf}
+        \column{0.45\textwidth}
+        \begin{itemize}
+            \item The ``banana'' shape: a \keyterm{degeneracy}
+            \item A single best-fit point misses this entirely
+            \item The full posterior captures the correlation between parameters
+        \end{itemize}
+    \end{columns}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Posterior: sky location}
+    \framesubtitle{Example: LIGO}
+    \begin{columns}[T]
+        \column{0.55\textwidth}
+        \centering\includegraphics[height=0.7\textheight]{figures/ligo_lambert-skymap.pdf}
+        \column{0.45\textwidth}
+        \begin{itemize}
+            \item The posterior tells you \textit{where} something is, with uncertainties
+            \item Directly analogous to satellite positioning
+            \item Error bars on the sky, not just a point
+        \end{itemize}
+    \end{columns}
+\end{frame}
+
+\begin{frame}
+    \frametitle{The full 15D posterior}
+    \framesubtitle{Example: LIGO}
+    \centering\includegraphics[width=0.4\textwidth]{figures/ligo_full.pdf}
+    \begin{block}{}
+        The same framework applies to satellite orbit determination: the posterior over orbital elements tells you where a satellite is, with rigorous uncertainties and correlations.
+    \end{block}
 \end{frame}
 
 % =========================================================================
