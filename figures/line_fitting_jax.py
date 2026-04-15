@@ -55,6 +55,10 @@ def plot_function(ax, f_func, **kwargs):
 def label_axes(ax):
     ax.set_xlabel(r'$x$')
     ax.set_ylabel(r'$y$')
+    ax.set_xlim(-0.05, 1.05)
+    ax.set_ylim(-0.2, 2.5)
+    ax.set_xticks([0, 0.5, 1])
+    ax.set_yticks([0, 1, 2])
 
 def plot_diff(ax, f_func, n_pts=None):
     for i, (xi, yi) in enumerate(zip(x, y)):
@@ -88,6 +92,14 @@ plot_diff(ax, lambda x: 0.9 + x**2, n_pts=1)
 label_axes(ax)
 fig.tight_layout()
 fig.savefig('data_diff_1.pdf')
+plt.close()
+
+# data_diff_2.pdf
+fig, ax = plt.subplots(figsize=figsize)
+plot_diff(ax, lambda x: 0.9 + x**2)
+label_axes(ax)
+fig.tight_layout()
+fig.savefig('data_diff_2.pdf')
 plt.close()
 
 # data.pdf
