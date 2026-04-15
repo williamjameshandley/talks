@@ -487,10 +487,161 @@
 \end{frame}
 
 % =========================================================================
-% PART 2: AI-AUGMENTED SCIENTIFIC WORKFLOWS (~20 min)
+% PART 2: GPU-ACCELERATED NESTED SAMPLING (~20 min)
 % =========================================================================
 
-% --- Slide 8: Three ways AI meets science ---
+% --- JAX's Two Capabilities ---
+\begin{frame}
+    \frametitle{JAX: Two Independent Capabilities}
+    \framesubtitle{A common misconception in scientific computing}
+    \begin{columns}[T]
+        \column{0.48\textwidth}
+        \begin{block}{Capability 1: Free Gradients}
+            \begin{itemize}
+                \item Automatic differentiation
+                \item Exact derivatives of any Python function
+                \item Enables gradient-based optimisation and HMC sampling
+                \item \texttt{jax.grad(f)(x)}
+            \end{itemize}
+        \end{block}
+        \column{0.48\textwidth}
+        \begin{block}{Capability 2: GPU Parallelisation}
+            \begin{itemize}
+                \item Just-in-time compilation to GPU/TPU
+                \item Vectorise over satellites, time steps, or both
+                \item $100$--$1000\times$ speedups over CPU
+                \item \texttt{jax.jit(jax.vmap(f))(xs)}
+            \end{itemize}
+        \end{block}
+    \end{columns}
+    \vspace{1em}
+    \begin{block}{Key Insight: Often Confused}
+        \begin{center}
+            \textbf{These are completely independent.}\\
+            You can use gradients on CPU.\\
+            You can GPU-parallelise without gradients.\\
+            JAX is not just for neural networks --- it's a compiler for fast physics simulations.
+        \end{center}
+    \end{block}
+\end{frame}
+
+% --- BlackJAX ---
+\begin{frame}
+    \frametitle{BlackJAX: GPU-Native Sampling}
+    \framesubtitle{A unified framework for GPU-accelerated inference}
+    \student{david_yallup.jpg}{David Yallup}{Postdoc}
+    \begin{columns}[T]
+        \column{0.48\textwidth}
+        \begin{block}{The Problem}
+            \begin{itemize}
+                \item Fragmented ecosystem: MultiNest, PolyChord, dynesty, UltraNest, nautilus...
+                \item All CPU-bound, mostly legacy code
+            \end{itemize}
+        \end{block}
+        \begin{block}{The BlackJAX Solution}
+            \begin{itemize}
+                \item Community JAX codebase
+                \item Fair benchmarking between algorithms
+                \item Composable with the JAX ecosystem
+                \item GPU-native nested slice sampling
+            \end{itemize}
+        \end{block}
+        \column{0.48\textwidth}
+        \includegraphics[width=\textwidth]{figures/blackjax_screenshot.png}
+        \vspace{0.5em}
+        \begin{exampleblock}{Performance}
+            \begin{itemize}
+                \item CMB cosmology: $300\times$ speedup
+                \item Gravitational waves: $20$--$40\times$
+                \item Cosmic shear: $>1000\times$ vs CPU
+            \end{itemize}
+        \end{exampleblock}
+    \end{columns}
+\end{frame}
+
+% --- GW150914 Performance ---
+\begin{frame}
+    \frametitle{GW150914 Binary Black Hole Merger}
+    \student{metha_prathaban.jpg}{Metha Prathaban}{PhD}
+    \begin{columns}
+        \column{0.5\textwidth}
+        \begin{block}{Performance on Real Data}
+            \begin{itemize}
+                \item \textbf{BlackJAX GPU-NS}: 207 seconds (1 GPU)
+                \item \textbf{FlowMC (GPU MCMC)}: 742 seconds (1 GPU)
+                \item \textbf{Bilby/Dynesty}: ~2 hours (400 CPUs)
+            \end{itemize}
+            \begin{center}
+                \textbf{Orders of magnitude speedup over CPU}
+            \end{center}
+        \end{block}
+        \begin{block}{Key Achievement}
+            \begin{itemize}
+                \item Nested sampling now competitive on GPUs
+                \item Direct evidence computation included
+            \end{itemize}
+        \end{block}
+        \column{0.5\textwidth}
+        \includegraphics[width=\textwidth]{figures/gw_corner.pdf}
+    \end{columns}
+\end{frame}
+
+% --- CMB & Cosmic Shear ---
+\begin{frame}
+    \frametitle{CMB \& Cosmic Shear Analysis}
+    \student{toby_lovick.jpg}{Toby Lovick}{PhD}
+    \begin{columns}
+        \column{0.55\textwidth}
+        \begin{block}{CMB Power Spectrum (6 params)}
+            \begin{itemize}
+                \item \textbf{PolyChord (CPU)}: ~1 hour
+                \item \textbf{BlackJAX (GPU)}: 12 seconds
+            \end{itemize}
+            \begin{center}
+                \textbf{300$\times$ speedup}
+            \end{center}
+        \end{block}
+        \begin{block}{Cosmic Shear (37 params)}
+            \begin{itemize}
+                \item \textbf{PolyChord (48 CPUs)}: ~8 months
+                \item \textbf{NUTS (12 A100 GPUs)}: 2 days
+                \item \textbf{BlackJAX (1 A100 GPU)}: 4.5 hours
+            \end{itemize}
+            \begin{center}
+                \textbf{$>$1000$\times$ speedup vs CPU} \arxiv{2405.12965}
+            \end{center}
+        \end{block}
+        \column{0.45\textwidth}
+        \includegraphics[width=\textwidth]{figures/wl_corner.pdf}
+    \end{columns}
+\end{frame}
+
+% --- jaxsgp4 ---
+\begin{frame}
+    \frametitle{Satellites [GLITTER]}
+    \framesubtitle{JAX-SGP4: GPU-accelerated orbit propagation}
+    \student{charlotte_priestley.jpg}{Charlotte Priestley}{PhD Student}
+    \begin{columns}[T]
+        \column{0.38\textwidth}
+        \includegraphics[width=0.9\textwidth,height=0.6\textheight,keepaspectratio]{figures/charlotte-starlink-trajectories.png}
+        \column{0.58\textwidth}
+        \includegraphics[width=0.9\textwidth,height=0.6\textheight,keepaspectratio]{figures/charlotte-heatmap.pdf}
+    \end{columns}
+    \begin{center}
+        \textbf{JAX-SGP4}: Propagating 9,550 Starlink satellites in 0.5\,ms. \alert{1550$\times$ speedup} on A100.
+    \end{center}
+    \vspace{-0.5em}
+    \begin{block}{}
+        Differentiable SGP4 in pure JAX $\Rightarrow$ \texttt{jax.grad} of satellite position w.r.t.\ orbital elements.\\
+        This is your forward model for Bayesian orbit determination. \arxiv{2603.27830}
+    \end{block}
+\end{frame}
+
+% =========================================================================
+% PART 3: AI-AUGMENTED SCIENTIFIC WORKFLOWS (~20 min)
+% =========================================================================
+
+% --- Three ways AI meets science ---
 \begin{frame}
     \frametitle{Three ways AI meets science}
     \framesubtitle{Only one matches what research actually is}
@@ -527,7 +678,7 @@
     \end{center}
 \end{frame}
 
-% --- Slide 9: The 80/20 Rule ---
+% --- The 80/20 Rule ---
 \begin{frame}
     \frametitle{The 80/20 Rule of Scientific Work}
     \begin{columns}[T]
@@ -552,7 +703,7 @@
     \end{alertblock}
 \end{frame}
 
-% --- Slide 10: Context Engineering ---
+% --- Context Engineering ---
 \begin{frame}
     \frametitle{The mechanism: context engineering}
     \framesubtitle{From ``prompting'' to ``orchestration''}
@@ -581,7 +732,7 @@
     \end{center}
 \end{frame}
 
-% --- Slide 11: I built this with AI ---
+% --- I built this with AI ---
 \begin{frame}
     \frametitle{I built this workshop with AI}
     \vspace{-0.5em}
@@ -617,101 +768,7 @@
     \end{columns}
 \end{frame}
 
-% =========================================================================
-% PART 3: NESTED SAMPLING & BLACKJAX (~20 min)
-% =========================================================================
-
-% --- Slide 12: JAX's Two Capabilities ---
-\begin{frame}
-    \frametitle{JAX: Two Independent Capabilities}
-    \framesubtitle{A common misconception in scientific computing}
-    \begin{columns}[T]
-        \column{0.48\textwidth}
-        \begin{block}{Capability 1: Free Gradients}
-            \begin{itemize}
-                \item Automatic differentiation
-                \item Exact derivatives of any Python function
-                \item Enables gradient-based optimisation and HMC sampling
-                \item \texttt{jax.grad(f)(x)}
-            \end{itemize}
-        \end{block}
-        \column{0.48\textwidth}
-        \begin{block}{Capability 2: GPU Parallelisation}
-            \begin{itemize}
-                \item Just-in-time compilation to GPU/TPU
-                \item Vectorise over satellites, time steps, or both
-                \item $100$--$1000\times$ speedups over CPU
-                \item \texttt{jax.jit(jax.vmap(f))(xs)}
-            \end{itemize}
-        \end{block}
-    \end{columns}
-    \vspace{1em}
-    \begin{block}{Key Insight: Often Confused}
-        \begin{center}
-            \textbf{These are completely independent.}\\
-            You can use gradients on CPU.\\
-            You can GPU-parallelise without gradients.\\
-            JAX is not just for neural networks --- it's a compiler for fast physics simulations.
-        \end{center}
-    \end{block}
-\end{frame}
-
-% --- Slide 13: BlackJAX ---
-\begin{frame}
-    \frametitle{BlackJAX: GPU-Native Sampling}
-    \framesubtitle{A unified framework for GPU-accelerated inference}
-    \student{david_yallup.jpg}{David Yallup}{Postdoc}
-    \begin{columns}[T]
-        \column{0.48\textwidth}
-        \begin{block}{The Problem}
-            \begin{itemize}
-                \item Fragmented ecosystem: MultiNest, PolyChord, dynesty, UltraNest, nautilus...
-                \item All CPU-bound, mostly legacy code
-            \end{itemize}
-        \end{block}
-        \begin{block}{The BlackJAX Solution}
-            \begin{itemize}
-                \item Community JAX codebase
-                \item Fair benchmarking between algorithms
-                \item Composable with the JAX ecosystem
-                \item GPU-native nested slice sampling
-            \end{itemize}
-        \end{block}
-        \column{0.48\textwidth}
-        \includegraphics[width=\textwidth]{figures/blackjax_screenshot.png}
-        \vspace{0.5em}
-        \begin{exampleblock}{Performance}
-            \begin{itemize}
-                \item CMB cosmology: $300\times$ speedup
-                \item Gravitational waves: $20$--$40\times$
-                \item Cosmic shear: $>1000\times$ vs CPU
-            \end{itemize}
-        \end{exampleblock}
-    \end{columns}
-\end{frame}
-
-% --- Slide 14: jaxsgp4 ---
-\begin{frame}
-    \frametitle{Satellites [GLITTER]}
-    \framesubtitle{JAX-SGP4: GPU-accelerated orbit propagation}
-    \student{charlotte_priestley.jpg}{Charlotte Priestley}{PhD Student}
-    \begin{columns}[T]
-        \column{0.38\textwidth}
-        \includegraphics[width=0.9\textwidth,height=0.6\textheight,keepaspectratio]{figures/charlotte-starlink-trajectories.png}
-        \column{0.58\textwidth}
-        \includegraphics[width=0.9\textwidth,height=0.6\textheight,keepaspectratio]{figures/charlotte-heatmap.pdf}
-    \end{columns}
-    \begin{center}
-        \textbf{JAX-SGP4}: Propagating 9,550 Starlink satellites in 0.5\,ms. \alert{1550$\times$ speedup} on A100.
-    \end{center}
-    \vspace{-0.5em}
-    \begin{block}{}
-        Differentiable SGP4 in pure JAX $\Rightarrow$ \texttt{jax.grad} of satellite position w.r.t.\ orbital elements.\\
-        This is your forward model for Bayesian orbit determination. \arxiv{2603.27830}
-    \end{block}
-\end{frame}
-
-% --- Slide 15: Workshop Goals ---
+% --- Workshop Goals ---
 \begin{frame}
     \frametitle{Workshop: Bayesian Orbit Determination}
     \framesubtitle{Hands-on with BlackJAX and jaxsgp4}
