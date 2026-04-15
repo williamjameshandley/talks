@@ -11,6 +11,8 @@ is missing. Subsequent runs only need numpy/matplotlib/anesthetic for plotting.
 import os
 import pickle
 import numpy as np
+import matplotlib
+matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 
 cache_file = 'line_fitting_cache.pkl'
@@ -324,13 +326,14 @@ for root, ax in zip(key_models, axes.ravel()):
     # Plot data
     plot_points(ax)
 
-    # Plot posterior predictive draws
-    for _, row in posterior_samples.iterrows():
-        coeffs = [0.0] * 5
-        for name, idx in zip(pnames, pidx):
-            coeffs[idx] = float(row[name])
-        y_pred = [poly_model(xi, coeffs) for xi in x_plot]
-        ax.plot(x_plot, y_pred, 'C0-', alpha=0.02, linewidth=0.5)
+    # Vectorised predictive posterior
+    # Build (n_samples, n_x) prediction matrix
+    coeffs_array = np.zeros((len(posterior_samples), 5))
+    for name, idx in zip(pnames, pidx):
+        coeffs_array[:, idx] = posterior_samples[name].values
+    x_powers = np.array([x_plot**i for i in range(5)])  # (5, n_x)
+    y_pred = coeffs_array @ x_powers  # (n_samples, n_x)
+    ax.plot(x_plot, y_pred.T, 'C0-', alpha=0.02, linewidth=0.5)
 
     ax.set_yticks([])
     ax.set_xticks([])
