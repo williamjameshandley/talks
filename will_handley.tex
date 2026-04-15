@@ -753,36 +753,34 @@
     \end{block}
 \end{frame}
 
-% --- Context Engineering ---
+% --- The agentic tool landscape ---
 \begin{frame}
-    \frametitle{The mechanism: context engineering}
-    \framesubtitle{From short prompts to project-level context}
-    \vspace{-0.5em}
+    \frametitle{The agentic tool landscape (2025--2026)}
     \begin{columns}[T]
         \column{0.48\textwidth}
-        \begin{block}{2025: Prompt engineering}
+        \begin{block}{Terminal agents}
             \begin{itemize}
-                \item \textit{``Write me a Python loop.''}
-                \item Limited by user memory and syntax knowledge.
-                \item Useful for snippets, bad for systems.
+                \item \textbf{Claude Code} (Anthropic) --- terminal-native, reads entire codebases, edits files, runs tests
+                \item \textbf{Gemini CLI} (Google) --- open source, MCP integration
+                \item \textbf{OpenClaw} --- open source, model-agnostic
             \end{itemize}
         \end{block}
         \column{0.48\textwidth}
-        \begin{block}{2026: Context engineering}
+        \begin{block}{Autonomous agents}
             \begin{itemize}
-                \item \textit{``Here is the SGP4 spec. Implement it in JAX.''}
-                \item LLMs acting on the \textbf{full context} of the project.
-                \item The bottleneck is no longer generating code, but \keyterm{evaluating} it.
+                \item \textbf{Codex} (OpenAI) --- cloud-hosted, resolves issues asynchronously
+                \item \textbf{Antigravity} (Google) --- orchestrates fleets of sub-agents
+                \item \textbf{Devin} (Cognition) --- end-to-end autonomous engineer
             \end{itemize}
         \end{block}
     \end{columns}
-    \vfill
-    \begin{center}
-        \includegraphics[width=0.8\textwidth]{figures/context-engineering-v2.png}
-    \end{center}
+    \vspace{0.5em}
+    \begin{block}{}
+        The shift from 2024 to 2026: autocomplete $\rightarrow$ IDE copilots $\rightarrow$ autonomous agents operating on full project context.
+    \end{block}
 \end{frame}
 
-% --- I built this with AI ---
+% --- How I prepared this workshop ---
 \begin{frame}
     \frametitle{How I prepared this workshop}
     \vspace{-0.5em}
@@ -790,9 +788,10 @@
         \column{0.55\textwidth}
         \begin{block}{What I used}
             \begin{itemize}
-                \item \textbf{Claude Code}: Assembled these slides from my previous talks
-                \item \textbf{Gemini}: Analysed 6 talks to recommend the best slides
-                \item \textbf{BlackJAX workshop notebook}: Built by AI from Charlotte's \texttt{jaxsgp4} code
+                \item \textbf{Claude Code}: Assembled slides from previous talks
+                \item \textbf{Gemini}: Analysed 81 talks to recommend slides
+                \item \textbf{Otter.ai}: Lunchtime conversation transcript fed into assembly
+                \item \textbf{Workshop notebook}: Built by AI from Charlotte's \texttt{jaxsgp4} code
             \end{itemize}
         \end{block}
         \begin{block}{What I didn't do}
@@ -837,12 +836,15 @@
             Use AI for boilerplate and debugging; focus on the inference setup.
         \end{block}
         \column{0.5\textwidth}
+        \begin{exampleblock}{Workshop notebook}
+            \github{handley-lab/workshop-glitter}\\[0.5em]
+            Open the link above and click the\\``Open in Colab'' badge to start.
+        \end{exampleblock}
         \begin{block}{Resources}
             \begin{itemize}
                 \item jaxsgp4: \github{cmpriestley/jaxsgp4}
                 \item BlackJAX: \github{handley-lab/blackjax}
                 \item Nested Sampling Book:\\ \tthref{handley-lab.co.uk/nested-sampling-book}
-                \item Workshop materials:\\ \github{handley-lab/workshop-glitter}
             \end{itemize}
         \end{block}
     \end{columns}
@@ -852,6 +854,13 @@
 \begin{frame}
     \frametitle{Conclusions}
     \framesubtitle{\tthref{handley-lab.co.uk}}
+    \begin{itemize}
+        \item Bayesian inference turns inverse problems into well-posed probabilistic statements
+        \item Nested sampling gives posteriors \textit{and} evidences for model comparison
+        \item GPU acceleration makes these methods practical at scale ($100$--$1000\times$)
+        \item Agentic AI tools are changing how we build and deploy scientific software
+        \item \textbf{Workshop}: \github{handley-lab/workshop-glitter}
+    \end{itemize}
     \tikz[overlay,remember picture]
         \node[anchor=north east] (A) at ($(current page.north east)+(0,0)$) {
         \includegraphics[width=0.075\textheight]{people/adam_ormondroyd.jpg}%
