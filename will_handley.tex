@@ -480,10 +480,19 @@
 \begin{frame}
     \frametitle{The full 15D posterior}
     \framesubtitle{Example: LIGO}
-    \centering\includegraphics[width=0.4\textwidth]{figures/ligo_full.pdf}
-    \begin{block}{}
-        The same framework applies to satellite orbit determination: the posterior over orbital elements tells you where a satellite is, with rigorous uncertainties and correlations.
-    \end{block}
+    \begin{columns}[T]
+        \column{0.45\textwidth}
+        \centering\includegraphics[width=\textwidth]{figures/bilby_blackjax_comparison_4s.pdf}
+        \column{0.55\textwidth}
+        \begin{itemize}
+            \item 15 parameters: masses, spins, distance, sky location, inclination\ldots
+            \item Every pair of parameters can interact --- the off-diagonal panels reveal \keyterm{degeneracies} and \keyterm{correlations}
+            \item A single best-fit point captures none of this structure
+        \end{itemize}
+        \begin{block}{}
+            The same framework applies to satellite orbit determination: posteriors over orbital elements with rigorous uncertainties and correlations. \arxiv{2509.04336}
+        \end{block}
+    \end{columns}
 \end{frame}
 
 % --- The Computational Bottleneck ---
@@ -491,7 +500,7 @@
     \frametitle{The computational bottleneck}
     \framesubtitle{Why we need GPUs}
     \begin{columns}[T]
-        \column{0.5\textwidth}
+        \column{0.49\textwidth}
         \begin{block}{The problem}
             \begin{itemize}
                 \item That 15D LIGO posterior took \textbf{$\sim$2 hours on 400 CPUs}
@@ -499,7 +508,7 @@
                 \item Nested sampling needs $\sim$1000 live points, each requiring many likelihood evaluations
             \end{itemize}
         \end{block}
-        \column{0.5\textwidth}
+        \column{0.49\textwidth}
         \begin{block}{For GNSS-R}
             \begin{itemize}
                 \item Orbit determination: 6--15 parameters per satellite
