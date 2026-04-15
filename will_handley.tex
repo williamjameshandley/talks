@@ -24,7 +24,7 @@
 % --- Slide 1: The Inverse Problem ---
 \begin{frame}
     \frametitle{The Inverse Problem}
-    \framesubtitle{A familiar problem in a new language}
+    \framesubtitle{Forward and inverse problems}
     \begin{columns}[T]
         \column{0.49\textwidth}
         \begin{block}{The Forward Model}
@@ -32,14 +32,14 @@
             \begin{itemize}
                 \item Orbital elements $\longrightarrow$ satellite positions
                 \item Soil properties $\longrightarrow$ reflected signal
-                \item You know how to do this.
+                \item The forward problem is usually straightforward
             \end{itemize}
         \end{block}
         \begin{block}{The Inverse Problem}
             Observables $D$ $\longrightarrow$ Parameters $\theta$
             \begin{itemize}
-                \item This is what you \textit{want} to do.
-                \item But it's \keyterm{ill-posed}: many $\theta$ can produce the same $D$.
+                \item Infer parameters from observables
+                \item \keyterm{Ill-posed}: many $\theta$ can produce the same $D$
             \end{itemize}
         \end{block}
         \column{0.49\textwidth}
@@ -51,9 +51,9 @@
                 \item \keyterm{Non-linear}: Small changes in $\theta$ can cause large changes in $D$.
             \end{itemize}
         \end{block}
-        \begin{alertblock}{This Talk}
-            Bayesian inference is a principled framework for solving inverse problems with rigorous uncertainty quantification.
-        \end{alertblock}
+        \begin{block}{This talk}
+            Bayesian inference provides parameter constraints, uncertainties, and model comparison.
+        \end{block}
     \end{columns}
 \end{frame}
 
@@ -171,9 +171,9 @@
         \column{0.5\textwidth}
         \includegraphics[width=\textwidth]{figures/data_diff.pdf}
     \end{columns}
-    \begin{alertblock}{}
-        You already do Bayesian inference --- you just call it something else. Now let's do it properly.
-    \end{alertblock}
+    \begin{block}{}
+        Least squares is a special case of likelihood-based inference. This sits naturally within a Bayesian framework.
+    \end{block}
 \end{frame}
 
 % --- Bayes' Theorem ---
@@ -193,7 +193,7 @@
 \[\underbrace{\C[0]{\mathcal{P}(\theta|D)}}_{\C[0]{\text{Posterior}}} = \frac{\overbrace{\C[2]{\mathcal{L}(D|\theta)}}^{\C[2]{\text{Likelihood}}} \times \overbrace{\C[1]{\pi(\theta)}}^{\C[1]{\text{Prior}}}}{\underbrace{\C[3]{\mathcal{Z}(D)}}_{\C[3]{\text{Evidence}}}}\]
         \column{0.33\textwidth}
             \begin{block}{\C[2]{Likelihood}\hfill $\C[2]{\mathcal{L}(D|\theta)}$}
-                Your forward model + noise model. You already have this: $\C[2]{\mathcal{L}} \propto e^{-\chi^2/2}$.
+                Forward model + noise model. For Gaussian errors, $\C[2]{\mathcal{L}} \propto e^{-\chi^2/2}$.
             \end{block}
         \vspace{2em}
         \begin{block}{\C[0]{Posterior}\hfill $\C[0]{\mathcal{P}(\theta|D)}$}
@@ -278,8 +278,8 @@
                 \item Can easily get stuck in a \keyterm{local minimum}.
             \end{itemize}
         \end{block}
-        \begin{alertblock}{Key Message}
-            Optimization is fast but gives an incomplete and potentially misleading picture. Science needs error bars.
+        \begin{alertblock}{}
+            Optimization is fast, but does not characterise posterior uncertainty.
         \end{alertblock}
         }
         \column{0.5\textwidth}
@@ -344,8 +344,8 @@
                 \item \textcolor{red}{Limitation:} Slow to explore correlated parameters.
             \end{itemize}
         \end{block}
-        \begin{alertblock}{Key Message}
-            MCMC is foundational, but its random walk can be inefficient in the complex parameter spaces of remote sensing.
+        \begin{alertblock}{}
+            MCMC explores the posterior, but random-walk proposals can be inefficient in complex parameter spaces.
         \end{alertblock}
         }
         \column{0.5\textwidth}
@@ -399,8 +399,8 @@
     \begin{columns}[T]
         \column{0.5\textwidth}
         \only<1-4>{
-        \begin{block}{A Radically Different Approach}
-            Instead of random walking, attack the problem from the outside-in.
+        \begin{block}{An alternative approach}
+            Instead of a random walk, nested sampling proceeds from the outside in.
             \begin{enumerate}
                 \item Start with ``live points'' scattered across the entire \keyterm{prior}.
                 \item Find the point with the \textit{worst} likelihood and discard it.
@@ -417,8 +417,8 @@
                 \item Gives posteriors \textit{and} evidence simultaneously.
             \end{itemize}
         \end{block}
-        \begin{alertblock}{Key Message}
-            Nested sampling excels at complex, multimodal inverse problems and is the method of choice for Bayesian model comparison.
+        \begin{alertblock}{}
+            Nested sampling is well suited to multimodal posteriors and directly computes the evidence.
         \end{alertblock}
         }
         \column{0.5\textwidth}
@@ -443,7 +443,7 @@
     \centering\includegraphics[width=0.6\textwidth]{figures/ligo_schematic.png}
     \begin{itemize}
         \item Binary merger signal depends on: masses $m_1, m_2$, spins, distance, sky location, inclination\ldots
-        \item 15 parameters --- the same inverse problem, just harder
+        \item 15 parameters --- the same inverse problem in a higher-dimensional setting
     \end{itemize}
 \end{frame}
 
@@ -505,14 +505,38 @@
                 \item Orbit determination: 6--15 parameters per satellite
                 \item Constellation tracking: $\sim$10,000 satellites
                 \item Real-time requirements
-                \item We need a paradigm shift
+                \item This requires hardware acceleration
             \end{itemize}
         \end{block}
     \end{columns}
     \vspace{1em}
     \begin{alertblock}{}
-        The mathematics works. The algorithms work. But we need \textbf{hardware acceleration} to make them practical.
+        The limiting factor is computation. Practical deployment requires GPU acceleration.
     \end{alertblock}
+\end{frame}
+
+% --- Two Revolutions ---
+\begin{frame}
+    \frametitle{Two revolutions}
+    \framesubtitle{Distinct shifts, often conflated}
+    \begin{columns}[T]
+        \column{0.48\textwidth}
+        \begin{block}{1. \C[0]{GPUs for analysis}}
+            \begin{itemize}
+                \item GPU hardware accelerates \textit{classical} statistical methods
+                \item $100$--$1000\times$ speedups over CPU
+                \item The method transfers across domains
+            \end{itemize}
+        \end{block}
+        \column{0.48\textwidth}
+        \begin{exampleblock}{2. LLMs for development}
+            \begin{itemize}
+                \item How we built this in months, not years
+                \item Verification, legacy code, and new workflows
+                \item Expanding the scope of what a small group can tackle
+            \end{itemize}
+        \end{exampleblock}
+    \end{columns}
 \end{frame}
 
 % =========================================================================
@@ -522,7 +546,7 @@
 % --- JAX's Two Capabilities ---
 \begin{frame}
     \frametitle{JAX: Two Independent Capabilities}
-    \framesubtitle{A common misconception in scientific computing}
+    \framesubtitle{Two separate features}
     \begin{columns}[T]
         \column{0.48\textwidth}
         \begin{block}{Capability 1: Free Gradients}
@@ -544,12 +568,10 @@
         \end{block}
     \end{columns}
     \vspace{1em}
-    \begin{block}{Key Insight: Often Confused}
+    \begin{block}{}
         \begin{center}
-            \textbf{These are completely independent.}\\
-            You can use gradients on CPU.\\
-            You can GPU-parallelise without gradients.\\
-            JAX is not just for neural networks --- it's a compiler for fast physics simulations.
+            Automatic differentiation and GPU compilation are independent capabilities.\\
+            Either can be used without the other.
         \end{center}
     \end{block}
 \end{frame}
@@ -557,7 +579,7 @@
 % --- BlackJAX ---
 \begin{frame}
     \frametitle{BlackJAX: GPU-Native Sampling}
-    \framesubtitle{A unified framework for GPU-accelerated inference}
+    \framesubtitle{Sampling in the JAX ecosystem}
     \student{david_yallup.jpg}{David Yallup}{Postdoc}
     \begin{columns}[T]
         \column{0.48\textwidth}
@@ -567,7 +589,7 @@
                 \item All CPU-bound, mostly legacy code
             \end{itemize}
         \end{block}
-        \begin{block}{The BlackJAX Solution}
+        \begin{block}{BlackJAX}
             \begin{itemize}
                 \item Community JAX codebase
                 \item Fair benchmarking between algorithms
@@ -604,7 +626,7 @@
                 \textbf{Orders of magnitude speedup over CPU}
             \end{center}
         \end{block}
-        \begin{block}{Key Achievement}
+        \begin{block}{Result}
             \begin{itemize}
                 \item Nested sampling now competitive on GPUs
                 \item Direct evidence computation included
@@ -661,8 +683,7 @@
     \end{center}
     \vspace{-0.5em}
     \begin{block}{}
-        Differentiable SGP4 in pure JAX $\Rightarrow$ \texttt{jax.grad} of satellite position w.r.t.\ orbital elements.\\
-        This is your forward model for Bayesian orbit determination. \arxiv{2603.27830}
+        Differentiable SGP4 in pure JAX $\Rightarrow$ \texttt{jax.grad} of satellite position w.r.t.\ orbital elements. \arxiv{2603.27830}
     \end{block}
 \end{frame}
 
@@ -673,7 +694,7 @@
 % --- Three ways AI meets science ---
 \begin{frame}
     \frametitle{Three ways AI meets science}
-    \framesubtitle{Only one matches what research actually is}
+    \framesubtitle{Three uses of AI in scientific work}
     \vspace{-0.5em}
     \begin{columns}[T]
         \column{0.31\textwidth}
@@ -681,7 +702,7 @@
             \begin{itemize}
                 \item ``Train a model on all the data.''
                 \item Expensive, opaque, unclear payoff.
-                \item Science is about \textit{compression}, not prediction.
+                \item Scientific models aim at explanation, not only prediction.
             \end{itemize}
         \end{block}
         \column{0.31\textwidth}
@@ -712,8 +733,8 @@
     \frametitle{The 80/20 Rule of Scientific Work}
     \begin{columns}[T]
         \column{0.49\textwidth}
-        \begin{block}{The Real AI Revolution: LLMs}
-            The biggest impact of AI is not in analysing data, but in helping us write the code to do it.
+        \begin{block}{LLMs in practice}
+            A major near-term use of LLMs is in writing and translating scientific code.
             \begin{itemize}
                 \item \keyterm{Automated code translation}: LLMs help port legacy codes to modern, GPU-friendly frameworks like JAX.
             \end{itemize}
@@ -724,18 +745,18 @@
                 \item \textbf{80\% ``boring'' tasks}: Writing code, debugging, formatting data, drafting papers...
                 \item \textbf{20\% ``hard thinking''}: The actual scientific insight.
             \end{itemize}
-            AI's biggest immediate impact is automating the 80\%, freeing up human time for the 20\%.
+            In practice, the main gain is in routine work: code translation, debugging, formatting, and drafting.
         \end{block}
     \end{columns}
-    \begin{alertblock}{For you as PhD students}
-        Your value is in understanding the GNSS-R physics, not memorising Python syntax. AI lets you focus on the science.
-    \end{alertblock}
+    \begin{block}{}
+        For this workshop, the emphasis is on the inference and the physics rather than Python syntax.
+    \end{block}
 \end{frame}
 
 % --- Context Engineering ---
 \begin{frame}
     \frametitle{The mechanism: context engineering}
-    \framesubtitle{From ``prompting'' to ``orchestration''}
+    \framesubtitle{From short prompts to project-level context}
     \vspace{-0.5em}
     \begin{columns}[T]
         \column{0.48\textwidth}
@@ -763,7 +784,7 @@
 
 % --- I built this with AI ---
 \begin{frame}
-    \frametitle{I built this workshop with AI}
+    \frametitle{How I prepared this workshop}
     \vspace{-0.5em}
     \begin{columns}[T]
         \column{0.55\textwidth}
@@ -791,9 +812,9 @@
             \end{itemize}
         \end{exampleblock}
         \vspace{0.5em}
-        \begin{alertblock}{For the workshop}
-            Use AI to help you write code today. Focus on understanding the inference, not fighting Python errors.
-        \end{alertblock}
+        \begin{block}{For the workshop}
+            Use AI for boilerplate and debugging; keep the focus on the inference problem.
+        \end{block}
     \end{columns}
 \end{frame}
 
@@ -812,9 +833,9 @@
                 \item Visualise posteriors with \texttt{anesthetic}
             \end{enumerate}
         \end{block}
-        \begin{alertblock}{Remember}
-            Use AI to help you write code today! Focus on understanding the inference, not fighting Python errors.
-        \end{alertblock}
+        \begin{block}{}
+            Use AI for boilerplate and debugging; focus on the inference setup.
+        \end{block}
         \column{0.5\textwidth}
         \begin{block}{Resources}
             \begin{itemize}
