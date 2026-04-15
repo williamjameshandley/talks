@@ -176,6 +176,32 @@
     \end{alertblock}
 \end{frame}
 
+% --- Bayes' Theorem ---
+\begin{frame}
+    \frametitle{The Language of Inference}
+    \framesubtitle{Maximum likelihood is only the beginning}
+    \begin{columns}
+        \column{0.33\textwidth}
+            \begin{block}{\C[1]{Prior}\hfill $\C[1]{\pi(\theta)}$}
+                What we believe about the parameters \textit{before} we see the data. Our physical constraints.
+            \end{block}
+        \vspace{2em}
+        \begin{block}{\C[3]{Evidence}\hfill $\C[3]{\mathcal{Z}(D)}$}
+            How well the model as a whole explains the data. The key to model comparison.
+        \end{block}
+        \column{0.33\textwidth}
+\[\underbrace{\C[0]{\mathcal{P}(\theta|D)}}_{\C[0]{\text{Posterior}}} = \frac{\overbrace{\C[2]{\mathcal{L}(D|\theta)}}^{\C[2]{\text{Likelihood}}} \times \overbrace{\C[1]{\pi(\theta)}}^{\C[1]{\text{Prior}}}}{\underbrace{\C[3]{\mathcal{Z}(D)}}_{\C[3]{\text{Evidence}}}}\]
+        \column{0.33\textwidth}
+            \begin{block}{\C[2]{Likelihood}\hfill $\C[2]{\mathcal{L}(D|\theta)}$}
+                Your forward model + noise model. You already have this: $\C[2]{\mathcal{L}} \propto e^{-\chi^2/2}$.
+            \end{block}
+        \vspace{2em}
+        \begin{block}{\C[0]{Posterior}\hfill $\C[0]{\mathcal{P}(\theta|D)}$}
+            The solution to the inverse problem: parameters \textit{with error bars}.
+        \end{block}
+    \end{columns}
+\end{frame}
+
 % --- Parameter Estimation ---
 \begin{frame}
     \frametitle{Parameter estimation}
@@ -220,32 +246,6 @@
         \end{itemize}
         \column{0.5\textwidth}
         \includegraphics[width=\textwidth]{figures/evidences_lin.pdf}
-    \end{columns}
-\end{frame}
-
-% --- Bayes' Theorem ---
-\begin{frame}
-    \frametitle{The Language of Inference}
-    \framesubtitle{Translating ``Inverse Problems'' into mathematics}
-    \begin{columns}
-        \column{0.33\textwidth}
-            \begin{block}{\C[1]{Prior}\hfill $\C[1]{\pi(\theta)}$}
-                What we believe about the parameters \textit{before} we see the data. Our physical constraints.
-            \end{block}
-        \vspace{2em}
-        \begin{block}{\C[3]{Evidence}\hfill $\C[3]{\mathcal{Z}(D)}$}
-            How well the model as a whole explains the data. The key to model comparison.
-        \end{block}
-        \column{0.33\textwidth}
-\[\underbrace{\C[0]{\mathcal{P}(\theta|D)}}_{\C[0]{\text{Posterior}}} = \frac{\overbrace{\C[2]{\mathcal{L}(D|\theta)}}^{\C[2]{\text{Likelihood}}} \times \overbrace{\C[1]{\pi(\theta)}}^{\C[1]{\text{Prior}}}}{\underbrace{\C[3]{\mathcal{Z}(D)}}_{\C[3]{\text{Evidence}}}}\]
-        \column{0.33\textwidth}
-            \begin{block}{\C[2]{Likelihood}\hfill $\C[2]{\mathcal{L}(D|\theta)}$}
-                Your forward model + noise model. How well a specific $\theta$ fits the data.
-            \end{block}
-        \vspace{2em}
-        \begin{block}{\C[0]{Posterior}\hfill $\C[0]{\mathcal{P}(\theta|D)}$}
-            The solution to the inverse problem: parameters \textit{with error bars}.
-        \end{block}
     \end{columns}
 \end{frame}
 
@@ -486,8 +486,37 @@
     \end{block}
 \end{frame}
 
+% --- The Computational Bottleneck ---
+\begin{frame}
+    \frametitle{The computational bottleneck}
+    \framesubtitle{Why we need GPUs}
+    \begin{columns}[T]
+        \column{0.5\textwidth}
+        \begin{block}{The problem}
+            \begin{itemize}
+                \item That 15D LIGO posterior took \textbf{$\sim$2 hours on 400 CPUs}
+                \item CPUs evaluate one likelihood at a time
+                \item Nested sampling needs $\sim$1000 live points, each requiring many likelihood evaluations
+            \end{itemize}
+        \end{block}
+        \column{0.5\textwidth}
+        \begin{block}{For GNSS-R}
+            \begin{itemize}
+                \item Orbit determination: 6--15 parameters per satellite
+                \item Constellation tracking: $\sim$10,000 satellites
+                \item Real-time requirements
+                \item We need a paradigm shift
+            \end{itemize}
+        \end{block}
+    \end{columns}
+    \vspace{1em}
+    \begin{alertblock}{}
+        The mathematics works. The algorithms work. But we need \textbf{hardware acceleration} to make them practical.
+    \end{alertblock}
+\end{frame}
+
 % =========================================================================
-% PART 2: GPU-ACCELERATED NESTED SAMPLING (~20 min)
+% PART 2: GPU-ACCELERATED NESTED SAMPLING
 % =========================================================================
 
 % --- JAX's Two Capabilities ---
