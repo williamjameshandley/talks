@@ -3,21 +3,18 @@
 Port of the original numpy/PolyChord line_fitting.py to modern JAX toolchain.
 Produces: data_points.pdf, data_diff.pdf, data_diff_1.pdf, data.pdf,
           parameters.pdf, fgivenx.pdf, evidences_lin.pdf
+
+Uses a pickle cache so that JAX/BlackJAX are only imported when the cache
+is missing. Subsequent runs only need numpy/matplotlib/anesthetic for plotting.
 """
 
 import os
-os.environ["JAX_PLATFORMS"] = "cpu"
-
-import jax
-import jax.numpy as jnp
+import pickle
 import numpy as np
 import matplotlib.pyplot as plt
-import blackjax
-import tqdm
-from anesthetic import NestedSamples
-from matplotlib.backends.backend_pdf import PdfPages
 
-jax.config.update("jax_enable_x64", True)
+cache_file = 'line_fitting_cache.pkl'
+use_cache = os.path.exists(cache_file)
 
 # ============================================================================
 # Data generation (matching original)
@@ -34,14 +31,9 @@ def f_true(x):
 
 y = np.random.normal(loc=f_true(x), scale=sigma)
 
-# Convert to JAX arrays
-x_jax = jnp.array(x)
-y_jax = jnp.array(y)
-sigma_jax = jnp.array(sigma)
-
-w = 4
-h = w / 4 * 3
-figsize = (h, h)
+# Beamer 16:9 half-column dimensions
+# textwidth = 6.00in, textheight = 3.15in, minus ~0.6in for frametitle
+figsize = (3.0, 2.55)
 
 # ============================================================================
 # Data plots
@@ -107,7 +99,7 @@ plt.close()
 print("Data plots done.")
 
 # ============================================================================
-# BlackJAX NSS inference
+# BlackJAX NSS inference (only imported when cache is missing)
 # ============================================================================
 
 def poly_label(root):
@@ -129,6 +121,21 @@ def poly_label(root):
 def poly_model(x, coeffs):
     """Evaluate polynomial: coeffs[0] + coeffs[1]*x + coeffs[2]*x^2 + ..."""
     return sum(c * x**i for i, c in enumerate(coeffs))
+
+
+if not use_cache:
+    os.environ["JAX_PLATFORMS"] = "cpu"
+    import jax
+    import jax.numpy as jnp
+    import blackjax
+    import tqdm
+    from anesthetic import NestedSamples
+
+    jax.config.update("jax_enable_x64", True)
+
+    x_jax = jnp.array(x)
+    y_jax = jnp.array(y)
+    sigma_jax = jnp.array(sigma)
 
 
 def run_nss(active_terms, num_live=500, rng_seed=42):
@@ -220,16 +227,20 @@ for i in range(1, 2**5):
     root = format(i, '05b')
     all_models.append(root)
 
-results = {}
-for root in all_models:
-    n_active = root.count('1')
-    # Use fewer live points for speed on higher-dimensional models
-    nlive = 500 if n_active <= 3 else 300
-    print(f"\nRunning model {root} ({n_active}D)...")
-    samples, logZ, pnames, pidx = run_nss(root, num_live=nlive)
-    results[root] = {'samples': samples, 'logZ': logZ, 'param_names': pnames, 'param_indices': pidx}
-
-print("\nAll models done.")
+if use_cache:
+    print(f"Loading cached results from {cache_file}")
+    results = pickle.load(open(cache_file, 'rb'))
+else:
+    results = {}
+    for root in all_models:
+        n_active = root.count('1')
+        nlive = 500 if n_active <= 3 else 300
+        print(f"\nRunning model {root} ({n_active}D)...")
+        samples, logZ, pnames, pidx = run_nss(root, num_live=nlive)
+        results[root] = {'samples': samples, 'logZ': logZ, 'param_names': pnames, 'param_indices': pidx}
+    print("\nAll models done.")
+    pickle.dump(results, open(cache_file, 'wb'))
+    print(f"Cached results to {cache_file}")
 
 # ============================================================================
 # Parameter plots (2x2 grid for key two-parameter models)
@@ -267,7 +278,7 @@ evs = np.array([results[root]['logZ'] for root in sorted_roots])
 evs_norm = evs - evs.max()
 
 # Log evidence plot
-fig, ax = plt.subplots(figsize=(figsize[0] * 2, figsize[1] * 2))
+fig, ax = plt.subplots(figsize=figsize)
 ind = range(len(sorted_roots))
 ax.set_xticks(list(ind))
 ax.set_xticklabels([poly_label(r) for r in sorted_roots])
@@ -282,7 +293,7 @@ plt.close()
 # Linear evidence (betting odds) plot
 from scipy.special import logsumexp
 evs_odds = evs_norm - logsumexp(evs_norm)
-fig, ax = plt.subplots(figsize=(figsize[0] * 2, figsize[1] * 2))
+fig, ax = plt.subplots(figsize=figsize)
 ax.set_xticks(list(ind))
 ax.set_xticklabels([poly_label(r) for r in sorted_roots])
 ax.grid(color='b', linestyle=':', linewidth=0.1)

@@ -62,9 +62,7 @@
     \frametitle{Motivating example}
     \framesubtitle{Fitting lines to data}
     \begin{columns}[T]
-        \column{0.55\textwidth}
-        \includegraphics[width=\textwidth]{figures/data_points.pdf}
-        \column{0.45\textwidth}
+        \column{0.5\textwidth}
         \begin{itemize}
             \item We have noisy data $D$
             \item We wish to fit a model $M$
@@ -76,6 +74,8 @@
                 \end{align}
             \item Model parameters $\theta= (a,b)$
         \end{itemize}
+        \column{0.5\textwidth}
+        \includegraphics[width=\textwidth]{figures/data_points.pdf}
     \end{columns}
 \end{frame}
 
@@ -84,9 +84,7 @@
     \frametitle{$\chi^2$ best-fit}
     \framesubtitle{Fitting lines to data}
     \begin{columns}[T]
-        \column{0.55\textwidth}
-        \includegraphics[width=\textwidth]{figures/data_diff.pdf}
-        \column{0.45\textwidth}
+        \column{0.5\textwidth}
         \begin{itemize}
             \item For each parameter set $\theta$:
                 \[
@@ -94,6 +92,8 @@
                 \]
             \item Minimise $\chi^2$ wrt $\theta$
         \end{itemize}
+        \column{0.5\textwidth}
+        \includegraphics[width=\textwidth]{figures/data_diff.pdf}
     \end{columns}
 \end{frame}
 
@@ -102,15 +102,15 @@
     \frametitle{$\chi^2$ with non-uniform data errors}
     \framesubtitle{Fitting lines to data}
     \begin{columns}[T]
-        \column{0.55\textwidth}
-        \includegraphics[width=\textwidth]{figures/data.pdf}
-        \column{0.45\textwidth}
+        \column{0.5\textwidth}
         \begin{itemize}
             \item If data have non-uniform errors:
                 \[
                     \chi^2(\theta) = \sum_i \frac{\left|y_i - f(x_i;\theta)\right|^2}{\sigma_i^2}
                 \]
         \end{itemize}
+        \column{0.5\textwidth}
+        \includegraphics[width=\textwidth]{figures/data.pdf}
     \end{columns}
 \end{frame}
 
@@ -119,9 +119,7 @@
     \frametitle{Problems with $\chi^2$}
     \framesubtitle{Fitting lines to data}
     \begin{columns}[T]
-        \column{0.55\textwidth}
-        \includegraphics[width=\textwidth]{figures/data_diff_2.pdf}
-        \column{0.45\textwidth}
+        \column{0.5\textwidth}
         \begin{itemize}
             \item How do we differentiate between models?
             \item Why square the errors? --- could take absolute:
@@ -130,6 +128,8 @@
                 \]
             \item Where does this even come from?
         \end{itemize}
+        \column{0.5\textwidth}
+        \includegraphics[width=\textwidth]{figures/data_diff_2.pdf}
     \end{columns}
 \end{frame}
 
@@ -138,9 +138,7 @@
     \frametitle{Probability distributions}
     \framesubtitle{Fitting lines to data}
     \begin{columns}[T]
-        \column{0.55\textwidth}
-        \includegraphics[width=\textwidth]{figures/data_diff_1.pdf}
-        \column{0.45\textwidth}
+        \column{0.5\textwidth}
         \begin{itemize}
             \item The probability of observing a single datum
                 for a Gaussian error distribution
@@ -153,6 +151,8 @@
                     \nonumber
                 \end{align}
         \end{itemize}
+        \column{0.5\textwidth}
+        \includegraphics[width=\textwidth]{figures/data_diff_1.pdf}
     \end{columns}
 \end{frame}
 
@@ -161,14 +161,14 @@
     \frametitle{Maximum likelihood}
     \framesubtitle{Fitting lines to data}
     \begin{columns}[T]
-        \column{0.45\textwidth}
-        \includegraphics[width=\textwidth]{figures/data_diff.pdf}
-        \column{0.55\textwidth}
+        \column{0.5\textwidth}
         \begin{itemize}
             \item Minimising $\chi^2(\theta)$ is equivalent to maximising $P(D|\theta,M) \propto e^{-\chi^2(\theta)/2}$
             \item ``Least squares'' $\equiv$ ``maximum likelihood'' \\(if data are Gaussian).
             \item However, one can go much further than least squares\ldots
         \end{itemize}
+        \column{0.5\textwidth}
+        \includegraphics[width=\textwidth]{figures/data_diff.pdf}
     \end{columns}
     \begin{alertblock}{}
         You already do Bayesian inference --- you just call it something else. Now let's do it properly.
@@ -180,13 +180,13 @@
     \frametitle{Parameter estimation}
     \framesubtitle{Fitting lines to data}
     \begin{columns}[T]
-        \column{0.45\textwidth}
-        \includegraphics[width=\textwidth]{figures/parameters.pdf}
-        \column{0.55\textwidth}
+        \column{0.5\textwidth}
         \begin{itemize}
             \item We may use $P(\theta|D,M)$ to inspect whether a model looks reasonable
         \end{itemize}
         \includegraphics[width=\textwidth]{figures/data.pdf}
+        \column{0.45\textwidth}
+        \includegraphics[width=\textwidth]{figures/parameters.pdf}
     \end{columns}
 \end{frame}
 
@@ -195,14 +195,14 @@
     \frametitle{Predictive posterior}
     \framesubtitle{Fitting lines to data}
     \begin{columns}[T]
-        \column{0.55\textwidth}
-        \includegraphics[width=\textwidth]{figures/fgivenx.pdf}
-        \column{0.45\textwidth}
+        \column{0.5\textwidth}
         \begin{itemize}
             \item More useful to plot $P(y|x)$
             \item Not just ``best fit $\pm$ error bar''
             \item The full probability distribution over predictions
         \end{itemize}
+        \column{0.5\textwidth}
+        \includegraphics[width=\textwidth]{figures/fgivenx.pdf}
     \end{columns}
 \end{frame}
 
@@ -211,14 +211,14 @@
     \frametitle{Model comparison}
     \framesubtitle{Fitting lines to data}
     \begin{columns}[T]
-        \column{0.55\textwidth}
-        \includegraphics[width=\textwidth]{figures/evidences_lin.pdf}
-        \column{0.45\textwidth}
+        \column{0.5\textwidth}
         \begin{itemize}
             \item We may use $P(M|D)$ to determine whether a model is reasonable
             \item Evidences represent betting odds of a set of models
             \item Automatic Occam's razor: simpler models preferred unless data demand complexity
         \end{itemize}
+        \column{0.5\textwidth}
+        \includegraphics[width=\textwidth]{figures/evidences_lin.pdf}
     \end{columns}
 \end{frame}
 
