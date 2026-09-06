@@ -177,26 +177,44 @@ cards nightly; Parakeet transcription on newton; Gemma 4 serving on turing
 at 64 concurrent behind intranet API keys; speaker-identification work on
 the group's own recordings.
 
-Live loops in meetings known so far (full inventory from the sweep of 394
-records to be appended):
+Live loops in meetings, from a sweep of all 394 meeting records April to
+September 2026 (AI listening to the room and acting during the meeting):
 
-- 2026-04-28, Xuelei Chen visit: otter-live skill drafting notes mid-meeting;
-  the agent realising it was in the meeting.
-- 2026-04-30, Sinah Legner supervision: agent cloned her CAMB fork and
-  assessed the PPF/K-screening worry live.
-- 2026-04-30, Lawrence Berry supervision: notes emailed as LaTeX; "please
-  execute" wins with David where the GPU spun up mid-meeting.
-- 2026-05-05, website workshop: Claude Code as ambient orchestrator over the
-  live Otter feed, coordinating parallel PRs from ~10 attendees.
-- 2026-05-07, Charlotte Priestley supervision: stat-mech conversation turned
-  into LaTeX notes.
-- 2026-05-13, Madhusudhan: K2-18b retrieval repository built live in the room.
-- 2026-05-18, Caius wine cellar: GitHub issue raised from the conversation.
-- 2026-08-07, James Alvey and Thomas Spieksma: ET Bluebook plot and verbatim
-  quotes on screen 15 seconds after the words; only IDs returned.
-- 2026-09-03, Toby Lovick: "check the thermals" answered two minutes later by
-  the Pi Zero recorder pipeline; whiteboard camera reading an equation at
-  5% of the pixels, answer projected back.
+| Date | Meeting | What happened live | Mechanism |
+|---|---|---|---|
+| 2026-04-24 | AInstein (Kwan, Hobson, Bolliet) | Claude, fed the running transcript and the DeepSeek paper, produced a pre-1905 reasoning-model training recipe read aloud to the room | Claude reading the live transcript |
+| 2026-04-27 | David Yallup, two sessions | Read the flow-matching paper under discussion and explained the simulation-free step; later investigated JAX JIT recompilation costs; "it's read everything we've said" | Claude Code with transcript access |
+| 2026-04-28 | Group meeting | Toby's local Whisper recorder injecting the room into Claude Code via hooks; "we realised we'd left it recording, so we didn't need to type those things in" | Whisper on CPU, ~5 s per 20 s of speech |
+| 2026-04-28 | Xuelei Chen visit | otter-live skill drafting notes mid-meeting, answering the guest's spoken question, emailing the transcript; in parallel cloning CAMB and implementing an EDE module | Otter live skill, Claude Code |
+| 2026-04-30 | Lawrence Berry | Suggested other many-uncoupled-ODE systems; LaTeX notes emailed | Otter to Claude, ~2 minutes to digest |
+| 2026-04-30 | Sinah Legner, Will Barker | Cloned her CAMB fork and assessed PPF energy conservation against K-screening; emailed a summary; got OpenAI's second opinion | Otter to Claude, 30 s delay |
+| 2026-05-01 | Namu Kroupa | Headless Claude Code implemented a radial custom kernel in blackjax and requested review; texted Namu from its own number | Headless Claude Code with MCP tools |
+| 2026-05-05 | Website workshop | Claude Code as ambient orchestrator over the Otter feed, coordinating parallel PRs from about ten attendees | Otter polling, GitHub issue #3 |
+| 2026-05-07 | Charlotte Priestley | Whiteboard supervision synthesised into a document; "did I make any mistakes?" caught a stray β; sent to Charlotte | Otter to Claude |
+| 2026-05-13 | Madhusudhan | K2-18b retrieval repository built live in the room | Voice-driven Claude Code |
+| 2026-05-15 | AInstein (Kwan) | Summary for absent members composed from the transcript with a specified emphasis order | Claude with transcript |
+| 2026-05-18 | Jody Fletcher, Caius | GitHub issue filed on the wine-order bug, questions answered from the conversation, a red/white filter demo built and shown, minutes produced | Otter to Claude Code |
+| 2026-06-04 | Toby Lovick | e-whiteboard screenshot plus audio to Gemini to fill in a half-remembered Klein–Gordon term; PDF with highlighted edits mid-meeting | Local recorder, Gemini |
+| 2026-07-08 | Sienna (summer student) | Checked the nested-sampling workshop against upstream blackjax and proposed an update, approved verbally | Claude Code listening |
+| 2026-07-23 | Summer students | Tursa onboarding documentation assembled live, including a default sbatch script, values looked up not guessed | Otter plus local Parakeet and pyannote; Claude Code |
+| 2026-08-07 | James Alvey, Thomas Spieksma | ET Bluebook plot and verbatim quotes on screen 15 s after the words; only database IDs returned, no generated prose | Parakeet on newton, Gemma on turing |
+| 2026-08-13 | Matt Grayling | State of the art on sparse GP representations answered from the transcript-fed session | Claude/Codex fed the transcript |
+| 2026-08-27 | David Yallup | Charitable-but-firm text on the Liddle Bayes-factor paper drafted, sub-agents building a citation tree, git-latexdiff rendered on boltzmann | Claude Code and Codex |
+| 2026-09-01 | Group meeting | Toby's Pi whiteboard camera: ink segmented from arm, blocks to turing for LaTeX; "what's missing from this equation" answered and projected in place (video) | Pi Zero camera, Gemma on turing, projector |
+| 2026-09-03 | Toby Lovick | Pi Zero audio box transcribing live, turing detecting actionable items and writing tickets for Claude to claim; "check the thermals" answered two minutes later | Pi Zero and audio hat, Whisper, turing |
+| 2026-09-04 | PolyChord team | Iman's inconsistent-evidence findings summarised precisely on request during the call | Claude listening |
+
+Mechanism generations: April to June, Otter polling through a
+reverse-engineered API into Claude Code, about 30 s round trip; from
+mid-July a second generation on local Parakeet with pyannote diarisation;
+August to September, Gemma on turing as the local model and Toby's Pi camera
+and audio devices as ambient inputs with a projector for in-place output.
+
+Misfires worth knowing (not for the slides): a recipe produced without the
+project's actual state (24 Apr); Opus 4.7 implementing the wrong kernel
+(1 May); a summary fixating on an aside (15 May); the Pi dying mid-demo
+after a shorted screen hat (1 Sep); turing not triggering a ticket (3 Sep);
+and the 30 s Otter latency throughout the spring.
 
 ## Multiplayer mode (the design argument)
 
