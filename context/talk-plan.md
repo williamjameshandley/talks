@@ -136,6 +136,26 @@ scientists. No ask, no offer; the talk exists to make the narrative visible.
   and abandoned: "that isn't the question". Runs on a 16 GB card.
 - Sources: record 2026-08-14 (James Alvey, Nikhil Sarin).
 
+### The transcripts (this talk as its own case study)
+- Roughly 1,000 recorded meetings over 18 months, Otter to mdrecord cards
+  nightly, and the retrospective loop: this talk was planned by reading the
+  year's transcripts back. Thirteen conversations from one Thursday read in
+  full by agents; 394 records swept for every live-loop moment; the April
+  internal talk, the Cosmos proposal, and remarks made in supervisions and
+  lunches recovered verbatim and reused ("I'm going to try and do both at
+  the same time when I write the report and the talk"; "the moat would be
+  this is how scientists want ambient AI"; David's "if it were possible, it
+  was possible last year").
+- The point for the room: the record is the asset. Things said well once,
+  in a meeting nobody wrote up, become retrievable and reusable months later
+  without anyone having taken notes. The same loop that answers "what did
+  we decide with James in August" builds a talk.
+- Also the honest limit: the retrieval works because the recordings exist;
+  the corpus is only as complete as the recording habit (the 17:59 chat on
+  3 Sep was caught only because the recorder was already running).
+- Sources: personal deck project "Ambient talk and grants" (fa0d11d4) with
+  the research provenance; this planning session's transcript.
+
 ### Cookbook grid (one slide)
 Complete recipes from handley-lab.co.uk/cookbook: jaxwavelets; emcee in
 BlackJAX (15 min); GW emulator in eight hours; covariance computation from
