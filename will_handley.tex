@@ -4,25 +4,21 @@
 
 % Commands
 % --------
+% - \arxiv{arxiv number}
 % - \arxiv{<number>}            arxiv.org/abs/<number>
 % - \oldarxiv{<arxiv number>}   arxiv.org/<number>
 % - \doi{<doi>}                 doi.org/<doi>
 % - \xkcd{<number>}             xkcd.com/<number>
 % - \email{<email>}             <<email>>
 % - \tthref{<website>}          <website>
-% - \github{<owner/repo>}       github.com/<owner/repo>
 % - \av[dist]{<quantity>}       <quantity>_{dist}
-% - \student{<photo>}{<name>}{<detail>}
-
-\newcommand{\keyterm}[1]{\textbf{\textcolor{C0}{#1}}}
+% - \student{<name>}{<detail>}{<photo>}
 
 % Talk details
 % ------------
-% KAS2026 satellite day, AI for Scientific Practice workshop, Hoyle Lecture
-% Theatre, 11:50-12:10. Plan and sources: context/talk-plan.md
-\title{The ambient AI lab}
-\subtitle{AI by scientists, for scientists}
-\date{7\textsuperscript{th} September 2026}
+\title{<+Title+>}
+\subtitle{<+subtitle+>}
+\date{<+Date+>}
 
 \begin{document}
 
@@ -30,492 +26,9 @@
     \titlepage
 \end{frame}
 
-% =============================================================================
-% 1. What we actually use agents for
-% =============================================================================
-
 \begin{frame}
-    \frametitle{What we actually use agents for}
-    \framesubtitle{Not the story you have read about}
-    \vspace{-0.5em}
-    \begin{columns}[T]
-        \column{0.48\textwidth}
-        \begin{block}{The story}
-            \begin{itemize}
-                \item ``Click a button, generate a paper.''
-                \item The AI scientist; the agentic army.
-                \item Astronomers ``questioning the soul of their field.''
-            \end{itemize}
-        \end{block}
-        \column{0.48\textwidth}
-        \begin{exampleblock}{The practice, in one research group}
-            \begin{itemize}
-                \item Scripting. Grunt work. Scaling an established analysis.
-                    Simple judgement at volume.
-                \item Every interpretive act stays human.
-                \item Increasingly on our own hardware, with our own models.
-            \end{itemize}
-        \end{exampleblock}
-    \end{columns}
-    \vfill
-    \begin{center}
-        \textit{Seven case studies, then what we want the tool to feel like,
-        then why it has to be local.}
-    \end{center}
-\end{frame}
-
-% =============================================================================
-% 2. Case studies (one slide each)
-% =============================================================================
-
-\begin{frame}
-    \frametitle{JAX ports as standard practice}
-    \framesubtitle{Reference-guided translation with a mature oracle}
-    \student{charlotte_priestley.jpg}{Charlotte Priestley}{PhD}
-    \vspace{-0.5em}
-    \begin{columns}[T]
-        \column{0.55\textwidth}
-        \small
-        \begin{itemize}
-            \item \texttt{emcee} in BlackJAX: months by hand $\to$
-                \textbf{15 minutes} supervised. \hfill \github{blackjax-devs/blackjax}
-            \item \texttt{jaxwavelets}: PyWavelets reproduced to
-                $10^{-14}$ across \textbf{1,177 tests} in 4.7 hours;
-                65 external reviews, 60\% rejected before merge.
-                \hfill \github{handley-lab/jaxwavelets}
-            \item \texttt{jaxsgp4}: satellite orbit propagation,
-                \textbf{1500$\times$}. \hfill \github{cmpriestley/jaxsgp4}
-            \item \texttt{jax-lens}, \texttt{jaxPOSEIDON},
-                \texttt{jim-emulators} (empty repo $\to$ package, 8 hours);
-                a K2-18b retrieval built live in a meeting.
-        \end{itemize}
-        \column{0.43\textwidth}
-        \begin{exampleblock}{The pattern}
-            The specification already exists: the reference implementation.
-            Every numerical decision is checkable to machine precision.
-        \end{exampleblock}
-        \begin{alertblock}{}
-            \textit{``I wrote no code, but made the scientific decisions.''}
-        \end{alertblock}
-    \end{columns}
-\end{frame}
-
-\begin{frame}
-    \frametitle{The cookbook}
-    \framesubtitle{\tthref{handley-lab.co.uk/cookbook} --- aim, approach, outcome, evidence; what becomes newly possible}
-    \vspace{-0.5em}
-    \begin{columns}[T]
-        \column{0.55\textwidth}
-        \begin{block}{Complete recipes}
-            \small
-            \begin{itemize}
-                \item Reproducing PyWavelets in JAX to machine precision
-                \item Implementing \texttt{emcee} in BlackJAX (15 min)
-                \item A GW emulator from nothing in eight hours
-                \item A 24-hour covariance computation in 1--2 minutes
-                \item Tracing Fortran dependencies in CAMB
-                    ($N_\mathrm{eff}$ double count; missing $\nu$ pathway)
-                \item Discrete $k$ in CLASS: sign error in the FCB expansion
-                \item A six-slide deck assembled live in five minutes
-                \item CosmoSIS $\to$ Cobaya under adversarial review
-            \end{itemize}
-        \end{block}
-        \column{0.43\textwidth}
-        \begin{exampleblock}{Proposed by the group, May 2026}
-            \small
-            \begin{itemize}
-                \item Slide deck from a paper and old Beamer (Natalie)
-                \item Voice-note paper debate; rehearsal loop (Toby)
-                \item Interview-mode prompting
-                \item Matplotlib infographics (Matt)
-                \item LLM-managed HPC hyperparameter search (Namu)
-                \item A writer's voice while AI writes the rest (Charlotte)
-            \end{itemize}
-        \end{exampleblock}
-    \end{columns}
-\end{frame}
-
-\begin{frame}
-    \frametitle{Astro Legacy Archive}
-    \framesubtitle{The measurements of astronomy are missing from the ML data ecosystem}
-    \student{james_alvey.jpg}{James Alvey}{EuCAIF SBI WG}
-    \vspace{-0.5em}
-    \begin{columns}[T]
-        \column{0.55\textwidth}
-        \small
-        \begin{itemize}
-            \item Hugging Face audited: \textbf{2,130} datasets, 449 astronomy.
-                Objects and catalogues only. No mission sky map at any
-                wavelength, no visibilities, no event lists, no posterior
-                chains; one broken strain fragment.
-            \item Each dataset a \keyterm{rebuildable projection} of its
-                canonical archive: Parquet, HATS conventions, provenance,
-                checksums, licence, and the regeneration command in the card.
-            \item Access: LAMBDA at 1.1\,MB/s; the HF CDN at 103.6\,MB/s.
-                WMAP's 626\,GB: a week, or under two hours.
-            \item Pilot: Haslam, WMAP, COBE, IRAS, ROSAT maps; the complete
-                EHT visibilities. Pre-registered success criteria.
-        \end{itemize}
-        \column{0.43\textwidth}
-        \begin{block}{Delivered by agents, judged by a scientist}
-            130 dataset cards written; $\sim$2.5\,TB uploaded.\\[0.4em]
-            The human decisions are exactly the ones that matter:
-            \textit{``Do not normalise. You'll only be normalising for this
-            set, not for the sets that come after.''}
-        \end{block}
-        \begin{exampleblock}{}
-            No scientist would have spun up a team to do this. That is the
-            point.
-        \end{exampleblock}
-    \end{columns}
-\end{frame}
-
-\begin{frame}
-    \frametitle{Checking the exam}
-    \framesubtitle{The case where the frontier route was not just unnecessary but impossible}
-    \vspace{-0.5em}
-    \begin{columns}[T]
-        \column{0.55\textwidth}
-        \begin{itemize}
-            \item Exam papers cannot leave the building.
-            \item Two RTX PRO 6000s in the office; Qwen 3.5 and Gemma 4;
-                no internet.
-            \item The models found errors a human examiner had missed, and
-                went toe to toe with the checker on the same paper.
-            \item Nothing about this needed a frontier model. It needed a
-                harness, tokens, and a room the paper could stay in.
-        \end{itemize}
-        \column{0.43\textwidth}
-        \begin{block}{Reported, not shown}
-            The material is confidential. The pipeline is the same one that
-            runs the rest of this talk.
-        \end{block}
-    \end{columns}
-\end{frame}
-
-\begin{frame}
-    \frametitle{SBI4GALEV: a conference that wrote itself up}
-    \framesubtitle{Local live transcription, one week, one white paper}
-    \student{chris_lovell.jpg}{Chris Lovell}{PDRA}
-    \vspace{-0.5em}
-    \begin{columns}[T]
-        \column{0.55\textwidth}
-        \begin{itemize}
-            \item 27--31 July 2026: every talk transcribed locally as it was
-                given.
-            \item Per-talk summaries, then per-day summaries, then a white
-                paper by the end of the week.
-            \item Opt-in: just over two thirds of speakers; one declined and
-                was not recorded.
-            \item Code public; write-up headed for BAAS.
-                \hfill \github{sbi-galev/ambient-ai}
-        \end{itemize}
-        \column{0.43\textwidth}
-        \begin{exampleblock}{Output that is not a paper}
-            A document nobody had the time to write, produced from the room
-            without anyone taking notes.
-        \end{exampleblock}
-    \end{columns}
-\end{frame}
-
-\begin{frame}
-    \frametitle{The arXiv, read for you}
-    \framesubtitle{Two designs, one rule: show the original, not the summary}
-    \student{toby_lovick.jpg}{Toby Lovick}{PhD}
-    \vspace{-0.5em}
-    \begin{columns}[T]
-        \column{0.48\textwidth}
-        \begin{block}{Nightly digest}
-            \begin{itemize}
-                \item Gemma 4 on the group GPU box, overnight.
-                \item Summaries, tools, keywords for $\sim$800 papers.
-                \item Served to the group as a scrolling site.
-            \end{itemize}
-        \end{block}
-        \column{0.48\textwidth}
-        \begin{block}{Structured retrieval (James Alvey, Thomas Spieksma)}
-            \begin{itemize}
-                \item The model may return only IDs into a database of
-                    verbatim quotes, equations and figures.
-                \item No generated prose reaches the reader.
-                \item Full astro-ph corpus, 9.2\,TB, for under \$1,000.
-            \end{itemize}
-        \end{block}
-    \end{columns}
-    \vfill
-    \begin{center}
-        \textit{``I don't want to read AI's overconfident summary. I want
-        original science.''}
-    \end{center}
-\end{frame}
-
-\begin{frame}
-    \frametitle{LSST transients: the agent explains, the expert decides}
-    \framesubtitle{Forward reference: Nikhil Sarin, this session}
-    \student{james_alvey.jpg}{James Alvey}{with Nikhil Sarin}
-    \vspace{-0.5em}
-    \begin{columns}[T]
-        \column{0.55\textwidth}
-        \begin{itemize}
-            \item Redback + BlackJAX: transient inference in \textbf{85
-                minutes on one consumer GPU}.
-            \item The bottleneck moves from inference to the small class of
-                decisions made on its output.
-            \item First attempt: ask the agent to classify. Abandoned.
-                \textit{``That isn't the question.''}
-            \item The question: \keyterm{does this need reanalysis, and why?}
-                Answered in the words a student would use, across
-                50--70 thousand events.
-            \item Runs on a 16\,GB card, with Gemma.
-        \end{itemize}
-        \column{0.43\textwidth}
-        \begin{exampleblock}{Simple judgement at scale}
-            Natural language is how you handle a fuzzy decision boundary
-            ten thousand times a week. Nobody wants the job of looking at a
-            million corner plots.
-        \end{exampleblock}
-    \end{columns}
-\end{frame}
-
-\begin{frame}
-    \frametitle{The transcripts}
-    \framesubtitle{This talk is its own case study}
-    \vspace{-0.5em}
-    \begin{columns}[T]
-        \column{0.55\textwidth}
-        \begin{itemize}
-            \item $\sim$1,000 recorded meetings over 18 months: supervisions,
-                group meetings, lunches, calls. Otter $\to$ Markdown cards,
-                nightly.
-            \item This talk was planned by reading the year back: thirteen
-                conversations from one Thursday read in full by agents;
-                394 records swept for every moment an AI acted live in a
-                meeting; remarks recovered verbatim from supervisions and
-                lunches.
-            \item Things said well once, in a meeting nobody wrote up,
-                become retrievable months later.
-        \end{itemize}
-        \column{0.43\textwidth}
-        \begin{block}{The record is the asset}
-            The same loop that answers \textit{``what did we decide with
-            James in August?''} builds a talk.
-        \end{block}
-        \begin{alertblock}{}
-            It only works where the recording habit held.
-        \end{alertblock}
-    \end{columns}
-\end{frame}
-
-% =============================================================================
-% 3. The pattern
-% =============================================================================
-
-\begin{frame}
-    \frametitle{The pattern}
-    \framesubtitle{Grunt at scale; interpretation human}
-    \student{natalie_hogg.jpg}{Natalie Hogg}{PDRA}
-    \vspace{-0.5em}
-    \begin{columns}[T]
-        \column{0.48\textwidth}
-        \begin{block}{Agentic research is oxymoronic \arxiv{2608.31161}}
-            \begin{itemize}
-                \item Research, by definition, needs human creativity and
-                    interpretation; an agent that writes the paper removes
-                    exactly that.
-                \item \keyterm{Deliteration}: a hollow literature, and
-                    distrust of it.
-                \item LLMs are for grunt work, which they ``usually get done
-                    faster than I can do it myself.''
-            \end{itemize}
-        \end{block}
-        \column{0.48\textwidth}
-        \begin{block}{Where are the papers?}
-            \begin{itemize}
-                \item If autonomous agents could write good papers, they
-                    could last year. They haven't.
-                \item Not ``what if we prompted harder.'' If it doesn't
-                    happen, it systematically won't.
-                \item The real risk is to our people: they are so good at
-                    grunt work that we stop doing the thinking.
-            \end{itemize}
-        \end{block}
-    \end{columns}
-    \vfill
-    \begin{center}
-        \textit{``If that's what most people think AI is, it's up to us to
-        make a better narrative.''}
-    \end{center}
-    % TODO(WH): attribute the right-hand block to David Yallup by name, or keep it as ours?
-\end{frame}
-
-% =============================================================================
-% 4. Ambient AI
-% =============================================================================
-
-\begin{frame}
-    \frametitle{Multiplayer mode, for people who don't live in Slack}
-    \framesubtitle{What the tool looks like when scientists design it}
-    \vspace{-0.5em}
-    \begin{columns}[T]
-        \column{0.48\textwidth}
-        \begin{block}{What the vendors are building}
-            \begin{itemize}
-                \item \texttt{@Claude} in Anthropic's own Slack; OpenClaw 2.0.
-                \item An agent with the team's \keyterm{shared context} is a
-                    multiplier, not one more participant.
-                \item Fine, if your job is in Slack.
-            \end{itemize}
-        \end{block}
-        \column{0.48\textwidth}
-        \begin{exampleblock}{Where research actually happens}
-            \begin{itemize}
-                \item Alone at a desk. A whiteboard. Two laptops. Coffee.
-                    A supervision. A meeting that is an event, not a channel.
-                \item Make multiplayer mode \keyterm{ambient} at those
-                    surfaces.
-                \item Stage one drops the ``multi'': an AI you never touch
-                    or look at.
-            \end{itemize}
-        \end{exampleblock}
-    \end{columns}
-    \vspace{0.5em}
-    \begin{block}{Design rules from the room}
-        There when I want it, never thrown at me. \quad
-        Give me the numbers I need. \quad
-        The device sits there, you behave as normal. \quad
-        Nothing leaves the room.
-    \end{block}
-\end{frame}
-
-\begin{frame}
-    \frametitle{Live: a whiteboard that answers back}
-    \framesubtitle{Toby Lovick's box of scraps}
-    \student{toby_lovick.jpg}{Toby Lovick}{PhD}
-    \vspace{-0.5em}
-    \begin{columns}[T]
-        \column{0.30\textwidth}
-        \centering
-        \includegraphics[height=0.62\textheight]{figures/toby/whiteboard_deprojected.jpg}
-        \column{0.68\textwidth}
-        \centering
-        \includegraphics[height=0.28\textheight]{figures/toby/whiteboard_gemini_tex.png}
-        \vspace{0.3em}
-        \small
-        \begin{itemize}
-            \item Pi camera on the board; the equation was 5\% of the pixels
-                and still read correctly (photo $\to$ \LaTeX, above).
-            \item \textit{``Where is this wrong?''} round-trips to the group
-                GPU box; the answer is projected back onto the board.
-            \item A Pi Zero transcribes the room; the GPU box writes tickets;
-                each person's agent claims its own (also the injection defence).
-        \end{itemize}
-    \end{columns}
-\end{frame}
-
-\begin{frame}
-    \frametitle{What has already happened live}
-    \framesubtitle{Twenty-one occasions, April to September 2026, from the meeting records}
-    \vspace{-0.5em}
-    \footnotesize
-    \begin{columns}[T]
-        \column{0.5\textwidth}
-        \begin{description}[30 Apr]
-            \item[28 Apr] Notes drafted mid-meeting for a visitor; the agent
-                answered his spoken question, then realised it was in the
-                meeting.
-            \item[30 Apr] Cloned a student's CAMB fork and assessed the
-                energy-conservation worry while we talked.
-            \item[5 May] Orchestrated a ten-person website workshop from the
-                live transcript.
-            \item[7 May] Turned a whiteboard supervision into a document;
-                \textit{``did I make any mistakes?''} caught a stray $\beta$.
-        \end{description}
-        \column{0.5\textwidth}
-        \begin{description}[30 Apr]
-            \item[23 Jul] Assembled HPC onboarding docs, sbatch script
-                included, for three summer students as they were told about
-                the machine.
-            \item[7 Aug] ET Bluebook plot and verbatim quotes on screen
-                15 seconds after the words, during a whiteboard calculation.
-            \item[3 Sep] \textit{``Check the thermals''}, said in passing;
-                answered two minutes later.
-        \end{description}
-    \end{columns}
-    \vspace{0.3em}
-    Spring: Otter polling, 30\,s round trip. Summer: local Parakeet with
-    diarisation. Now: Gemma on our GPUs; Pi cameras and recorders in the room.
-\end{frame}
-
-% =============================================================================
-% 5. Why local
-% =============================================================================
-
-\begin{frame}
-    \frametitle{The model was never the scarce thing}
-    \framesubtitle{What the frontier vendors actually supply: a harness, and tokens priced below cost}
-    \vspace{-0.5em}
-    \small
-    \begin{columns}[T]
-        \column{0.48\textwidth}
-        \begin{block}{Harness}
-            The loop that reads files, runs code, checks results, asks
-            again. Replaceable, and being replaced, by what a lab can build.
-        \end{block}
-        \begin{block}{Subsidised tokens}
-            My own use ran at \$1,000 a day, about an ERC grant's worth.
-            The reckoning comes when the price becomes honest.
-        \end{block}
-        \column{0.48\textwidth}
-        \begin{exampleblock}{What we already run locally}
-            Transcription. Retrieval. The LSST explanations. The exam. The
-            arXiv digest. Editing a paper on quantum field theory: Gemma
-            copes.
-        \end{exampleblock}
-        \begin{alertblock}{The threshold}
-            When the whole chain, microphone to model to screen, is fast
-            enough to join a conversation rather than be set running, the
-            tool changes kind.
-        \end{alertblock}
-    \end{columns}
-    \vfill
-    \begin{center}
-        Cambridge astronomy has built its own instruments for a century.
-        If we don't build this one, we will be sold a puck.
-    \end{center}
-    % TODO(WH): figure for the threshold (latency vs year, crossing ~2022)? Only the lab's own loop times are in the record.
-\end{frame}
-
-% =============================================================================
-% 6. Close
-% =============================================================================
-
-\begin{frame}
-    \frametitle{Where it goes}
-    \framesubtitle{Supervisions, then the rest of the lab}
-    \vspace{-0.5em}
-    \small
-    \begin{columns}[T]
-        \column{0.55\textwidth}
-        \begin{itemize}
-            \item October: the whiteboard camera and recorder into
-                undergraduate supervisions. Zero change to the participants.
-            \item The good extension from supervision three, written down
-                for all four groups; four transcripts, the whiteboards and
-                the textbook giving \textit{everything you learned}.
-            \item Lent: more supervisors.
-            \item Wearable recorders, whiteboard imaging, small screens,
-                self-hosted storage; iterated, not specified and purchased.
-        \end{itemize}
-        \column{0.43\textwidth}
-        \begin{block}{For the discussion}
-            \begin{itemize}
-                \item What would you record, if the recording never left the
-                    building?
-                \item Which part of your week would you hand to an ambient
-                    agent first?
-            \end{itemize}
-        \end{block}
-    \end{columns}
+    \frametitle{<+Frame title+>}
+    <+Content+>
 \end{frame}
 
 \begin{frame}
@@ -523,16 +36,20 @@
     \framesubtitle{\tthref{handley-lab.co.uk}}
     \tikz[overlay,remember picture]
         \node[anchor=north east] (A) at ($(current page.north east)+(0,0)$) {
+        \includegraphics[width=0.075\textheight]{people/adam_ormondroyd.jpg}%
         \includegraphics[width=0.075\textheight]{people/charlotte_priestley.jpg}%
         \includegraphics[width=0.075\textheight]{people/chris_lovell.jpg}%
         \includegraphics[width=0.075\textheight]{people/david_yallup.jpg}%
         \includegraphics[width=0.075\textheight]{people/dily_ong.jpg}%
+        \includegraphics[width=0.075\textheight]{people/farah_wallauer.jpg}%
+        \includegraphics[width=0.075\textheight]{people/harry_bevins.jpg}%
         \includegraphics[width=0.075\textheight]{people/james_alvey.jpg}%
         \includegraphics[width=0.075\textheight]{people/lawrence_berry.jpg}%
         \includegraphics[width=0.075\textheight]{people/matt_grayling.jpg}%
         \includegraphics[width=0.075\textheight]{people/metha_prathaban.jpg}%
         \includegraphics[width=0.075\textheight]{people/namu_kroupa.jpg}%
         \includegraphics[width=0.075\textheight]{people/natalie_hogg.jpg}%
+        \includegraphics[width=0.075\textheight]{people/rose_luo.jpg}%
         \includegraphics[width=0.075\textheight]{people/sam_leeney.jpg}%
         \includegraphics[width=0.075\textheight]{people/sinah_legner.jpg}%
         \includegraphics[width=0.075\textheight]{people/toby_lovick.jpg}%
@@ -543,62 +60,11 @@
         \node[anchor=south east] at ($(current page.south east)+(0,0.4cm)$) {
         \includegraphics[width=0.075\textheight]{people/claude.jpg}%
         \includegraphics[width=0.075\textheight]{people/gemini.jpg}%
+        \includegraphics[width=0.075\textheight]{people/groq.jpg}%
+        \includegraphics[width=0.075\textheight]{people/mistral.jpg}%
         \includegraphics[width=0.075\textheight]{people/openai.jpg}%
         \includegraphics[width=0.075\textheight]{people/otter.jpg}%
     };
-    \vspace{1.5em}
-    \begin{itemize}
-        \item \textbf{What agents are for}: scripting, grunt, scaling an
-            established analysis, simple judgement at volume. Interpretation
-            stays human. The papers are still ours.
-        \item \textbf{What we have shown}: ports to machine precision, an
-            archive no one would have staffed, a conference that wrote
-            itself up, a whiteboard that answers back, a thousand meetings
-            that can be asked questions.
-        \item \textbf{What the tool should feel like}: ambient at the
-            surfaces where research happens; there when wanted; consensual;
-            never leaving the room.
-        \item \textbf{Why local}: the scarce thing was never the model.
-            Harness and subsidised tokens are what was being sold, and both
-            are ours to make.
-    \end{itemize}
-\end{frame}
-
-\appendix
-
-\begin{frame}
-    \frametitle{Live loops in meetings, full inventory}
-    \framesubtitle{From 394 meeting records, April--September 2026}
-    \tiny
-    \begin{columns}[T]
-        \column{0.5\textwidth}
-        \begin{description}[28 Apr]
-            \item[24 Apr] AInstein meeting: training recipe drafted from the live transcript and a paper.
-            \item[27 Apr] Two sessions with David Yallup: read the flow-matching paper; investigated JAX recompilation costs.
-            \item[28 Apr] Group meeting: Toby's local Whisper recorder feeding Claude Code via hooks.
-            \item[28 Apr] Xuelei Chen visit: notes, the guest's question answered, transcript emailed; CAMB EDE module in parallel.
-            \item[30 Apr] Lawrence Berry: other many-ODE systems suggested; LaTeX notes emailed.
-            \item[30 Apr] Sinah Legner: CAMB fork cloned, PPF vs K-screening assessed; second opinion from OpenAI.
-            \item[1 May] Namu Kroupa: radial kernel implemented in blackjax; review requested.
-            \item[5 May] Website workshop orchestrated over the Otter feed; ten attendees, parallel PRs.
-            \item[7 May] Charlotte Priestley: supervision synthesised; stray $\beta$ caught.
-            \item[13 May] Madhusudhan: K2-18b retrieval repository built live.
-            \item[15 May] AInstein: summary for absent members, specified emphasis order.
-        \end{description}
-        \column{0.5\textwidth}
-        \begin{description}[28 Apr]
-            \item[18 May] Caius: GitHub issue filed; questions answered; filter demo built and shown.
-            \item[4 Jun] Toby Lovick: e-whiteboard plus audio to Gemini; Klein--Gordon term filled in.
-            \item[8 Jul] Summer student: workshop checked against upstream blackjax; update proposed.
-            \item[23 Jul] Summer students: Tursa onboarding docs assembled live.
-            \item[7 Aug] James Alvey, Thomas Spieksma: ET Bluebook plot in 15\,s; IDs only.
-            \item[13 Aug] Matt Grayling: sparse GP state of the art from the transcript.
-            \item[27 Aug] David Yallup: response text drafted; citation tree; latexdiff rendered.
-            \item[1 Sep] Group meeting: Pi whiteboard camera, ink segmented, answer projected (video).
-            \item[3 Sep] Toby Lovick: Pi Zero audio box, tickets from turing; ``check the thermals.''
-            \item[4 Sep] PolyChord team: findings summarised precisely on request.
-        \end{description}
-    \end{columns}
 \end{frame}
 
 \end{document}
