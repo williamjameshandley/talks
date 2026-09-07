@@ -226,24 +226,38 @@
     \end{columns}
 \end{frame}
 
-\begin{frame}{Case Study 3: A week's talks became a white paper}
-    \framesubtitle{SBI4GALEV, 27--31 July 2026: talks transcribed locally}
-    \student{chris_lovell.jpg}{Chris Lovell}{}
-    \begin{columns}
-        \begin{column}{0.49\textwidth}
-            \begin{itemize}
-                \item Transcribe talks locally, then summarise each talk and day
-                \item Just over two thirds of speakers opted in; one declined
-                \item White paper by the end of the meeting
-                \item BAAS write-up intended
-            \end{itemize}
+\begin{frame}{Case Study 3: Live transcripts at SBI4GALEV}
+    \framesubtitle{Simulation Based Inference for Galaxy Evolution, 23--26 June 2026}
+    \small
+    Toby Lovick built the system; Chris Lovell ran it and kept developing it during the meeting.
+    \medskip
+    \begin{columns}[T,onlytextwidth]
+        \begin{column}{0.54\textwidth}
+            \begin{center}
+                \begin{tikzpicture}[>=stealth]
+                    \node[draw=C0,fill=C0!10,rounded corners,text width=5.8cm,align=center,inner sep=6pt] (live) at (0,0) {Current slide + live transcript};
+                    \node[draw=C0,fill=C0!10,rounded corners,text width=5.8cm,align=center,inner sep=6pt] (summary) at (0,-1.25) {Summary + three suggested questions};
+                    \draw[->,C0,thick] (live) -- node[right,font=\scriptsize] {talk ends} (summary);
+                \end{tikzpicture}
+            \end{center}
+            Open in a browser on the local network. No login. Anonymous votes on the questions.
+
             \medskip
-            \github{sbi-galev/ambient-ai}
+            People particularly valued being able to read along.
         \end{column}
-        \begin{column}{0.49\textwidth}
-            \figurerequest{Will: supply a talk summary and the resulting white paper side by side. Need to see how the week's record accumulated into a document.}
+        \begin{column}{0.42\textwidth}
+            One participant declined recording but wanted the transcript. We could not separate the two.
+
+            \medskip
+            Publication required an explicit opt-in.\\
+            53 talks captured, 39 in the public archive.
         \end{column}
     \end{columns}
+    \medskip
+    \textbf{All local:} NeMo and Gemma 4 31B on \texttt{turing}, our GPU machine. No cloud processing.
+
+    \medskip
+    \href{https://sbi-galev.github.io/ambient-ai/}{Public archive}\hfill\github{sbi-galev/ambient-ai}
 \end{frame}
 
 % 9--12 minutes: what the cases actually establish.
