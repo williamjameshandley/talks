@@ -243,17 +243,16 @@
                 Toby Lovick\\
                 Built the system
             \end{minipage}
-            \begin{center}
-                \begin{tikzpicture}[>=stealth]
-                    \node[draw=C0,fill=C0!10,rounded corners,text width=5.8cm,align=center,inner sep=6pt] (live) at (0,0) {Current slide + live transcript};
-                    \node[draw=C0,fill=C0!10,rounded corners,text width=5.8cm,align=center,inner sep=6pt] (summary) at (0,-1.25) {Summary + three suggested questions};
-                    \draw[->,C0,thick] (live) -- node[right,font=\scriptsize] {talk ends} (summary);
-                \end{tikzpicture}
-            \end{center}
-            Open in a browser on the local network. No login. Anonymous votes on the questions.
+            \par\medskip
+            Third meeting in the series, 62 participants.
 
             \medskip
-            People particularly valued being able to read along.
+            The local model's account of the science:\\
+            SBI moving from tutorials to production. Diffusion and score models replacing flows; differentiable JAX simulators; robustness to misspecification.
+
+            \medskip
+            Written from its own transcripts.\\
+            Byline: ``alan (automated rapporteur)''.
         \end{column}
         \begin{column}{0.42\textwidth}
             \begin{minipage}{0.20\linewidth}
@@ -272,7 +271,8 @@
         \end{column}
     \end{columns}
     \medskip
-    \textbf{All local:} NeMo and Gemma 4 31B on \texttt{turing}, our GPU machine. No cloud processing.
+    \textbf{Keeping the data in the room is what makes this acceptable, in my view.}\\
+    NeMo and Gemma 4 31B on \texttt{turing}, our GPU machine. No cloud processing.
 
     \medskip
     \href{https://sbi-galev.github.io/ambient-ai/}{Public archive}\hfill\github{sbi-galev/ambient-ai}
