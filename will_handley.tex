@@ -252,43 +252,35 @@
     \end{columns}
 \end{frame}
 
-\begin{frame}{Finding the conversation again}
-    \framesubtitle{How this talk was planned}
-    \begin{columns}
-        \begin{column}{0.49\textwidth}
+\begin{frame}{Our meetings feed an archive and live agents}
+    \framesubtitle{The lab setup in September 2026}
+    \begin{columns}[T,onlytextwidth]
+        \begin{column}{0.43\textwidth}
+            \begin{block}{Transcript archive}
+                \centering
+                $\text{Otter} \xrightarrow{\text{nightly}} \texttt{mdrecord}$
+            \end{block}
             \begin{itemize}
-                \item Roughly 1,000 recorded meetings over 18 months
-                \item Otter $\to$ \texttt{mdrecord} cards each night
-                \item Agents read thirteen conversations from one Thursday in full
-                \item Swept 394 records for examples of agents acting during meetings
-                \item Can recover the reasoning months later, but only if it was recorded
+                \item About 1,000 meetings saved in 18 months
+                \item This talk began with a search through our meeting transcripts
             \end{itemize}
         \end{column}
-        \begin{column}{0.49\textwidth}
-            \figurerequest{Will: supply a transcript passage recovered during this talk's preparation, with its date and source card. Need to show the original conversation behind a claim on these slides.}
-        \end{column}
-    \end{columns}
-\end{frame}
-
-% 12--16 minutes, including the live whiteboard loop.
-\begin{frame}{During the meeting}
-    \framesubtitle{Shared context at the whiteboard and the desk}
-    \begin{columns}
-        \begin{column}{0.49\textwidth}
+        \begin{column}{0.53\textwidth}
+            \begin{block}{Agents in the room}
+                \centering
+                {\small Speech $\to$ Whisper $\to$ Claude Code}
+            \end{block}
+            \small
             \begin{itemize}
-                \item Charlotte Priestley, 2026-05-07: checked whiteboard notes, caught a stray $\beta$
-                \item Madhusudhan, 2026-05-13: built K2-18b retrieval repository in the room
-                \item James Alvey and Thomas Spieksma, 2026-08-07: ET Bluebook plot and quotes on screen in 15 s
-                \item Speak normally. Choose when the agent acts.
+                \item Toby Lovick's recorder fed speech into Claude Code hooks: no need to retype the discussion
+                \item Nikku Madhusudhan: K2-18b retrieval code assembled as we talked
+                \item James Alvey and Thomas Spieksma: requested Einstein Telescope figure and source quotations displayed within 15 s
             \end{itemize}
-        \end{column}
-        \begin{column}{0.49\textwidth}
-            \figurerequest{Will: supply a photograph of the shared display during one of these meetings. Need to show where the answer appears whilst people keep talking.}
+            % Meeting records: Toby 2026-04-28; Nikku 2026-05-13;
+            % James and Thomas 2026-08-07. Examples recovered in a sweep
+            % of 394 records from 2026-04 through 2026-09.
         \end{column}
     \end{columns}
-    % Earlier: Otter polling into Claude Code, about 30 s round trip.
-    % From mid-July: local Parakeet with pyannote diarisation.
-    % Current local service: Gemma 4 on turing at 64 concurrent.
 \end{frame}
 
 \begin{frame}{Checking the whiteboard}
