@@ -98,24 +98,36 @@
     \end{columns}
 \end{frame}
 
-\begin{frame}{Another idea put to work: \texttt{emcee} in \texttt{BlackJAX}}
-    \framesubtitle{15 October 2025: nearly eleven months ago}
+\begin{frame}{Agents make scientific coding from a reference routine}
+    \framesubtitle{Ports and reimplementations: existing specifications, checkable results}
+    \small
     \begin{columns}[T,onlytextwidth]
         \begin{column}{0.49\textwidth}
-            Two months by hand.\\
-            Fifteen minutes with the model.
+            \keyterm{\texttt{emcee} in \texttt{BlackJAX}}\\
+            15 October 2025: nearly eleven months ago
 
             \medskip
-            Matched reference \texttt{emcee} numerically.\\
-            Good enough to get on with my results.
+            Two months by hand.\\
+            Fifteen minutes with the model.\\
+            Agreed numerically with reference \texttt{emcee}.\\
+            I used it for my results.
 
             \medskip
             \href{https://github.com/blackjax-devs/blackjax/pull/797}{PR \#797}: still open, never merged.\\
             I didn't have the time, or the confidence it was ready for \texttt{BlackJAX} as it stood.
         \end{column}
         \begin{column}{0.49\textwidth}
-            \small
-            \figurerequest{Will: supply the numerical comparison of the port against reference \texttt{emcee}. Show the tested quantity, both implementations and their difference, with axes and the test setup legible. Use the original validation output.}
+            \keyterm{\texttt{jaxwavelets}: PyWavelets in JAX}\\
+            Agreement to $10^{-14}$ across 1,177 tests.\\
+            4.7 hours of active computation; on PyPI.
+
+            \medskip
+            The work moved into verification:\\
+            65 external LLM reviews, 60\% rejected before merge.
+
+            \medskip
+            \scriptsize
+            \figurerequest[minimum height=1.8cm]{Will: supply a compact crop of the lab's port examples, showing \texttt{jax-lens} (PyAutoLens in JAX) and \texttt{jaxPOSEIDON} (transmission spectroscopy in JAX), each beside its reference implementation. Keep names and scientific tasks legible.}
         \end{column}
     \end{columns}
 \end{frame}
