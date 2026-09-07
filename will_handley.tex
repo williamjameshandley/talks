@@ -93,7 +93,31 @@
         \end{column}
         \begin{column}{0.48\textwidth}
             \centering
-            \includegraphics[height=4.2cm]{figures/scientist-supervising-agent-session.png}
+            \resizebox{!}{4.2cm}{%
+            \begin{tikzpicture}[line width=1.5pt,>=stealth]
+                \path[use as bounding box] (0,0) rectangle (6,4);
+                % The scientist directs the agent from outside the cycle.
+                \fill[C0] (0.6,3.7) circle (0.12);
+                \draw[C0,line width=3pt] (0.6,3.5) -- (0.6,3.15);
+                \draw[C0] (0.35,3.2) -- (0.6,3.4) -- (0.85,3.2);
+                \draw[->,C0,thin] (0.7,3.05) -- (0.9,2.65);
+                \node[circle,draw=C0,fill=C0!15,minimum size=1.2cm]
+                    (agent) at (1,2) {Agent};
+                \node[draw=C1,fill=C1!15,rounded corners,minimum width=0.8cm,
+                    minimum height=0.9cm] (code) at (3,3.2) {\Large\texttt{\{\}}};
+                \node[circle,draw=C0,fill=C0!15,minimum size=1cm]
+                    (run) at (5.2,2) {Run};
+                \node[circle,draw=C2,fill=C2!15,minimum size=0.7cm]
+                    (output) at (3.1,0.95) {\textcolor{C2}{\checkmark}};
+                \node[circle,draw=C3,fill=C3!15,minimum size=0.7cm]
+                    (error) at (4.5,0.4) {\textcolor{C3}{$\times$}};
+                \draw[->,C1] (agent.north east) to[bend left=20] (code.west);
+                \draw[->,C1] (code.east) to[bend left=20] (run.north);
+                \draw[->,C2] (run.south west) to[bend left=15] (output.east);
+                \draw[->,C3] (run.south) to[bend left=20] (error.north east);
+                \draw[->,C2] (output.west) to[bend left=20] (agent.south east);
+                \draw[->,C3] (error.west) to[bend left=30] (agent.south);
+            \end{tikzpicture}}
         \end{column}
     \end{columns}
 \end{frame}
