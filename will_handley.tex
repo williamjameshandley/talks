@@ -319,40 +319,27 @@
     % the Gemma-on-turing live demonstration.
 \end{frame}
 
-% 16--19 minutes: local sufficiency and the conversational threshold.
-\begin{frame}{Running it locally}
-    \begin{columns}
+\begin{frame}{Local models need tests of accuracy and delay}
+    \framesubtitle{Exam checking already runs on our GPUs}
+    \small
+    \begin{columns}[T,onlytextwidth]
         \begin{column}{0.49\textwidth}
             \begin{itemize}
-                \item Bought the tools around a model, and subsidised tokens
-                \item My usage: ``\$1,000 a day, about the same as my ERC grant''
-                \item Can build the tools and run models on our GPUs
-                \item Exam checking already works locally
-                \item Need measured adequacy for each task
+                \item Frontier providers bundle models with tools; tokens are subsidised
+                \item My usage: \$1,000/day, comparable to my ERC grant
+                \item Expect the bill to rise when subsidies end
+                \item We can write the tools ourselves and use our GPUs
             \end{itemize}
         \end{column}
-        \begin{column}{0.49\textwidth}
-            \figurerequest{Will: supply the evaluation material with James and Nikhil: transcript-to-report, catalogue analysis, technical recall and paper reproduction. Need a test of local sufficiency; mark unfinished measurements as unfinished.}
-        \end{column}
-    \end{columns}
-    \medskip
-    ``the reckoning is coming where the price tag becomes honest.''
-    % Gemma 4 quantum-field-theory paper editing is supporting evidence in
-    % the plan; no benchmark or concrete paper is specified there.
-\end{frame}
-
-\begin{frame}{Fast enough for a conversation}
-    \begin{columns}
-        \begin{column}{0.6\textwidth}
-            \figurerequest{Will: supply your local speech-to-text and LLM latency graph against year, with the conversational timescale marked (around 2022 through 2026). Need the complete transcription--model--display delay; distinguish measured points from a schematic threshold.}
-        \end{column}
-        \begin{column}{0.38\textwidth}
+        \begin{column}{0.47\textwidth}
             \begin{itemize}
-                \item In principle, run the calculation and come back later
-                \item In practice, need the answer whilst still discussing it
-                \item ``A lot of latency can appear by accident.''
-                \item Measure the whole path to the display
+                \item Calculations can wait overnight; answers in a meeting must arrive before we move on.
+                \item Running locally gives us control over delays, including those we introduce by accident
+                \item Time from speaking to seeing the answer: transcription, model, display
             \end{itemize}
+            \medskip
+            {\footnotesize
+            \figurerequest[minimum height=0.25\textheight]{James Alvey and Nikhil Sarin: test reports from transcripts, catalogue analysis, technical recall and paper reproduction. Give acceptance criteria per task; mark pending results.}}
         \end{column}
     \end{columns}
 \end{frame}
