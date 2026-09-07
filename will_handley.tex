@@ -85,13 +85,19 @@
         \end{column}
     \end{columns}
     \bigskip
-    {\small
-    \figurerequest[minimum height=2.7cm]{Will: paired diagrams, aligned with
-    the columns above. Left: ChatGPT $\leftrightarrow$ scientist
-    $\leftrightarrow$ editor/terminal; code copied out, errors copied back.
-    Right: scientist gives the task; ChatGPT edits a file, runs it, reads
-    the output and revises the file in a loop. Keep the scientist visible
-    directing and inspecting the work. Use the same file and error in both.}}
+    \begin{columns}[c,onlytextwidth]
+        \begin{column}{0.48\textwidth}
+            \centering
+            \includegraphics[height=3.25cm]{figures/scientist-copying-chatgpt-vscode.png}
+        \end{column}
+        \begin{column}{0.48\textwidth}
+            \small
+            \figurerequest[minimum height=3.25cm]{Will: scientist gives the task;
+            ChatGPT edits a file, runs it, reads the output and revises the
+            file in a loop. Keep the scientist visible directing and
+            inspecting the work.}
+        \end{column}
+    \end{columns}
     \bigskip
 
     This closes the scientific loop.
