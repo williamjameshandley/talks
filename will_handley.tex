@@ -230,26 +230,26 @@
 \end{frame}
 
 % 9--12 minutes: what the cases actually establish.
-\begin{frame}{What did we delegate?}
-    % TODO(WH): Decide whether Natalie Hogg's Comment and David Yallup's
-    % argument are attributed by name or absorbed as framing.
-    % Pending decision: no attributed slide quotation or citation selected.
-    % Natalie Hogg, "Agentic research is oxymoronic", Nature Astronomy,
-    % 31 Aug 2026, arXiv 2608.31161; David Yallup, 18 Aug.
-    \begin{columns}
-        \begin{column}{0.49\textwidth}
-            \begin{itemize}
-                \item Specify a calculation, then let an agent implement it
-                \item Repeat an established analysis across a catalogue
-                \item Can generate more code and text\ldots
-                \item \ldots but choosing the calculation still takes scientific judgement
-                \item Interpretation stays with the scientist
-            \end{itemize}
-        \end{column}
-        \begin{column}{0.49\textwidth}
-            \figurerequest{Will: supply a review excerpt showing a scientific choice you rejected, and the resulting correction. Need the human interpretation visible beside the agent's work.}
-        \end{column}
-    \end{columns}
+\begin{frame}{An agent cannot do all the science in a paper}
+    \framesubtitle{My rule of thumb: about 80\% of the work can be handed over}
+    \begin{center}
+        \begin{tikzpicture}
+            \fill[C0!15] (0,0) rectangle (10.4,2);
+            \fill[C1!25] (10.4,0) rectangle (13,2);
+            \node at (5.2,1.35) {\Huge\textcolor{C0}{80\%}};
+            \node at (5.2,0.55) {Work for agents};
+            \node at (11.7,1.35) {\Huge\textcolor{C1}{20\%}};
+            \node[align=center] at (11.7,0.5) {Requires\\a scientist};
+        \end{tikzpicture}
+    \end{center}
+    \bigskip
+    We decide what to calculate, and what to make of the answer.
+
+    \medskip
+    Those choices were human in every example you've just seen.
+
+    \bigskip
+    A paper produced by agents from start to finish leaves that part undone.
 \end{frame}
 
 \begin{frame}{Our meetings feed an archive and live agents}
