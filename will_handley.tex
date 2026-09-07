@@ -4,16 +4,16 @@
 
 \newcommand{\keyterm}[1]{\textbf{\textcolor{C0}{#1}}}
 % Figure worklist: each invocation reserves the space for Will's material.
-\newcommand{\figurerequest}[1]{%
+\newcommand{\figurerequest}[2][]{%
     \begin{tikzpicture}
         \node[draw=C0,dashed,thick,rounded corners,inner sep=8pt,
               text width=\dimexpr\linewidth-18pt\relax,
-              minimum height=0.43\textheight,align=left]
-              {\textbf{Figure request for Will}\\[6pt]#1};
+              minimum height=0.43\textheight,align=left,#1]
+              {\textbf{Figure request for Will}\\[6pt]#2};
     \end{tikzpicture}%
 }
 
-\title{AI in the lab}
+\title{The Ambient AI Lab}
 \subtitle{AI for Scientific Practice}
 \date{7\textsuperscript{th} September 2026}
 
@@ -22,29 +22,48 @@
     \titlepage
 \end{frame}
 
-% 0--2 minutes: open with the ordinary supervised task.
-\begin{frame}{\texttt{emcee} $\to$ BlackJAX}
-    \framesubtitle{Writing code under scientific supervision}
+% TODO(WH): Provisional frame title.
+\begin{frame}{AI in research}
     \begin{columns}
-        \begin{column}{0.49\textwidth}
-            \begin{itemize}
-                \item Implement ensemble sampler: \textbf{15 minutes}
-                \item Numerical agreement with reference \texttt{emcee}
-                \item Same approach for \texttt{jaxwavelets}: PyWavelets reproduced to 1e-14
-                \item 1,177 tests in 4.7 hours; 65 external reviews, 60\% rejected before merge
-            \end{itemize}
+        \begin{column}{0.60\textwidth}
+            \begin{columns}
+                \begin{column}{0.23\textwidth}
+                    \scriptsize
+                    \figurerequest[inner sep=4pt,
+                        text width=\dimexpr\linewidth-10pt\relax,
+                        minimum height=2.2cm]{Will: supply a headshot of Hiranya V. Peiris.}
+                \end{column}
+                \begin{column}{0.73\textwidth}
+                    \scriptsize
+                    % DOI 10.1038/s41550-026-02837-2; arXiv 2604.22071.
+                    \href{https://doi.org/10.1038/s41550-026-02837-2}{%
+                        \figurerequest[minimum height=2.55cm]{Will: supply a crop of Hiranya V. Peiris's article, ``Large language models are not the problem''. The Nature Astronomy masthead, title, author and publication date (2026-04-03) must all be legible.}}
+                    \par\hfill\arxiv{2604.22071}
+                \end{column}
+            \end{columns}
+            \medskip
+            \begin{columns}
+                \begin{column}{0.23\textwidth}
+                    \includegraphics[width=\textwidth]{people/natalie_hogg.jpg}
+                \end{column}
+                \begin{column}{0.73\textwidth}
+                    \scriptsize
+                    % DOI 10.1038/s41550-026-02954-y; arXiv 2608.31161.
+                    \href{https://doi.org/10.1038/s41550-026-02954-y}{%
+                        \figurerequest[minimum height=2.55cm]{Will: supply a crop of Natalie B. Hogg's article, ``Agentic research is oxymoronic''. The Nature Astronomy masthead, title, author and publication date (2026-08-31) must all be legible.}}
+                    \par\hfill\arxiv{2608.31161}
+                \end{column}
+            \end{columns}
         \end{column}
-        \begin{column}{0.49\textwidth}
-            \figurerequest{Will: supply the comparison with reference emcee, with its numerical agreement visible. Need the test of the port beside the time taken.}
+        \begin{column}{0.40\textwidth}
+            \centering
+            \includegraphics[width=0.80\textwidth]{logos/anthropic.pdf}
+            \par\vspace{1cm}
+            \includegraphics[width=0.80\textwidth]{logos/deepmind.pdf}
+            \par\vspace{1cm}
+            \includegraphics[width=0.65\textwidth]{logos/openai.pdf}
         \end{column}
     \end{columns}
-    \begin{exampleblock}{}
-        ``I wrote no code, but made the scientific decisions.''
-    \end{exampleblock}
-    \tthref{handley-lab.co.uk/cookbook}
-    % Other instances: jaxPOSEIDON (May 2026), jax-lens (Dec 2025),
-    % jim-emulators, blackjax-gw, Charlotte Priestley's jaxsgp4 (1500x),
-    % k2-18b-blackjax-retrieval (13 May 2026, Madhusudhan).
 \end{frame}
 
 % 2--9 minutes: short cases; no demonstrations of confidential material.
