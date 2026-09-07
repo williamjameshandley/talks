@@ -123,38 +123,36 @@
 \end{frame}
 
 \begin{frame}{We get agents to do the scientific computing}
-    \framesubtitle{Agents run and curate jobs on the cluster}
+    \framesubtitle{From a three-hour first draft to a full supernova simulation pipeline}
+    \small
     \begin{columns}[T,onlytextwidth]
-        \begin{column}{0.59\textwidth}
-            \texttt{emcee} in \texttt{BlackJAX}\\
-            \small 15 October 2025: nearly eleven months ago
-
-            \medskip
+        \begin{column}{0.62\textwidth}
+            \texttt{emcee} in \texttt{BlackJAX}, 15 October 2025\\
             Two months by hand, fifteen minutes with the model. Agreed numerically with reference \texttt{emcee}.
 
-            \medskip
-            I never merged it. Didn't have the time, and wasn't confident it was good enough to go into \texttt{BlackJAX} as it stood.
+            I never merged it. Didn't have the time, and wasn't confident it was ready for \texttt{BlackJAX}. Certainly good enough for the results I then used. Pull request still open.
 
             \medskip
-            Certainly good enough for the results I then used. The pull request is still open.
+            Sam Leeney's \texttt{jax-bandflux}: SALT3 integration on GPU, $\sim100\times$, fully differentiable.\\
+            First draft in about three hours. \arxiv{2504.08081}
+
+            \medskip
+            Matt Grayling rewrote the \textbf{whole pipeline}: \texttt{JAX-SNANA}.\\
+            $\sim200$ simulations/s (CPU) $\to$ $>10{,}000$/s (A100).\\
+            Agrees with DES Y5 to better than a millimag.
         \end{column}
-        \begin{column}{0.37\textwidth}
-            \small
-            Scripts written and run during meetings.
+        \begin{column}{0.34\textwidth}
+            \texttt{jaxwavelets}: PyWavelets in JAX to $10^{-14}$, 1,177 tests.\\
+            4.7 hours of active computation.\\
+            65 external LLM reviews; 60\% rejected before merge.
 
             \medskip
             \scriptsize
-            \figurerequest[minimum height=1.6cm]{Will: show a script an agent wrote and ran during a meeting. Need the request and output legible.}
-
-            \medskip
-            \small
-            \texttt{jaxwavelets} reproduced PyWavelets in JAX to $10^{-14}$ across 1,177 tests.
-
-            \medskip
-            65 external LLM reviews.\\
-            60\% rejected before merge.
+            \figurerequest[minimum height=2cm]{Will: show the model's Fortran dependency trace from Sinah Legner's CAMB torsion work. Need the $N_{\rm eff}$ double count and missing massive-neutrino evolution pathway visible.}
         \end{column}
     \end{columns}
+    \medskip
+    Agents driving and curating cluster jobs. Scripts written and run during meetings.
 \end{frame}
 
 % 2--9 minutes: short cases; no demonstrations of confidential material.
