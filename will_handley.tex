@@ -187,33 +187,6 @@
 \end{frame}
 
 % 2--9 minutes: short cases; no demonstrations of confidential material.
-\begin{frame}{Astro Legacy Archive}
-    \framesubtitle{Measurements for machine learning}
-    \student{james_alvey.jpg}{James Alvey}{EuCAIF SBI working group}
-    \begin{columns}
-        \begin{column}{0.49\textwidth}
-            \begin{itemize}
-                \item Audited 2,130 Hugging Face datasets: 449 astronomy
-                \item No maps, timestreams, event lists, visibilities or chains (one broken strain fragment)
-                \item Agents wrote 130 cards; $\sim$2.5 TB uploaded
-                \item Rebuild from canonical archive; retain provenance and regeneration command
-            \end{itemize}
-        \end{column}
-        \begin{column}{0.49\textwidth}
-            \figurerequest{Will: supply an archive card with its source, licence, checksum and rebuild command. Need to show what survives the conversion to Parquet.}
-            \medskip
-
-            LAMBDA 1.1 MB/s\\
-            Hugging Face CDN 103.6 MB/s
-        \end{column}
-    \end{columns}
-    \medskip
-    ``do not normalise; you'll only be normalising for this set, not for the sets that come after.''
-    % Source: proposal-v0.3.md and eucaif-onepager-draft.md in the plan.
-    % Pilot: Haslam, WMAP, COBE, IRAS, ROSAT maps (~8 GB), complete EHT
-    % visibility releases. Pre-registered success criteria.
-\end{frame}
-
 \begin{frame}{Checking exam papers}
     \framesubtitle{Part III/CATAM --- reported result}
     \begin{columns}
@@ -251,38 +224,6 @@
             \figurerequest{Will: supply a talk summary and the resulting white paper side by side. Need to see how the week's record accumulated into a document.}
         \end{column}
     \end{columns}
-\end{frame}
-
-\begin{frame}{LSST: which events need another look?}
-    \framesubtitle{Nikhil Sarin; James Alvey}
-    \begin{columns}
-        \begin{column}{0.49\textwidth}
-            \begin{itemize}
-                \item Redback plus blackjax: transient inference in 85 minutes on one consumer GPU
-                \item Gemma explains which events need reanalysis, and why
-                \item Apply across 50--70 thousand events; runs on a 16 GB card
-                \item Tried classification first: ``that isn't the question''
-            \end{itemize}
-            \medskip
-            More in Nikhil's talk
-        \end{column}
-        \begin{column}{0.49\textwidth}
-            \figurerequest{Will: supply one transient and its reanalysis explanation from Nikhil and James. Need to show the decision being delegated, with the evidence it uses.}
-        \end{column}
-    \end{columns}
-\end{frame}
-
-\begin{frame}{More from the cookbook}
-    \framesubtitle{\tthref{handley-lab.co.uk/cookbook}}
-    \figurerequest{Will: supply the cookbook grid from your material: jaxwavelets; emcee in BlackJAX (15 min); GW emulator in eight hours; covariance computation (24 hours to 1--2 minutes); CAMB torsion; CLASS discrete k-modes; six-slide deck live in five minutes; CosmoSIS$\to$Cobaya port. Need completed examples visible together, with their tests and timings.}
-    \medskip
-    \begin{itemize}
-        \item CAMB: $N_{\rm eff}$ double count and missing massive neutrino pathway
-        \item CLASS: FCB sign inconsistency
-        \item CosmoSIS$\to$Cobaya: adversarial review of the port
-    \end{itemize}
-    % Seven further recipes proposed at the 5 May workshop are not completed
-    % results: retain the distinction when replacing this figure request.
 \end{frame}
 
 % 9--12 minutes: what the cases actually establish.
