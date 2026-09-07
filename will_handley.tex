@@ -122,37 +122,58 @@
     \end{columns}
 \end{frame}
 
-\begin{frame}{We now ask agents to get calculations running}
-    \framesubtitle{We use agents for cluster jobs and for writing and running scripts in meetings}
+\begin{frame}{We're building scientific software with agents}
+    \framesubtitle{A sampler is only one of the things we've tried}
     \begin{columns}[T,onlytextwidth]
-        \begin{column}{0.56\textwidth}
-            Matt Grayling: \texttt{JAX-SNANA}
+        \begin{column}{0.48\textwidth}
+            \keyterm{\texttt{emcee} $\to$ \texttt{BlackJAX}}
 
             \small
-            Supernova light curves, simulated entirely in JAX.\\
-            CPU: $\sim200$/s. A100: $>10{,}000$/s.
-
-            \medskip
-            \scriptsize
-            \figurerequest[minimum height=2.2cm]{Will: provide Matt's comparison with DES Y5, with the residuals in magnitudes visible. The plot should show the agreement below one millimag.}
-
-            \medskip
-            \small
-            Natalie Hogg's covariance calculation:\\
-            $24$ hours $\longrightarrow$ $1$--$2$ minutes.
+            2 months by hand / 15 min with the model\\
+            October 2025. Still unmerged.
         \end{column}
-        \begin{column}{0.40\textwidth}
+        \begin{column}{0.48\textwidth}
+            \keyterm{\texttt{jaxwavelets}}
+
             \small
-            My \texttt{emcee} port, October 2025:\\
-            $2$ months manually, $15$ min with an LLM.
+            PyWavelets in JAX, now on PyPI\\
+            4.7 hours' active computation
+        \end{column}
+    \end{columns}
+    \bigskip
+    \begin{columns}[T,onlytextwidth]
+        \begin{column}{0.48\textwidth}
+            \begin{columns}[c,onlytextwidth]
+                \begin{column}{0.20\textwidth}
+                    \includegraphics[width=\textwidth,height=1.35cm,keepaspectratio]{people/matt_grayling.jpg}
+                \end{column}
+                \begin{column}{0.76\textwidth}
+                    \texttt{JAX-SNANA}\\
+                    \small Matt Grayling\\
+                    Simulating supernova light curves
+                \end{column}
+            \end{columns}
+            \smallskip
+            \centering
+            \includegraphics[height=3.4cm,width=\textwidth,keepaspectratio]{figures/matt-jax-snana.pdf}
+        \end{column}
+        \begin{column}{0.48\textwidth}
+            \begin{columns}[c,onlytextwidth]
+                \begin{column}{0.20\textwidth}
+                    \includegraphics[width=\textwidth,height=1.35cm,keepaspectratio]{people/sam_leeney.jpg}
+                \end{column}
+                \begin{column}{0.76\textwidth}
+                    \texttt{jax-bandflux}\\
+                    \small Sam Leeney\\
+                    SALT3 on GPU, $\sim100\times$ faster
+                \end{column}
+            \end{columns}
+            \smallskip
+            \scriptsize
+            \figurerequest[minimum height=2.3cm]{Will: send a visual from Sam's bandflux work: a SALT3 spectrum through the filters would locate the calculation. Use his original output.}
+            \smallskip
 
-            Numerically consistent with \texttt{emcee}. I used the results, but didn't merge the code: I couldn't give it more time and wasn't satisfied it was ready for \texttt{BlackJAX}.
-
-            \medskip
-            My \texttt{jaxwavelets} is on PyPI.\\
-            Reproduces PyWavelets in JAX to $10^{-14}$ over 1,177 tests, after 4.7 hours' active computation.
-
-            Of 65 external LLM reviews, 60\% were rejected before merging.
+            \small First draft: $\sim3$ hours\hfill\arxiv{2504.08081}
         \end{column}
     \end{columns}
 \end{frame}
