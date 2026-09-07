@@ -122,58 +122,66 @@
     \end{columns}
 \end{frame}
 
-\begin{frame}{We're building scientific software with agents}
-    \framesubtitle{A sampler is only one of the things we've tried}
+\begin{frame}{Agents write whole scientific codebases for us}
+    \framesubtitle{We also ask agents to inspect code we already use}
+    \scriptsize
     \begin{columns}[T,onlytextwidth]
-        \begin{column}{0.48\textwidth}
-            \keyterm{\texttt{emcee} $\to$ \texttt{BlackJAX}}
-
-            \small
-            2 months by hand / 15 min with the model\\
-            October 2025. Still unmerged.
+        \begin{column}{0.32\textwidth}
+            \begin{block}{\small\texttt{emcee} $\to$ \texttt{BlackJAX}}
+                Will Handley, October 2025\\
+                Manual: 2 months. LLM: 15 min.\\
+                Matches reference \texttt{emcee} numerically.\\
+                Open pull request; not merged.
+            \end{block}
+            \begin{block}{\small\texttt{jaxwavelets}}
+                Will Handley\\
+                PyWavelets reimplemented in JAX.\\
+                $10^{-14}$ agreement, 1,177 tests.\\
+                4.7 hours' active computation.\\
+                Available on PyPI.
+            \end{block}
         \end{column}
-        \begin{column}{0.48\textwidth}
-            \keyterm{\texttt{jaxwavelets}}
-
-            \small
-            PyWavelets in JAX, now on PyPI\\
-            4.7 hours' active computation
+        \begin{column}{0.32\textwidth}
+            \begin{block}{\small\texttt{jax-bandflux}}
+                \begin{minipage}{0.23\linewidth}
+                    \includegraphics[width=\linewidth,height=0.9cm,keepaspectratio]{people/sam_leeney.jpg}
+                \end{minipage}\hfill
+                \begin{minipage}{0.72\linewidth}\raggedright
+                    Sam Leeney\\
+                    \arxiv{2504.08081}
+                \end{minipage}
+                \par\smallskip
+                SALT3 bandflux on GPU: $\sim100\times$.\\
+                Differentiable; initial draft in $\sim3$ h.
+            \end{block}
+            \begin{block}{\small\texttt{JAX-SNANA}}
+                \begin{minipage}{0.23\linewidth}
+                    \includegraphics[width=\linewidth,height=0.9cm,keepaspectratio]{people/matt_grayling.jpg}
+                \end{minipage}\hfill
+                \begin{minipage}{0.72\linewidth}\raggedright
+                    Matt Grayling\\
+                    SN light-curve pipeline\\
+                    rewritten in JAX
+                \end{minipage}
+                \par\smallskip
+                $\sim200$ simulations/s on CPU\\
+                $>10{,}000$/s on A100.\\
+                DES Y5 agreement: $<1$ millimag.
+            \end{block}
         \end{column}
-    \end{columns}
-    \bigskip
-    \begin{columns}[T,onlytextwidth]
-        \begin{column}{0.48\textwidth}
-            \begin{columns}[c,onlytextwidth]
-                \begin{column}{0.20\textwidth}
-                    \includegraphics[width=\textwidth,height=1.35cm,keepaspectratio]{people/matt_grayling.jpg}
-                \end{column}
-                \begin{column}{0.76\textwidth}
-                    \texttt{JAX-SNANA}\\
-                    \small Matt Grayling\\
-                    Simulating supernova light curves
-                \end{column}
-            \end{columns}
-            \smallskip
-            \centering
-            \includegraphics[height=3.4cm,width=\textwidth,keepaspectratio]{figures/matt-jax-snana.pdf}
-        \end{column}
-        \begin{column}{0.48\textwidth}
-            \begin{columns}[c,onlytextwidth]
-                \begin{column}{0.20\textwidth}
-                    \includegraphics[width=\textwidth,height=1.35cm,keepaspectratio]{people/sam_leeney.jpg}
-                \end{column}
-                \begin{column}{0.76\textwidth}
-                    \texttt{jax-bandflux}\\
-                    \small Sam Leeney\\
-                    SALT3 on GPU, $\sim100\times$ faster
-                \end{column}
-            \end{columns}
-            \smallskip
-            \scriptsize
-            \figurerequest[minimum height=2.3cm]{Will: send a visual from Sam's bandflux work: a SALT3 spectrum through the filters would locate the calculation. Use his original output.}
-            \smallskip
-
-            \small First draft: $\sim3$ hours\hfill\arxiv{2504.08081}
+        \begin{column}{0.32\textwidth}
+            \begin{block}{\small Following the old code}
+                Sinah Legner's CAMB torsion work:\\
+                $N_{\rm eff}$ counted twice; an evolution pathway for massive neutrinos was missing.\\[3pt]
+                Discrete $k$ in CLASS:\\
+                FCB expansion had a sign error.
+            \end{block}
+            \begin{block}{\small Other jobs we give agents}
+                Natalie Hogg's covariance:\\
+                24 h $\to$ 1--2 min.\\[5pt]
+                Submitting and looking after HPC jobs.\\[5pt]
+                Writing scripts and executing them in meetings.
+            \end{block}
         \end{column}
     \end{columns}
 \end{frame}
