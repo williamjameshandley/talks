@@ -2,23 +2,15 @@
 \usepackage{will_handley_beamer}
 \usepackage{title_page}
 
-% Commands
-% --------
-% - \arxiv{arxiv number}
-% - \arxiv{<number>}            arxiv.org/abs/<number>
-% - \oldarxiv{<arxiv number>}   arxiv.org/<number>
-% - \doi{<doi>}                 doi.org/<doi>
-% - \xkcd{<number>}             xkcd.com/<number>
-% - \email{<email>}             <<email>>
-% - \tthref{<website>}          <website>
-% - \av[dist]{<quantity>}       <quantity>_{dist}
-% - \student{<name>}{<detail>}{<photo>}
-
-% Talk details
-% ------------
-\title{<+Title+>}
-\subtitle{<+subtitle+>}
-\date{<+Date+>}
+\title{Accelerating cosmology}
+\subtitle{Handley Lab: KICC Welcome Day}
+\date{20\textsuperscript{th} October 2026}
+\institute[University of Cambridge]{%
+    Professor of Cosmology\\
+    Institute of Astronomy / Kavli Institute for Cosmology, Cambridge\\
+    Royal Society University Research Fellow / Gonville \& Caius College\\
+    \tthref{handley-lab.co.uk}
+}
 
 \begin{document}
 
@@ -26,45 +18,58 @@
     \titlepage
 \end{frame}
 
-\begin{frame}
-    \frametitle{<+Frame title+>}
-    <+Content+>
-\end{frame}
-
-\begin{frame}
-    \frametitle{Conclusions}
-    \framesubtitle{\tthref{handley-lab.co.uk}}
-    \tikz[overlay,remember picture]
-        \node[anchor=north east] (A) at ($(current page.north east)+(0,0)$) {
-        \includegraphics[width=0.075\textheight]{people/adam_ormondroyd.jpg}%
-        \includegraphics[width=0.075\textheight]{people/charlotte_priestley.jpg}%
-        \includegraphics[width=0.075\textheight]{people/chris_lovell.jpg}%
-        \includegraphics[width=0.075\textheight]{people/david_yallup.jpg}%
-        \includegraphics[width=0.075\textheight]{people/dily_ong.jpg}%
-        \includegraphics[width=0.075\textheight]{people/farah_wallauer.jpg}%
-        \includegraphics[width=0.075\textheight]{people/harry_bevins.jpg}%
-        \includegraphics[width=0.075\textheight]{people/james_alvey.jpg}%
-        \includegraphics[width=0.075\textheight]{people/lawrence_berry.jpg}%
-        \includegraphics[width=0.075\textheight]{people/matt_grayling.jpg}%
-        \includegraphics[width=0.075\textheight]{people/metha_prathaban.jpg}%
-        \includegraphics[width=0.075\textheight]{people/namu_kroupa.jpg}%
-        \includegraphics[width=0.075\textheight]{people/natalie_hogg.jpg}%
-        \includegraphics[width=0.075\textheight]{people/rose_luo.jpg}%
-        \includegraphics[width=0.075\textheight]{people/sam_leeney.jpg}%
-        \includegraphics[width=0.075\textheight]{people/sinah_legner.jpg}%
-        \includegraphics[width=0.075\textheight]{people/toby_lovick.jpg}%
-        \includegraphics[width=0.075\textheight]{people/wei-ning_deng.jpg}%
-        \includegraphics[width=0.075\textheight]{people/will_handley.jpg}%
-    };
-    \tikz[overlay,remember picture]
-        \node[anchor=south east] at ($(current page.south east)+(0,0.4cm)$) {
-        \includegraphics[width=0.075\textheight]{people/claude.jpg}%
-        \includegraphics[width=0.075\textheight]{people/gemini.jpg}%
-        \includegraphics[width=0.075\textheight]{people/groq.jpg}%
-        \includegraphics[width=0.075\textheight]{people/mistral.jpg}%
-        \includegraphics[width=0.075\textheight]{people/openai.jpg}%
-        \includegraphics[width=0.075\textheight]{people/otter.jpg}%
-    };
+\begin{frame}[t]
+    \frametitle{Accelerating cosmology from theory to data}
+    \framesubtitle{Will Handley \hfill \tthref{handley-lab.co.uk}}
+    \vspace{-0.5em}
+    \begin{columns}[T,onlytextwidth]
+        \begin{column}{0.56\textwidth}
+            \footnotesize
+            \vspace{-0.5em}
+            \begin{block}{\small Big problems in cosmology}
+                \begin{itemize}
+                    \setlength{\itemsep}{1pt}
+                    \item \textbf{Dark energy \& tensions}: cosmic acceleration,
+                        $H_0$, $S_8$ -- new physics or systematics?
+                    \item \textbf{The next surveys}: LSST supernovae/quasars,
+                        Euclid/JWST lensing, galaxy simulations.
+                    \item \textbf{Fundamental gravity}: actions $\to$ cosmological
+                        data; real-time GWs $\to$ Einstein Telescope.
+                \end{itemize}
+            \end{block}
+            \vspace{-0.5em}
+            \begin{exampleblock}{\small Shared tools: \texttt{JAX / BlackJAX} + agents}
+                \begin{itemize}
+                    \setlength{\itemsep}{1pt}
+                    \item \textbf{GPUs}: classical Bayes / nested sampling.
+                    \item \textbf{AI for scientists}: agents for code and algebra;
+                        humans choose the physics and test the results.
+                \end{itemize}
+            \end{exampleblock}
+        \end{column}
+        \begin{column}{0.41\textwidth}
+            \centering
+            \includegraphics[height=2.4cm]{figures/cosmology-shared-tools.png}
+            \par\vspace{-0.6em}
+            \begin{block}{\small Already working}
+                \footnotesize
+                \textbf{89\,s}: binary neutron-star inference\\
+                {\scriptsize Median on 128\,s signals. \arxiv{2607.28265}\\
+                Yallup, Prathaban et al.}\\[0.25em]
+                \textbf{25,602} latent parameters: \textbf{11\,min / GPU}\\
+                {\scriptsize ALCS. \arxiv{2603.26644}\\
+                Lovick, Yallup \& Handley.}
+            \end{block}
+        \end{column}
+    \end{columns}
+    \vspace{0.3em}
+    {\scriptsize
+        \textbf{Postdocs \& fellows:} Natalie Hogg, Matt Grayling, Chris Lovell,
+        James Alvey, Nikhil Sarin.\\
+        \textbf{PhD students:} Dily Ong, Namu Kroupa, Sam Leeney, Toby Lovick,
+        Lawrence Berry, Charlotte Priestley,
+        Farah Wallauer, Selma Vangstein, Sam Hewson.\par
+    }
 \end{frame}
 
 \end{document}
