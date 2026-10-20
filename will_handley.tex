@@ -2,6 +2,27 @@
 \usepackage{will_handley_beamer}
 \usepackage{title_page}
 
+\newsavebox{\memberphoto}
+\newcommand{\groupmember}[3]{%
+    \begin{minipage}[t]{0.135\textwidth}
+        \centering
+        \begin{tikzpicture}
+            \IfFileExists{people/#1.jpg}{%
+                \sbox{\memberphoto}{\includegraphics[height=0.75cm]{people/#1.jpg}}%
+                \ifdim\wd\memberphoto<0.75cm
+                    \sbox{\memberphoto}{\includegraphics[width=0.75cm]{people/#1.jpg}}%
+                \fi
+                \clip (0,0) circle (0.375cm);
+                \node[inner sep=0pt] at (0,0) {\usebox{\memberphoto}};
+            }{%
+                \fill[C0] (0,0) circle (0.375cm);
+                \node[text=white,font=\footnotesize\bfseries] at (0,0) {#2};
+            }
+        \end{tikzpicture}\\[-0.2em]
+        {\fontsize{8}{9}\selectfont\strut #3\strut\par}
+    \end{minipage}%
+}
+
 \title{Accelerating cosmology}
 \subtitle{Handley Lab: KICC Welcome Day}
 \date{20\textsuperscript{th} October 2026}
@@ -20,56 +41,203 @@
 
 \begin{frame}[t]
     \frametitle{Accelerating cosmology from theory to data}
-    \framesubtitle{Will Handley \hfill \tthref{handley-lab.co.uk}}
+    \framesubtitle{Handley Lab: Science@KICC \hfill \email{wh260@cam.ac.uk}}
     \vspace{-0.5em}
     \begin{columns}[T,onlytextwidth]
-        \begin{column}{0.56\textwidth}
+        \begin{column}{0.44\textwidth}
             \footnotesize
-            \vspace{-0.5em}
-            \begin{block}{\small Big problems in cosmology}
-                \begin{itemize}
-                    \setlength{\itemsep}{1pt}
-                    \item \textbf{Dark energy \& tensions}: cosmic acceleration,
-                        $H_0$, $S_8$ -- new physics or systematics?
-                    \item \textbf{The next surveys}: LSST supernovae/quasars,
-                        Euclid/JWST lensing, galaxy simulations.
-                    \item \textbf{Fundamental gravity}: actions $\to$ cosmological
-                        data; real-time GWs $\to$ Einstein Telescope.
-                \end{itemize}
-            \end{block}
-            \vspace{-0.5em}
-            \begin{exampleblock}{\small Shared tools: \texttt{JAX / BlackJAX} + agents}
-                \begin{itemize}
-                    \setlength{\itemsep}{1pt}
-                    \item \textbf{GPUs}: classical Bayes / nested sampling.
-                    \item \textbf{AI for scientists}: agents for code and algebra;
-                        humans choose the physics and test the results.
-                \end{itemize}
-            \end{exampleblock}
+            \begin{itemize}
+                \item \textbf{Big problems}: cosmic acceleration -- $\Lambda$, evolving
+                    dark energy or modified gravity? $H_0$, $S_8$ and DESI--SNe tensions:
+                    physics, systematics or priors?
+                \item \textbf{GPUs for science}: classical Bayes, differential
+                    equations and forward models in \texttt{JAX / BlackJAX}.
+                \item \textbf{AI for scientists}: agents for legacy code and algebra;
+                    people choose the physics and check the results.
+                \item \textbf{The programmes}: dark energy and fundamental theory;
+                    real-time gravitational waves; LSST, Euclid and JWST readiness.
+            \end{itemize}
         \end{column}
-        \begin{column}{0.41\textwidth}
+        \begin{column}{0.53\textwidth}
             \centering
-            \includegraphics[height=2.4cm]{figures/cosmology-shared-tools.png}
-            \par\vspace{-0.6em}
-            \begin{block}{\small Already working}
-                \footnotesize
-                \textbf{89\,s}: binary neutron-star inference\\
-                {\scriptsize Median on 128\,s signals. \arxiv{2607.28265}\\
-                Yallup, Prathaban et al.}\\[0.25em]
-                \textbf{25,602} latent parameters: \textbf{11\,min / GPU}\\
-                {\scriptsize ALCS. \arxiv{2603.26644}\\
-                Lovick, Yallup \& Handley.}
-            \end{block}
+            \includegraphics[width=\textwidth]{figures/cosmology-shared-tools.png}
         \end{column}
     \end{columns}
-    \vspace{0.3em}
-    {\scriptsize
-        \textbf{Postdocs \& fellows:} Natalie Hogg, Matt Grayling, Chris Lovell,
-        James Alvey, Nikhil Sarin.\\
-        \textbf{PhD students:} Dily Ong, Namu Kroupa, Sam Leeney, Toby Lovick,
-        Lawrence Berry, Charlotte Priestley,
-        Farah Wallauer, Selma Vangstein, Sam Hewson.\par
-    }
+\end{frame}
+
+\begin{frame}[t]
+    \frametitle{The Handley Lab (2026--2027)}
+    \vspace{-0.6em}
+    {\small\textcolor{C0}{\textbf{Postdocs and fellows}}}\par\vspace{1pt}
+    \noindent
+    \groupmember{natalie_hogg}{NH}{Natalie\\Hogg}\hfill
+    \groupmember{matt_grayling}{MG}{Matt\\Grayling}\hfill
+    \groupmember{chris_lovell}{CL}{Chris\\Lovell}\hfill
+    \groupmember{james_alvey}{JA}{James\\Alvey}\hfill
+    \groupmember{nikhil_sarin}{NS}{Nikhil\\Sarin}\par
+    \smallskip
+    {\small\textcolor{C0}{\textbf{PhD students}}}\par\vspace{1pt}
+    \noindent
+    \groupmember{dily_ong}{DO}{Dily\\Ong}\hfill
+    \groupmember{namu_kroupa}{NK}{Namu\\Kroupa}\hfill
+    \groupmember{sam_leeney}{SL}{Sam\\Leeney}\hfill
+    \groupmember{toby_lovick}{TL}{Toby\\Lovick}\hfill
+    \groupmember{lawrence_berry}{LB}{Lawrence\\Berry}\hfill
+    \groupmember{charlotte_priestley}{CP}{Charlotte\\Priestley}\par
+    \vspace{1pt}
+    \noindent
+    \groupmember{farah_wallauer}{FW}{Farah\\Wallauer}\hfill
+    \groupmember{selma_vangstein}{SV}{Selma\\Vangstein}\hfill
+    \groupmember{samuel_hewson}{SH}{Sam\\Hewson}\hfill
+    \groupmember{metha_prathaban}{MP}{Metha\\Prathaban}\hfill
+    \groupmember{sinah_legner}{SL}{Sinah\\Legner}\hfill
+    \groupmember{wei-ning_deng}{WD}{Wei-Ning\\Deng}\par
+    \smallskip
+    {\small\textcolor{C0}{\textbf{Part III / MASt 2026-27}}}\par\vspace{1pt}
+    \noindent
+    \groupmember{jaiman_lad}{JL}{Jaiman\\Lad}\hfill
+    \groupmember{jesus_girones_fraile}{JGF}{Jes\'us\\Girones Fraile}\hfill
+    \groupmember{david_parodi}{DP}{David\\Parodi}\hfill
+    \groupmember{manaal_khan}{MK}{Manaal\\Khan}\hfill
+    \groupmember{charlotte_mccarthy}{CM}{Charlotte\\McCarthy}\hfill
+    \groupmember{ashwin_balakrishnan}{AB}{Ashwin\\Balakrishnan}\hfill
+    \groupmember{benedict_binu}{BTB}{Benedict\\Thomas Binu}\par
+\end{frame}
+
+% Research claims and credits: handley-lab.tex, October 2026 group talk.
+\begin{frame}[t]
+    \frametitle{Dark energy, tensions and fundamental theory to data}
+    \framesubtitle{Candidate Lagrangians, GPU Boltzmann solvers and DESI DR2}
+    \vspace{-0.5em}
+    \begin{columns}[T,onlytextwidth]
+        \begin{column}{0.32\textwidth}
+            \centering
+            % Last dataset panel with its axes and the original model legend.
+            \parbox[c][2.9cm][c]{\linewidth}{\centering
+                \includegraphics[height=0.85cm,trim=475 790 0 0,clip]{figures/desi-bayesian-frequentist.pdf}\\[-1pt]
+                \includegraphics[width=\linewidth,trim=0 0 78 720,clip]{figures/desi-bayesian-frequentist.pdf}
+            }\par
+            \raggedright\footnotesize
+            \textbf{DESI: evolving dark energy?}\par
+            {\scriptsize Dily Ong, David Yallup, Adam Ormondroyd\par}
+            \smallskip
+            Separate evolving dark energy from priors and supernova calibration.
+            \arxiv{2603.05472}\par
+            \smallskip
+            \texttt{unimpeded}: compare models and datasets using public chains.
+            \arxiv{2511.04661}
+        \end{column}
+        \begin{column}{0.32\textwidth}
+            \centering
+            \includegraphics[width=\linewidth,height=2.9cm,keepaspectratio,trim=0 0 620 500,clip]{figures/torc-varsigma-desi-evidence.png}\par
+            {\tiny Sinah Legner: thesis, torsion models vs DESI\par}
+            \raggedright\footnotesize
+            \textbf{Fundamental actions to data}\par
+            {\scriptsize Sinah Legner, Wei-Ning Deng,\\Selma Vangstein, Sam Hewson\par}
+            \smallskip
+            Torsion Condensation and CPT-symmetric cosmology.
+            \arxiv{2507.09228}\ \arxiv{2509.10379}\par
+            \smallskip
+            Next: agent-derived perturbations with Cavendish Gravity.
+        \end{column}
+        \begin{column}{0.32\textwidth}
+            \centering
+            \includegraphics[width=\linewidth,height=2.9cm,keepaspectratio]{figures/modax-stiff-scaling.png}\par
+            \raggedright\footnotesize
+            \textbf{GPU Boltzmann solvers}\par
+            {\scriptsize Lawrence Berry, Oliver Hahn,\\Nils Sch\"oneberg\par}
+            \smallskip
+            \texttt{modax}: GPU differential equations.
+            \texttt{DISCO-EB}: CMB spectra without tight-coupling approximations.
+            \arxiv{2609.35661}\par
+            \smallskip
+            Next: evolve candidate theories and compare with data.
+        \end{column}
+    \end{columns}
+\end{frame}
+
+\begin{frame}[t]
+    \frametitle{Real-time GWs and Stage-IV survey readiness}
+    \framesubtitle{Classical Bayes for LVK, Einstein Telescope, LISA, LSST, Euclid and JWST}
+    \vspace{-0.5em}
+    \begin{columns}[T,onlytextwidth]
+        \begin{column}{0.32\textwidth}
+            \centering
+            \includegraphics[width=\linewidth,height=2.6cm,keepaspectratio]{figures/gw-realtime-runtimes.png}\par
+            \raggedright\footnotesize
+            \textbf{Real-time gravitational waves}\par
+            {\scriptsize Metha Prathaban, David Yallup,\\James Alvey, Nikhil Sarin, Farah Wallauer\par}
+            \smallskip
+            GPU likelihoods and \texttt{SwiG} nested sampling for binary neutron-star inference.
+            \arxiv{2607.28265}\par
+            \smallskip
+            Next: Einstein Telescope, LISA, overlapping signals and shadow sirens.
+        \end{column}
+        \begin{column}{0.32\textwidth}
+            \centering
+            \includegraphics[width=\linewidth,height=2.6cm,keepaspectratio]{figures/jaxsnana-lightcurves.png}\par
+            \raggedright\footnotesize
+            \textbf{Time-domain and survey inference}\par
+            {\scriptsize Toby Lovick, Matt Grayling, Namu Kroupa; Sam Leeney, Charlotte Priestley\par}
+            \smallskip
+            ALCS: marginalise latent structure. \arxiv{2603.26644}
+            \texttt{JAX-SNANA}: simulate supernovae. \arxiv{2610.19000}\par
+            \smallskip
+            Quasar delays \arxiv{2602.22307}; radio transients; satellite orbits.
+        \end{column}
+        \begin{column}{0.32\textwidth}
+            \centering
+            \includegraphics[width=\linewidth,height=2.6cm,keepaspectratio]{figures/natalie-6x2pt.png}\par
+            \raggedright\footnotesize
+            \textbf{Lensing, simulations and decisions}\par
+            {\scriptsize Natalie Hogg, Charlotte McCarthy, Chris Lovell; James Alvey, Nikhil Sarin\par}
+            \smallskip
+            Strong and weak lensing for Euclid / JWST; CAMELS / FLAMELS galaxy simulations.\par
+            \smallskip
+            Next: \texttt{BayesClaw / LSSTClaw / IGWNClaw} for transient tagging,
+            model selection and re-fitting.
+        \end{column}
+    \end{columns}
+\end{frame}
+
+\begin{frame}[t]
+    \frametitle{The Ambient AI Lab: AI for scientists, by scientists}
+    \framesubtitle{Cambridge-owned compute, live room loops and how to join in}
+    \vspace{-0.5em}
+    \begin{columns}[T,onlytextwidth]
+        \begin{column}{0.48\textwidth}
+            \centering
+            \includegraphics[width=\linewidth,height=2.5cm,keepaspectratio]{figures/workstation.jpg}\par
+            \raggedright\footnotesize
+            \textbf{Local models and scientific tools}\par
+            Local models and transcription on \texttt{turing / newton}; Cambridge UIS compute.
+            \texttt{Alan / Steve}: agent tools using our shared scientific context.\par
+            \smallskip
+            \textbf{Training without deskilling}: students build physical intuition;
+            senior researchers supervise agents.\par
+            \smallskip
+            Natalie Hogg: \textit{Agentic research is oxymoronic}, Nature Astronomy.
+            \arxiv{2608.31161}
+        \end{column}
+        \begin{column}{0.48\textwidth}
+            \centering
+            \includegraphics[width=\linewidth,height=2.5cm,keepaspectratio]{figures/toby-whiteboard.jpg}\par
+            \raggedright\footnotesize
+            \textbf{Live room loops}\par
+            {\scriptsize Toby Lovick, James Alvey, Chris Lovell, Natalie Hogg\par}
+            Whiteboard capture, local transcription and equation retrieval;
+            shared supervision context.\par
+            \smallskip
+            \textbf{This term}: \texttt{ai@cam} supervision hardware;
+            Cosmos projects on ambient capture and anti-sycophancy.\par
+            \smallskip
+            People select questions, test the physics and take responsibility.
+        \end{column}
+    \end{columns}
+    \smallskip
+    {\scriptsize\textbf{Join us}: Tuesday group meeting, 14:00;
+        Friday arXiv Scrolling Club; Friday Cavendish Gravity, 15:00 (F22);
+        weekly Transients \& GWs. \tthref{handley-lab.co.uk}\par}
 \end{frame}
 
 \end{document}
