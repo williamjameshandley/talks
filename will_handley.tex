@@ -2,24 +2,36 @@
 \usepackage{will_handley_beamer}
 \usepackage{title_page}
 
+% \groupmember{photo}{initials}{name}{role}: square photo cropped from the top (initials
+% if people/<photo>.jpg is absent), one-line name shrunk to fit, role beneath.
 \newsavebox{\memberphoto}
-\newcommand{\groupmember}[3]{%
-    \begin{minipage}[t]{0.135\textwidth}
-        \centering
+\newsavebox{\membername}
+\newlength{\membersize}
+\setlength{\membersize}{1.86cm}
+\newcommand{\groupmember}[4]{%
+    \begin{minipage}[t]{\membersize}
+        \centering\fontsize{6.5}{7}\selectfont\lineskip=1pt
         \begin{tikzpicture}
+            \useasboundingbox (-0.5\membersize,0) rectangle (0.5\membersize,-\membersize);
             \IfFileExists{people/#1.jpg}{%
-                \sbox{\memberphoto}{\includegraphics[height=0.75cm]{people/#1.jpg}}%
-                \ifdim\wd\memberphoto<0.75cm
-                    \sbox{\memberphoto}{\includegraphics[width=0.75cm]{people/#1.jpg}}%
+                \sbox{\memberphoto}{\includegraphics[height=\membersize]{people/#1.jpg}}%
+                \ifdim\wd\memberphoto<\membersize
+                    \sbox{\memberphoto}{\includegraphics[width=\membersize]{people/#1.jpg}}%
                 \fi
-                \clip (0,0) circle (0.375cm);
-                \node[inner sep=0pt] at (0,0) {\usebox{\memberphoto}};
+                \clip[rounded corners=2pt] (-0.5\membersize,0) rectangle (0.5\membersize,-\membersize);
+                \node[inner sep=0pt,anchor=north] at (0,0) {\usebox{\memberphoto}};
             }{%
-                \fill[C0] (0,0) circle (0.375cm);
-                \node[text=white,font=\footnotesize\bfseries] at (0,0) {#2};
+                \fill[C0,rounded corners=2pt] (-0.5\membersize,0) rectangle (0.5\membersize,-\membersize);
+                \node[text=white,font=\Large\bfseries] at (0,-0.5\membersize) {#2};
             }
-        \end{tikzpicture}\\[-0.2em]
-        {\fontsize{8}{9}\selectfont\strut #3\strut\par}
+        \end{tikzpicture}\\
+        \sbox{\membername}{\fontsize{6.5}{7}\selectfont\bfseries #3}%
+        \ifdim\wd\membername>\membersize
+            \resizebox{\membersize}{!}{\usebox{\membername}}%
+        \else
+            \usebox{\membername}%
+        \fi\\[-1pt]
+        {\fontsize{5.5}{6}\selectfont\color{C0}#4\par}
     \end{minipage}%
 }
 
@@ -44,7 +56,7 @@
     \framesubtitle{Handley Lab: Science@KICC \hfill \email{wh260@cam.ac.uk}}
     \vspace{-0.5em}
     \begin{columns}[T,onlytextwidth]
-        \begin{column}{0.44\textwidth}
+        \begin{column}{0.40\textwidth}
             \footnotesize
             \begin{itemize}
                 \item \textbf{Big problems}: cosmic acceleration -- $\Lambda$, evolving
@@ -52,62 +64,59 @@
                     physics, systematics or priors?
                 \item \textbf{GPUs for science}: classical Bayes, differential
                     equations and forward models in \texttt{JAX / BlackJAX}.
-                \item \textbf{AI for scientists}: agents for legacy code and algebra;
-                    people choose the physics and check the results.
+                \item \textbf{AI for scientists}: agents for coding and mining legacy
+                    code for embodied intelligence. Scientists as pilots of this new
+                    scale of science.
                 \item \textbf{The programmes}: dark energy and fundamental theory;
                     real-time gravitational waves; LSST, Euclid and JWST readiness.
             \end{itemize}
         \end{column}
-        \begin{column}{0.53\textwidth}
+        \begin{column}{0.58\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{figures/cosmology-shared-tools.png}
+            % Run into the right margin: the image's own white border supplies the gap.
+            \makebox[\textwidth][l]{\includegraphics[width=\dimexpr\textwidth+0.9cm\relax]{figures/cosmology-shared-tools.png}}
         \end{column}
     \end{columns}
 \end{frame}
 
 \begin{frame}[t]
     \frametitle{The Handley Lab (2026--2027)}
-    \vspace{-0.6em}
-    {\small\textcolor{C0}{\textbf{Postdocs and fellows}}}\par\vspace{1pt}
+    \vspace{-0.4em}
     \noindent
-    \groupmember{natalie_hogg}{NH}{Natalie\\Hogg}\hfill
-    \groupmember{matt_grayling}{MG}{Matt\\Grayling}\hfill
-    \groupmember{chris_lovell}{CL}{Chris\\Lovell}\hfill
-    \groupmember{james_alvey}{JA}{James\\Alvey}\hfill
-    \groupmember{nikhil_sarin}{NS}{Nikhil\\Sarin}\par
-    \smallskip
-    {\small\textcolor{C0}{\textbf{PhD students}}}\par\vspace{1pt}
+    \groupmember{natalie_hogg}{NH}{Natalie Hogg}{Postdoc}\hfill
+    \groupmember{matt_grayling}{MG}{Matt Grayling}{Postdoc}\hfill
+    \groupmember{chris_lovell}{CL}{Chris Lovell}{Postdoc}\hfill
+    \groupmember{james_alvey}{JA}{James Alvey}{Kavli Senior Fellow}\hfill
+    \groupmember{nikhil_sarin}{NS}{Nikhil Sarin}{Kavli Senior Fellow}\hfill
+    \groupmember{dily_ong}{DO}{Dily Ong}{PhD}\hfill
+    \groupmember{namu_kroupa}{NK}{Namu Kroupa}{PhD}\hfill
+    \groupmember{sam_leeney}{SL}{Sam Leeney}{PhD}\par
+    \vspace{4pt}
     \noindent
-    \groupmember{dily_ong}{DO}{Dily\\Ong}\hfill
-    \groupmember{namu_kroupa}{NK}{Namu\\Kroupa}\hfill
-    \groupmember{sam_leeney}{SL}{Sam\\Leeney}\hfill
-    \groupmember{toby_lovick}{TL}{Toby\\Lovick}\hfill
-    \groupmember{lawrence_berry}{LB}{Lawrence\\Berry}\hfill
-    \groupmember{charlotte_priestley}{CP}{Charlotte\\Priestley}\par
-    \vspace{1pt}
+    \groupmember{toby_lovick}{TL}{Toby Lovick}{PhD}\hfill
+    \groupmember{lawrence_berry}{LB}{Lawrence Berry}{PhD}\hfill
+    \groupmember{charlotte_priestley}{CP}{Charlotte Priestley}{PhD}\hfill
+    \groupmember{metha_prathaban}{MP}{Metha Prathaban}{PhD, submitted}\hfill
+    \groupmember{sinah_legner}{SL}{Sinah Legner}{PhD, submitted}\hfill
+    \groupmember{wei-ning_deng}{WD}{Wei-Ning Deng}{PhD, submitted}\hfill
+    \groupmember{farah_wallauer}{FW}{Farah Wallauer}{New PhD}\hfill
+    \groupmember{selma_vangstein}{SV}{Selma Vangstein}{New PhD}\par
+    \vspace{4pt}
     \noindent
-    \groupmember{farah_wallauer}{FW}{Farah\\Wallauer}\hfill
-    \groupmember{selma_vangstein}{SV}{Selma\\Vangstein}\hfill
-    \groupmember{samuel_hewson}{SH}{Sam\\Hewson}\hfill
-    \groupmember{metha_prathaban}{MP}{Metha\\Prathaban}\hfill
-    \groupmember{sinah_legner}{SL}{Sinah\\Legner}\hfill
-    \groupmember{wei-ning_deng}{WD}{Wei-Ning\\Deng}\par
-    \smallskip
-    {\small\textcolor{C0}{\textbf{Part III / MASt 2026-27}}}\par\vspace{1pt}
-    \noindent
-    \groupmember{jaiman_lad}{JL}{Jaiman\\Lad}\hfill
-    \groupmember{jesus_girones_fraile}{JGF}{Jes\'us\\Girones Fraile}\hfill
-    \groupmember{david_parodi}{DP}{David\\Parodi}\hfill
-    \groupmember{manaal_khan}{MK}{Manaal\\Khan}\hfill
-    \groupmember{charlotte_mccarthy}{CM}{Charlotte\\McCarthy}\hfill
-    \groupmember{ashwin_balakrishnan}{AB}{Ashwin\\Balakrishnan}\hfill
-    \groupmember{benedict_binu}{BTB}{Benedict\\Thomas Binu}\par
+    \groupmember{samuel_hewson}{SH}{Sam Hewson}{New PhD}\hfill
+    \groupmember{jaiman_lad}{JL}{Jaiman Lad}{Part III}\hfill
+    \groupmember{jesus_girones_fraile}{JGF}{Jes\'us Girones Fraile}{Part III}\hfill
+    \groupmember{david_parodi}{DP}{David Parodi}{Part III}\hfill
+    \groupmember{manaal_khan}{MK}{Manaal Khan}{Part III}\hfill
+    \groupmember{charlotte_mccarthy}{CM}{Charlotte McCarthy}{Part III}\hfill
+    \groupmember{ashwin_balakrishnan}{AB}{Ashwin Balakrishnan}{Part III}\hfill
+    \groupmember{benedict_binu}{BTB}{Benedict Thomas Binu}{Part III}\par
 \end{frame}
 
 % Research claims and credits: handley-lab.tex, October 2026 group talk.
 \begin{frame}[t]
     \frametitle{Dark energy, tensions and fundamental theory to data}
-    \framesubtitle{Candidate Lagrangians, GPU Boltzmann solvers and DESI DR2}
+    \framesubtitle{DESI DR2, GPU Boltzmann solvers and candidate Lagrangians}
     \vspace{-0.5em}
     \begin{columns}[T,onlytextwidth]
         \begin{column}{0.32\textwidth}
@@ -129,19 +138,6 @@
         \end{column}
         \begin{column}{0.32\textwidth}
             \centering
-            \includegraphics[width=\linewidth,height=2.9cm,keepaspectratio,trim=0 0 620 500,clip]{figures/torc-varsigma-desi-evidence.png}\par
-            {\tiny Sinah Legner: thesis, torsion models vs DESI\par}
-            \raggedright\footnotesize
-            \textbf{Fundamental actions to data}\par
-            {\scriptsize Sinah Legner, Wei-Ning Deng,\\Selma Vangstein, Sam Hewson\par}
-            \smallskip
-            Torsion Condensation and CPT-symmetric cosmology.
-            \arxiv{2507.09228}\ \arxiv{2509.10379}\par
-            \smallskip
-            Next: agent-derived perturbations with Cavendish Gravity.
-        \end{column}
-        \begin{column}{0.32\textwidth}
-            \centering
             \includegraphics[width=\linewidth,height=2.9cm,keepaspectratio]{figures/modax-stiff-scaling.png}\par
             \raggedright\footnotesize
             \textbf{GPU Boltzmann solvers}\par
@@ -153,6 +149,19 @@
             \smallskip
             Next: evolve candidate theories and compare with data.
         \end{column}
+        \begin{column}{0.32\textwidth}
+            \centering
+            \includegraphics[width=\linewidth,height=2.8cm,keepaspectratio,trim=0 0 620 500,clip]{figures/torc-varsigma-desi-evidence.png}\par
+            {\tiny Sinah Legner: thesis, torsion models vs DESI\par}
+            \raggedright\footnotesize
+            \textbf{Fundamental actions to data}\par
+            {\scriptsize Sinah Legner, Wei-Ning Deng,\\Selma Vangstein, Sam Hewson\par}
+            \smallskip
+            Torsion Condensation and CPT-symmetric cosmology.
+            \arxiv{2507.09228}\ \arxiv{2509.10379}\par
+            \smallskip
+            Next: agent-derived pipeline from Lagrangian to data, with full perturbations.
+        \end{column}
     \end{columns}
 \end{frame}
 
@@ -160,42 +169,52 @@
     \frametitle{Real-time GWs and Stage-IV survey readiness}
     \framesubtitle{Classical Bayes for LVK, Einstein Telescope, LISA, LSST, Euclid and JWST}
     \vspace{-0.5em}
+    % SXS numerical-relativity still: https://www.ligo.caltech.edu/image/ligo20160211d
+    % Agents: generated conceptual illustration; figures/agents-astrophysics-decisions.png.
+    \noindent
+    \parbox[c][2.70cm][c]{0.20\textwidth}{\centering
+        \includegraphics[width=\linewidth]{figures/gw-realtime-runtimes.png}}\hfill
+    \parbox[c][2.70cm][c]{0.18\textwidth}{\centering
+        \includegraphics[width=\linewidth,height=2.70cm,keepaspectratio,trim=190 0 190 0,clip]{figures/bbh-coalescence-sxs.jpg}}\hfill
+    \parbox[c][2.70cm][c]{0.18\textwidth}{\centering
+        \includegraphics[width=\linewidth,height=2.70cm,keepaspectratio]{figures/jaxsnana-lightcurves.png}}\hfill
+    \parbox[c][2.70cm][c]{0.20\textwidth}{\centering
+        \includegraphics[width=\linewidth,height=2.70cm,keepaspectratio]{figures/natalie-6x2pt.png}}\hfill
+    \parbox[c][2.70cm][c]{0.20\textwidth}{\centering
+        \includegraphics[width=\linewidth,height=2.70cm,keepaspectratio]{figures/agents-astrophysics-decisions.png}}\par
+    \vspace{0.5em}
     \begin{columns}[T,onlytextwidth]
-        \begin{column}{0.32\textwidth}
-            \centering
-            \includegraphics[width=\linewidth,height=2.6cm,keepaspectratio]{figures/gw-realtime-runtimes.png}\par
-            \raggedright\footnotesize
+        \begin{column}{0.39\textwidth}
+            \footnotesize
             \textbf{Real-time gravitational waves}\par
-            {\scriptsize Metha Prathaban, David Yallup,\\James Alvey, Nikhil Sarin, Farah Wallauer\par}
+            {\scriptsize Metha Prathaban, David Yallup, James Alvey,\\Nikhil Sarin, Farah Wallauer\par}
             \smallskip
             GPU likelihoods and \texttt{SwiG} nested sampling for binary neutron-star inference.
             \arxiv{2607.28265}\par
             \smallskip
-            Next: Einstein Telescope, LISA, overlapping signals and shadow sirens.
+            Next: Einstein Telescope, LISA, overlapping signals and shadow sirens.\par
+            \smallskip
+            {\tiny Black-hole merger: SXS simulation / LIGO\par}
         \end{column}
-        \begin{column}{0.32\textwidth}
-            \centering
-            \includegraphics[width=\linewidth,height=2.6cm,keepaspectratio]{figures/jaxsnana-lightcurves.png}\par
-            \raggedright\footnotesize
-            \textbf{Time-domain and survey inference}\par
-            {\scriptsize Toby Lovick, Matt Grayling, Namu Kroupa; Sam Leeney, Charlotte Priestley\par}
+        \begin{column}{0.39\textwidth}
+            \footnotesize
+            \textbf{Time-domain surveys and lensing}\par
+            {\scriptsize Toby Lovick, Matt Grayling, Namu Kroupa,\\Sam Leeney, Charlotte Priestley; Natalie Hogg,\\Charlotte McCarthy, Chris Lovell\par}
             \smallskip
             ALCS: marginalise latent structure. \arxiv{2603.26644}
-            \texttt{JAX-SNANA}: simulate supernovae. \arxiv{2610.19000}\par
+            \texttt{JAX-SNANA}: simulate supernovae. \arxiv{2610.19000}
+            Quasar delays \arxiv{2602.22307}; radio transients and satellite orbits.\par
             \smallskip
-            Quasar delays \arxiv{2602.22307}; radio transients; satellite orbits.
+            Euclid / JWST lensing; CAMELS / FLAMELS simulations.
         \end{column}
-        \begin{column}{0.32\textwidth}
-            \centering
-            \includegraphics[width=\linewidth,height=2.6cm,keepaspectratio]{figures/natalie-6x2pt.png}\par
-            \raggedright\footnotesize
-            \textbf{Lensing, simulations and decisions}\par
-            {\scriptsize Natalie Hogg, Charlotte McCarthy, Chris Lovell; James Alvey, Nikhil Sarin\par}
+        \begin{column}{0.20\textwidth}
+            \footnotesize
+            \textbf{Agentic decision making at scale}\par
+            {\scriptsize James Alvey, Nikhil Sarin\par}
             \smallskip
-            Strong and weak lensing for Euclid / JWST; CAMELS / FLAMELS galaxy simulations.\par
+            Next: transient tagging, model selection and re-fitting.\par
             \smallskip
-            Next: \texttt{BayesClaw / LSSTClaw / IGWNClaw} for transient tagging,
-            model selection and re-fitting.
+            {\tiny Agents: generated illustration\par}
         \end{column}
     \end{columns}
 \end{frame}
